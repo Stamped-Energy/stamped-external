@@ -753,17 +753,17 @@
       background: var(--white);
       border: 1px solid var(--outline-variant);
       border-radius: var(--radius-card);
-      padding: 1.1rem 1rem; min-height: 200px;
+      padding: 1.1rem 1rem; min-height: 250px;
       box-shadow: 0 12px 30px -24px rgba(5,31,19,0.22);
       display: flex; flex-direction: column;
       text-decoration: none; color: inherit;
       transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
       cursor: pointer;
     }
-    /* Pharma decks: tighter tech cards (detail lives in deep-dives) */
-    html[data-industry="pharma"] a.tech-card { min-height: 168px; }
-    html[data-industry="pharma"] .tech-card__detail { display: none; }
-    html[data-industry="pharma"] .tech-card > p { margin-bottom: 0; }
+    /* Lite tech cards: only demo-decks/pharma/index.html (Vercel deploy root) */
+    html[data-tech-lite] a.tech-card { min-height: 168px; }
+    html[data-tech-lite] .tech-card__detail { display: none; }
+    html[data-tech-lite] .tech-card > p { margin-bottom: 0; }
     a.tech-card:hover {
       transform: translateY(-3px);
       border-color: color-mix(in srgb, var(--primary) 45%, var(--outline-variant));
@@ -2621,36 +2621,44 @@
           <a class="tech-card" href="tech/physics.html?from=__INDUSTRY__" aria-label="Physics and rules engines. Open deep dive.">
             <div class="tech-card__num">01 · Physics</div>
             <h3>Versioned industrial physics &amp; rulepacks</h3>
-            <p>Semver rule packs. Affinity, holding floors, tariff math. Every finding cites a pack an EE can open.</p>
+            <p>Semver rule packs for affinity laws, holding floors, and tariff arithmetic. Every finding cites a pack a plant EE can open.</p>
             <ul class="tech-card__detail">
               <li id="techPhysicsBullet">MD coincidence, idle and holding loads, compressed air, thermal</li>
+              <li>PF and tariff arithmetic tied to utility line items</li>
+              <li>Physics-informed hybrids. PINN research lineage, not black-box PDEs</li>
             </ul>
             <span class="tech-card__cta">Open deep dive →</span>
           </a>
           <a class="tech-card" href="tech/models.html?from=__INDUSTRY__" aria-label="Industrial energy models. Open deep dive.">
             <div class="tech-card__num">02 · Models</div>
             <h3>Plant-calibrated industrial ML</h3>
-            <p>Baselines and ranking models fitted on your plant’s telemetry. Not a chatbot on meter dumps.</p>
+            <p>Baselines and ranking models fitted on your plant’s telemetry. Production-normalised residuals. Not a chatbot on meter dumps.</p>
             <ul class="tech-card__detail">
-              <li>TOW-P · EWMA/CUSUM · LightGBM · TimesFM shadow</li>
+              <li>TOW-P baselines · EWMA / CUSUM residual SPC</li>
+              <li>LightGBM quantile MD exceedance ranking</li>
+              <li>TimesFM-class foundation models in shadow only</li>
             </ul>
             <span class="tech-card__cta">Open deep dive →</span>
           </a>
           <a class="tech-card" href="tech/agents.html?from=__INDUSTRY__" aria-label="Prescription agents. Open deep dive.">
             <div class="tech-card__num">03 · Agents</div>
             <h3>Bounded prescription agents</h3>
-            <p>Drafts what / why / who / effort / ₹ / due. Calculation engine owns the money path.</p>
+            <p>Agents draft floor actions with tools and vetoes (what, why, who, effort, ₹, due). The calculation engine owns the money path.</p>
             <ul class="tech-card__detail">
-              <li>Rank ₹ × confidence / effort · physics/tariff veto</li>
+              <li>Ranks by ₹ × confidence / effort</li>
+              <li>Physics and tariff vetoes are non-overridable</li>
+              <li>LLM for prose only. It does not invent ₹</li>
             </ul>
             <span class="tech-card__cta">Open deep dive →</span>
           </a>
           <a class="tech-card" href="tech/evidence.html?from=__INDUSTRY__" aria-label="Verified with evidence. Open deep dive.">
             <div class="tech-card__num">04 · Evidence</div>
             <h3>Verified with evidence</h3>
-            <p>Calculation engine recomputes ₹ from telemetry deltas and tariff lines. Potential vs realised.</p>
+            <p>In-house calculation engine recomputes ₹ from telemetry deltas and tariff lines, then checks whether the action moved the needle.</p>
             <ul class="tech-card__detail">
-              <li>M&amp;V locked at issue · exportable trail</li>
+              <li>Potential vs realised vs remaining opportunity</li>
+              <li>M&amp;V plan and baseline locked at issue time</li>
+              <li>Evidence trail for plant, finance, and assurance</li>
             </ul>
             <span class="tech-card__cta">Open deep dive →</span>
           </a>
