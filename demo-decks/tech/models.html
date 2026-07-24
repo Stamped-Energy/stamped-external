@@ -20,10 +20,11 @@
 
   <main class="page">
     <p class="eyebrow reveal">02 · Models</p>
-    <h1 class="reveal">Plant-calibrated models — not a generic industry average.</h1>
+    <h1 class="reveal">Models fitted to your plant, not a sector average.</h1>
     <p class="lede reveal">
-      We fit baselines and ranking models on <em>your</em> plant’s telemetry, production rate, and tariff regime —
-      fleet-shared architecture with per-plant calibration — so predictions sit on the actual load shape, not a chatbot on meter dumps.
+      We fit baselines and ranking models on <em>your</em> plant’s telemetry, production rate, and tariff regime.
+      Same engine code across the fleet. Parameters and calibration stay plant-local, so the load shape is yours.
+      Not a chatbot parked on meter dumps.
     </p>
 
     <div class="grid-2">
@@ -36,15 +37,15 @@
               <ul class="method-list" style="margin-top:0.75rem;">
                 <li>
                   <strong>TOW-P baselines</strong>
-                  <span>Time-of-week + production covariates (TOWT / CalTRACK lineage). Printable coefficients for M&amp;V.</span>
+                  <span>Time-of-week plus production covariates (TOWT / CalTRACK lineage). Coefficients you can print for M&amp;V.</span>
                 </li>
                 <li>
                   <strong>EWMA + CUSUM on residuals</strong>
-                  <span>Roberts 1959 · Page 1954 — the same SPC family plant QA already trusts for process control.</span>
+                  <span>Roberts 1959, Page 1954. Same SPC family plant QA already trusts for process control.</span>
                 </li>
                 <li>
                   <strong>LightGBM quantile</strong>
-                  <span>Short-horizon “will today set a new MD?” ranking. Challenger for baselines — never invents the invoice ₹.</span>
+                  <span>Short-horizon “will today set a new MD?” ranking. Useful challenger. It does not write the invoice ₹.</span>
                 </li>
               </ul>
               <p class="flip-cue">Flip for frontier pedigree →</p>
@@ -58,12 +59,12 @@
                   <span class="muted">Shadow challenger for cold-start bands. Promotion needs pinball gates vs LightGBM across plants.</span>
                 </li>
                 <li style="background:rgba(255,255,255,0.06);">
-                  <strong style="color:#fff;">Chronos · Moirai · MOMENT</strong>
-                  <span class="muted">Amazon / Salesforce / CMU-lineage foundation models — watchlist, same honesty rules.</span>
+                  <strong style="color:#fff;">Chronos, Moirai, MOMENT</strong>
+                  <span class="muted">Amazon / Salesforce / CMU-lineage foundation models. Watchlist. Same honesty rules.</span>
                 </li>
                 <li style="background:rgba(255,255,255,0.06);">
-                  <strong style="color:#fff;">PatchTST · N-HiTS · TFT</strong>
-                  <span class="muted">Deep forecasting research wave for challenger forecasts — not the M&amp;V baseline of record.</span>
+                  <strong style="color:#fff;">PatchTST, N-HiTS, TFT</strong>
+                  <span class="muted">Deep forecasting papers we track for challenger forecasts. Not the M&amp;V baseline of record.</span>
                 </li>
               </ul>
               <p class="flip-cue">← Back to CORE</p>
@@ -75,20 +76,21 @@
       <section class="panel reveal">
         <h2 class="section-title">Custom models on your data</h2>
         <p class="muted" style="margin-bottom:0.85rem;">
-          For each customer we train and calibrate models on that plant’s history so baselines reflect <em>their</em> shifts, mix, and weather — not a generic sector curve.
+          For each customer we train and calibrate on that plant’s history so baselines reflect
+          <em>their</em> shifts, mix, and weather. Not a generic sector curve.
         </p>
         <ul class="method-list">
           <li>
             <strong>Per-plant baselines</strong>
-            <span>TOW-P regressions per incomer / feeder, registry-governed refits as production mix drifts.</span>
+            <span>TOW-P regressions per incomer / feeder. Registry-governed refits when production mix drifts.</span>
           </li>
           <li>
             <strong>Plant-class ranking models</strong>
-            <span>LightGBM quantile for MD exceedance tuned on local peaks and tariff windows.</span>
+            <span>LightGBM quantile for MD exceedance, tuned on local peaks and tariff windows.</span>
           </li>
           <li>
             <strong>Shape intelligence</strong>
-            <span>Isolation Forest + Matrix Profile (STUMPY) for discords and recurring plant signatures — training-light, explainable.</span>
+            <span>Isolation Forest and Matrix Profile (STUMPY) for discords and recurring plant signatures. Light on training. Easy to explain.</span>
           </li>
         </ul>
         <p class="cite">Ke et al. 2017 · Yeh et al. 2016 · Das et al. 2024 (TimesFM, shadow)</p>
@@ -107,8 +109,9 @@
     </section>
 
     <p class="footnote reveal">
-      Credibility line we say out loud: peer-reviewed SPC and M&amp;V-grade regression as the system of record;
-      LightGBM where probabilistic ranking wins; TimesFM-class models in shadow — without letting a black box write the number on your bill.
+      How we talk about this in the room: peer-reviewed SPC and M&amp;V-grade regression as the system of record.
+      LightGBM where probabilistic ranking wins. TimesFM-class models stay in shadow until they earn a promotion gate.
+      A black box does not write the number on your bill.
     </p>
 
     <nav class="nav-pills" aria-label="Tech deep dives">
@@ -124,17 +127,17 @@
     StampedDeepDive.bindChips("#whenChips", "#whenDetail", {
       baseline: {
         title: "Baseline drift → EWMA / CUSUM",
-        body: "After TOW-P residualises production and time-of-week, EWMA catches small sustained creep; CUSUM decides ‘new worse regime’ vs one hot day.",
+        body: "After TOW-P residualises production and time-of-week, EWMA catches small sustained creep. CUSUM decides whether this is a new worse regime or one hot day.",
         cite: "model://spc/ewma_cusum@core"
       },
       md: {
         title: "MD risk → LightGBM quantile",
-        body: "Tabular industrial features (load factor, coincidence, TOD) rank ‘will today set a new MD?’ — so the floor gets a stagger prescription before the peak locks.",
+        body: "Tabular plant features (load factor, coincidence, TOD) rank whether today will set a new MD, so the floor gets a stagger prescription before the peak locks.",
         cite: "model://lgbm/md_quantile@core"
       },
       shape: {
         title: "Never-seen startup → Matrix Profile",
-        body: "Nearest-neighbour distance over windows surfaces discords (odd startups) and motifs (recurring plant signatures) without a deep AD black box.",
+        body: "Nearest-neighbour distance over windows surfaces odd startups and recurring plant signatures without a deep anomaly black box.",
         cite: "model://matrix_profile/stumpy@core"
       },
       shadow: {
