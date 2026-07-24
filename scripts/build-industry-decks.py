@@ -1310,6 +1310,12 @@ def main() -> None:
             deploy_index = deploy_dir / "index.html"
             # Tech deep-dives live in demo-decks/tech/; rewrite relative links from pharma/
             deploy_html = out.replace('href="tech/', 'href="../tech/')
+            # Lite tech cards only on this Vercel root; demo-decks/pharma.html stays full
+            deploy_html = deploy_html.replace(
+                '<html lang="en" data-industry="pharma">',
+                '<html lang="en" data-industry="pharma" data-tech-lite>',
+                1,
+            )
             deploy_index.write_text(deploy_html, encoding="utf-8")
             print(f"wrote {deploy_index} ({len(deploy_html)} bytes)")
 

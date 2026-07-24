@@ -7,7 +7,15 @@
   var back = document.getElementById("backToDeck");
   if (back) {
     if (allowed[from]) {
-      back.href = "../" + from + ".html#scene-tech";
+      // Prefer pharma/ folder when the user came from that deploy root
+      var backHref = "../" + from + ".html#scene-tech";
+      if (
+        from === "pharma" &&
+        /\/pharma\/(?:index\.html)?(?:[?#]|$)/.test(document.referrer || "")
+      ) {
+        backHref = "../pharma/index.html#scene-tech";
+      }
+      back.href = backHref;
       back.textContent = "← Back to " + from + " deck";
     } else {
       back.href = "../index.html";

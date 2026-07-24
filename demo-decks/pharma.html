@@ -816,6 +816,10 @@
       transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
       cursor: pointer;
     }
+    /* Lite tech cards: only demo-decks/pharma/index.html (Vercel deploy root) */
+    html[data-tech-lite] a.tech-card { min-height: 168px; }
+    html[data-tech-lite] .tech-card__detail { display: none; }
+    html[data-tech-lite] .tech-card > p { margin-bottom: 0; }
     a.tech-card:hover {
       transform: translateY(-3px);
       border-color: color-mix(in srgb, var(--primary) 45%, var(--outline-variant));
@@ -2752,7 +2756,7 @@
             <div class="tech-card__num">01 · Physics</div>
             <h3>Versioned industrial physics &amp; rulepacks</h3>
             <p>Semver rule packs for affinity laws, holding floors, and tariff arithmetic. Every finding cites a pack a plant EE can open.</p>
-            <ul>
+            <ul class="tech-card__detail">
               <li id="techPhysicsBullet">Load management, HVAC & chillers, idle utilities, tariff intensity, early fault warnings</li>
               <li>PF and tariff arithmetic tied to utility line items</li>
               <li>Physics-informed hybrids. PINN research lineage, not black-box PDEs</li>
@@ -2763,7 +2767,7 @@
             <div class="tech-card__num">02 · Models</div>
             <h3>Plant-calibrated industrial ML</h3>
             <p>Baselines and ranking models fitted on your plant’s telemetry. Production-normalised residuals. Not a chatbot on meter dumps.</p>
-            <ul>
+            <ul class="tech-card__detail">
               <li>TOW-P baselines · EWMA / CUSUM residual SPC</li>
               <li>LightGBM quantile MD exceedance ranking</li>
               <li>TimesFM-class foundation models in shadow only</li>
@@ -2774,7 +2778,7 @@
             <div class="tech-card__num">03 · Agents</div>
             <h3>Bounded prescription agents</h3>
             <p>Agents draft floor actions with tools and vetoes (what, why, who, effort, ₹, due). The calculation engine owns the money path.</p>
-            <ul>
+            <ul class="tech-card__detail">
               <li>Ranks by ₹ × confidence / effort</li>
               <li>Physics and tariff vetoes are non-overridable</li>
               <li>LLM for prose only. It does not invent ₹</li>
@@ -2785,7 +2789,7 @@
             <div class="tech-card__num">04 · Evidence</div>
             <h3>Verified with evidence</h3>
             <p>In-house calculation engine recomputes ₹ from telemetry deltas and tariff lines, then checks whether the action moved the needle.</p>
-            <ul>
+            <ul class="tech-card__detail">
               <li>Potential vs realised vs remaining opportunity</li>
               <li>M&amp;V plan and baseline locked at issue time</li>
               <li>Evidence trail for plant, finance, and assurance</li>
@@ -3271,7 +3275,17 @@
         if (dx < 0) next(); else prev();
       }, { passive: true });
 
-      goTo(0, true);
+      function slideIndexFromHash() {
+        var id = (location.hash || "").replace(/^#/, "");
+        if (!id) return 0;
+        var idx = slides.findIndex(function (s) { return s.id === id; });
+        return idx >= 0 ? idx : 0;
+      }
+
+      goTo(slideIndexFromHash(), true);
+      window.addEventListener("hashchange", function () {
+        goTo(slideIndexFromHash(), true);
+      });
     })();
   </script>
 </body>

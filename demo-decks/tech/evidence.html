@@ -22,27 +22,26 @@
     <p class="eyebrow reveal">04 · Evidence</p>
     <h1 class="reveal">Verified with evidence.</h1>
     <p class="lede reveal">
-      Our calculation engine recomputes ₹ impact from telemetry deltas and tariff line items.
-      It tracks potential vs realised, and how much you can still save.
-      Savings count when the evidence moves, and when the bill path moves with it.
+      Calculation engine recomputes ₹ from telemetry deltas and tariff lines.
+      Tracks potential, realised, and what you can still save.
     </p>
 
     <section class="panel reveal">
-      <h2 class="section-title">Calculation engine · interactive ledger</h2>
-      <p class="muted" style="margin-bottom:0.85rem;">Pick a sample action. Watch baseline lock → delta → engine ₹ → realised vs remaining.</p>
+      <h2 class="section-title">Calculation engine</h2>
+      <p class="muted" style="margin-bottom:0.85rem;">Pick an action.</p>
       <div class="calc-layout">
         <div class="action-pick" id="actionPick">
           <button type="button" class="action-btn is-active" data-action="md">
-            <strong>Stagger mill start vs kiln peak</strong>
-            <span>MD coincidence · load management</span>
+            <strong>Stagger mill vs kiln peak</strong>
+            <span>MD coincidence</span>
           </button>
           <button type="button" class="action-btn" data-action="idle">
-            <strong>Idle compressor on changeover</strong>
-            <span>ToD energy · idle hold pack</span>
+            <strong>Idle compressor</strong>
+            <span>ToD energy</span>
           </button>
           <button type="button" class="action-btn" data-action="pf">
-            <strong>Correct PF before slab step</strong>
-            <span>PF penalty arithmetic</span>
+            <strong>Correct PF slab</strong>
+            <span>PF penalty</span>
           </button>
         </div>
         <div id="calcOut" aria-live="polite"></div>
@@ -55,37 +54,37 @@
           <div class="flip__inner">
             <div class="flip__face flip__face--front">
               <span class="badge badge--core">Claim</span>
-              <h2 class="section-title" style="margin-top:0.65rem;">What the floor hears</h2>
+              <h2 class="section-title" style="margin-top:0.65rem;">Floor hears</h2>
               <p class="muted" style="margin:0.5rem 0 0.85rem;">
                 “Stagger the 11:40 mill start. MD overlap risk ₹1.8L / month if today’s coincidence holds.”
               </p>
               <ul class="method-list">
                 <li>
                   <strong>Potential locked at issue</strong>
-                  <span>Engine quote pinned with baseline version and tariff table hash.</span>
+                  <span>Baseline version + tariff hash pinned.</span>
                 </li>
                 <li>
                   <strong>Owner + due</strong>
-                  <span>Electrical / utilities · before next predicted peak window.</span>
+                  <span>Electrical / utilities · before next peak.</span>
                 </li>
               </ul>
-              <p class="flip-cue">Flip for evidence pack →</p>
+              <p class="flip-cue">Flip for evidence →</p>
             </div>
             <div class="flip__face flip__face--back">
-              <span class="badge badge--frontier">Evidence pack</span>
-              <h2 class="section-title" style="margin-top:0.65rem;color:#fff;">What finance and assurance get</h2>
+              <span class="badge badge--frontier">Evidence</span>
+              <h2 class="section-title" style="margin-top:0.65rem;color:#fff;">Finance gets</h2>
               <ul class="method-list" style="margin-top:0.75rem;">
                 <li style="background:rgba(255,255,255,0.06);">
-                  <strong style="color:#fff;">Baseline + window</strong>
-                  <span class="muted">TOW-P v2026.04 · peak week · production covariate locked</span>
+                  <strong style="color:#fff;">Baseline lock</strong>
+                  <span class="muted">TOW-P v2026.04 · peak week</span>
                 </li>
                 <li style="background:rgba(255,255,255,0.06);">
-                  <strong style="color:#fff;">Bill-line decomposition</strong>
-                  <span class="muted">MD slab, energy ToD, PF. Priced the way DISCOM charges.</span>
+                  <strong style="color:#fff;">Bill lines</strong>
+                  <span class="muted">MD · ToD energy · PF</span>
                 </li>
                 <li style="background:rgba(255,255,255,0.06);">
                   <strong style="color:#fff;">Trail</strong>
-                  <span class="muted">issued → viewed → acted → verified · exportable workpaper</span>
+                  <span class="muted">issued → acted → verified</span>
                 </li>
               </ul>
               <p class="flip-cue">← Back to claim</p>
@@ -95,30 +94,24 @@
       </section>
 
       <section class="panel reveal">
-        <h2 class="section-title">M&amp;V language that survives auditors</h2>
+        <h2 class="section-title">M&amp;V language</h2>
         <ul class="method-list">
           <li>
-            <strong>IPMVP-style options + ASHRAE G14</strong>
-            <span>Acceptance via NMBE / CV(RMSE). Regression you can print. Not a confidence score with no paper trail.</span>
+            <strong>IPMVP + ASHRAE G14</strong>
+            <span>NMBE / CV(RMSE). Regression you can print.</span>
           </li>
           <li>
-            <strong>Potential vs realised ledger</strong>
-            <span>Per-action tracking of what was possible, what cleared on telemetry, and remaining opportunity.</span>
+            <strong>Potential vs realised</strong>
+            <span>Per action. Remaining opportunity too.</span>
           </li>
           <li>
-            <strong>Same ledger → intensity and tCO₂e</strong>
-            <span>Sustainability workpapers reuse the ops trail. We do not file ESG returns for you.</span>
+            <strong>Same ledger → intensity</strong>
+            <span>Workpaper inputs. We don’t file ESG for you.</span>
           </li>
         </ul>
-        <p class="cite">IPMVP · ASHRAE Guideline 14 · bill-line decomposition · sample walkthrough labelled</p>
+        <p class="cite">Sample walkthrough · labelled · not a guarantee</p>
       </section>
     </div>
-
-    <p class="footnote reveal">
-      Figures on this page are labelled walkthrough numbers, not a customer guarantee.
-      “Verified with evidence” means the calculation engine, a locked M&amp;V plan, and an exportable trail.
-      Bill-line confirmation is the Proof Run closure path. It does not mean every badge is already DISCOM-reconciled on day one.
-    </p>
 
     <nav class="nav-pills" aria-label="Tech deep dives">
       <a href="physics.html" data-pill-from>Physics</a>
