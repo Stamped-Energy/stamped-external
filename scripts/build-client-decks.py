@@ -72,8 +72,8 @@ def patch_offer_one_works(html: str, lede_d: str) -> str:
     html = html.replace(
         '<p class="eyebrow reveal">60-day proof run</p>\n'
         '        <h2 class="reveal">Proof Run</h2>',
-        '<p class="eyebrow reveal">60-day proof run · as needed</p>\n'
-        '        <h2 class="reveal">Proof Run · one works</h2>',
+        '<p class="eyebrow reveal">Optional 60-day Proof Run</p>\n'
+        '        <h2 class="reveal">Start with one works</h2>',
         1,
     )
     old_rows = """            <tr>
@@ -104,9 +104,9 @@ def patch_offer_one_works(html: str, lede_d: str) -> str:
         raise SystemExit("offer phase rows not found for OEM patch")
     html = html.replace(old_rows, new_rows, 1)
     chips = (
-        '\n          <span class="chip">Real-time decisions</span>'
-        '\n          <span class="chip">Line-tied early warnings</span>'
-        '\n          <span class="chip">60-day Proof Run as needed</span>'
+        '\n          <span class="chip">Live decisions</span>'
+        '\n          <span class="chip">Line-level early warnings</span>'
+        '\n          <span class="chip">60-day Proof Run when useful</span>'
         '\n          <span class="chip">Read-only OT</span>\n        '
     )
     html = re.sub(
@@ -351,7 +351,13 @@ def patch_sample_workspace(html: str, url: str = SAMPLE_WORKSPACE_URL) -> str:
 
 
 def build_full(mod, base: str) -> str:
-    from deck_packs.machinery_oem import HERO, HERO_ALT, PACK, SLUG
+    from deck_packs.machinery_oem import (
+        HERO,
+        HERO_ALT,
+        OEM_HEADING_PATCHES,
+        PACK,
+        SLUG,
+    )
 
     mod.PACKS[SLUG] = PACK
     mod.HERO_BY_INDUSTRY[SLUG] = HERO
@@ -359,17 +365,18 @@ def build_full(mod, base: str) -> str:
     html = mod.build_one(base, SLUG)
     # Flat file in clients/: assets/ is local; tech is ../tech/
     html = rewrite_client_paths(html, asset_prefix="assets/", tech_prefix="../")
-    html = patch_offer_one_works(
-        html,
-        "Start with one works: electrical POC, two HT bills, and a walkthrough. "
-        "Read-only. Kill criteria agreed upfront.",
-    )
+    html = patch_offer_one_works(html, PACK["offerLedeD"])
+    for old, new in OEM_HEADING_PATCHES:
+        if old not in html:
+            raise SystemExit(f"OEM heading patch missed:\n{old[:80]}...")
+        html = html.replace(old, new, 1)
     html = patch_sample_workspace(html)
     return html
 
 
 def build_brief(mod, base: str) -> str:
     from deck_packs.lohia_corp_brief import (
+        BRIEF_HEADING_PATCHES,
         HERO,
         HERO_ALT,
         KEEP_SCENES,
@@ -391,6 +398,10 @@ def build_brief(mod, base: str) -> str:
     html = inject_lohia_lines_scene(html, LOHIA_LINES)
     html = inject_vs_audit_scene(html, VS_AUDIT)
     html = patch_offer_brief(html, OFFER_PATCH)
+    for old, new in BRIEF_HEADING_PATCHES:
+        if old not in html:
+            raise SystemExit(f"brief heading patch missed:\n{old[:80]}...")
+        html = html.replace(old, new, 1)
     html = re.sub(
         r"<title>.*?</title>",
         f"<title>{PACK['docTitle']}</title>",
@@ -429,17 +440,23 @@ def main() -> None:
     deploy_dir = CLIENTS / "machinery-oem"
     deploy_dir.mkdir(parents=True, exist_ok=True)
     deploy_path = deploy_dir / "index.html"
-    from deck_packs.machinery_oem import HERO, HERO_ALT, PACK, SLUG
+    from deck_packs.machinery_oem import (
+        HERO,
+        HERO_ALT,
+        OEM_HEADING_PATCHES,
+        PACK,
+        SLUG,
+    )
 
     mod.PACKS[SLUG] = PACK
     mod.HERO_BY_INDUSTRY[SLUG] = HERO
     mod.HERO_ALT[SLUG] = HERO_ALT
     raw = mod.build_one(base, SLUG)
-    raw = patch_offer_one_works(
-        raw,
-        "Start with one works: electrical POC, two HT bills, and a walkthrough. "
-        "Read-only. Kill criteria agreed upfront.",
-    )
+    raw = patch_offer_one_works(raw, PACK["offerLedeD"])
+    for old, new in OEM_HEADING_PATCHES:
+        if old not in raw:
+            raise SystemExit(f"OEM deploy heading patch missed:\n{old[:80]}...")
+        raw = raw.replace(old, new, 1)
     raw = patch_sample_workspace(raw)
     deploy_html = rewrite_client_paths(
         raw, asset_prefix="../assets/", tech_prefix="../../"

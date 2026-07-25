@@ -11,16 +11,16 @@ PACK = {
     "docTitle": "Stamped Energy · Packaging machinery OEM demo",
     "chromeHint": "Machinery OEM",
     "title": {
-        "eyebrowD": "Packaging-machinery OEM · real-time decisions after solar and VFDs",
-        "eyebrowM": "Machinery OEM · real-time ₹ decisions",
-        "h1D": "Tape lines and test bays, priced onto the bill.",
-        "h1M": "Machine-trial ₹ actions on the bill.",
-        "ledeD": "After solar, VFDs, and compressor upgrades, the remaining value is real-time floor decisions in rupees, line-tied early warnings, and proof on the next DISCOM bill. A 60-day Proof Run when you want a scoped pilot.",
-        "ledeM": "Real-time actions and early warnings after solar and VFDs. 60-day Proof Run as needed.",
+        "eyebrowD": "Packaging-machinery OEM · after solar and VFDs",
+        "eyebrowM": "Machinery OEM · bill-verified operations",
+        "h1D": "Operating decisions on tape lines and test bays, confirmed on the bill",
+        "h1M": "Floor decisions confirmed on the bill",
+        "ledeD": "After solar, VFDs, and compressor upgrades, the remaining value is live floor decisions in rupees, early warnings on those lines, and confirmation on the next DISCOM bill. A 60-day Proof Run is available when you want a scoped pilot.",
+        "ledeM": "Live actions and early warnings after solar and VFDs. 60-day Proof Run when useful.",
     },
     "hook": {
         "eyebrow": "Monday 06:50 · Machine acceptance / utilities handover",
-        "h2": "Your plant already logs this. Nobody owns the fix.",
+        "h2": "The plant recorded the overlap. No one was assigned to fix it.",
         "ledeD": "Test bay and utility banks overlapped. EMS logged it. No work order went out.",
         "ledeM": "Test bay and utilities overlapped. No work order went out.",
         "t1s": "Machine trial and compressor bank start together",
@@ -113,10 +113,10 @@ PACK = {
         ("Early warning · line stress", "Pre-trip drift window", "Same-shift action", "IN REVIEW"),
     ],
     "math": {
-        "eyebrow": "Where packaging-machinery electricity cost usually hides",
-        "h2": "Real-time looks on your lines after solar and VFDs",
-        "ledeD": "Avoidable ₹ and early risk once major capex is done. We watch what the plant is doing now, not a quarterly PDF.",
-        "ledeM": "Real-time ₹ and early warnings on your lines.",
+        "eyebrow": "Priority checks on packaging-machinery floors",
+        "h2": "What we check first on your lines",
+        "ledeD": "Avoidable rupees and early equipment risk after major capex. We work from what the plant is doing now, not from a quarterly report.",
+        "ledeM": "Live rupee actions and early warnings on your lines.",
         "cards": [
             (
                 "MD / demand",
@@ -126,7 +126,7 @@ PACK = {
                     "Contract demand headroom",
                 ],
                 "Bill line · MD (kVA)",
-                "Sample hypothesis: acceptance bay and compressor bank into the same MD window",
+                "Example: acceptance bay and compressor bank in the same MD window",
             ),
             (
                 "Compressed air",
@@ -136,7 +136,7 @@ PACK = {
                     "Simultaneous bank starts",
                 ],
                 "Bill line · Energy + MD",
-                "Sample hypothesis: Bank B unload with zero fab or trial tags",
+                "Example: Bank B unload with no fab or trial tags",
             ),
             (
                 "Idle CNC / aux",
@@ -146,7 +146,7 @@ PACK = {
                     "Aux run-on across dark shifts",
                 ],
                 "Bill line · Energy (kWh)",
-                "Sample hypothesis: CNC aux left online when the bay is empty",
+                "Example: CNC aux left online when the bay is empty",
             ),
             (
                 "Early warnings",
@@ -156,25 +156,79 @@ PACK = {
                     "Not a generic plant alarm dump",
                 ],
                 "Ops + bill risk",
-                "Sample hypothesis: catch trial-bay or air trouble before a breakdown or MD event",
+                "Example: flag trial-bay or air trouble before a breakdown or MD event",
             ),
             (
-                "Real-time decisions",
+                "Live decisions",
                 [
-                    "Ranked ₹ actions while the shift is live",
+                    "Ranked rupee actions during the shift",
                     "Owner and due time on WhatsApp",
-                    "60-day Proof Run when you want a scoped pilot",
+                    "60-day Proof Run when a scoped pilot is useful",
                 ],
                 "Bill line · MD + energy",
-                "Sample hypothesis: close the loop in the week, not after the next audit cycle",
+                "Example: close the loop in the week, not after the next audit cycle",
             ),
         ],
     },
-    "techBullet": "Real-time MD and idle actions, line-tied early warnings, compressed-air residual, 60-day Proof Run as needed",
-    "offerLedeD": "Start with one works. Real-time prescriptions and line-tied early warnings from live meters. A 60-day Proof Run when you want a scoped go / no-go on verified ₹ and plant fit.",
-    "offerLedeM": "One works. Real-time decisions + early warnings. 60-day Proof Run as needed.",
+    "techBullet": "Live MD and idle actions, line-level early warnings, compressed-air residual, 60-day Proof Run when useful",
+    "offerLedeD": "Start with one works. Live prescriptions and line-level early warnings from your meters. Use a 60-day Proof Run when you want a clear go / no-go on verified rupees and plant fit.",
+    "offerLedeM": "One works. Live decisions and early warnings. 60-day Proof Run when useful.",
 }
 
 HERO = "assets/machinery-oem/tape-line.jpg"
 HERO_ALT = "Tape extrusion line on a packaging-machinery manufacturing floor"
 SLUG = "machinery-oem"
+
+# Soften shared base headings for client-facing OEM demo
+OEM_HEADING_PATCHES = [
+    (
+        '<p class="eyebrow reveal">What Stamped does</p>\n'
+        '        <h2 class="reveal">Signals become work orders.</h2>',
+        '<p class="eyebrow reveal">How Stamped works</p>\n'
+        '        <h2 class="reveal">From plant data to assigned work</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal">Sample prescriptions</p>\n'
+        '        <h2 class="reveal">Every action has a bill line and an owner.</h2>',
+        '<p class="eyebrow reveal">Example prescriptions</p>\n'
+        '        <h2 class="reveal">Each action has a bill line and an owner</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal hide-mobile">Floor channel</p>\n'
+        '            <p class="eyebrow reveal show-mobile">On the floor</p>\n'
+        '            <h2 class="reveal">On the supervisor\'s phone.</h2>',
+        '<p class="eyebrow reveal hide-mobile">Floor delivery</p>\n'
+        '            <p class="eyebrow reveal show-mobile">On the floor</p>\n'
+        '            <h2 class="reveal">Reached on the supervisor\'s phone</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal">Measurement and verification</p>\n'
+        '        <h2 class="reveal">Checked on the DISCOM bill.</h2>',
+        '<p class="eyebrow reveal">Measurement and verification</p>\n'
+        '        <h2 class="reveal">Confirmed on the DISCOM bill</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal">Technology</p>\n'
+        '        <h2 class="reveal">The stack behind each prescription</h2>',
+        '<p class="eyebrow reveal">Technology</p>\n'
+        '        <h2 class="reveal">What sits behind each prescription</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal">Auditability and sustainability</p>\n'
+        '        <h2 class="reveal">Action, bill line, evidence.</h2>',
+        '<p class="eyebrow reveal">Auditability and sustainability</p>\n'
+        '        <h2 class="reveal">Action, bill line, and evidence</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal">How we engage OT</p>\n'
+        '        <h2 class="reveal">Read-only on OT. Clear limits.</h2>',
+        '<p class="eyebrow reveal">How we engage OT</p>\n'
+        '        <h2 class="reveal">Read-only on OT, with clear limits</h2>',
+    ),
+    (
+        '<p class="eyebrow reveal">2-minute walkthrough</p>\n'
+        '        <h2 class="reveal">How Stamped works</h2>',
+        '<p class="eyebrow reveal">Short product walkthrough</p>\n'
+        '        <h2 class="reveal">How Stamped works in practice</h2>',
+    ),
+]
