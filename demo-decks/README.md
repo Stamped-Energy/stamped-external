@@ -1,6 +1,6 @@
 # Demo decks
 
-Client-facing HTML presentation decks for Stamped Energy: one walkthrough per industry.
+Client-facing HTML presentation decks for Stamped Energy: one walkthrough per industry, plus private client packs.
 
 | Path | Use |
 |------|-----|
@@ -9,9 +9,22 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [steel.html](./steel.html) | Steel: furnace, rolling mill |
 | [pharma.html](./pharma.html) | Pharma: load management, HVAC, chillers |
 | [pharma/](./pharma/) | Pharma Vercel deploy root (`index.html`; `vercel --prod`) |
+| [clients/](./clients/) | **Private** client / OEM decks (not on the public hub) |
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
-| [assets/](./assets/) | Industry hero photos |
+| [assets/](./assets/) | Industry and client hero photos |
 | [/index.html](../index.html) | Same hub at repo root for GitHub Pages |
+
+### Private client decks
+
+Not linked from the cement/steel/pharma hub. Rebuild with `python3 scripts/build-client-decks.py`.
+
+| Path | Use |
+|------|-----|
+| [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (no client names) |
+| [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root for the OEM demo |
+| [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; Chaubepur 90-day ask) |
+
+Meeting default: open the Lohia brief. Keep the anonymous OEM demo ready if the room wants a full product walkthrough without account research on-screen.
 
 **Tech deep-dives** (shared across industries; open from `#scene-tech` cards):
 
@@ -22,7 +35,7 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [tech/agents.html](./tech/agents.html) | Bounded prescription agents |
 | [tech/evidence.html](./tech/evidence.html) | Verified with evidence (calculation engine) |
 
-Back-links use `?from={cement|steel|pharma}` → `{industry}.html#scene-tech`. Citation SSOT: [`../technical/stamped-research-and-ml-citations.md`](../technical/stamped-research-and-ml-citations.md).
+Back-links use `?from={cement|steel|pharma|machinery-oem}` → deck `#scene-tech` (client decks resolve under `clients/`). Citation SSOT: [`../technical/stamped-research-and-ml-citations.md`](../technical/stamped-research-and-ml-citations.md).
 
 Each industry deck keeps the same Proof Run structure. What changes:
 
@@ -37,6 +50,13 @@ Open an industry file in a browser. Arrow keys, space, or on-screen controls nav
 
 ```bash
 python3 scripts/build-industry-decks.py
+python3 scripts/build-client-decks.py   # private OEM + Lohia brief
+```
+
+**Client deck gate:**
+
+```bash
+python3 scripts/check-client-decks.py
 ```
 
 **GitHub Pages:** enable Pages from the repo root so `/` serves the hub and `/demo-decks/*.html` serves each deck.
