@@ -78,6 +78,19 @@ def file_gate() -> list[str]:
     issues: list[str] = []
     full = (ROOT / FULL).read_text(encoding="utf-8")
     brief = (ROOT / BRIEF).read_text(encoding="utf-8")
+    hub = (ROOT / "demo-decks/index.html").read_text(encoding="utf-8")
+    root_hub = (ROOT / "index.html").read_text(encoding="utf-8")
+    clients_hub = ROOT / "demo-decks/clients/index.html"
+    if not clients_hub.is_file():
+        issues.append("missing demo-decks/clients/index.html picker")
+    else:
+        ch = clients_hub.read_text(encoding="utf-8")
+        if "lohia-corp-brief.html" not in ch or "machinery-oem.html" not in ch:
+            issues.append("clients hub missing deck links")
+    if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
+        issues.append("demo-decks hub missing Clients link")
+    if "demo-decks/clients/" not in root_hub:
+        issues.append("repo root hub missing demo-decks/clients/ link")
     hits = sorted(set(FORBIDDEN.findall(full)))
     if hits:
         issues.append(f"full naming gate failed: {hits}")

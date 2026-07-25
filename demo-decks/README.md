@@ -9,17 +9,18 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [steel.html](./steel.html) | Steel: furnace, rolling mill |
 | [pharma.html](./pharma.html) | Pharma: load management, HVAC, chillers |
 | [pharma/](./pharma/) | Pharma Vercel deploy root (`index.html`; `vercel --prod`) |
-| [clients/](./clients/) | **Private** client / OEM decks (not on the public hub) |
+| [clients/](./clients/) | Client deck picker + OEM / Lohia walkthroughs (linked from hub) |
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
 | [assets/](./assets/) | Industry and client hero photos |
 | [/index.html](../index.html) | Same hub at repo root for GitHub Pages |
 
-### Private client decks
+### Client decks
 
-Not linked from the cement/steel/pharma hub. Rebuild with `python3 scripts/build-client-decks.py`.
+From the industry hub, open **Clients** → [`clients/index.html`](./clients/index.html). Rebuild with `python3 scripts/build-client-decks.py`.
 
 | Path | Use |
 |------|-----|
+| [clients/index.html](./clients/index.html) | Client deck picker |
 | [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (no client names) |
 | [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root for the OEM demo |
 | [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; Chaubepur 90-day ask) |

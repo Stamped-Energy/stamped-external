@@ -400,12 +400,14 @@ def main() -> None:
         raise SystemExit("brief missing vs-audit scene")
     print(f"wrote {brief_path} ({len(brief)} bytes)")
 
+    write_clients_hub()
     note = CLIENTS / "README.md"
     note.write_text(
-        "# Private client decks\n\n"
-        "Not linked from the public cement/steel/pharma hub.\n\n"
+        "# Client decks\n\n"
+        "Linked from the main demo hub via **Clients** → [`index.html`](./index.html).\n\n"
         "| File | Use |\n"
         "|------|-----|\n"
+        "| [index.html](./index.html) | Client deck picker |\n"
         "| [machinery-oem.html](./machinery-oem.html) | Anonymous full Proof Run (packaging-machinery OEM) |\n"
         "| [machinery-oem/](./machinery-oem/) | Optional standalone deploy root |\n"
         "| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |\n"
@@ -414,6 +416,104 @@ def main() -> None:
         encoding="utf-8",
     )
     print("wrote clients/README.md")
+
+
+CLIENT_HUB = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stamped Energy · Client decks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #F75440; --secondary: #051F13; --surface: #f7faf5;
+      --on-surface: #191c1a; --muted: #5a403c; --line: #e3beb8;
+      --font-d: "Plus Jakarta Sans", system-ui, sans-serif;
+      --font-b: Inter, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100dvh; font-family: var(--font-b);
+      color: var(--on-surface); background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(247,84,64,0.12), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(0,102,107,0.08), transparent 50%),
+        var(--surface);
+      padding: max(1.5rem, env(safe-area-inset-top)) 1.25rem max(2rem, env(safe-area-inset-bottom));
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    .logo { height: 36px; width: auto; margin-bottom: 1.25rem; }
+    .back {
+      display: inline-block; margin-bottom: 1rem; font-size: 0.88rem; font-weight: 650;
+      color: var(--secondary); text-decoration: none;
+    }
+    .back:hover { color: var(--primary); }
+    h1 {
+      font-family: var(--font-d); font-weight: 800; letter-spacing: -0.04em;
+      font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.05; margin: 0 0 0.65rem;
+      color: var(--secondary);
+    }
+    .lede { color: var(--muted); line-height: 1.5; margin: 0 0 1.75rem; max-width: 36em; }
+    .grid { display: grid; gap: 0.85rem; }
+    a.card {
+      display: block; text-decoration: none; color: inherit;
+      background: #fff; border: 1px solid var(--line); border-radius: 14px;
+      padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
+    }
+    a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
+    a.card strong {
+      display: block; font-family: var(--font-d); font-size: 1.2rem;
+      margin-bottom: 0.35rem; color: var(--secondary);
+    }
+    a.card span { display: block; color: var(--muted); font-size: 0.92rem; line-height: 1.4; }
+    a.card em {
+      display: inline-block; margin-top: 0.75rem; font-style: normal;
+      font-size: 0.8rem; font-weight: 700; color: var(--primary);
+    }
+    footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
+    footer a { color: var(--secondary); }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../index.html">← Back to industry decks</a>
+    <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
+    <h1>Client decks</h1>
+    <p class="lede">Meeting walkthroughs for named accounts and anonymous OEM demos. Same Stamped Proof Run design as the industry decks.</p>
+    <div class="grid">
+      <a class="card" href="./lohia-corp-brief.html">
+        <strong>Lohia Corp · brief</strong>
+        <span>Short named walkthrough for the meeting. Solar / VFD respect, energy audit vs Stamped, Chaubepur 90-day ask.</span>
+        <em>Open Lohia brief →</em>
+      </a>
+      <a class="card" href="./machinery-oem.html">
+        <strong>Packaging machinery OEM</strong>
+        <span>Full anonymous Proof Run. Tape lines, test bays, compressed air, chillers. No client names on slide.</span>
+        <em>Open OEM demo →</em>
+      </a>
+      <a class="card" href="./machinery-oem/">
+        <strong>OEM demo · deploy root</strong>
+        <span>Same machinery OEM deck as a folder index for standalone hosting.</span>
+        <em>Open deploy root →</em>
+      </a>
+    </div>
+    <footer>
+      <a href="../index.html">Industry hub</a>
+      ·
+      <a href="https://stamped.work">stamped.work</a>
+    </footer>
+  </main>
+</body>
+</html>
+"""
+
+
+def write_clients_hub() -> None:
+    path = CLIENTS / "index.html"
+    path.write_text(CLIENT_HUB, encoding="utf-8")
+    print(f"wrote {path} ({len(CLIENT_HUB)} bytes)")
 
 
 if __name__ == "__main__":

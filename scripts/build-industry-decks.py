@@ -1247,6 +1247,14 @@ HUB = """<!DOCTYPE html>
       display: inline-block; margin-top: 0.75rem; font-style: normal;
       font-size: 0.8rem; font-weight: 700; color: var(--primary);
     }
+    a.card--clients {
+      border-color: rgba(247,84,64,0.45);
+      background: linear-gradient(180deg, #fff 0%, #fff7f5 100%);
+    }
+    .section-label {
+      margin: 1.75rem 0 0.65rem; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
   </style>
@@ -1271,6 +1279,14 @@ HUB = """<!DOCTYPE html>
         <strong>Pharma</strong>
         <span>Load management, chillers, HVAC setbacks, and batch-utility peaks.</span>
         <em>Open pharma deck →</em>
+      </a>
+    </div>
+    <p class="section-label">Client decks</p>
+    <div class="grid">
+      <a class="card card--clients" href="./clients/">
+        <strong>Clients</strong>
+        <span>Named and anonymous client walkthroughs for live meetings. Pick a deck from the list.</span>
+        <em>Browse client decks →</em>
       </a>
     </div>
     <footer>
@@ -1324,7 +1340,8 @@ def main() -> None:
     (ROOT / "index.html").write_text(
         hub.replace('href="./cement.html"', 'href="./demo-decks/cement.html"')
         .replace('href="./steel.html"', 'href="./demo-decks/steel.html"')
-        .replace('href="./pharma.html"', 'href="./demo-decks/pharma.html"'),
+        .replace('href="./pharma.html"', 'href="./demo-decks/pharma.html"')
+        .replace('href="./clients/"', 'href="./demo-decks/clients/"'),
         encoding="utf-8",
     )
     print("wrote hubs")
