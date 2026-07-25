@@ -97,8 +97,14 @@ def file_gate() -> list[str]:
         issues.append(f"full naming gate failed: {hits}")
     if not FORBIDDEN.search(brief):
         issues.append("brief missing Lohia / Chaubepur naming")
-    if "Come to the plant" not in brief and "permission to come" not in brief.lower():
+    if (
+        "plant visit" not in brief.lower()
+        and "permission to visit" not in brief.lower()
+        and "visit chaubepur" not in brief.lower()
+    ):
         issues.append("brief missing on-site / plant-visit ask")
+    if "Come to the plant" in brief:
+        issues.append("brief still uses punchy AI-style heading: Come to the plant")
     # Allow explicit "will not ask for two HT bills"; block asks that require bills as a gate
     if re.search(
         r"(?:share|send|provide|need)\s+two(?:\s+consecutive)?\s+HT bills",
@@ -108,9 +114,9 @@ def file_gate() -> list[str]:
         issues.append("brief should not gate on two HT bills up front")
     if "60-day proof plan" in brief.lower() or "Chaubepur · 60-day ask" in brief:
         issues.append("brief still uses homework-style 60-day proof-plan ask")
-    if "real-time" not in brief.lower():
-        issues.append("brief missing real-time decision framing")
-    if "Early warnings" not in brief and "early warning" not in brief.lower():
+    if "live" not in brief.lower() and "real-time" not in brief.lower():
+        issues.append("brief missing live / real-time decision framing")
+    if "early warning" not in brief.lower():
         issues.append("brief missing early-warnings framing")
     if "90-day" in brief.lower() or "Day 90" in brief:
         issues.append("brief still mentions 90-day pilot")
@@ -131,22 +137,34 @@ def file_gate() -> list[str]:
             issues.append(f"brief missing Lohia-specific term: {needle}")
     if re.search(r"\bIIT\b|IITK|Roorkee", brief, re.I):
         issues.append("brief must not mention IIT / IITK / Roorkee (client-facing)")
-    if "Energy audit vs Stamped" not in brief:
+    if "Energy audit and Stamped" not in brief and "Energy audit vs Stamped" not in brief:
         issues.append("brief missing energy-audit vs Stamped framing")
-    if "Not another energy audit" not in brief and "not another energy audit" not in brief.lower():
+    if (
+        "not another energy audit" not in brief.lower()
+        and "not asking for a second energy audit" not in brief.lower()
+        and "not an energy-audit replacement" not in brief.lower()
+    ):
         issues.append("brief missing explicit not-an-audit framing")
     if "60-day" not in full.lower() and "Day 60" not in full:
         issues.append("full missing 60-day Proof Run framing")
-    if "real-time" not in full.lower():
-        issues.append("full missing real-time decision framing")
-    if "Early warnings" not in full and "early warning" not in full.lower():
+    if "live" not in full.lower() and "real-time" not in full.lower():
+        issues.append("full missing live / real-time decision framing")
+    if "early warning" not in full.lower():
         issues.append("full missing early-warnings framing")
+    if "priced onto the bill" in full:
+        issues.append("full still has AI-ish title phrasing: priced onto the bill")
     if "90-day" in full.lower() or "Day 90" in full:
         issues.append("full OEM deck still mentions 90-day pilot (should be 60-day)")
     if "trying.stamped.work" not in full:
         issues.append("full missing trying.stamped.work sample workspace")
     if 'id="openSampleWorkspace"' not in full:
         issues.append("full missing Open workspace button")
+    if "hypothesis chip" in full.lower() or "Hypothesis chips" in full:
+        issues.append("full still uses AI-ish 'hypothesis chip' language")
+    if "hands you a report" in full.lower() or "hands you a report" in brief.lower():
+        issues.append("client deck still uses AI-ish audit contrast phrasing")
+    if "Signals become work orders" in brief or "On the supervisor's phone." in brief:
+        issues.append("brief still has punchy shared-base headings")
     # Co-located assets must resolve next to the HTML
     for rel in (
         "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
