@@ -97,8 +97,10 @@ def file_gate() -> list[str]:
         issues.append(f"full naming gate failed: {hits}")
     if not FORBIDDEN.search(brief):
         issues.append("brief missing Lohia / Chaubepur naming")
-    if "Chaubepur · 90-day ask" not in brief and "90-day ask" not in brief:
-        issues.append("brief missing Chaubepur 90-day ask")
+    if "Chaubepur · 60-day ask" not in brief and "60-day ask" not in brief:
+        issues.append("brief missing Chaubepur 60-day ask")
+    if "90-day" in brief.lower() or "Day 90" in brief:
+        issues.append("brief still mentions 90-day pilot (should be 60-day)")
     if 'id="scene-vs-audit"' not in brief:
         issues.append("brief missing scene-vs-audit")
     if 'id="scene-lohia-lines"' not in brief:
@@ -120,8 +122,10 @@ def file_gate() -> list[str]:
         issues.append("brief missing energy-audit vs Stamped framing")
     if "Not another energy audit" not in brief and "not another energy audit" not in brief.lower():
         issues.append("brief missing explicit not-an-audit framing")
-    if "90-day proof run" not in full:
-        issues.append("full missing 90-day proof run framing")
+    if "60-day proof run" not in full:
+        issues.append("full missing 60-day proof run framing")
+    if "90-day" in full.lower() or "Day 90" in full:
+        issues.append("full OEM deck still mentions 90-day pilot (should be 60-day)")
     if "trying.stamped.work" not in full:
         issues.append("full missing trying.stamped.work sample workspace")
     if 'id="openSampleWorkspace"' not in full:

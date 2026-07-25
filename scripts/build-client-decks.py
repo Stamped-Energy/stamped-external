@@ -67,12 +67,12 @@ def rewrite_client_paths(html: str, *, asset_prefix: str, tech_prefix: str) -> s
     return html
 
 
-def patch_offer_90_day(html: str, lede_d: str) -> str:
-    """Tune offer slide toward a 90-day single-works proof (full OEM demo)."""
+def patch_offer_one_works(html: str, lede_d: str) -> str:
+    """Tune offer slide toward a 60-day single-works proof (matches industry decks)."""
     html = html.replace(
         '<p class="eyebrow reveal">60-day proof run</p>\n'
         '        <h2 class="reveal">Proof Run</h2>',
-        '<p class="eyebrow reveal">90-day proof run</p>\n'
+        '<p class="eyebrow reveal">60-day proof run</p>\n'
         '        <h2 class="reveal">Proof Run · one works</h2>',
         1,
     )
@@ -93,11 +93,11 @@ def patch_offer_90_day(html: str, lede_d: str) -> str:
               <td>Connect read-only · map meters, EMS tags, and bill lines</td>
             </tr>
             <tr>
-              <td>Weeks 3-10</td>
+              <td>Weeks 3-8</td>
               <td>Floor executes prescriptions · weekly reviews</td>
             </tr>
             <tr>
-              <td>Day 90</td>
+              <td>Day 60</td>
               <td>Go / no-go: on verified ₹ and fit. Kill criteria agreed upfront.</td>
             </tr>"""
     if old_rows not in html:
@@ -346,7 +346,7 @@ def build_full(mod, base: str) -> str:
     html = mod.build_one(base, SLUG)
     # Flat file in clients/: assets/ is local; tech is ../tech/
     html = rewrite_client_paths(html, asset_prefix="assets/", tech_prefix="../")
-    html = patch_offer_90_day(
+    html = patch_offer_one_works(
         html,
         "Start with one works: electrical POC, two HT bills, and a walkthrough. "
         "Read-only. Kill criteria agreed upfront.",
@@ -422,7 +422,7 @@ def main() -> None:
     mod.HERO_BY_INDUSTRY[SLUG] = HERO
     mod.HERO_ALT[SLUG] = HERO_ALT
     raw = mod.build_one(base, SLUG)
-    raw = patch_offer_90_day(
+    raw = patch_offer_one_works(
         raw,
         "Start with one works: electrical POC, two HT bills, and a walkthrough. "
         "Read-only. Kill criteria agreed upfront.",
@@ -531,7 +531,7 @@ CLIENT_HUB = """<!DOCTYPE html>
     <div class="grid">
       <a class="card" href="./lohia-corp-brief.html">
         <strong>Lohia Corp · brief</strong>
-        <span>Named walkthrough: woven raffia lines, extrusion to printing, energy audit vs Stamped, Chaubepur 90-day ask.</span>
+        <span>Named walkthrough: woven raffia lines, extrusion to printing, energy audit vs Stamped, Chaubepur 60-day ask.</span>
         <em>Open Lohia brief →</em>
       </a>
       <a class="card" href="./machinery-oem.html">

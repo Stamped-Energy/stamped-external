@@ -171,8 +171,8 @@ PACK = {
         ],
     },
     "techBullet": "MD coincidence, compressed-air residual, idle CNC/aux, chiller drift, solar vs residual grid",
-    "offerLedeD": "Start with one works. Connect read-only, run prescriptions on the floor, then go or no-go at Day 90: on verified ₹ and plant fit.",
-    "offerLedeM": "One works. Connect → floor → go / no-go at Day 90.",
+    "offerLedeD": "Start with one works. Connect read-only, run prescriptions on the floor, then go or no-go at Day 60: on verified ₹ and plant fit.",
+    "offerLedeM": "One works. Connect → floor → go / no-go at Day 60.",
 }
 
 HERO = "assets/machinery-oem/tape-line.jpg"

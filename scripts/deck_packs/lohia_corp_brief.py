@@ -184,8 +184,8 @@ PACK = {
         ],
     },
     "techBullet": "Tape extrusion MD, loom/coater idle, winding air, trial bays, solar vs residual grid",
-    "offerLedeD": "Chaubepur 90-day proof on one works: electrical POC, two HT bills, walkthrough of extrusion / weaving / coating. Read-only. Kill criteria upfront.",
-    "offerLedeM": "Chaubepur 90 days on your machine floors. POC + two HT bills.",
+    "offerLedeD": "Chaubepur 60-day proof on one works: electrical POC, two HT bills, walkthrough of extrusion / weaving / coating. Read-only. Kill criteria upfront.",
+    "offerLedeM": "Chaubepur 60 days on your machine floors. POC + two HT bills.",
 }
 
 HERO = "assets/lohia-corp/tape-extrusion.jpg"
@@ -193,24 +193,24 @@ HERO_ALT = "Lohia Corp tape extrusion line"
 SLUG = "lohia-corp-brief"
 
 OFFER_PATCH = {
-    "eyebrow": "Chaubepur · 90-day ask",
+    "eyebrow": "Chaubepur · 60-day ask",
     "h2": "One works. One proof cycle.",
-    "lede": "Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹.",
+    "lede": "Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹ at Day 60.",
     "rows": [
         (
             "Week 0",
             "Name electrical POC · share two Chaubepur HT bills · walk tape, loom, and coating floors once",
         ),
         (
-            "Days 1-30",
+            "Weeks 1-2",
             "Read-only connect · turn meters on those islands into ranked prescriptions with owners",
         ),
         (
-            "Days 31-90",
+            "Weeks 3-8",
             "Floor executes weekly · potential vs realised on MD / energy / PF",
         ),
         (
-            "Day 90",
+            "Day 60",
             "Go / no-go on verified ₹ and fit. Kill if the math does not close.",
         ),
     ],
@@ -221,7 +221,7 @@ OFFER_PATCH = {
         "Read-only OT",
     ],
     "ask_title": "Ask for tomorrow",
-    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan tied to your machine floors, with success criteria in ₹. Floor execution and bill proof, not a fresh energy audit.",
+    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page 60-day proof plan tied to your machine floors, with success criteria in ₹. Floor execution and bill proof, not a fresh energy audit.",
 }
 
 # Injected after scene-hook by build-client-decks.py
@@ -268,5 +268,5 @@ VS_AUDIT = {
         "Potential vs realised on MD, energy, and PF",
         "Complements Lohia DIC. Does not replace your EMS",
     ],
-    "note": "If you only need another diagnostic, you do not need us. If the gap is ownership and bill-verified close-out, that is the 90-day ask.",
+    "note": "If you only need another diagnostic, you do not need us. If the gap is ownership and bill-verified close-out, that is the 60-day ask.",
 }

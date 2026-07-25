@@ -23,7 +23,7 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | [clients/index.html](./clients/index.html) | Client deck picker |
 | [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (no client names) |
 | [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root for the OEM demo |
-| [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; Chaubepur 90-day ask) |
+| [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; Chaubepur 60-day ask) |
 
 Meeting default: open the Lohia brief. Keep the anonymous OEM demo ready if the room wants a full product walkthrough without account research on-screen.
 
