@@ -68,11 +68,11 @@ def rewrite_client_paths(html: str, *, asset_prefix: str, tech_prefix: str) -> s
 
 
 def patch_offer_one_works(html: str, lede_d: str) -> str:
-    """Tune offer slide toward a 60-day single-works proof (matches industry decks)."""
+    """Tune OEM offer: real-time decisions + early warnings + 60-day Proof Run as needed."""
     html = html.replace(
         '<p class="eyebrow reveal">60-day proof run</p>\n'
         '        <h2 class="reveal">Proof Run</h2>',
-        '<p class="eyebrow reveal">60-day proof run</p>\n'
+        '<p class="eyebrow reveal">60-day proof run · as needed</p>\n'
         '        <h2 class="reveal">Proof Run · one works</h2>',
         1,
     )
@@ -89,20 +89,33 @@ def patch_offer_one_works(html: str, lede_d: str) -> str:
               <td>Go / no-go: on verified ₹ and fit (efficiency, workload, how the floor actually runs)</td>
             </tr>"""
     new_rows = """            <tr>
-              <td>Weeks 1-2</td>
-              <td>Connect read-only · map meters, EMS tags, and bill lines</td>
+              <td>Connect</td>
+              <td>Read-only on meters / EMS · map tape, loom, test-bay, and utility islands</td>
             </tr>
             <tr>
-              <td>Weeks 3-8</td>
-              <td>Floor executes prescriptions · weekly reviews</td>
+              <td>Live</td>
+              <td>Real-time prescriptions and line-tied early warnings · floor owns each ₹ action</td>
             </tr>
             <tr>
               <td>Day 60</td>
-              <td>Go / no-go: on verified ₹ and fit. Kill criteria agreed upfront.</td>
+              <td>Optional scoped Proof Run: go / no-go on verified ₹ and plant fit</td>
             </tr>"""
     if old_rows not in html:
         raise SystemExit("offer phase rows not found for OEM patch")
     html = html.replace(old_rows, new_rows, 1)
+    chips = (
+        '\n          <span class="chip">Real-time decisions</span>'
+        '\n          <span class="chip">Line-tied early warnings</span>'
+        '\n          <span class="chip">60-day Proof Run as needed</span>'
+        '\n          <span class="chip">Read-only OT</span>\n        '
+    )
+    html = re.sub(
+        r'(<div class="commercial reveal">)(.*?)(</div>\s*<div class="ask-box)',
+        rf"\g<1>{chips}\g<3>",
+        html,
+        count=1,
+        flags=re.S,
+    )
     html = html.replace(
         "<p>Let’s get on a short call. No bills required upfront.</p>",
         f"<p>{lede_d}</p>",
@@ -536,7 +549,7 @@ CLIENT_HUB = """<!DOCTYPE html>
       </a>
       <a class="card" href="./machinery-oem.html">
         <strong>Packaging machinery OEM</strong>
-        <span>Full anonymous Proof Run. Tape lines, test bays, compressed air, chillers. No client names on slide.</span>
+        <span>Full anonymous Proof Run. Real-time decisions, line-tied early warnings, 60-day pilot as needed.</span>
         <em>Open OEM demo →</em>
       </a>
       <a class="card" href="./machinery-oem/">

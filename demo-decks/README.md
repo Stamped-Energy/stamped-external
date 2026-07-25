@@ -21,7 +21,7 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | Path | Use |
 |------|-----|
 | [clients/index.html](./clients/index.html) | Client deck picker |
-| [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (no client names) |
+| [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (real-time decisions, early warnings, 60-day as needed) |
 | [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root for the OEM demo |
 | [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; on-site Chaubepur ask) |
 

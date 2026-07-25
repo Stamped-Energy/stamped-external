@@ -2200,13 +2200,13 @@
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
             <p class="industry-chip reveal" id="industryChip">Machinery OEM</p>
-            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Packaging-machinery OEM · post-solar / post-VFD operating layer</p>
-            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Machinery OEM · bill-verified decisions</p>
+            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Packaging-machinery OEM · real-time decisions after solar and VFDs</p>
+            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Machinery OEM · real-time ₹ decisions</p>
             <p class="brand-name reveal">Stamped Energy</p>
             <h1 class="reveal hide-mobile" id="titleH1D">Tape lines and test bays, priced onto the bill.</h1>
             <h1 class="reveal show-mobile" id="titleH1M">Machine-trial ₹ actions on the bill.</h1>
-            <p class="lede reveal hide-mobile" id="titleLedeD">After solar, VFDs, and compressor upgrades, the remaining value is assigned floor work in rupees, checked on the next DISCOM bill.</p>
-            <p class="lede reveal show-mobile" id="titleLedeM">Ranked actions after solar and VFDs. Verified on the DISCOM bill.</p>
+            <p class="lede reveal hide-mobile" id="titleLedeD">After solar, VFDs, and compressor upgrades, the remaining value is real-time floor decisions in rupees, line-tied early warnings, and proof on the next DISCOM bill. A 60-day Proof Run when you want a scoped pilot.</p>
+            <p class="lede reveal show-mobile" id="titleLedeM">Real-time actions and early warnings after solar and VFDs. 60-day Proof Run as needed.</p>
             <div class="flow-tags reveal hide-mobile">
               <span class="chip">Physics &amp; rules</span>
               <span class="chip">Foundation models</span>
@@ -2356,8 +2356,8 @@
     <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal" id="mathEyebrow">Where packaging-machinery electricity cost usually hides</p>
-        <h2 class="reveal" id="mathH2">Where we look first after solar and VFDs</h2>
-        <p class="lede reveal" id="mathLede">Avoidable ₹ on the HT bill after solar and VFDs.</p>
+        <h2 class="reveal" id="mathH2">Real-time looks on your lines after solar and VFDs</h2>
+        <p class="lede reveal" id="mathLede">Real-time ₹ and early warnings on your lines.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
             <h3>MD / demand</h3>
@@ -2390,24 +2390,24 @@
             <p class="waste-sample hide-mobile">Sample hypothesis: CNC aux left online when the bay is empty</p>
           </article>
           <article class="waste-card">
-            <h3>Chiller drift</h3>
+            <h3>Early warnings</h3>
             <ul>
-              <li>Setpoint creep after VFD work</li>
-              <li>Parallel chiller starts</li>
-              <li>Cooling vs actual trial load</li>
+              <li>Line-tied drift before a trip</li>
+              <li>Motor / utility stress on tape or loom islands</li>
+              <li>Not a generic plant alarm dump</li>
             </ul>
-            <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample hide-mobile">Sample hypothesis: chillers at full duty while trial load is light</p>
+            <div class="waste-bill">Ops + bill risk</div>
+            <p class="waste-sample hide-mobile">Sample hypothesis: catch trial-bay or air trouble before a breakdown or MD event</p>
           </article>
           <article class="waste-card">
-            <h3>Solar vs residual grid</h3>
+            <h3>Real-time decisions</h3>
             <ul>
-              <li>Self-consumption timing</li>
-              <li>Grid MD still exposed</li>
-              <li>Export / import mistiming</li>
+              <li>Ranked ₹ actions while the shift is live</li>
+              <li>Owner and due time on WhatsApp</li>
+              <li>60-day Proof Run when you want a scoped pilot</li>
             </ul>
-            <div class="waste-bill">Bill line · MD + ToD energy</div>
-            <p class="waste-sample hide-mobile">Sample hypothesis: solar cuts kWh while MD and night grid still move the bill</p>
+            <div class="waste-bill">Bill line · MD + energy</div>
+            <p class="waste-sample hide-mobile">Sample hypothesis: close the loop in the week, not after the next audit cycle</p>
           </article>
         </div>
         <div class="bill-table-wrap reveal">
@@ -2439,7 +2439,7 @@
           <article class="do-step">
             <div class="do-step__num">01</div>
             <h3>Read existing signals</h3>
-            <p id="whatStep1">Incomer, sub-meters, SCADA and PLC states for tape lines, looms, test bays, CNC, compressors, and chillers. Read-only. No control writes to the plant.</p>
+            <p id="whatStep1">Incomer, sub-meters, SCADA and PLC states for tape lines, looms, test bays, CNC, compressors, and chillers. Read-only. Real-time decisions and line-tied early warnings. No control writes to the plant.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
@@ -2744,9 +2744,9 @@
                 <td>PENDING</td>
               </tr>
               <tr>
-                <td>CNC idle aux off</td>
-                <td>Empty-bay hours</td>
-                <td>Aux shutdown SOP</td>
+                <td>Early warning · line stress</td>
+                <td>Pre-trip drift window</td>
+                <td>Same-shift action</td>
                 <td>IN REVIEW</td>
               </tr>
             </tbody>
@@ -2767,7 +2767,7 @@
             <h3>Versioned industrial physics &amp; rulepacks</h3>
             <p>Semver rule packs for affinity laws, holding floors, and tariff arithmetic. Every finding cites a pack a plant EE can open.</p>
             <ul class="tech-card__detail">
-              <li id="techPhysicsBullet">MD coincidence, compressed-air residual, idle CNC/aux, chiller drift, solar vs residual grid</li>
+              <li id="techPhysicsBullet">Real-time MD and idle actions, line-tied early warnings, compressed-air residual, 60-day Proof Run as needed</li>
               <li>PF and tariff arithmetic tied to utility line items</li>
               <li>Physics-informed hybrids. PINN research lineage, not black-box PDEs</li>
             </ul>
@@ -2927,9 +2927,9 @@
     <!-- 14 Offer -->
     <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
       <div class="slide__inner">
-        <p class="eyebrow reveal">60-day proof run</p>
+        <p class="eyebrow reveal">60-day proof run · as needed</p>
         <h2 class="reveal">Proof Run · one works</h2>
-        <p class="lede reveal show-mobile" id="offerLedeM">One works. Connect → floor → go / no-go at Day 60.</p>
+        <p class="lede reveal show-mobile" id="offerLedeM">One works. Real-time decisions + early warnings. 60-day Proof Run as needed.</p>
         <table class="phase-table reveal">
           <thead>
             <tr>
@@ -2939,22 +2939,24 @@
           </thead>
           <tbody>
             <tr>
-              <td>Weeks 1-2</td>
-              <td>Connect read-only · map meters, EMS tags, and bill lines</td>
+              <td>Connect</td>
+              <td>Read-only on meters / EMS · map tape, loom, test-bay, and utility islands</td>
             </tr>
             <tr>
-              <td>Weeks 3-8</td>
-              <td>Floor executes prescriptions · weekly reviews</td>
+              <td>Live</td>
+              <td>Real-time prescriptions and line-tied early warnings · floor owns each ₹ action</td>
             </tr>
             <tr>
               <td>Day 60</td>
-              <td>Go / no-go: on verified ₹ and fit. Kill criteria agreed upfront.</td>
+              <td>Optional scoped Proof Run: go / no-go on verified ₹ and plant fit</td>
             </tr>
           </tbody>
         </table>
         <div class="commercial reveal">
-          <span class="chip">Fixed pilot ₹1-5L</span>
-          <span class="chip">Then pay-as-you-save · a cut of the value we deliver</span>
+          <span class="chip">Real-time decisions</span>
+          <span class="chip">Line-tied early warnings</span>
+          <span class="chip">60-day Proof Run as needed</span>
+          <span class="chip">Read-only OT</span>
         </div>
         <div class="ask-box reveal">
           <strong>Next step</strong>
@@ -2990,7 +2992,7 @@
   
   <script>
     /* Industry chrome + floor prescriptions + resolve hero against this HTML file's URL */
-    window.__FLOOR_RX__ = [{"title": "Stagger trials vs utility starts by 10 min", "why": "MD peak from Monday trial / air overlap", "impact": "₹2-3.5L/mo on MD line", "owner": "Electrical supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Stage Bank B offline in night unload", "why": "Unload kWh with no fab or trial tag", "impact": "₹0.7-1.2L/mo on energy", "owner": "Utilities supervisor · A", "priority": "High", "due": "Next night unload"}, {"title": "Idle CNC aux off when bay is dark", "why": "CNC chillers / aux left online across empty shifts", "impact": "₹0.4-0.8L/mo on energy", "owner": "Fab lead · B", "priority": "Med", "due": "Next empty bay window"}];
+    window.__FLOOR_RX__ = [{"title": "Stagger trials vs utility starts by 10 min", "why": "MD peak from Monday trial / air overlap", "impact": "₹2-3.5L/mo on MD line", "owner": "Electrical supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Stage Bank B offline in night unload", "why": "Unload kWh with no fab or trial tag", "impact": "₹0.7-1.2L/mo on energy", "owner": "Utilities supervisor · A", "priority": "High", "due": "Next night unload"}, {"title": "Act on early warning · tape-line motor stress", "why": "Line-tied drift signal before a trial bay trip", "impact": "Avoid unplanned downtime + MD risk", "owner": "Electrical supervisor · B", "priority": "Med", "due": "Same shift · before next trial"}];
     (function () {
       var el = document.getElementById("chromeIndustry");
       if (el) el.textContent = "Machinery OEM";

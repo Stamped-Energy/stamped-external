@@ -135,8 +135,12 @@ def file_gate() -> list[str]:
         issues.append("brief missing energy-audit vs Stamped framing")
     if "Not another energy audit" not in brief and "not another energy audit" not in brief.lower():
         issues.append("brief missing explicit not-an-audit framing")
-    if "60-day proof run" not in full:
-        issues.append("full missing 60-day proof run framing")
+    if "60-day" not in full.lower() and "Day 60" not in full:
+        issues.append("full missing 60-day Proof Run framing")
+    if "real-time" not in full.lower():
+        issues.append("full missing real-time decision framing")
+    if "Early warnings" not in full and "early warning" not in full.lower():
+        issues.append("full missing early-warnings framing")
     if "90-day" in full.lower() or "Day 90" in full:
         issues.append("full OEM deck still mentions 90-day pilot (should be 60-day)")
     if "trying.stamped.work" not in full:
