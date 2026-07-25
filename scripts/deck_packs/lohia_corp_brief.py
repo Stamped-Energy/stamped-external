@@ -14,6 +14,7 @@ KEEP_SCENES = [
     "scene-prescription",
     "scene-floor",
     "scene-verify",
+    # scene-vs-audit is injected by the client builder (not in the shared base)
     "scene-offer",
 ]
 
@@ -37,7 +38,7 @@ PACK = {
         "t1s": "Solar and efficiency capex already shipped",
         "t1p": "Rooftop solar plus compressor / VFD / chiller work is on record.",
         "t2s": "Visibility exists; assignment is thin",
-        "t2p": "Load alarms and audits log events. Floor work still needs an owner and a ₹ tag.",
+        "t2p": "Load alarms and study reports log events. Floor work still needs an owner and a ₹ tag.",
         "t3s": "DIC stays. Stamped sits beside it",
         "t3p": "Read-only on meters you already have. Bill proof on MD, energy, and PF.",
         "meterNote": "We are not claiming prior projects failed. We close the residual operating gap.",
@@ -46,7 +47,7 @@ PACK = {
     },
     "gapHas": {
         "scada": "Has: line and utility run states",
-        "ems": "Has: alarms and audit history",
+        "ems": "Has: alarms and study history",
         "meters": "Has: MD window and load profile",
         "bill": "Has: MD, energy, PF line items",
     },
@@ -193,14 +194,55 @@ SLUG = "lohia-corp-brief"
 OFFER_PATCH = {
     "eyebrow": "Chaubepur · 90-day ask",
     "h2": "One works. One proof cycle.",
-    "lede": "Electrical POC + two consecutive HT bills + a short plant walkthrough. Read-only. Go / no-go on verified ₹.",
+    "lede": "Not a second energy study. Electrical POC + two HT bills + a short floor walkthrough. Ranked actions with owners. Go / no-go on verified ₹.",
     "rows": [
-        ("Week 0", "Name electrical POC · share two Chaubepur HT bills · scope walkthrough"),
-        ("Days 1-30", "Map meters and EMS tags · issue first ranked prescriptions · floor owners assigned"),
-        ("Days 31-90", "Execute · weekly review · potential vs realised on MD / energy / PF"),
-        ("Day 90", "Go / no-go on verified ₹ and fit. Kill if the math does not close."),
+        (
+            "Week 0",
+            "Name electrical POC · share two Chaubepur HT bills · walk the floor once",
+        ),
+        (
+            "Days 1-30",
+            "Read-only connect · turn meters + the IITK findings you already have into ranked prescriptions with owners",
+        ),
+        (
+            "Days 31-90",
+            "Floor executes weekly · potential vs realised on MD / energy / PF",
+        ),
+        (
+            "Day 90",
+            "Go / no-go on verified ₹ and fit. Kill if the math does not close.",
+        ),
     ],
-    "chips": ["Read-only OT", "No hardware in Phase 1", "Complements Lohia DIC", "Fixed pilot band"],
+    "chips": [
+        "Not another energy audit",
+        "Uses the IITK study as input",
+        "Complements Lohia DIC",
+        "Read-only OT",
+    ],
     "ask_title": "Ask for tomorrow",
-    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan with success criteria in ₹.",
+    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan with success criteria in ₹. We will not re-run the IIT Kanpur study.",
+}
+
+# Injected before scene-offer by build-client-decks.py
+VS_AUDIT = {
+    "eyebrow": "After the IIT Kanpur energy study",
+    "h2": "A study finds opportunities. Stamped closes them on the bill.",
+    "lede": "Lohia just completed an energy audit with IIT Kanpur. That work matters. Stamped is not a second audit. It is the operating layer that assigns owners, puts ₹ on each action, and checks the next HT bill.",
+    "left_title": "Typical energy audit",
+    "left": [
+        "Periodic study and a findings report",
+        "Recommendations without a weekly owner",
+        "Ends when the report is delivered",
+        "Rarely ties each action to an HT bill line",
+        "Easy for the floor to treat as one more PDF",
+    ],
+    "right_title": "Stamped proof cycle",
+    "right": [
+        "Uses your IITK findings and live meters as input",
+        "Every action: owner, due date, expected ₹",
+        "Runs every week on the shift that can change it",
+        "Potential vs realised on MD, energy, and PF",
+        "Complements Lohia DIC. Does not replace the study",
+    ],
+    "note": "If the room only needs another diagnostic, stop here. If the gap is ownership and bill proof after the study, that is the 90-day ask.",
 }

@@ -6,7 +6,8 @@ Outputs:
   demo-decks/clients/machinery-oem/index.html    optional deploy root
   demo-decks/clients/lohia-corp-brief.html       short named walkthrough
 
-Reuses helpers from build-industry-decks.py without adding client decks to HUB.
+Assets are co-located under demo-decks/clients/assets/ so relative paths work
+when the HTML is opened from the clients/ folder (file:// or HTTP).
 """
 from __future__ import annotations
 
@@ -20,9 +21,11 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 DECKS = ROOT / "demo-decks"
 CLIENTS = DECKS / "clients"
+CLIENT_ASSETS = CLIENTS / "assets"
 FORBIDDEN_FULL = re.compile(
     r"lohia|chaubepur|vijay|panki|peenya|lohiagroup", re.I
 )
+SAMPLE_WORKSPACE_URL = "https://trying.stamped.work/"
 
 
 def load_industry_builder():
@@ -35,14 +38,32 @@ def load_industry_builder():
     return mod
 
 
-def rewrite_client_paths(html: str, *, depth: int) -> str:
-    """depth=1 for clients/*.html; depth=2 for clients/<slug>/index.html."""
-    prefix = "../" * depth
-    html = html.replace('href="tech/', f'href="{prefix}tech/')
-    html = html.replace('src="assets/', f'src="{prefix}assets/')
-    html = html.replace('href="assets/', f'href="{prefix}assets/')
-    # Boot script resolves the hero from a relative path string
-    html = html.replace('var rel = "assets/', f'var rel = "{prefix}assets/')
+def sync_client_assets() -> None:
+    """Copy OEM + Lohia visuals next to client HTML so assets/ resolves locally."""
+    CLIENT_ASSETS.mkdir(parents=True, exist_ok=True)
+    for name in ("lohia-corp", "machinery-oem"):
+        src = DECKS / "assets" / name
+        dst = CLIENT_ASSETS / name
+        if not src.is_dir():
+            raise SystemExit(f"missing source assets: {src}")
+        if dst.exists():
+            shutil.rmtree(dst)
+        shutil.copytree(src, dst)
+        # Drop markdown from runtime asset tree (keep sources under demo-decks/assets/)
+        for md in dst.glob("*.md"):
+            md.unlink()
+    print(f"synced assets → {CLIENT_ASSETS}")
+
+
+def rewrite_client_paths(html: str, *, asset_prefix: str, tech_prefix: str) -> str:
+    """Rewrite build_one paths for clients/ (local assets) and nested deploy roots."""
+    html = html.replace('href="tech/', f'href="{tech_prefix}tech/')
+    if asset_prefix != "assets/":
+        html = html.replace('src="assets/', f'src="{asset_prefix}')
+        html = html.replace('href="assets/', f'href="{asset_prefix}')
+        html = html.replace('var rel = "assets/', f'var rel = "{asset_prefix}')
+    # Flat clients/*.html: keep assets/ as-is (co-located under clients/assets/)
+    # but still need tech up one level
     return html
 
 
@@ -69,11 +90,11 @@ def patch_offer_90_day(html: str, lede_d: str) -> str:
             </tr>"""
     new_rows = """            <tr>
               <td>Weeks 1-2</td>
-              <td>Works audit · map meters, EMS, and bill lines · understand data you already have</td>
+              <td>Connect read-only · map meters, EMS tags, and bill lines</td>
             </tr>
             <tr>
               <td>Weeks 3-10</td>
-              <td>Connect read-only · floor executes prescriptions · weekly reviews</td>
+              <td>Floor executes prescriptions · weekly reviews</td>
             </tr>
             <tr>
               <td>Day 90</td>
@@ -100,7 +121,6 @@ def patch_offer_brief(html: str, offer: dict) -> str:
         count=1,
         flags=re.S,
     )
-    # Replace mobile lede if present
     html = re.sub(
         r'(id="offerLedeM"[^>]*>)(.*?)(</)',
         rf'\g<1>{offer["lede"]}\g<3>',
@@ -108,7 +128,6 @@ def patch_offer_brief(html: str, offer: dict) -> str:
         count=1,
         flags=re.S,
     )
-    # Inject desktop lede after h2 if missing
     if 'id="offerLedeD"' not in html:
         html = html.replace(
             f'<h2 class="reveal">{offer["h2"]}</h2>\n',
@@ -149,43 +168,123 @@ def patch_offer_brief(html: str, offer: dict) -> str:
 
 
 def strip_scenes(html: str, keep: list[str]) -> str:
-    """Remove <section ... id="scene-..."> blocks not in keep."""
     pattern = re.compile(
         r'<section class="slide[^"]*"[^>]*id="(scene-[^"]+)"[^>]*>.*?</section>',
         re.S,
     )
 
     def repl(m: re.Match) -> str:
-        sid = m.group(1)
-        return m.group(0) if sid in keep else ""
+        return m.group(0) if m.group(1) in keep else ""
 
     out = pattern.sub(repl, html)
-    # collapse excess blank lines between sections
-    out = re.sub(r"\n{3,}", "\n\n", out)
-    return out
+    return re.sub(r"\n{3,}", "\n\n", out)
 
 
 def inject_brief_brand(html: str) -> str:
-    """Show Lohia logo chip on title for the named brief."""
-    logo = "../assets/lohia-corp/lohia-logo.svg"
+    logo = "assets/lohia-corp/lohia-logo.svg"
     chip = (
         f'<p class="industry-chip reveal" id="industryChip">Lohia Corp</p>\n'
         f'            <img class="client-logo reveal" src="{logo}" alt="Lohia Corp" '
         f'width="160" height="40" loading="eager" decoding="async" '
         f'style="height:36px;width:auto;margin:0.35rem 0 0.5rem;" />'
     )
-    # industry chip already injected by build_one; prepend logo after chip
     html = html.replace(
         '<p class="industry-chip reveal" id="industryChip">Lohia Corp</p>',
         chip,
         1,
     )
-    # mark html for brief mode
     html = html.replace(
         'data-industry="lohia corp"',
         'data-industry="lohia-corp" data-client-brief="lohia"',
         1,
     )
+    return html
+
+
+def inject_vs_audit_scene(html: str, vs: dict) -> str:
+    left = "\n".join(f"              <li>{item}</li>" for item in vs["left"])
+    right = "\n".join(f"              <li>{item}</li>" for item in vs["right"])
+    scene = f"""
+    <section class="slide slide--light" id="scene-vs-audit" data-theme="light" aria-label="Not another energy audit">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">{vs["eyebrow"]}</p>
+        <h2 class="reveal">{vs["h2"]}</h2>
+        <p class="lede reveal">{vs["lede"]}</p>
+        <div class="bound-grid reveal" style="margin-top:1rem;">
+          <div class="bound-col bound-col--not">
+            <h3>{vs["left_title"]}</h3>
+            <ul class="bound-list">
+{left}
+            </ul>
+          </div>
+          <div class="bound-col bound-col--ot">
+            <h3>{vs["right_title"]}</h3>
+            <ul class="bound-list">
+{right}
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:46em;">{vs["note"]}</p>
+      </div>
+    </section>
+
+"""
+    marker = '<section class="slide slide--light" id="scene-offer"'
+    if marker not in html:
+        raise SystemExit("scene-offer not found for vs-audit inject")
+    if 'id="scene-vs-audit"' in html:
+        return html
+    return html.replace(marker, scene + marker, 1)
+
+
+def patch_sample_workspace(html: str, url: str = SAMPLE_WORKSPACE_URL) -> str:
+    """Point the Sample workspace iframe at trying.stamped.work and add an Open button."""
+    old_title = """        <div class="dash-title-row reveal">
+          <h2>Sample workspace</h2>
+          <p>Simulated data, not your plant</p>
+        </div>
+        <div class="dash-shell reveal">
+          <div class="dash-badge hide-mobile">Simulated sample</div>
+          <iframe
+            id="dashFrame"
+            data-src="https://stamped-energy.vercel.app/"
+            title="Stamped Energy simulated dashboard"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>"""
+    new_title = f"""        <div class="dash-title-row reveal dash-title-row--actions">
+          <div>
+            <h2>Sample workspace</h2>
+            <p>Live demo · trying.stamped.work · sample plant, not your site</p>
+          </div>
+          <a class="btn btn--primary" id="openSampleWorkspace" href="{url}" target="_blank" rel="noopener noreferrer">Open workspace</a>
+        </div>
+        <div class="dash-shell reveal">
+          <div class="dash-badge hide-mobile">trying.stamped.work</div>
+          <iframe
+            id="dashFrame"
+            data-src="{url}"
+            title="Stamped Energy sample workspace"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>"""
+    if old_title not in html:
+        raise SystemExit("sample workspace block not found")
+    html = html.replace(old_title, new_title, 1)
+    css = """
+    .dash-title-row--actions {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .dash-title-row--actions .btn { flex: 0 0 auto; text-decoration: none; }
+"""
+    if ".dash-title-row--actions" not in html:
+        html = html.replace("</style>", css + "\n  </style>", 1)
     return html
 
 
@@ -196,14 +295,14 @@ def build_full(mod, base: str) -> str:
     mod.HERO_BY_INDUSTRY[SLUG] = HERO
     mod.HERO_ALT[SLUG] = HERO_ALT
     html = mod.build_one(base, SLUG)
-    html = rewrite_client_paths(html, depth=1)
+    # Flat file in clients/: assets/ is local; tech is ../tech/
+    html = rewrite_client_paths(html, asset_prefix="assets/", tech_prefix="../")
     html = patch_offer_90_day(
         html,
         "Start with one works: electrical POC, two HT bills, and a walkthrough. "
         "Read-only. Kill criteria agreed upfront.",
     )
-    # deep-dive from= must match slug
-    html = html.replace("?from=machinery-oem", "?from=machinery-oem")
+    html = patch_sample_workspace(html)
     return html
 
 
@@ -215,22 +314,19 @@ def build_brief(mod, base: str) -> str:
         OFFER_PATCH,
         PACK,
         SLUG,
+        VS_AUDIT,
     )
 
-    # Use a temporary industry key that build_one accepts
     key = "lohia-corp"
     mod.PACKS[key] = PACK
     mod.HERO_BY_INDUSTRY[key] = HERO
     mod.HERO_ALT[key] = HERO_ALT
     html = mod.build_one(base, key)
     html = strip_scenes(html, KEEP_SCENES)
-    html = rewrite_client_paths(html, depth=1)
+    html = rewrite_client_paths(html, asset_prefix="assets/", tech_prefix="../")
     html = inject_brief_brand(html)
+    html = inject_vs_audit_scene(html, VS_AUDIT)
     html = patch_offer_brief(html, OFFER_PATCH)
-    # Hide second rx card emphasis on mobile via note in meta - keep both for flip demo
-    # Retarget tech links if any remain (should be stripped with scene-tech)
-    html = html.replace("?from=lohia-corp", "?from=lohia-corp")
-    # Ensure title tag matches brief
     html = re.sub(
         r"<title>.*?</title>",
         f"<title>{PACK['docTitle']}</title>",
@@ -258,6 +354,7 @@ def main() -> None:
     base = snapshot.read_text(encoding="utf-8")
 
     CLIENTS.mkdir(parents=True, exist_ok=True)
+    sync_client_assets()
 
     full = build_full(mod, base)
     full_path = CLIENTS / "machinery-oem.html"
@@ -279,7 +376,10 @@ def main() -> None:
         "Start with one works: electrical POC, two HT bills, and a walkthrough. "
         "Read-only. Kill criteria agreed upfront.",
     )
-    deploy_html = rewrite_client_paths(raw, depth=2)
+    raw = patch_sample_workspace(raw)
+    deploy_html = rewrite_client_paths(
+        raw, asset_prefix="../assets/", tech_prefix="../../"
+    )
     assert_anonymous(deploy_html, deploy_path)
     deploy_path.write_text(deploy_html, encoding="utf-8")
     print(f"wrote {deploy_path} ({len(deploy_html)} bytes)")
@@ -289,9 +389,10 @@ def main() -> None:
     brief_path.write_text(brief, encoding="utf-8")
     if not FORBIDDEN_FULL.search(brief):
         raise SystemExit("brief should contain Lohia naming")
+    if 'id="scene-vs-audit"' not in brief:
+        raise SystemExit("brief missing vs-audit scene")
     print(f"wrote {brief_path} ({len(brief)} bytes)")
 
-    # Copy robots-style note
     note = CLIENTS / "README.md"
     note.write_text(
         "# Private client decks\n\n"
@@ -300,7 +401,8 @@ def main() -> None:
         "|------|-----|\n"
         "| [machinery-oem.html](./machinery-oem.html) | Anonymous full Proof Run (packaging-machinery OEM) |\n"
         "| [machinery-oem/](./machinery-oem/) | Optional standalone deploy root |\n"
-        "| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |\n\n"
+        "| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |\n"
+        "| [assets/](./assets/) | Co-located images (open HTML from this folder) |\n\n"
         "Rebuild: `python3 scripts/build-client-decks.py`\n",
         encoding="utf-8",
     )

@@ -36,6 +36,7 @@ BRIEF_PREFIX = [
     "scene-prescription",
     "scene-floor",
     "scene-verify",
+    "scene-vs-audit",
     "scene-offer",
 ]
 
@@ -84,8 +85,30 @@ def file_gate() -> list[str]:
         issues.append("brief missing Lohia / Chaubepur naming")
     if "Chaubepur · 90-day ask" not in brief and "90-day ask" not in brief:
         issues.append("brief missing Chaubepur 90-day ask")
+    if 'id="scene-vs-audit"' not in brief:
+        issues.append("brief missing scene-vs-audit")
+    if "IIT Kanpur" not in brief and "IITK" not in brief:
+        issues.append("brief missing IIT Kanpur audit differentiation")
+    if "Not another energy audit" not in brief and "not a second audit" not in brief.lower():
+        issues.append("brief missing explicit not-an-audit framing")
     if "90-day proof run" not in full:
         issues.append("full missing 90-day proof run framing")
+    if "trying.stamped.work" not in full:
+        issues.append("full missing trying.stamped.work sample workspace")
+    if 'id="openSampleWorkspace"' not in full:
+        issues.append("full missing Open workspace button")
+    # Co-located assets must resolve next to the HTML
+    for rel in (
+        "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
+        "demo-decks/clients/assets/lohia-corp/tape-extrusion.jpg",
+        "demo-decks/clients/assets/lohia-corp/lohia-logo.svg",
+    ):
+        if not (ROOT / rel).is_file():
+            issues.append(f"missing co-located asset: {rel}")
+    if 'src="assets/machinery-oem/tape-line.jpg"' not in full:
+        issues.append("full hero src should be clients-local assets/...")
+    if 'src="assets/lohia-corp/tape-extrusion.jpg"' not in brief:
+        issues.append("brief hero src should be clients-local assets/...")
     # no em dash / en dash in user-facing copy
     for label, html in (("full", full), ("brief", brief)):
         body = re.sub(r"<style[\s\S]*?</style>", "", html)
@@ -152,6 +175,27 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
             issues.append(f"{label}: tech card missing from=machinery-oem ({href})")
         if not href.startswith("../tech/"):
             issues.append(f"{label}: tech card path should be ../tech/ ({href})")
+
+    if deck.endswith("machinery-oem.html") and "scene-live" in slides and width > 720:
+        go_to(page, "scene-live")
+        open_btn = page.locator("#openSampleWorkspace")
+        if open_btn.count() != 1:
+            issues.append(f"{label}: missing Open workspace button")
+        else:
+            href = open_btn.get_attribute("href") or ""
+            if "trying.stamped.work" not in href:
+                issues.append(f"{label}: Open workspace href={href!r}")
+            frame_src = page.locator("#dashFrame").get_attribute("src") or page.locator("#dashFrame").get_attribute("data-src") or ""
+            if "trying.stamped.work" not in frame_src:
+                issues.append(f"{label}: dashFrame src={frame_src!r}")
+
+    if deck.endswith("lohia-corp-brief.html") and "scene-vs-audit" in slides:
+        go_to(page, "scene-vs-audit")
+        body = page.locator("#scene-vs-audit").inner_text()
+        if "IIT Kanpur" not in body and "IITK" not in body:
+            issues.append(f"{label}: vs-audit slide missing IIT Kanpur mention")
+        if "audit" not in body.lower():
+            issues.append(f"{label}: vs-audit slide missing audit contrast")
 
     return issues
 

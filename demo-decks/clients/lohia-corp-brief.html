@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Stamped Energy · Lohia Corp walkthrough</title>
-  <link rel="preload" as="image" href="../assets/lohia-corp/tape-extrusion.jpg" />
+  <link rel="preload" as="image" href="assets/lohia-corp/tape-extrusion.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -2185,7 +2185,7 @@
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
             <p class="industry-chip reveal" id="industryChip">Lohia Corp</p>
-            <img class="client-logo reveal" src="../assets/lohia-corp/lohia-logo.svg" alt="Lohia Corp" width="160" height="40" loading="eager" decoding="async" style="height:36px;width:auto;margin:0.35rem 0 0.5rem;" />
+            <img class="client-logo reveal" src="assets/lohia-corp/lohia-logo.svg" alt="Lohia Corp" width="160" height="40" loading="eager" decoding="async" style="height:36px;width:auto;margin:0.35rem 0 0.5rem;" />
             <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Lohia Corp · Chaubepur operating layer after solar and VFDs</p>
             <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Lohia Corp · bill-verified next steps</p>
             <p class="brand-name reveal">Stamped Energy</p>
@@ -2208,7 +2208,7 @@
           <figure class="hero-photo reveal" id="heroPhoto">
             <img
               id="heroPhotoImg"
-              src="../assets/lohia-corp/tape-extrusion.jpg"
+              src="assets/lohia-corp/tape-extrusion.jpg"
               alt="Lohia Corp tape extrusion line"
               width="1800"
               height="1200"
@@ -2273,7 +2273,7 @@
               <div class="tl-time">07:15</div>
               <div class="tl-card tl-card--break">
                 <strong id="hookT2s">Visibility exists; assignment is thin</strong>
-                <p class="hide-mobile" id="hookT2p">Load alarms and audits log events. Floor work still needs an owner and a ₹ tag.</p>
+                <p class="hide-mobile" id="hookT2p">Load alarms and study reports log events. Floor work still needs an owner and a ₹ tag.</p>
               </div>
             </div>
             <div class="tl-item">
@@ -2311,7 +2311,7 @@
           <article class="silo-card">
             <h3>EMS</h3>
             <div class="silo-meta">
-              <div class="has" id="gapEmsHas">Has: alarms and audit history</div>
+              <div class="has" id="gapEmsHas">Has: alarms and study history</div>
               <div class="miss">Missing: who acts before next shift</div>
             </div>
           </article>
@@ -2758,12 +2758,44 @@
     
 
     <!-- 14 Offer -->
-    <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
+    
+    <section class="slide slide--light" id="scene-vs-audit" data-theme="light" aria-label="Not another energy audit">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">After the IIT Kanpur energy study</p>
+        <h2 class="reveal">A study finds opportunities. Stamped closes them on the bill.</h2>
+        <p class="lede reveal">Lohia just completed an energy audit with IIT Kanpur. That work matters. Stamped is not a second audit. It is the operating layer that assigns owners, puts ₹ on each action, and checks the next HT bill.</p>
+        <div class="bound-grid reveal" style="margin-top:1rem;">
+          <div class="bound-col bound-col--not">
+            <h3>Typical energy audit</h3>
+            <ul class="bound-list">
+              <li>Periodic study and a findings report</li>
+              <li>Recommendations without a weekly owner</li>
+              <li>Ends when the report is delivered</li>
+              <li>Rarely ties each action to an HT bill line</li>
+              <li>Easy for the floor to treat as one more PDF</li>
+            </ul>
+          </div>
+          <div class="bound-col bound-col--ot">
+            <h3>Stamped proof cycle</h3>
+            <ul class="bound-list">
+              <li>Uses your IITK findings and live meters as input</li>
+              <li>Every action: owner, due date, expected ₹</li>
+              <li>Runs every week on the shift that can change it</li>
+              <li>Potential vs realised on MD, energy, and PF</li>
+              <li>Complements Lohia DIC. Does not replace the study</li>
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:46em;">If the room only needs another diagnostic, stop here. If the gap is ownership and bill proof after the study, that is the 90-day ask.</p>
+      </div>
+    </section>
+
+<section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
       <div class="slide__inner">
         <p class="eyebrow reveal">Chaubepur · 90-day ask</p>
         <h2 class="reveal">One works. One proof cycle.</h2>
-        <p class="lede reveal hide-mobile" id="offerLedeD">Electrical POC + two consecutive HT bills + a short plant walkthrough. Read-only. Go / no-go on verified ₹.</p>
-        <p class="lede reveal show-mobile" id="offerLedeM">Electrical POC + two consecutive HT bills + a short plant walkthrough. Read-only. Go / no-go on verified ₹.</p>
+        <p class="lede reveal hide-mobile" id="offerLedeD">Not a second energy study. Electrical POC + two HT bills + a short floor walkthrough. Ranked actions with owners. Go / no-go on verified ₹.</p>
+        <p class="lede reveal show-mobile" id="offerLedeM">Not a second energy study. Electrical POC + two HT bills + a short floor walkthrough. Ranked actions with owners. Go / no-go on verified ₹.</p>
         <table class="phase-table reveal">
           <thead>
             <tr>
@@ -2774,15 +2806,15 @@
           <tbody>
             <tr>
               <td>Week 0</td>
-              <td>Name electrical POC · share two Chaubepur HT bills · scope walkthrough</td>
+              <td>Name electrical POC · share two Chaubepur HT bills · walk the floor once</td>
             </tr>
             <tr>
               <td>Days 1-30</td>
-              <td>Map meters and EMS tags · issue first ranked prescriptions · floor owners assigned</td>
+              <td>Read-only connect · turn meters + the IITK findings you already have into ranked prescriptions with owners</td>
             </tr>
             <tr>
               <td>Days 31-90</td>
-              <td>Execute · weekly review · potential vs realised on MD / energy / PF</td>
+              <td>Floor executes weekly · potential vs realised on MD / energy / PF</td>
             </tr>
             <tr>
               <td>Day 90</td>
@@ -2791,14 +2823,14 @@
           </tbody>
         </table>
         <div class="commercial reveal">
-          <span class="chip">Read-only OT</span>
-          <span class="chip">No hardware in Phase 1</span>
+          <span class="chip">Not another energy audit</span>
+          <span class="chip">Uses the IITK study as input</span>
           <span class="chip">Complements Lohia DIC</span>
-          <span class="chip">Fixed pilot band</span>
+          <span class="chip">Read-only OT</span>
         </div>
         <div class="ask-box reveal">
           <strong>Ask for tomorrow</strong>
-          <p>Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan with success criteria in ₹.</p>
+          <p>Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan with success criteria in ₹. We will not re-run the IIT Kanpur study.</p>
           <p class="ask-cal"><a href="https://calendly.com/stamped-energy/stamped-energy" target="_blank" rel="noopener noreferrer">Book a meet</a></p>
         </div>
         <p class="contact-line reveal">
@@ -2836,7 +2868,7 @@
       if (el) el.textContent = "Lohia Corp";
       var img = document.getElementById("heroPhotoImg");
       if (!img) return;
-      var rel = "../assets/lohia-corp/tape-extrusion.jpg";
+      var rel = "assets/lohia-corp/tape-extrusion.jpg";
       var resolved = new URL(rel, window.location.href).href;
       if (img.src !== resolved) img.src = resolved;
       img.addEventListener("error", function onHeroErr() {
