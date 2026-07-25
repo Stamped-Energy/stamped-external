@@ -2186,13 +2186,13 @@
             </div>
             <p class="industry-chip reveal" id="industryChip">Lohia Corp</p>
             <img class="client-logo reveal" src="assets/lohia-corp/lohia-logo.svg" alt="Lohia Corp" width="160" height="40" loading="eager" decoding="async" style="height:36px;width:auto;margin:0.35rem 0 0.5rem;" />
-            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Lohia Corp · Chaubepur operating layer after solar and VFDs</p>
+            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Lohia Corp · woven raffia machinery works after solar and VFDs</p>
             <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Lohia Corp · bill-verified next steps</p>
             <p class="brand-name reveal">Stamped Energy</p>
             <h1 class="reveal hide-mobile" id="titleH1D">Respect the capex. Own what still moves the bill.</h1>
             <h1 class="reveal show-mobile" id="titleH1M">Own what still moves the Lohia bill.</h1>
-            <p class="lede reveal hide-mobile" id="titleLedeD">You already did solar, VFDs, compressors, and chillers. Stamped assigns the next operating actions in rupees and checks them on the HT bill. Complements Lohia DIC. Does not replace it.</p>
-            <p class="lede reveal show-mobile" id="titleLedeM">After solar and VFDs: assigned ₹ actions, verified on the HT bill.</p>
+            <p class="lede reveal hide-mobile" id="titleLedeD">You build extrusion, winding, weaving, coating, and printing lines for woven raffia, multifilament, monofilament, and recycling. Stamped assigns the next operating actions on that floor in rupees and checks them on the HT bill. Complements Lohia DIC.</p>
+            <p class="lede reveal show-mobile" id="titleLedeM">On your tape, loom, and coating floors: assigned ₹ actions on the HT bill.</p>
             <div class="flow-tags reveal hide-mobile">
               <span class="chip">Physics &amp; rules</span>
               <span class="chip">Foundation models</span>
@@ -2258,7 +2258,7 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal" id="hookEyebrow">What Lohia already fixed</p>
         <h2 class="reveal" id="hookH2">Capex is done. Ownership of the residual is the gap.</h2>
-        <p class="lede reveal hide-mobile" id="hookLedeD">About 2.775 MWp solar and a reported ~17% grid reduction at your works. Compressors, VFDs, chillers, and load alarms are in place. The open question is who owns the next bill line each month.</p>
+        <p class="lede reveal hide-mobile" id="hookLedeD">About 2.775 MWp solar and a reported ~17% grid reduction at your works. Compressors, VFDs, chillers, and load alarms are in place. The open question is who owns the next bill line each month on extrusion, loom, and coating days.</p>
         <p class="lede reveal show-mobile" id="hookLedeM">Solar and VFDs are done. Who owns the next bill line?</p>
         <div class="two-col problem-top">
           <div class="timeline reveal">
@@ -2304,7 +2304,7 @@
           <article class="silo-card">
             <h3>SCADA</h3>
             <div class="silo-meta">
-              <div class="has" id="gapScadaHas">Has: line and utility run states</div>
+              <div class="has" id="gapScadaHas">Has: extrusion, loom, coating run states</div>
               <div class="miss">Missing: owner, due date, ₹ impact</div>
             </div>
           </article>
@@ -2318,7 +2318,7 @@
           <article class="silo-card">
             <h3>Meters</h3>
             <div class="silo-meta">
-              <div class="has" id="gapMetersHas">Has: MD window and load profile</div>
+              <div class="has" id="gapMetersHas">Has: MD window and line / utility profile</div>
               <div class="miss">Missing: link to a floor sequence change</div>
             </div>
           </article>
@@ -2337,51 +2337,82 @@
     
 
     <!-- 3 Savings map (early) -->
-    <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
+    
+    <section class="slide slide--light" id="scene-lohia-lines" data-theme="light" aria-label="Lohia product lines and technologies">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal" id="mathEyebrow">Where ₹ may still hide at Lohia</p>
-        <h2 class="reveal" id="mathH2">Discovery chips, not claims</h2>
-        <p class="lede reveal" id="mathLede">Hypothesis chips. Confirm on Chaubepur bills.</p>
+        <p class="eyebrow reveal">Lohia Corp · your product lines</p>
+        <h2 class="reveal">Built for the machines you make.</h2>
+        <p class="lede reveal">Woven raffia, multifilament, monofilament, and recycling are the businesses. Extrusion, winding, weaving, coating, and printing are the floors. Stamped makes energy waste on those floors owned, priced, and checked on the bill.</p>
+        <div class="bound-grid reveal" style="margin-top:1rem;">
+          <div class="bound-col bound-col--not">
+            <h3>Product families</h3>
+            <ul class="bound-list">
+              <li>Woven raffia / Packtex lines</li>
+              <li>Multifilament spin-draw</li>
+              <li>Monofilament</li>
+              <li>Recycling (ReclaPro-class)</li>
+            </ul>
+          </div>
+          <div class="bound-col bound-col--ot">
+            <h3>Where Stamped helps on your tech</h3>
+            <ul class="bound-list">
+              <li><strong>Extrusion</strong> · Tape-line starts, trial MD, preheat overlap vs utilities</li>
+              <li><strong>Winding</strong> · Winder banks and plant air when tape is not moving</li>
+              <li><strong>Weaving</strong> · Circular loom coincidence with chillers and compressors</li>
+              <li><strong>Coating</strong> · Extrusion-coating heat and idle hold between jobs</li>
+              <li><strong>Printing</strong> · Press and dryer hold when the substrate line is down</li>
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">We do not redesign your machines. We assign the next operating action on the works that builds and proves them, then verify it on the HT bill.</p>
+      </div>
+    </section>
+
+<section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal" id="mathEyebrow">Where ₹ may still hide on Lohia floors</p>
+        <h2 class="reveal" id="mathH2">Tied to your lines, not a generic plant</h2>
+        <p class="lede reveal" id="mathLede">Hypothesis chips on your machine floors. Confirm on bills.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>MD coincidence</h3>
+            <h3>Extrusion / MD</h3>
             <ul>
-              <li>Machine trials + utilities</li>
-              <li>Tape-line and chiller overlap</li>
+              <li>Tape-line trials + utilities</li>
+              <li>Preheat / start coincidence</li>
               <li>Contract demand headroom</li>
             </ul>
             <div class="waste-bill">Bill line · MD (kVA)</div>
-            <p class="waste-sample hide-mobile">Hypothesis: acceptance bay and plant air into the same MD window</p>
+            <p class="waste-sample hide-mobile">Hypothesis: tape acceptance and plant air into the same MD window</p>
           </article>
           <article class="waste-card">
-            <h3>Compressed air</h3>
+            <h3>Weaving / coating</h3>
             <ul>
-              <li>Night unload residual</li>
-              <li>Leak / load after upgrades</li>
-              <li>Bank start coincidence</li>
+              <li>Circular loom + utility overlap</li>
+              <li>Coater heat vs schedule gaps</li>
+              <li>Printing press idle hold</li>
             </ul>
             <div class="waste-bill">Bill line · Energy + MD</div>
-            <p class="waste-sample hide-mobile">Hypothesis: unload hours with no fab or trial tag</p>
+            <p class="waste-sample hide-mobile">Hypothesis: loom or coater utilities running with no production tag</p>
           </article>
           <article class="waste-card">
-            <h3>Idle CNC / test bay</h3>
+            <h3>Winding / compressed air</h3>
             <ul>
-              <li>Empty bay chillers</li>
-              <li>Holding loads</li>
-              <li>Dark-shift aux run-on</li>
+              <li>Winder bank air residual</li>
+              <li>Night unload after upgrades</li>
+              <li>Fab / pneumatics leaks</li>
             </ul>
             <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample hide-mobile">Hypothesis: aux left online when the bay is empty</p>
+            <p class="waste-sample hide-mobile">Hypothesis: air unload with winders and looms dark</p>
           </article>
           <article class="waste-card">
-            <h3>Chiller drift</h3>
+            <h3>Test bay / recycling</h3>
             <ul>
-              <li>Setpoint creep</li>
-              <li>Parallel starts</li>
-              <li>Cooling vs trial load</li>
+              <li>Machine-acceptance idle</li>
+              <li>ReclaPro / recycle aux run-on</li>
+              <li>Dark-shift holding loads</li>
             </ul>
             <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample hide-mobile">Hypothesis: chillers at full duty on light trial load</p>
+            <p class="waste-sample hide-mobile">Hypothesis: trial and recycle aux left online when bays are empty</p>
           </article>
           <article class="waste-card">
             <h3>Solar vs residual grid</h3>
@@ -2391,7 +2422,7 @@
               <li>Night / peak residual</li>
             </ul>
             <div class="waste-bill">Bill line · MD + ToD</div>
-            <p class="waste-sample hide-mobile">Hypothesis: solar cut kWh; ownership of residual MD and night load is next</p>
+            <p class="waste-sample hide-mobile">Hypothesis: solar cut kWh; ownership of residual MD on line days is next</p>
           </article>
         </div>
         <div class="bill-table-wrap reveal">
@@ -2423,7 +2454,7 @@
           <article class="do-step">
             <div class="do-step__num">01</div>
             <h3>Read existing signals</h3>
-            <p id="whatStep1">Chaubepur incomer, sub-meters, and existing SCADA / EMS tags. Read-only. No PLC writes. No hardware in Phase 1.</p>
+            <p id="whatStep1">Chaubepur incomer, sub-meters on extrusion / weaving / coating islands, and existing SCADA / EMS tags. Read-only. No PLC writes. No hardware in Phase 1.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
@@ -2459,7 +2490,7 @@
         <p class="eyebrow reveal">Sample prescriptions</p>
         <h2 class="reveal">Every action has a bill line and an owner.</h2>
         <div class="rx-layout">
-          <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Stagger machine trials and utility starts. Show evidence.">
+          <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Stagger tape-line trials and utility starts. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -2467,9 +2498,9 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action" id="rx1Action">Stagger Chaubepur machine trials vs compressor / chiller start by 10 minutes</p>
+                  <p class="rx-action" id="rx1Action">Stagger tape-extrusion / machine-acceptance trials vs compressor and chiller start by 10 minutes</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd id="rx1Why">Trial and utility coincidence is a common MD driver after solar cuts kWh</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd id="rx1Why">Trial bay load and plant air often hit the same MD window on handover</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx1Bill">MD (kVA)</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx1Owner">Electrical POC · Chaubepur · Shift B</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹Hypothesis · validate on two HT bills</strong></dd></div>
@@ -2499,7 +2530,7 @@
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
                       <tr><td><code>HT_INCOMER.MD</code></td><td>Peak window</td><td>handover</td></tr>
-                      <tr><td><code>TEST_BAY.TRIAL</code></td><td>TRUE</td><td>same window</td></tr>
+                      <tr><td><code>TAPE_LINE.TRIAL</code></td><td>TRUE</td><td>same window</td></tr>
                       <tr><td><code>COMP_BANK.A</code></td><td>ON</td><td>same window</td></tr>
                       <tr><td><code>CHILLER.START</code></td><td>ON</td><td>same window</td></tr>
                     </tbody>
@@ -2512,7 +2543,7 @@
             </div>
           </button>
 
-          <button type="button" class="rx-flip reveal hide-mobile" data-rx-flip aria-pressed="false" aria-label="Cut night unload baseload. Show evidence.">
+          <button type="button" class="rx-flip reveal hide-mobile" data-rx-flip aria-pressed="false" aria-label="Cut night unload when looms and coaters are dark. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -2520,9 +2551,9 @@
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action" id="rx2Action">Stage plant-air unload offline in the planned night window</p>
+                  <p class="rx-action" id="rx2Action">Stage plant-air unload offline when weaving / coating / fab bays are dark</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd id="rx2Why">Residual air load after compressor upgrades often still hits night energy</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd id="rx2Why">Residual air after compressor upgrades still hits night energy with no loom or coater tag</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx2Bill">Energy (kWh) · night</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx2Owner">Utilities · Chaubepur</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹Hypothesis · validate on energy line</strong></dd></div>
@@ -2554,8 +2585,8 @@
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
                       <tr><td><code>BANK_B.RUN</code></td><td>ON · unload</td><td>night</td></tr>
-                      <tr><td><code>FAB.PROD</code></td><td>0 tags</td><td>same window</td></tr>
-                      <tr><td><code>BANK_B.kWh</code></td><td>Residual</td><td>per event</td></tr>
+                      <tr><td><code>LOOM.PROD</code></td><td>0 tags</td><td>same window</td></tr>
+                      <tr><td><code>COATER.RUN</code></td><td>OFF</td><td>same window</td></tr>
                       <tr><td><code>NIGHT.UNLOAD</code></td><td>TRUE</td><td>planned</td></tr>
                     </tbody>
                   </table>
@@ -2653,7 +2684,7 @@
                     <div class="wa-msg" id="floorMsg">
                       <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge alarm and fix">
                         <span class="tag" id="floorTag">Alarm · High</span>
-                        <h4 id="floorTitle">Stagger trials vs utility starts by 10 min</h4>
+                        <h4 id="floorTitle">Stagger tape trials vs utility starts by 10 min</h4>
                         <div class="wa-bubble__divider" aria-hidden="true"></div>
                         <p class="wa-line" id="floorWhy"><b>Alarm:</b> MD peak hypothesis at Chaubepur handover</p>
                         <p class="wa-line" id="floorImpact"><b>Impact:</b> Validate on MD line</p>
@@ -2716,19 +2747,19 @@
             </thead>
             <tbody>
               <tr>
-                <td>MD stagger · trial/utility</td>
+                <td>MD stagger · tape trial/utility</td>
                 <td>Baseline MD</td>
                 <td>10-min trial lag</td>
                 <td>TO PROVE</td>
               </tr>
               <tr>
-                <td>Night air unload cut</td>
+                <td>Night air · dark loom/coater</td>
                 <td>Night kWh</td>
                 <td>Bank staging</td>
                 <td>TO PROVE</td>
               </tr>
               <tr>
-                <td>CNC idle aux off</td>
+                <td>Fab idle aux off</td>
                 <td>Empty-bay hours</td>
                 <td>Aux shutdown SOP</td>
                 <td>TO PROVE</td>
@@ -2794,8 +2825,8 @@
       <div class="slide__inner">
         <p class="eyebrow reveal">Chaubepur · 90-day ask</p>
         <h2 class="reveal">One works. One proof cycle.</h2>
-        <p class="lede reveal hide-mobile" id="offerLedeD">Not another energy audit. Electrical POC + two HT bills + a short floor walkthrough. Ranked actions with owners. Go / no-go on verified ₹.</p>
-        <p class="lede reveal show-mobile" id="offerLedeM">Not another energy audit. Electrical POC + two HT bills + a short floor walkthrough. Ranked actions with owners. Go / no-go on verified ₹.</p>
+        <p class="lede reveal hide-mobile" id="offerLedeD">Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹.</p>
+        <p class="lede reveal show-mobile" id="offerLedeM">Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹.</p>
         <table class="phase-table reveal">
           <thead>
             <tr>
@@ -2806,11 +2837,11 @@
           <tbody>
             <tr>
               <td>Week 0</td>
-              <td>Name electrical POC · share two Chaubepur HT bills · walk the floor once</td>
+              <td>Name electrical POC · share two Chaubepur HT bills · walk tape, loom, and coating floors once</td>
             </tr>
             <tr>
               <td>Days 1-30</td>
-              <td>Read-only connect · turn your meters and EMS tags into ranked prescriptions with owners</td>
+              <td>Read-only connect · turn meters on those islands into ranked prescriptions with owners</td>
             </tr>
             <tr>
               <td>Days 31-90</td>
@@ -2824,13 +2855,13 @@
         </table>
         <div class="commercial reveal">
           <span class="chip">Not another energy audit</span>
-          <span class="chip">Owner + ₹ on every action</span>
+          <span class="chip">Extrusion · loom · coating focus</span>
           <span class="chip">Complements Lohia DIC</span>
           <span class="chip">Read-only OT</span>
         </div>
         <div class="ask-box reveal">
           <strong>Ask for tomorrow</strong>
-          <p>Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan with success criteria in ₹. This is floor execution and bill proof, not a fresh energy audit.</p>
+          <p>Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan tied to your machine floors, with success criteria in ₹. Floor execution and bill proof, not a fresh energy audit.</p>
           <p class="ask-cal"><a href="https://calendly.com/stamped-energy/stamped-energy" target="_blank" rel="noopener noreferrer">Book a meet</a></p>
         </div>
         <p class="contact-line reveal">
@@ -2861,7 +2892,7 @@
   
   <script>
     /* Industry chrome + floor prescriptions + resolve hero against this HTML file's URL */
-    window.__FLOOR_RX__ = [{"title": "Stagger trials vs utility starts by 10 min", "why": "MD peak hypothesis at Chaubepur handover", "impact": "Validate on MD line", "owner": "Electrical POC · Chaubepur", "priority": "High", "due": "First proof cycle"}, {"title": "Stage night air unload offline", "why": "Residual unload kWh after compressor program", "impact": "Validate on energy line", "owner": "Utilities · Chaubepur", "priority": "High", "due": "First proof cycle"}, {"title": "Idle CNC aux off when bay is dark", "why": "Empty-bay holding loads still on grid", "impact": "Validate on energy line", "owner": "Fab lead · Chaubepur", "priority": "Med", "due": "First proof cycle"}];
+    window.__FLOOR_RX__ = [{"title": "Stagger tape trials vs utility starts by 10 min", "why": "MD peak hypothesis at Chaubepur handover", "impact": "Validate on MD line", "owner": "Electrical POC · Chaubepur", "priority": "High", "due": "First proof cycle"}, {"title": "Stage night air when looms / coaters are dark", "why": "Unload kWh with no weaving or coating tag", "impact": "Validate on energy line", "owner": "Utilities · Chaubepur", "priority": "High", "due": "First proof cycle"}, {"title": "Idle CNC / fab aux off when bay is dark", "why": "Empty fab bay holding loads still on grid", "impact": "Validate on energy line", "owner": "Fab lead · Chaubepur", "priority": "Med", "due": "First proof cycle"}];
     (function () {
       var el = document.getElementById("chromeIndustry");
       if (el) el.textContent = "Lohia Corp";

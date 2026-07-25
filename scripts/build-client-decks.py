@@ -208,6 +208,48 @@ def inject_brief_brand(html: str) -> str:
     return html
 
 
+def inject_lohia_lines_scene(html: str, lines: dict) -> str:
+    """Named brief only: Lohia product families + machine technologies."""
+    fam = "\n".join(f"              <li>{item}</li>" for item in lines["families"])
+    tech = "\n".join(
+        f"              <li><strong>{name}</strong> — {desc}</li>"
+        for name, desc in lines["tech"]
+    )
+    # Use middle-dot instead of em dash for client copy consistency
+    tech = tech.replace(" — ", " · ")
+    scene = f"""
+    <section class="slide slide--light" id="scene-lohia-lines" data-theme="light" aria-label="Lohia product lines and technologies">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">{lines["eyebrow"]}</p>
+        <h2 class="reveal">{lines["h2"]}</h2>
+        <p class="lede reveal">{lines["lede"]}</p>
+        <div class="bound-grid reveal" style="margin-top:1rem;">
+          <div class="bound-col bound-col--not">
+            <h3>{lines["families_title"]}</h3>
+            <ul class="bound-list">
+{fam}
+            </ul>
+          </div>
+          <div class="bound-col bound-col--ot">
+            <h3>{lines["tech_title"]}</h3>
+            <ul class="bound-list">
+{tech}
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">{lines["note"]}</p>
+      </div>
+    </section>
+
+"""
+    marker = '<section class="slide slide--light" id="scene-math"'
+    if marker not in html:
+        raise SystemExit("scene-math not found for lohia-lines inject")
+    if 'id="scene-lohia-lines"' in html:
+        return html
+    return html.replace(marker, scene + marker, 1)
+
+
 def inject_vs_audit_scene(html: str, vs: dict) -> str:
     left = "\n".join(f"              <li>{item}</li>" for item in vs["left"])
     right = "\n".join(f"              <li>{item}</li>" for item in vs["right"])
@@ -318,6 +360,7 @@ def build_brief(mod, base: str) -> str:
         HERO,
         HERO_ALT,
         KEEP_SCENES,
+        LOHIA_LINES,
         OFFER_PATCH,
         PACK,
         SLUG,
@@ -332,6 +375,7 @@ def build_brief(mod, base: str) -> str:
     html = strip_scenes(html, KEEP_SCENES)
     html = rewrite_client_paths(html, asset_prefix="assets/", tech_prefix="../")
     html = inject_brief_brand(html)
+    html = inject_lohia_lines_scene(html, LOHIA_LINES)
     html = inject_vs_audit_scene(html, VS_AUDIT)
     html = patch_offer_brief(html, OFFER_PATCH)
     html = re.sub(
@@ -398,6 +442,8 @@ def main() -> None:
         raise SystemExit("brief should contain Lohia naming")
     if 'id="scene-vs-audit"' not in brief:
         raise SystemExit("brief missing vs-audit scene")
+    if 'id="scene-lohia-lines"' not in brief:
+        raise SystemExit("brief missing lohia-lines scene")
     print(f"wrote {brief_path} ({len(brief)} bytes)")
 
     write_clients_hub()
@@ -485,7 +531,7 @@ CLIENT_HUB = """<!DOCTYPE html>
     <div class="grid">
       <a class="card" href="./lohia-corp-brief.html">
         <strong>Lohia Corp · brief</strong>
-        <span>Short named walkthrough for the meeting. Solar / VFD respect, energy audit vs Stamped, Chaubepur 90-day ask.</span>
+        <span>Named walkthrough: woven raffia lines, extrusion to printing, energy audit vs Stamped, Chaubepur 90-day ask.</span>
         <em>Open Lohia brief →</em>
       </a>
       <a class="card" href="./machinery-oem.html">

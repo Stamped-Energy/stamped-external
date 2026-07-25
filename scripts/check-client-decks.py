@@ -31,6 +31,7 @@ FULL_PREFIX = [
 BRIEF_PREFIX = [
     "scene-title",
     "scene-hook",
+    "scene-lohia-lines",
     "scene-math",
     "scene-what",
     "scene-prescription",
@@ -100,6 +101,19 @@ def file_gate() -> list[str]:
         issues.append("brief missing Chaubepur 90-day ask")
     if 'id="scene-vs-audit"' not in brief:
         issues.append("brief missing scene-vs-audit")
+    if 'id="scene-lohia-lines"' not in brief:
+        issues.append("brief missing scene-lohia-lines")
+    for needle in (
+        "Woven raffia",
+        "Multifilament",
+        "Monofilament",
+        "Extrusion",
+        "Weaving",
+        "Coating",
+        "Printing",
+    ):
+        if needle not in brief:
+            issues.append(f"brief missing Lohia-specific term: {needle}")
     if re.search(r"\bIIT\b|IITK|Roorkee", brief, re.I):
         issues.append("brief must not mention IIT / IITK / Roorkee (client-facing)")
     if "Energy audit vs Stamped" not in brief:

@@ -9,12 +9,13 @@ from __future__ import annotations
 KEEP_SCENES = [
     "scene-title",
     "scene-hook",
+    # scene-lohia-lines injected after hook by the client builder
     "scene-math",
     "scene-what",
     "scene-prescription",
     "scene-floor",
     "scene-verify",
-    # scene-vs-audit is injected by the client builder (not in the shared base)
+    # scene-vs-audit injected before offer by the client builder
     "scene-offer",
 ]
 
@@ -23,17 +24,17 @@ PACK = {
     "docTitle": "Stamped Energy · Lohia Corp walkthrough",
     "chromeHint": "Lohia Corp",
     "title": {
-        "eyebrowD": "Lohia Corp · Chaubepur operating layer after solar and VFDs",
+        "eyebrowD": "Lohia Corp · woven raffia machinery works after solar and VFDs",
         "eyebrowM": "Lohia Corp · bill-verified next steps",
         "h1D": "Respect the capex. Own what still moves the bill.",
         "h1M": "Own what still moves the Lohia bill.",
-        "ledeD": "You already did solar, VFDs, compressors, and chillers. Stamped assigns the next operating actions in rupees and checks them on the HT bill. Complements Lohia DIC. Does not replace it.",
-        "ledeM": "After solar and VFDs: assigned ₹ actions, verified on the HT bill.",
+        "ledeD": "You build extrusion, winding, weaving, coating, and printing lines for woven raffia, multifilament, monofilament, and recycling. Stamped assigns the next operating actions on that floor in rupees and checks them on the HT bill. Complements Lohia DIC.",
+        "ledeM": "On your tape, loom, and coating floors: assigned ₹ actions on the HT bill.",
     },
     "hook": {
         "eyebrow": "What Lohia already fixed",
         "h2": "Capex is done. Ownership of the residual is the gap.",
-        "ledeD": "About 2.775 MWp solar and a reported ~17% grid reduction at your works. Compressors, VFDs, chillers, and load alarms are in place. The open question is who owns the next bill line each month.",
+        "ledeD": "About 2.775 MWp solar and a reported ~17% grid reduction at your works. Compressors, VFDs, chillers, and load alarms are in place. The open question is who owns the next bill line each month on extrusion, loom, and coating days.",
         "ledeM": "Solar and VFDs are done. Who owns the next bill line?",
         "t1s": "Solar and efficiency capex already shipped",
         "t1p": "Rooftop solar plus compressor / VFD / chiller work is on record.",
@@ -46,18 +47,18 @@ PACK = {
         "statImpactLabel": "Ownership + ₹ + bill proof",
     },
     "gapHas": {
-        "scada": "Has: line and utility run states",
+        "scada": "Has: extrusion, loom, coating run states",
         "ems": "Has: alarms and study history",
-        "meters": "Has: MD window and load profile",
+        "meters": "Has: MD window and line / utility profile",
         "bill": "Has: MD, energy, PF line items",
     },
-    "whatLede": "Stamped sits on top of the data Lohia already runs. Ranked actions in rupees, floor delivery, bill close-out. Complements DIC / SCADA visibility.",
-    "whatStep1": "Chaubepur incomer, sub-meters, and existing SCADA / EMS tags. Read-only. No PLC writes. No hardware in Phase 1.",
+    "whatLede": "Stamped sits on top of the data Lohia already runs across tape lines, winders, circular looms, coating, and printing. Ranked actions in rupees, floor delivery, bill close-out. Complements DIC.",
+    "whatStep1": "Chaubepur incomer, sub-meters on extrusion / weaving / coating islands, and existing SCADA / EMS tags. Read-only. No PLC writes. No hardware in Phase 1.",
     "rx1": {
         "badge": "Rx · MD coincidence",
-        "aria": "Stagger machine trials and utility starts. Show evidence.",
-        "action": "Stagger Chaubepur machine trials vs compressor / chiller start by 10 minutes",
-        "why": "Trial and utility coincidence is a common MD driver after solar cuts kWh",
+        "aria": "Stagger tape-line trials and utility starts. Show evidence.",
+        "action": "Stagger tape-extrusion / machine-acceptance trials vs compressor and chiller start by 10 minutes",
+        "why": "Trial bay load and plant air often hit the same MD window on handover",
         "bill": "MD (kVA)",
         "owner": "Electrical POC · Chaubepur · Shift B",
         "impact": "Hypothesis · validate on two HT bills",
@@ -67,7 +68,7 @@ PACK = {
         "evTitle": "Sample signal window · shift handover",
         "tags": [
             ("HT_INCOMER.MD", "Peak window", "handover"),
-            ("TEST_BAY.TRIAL", "TRUE", "same window"),
+            ("TAPE_LINE.TRIAL", "TRUE", "same window"),
             ("COMP_BANK.A", "ON", "same window"),
             ("CHILLER.START", "ON", "same window"),
         ],
@@ -75,9 +76,9 @@ PACK = {
     },
     "rx2": {
         "badge": "Rx · Compressed air",
-        "aria": "Cut night unload baseload. Show evidence.",
-        "action": "Stage plant-air unload offline in the planned night window",
-        "why": "Residual air load after compressor upgrades often still hits night energy",
+        "aria": "Cut night unload when looms and coaters are dark. Show evidence.",
+        "action": "Stage plant-air unload offline when weaving / coating / fab bays are dark",
+        "why": "Residual air after compressor upgrades still hits night energy with no loom or coater tag",
         "bill": "Energy (kWh) · night",
         "owner": "Utilities · Chaubepur",
         "impact": "Hypothesis · validate on energy line",
@@ -87,15 +88,15 @@ PACK = {
         "evTitle": "Night unload · sample pattern",
         "tags": [
             ("BANK_B.RUN", "ON · unload", "night"),
-            ("FAB.PROD", "0 tags", "same window"),
-            ("BANK_B.kWh", "Residual", "per event"),
+            ("LOOM.PROD", "0 tags", "same window"),
+            ("COATER.RUN", "OFF", "same window"),
             ("NIGHT.UNLOAD", "TRUE", "planned"),
         ],
         "cite": "physics/idle_hold@v1.8 · walkthrough hypothesis · confirm on energy line",
     },
     "floor": [
         {
-            "title": "Stagger trials vs utility starts by 10 min",
+            "title": "Stagger tape trials vs utility starts by 10 min",
             "why": "MD peak hypothesis at Chaubepur handover",
             "impact": "Validate on MD line",
             "owner": "Electrical POC · Chaubepur",
@@ -103,16 +104,16 @@ PACK = {
             "due": "First proof cycle",
         },
         {
-            "title": "Stage night air unload offline",
-            "why": "Residual unload kWh after compressor program",
+            "title": "Stage night air when looms / coaters are dark",
+            "why": "Unload kWh with no weaving or coating tag",
             "impact": "Validate on energy line",
             "owner": "Utilities · Chaubepur",
             "priority": "High",
             "due": "First proof cycle",
         },
         {
-            "title": "Idle CNC aux off when bay is dark",
-            "why": "Empty-bay holding loads still on grid",
+            "title": "Idle CNC / fab aux off when bay is dark",
+            "why": "Empty fab bay holding loads still on grid",
             "impact": "Validate on energy line",
             "owner": "Fab lead · Chaubepur",
             "priority": "Med",
@@ -120,55 +121,55 @@ PACK = {
         },
     ],
     "verify": [
-        ("MD stagger · trial/utility", "Baseline MD", "10-min trial lag", "TO PROVE"),
-        ("Night air unload cut", "Night kWh", "Bank staging", "TO PROVE"),
-        ("CNC idle aux off", "Empty-bay hours", "Aux shutdown SOP", "TO PROVE"),
+        ("MD stagger · tape trial/utility", "Baseline MD", "10-min trial lag", "TO PROVE"),
+        ("Night air · dark loom/coater", "Night kWh", "Bank staging", "TO PROVE"),
+        ("Fab idle aux off", "Empty-bay hours", "Aux shutdown SOP", "TO PROVE"),
     ],
     "math": {
-        "eyebrow": "Where ₹ may still hide at Lohia",
-        "h2": "Discovery chips, not claims",
-        "ledeD": "We will not invent a savings percent. These are the first places we check with your electrical team and two HT bills.",
-        "ledeM": "Hypothesis chips. Confirm on Chaubepur bills.",
+        "eyebrow": "Where ₹ may still hide on Lohia floors",
+        "h2": "Tied to your lines, not a generic plant",
+        "ledeD": "Hypothesis chips only. We confirm with your electrical team and two HT bills across extrusion, winding, weaving, coating, and printing.",
+        "ledeM": "Hypothesis chips on your machine floors. Confirm on bills.",
         "cards": [
             (
-                "MD coincidence",
+                "Extrusion / MD",
                 [
-                    "Machine trials + utilities",
-                    "Tape-line and chiller overlap",
+                    "Tape-line trials + utilities",
+                    "Preheat / start coincidence",
                     "Contract demand headroom",
                 ],
                 "Bill line · MD (kVA)",
-                "Hypothesis: acceptance bay and plant air into the same MD window",
+                "Hypothesis: tape acceptance and plant air into the same MD window",
             ),
             (
-                "Compressed air",
+                "Weaving / coating",
                 [
-                    "Night unload residual",
-                    "Leak / load after upgrades",
-                    "Bank start coincidence",
+                    "Circular loom + utility overlap",
+                    "Coater heat vs schedule gaps",
+                    "Printing press idle hold",
                 ],
                 "Bill line · Energy + MD",
-                "Hypothesis: unload hours with no fab or trial tag",
+                "Hypothesis: loom or coater utilities running with no production tag",
             ),
             (
-                "Idle CNC / test bay",
+                "Winding / compressed air",
                 [
-                    "Empty bay chillers",
-                    "Holding loads",
-                    "Dark-shift aux run-on",
+                    "Winder bank air residual",
+                    "Night unload after upgrades",
+                    "Fab / pneumatics leaks",
                 ],
                 "Bill line · Energy (kWh)",
-                "Hypothesis: aux left online when the bay is empty",
+                "Hypothesis: air unload with winders and looms dark",
             ),
             (
-                "Chiller drift",
+                "Test bay / recycling",
                 [
-                    "Setpoint creep",
-                    "Parallel starts",
-                    "Cooling vs trial load",
+                    "Machine-acceptance idle",
+                    "ReclaPro / recycle aux run-on",
+                    "Dark-shift holding loads",
                 ],
                 "Bill line · Energy (kWh)",
-                "Hypothesis: chillers at full duty on light trial load",
+                "Hypothesis: trial and recycle aux left online when bays are empty",
             ),
             (
                 "Solar vs residual grid",
@@ -178,13 +179,13 @@ PACK = {
                     "Night / peak residual",
                 ],
                 "Bill line · MD + ToD",
-                "Hypothesis: solar cut kWh; ownership of residual MD and night load is next",
+                "Hypothesis: solar cut kWh; ownership of residual MD on line days is next",
             ),
         ],
     },
-    "techBullet": "MD coincidence, compressed air, idle CNC, chiller drift, solar vs residual grid",
-    "offerLedeD": "Chaubepur 90-day proof: electrical POC, two HT bills, one walkthrough. Read-only. Kill criteria agreed upfront.",
-    "offerLedeM": "Chaubepur 90 days. POC + two HT bills + walkthrough.",
+    "techBullet": "Tape extrusion MD, loom/coater idle, winding air, trial bays, solar vs residual grid",
+    "offerLedeD": "Chaubepur 90-day proof on one works: electrical POC, two HT bills, walkthrough of extrusion / weaving / coating. Read-only. Kill criteria upfront.",
+    "offerLedeM": "Chaubepur 90 days on your machine floors. POC + two HT bills.",
 }
 
 HERO = "assets/lohia-corp/tape-extrusion.jpg"
@@ -194,15 +195,15 @@ SLUG = "lohia-corp-brief"
 OFFER_PATCH = {
     "eyebrow": "Chaubepur · 90-day ask",
     "h2": "One works. One proof cycle.",
-    "lede": "Not another energy audit. Electrical POC + two HT bills + a short floor walkthrough. Ranked actions with owners. Go / no-go on verified ₹.",
+    "lede": "Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹.",
     "rows": [
         (
             "Week 0",
-            "Name electrical POC · share two Chaubepur HT bills · walk the floor once",
+            "Name electrical POC · share two Chaubepur HT bills · walk tape, loom, and coating floors once",
         ),
         (
             "Days 1-30",
-            "Read-only connect · turn your meters and EMS tags into ranked prescriptions with owners",
+            "Read-only connect · turn meters on those islands into ranked prescriptions with owners",
         ),
         (
             "Days 31-90",
@@ -215,12 +216,35 @@ OFFER_PATCH = {
     ],
     "chips": [
         "Not another energy audit",
-        "Owner + ₹ on every action",
+        "Extrusion · loom · coating focus",
         "Complements Lohia DIC",
         "Read-only OT",
     ],
     "ask_title": "Ask for tomorrow",
-    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan with success criteria in ₹. This is floor execution and bill proof, not a fresh energy audit.",
+    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page proof plan tied to your machine floors, with success criteria in ₹. Floor execution and bill proof, not a fresh energy audit.",
+}
+
+# Injected after scene-hook by build-client-decks.py
+LOHIA_LINES = {
+    "eyebrow": "Lohia Corp · your product lines",
+    "h2": "Built for the machines you make.",
+    "lede": "Woven raffia, multifilament, monofilament, and recycling are the businesses. Extrusion, winding, weaving, coating, and printing are the floors. Stamped makes energy waste on those floors owned, priced, and checked on the bill.",
+    "families_title": "Product families",
+    "families": [
+        "Woven raffia / Packtex lines",
+        "Multifilament spin-draw",
+        "Monofilament",
+        "Recycling (ReclaPro-class)",
+    ],
+    "tech_title": "Where Stamped helps on your tech",
+    "tech": [
+        ("Extrusion", "Tape-line starts, trial MD, preheat overlap vs utilities"),
+        ("Winding", "Winder banks and plant air when tape is not moving"),
+        ("Weaving", "Circular loom coincidence with chillers and compressors"),
+        ("Coating", "Extrusion-coating heat and idle hold between jobs"),
+        ("Printing", "Press and dryer hold when the substrate line is down"),
+    ],
+    "note": "We do not redesign your machines. We assign the next operating action on the works that builds and proves them, then verify it on the HT bill.",
 }
 
 # Injected before scene-offer by build-client-decks.py
