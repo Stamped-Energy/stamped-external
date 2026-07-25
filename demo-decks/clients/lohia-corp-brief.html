@@ -215,6 +215,7 @@
     .rx-row,
     .status-item,
     .waste-card,
+    .equip-card,
     .ba-list li,
     .bound-list li,
     .ledger-table tbody tr,
@@ -229,25 +230,28 @@
     .slide.active .rx-row,
     .slide.active .status-item,
     .slide.active .waste-card,
+    .slide.active .equip-card,
     .slide.active .ba-list li,
     .slide.active .bound-list li,
     .slide.active .ledger-table tbody tr,
     .slide.active .phase-table tbody tr {
       animation: itemIn 0.46s var(--ease) forwards;
     }
-    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(1) { animation-delay: 0.16s; }
-    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(2) { animation-delay: 0.23s; }
-    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(3) { animation-delay: 0.30s; }
-    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(4) { animation-delay: 0.37s; }
-    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(5) { animation-delay: 0.44s; }
-    .slide.active :is(.rx-row,.bound-list li):nth-child(6) { animation-delay: 0.51s; }
+    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.equip-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(1) { animation-delay: 0.16s; }
+    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.equip-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(2) { animation-delay: 0.23s; }
+    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.equip-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(3) { animation-delay: 0.30s; }
+    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.equip-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(4) { animation-delay: 0.37s; }
+    .slide.active :is(.tl-item,.silo-card,.do-step,.loop-nav-item,.rx-row,.status-item,.waste-card,.equip-card,.ba-list li,.bound-list li,.ledger-table tbody tr,.phase-table tbody tr):nth-child(5) { animation-delay: 0.44s; }
+    .slide.active :is(.rx-row,.bound-list li,.equip-card):nth-child(6) { animation-delay: 0.51s; }
+    .slide.active .equip-card:nth-child(7) { animation-delay: 0.58s; }
+    .slide.active .equip-card:nth-child(8) { animation-delay: 0.65s; }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; }
       .slide.active .reveal { animation: none; }
       .slide.active > .slide__inner { animation: none; }
       .tl-item, .silo-card, .do-step, .loop-nav-item, .rx-row, .status-item,
-      .waste-card, .ba-list li, .bound-list li, .ledger-table tbody tr,
+      .waste-card, .equip-card, .ba-list li, .bound-list li, .ledger-table tbody tr,
       .phase-table tbody tr { opacity: 1; transform: none; animation: none !important; }
       .progress__fill, .nav-btn, .dots__dot { transition: none; }
       .draw-on-active, .grow-on-active, .pulse-on-active { animation: none !important; }
@@ -1602,6 +1606,55 @@
       content: ""; position: absolute; left: 0; top: 0.45em;
       width: 6px; height: 6px; border-radius: 1px; background: var(--tertiary);
     }
+
+    /* Lohia equipment gallery (separate slide) */
+    #scene-lohia-equipment .lede { margin-bottom: 0.65rem; }
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+    .equip-card {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 26px -22px rgba(5, 31, 19, 0.14);
+    }
+    .equip-card__img {
+      height: clamp(76px, 11vh, 112px);
+      background: linear-gradient(180deg, #f6f7f6 0%, #eef0ee 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem 0.55rem;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .equip-card__img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .equip-card__cap {
+      padding: 0.55rem 0.65rem 0.65rem;
+    }
+    .equip-card__cap strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      color: var(--tertiary);
+      margin-bottom: 0.15rem;
+    }
+    .equip-card__cap span {
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: var(--on-surface-variant);
+    }
+
     .protocol-row {
       display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem;
     }
@@ -1761,6 +1814,7 @@
 
     @media (max-width: 1100px) {
       .waste-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .equip-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .do-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .do-arrow { display: none; }
@@ -2076,6 +2130,18 @@
       .waste-card ul li:nth-child(n+3) { display: none; }
       .waste-card h3 { font-size: 0.92rem; }
       .waste-card { padding: 0.75rem 0.8rem; }
+      .equip-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+      }
+      .equip-card__img { height: clamp(72px, 11vh, 96px); }
+      #scene-lohia-equipment .slide__inner { transform: none; }
+      #scene-lohia-equipment.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
+      }
       #scene-math .slide__inner { transform: none; }
       #scene-math.slide {
         justify-content: flex-start;
@@ -2151,6 +2217,10 @@
       #scene-title .brand-name { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
       #scene-title h1 { font-size: clamp(1.2rem, 2.2vw, 1.55rem); }
       .slide__inner { transform: translateY(-1vh); }
+      #scene-lohia-equipment .equip-grid { gap: 0.5rem; margin-top: 0.55rem; }
+      #scene-lohia-equipment .equip-card__img { height: clamp(64px, 9vh, 88px); }
+      #scene-lohia-equipment .equip-card__cap { padding: 0.4rem 0.55rem 0.5rem; }
+      #scene-lohia-equipment .equip-card__cap span { font-size: 0.68rem; }
     }
 
     @media (pointer: coarse) {
@@ -2366,6 +2436,88 @@
           </div>
         </div>
         <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">We do not redesign your machines. We help your team act on energy and early-warning signals while those machines are running, then check the result on the HT bill.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-lohia-equipment" data-theme="light" aria-label="Lohia Corp equipment gallery">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Lohia Corp equipment</p>
+        <h2 class="reveal">The lines on your shop floor</h2>
+        <p class="lede reveal">Product shots from your extrusion, winding, weaving, coating, printing, conversion, and recycling portfolio — the same machines Stamped monitors for energy and early-warning signals.</p>
+        <div class="equip-grid">
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Extrusion_2.png" alt="Lohia Corp tape extrusion line" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Extrusion</strong>
+              <span>Tape-line starts, trial MD, preheat overlap with utilities</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Winders_2.png" alt="Lohia Corp winder banks" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Winding</strong>
+              <span>Winder banks and plant air when tape is not moving</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Waving_2.png" alt="Lohia Corp circular loom" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Weaving</strong>
+              <span>Circular loom coincidence with chillers and compressors</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Coating_2.png" alt="Lohia Corp lamination and coating line" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Coating</strong>
+              <span>Extrusion-coating heat and idle hold between jobs</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Printing_2.png" alt="Lohia Corp flexographic printing press" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Printing</strong>
+              <span>Press and dryer hold when the substrate line is down</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Group%201597882379.png" alt="Lohia Corp Loflex printing press" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Early warnings</strong>
+              <span>Signals on your lines that flag machine or utility trouble before a breakdown</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Conversion_2.png" alt="Lohia Corp conversion line" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Conversion</strong>
+              <span>Packtex bag conversion and finishing lines</span>
+            </div>
+          </article>
+          <article class="equip-card">
+            <div class="equip-card__img">
+              <img data-src="Full%20Image%20Recla%20Pro_RPX09558_Recycling.png" alt="Lohia Corp ReclaPro recycling system" decoding="async" />
+            </div>
+            <div class="equip-card__cap">
+              <strong>Recycling</strong>
+              <span>ReclaPro and scrap reprocessing equipment</span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -3084,6 +3236,16 @@
       }
       if (floorRx.length) resetFloorPhone();
 
+      function loadEquipImages(slide) {
+        if (!slide || slide.id !== "scene-lohia-equipment") return;
+        slide.querySelectorAll(".equip-card__img img[data-src]").forEach(function (img) {
+          var rel = img.getAttribute("data-src");
+          if (!rel || img.getAttribute("src")) return;
+          img.setAttribute("src", new URL(rel, window.location.href).href);
+          img.removeAttribute("data-src");
+        });
+      }
+
       function goTo(i, force) {
         if (i < 0 || i >= total) return;
         if (i === index && !force) return;
@@ -3105,6 +3267,7 @@
         const slide = slides[index];
         slide.classList.add("active");
         slide.scrollTop = 0;
+        loadEquipImages(slide);
         document.body.setAttribute("data-theme", "light");
         if (slide.id === "scene-floor") resetFloorPhone();
 
