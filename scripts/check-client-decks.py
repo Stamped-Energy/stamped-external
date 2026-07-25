@@ -31,11 +31,13 @@ FULL_PREFIX = [
 BRIEF_PREFIX = [
     "scene-title",
     "scene-hook",
+    "scene-lohia-lines",
     "scene-math",
     "scene-what",
     "scene-prescription",
     "scene-floor",
     "scene-verify",
+    "scene-vs-audit",
     "scene-offer",
 ]
 
@@ -77,15 +79,69 @@ def file_gate() -> list[str]:
     issues: list[str] = []
     full = (ROOT / FULL).read_text(encoding="utf-8")
     brief = (ROOT / BRIEF).read_text(encoding="utf-8")
+    hub = (ROOT / "demo-decks/index.html").read_text(encoding="utf-8")
+    root_hub = (ROOT / "index.html").read_text(encoding="utf-8")
+    clients_hub = ROOT / "demo-decks/clients/index.html"
+    if not clients_hub.is_file():
+        issues.append("missing demo-decks/clients/index.html picker")
+    else:
+        ch = clients_hub.read_text(encoding="utf-8")
+        if "lohia-corp-brief.html" not in ch or "machinery-oem.html" not in ch:
+            issues.append("clients hub missing deck links")
+    if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
+        issues.append("demo-decks hub missing Clients link")
+    if "demo-decks/clients/" not in root_hub:
+        issues.append("repo root hub missing demo-decks/clients/ link")
     hits = sorted(set(FORBIDDEN.findall(full)))
     if hits:
         issues.append(f"full naming gate failed: {hits}")
     if not FORBIDDEN.search(brief):
         issues.append("brief missing Lohia / Chaubepur naming")
-    if "Chaubepur · 90-day ask" not in brief and "90-day ask" not in brief:
-        issues.append("brief missing Chaubepur 90-day ask")
-    if "90-day proof run" not in full:
-        issues.append("full missing 90-day proof run framing")
+    if "Chaubepur · 60-day ask" not in brief and "60-day ask" not in brief:
+        issues.append("brief missing Chaubepur 60-day ask")
+    if "90-day" in brief.lower() or "Day 90" in brief:
+        issues.append("brief still mentions 90-day pilot (should be 60-day)")
+    if 'id="scene-vs-audit"' not in brief:
+        issues.append("brief missing scene-vs-audit")
+    if 'id="scene-lohia-lines"' not in brief:
+        issues.append("brief missing scene-lohia-lines")
+    for needle in (
+        "Woven raffia",
+        "Multifilament",
+        "Monofilament",
+        "Extrusion",
+        "Weaving",
+        "Coating",
+        "Printing",
+    ):
+        if needle not in brief:
+            issues.append(f"brief missing Lohia-specific term: {needle}")
+    if re.search(r"\bIIT\b|IITK|Roorkee", brief, re.I):
+        issues.append("brief must not mention IIT / IITK / Roorkee (client-facing)")
+    if "Energy audit vs Stamped" not in brief:
+        issues.append("brief missing energy-audit vs Stamped framing")
+    if "Not another energy audit" not in brief and "not another energy audit" not in brief.lower():
+        issues.append("brief missing explicit not-an-audit framing")
+    if "60-day proof run" not in full:
+        issues.append("full missing 60-day proof run framing")
+    if "90-day" in full.lower() or "Day 90" in full:
+        issues.append("full OEM deck still mentions 90-day pilot (should be 60-day)")
+    if "trying.stamped.work" not in full:
+        issues.append("full missing trying.stamped.work sample workspace")
+    if 'id="openSampleWorkspace"' not in full:
+        issues.append("full missing Open workspace button")
+    # Co-located assets must resolve next to the HTML
+    for rel in (
+        "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
+        "demo-decks/clients/assets/lohia-corp/tape-extrusion.jpg",
+        "demo-decks/clients/assets/lohia-corp/lohia-logo.svg",
+    ):
+        if not (ROOT / rel).is_file():
+            issues.append(f"missing co-located asset: {rel}")
+    if 'src="assets/machinery-oem/tape-line.jpg"' not in full:
+        issues.append("full hero src should be clients-local assets/...")
+    if 'src="assets/lohia-corp/tape-extrusion.jpg"' not in brief:
+        issues.append("brief hero src should be clients-local assets/...")
     # no em dash / en dash in user-facing copy
     for label, html in (("full", full), ("brief", brief)):
         body = re.sub(r"<style[\s\S]*?</style>", "", html)
@@ -152,6 +208,29 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
             issues.append(f"{label}: tech card missing from=machinery-oem ({href})")
         if not href.startswith("../tech/"):
             issues.append(f"{label}: tech card path should be ../tech/ ({href})")
+
+    if deck.endswith("machinery-oem.html") and "scene-live" in slides and width > 720:
+        go_to(page, "scene-live")
+        open_btn = page.locator("#openSampleWorkspace")
+        if open_btn.count() != 1:
+            issues.append(f"{label}: missing Open workspace button")
+        else:
+            href = open_btn.get_attribute("href") or ""
+            if "trying.stamped.work" not in href:
+                issues.append(f"{label}: Open workspace href={href!r}")
+            frame_src = page.locator("#dashFrame").get_attribute("src") or page.locator("#dashFrame").get_attribute("data-src") or ""
+            if "trying.stamped.work" not in frame_src:
+                issues.append(f"{label}: dashFrame src={frame_src!r}")
+
+    if deck.endswith("lohia-corp-brief.html") and "scene-vs-audit" in slides:
+        go_to(page, "scene-vs-audit")
+        body = page.locator("#scene-vs-audit").inner_text()
+        if re.search(r"\bIIT\b|IITK|Roorkee", body, re.I):
+            issues.append(f"{label}: vs-audit slide must not mention IIT / Roorkee")
+        if "Generic energy audit" not in body and "energy audit" not in body.lower():
+            issues.append(f"{label}: vs-audit slide missing audit contrast")
+        if "Stamped" not in body:
+            issues.append(f"{label}: vs-audit slide missing Stamped side")
 
     return issues
 

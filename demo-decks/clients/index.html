@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Stamped Energy · Industry demo decks</title>
+  <title>Stamped Energy · Client decks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
@@ -25,6 +25,11 @@
     }
     main { max-width: 720px; margin: 0 auto; }
     .logo { height: 36px; width: auto; margin-bottom: 1.25rem; }
+    .back {
+      display: inline-block; margin-bottom: 1rem; font-size: 0.88rem; font-weight: 650;
+      color: var(--secondary); text-decoration: none;
+    }
+    .back:hover { color: var(--primary); }
     h1 {
       font-family: var(--font-d); font-weight: 800; letter-spacing: -0.04em;
       font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.05; margin: 0 0 0.65rem;
@@ -47,51 +52,37 @@
       display: inline-block; margin-top: 0.75rem; font-style: normal;
       font-size: 0.8rem; font-weight: 700; color: var(--primary);
     }
-    a.card--clients {
-      border-color: rgba(247,84,64,0.45);
-      background: linear-gradient(180deg, #fff 0%, #fff7f5 100%);
-    }
-    .section-label {
-      margin: 1.75rem 0 0.65rem; font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
-    }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
   </style>
 </head>
 <body>
   <main>
+    <a class="back" href="../index.html">← Back to industry decks</a>
     <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
-    <h1>Pick your industry deck</h1>
-    <p class="lede">Same Proof Run walkthrough: prescriptions, data sources, and optimisation targets tuned for each plant type.</p>
+    <h1>Client decks</h1>
+    <p class="lede">Meeting walkthroughs for named accounts and anonymous OEM demos. Same Stamped Proof Run design as the industry decks.</p>
     <div class="grid">
-      <a class="card" href="./demo-decks/cement.html">
-        <strong>Cement</strong>
-        <span>Kiln, mills, WHR dispatch, and kWh/ton: MD and peak-grid actions.</span>
-        <em>Open cement deck →</em>
+      <a class="card" href="./lohia-corp-brief.html">
+        <strong>Lohia Corp · brief</strong>
+        <span>Named walkthrough: woven raffia lines, extrusion to printing, energy audit vs Stamped, Chaubepur 60-day ask.</span>
+        <em>Open Lohia brief →</em>
       </a>
-      <a class="card" href="./demo-decks/steel.html">
-        <strong>Steel</strong>
-        <span>Furnace holding, rolling-mill coincidence, and melt-shop utilities.</span>
-        <em>Open steel deck →</em>
+      <a class="card" href="./machinery-oem.html">
+        <strong>Packaging machinery OEM</strong>
+        <span>Full anonymous Proof Run. Tape lines, test bays, compressed air, chillers. No client names on slide.</span>
+        <em>Open OEM demo →</em>
       </a>
-      <a class="card" href="./demo-decks/pharma.html">
-        <strong>Pharma</strong>
-        <span>Load management, chillers, HVAC setbacks, and batch-utility peaks.</span>
-        <em>Open pharma deck →</em>
-      </a>
-    </div>
-    <p class="section-label">Client decks</p>
-    <div class="grid">
-      <a class="card card--clients" href="./demo-decks/clients/">
-        <strong>Clients</strong>
-        <span>Named and anonymous client walkthroughs for live meetings. Pick a deck from the list.</span>
-        <em>Browse client decks →</em>
+      <a class="card" href="./machinery-oem/">
+        <strong>OEM demo · deploy root</strong>
+        <span>Same machinery OEM deck as a folder index for standalone hosting.</span>
+        <em>Open deploy root →</em>
       </a>
     </div>
     <footer>
+      <a href="../index.html">Industry hub</a>
+      ·
       <a href="https://stamped.work">stamped.work</a>
-      · Demo decks for first meetings / Proof Run
     </footer>
   </main>
 </body>
