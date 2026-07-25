@@ -198,6 +198,13 @@ def inject_brief_brand(html: str) -> str:
         'data-industry="lohia-corp" data-client-brief="lohia"',
         1,
     )
+    # Client-facing: no academic affiliation lines on the Lohia brief
+    html = re.sub(
+        r'\s*<p class="cred-quiet[^"]*"[^>]*>Built on energy systems research at IIT Roorkee\.</p>',
+        "",
+        html,
+        count=1,
+    )
     return html
 
 

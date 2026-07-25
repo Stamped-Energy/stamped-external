@@ -87,9 +87,11 @@ def file_gate() -> list[str]:
         issues.append("brief missing Chaubepur 90-day ask")
     if 'id="scene-vs-audit"' not in brief:
         issues.append("brief missing scene-vs-audit")
-    if "IIT Kanpur" not in brief and "IITK" not in brief:
-        issues.append("brief missing IIT Kanpur audit differentiation")
-    if "Not another energy audit" not in brief and "not a second audit" not in brief.lower():
+    if re.search(r"\bIIT\b|IITK|Roorkee", brief, re.I):
+        issues.append("brief must not mention IIT / IITK / Roorkee (client-facing)")
+    if "Energy audit vs Stamped" not in brief:
+        issues.append("brief missing energy-audit vs Stamped framing")
+    if "Not another energy audit" not in brief and "not another energy audit" not in brief.lower():
         issues.append("brief missing explicit not-an-audit framing")
     if "90-day proof run" not in full:
         issues.append("full missing 90-day proof run framing")
@@ -192,10 +194,12 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
     if deck.endswith("lohia-corp-brief.html") and "scene-vs-audit" in slides:
         go_to(page, "scene-vs-audit")
         body = page.locator("#scene-vs-audit").inner_text()
-        if "IIT Kanpur" not in body and "IITK" not in body:
-            issues.append(f"{label}: vs-audit slide missing IIT Kanpur mention")
-        if "audit" not in body.lower():
+        if re.search(r"\bIIT\b|IITK|Roorkee", body, re.I):
+            issues.append(f"{label}: vs-audit slide must not mention IIT / Roorkee")
+        if "Generic energy audit" not in body and "energy audit" not in body.lower():
             issues.append(f"{label}: vs-audit slide missing audit contrast")
+        if "Stamped" not in body:
+            issues.append(f"{label}: vs-audit slide missing Stamped side")
 
     return issues
 
