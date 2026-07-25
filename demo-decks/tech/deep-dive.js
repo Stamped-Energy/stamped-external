@@ -3,20 +3,40 @@
 
   var params = new URLSearchParams(window.location.search);
   var from = (params.get("from") || "").toLowerCase();
-  var allowed = { cement: 1, steel: 1, pharma: 1 };
+  var allowed = {
+    cement: 1,
+    steel: 1,
+    pharma: 1,
+    "machinery-oem": 1,
+    "lohia-corp": 1,
+  };
+  var clientFrom = { "machinery-oem": 1, "lohia-corp": 1 };
   var back = document.getElementById("backToDeck");
   if (back) {
     if (allowed[from]) {
-      // Prefer pharma/ folder when the user came from that deploy root
       var backHref = "../" + from + ".html#scene-tech";
-      if (
+      var label = from;
+      if (clientFrom[from]) {
+        // Private client decks live under demo-decks/clients/
+        backHref = "../clients/" + from + ".html#scene-tech";
+        if (from === "lohia-corp") {
+          backHref = "../clients/lohia-corp-brief.html#scene-offer";
+          label = "Lohia brief";
+        } else if (
+          /\/clients\/machinery-oem\/(?:index\.html)?(?:[?#]|$)/.test(
+            document.referrer || ""
+          )
+        ) {
+          backHref = "../clients/machinery-oem/index.html#scene-tech";
+        }
+      } else if (
         from === "pharma" &&
         /\/pharma\/(?:index\.html)?(?:[?#]|$)/.test(document.referrer || "")
       ) {
         backHref = "../pharma/index.html#scene-tech";
       }
       back.href = backHref;
-      back.textContent = "← Back to " + from + " deck";
+      back.textContent = "← Back to " + label + " deck";
     } else {
       back.href = "../index.html";
       back.textContent = "← Back to decks";
