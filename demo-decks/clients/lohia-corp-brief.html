@@ -2361,10 +2361,11 @@
               <li><strong>Weaving</strong> · Circular loom coincidence with chillers and compressors</li>
               <li><strong>Coating</strong> · Extrusion-coating heat and idle hold between jobs</li>
               <li><strong>Printing</strong> · Press and dryer hold when the substrate line is down</li>
+              <li><strong>Early warnings</strong> · Line-tied signals that flag machine / utility trouble before a breakdown, not a generic plant alarm dump</li>
             </ul>
           </div>
         </div>
-        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">We do not redesign your machines. We assign the next operating action on the works that builds and proves them, then verify it on the HT bill.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">We do not redesign your machines. We assign the next real-time operating decision on the works that builds and proves them, and surface early warnings tied to those lines.</p>
       </div>
     </section>
 
@@ -2415,14 +2416,14 @@
             <p class="waste-sample hide-mobile">Hypothesis: trial and recycle aux left online when bays are empty</p>
           </article>
           <article class="waste-card">
-            <h3>Solar vs residual grid</h3>
+            <h3>Early warnings</h3>
             <ul>
-              <li>~17% grid cut is real</li>
-              <li>MD still on grid</li>
-              <li>Night / peak residual</li>
+              <li>Line-tied drift before a trip</li>
+              <li>Utility / motor stress signals</li>
+              <li>Not a generic plant alarm dump</li>
             </ul>
-            <div class="waste-bill">Bill line · MD + ToD</div>
-            <p class="waste-sample hide-mobile">Hypothesis: solar cut kWh; ownership of residual MD on line days is next</p>
+            <div class="waste-bill">Ops + bill risk</div>
+            <p class="waste-sample hide-mobile">Hypothesis: catch loom, coater, or air trouble before a breakdown or MD event</p>
           </article>
         </div>
         <div class="bill-table-wrap reveal">
@@ -2503,10 +2504,10 @@
                     <div class="rx-row"><dt>Why</dt><dd id="rx1Why">Trial bay load and plant air often hit the same MD window on handover</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx1Bill">MD (kVA)</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx1Owner">Electrical POC · Chaubepur · Shift B</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹Hypothesis · validate on two HT bills</strong></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹Hypothesis · prove on MD line</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd id="rx1Effort">Sequence change · no new equipment</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd id="rx1Rule">md_overlap@v2.4 · High</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd id="rx1Due">First proof cycle</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd id="rx1Due">While we are on-site / first cycle</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2535,7 +2536,7 @@
                       <tr><td><code>CHILLER.START</code></td><td>ON</td><td>same window</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · walkthrough hypothesis · confirm on Chaubepur bills</p>
+                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · walkthrough hypothesis · confirm on live Chaubepur data</p>
                   <p class="rx-mv">M&amp;V · verify on next DISCOM MD line · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2556,10 +2557,10 @@
                     <div class="rx-row"><dt>Why</dt><dd id="rx2Why">Residual air after compressor upgrades still hits night energy with no loom or coater tag</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx2Bill">Energy (kWh) · night</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx2Owner">Utilities · Chaubepur</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹Hypothesis · validate on energy line</strong></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹Hypothesis · prove on energy line</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd id="rx2Effort">Staging SOP · no new equipment</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd id="rx2Rule">idle_hold@v1.8 · High</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd id="rx2Due">First proof cycle</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd id="rx2Due">While we are on-site / first cycle</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2590,7 +2591,7 @@
                       <tr><td><code>NIGHT.UNLOAD</code></td><td>TRUE</td><td>planned</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx2Cite">physics/idle_hold@v1.8 · walkthrough hypothesis · confirm on energy line</p>
+                  <p class="rx-cite" id="rx2Cite">physics/idle_hold@v1.8 · walkthrough hypothesis · confirm on live plant data</p>
                   <p class="rx-mv">M&amp;V · verify on next energy line · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2793,40 +2794,40 @@
     <section class="slide slide--light" id="scene-vs-audit" data-theme="light" aria-label="Not another energy audit">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Energy audit vs Stamped</p>
-        <h2 class="reveal">An audit hands you a report. Stamped hands the floor a job.</h2>
-        <p class="lede reveal">A generic energy audit is useful once. It is not how you run the bill every month. Stamped is the operating layer after the report: ranked actions, named owners, and proof on the next HT invoice.</p>
+        <h2 class="reveal">An audit hands you a report. Stamped hands the floor a live decision.</h2>
+        <p class="lede reveal">A generic energy audit is a snapshot with a PDF. Stamped runs on what your plant is doing now: real-time ranked actions, owners, and early warnings on your lines, then proof on the HT bill as those actions land.</p>
         <div class="bound-grid reveal" style="margin-top:1rem;">
           <div class="bound-col bound-col--not">
             <h3>Generic energy audit</h3>
             <ul class="bound-list">
               <li>One-time study and a findings PDF</li>
-              <li>Recommendations without a weekly owner</li>
+              <li>Recommendations without a live owner</li>
               <li>Stops when the report is delivered</li>
-              <li>Weak link from each fix to an HT bill line</li>
+              <li>Little early warning before a machine or utility fails</li>
               <li>Floor treats it as one more document</li>
             </ul>
           </div>
           <div class="bound-col bound-col--ot">
             <h3>Stamped for your plant</h3>
             <ul class="bound-list">
-              <li>Weekly ranked prescriptions from live meters</li>
+              <li>Real-time prescriptions from live meters and line states</li>
               <li>Every action: owner, due date, expected ₹</li>
-              <li>Runs on the shift that can change the load</li>
-              <li>Potential vs realised on MD, energy, and PF</li>
+              <li>Early warnings tied to extrusion, looms, coaters, and utilities</li>
+              <li>Catch problems before they become breakdowns or MD spikes</li>
               <li>Complements Lohia DIC. Does not replace your EMS</li>
             </ul>
           </div>
         </div>
-        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:46em;">If you only need another diagnostic, you do not need us. If the gap is ownership and bill-verified close-out, that is the 60-day ask.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:46em;">If you only need another diagnostic PDF, you do not need us. If you want decisions while the plant is running, that is the on-site ask.</p>
       </div>
     </section>
 
 <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
       <div class="slide__inner">
-        <p class="eyebrow reveal">Chaubepur · 60-day ask</p>
+        <p class="eyebrow reveal">Chaubepur · one works ask</p>
         <h2 class="reveal">One works. One proof cycle.</h2>
-        <p class="lede reveal hide-mobile" id="offerLedeD">Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹ at Day 60.</p>
-        <p class="lede reveal show-mobile" id="offerLedeM">Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹ at Day 60.</p>
+        <p class="lede reveal hide-mobile" id="offerLedeD">Not another energy audit and not a homework list of bills up front. Give us permission to come to Chaubepur. We walk your floors, sit with what you already audited, connect read-only, and show you the live workspace on-site before the pilot starts.</p>
+        <p class="lede reveal show-mobile" id="offerLedeM">Not another energy audit and not a homework list of bills up front. Give us permission to come to Chaubepur. We walk your floors, sit with what you already audited, connect read-only, and show you the live workspace on-site before the pilot starts.</p>
         <table class="phase-table reveal">
           <thead>
             <tr>
@@ -2836,32 +2837,32 @@
           </thead>
           <tbody>
             <tr>
-              <td>Week 0</td>
-              <td>Name electrical POC · share two Chaubepur HT bills · walk tape, loom, and coating floors once</td>
+              <td>Permission</td>
+              <td>Name a plant host · we come to Chaubepur (extrusion, weaving, coating)</td>
             </tr>
             <tr>
-              <td>Weeks 1-2</td>
-              <td>Read-only connect · turn meters on those islands into ranked prescriptions with owners</td>
+              <td>On-site</td>
+              <td>Understand your lines, utilities, and prior audit findings · no second study report</td>
             </tr>
             <tr>
-              <td>Weeks 3-8</td>
-              <td>Floor executes weekly · potential vs realised on MD / energy / PF</td>
+              <td>Connect + demo</td>
+              <td>Read-only meters / EMS · offline / on-floor demo of the live workspace on your data</td>
             </tr>
             <tr>
-              <td>Day 60</td>
-              <td>Go / no-go on verified ₹ and fit. Kill if the math does not close.</td>
+              <td>Start</td>
+              <td>Real-time prescriptions and early warnings from what the plant is doing now · bill proof as actions land</td>
             </tr>
           </tbody>
         </table>
         <div class="commercial reveal">
-          <span class="chip">Not another energy audit</span>
-          <span class="chip">Extrusion · loom · coating focus</span>
+          <span class="chip">Come to the plant</span>
+          <span class="chip">Real-time decisions</span>
+          <span class="chip">Early warnings on your lines</span>
           <span class="chip">Complements Lohia DIC</span>
-          <span class="chip">Read-only OT</span>
         </div>
         <div class="ask-box reveal">
           <strong>Ask for tomorrow</strong>
-          <p>Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page 60-day proof plan tied to your machine floors, with success criteria in ₹. Floor execution and bill proof, not a fresh energy audit.</p>
+          <p>Give us permission to visit Chaubepur with your electrical / utilities host. We will not ask for two HT bills as a gate. We connect on-site, show how Stamped looks on your lines, and start from live plant data.</p>
           <p class="ask-cal"><a href="https://calendly.com/stamped-energy/stamped-energy" target="_blank" rel="noopener noreferrer">Book a meet</a></p>
         </div>
         <p class="contact-line reveal">

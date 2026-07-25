@@ -97,10 +97,23 @@ def file_gate() -> list[str]:
         issues.append(f"full naming gate failed: {hits}")
     if not FORBIDDEN.search(brief):
         issues.append("brief missing Lohia / Chaubepur naming")
-    if "Chaubepur · 60-day ask" not in brief and "60-day ask" not in brief:
-        issues.append("brief missing Chaubepur 60-day ask")
+    if "Come to the plant" not in brief and "permission to come" not in brief.lower():
+        issues.append("brief missing on-site / plant-visit ask")
+    # Allow explicit "will not ask for two HT bills"; block asks that require bills as a gate
+    if re.search(
+        r"(?:share|send|provide|need)\s+two(?:\s+consecutive)?\s+HT bills",
+        brief,
+        re.I,
+    ):
+        issues.append("brief should not gate on two HT bills up front")
+    if "60-day proof plan" in brief.lower() or "Chaubepur · 60-day ask" in brief:
+        issues.append("brief still uses homework-style 60-day proof-plan ask")
+    if "real-time" not in brief.lower():
+        issues.append("brief missing real-time decision framing")
+    if "Early warnings" not in brief and "early warning" not in brief.lower():
+        issues.append("brief missing early-warnings framing")
     if "90-day" in brief.lower() or "Day 90" in brief:
-        issues.append("brief still mentions 90-day pilot (should be 60-day)")
+        issues.append("brief still mentions 90-day pilot")
     if 'id="scene-vs-audit"' not in brief:
         issues.append("brief missing scene-vs-audit")
     if 'id="scene-lohia-lines"' not in brief:

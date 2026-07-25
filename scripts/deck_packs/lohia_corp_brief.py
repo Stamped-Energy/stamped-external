@@ -61,10 +61,10 @@ PACK = {
         "why": "Trial bay load and plant air often hit the same MD window on handover",
         "bill": "MD (kVA)",
         "owner": "Electrical POC · Chaubepur · Shift B",
-        "impact": "Hypothesis · validate on two HT bills",
+        "impact": "Hypothesis · prove on MD line",
         "effort": "Sequence change · no new equipment",
         "rule": "md_overlap@v2.4 · High",
-        "due": "First proof cycle",
+        "due": "While we are on-site / first cycle",
         "evTitle": "Sample signal window · shift handover",
         "tags": [
             ("HT_INCOMER.MD", "Peak window", "handover"),
@@ -72,7 +72,7 @@ PACK = {
             ("COMP_BANK.A", "ON", "same window"),
             ("CHILLER.START", "ON", "same window"),
         ],
-        "cite": "physics/md_overlap@v2.4 · walkthrough hypothesis · confirm on Chaubepur bills",
+        "cite": "physics/md_overlap@v2.4 · walkthrough hypothesis · confirm on live Chaubepur data",
     },
     "rx2": {
         "badge": "Rx · Compressed air",
@@ -81,10 +81,10 @@ PACK = {
         "why": "Residual air after compressor upgrades still hits night energy with no loom or coater tag",
         "bill": "Energy (kWh) · night",
         "owner": "Utilities · Chaubepur",
-        "impact": "Hypothesis · validate on energy line",
+        "impact": "Hypothesis · prove on energy line",
         "effort": "Staging SOP · no new equipment",
         "rule": "idle_hold@v1.8 · High",
-        "due": "First proof cycle",
+        "due": "While we are on-site / first cycle",
         "evTitle": "Night unload · sample pattern",
         "tags": [
             ("BANK_B.RUN", "ON · unload", "night"),
@@ -92,7 +92,7 @@ PACK = {
             ("COATER.RUN", "OFF", "same window"),
             ("NIGHT.UNLOAD", "TRUE", "planned"),
         ],
-        "cite": "physics/idle_hold@v1.8 · walkthrough hypothesis · confirm on energy line",
+        "cite": "physics/idle_hold@v1.8 · walkthrough hypothesis · confirm on live plant data",
     },
     "floor": [
         {
@@ -172,20 +172,20 @@ PACK = {
                 "Hypothesis: trial and recycle aux left online when bays are empty",
             ),
             (
-                "Solar vs residual grid",
+                "Early warnings",
                 [
-                    "~17% grid cut is real",
-                    "MD still on grid",
-                    "Night / peak residual",
+                    "Line-tied drift before a trip",
+                    "Utility / motor stress signals",
+                    "Not a generic plant alarm dump",
                 ],
-                "Bill line · MD + ToD",
-                "Hypothesis: solar cut kWh; ownership of residual MD on line days is next",
+                "Ops + bill risk",
+                "Hypothesis: catch loom, coater, or air trouble before a breakdown or MD event",
             ),
         ],
     },
-    "techBullet": "Tape extrusion MD, loom/coater idle, winding air, trial bays, solar vs residual grid",
-    "offerLedeD": "Chaubepur 60-day proof on one works: electrical POC, two HT bills, walkthrough of extrusion / weaving / coating. Read-only. Kill criteria upfront.",
-    "offerLedeM": "Chaubepur 60 days on your machine floors. POC + two HT bills.",
+    "techBullet": "Tape extrusion MD, loom/coater idle, winding air, early warnings, real-time decisions",
+    "offerLedeD": "Give us plant access at Chaubepur. We come on-site, connect read-only, show the live workspace on your lines, and start prescribing from real-time plant data.",
+    "offerLedeM": "Plant access. On-site connect. Real-time decisions on your lines.",
 }
 
 HERO = "assets/lohia-corp/tape-extrusion.jpg"
@@ -193,35 +193,35 @@ HERO_ALT = "Lohia Corp tape extrusion line"
 SLUG = "lohia-corp-brief"
 
 OFFER_PATCH = {
-    "eyebrow": "Chaubepur · 60-day ask",
+    "eyebrow": "Chaubepur · one works ask",
     "h2": "One works. One proof cycle.",
-    "lede": "Not another energy audit. Electrical POC + two HT bills + a walkthrough of extrusion, weaving, and coating. Ranked actions with owners. Go / no-go on verified ₹ at Day 60.",
+    "lede": "Not another energy audit and not a homework list of bills up front. Give us permission to come to Chaubepur. We walk your floors, sit with what you already audited, connect read-only, and show you the live workspace on-site before the pilot starts.",
     "rows": [
         (
-            "Week 0",
-            "Name electrical POC · share two Chaubepur HT bills · walk tape, loom, and coating floors once",
+            "Permission",
+            "Name a plant host · we come to Chaubepur (extrusion, weaving, coating)",
         ),
         (
-            "Weeks 1-2",
-            "Read-only connect · turn meters on those islands into ranked prescriptions with owners",
+            "On-site",
+            "Understand your lines, utilities, and prior audit findings · no second study report",
         ),
         (
-            "Weeks 3-8",
-            "Floor executes weekly · potential vs realised on MD / energy / PF",
+            "Connect + demo",
+            "Read-only meters / EMS · offline / on-floor demo of the live workspace on your data",
         ),
         (
-            "Day 60",
-            "Go / no-go on verified ₹ and fit. Kill if the math does not close.",
+            "Start",
+            "Real-time prescriptions and early warnings from what the plant is doing now · bill proof as actions land",
         ),
     ],
     "chips": [
-        "Not another energy audit",
-        "Extrusion · loom · coating focus",
+        "Come to the plant",
+        "Real-time decisions",
+        "Early warnings on your lines",
         "Complements Lohia DIC",
-        "Read-only OT",
     ],
     "ask_title": "Ask for tomorrow",
-    "ask_body": "Introduce the Chaubepur electrical POC and share two consecutive HT bills. We return a one-page 60-day proof plan tied to your machine floors, with success criteria in ₹. Floor execution and bill proof, not a fresh energy audit.",
+    "ask_body": "Give us permission to visit Chaubepur with your electrical / utilities host. We will not ask for two HT bills as a gate. We connect on-site, show how Stamped looks on your lines, and start from live plant data.",
 }
 
 # Injected after scene-hook by build-client-decks.py
@@ -243,30 +243,34 @@ LOHIA_LINES = {
         ("Weaving", "Circular loom coincidence with chillers and compressors"),
         ("Coating", "Extrusion-coating heat and idle hold between jobs"),
         ("Printing", "Press and dryer hold when the substrate line is down"),
+        (
+            "Early warnings",
+            "Line-tied signals that flag machine / utility trouble before a breakdown, not a generic plant alarm dump",
+        ),
     ],
-    "note": "We do not redesign your machines. We assign the next operating action on the works that builds and proves them, then verify it on the HT bill.",
+    "note": "We do not redesign your machines. We assign the next real-time operating decision on the works that builds and proves them, and surface early warnings tied to those lines.",
 }
 
 # Injected before scene-offer by build-client-decks.py
 VS_AUDIT = {
     "eyebrow": "Energy audit vs Stamped",
-    "h2": "An audit hands you a report. Stamped hands the floor a job.",
-    "lede": "A generic energy audit is useful once. It is not how you run the bill every month. Stamped is the operating layer after the report: ranked actions, named owners, and proof on the next HT invoice.",
+    "h2": "An audit hands you a report. Stamped hands the floor a live decision.",
+    "lede": "A generic energy audit is a snapshot with a PDF. Stamped runs on what your plant is doing now: real-time ranked actions, owners, and early warnings on your lines, then proof on the HT bill as those actions land.",
     "left_title": "Generic energy audit",
     "left": [
         "One-time study and a findings PDF",
-        "Recommendations without a weekly owner",
+        "Recommendations without a live owner",
         "Stops when the report is delivered",
-        "Weak link from each fix to an HT bill line",
+        "Little early warning before a machine or utility fails",
         "Floor treats it as one more document",
     ],
     "right_title": "Stamped for your plant",
     "right": [
-        "Weekly ranked prescriptions from live meters",
+        "Real-time prescriptions from live meters and line states",
         "Every action: owner, due date, expected ₹",
-        "Runs on the shift that can change the load",
-        "Potential vs realised on MD, energy, and PF",
+        "Early warnings tied to extrusion, looms, coaters, and utilities",
+        "Catch problems before they become breakdowns or MD spikes",
         "Complements Lohia DIC. Does not replace your EMS",
     ],
-    "note": "If you only need another diagnostic, you do not need us. If the gap is ownership and bill-verified close-out, that is the 60-day ask.",
+    "note": "If you only need another diagnostic PDF, you do not need us. If you want decisions while the plant is running, that is the on-site ask.",
 }

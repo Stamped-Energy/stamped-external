@@ -531,7 +531,7 @@ CLIENT_HUB = """<!DOCTYPE html>
     <div class="grid">
       <a class="card" href="./lohia-corp-brief.html">
         <strong>Lohia Corp · brief</strong>
-        <span>Named walkthrough: woven raffia lines, extrusion to printing, energy audit vs Stamped, Chaubepur 60-day ask.</span>
+        <span>Named walkthrough: woven raffia lines, real-time decisions vs audit, early warnings, on-site Chaubepur ask.</span>
         <em>Open Lohia brief →</em>
       </a>
       <a class="card" href="./machinery-oem.html">
