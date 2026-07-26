@@ -11,16 +11,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 - Contracts **0.9.0**: Finding **1.2.0** (`value_domain`, equipment-health categories); `plant-intelligence-score.json` v1.0.0
 
 ### Changed
+- Framing lock: always present **both** pillars (Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence / equipment early warnings). Proof phrase = **verified with evidence**; do not lead with “bill-verified.” Updated [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) Verify paths and [01-product-architecture.md](technical/01-product-architecture.md).
 - Messaging: primary verification is **verified with evidence** (ops-cleared / calculated ledger); DISCOM bill confirmation secondary. Demo decks + product architecture aligned.
-
 
 ### Added
 
 - [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) — maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding `value_domain`, engine ownership, Verify/Improve); linked from [technical/README.md](technical/README.md)
-
-### Changed
-
-- [01-product-architecture.md](technical/01-product-architecture.md) — clarify not a *vibration* PdM company; point to two-pillar technical bridge for call/deck product sections
 
 ## [2026.07.12] - 2026-07-12
 

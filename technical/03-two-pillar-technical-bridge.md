@@ -36,7 +36,7 @@ Engineering still builds **one** L0–L6 system. This bridge answers: which engi
 | L1–L6 layer boundaries | Unchanged |
 | Event flow `Measurement → Finding → Prescription → LedgerEntry / WorkflowEvent` | Unchanged |
 | Human-in-the-loop WhatsApp + dashboard (L5/L6) | Unchanged |
-| Evidence-backed measurement and verification as commercial trust anchor | Unchanged (Pillar 1 primary; bill optional) |
+| **Verified with evidence** as commercial trust anchor | Unchanged (ops-cleared ledger primary; DISCOM bill optional secondary — never lead with “bill-verified”) |
 | Not an in-house vibration predictive-maintenance company | Unchanged |
 | Four client deck pillars (Physics / Models / Agents / Closure) in [stamped-research-and-ml-citations.md](stamped-research-and-ml-citations.md) | Compatible — product pillars are a *different* cut (outcomes); deck pillars remain *how we reason* |
 
@@ -62,7 +62,7 @@ L6  Experience (shared UX; optional pillar filters on queue)
 | **L2** | Shared | Time-series, energy graph, commercial context, baselines, ledger |
 | **L3** | **Split by engine / Finding tag** | Same numeric layer; tag `pillar` or `value_domain` on Findings |
 | **L4** | Shared agent, **split playbooks** | Rule/RAG packs: `energy_efficiency/*` vs `equipment_health/*` |
-| **L5** | Shared workflow; **Verify branch** | Bill M&V required for Pillar 1; maintenance evidence optional for Pillar 2 |
+| **L5** | Shared workflow; **Verify branch** | Evidence M&V (ops-cleared) for both; bill confirmation optional for some Pillar 1 wins; maintenance closure + post-action curve for Pillar 2 |
 | **L6** | Shared | Filter prescription queue by pillar; one plant dashboard |
 
 ---
@@ -126,11 +126,11 @@ L4 uses `value_domain` to select playbook corpus and prescription template tone.
 
 | Path | Pillar 1 (`energy_efficiency`) | Pillar 2 (`equipment_health`) |
 | --- | --- | --- |
-| **L4 output** | Rx with ₹ bill impact primary | Rx with risk / maintenance action primary; ₹ optional co-benefit |
+| **L4 output** | Rx with ₹ energy-cost impact primary | Rx with risk / maintenance action primary; ₹ optional co-benefit |
 | **L5 Execute** | Same WhatsApp / owner workflow | Same |
-| **L5 Verify** | **Mandatory** DISCOM line / IPMVP-style energy M&V | Maintenance closure + post-action curve (e.g. specific power recovery); bill optional |
-| **L5 Improve (loop 06)** | Acted vs ignored → MD/waste ranking | Acted vs ignored → drift thresholds / false-positive suppression |
-| **Commercial SOW** | 60-day Proof Run / evidence-verified success clause | Prefer ops-cleared evidence metrics; bill confirmation optional |
+| **L5 Verify** | **Mandatory** ops-cleared evidence / potential vs realised ledger; DISCOM bill **optional** secondary | Maintenance closure + post-action curve (e.g. specific power recovery); bill optional |
+| **L5 Improve (loop 06)** | Acted vs ignored → MD/waste ranking | Acted vs ignored → early-warning thresholds / false-positive suppression |
+| **Commercial SOW** | 60-Day Proof Run / **verified with evidence** success clause (not “bill verification program”) | Same — ops-cleared evidence; avoided downtime need not appear on the invoice |
 
 Improve maps to existing calibration / suppression / HITL feedback patterns in L3/L4/L5 — not a new layer. Document as explicit product step **06 Improve** in UX copy.
 
@@ -155,8 +155,8 @@ For decks and [01-product-architecture](01-product-architecture.md) alignment (n
 | P0 | MD forecast + spike post-mortem + stagger Rx | 1 |
 | P0 | Idle / off-shift pure waste Rx | 1 |
 | P0 | Prescription card + owner + WhatsApp | Shared |
-| P0 | Bill M&V ledger | 1 (+ optional energy co-benefit for 2) |
-| P0–P1 | Specific-power drift → maintenance Rx (filter/fouling) | 2 |
+| P0 | Evidence M&V ledger (ops-cleared; bill confirmation optional) | 1 (+ optional energy co-benefit for 2) |
+| P0–P1 | Specific-power early warning → maintenance Rx (filter/fouling) | 2 |
 | P1 | Feeder MD attribution; TOD/CMD/PF; thermal timing setback | 1 |
 | P1 | Trip/duty early warnings | 2 |
 | P2 | Soft shed confirm; source-mix; vibration/temp partner feed | 1 / 2 |

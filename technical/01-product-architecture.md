@@ -39,7 +39,7 @@ This document defines **what the product provides** and **how it is architected 
 | **Operating loop** | Connect → Observe → Decide → Execute → Verify with evidence |
 | **Differentiator** | Closed-loop accountability — potential vs realised savings, not passive EMS |
 
-Stamped is **not**: a generic EMS dashboard, ESG/carbon accounting platform, SCADA replacement, or **vibration** predictive-maintenance company. Technical calls may frame two sections — **Load & Energy Efficiency Intelligence** and **Prescriptive Equipment Intelligence** (electrical/process signatures) — see [03-two-pillar-technical-bridge.md](03-two-pillar-technical-bridge.md). Third-party vibration / motor-current feeds may be consumed later.
+Stamped is **not**: a generic EMS dashboard, ESG/carbon accounting platform, SCADA replacement, or **vibration** predictive-maintenance company. Product framing always has two sections — **Load & Energy Efficiency Intelligence** and **Prescriptive Equipment Intelligence** (equipment early warnings / health prescriptions before breakdown; electrical/process signatures) — see [03-two-pillar-technical-bridge.md](03-two-pillar-technical-bridge.md). Proof is **verified with evidence**; DISCOM bill confirmation is optional. Third-party vibration / motor-current feeds may be consumed later.
 
 ### 2.2 What the product provides (capability modules)
 
