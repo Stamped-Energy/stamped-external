@@ -97,9 +97,13 @@ For agentic design, **query MCP first** (`find_pattern`, `recommend_recipe`, `pa
 10. Apply `quality-gates.mdc` — validate, report, update progress docs, **commit**.
 11. Contract changes: run `./scripts/contract-check.sh` before marking done.
 
-## Pre-installed skills (36)
+## Pre-installed skills (37)
 
 See [skills-manifest.json](skills-manifest.json) for the full list.
+
+## BeHuman — human prose / de-AI writing
+
+When the user asks to make copy feel **not AI-generated**, strip AI tells, or **write like a human**, read and apply `behuman` (`.cursor/skills/behuman/SKILL.md`) before drafting or rewriting. Rule: `behuman.mdc`. Prose only — code still goes through `ponytail`.
 
 ## Upstream config
 

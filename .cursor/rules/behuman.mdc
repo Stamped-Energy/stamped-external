@@ -1,0 +1,22 @@
+---
+description: Use behuman when writing or rewriting prose to sound human / not AI-generated — docs, READMEs, commit messages, UX copy, emails, or any "make it human" / "de-AI this" request.
+alwaysApply: false
+---
+
+# BeHuman — human prose, not AI tells
+
+When the user asks for writing that should **feel human**, **not AI-generated**, or wants AI-sounding copy cleaned up, **read and apply** the `behuman` skill before drafting or rewriting:
+
+1. Open `.cursor/skills/behuman/SKILL.md`
+2. Write with the kill list active (do not draft sloppy and clean later)
+3. For long-form edits or "why does this sound like AI?", also load `references/pattern-catalog.md`
+
+## Trigger phrases (non-exhaustive)
+
+- "make it human" / "humanize this" / "BeHuman"
+- "this sounds like AI" / "remove AI words" / "de-AI this"
+- "write like a human" / "don't sound like ChatGPT"
+- "make this not feel AI-generated"
+- Natural-sounding docs, README prose, UX copy, emails, release notes, captions
+
+Also apply when rewriting user-facing copy after the user flags AI tone. Does not replace `ponytail` for code — use `behuman` for prose only.

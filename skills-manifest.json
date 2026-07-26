@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "description": "Coding Cursor config — 36 skills, 21 rules, agent-patterns MCP, ponytail + Spec Kit + nawab-plans, learn-while-building, auto conventional commits",
+  "description": "Coding Cursor config — 37 skills, 22 rules, agent-patterns MCP, ponytail + Spec Kit + nawab-plans, learn-while-building, auto conventional commits",
   "mcp": {
     "default_server": "agent-patterns",
     "url": "https://mcp.agentpatternscatalog.org/mcp",
@@ -15,8 +15,11 @@
     "rule": "speckit"
   },
   "preinstalled": {
-    "count": 36,
+    "count": 37,
     "categories": {
+      "writing": [
+        "behuman"
+      ],
       "planning": [
         "nawab-plans"
       ],
@@ -89,7 +92,8 @@
       "testing-discipline",
       "tech-stack-skills",
       "mcp-architecture",
-      "speckit"
+      "speckit",
+      "behuman"
     ]
   },
   "workflows": {
