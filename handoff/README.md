@@ -103,8 +103,7 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 | 1 | [stamped-l4-architecture-handoff.md](./stamped-l4-architecture-handoff.md) | **Primary handoff** — dual-lane agent, adaptive RAG, T4 web, eval stack, L3 prompt |
 | 2 | [../technical/layers/L4-knowledge-and-reasoning.md](../technical/layers/L4-knowledge-and-reasoning.md) | Architecture SSOT |
 | 3 | [../decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md](../decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Adaptive hybrid RAG + web trust tiers |
-| 4 | [stamped-l4-architecture-handoff.md](./stamped-l4-architecture-handoff.md) | L4 architecture handoff (canonical) |
-| 5 | [../consumers/stamped-l4/README.md](../consumers/stamped-l4/README.md) | Platform Lane A scaffold reference |
+| 4 | [../consumers/stamped-l4/README.md](../consumers/stamped-l4/README.md) | Platform Lane A scaffold reference |
 
 ### stamped-l4 one-line mission
 
