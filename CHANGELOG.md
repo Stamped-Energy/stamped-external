@@ -4,6 +4,12 @@ All notable changes to the shared platform pack. Consumer repos pin via git subm
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.MM.DD` (aligned with [VERSION](VERSION)).
 
+## [Unreleased]
+
+### Added
+
+- [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) — maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding `value_domain`, engine ownership, Verify/Improve); linked from [technical/README.md](technical/README.md)
+
 ## [2026.07.12] - 2026-07-12
 
 ### Added
