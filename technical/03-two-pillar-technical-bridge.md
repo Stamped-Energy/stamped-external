@@ -36,7 +36,7 @@ Engineering still builds **one** L0–L6 system. This bridge answers: which engi
 | L1–L6 layer boundaries | Unchanged |
 | Event flow `Measurement → Finding → Prescription → LedgerEntry / WorkflowEvent` | Unchanged |
 | Human-in-the-loop WhatsApp + dashboard (L5/L6) | Unchanged |
-| Bill measurement and verification as commercial trust anchor | Unchanged (Pillar 1 primary) |
+| Evidence-backed measurement and verification as commercial trust anchor | Unchanged (Pillar 1 primary; bill optional) |
 | Not an in-house vibration predictive-maintenance company | Unchanged |
 | Four client deck pillars (Physics / Models / Agents / Closure) in [stamped-research-and-ml-citations.md](stamped-research-and-ml-citations.md) | Compatible — product pillars are a *different* cut (outcomes); deck pillars remain *how we reason* |
 
@@ -130,7 +130,7 @@ L4 uses `value_domain` to select playbook corpus and prescription template tone.
 | **L5 Execute** | Same WhatsApp / owner workflow | Same |
 | **L5 Verify** | **Mandatory** DISCOM line / IPMVP-style energy M&V | Maintenance closure + post-action curve (e.g. specific power recovery); bill optional |
 | **L5 Improve (loop 06)** | Acted vs ignored → MD/waste ranking | Acted vs ignored → drift thresholds / false-positive suppression |
-| **Commercial SOW** | 90-day bill verification success clause | Never sole success clause without Pillar 1 bill metric |
+| **Commercial SOW** | 60-day Proof Run / evidence-verified success clause | Prefer ops-cleared evidence metrics; bill confirmation optional |
 
 Improve maps to existing calibration / suppression / HITL feedback patterns in L3/L4/L5 — not a new layer. Document as explicit product step **06 Improve** in UX copy.
 

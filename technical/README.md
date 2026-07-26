@@ -72,4 +72,4 @@ L6  Experience & integration (dashboard, API)      → layers/L6-experience-and-
 
 ## The one-line thesis to keep in mind while building
 
-> 15–20% verified bill reduction is engineered as the **sum of closed prescriptions across six waste categories**, multiplied by **closure rate**, defended by **bill-verified M&V** — not produced by any single model. Detection is necessary; closure and verification are the product.
+> 15–20% verified savings is engineered as the **sum of closed prescriptions across six waste categories**, multiplied by **closure rate**, defended by **evidence-backed M&V** (ops-cleared / calculated ledger; bill path optional) — not produced by any single model. Detection is necessary; closure and verification are the product.

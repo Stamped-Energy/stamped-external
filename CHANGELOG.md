@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Changed
+- Messaging: primary verification is **verified with evidence** (ops-cleared / calculated ledger); DISCOM bill confirmation secondary. Demo decks + product architecture aligned.
+
+
 ### Added
 
 - [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) — maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding `value_domain`, engine ownership, Verify/Improve); linked from [technical/README.md](technical/README.md)

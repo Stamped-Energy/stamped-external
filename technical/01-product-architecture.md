@@ -17,7 +17,7 @@ timestamp: "2026-07-09T00:00:00Z"
 
 ## 1. Executive summary
 
-**Stamped Energy** is a **software-first prescriptive energy intelligence platform** for Indian energy-intensive manufacturers (≥ ₹30L/month electricity per plant). It sits **read-only** on top of existing plant infrastructure — meters, SCADA, PLCs, EMS exports, bills — and closes the loop from fragmented data to **assigned actions with ₹ impact**, verified on the **DISCOM bill**.
+**Stamped Energy** is a **software-first prescriptive energy intelligence platform** for Indian energy-intensive manufacturers (≥ ₹30L/month electricity per plant). It sits **read-only** on top of existing plant infrastructure — meters, SCADA, PLCs, EMS exports, bills — and closes the loop from fragmented data to **assigned actions with ₹ impact**, **verified with evidence** from Stamped’s telemetry and calculation stack (DISCOM bill confirmation optional).
 
 This document defines **what the product provides** and **how it is architected at a high level** — where time-series models, per-plant calibration, rules/physics engines, the energy graph, agentic RAG, and workflow closure each belong. It synthesizes Stamped's product thesis, the [stamped.work](https://stamped.work/) positioning, the [demo dashboard](https://stamped-energy.vercel.app/), and competitor technical patterns (Greenovative, Zerowatt, PredCo, Infinite Uptime, OEM incumbents).
 
@@ -34,9 +34,9 @@ This document defines **what the product provides** and **how it is architected 
 | Dimension | Definition |
 | --- | --- |
 | **Category** | Prescriptive energy intelligence / operational sustainability decision layer |
-| **Buyer outcome** | Verified ₹ reduction on electricity bill + defensible SEC/intensity evidence |
+| **Buyer outcome** | Verified ₹ reduction with evidence + defensible SEC/intensity evidence (bill optional) |
 | **Integration stance** | Read-only overlay on OT/IT — no control writes, no hardware retrofit program |
-| **Operating loop** | Connect → Observe → Decide → Execute → Verify |
+| **Operating loop** | Connect → Observe → Decide → Execute → Verify with evidence |
 | **Differentiator** | Closed-loop accountability — potential vs realised savings, not passive EMS |
 
 Stamped is **not**: a generic EMS dashboard, ESG/carbon accounting platform, SCADA replacement, or **vibration** predictive-maintenance company. Technical calls may frame two sections — **Load & Energy Efficiency Intelligence** and **Prescriptive Equipment Intelligence** (electrical/process signatures) — see [03-two-pillar-technical-bridge.md](03-two-pillar-technical-bridge.md). Third-party vibration / motor-current feeds may be consumed later.
@@ -131,7 +131,7 @@ Synthesis from competitor research — informs Stamped's build choices, not copy
 1. **Prescriptive beats descriptive** — dashboards are table stakes; willingness-to-pay is on assigned action + verification.
 2. **Two-layer intelligence works** — cross-plant base patterns + per-facility calibration.
 3. **Rules + ML hybrid** — explainable prescriptions for operators require domain rules, not black-box ML alone.
-4. **Bill verification is the trust anchor** — IPMVP-style potential vs realised is the industry-standard narrative.
+4. **Evidence verification is the trust anchor** — ops-cleared telemetry + potential vs realised ledger; DISCOM bill confirmation is secondary/deferred.
 5. **WhatsApp is a product surface** in India — not an afterthought.
 6. **Agentic AI belongs behind guardrails** — autonomous plant control is not phase 1; orchestration of human workflows is.
 

@@ -533,7 +533,7 @@ Reason codes feed L3 calibration. Runtime states stream as `WorkflowEvent` — L
 
 IPMVP-aligned `[~]` using **standard EVO option naming** (see [L5](layers/L5-closure-and-verification.md) §3.3 for full methodology). Two-tier verification:
 
-1. **Tier 1 — Account truth (Option C):** whole-facility avoided use, production-normalised, reconciled to DISCOM bill lines — the customer-facing "verified on the bill" number.
+1. **Tier 1 — Account truth (Option C):** whole-facility avoided use, production-normalised, reconciled to DISCOM bill lines — a deferred bill-reconciled number; P0 customer-facing verified = ops-cleared evidence (ADR-020).
 2. **Tier 2 — Per-prescription attribution (Option A/B):** boundary-level estimates where metered; engineering allocation elsewhere. Hard constraint: `Σ per-Rx attributed savings ≤ Tier-1 account savings` for the period.
 
 | IPMVP option | What it measures (EVO standard) | Stamped application | Verification source |
