@@ -10,6 +10,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 - [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) — maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding `value_domain`, engine ownership, Verify/Improve); linked from [technical/README.md](technical/README.md)
 
+### Changed
+
+- [01-product-architecture.md](technical/01-product-architecture.md) — clarify not a *vibration* PdM company; point to two-pillar technical bridge for call/deck product sections
+
 ## [2026.07.12] - 2026-07-12
 
 ### Added
