@@ -399,7 +399,7 @@ The following segments informed early product mechanics and remain valid for **P
 - **Duration:** ~90 days (connect → prescribe → assign → verify)
 - **Band A fee (working):** **₹2–5 lakh** fixed `[~]` — signals seriousness vs legacy ₹25k–50k SME pilot framing
 - **Optional:** ₹1L credit toward Year 1 if verified savings exceed 3× program fee `[!]`
-- **Leave-behind:** `marketing/content-strategy/90-day-bill-verification-program-one-pager.md`
+- **Leave-behind:** `marketing/content-strategy/sales-collateral/60-day-proof-run-one-pager.md`
 
 ### 10.3 Messaging framework (June 2026)
 
@@ -444,7 +444,7 @@ The entry offer exists for one purpose: **remove career risk from the first purc
 - **Band A pricing (working):** **₹2–5 lakh** fixed fee `[~]` — scoped to plant size and integration depth; calibrate in discovery
 - **Legacy Band B/C pilot (nurture):** ₹10,000–50,000 fixed or pay-as-you-save cap `[~]` — see historical estimates below; not primary GTM
 - **Goal:** Deliver at least one **verified ₹ saving** on invoice. Use that number to convert to subscription or multi-site expansion.
-- **Sales asset:** `marketing/content-strategy/90-day-bill-verification-program-one-pager.md`
+- **Sales asset:** `marketing/content-strategy/sales-collateral/60-day-proof-run-one-pager.md`
 
 ### Pilot Phase (Legacy Band B/C — nurture)
 
@@ -548,7 +548,7 @@ If it does: build it, price it, communicate it. If it does not: remove it.
 | `Stamped_Product_Definition_and_Architecture.md` | High-level product definition + architecture layers |
 | `Stamped_Technical_Architecture_v1.md` | Detailed technical architecture, engines, M&V |
 | `Stamped_Tech_Archi_Core.md` | Condensed six-layer reference |
-| `Energy-Decision-Optimization-Engine.md` | Decision engine concept |
+| `Stamped_Two_Pillar_Technical_Framing_v1.md` | Two-pillar technical framing + taxonomies |
 
 ### ICP, personas & leads
 
@@ -564,7 +564,7 @@ If it does: build it, price it, communicate it. If it does not: remove it.
 
 | Document | Purpose |
 | --- | --- |
-| `marketing/content-strategy/90-day-bill-verification-program-one-pager.md` | Sales leave-behind |
+| `marketing/content-strategy/sales-collateral/60-day-proof-run-one-pager.md` | Sales leave-behind |
 | `marketing/content-strategy/linkedin-posts.md` | LinkedIn post bank (AIDA) |
 | `marketing/content-strategy/stamped-energy-rory-sutherland-marketing-interrogation-2026-06.md` | Positioning strategy audit |
 | `marketing/content-strategy/stamped-website-sustainability-positioning-strategy.md` | Website sustainability / Industry 4.0 |
