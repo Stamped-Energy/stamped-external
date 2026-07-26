@@ -7,7 +7,7 @@
 > **Contracts:** [`finding.json`](../contracts/schemas/finding.json) · [`prescription.json`](../contracts/schemas/prescription.json) · [`capex-proposal.json`](../contracts/schemas/capex-proposal.json) · [`stamped-record-envelope.json`](../contracts/schemas/stamped-record-envelope.json)  
 > **Platform pack:** mount this repo as git submodule at `external/` ([SUBMODULE.md](../SUBMODULE.md))
 
-**Supersedes:** [stamped-l4-build-order.md](./stamped-l4-build-order.md) (redirect stub — use this handoff).
+**Canonical L4 handoff** (former `stamped-l4-build-order.md` redirect stub removed).
 
 ---
 
