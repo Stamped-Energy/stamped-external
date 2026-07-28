@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/finding.v1.json",
   "title": "Finding",
-  "description": "L3 → L4 structured finding. Numeric intelligence only — no prose. v1.1.0 adds ops_clearance + alarm_hint for L5 ops-first verification. See technical/02-technical-architecture.md §5.2 · ADR-020.",
+  "description": "L3 → L4 structured finding. Numeric intelligence only — no prose. v1.2.0 adds value_domain (two-pillar) + equipment-health categories. See technical/03-two-pillar-technical-bridge.md · ADR-020.",
   "type": "object",
   "required": [
     "schema_version",
@@ -10,6 +10,7 @@
     "org_id",
     "plant_id",
     "category",
+    "value_domain",
     "waste_category",
     "assets",
     "evidence",
@@ -27,7 +28,7 @@
     "schema_version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "const": "1.1.0"
+      "const": "1.2.0"
     },
     "finding_id": { "type": "string", "minLength": 1 },
     "org_id": { "type": "string", "minLength": 1 },
@@ -46,8 +47,17 @@
         "sec_drift",
         "dispatch_gap",
         "cop_degradation",
-        "cmd_oversized"
+        "cmd_oversized",
+        "trip_cascade_risk",
+        "abnormal_duty",
+        "feeder_unexplained_draw",
+        "air_leak_survey"
       ]
+    },
+    "value_domain": {
+      "type": "string",
+      "enum": ["energy_efficiency", "equipment_health"],
+      "description": "Pillar 1 Load & Energy Efficiency = energy_efficiency; Pillar 2 Prescriptive Equipment Intelligence = equipment_health (03-two-pillar-technical-bridge)"
     },
     "waste_category": {
       "type": "integer",

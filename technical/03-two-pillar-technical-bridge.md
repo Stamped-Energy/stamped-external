@@ -169,7 +169,7 @@ For decks and [01-product-architecture](01-product-architecture.md) alignment (n
 
 | Gap | Action | Urgency |
 | --- | --- | --- |
-| `value_domain` on Finding (or category→domain map) | Additive schema or config table + fixtures | P0 for clean queue filters |
+| `value_domain` on Finding (or category→domain map) | **Done in contracts 0.9.0 / Finding 1.2.0** — required `value_domain` + equipment-health categories | — |
 | Rulepack ownership folders | `domain/energy_efficiency/*` vs `domain/equipment_health/*` (or tags on existing packs) | P0 |
 | L4 playbook split | Separate retrieval namespaces / templates per domain | P1 |
 | L5 Verify branch | Maintenance evidence fields on ledger / workflow (optional downtime / curve recovery) | P1 |

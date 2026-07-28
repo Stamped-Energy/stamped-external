@@ -1,5 +1,12 @@
 # Changelog — stamped-l1-contracts
 
+## 0.9.0 — 2026-07-28
+
+- `finding.json` **1.2.0**: required `value_domain` (`energy_efficiency` | `equipment_health`); add categories `trip_cascade_risk`, `abnormal_duty`, `feeder_unexplained_draw`, `air_leak_survey` (two-pillar L3)
+- Add `plant-intelligence-score.json` v1.0.0 + golden fixture — dual-pillar plant Intelligence Score (not RUL / not DISCOM substitute)
+- Fixture `finding.valid.json` bumped to 1.2.0 with `value_domain`
+- Aligns with `technical/03-two-pillar-technical-bridge.md`
+
 ## 0.8.0 — 2026-07-21
 
 - `finding.json` **1.1.0**: additive `ops_clearance` + optional `alarm_hint` for L5 ops-first verification / EMS alarms

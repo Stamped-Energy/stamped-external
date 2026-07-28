@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Added
+
+- Contracts **0.9.0**: Finding **1.2.0** (`value_domain`, equipment-health categories); `plant-intelligence-score.json` v1.0.0
+
 ### Changed
 - Messaging: primary verification is **verified with evidence** (ops-cleared / calculated ledger); DISCOM bill confirmation secondary. Demo decks + product architecture aligned.
 

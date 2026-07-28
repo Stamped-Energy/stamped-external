@@ -1,9 +1,10 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "finding_id": "f-2026-07-08-0042",
   "org_id": "org_acme",
   "plant_id": "plant_ghaziabad_1",
   "category": "md_overlap",
+  "value_domain": "energy_efficiency",
   "waste_category": 1,
   "assets": ["incomer_1"],
   "evidence": {
