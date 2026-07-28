@@ -1,5 +1,9 @@
 # Changelog — stamped-l1-contracts
 
+## 0.9.1 — 2026-07-28
+
+- Consumer `stamped-l3-eval` RunArtifact schema: optional `plant_intelligence_score` (Lab dual-pillar export)
+
 ## 0.9.0 — 2026-07-28
 
 - `finding.json` **1.2.0**: required `value_domain` (`energy_efficiency` | `equipment_health`); add categories `trip_cascade_risk`, `abnormal_duty`, `feeder_unexplained_draw`, `air_leak_survey` (two-pillar L3)
