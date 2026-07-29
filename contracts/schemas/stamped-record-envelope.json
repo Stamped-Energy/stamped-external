@@ -65,6 +65,15 @@
       "type": "string",
       "description": "W3C traceparent for OpenTelemetry propagation"
     },
+    "delivery": {
+      "type": "string",
+      "enum": ["l4", "lab_only"],
+      "description": "Lane hint for L4 intake (l4) vs Lab-only artifacts"
+    },
+    "status": {
+      "type": "string",
+      "description": "Emission status for L4 intake; emitted findings use status=emitted"
+    },
     "payload": {
       "type": "object",
       "description": "Validated L1 record per record_type schema"
