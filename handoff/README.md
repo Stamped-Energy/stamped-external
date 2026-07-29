@@ -111,6 +111,14 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 
 ---
 
+## L2→L6 Vinayak demo identity
+
+| Document | Purpose |
+|----------|---------|
+| [L2_L6_VINAYAK_IDENTITY.md](./L2_L6_VINAYAK_IDENTITY.md) | Canonical `plant_vinayak_1` / `org_acme` / “Vinayak Plant”; L4 ingest → L5 plant GETs → L6 BFF; envelope `delivery=l4` ∧ `status=emitted` |
+
+---
+
 ## Contracts & fixtures (shared)
 
 | Path | Use |
@@ -145,3 +153,4 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 | 2026-07-12 | Added stamped-l2 handoff section, ADR-009, layer-interfaces-l2 |
 | 2026-07-12 | Submodule distribution (ADR-011); playbooks + deployment-profiles |
 | 2026-07-17 | L4 architecture handoff + ADR-017; build-order superseded |
+| 2026-07-29 | Vinayak plant identity handoff (L2→L6, C-ext prep) |
