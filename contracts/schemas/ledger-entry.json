@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/ledger-entry.v1.json",
   "title": "LedgerEntry",
-  "description": "L5 → L2/L6 M&V ledger record. Append-only. See technical/02-technical-architecture.md §5.4.",
+  "description": "L5 → L2/L6 savings ledger record. Append-only in L2. P0 uses ops_confirmed for telemetry clearance; verified reserved for deferred bill path. See ADR-020.",
   "type": "object",
   "required": [
     "schema_version",
@@ -53,7 +53,8 @@
     "intensity_delta": { "type": ["number", "null"] },
     "verification_status": {
       "type": "string",
-      "enum": ["pending", "verified", "disputed", "modeled"]
+      "enum": ["pending", "ops_confirmed", "verified", "disputed", "modeled"],
+      "description": "ops_confirmed = telemetry clearance (P0). verified = reserved for future bill path. modeled = counterfactual/non-ops."
     },
     "modeled_reason": {
       "type": "string",
@@ -63,6 +64,14 @@
       "type": ["integer", "null"],
       "minimum": 0,
       "description": "For opportunity_cost entries"
+    },
+    "supersedes_entry_id": {
+      "type": ["string", "null"],
+      "description": "When set, this row corrects/reverses a prior LedgerEntry; prior row remains immutable"
+    },
+    "emission_factor_ref": {
+      "type": ["string", "null"],
+      "description": "Versioned emission factor id used when avoided_tco2e was computed"
     },
     "dedupe_key": {
       "type": "string",

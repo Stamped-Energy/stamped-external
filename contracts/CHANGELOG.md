@@ -1,5 +1,33 @@
 # Changelog — stamped-l1-contracts
 
+## 0.9.1 — 2026-07-28
+
+- Consumer `stamped-l3-eval` RunArtifact schema: optional `plant_intelligence_score` (Lab dual-pillar export)
+
+## 0.9.0 — 2026-07-28
+
+- `finding.json` **1.2.0**: required `value_domain` (`energy_efficiency` | `equipment_health`); add categories `trip_cascade_risk`, `abnormal_duty`, `feeder_unexplained_draw`, `air_leak_survey` (two-pillar L3)
+- Add `plant-intelligence-score.json` v1.0.0 + golden fixture — dual-pillar plant Intelligence Score (not RUL / not DISCOM substitute)
+- Fixture `finding.valid.json` bumped to 1.2.0 with `value_domain`
+- Aligns with `technical/03-two-pillar-technical-bridge.md`
+
+## 0.8.0 — 2026-07-21
+
+- `finding.json` **1.1.0**: additive `ops_clearance` + optional `alarm_hint` for L5 ops-first verification / EMS alarms
+- `ledger-entry.json`: add `ops_confirmed` to `verification_status` (`verified` reserved for deferred bill path)
+- `workflow-event.json`: add `alarm_raised|acked|cleared`, `ops_verified`, `ops_regressed`; actor `clearance_engine`
+- Fixtures: `finding` with clearance, `workflow_event_ops_verified`, ledger `ops_confirmed`
+- ADR-020 revised ops-first
+
+## 0.7.0 — 2026-07-20
+
+- Add `workflow-event.json` v1.0.0 — L5 → L6 workflow/notification stream (ADR-019)
+- Extend `stamped-record-envelope.json` `record_type` with `workflow_event` (BACKWARD additive)
+- `ledger-entry.json`: add optional `supersedes_entry_id`, `emission_factor_ref`; clarify `verification_status` (pending|verified|disputed|modeled) — no `superseded` status (corrections are new rows)
+- `prescription.json`: document that `status` is intake-only; L5 verified/disputed live on WorkflowState
+- Golden fixture `workflow_event.valid.json`
+- Aligns with L5 architecture overhaul (ADR-019/020/021)
+
 ## 0.6.1 — 2026-07-14
 
 - Docs: reconcile `Finding` examples in L3/L4/`02-technical-architecture` §5.2 to match `finding.json` field names (`baseline_value`/`actual_value`, required `plant_id`/`org_id`, top-level `engine` + `rule_or_model_ref`). Schema unchanged.

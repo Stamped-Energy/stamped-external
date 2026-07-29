@@ -19,6 +19,7 @@ Before starting any task in this repository:
    - **Greenfield / new feature / specs-first** → `speckit.mdc` + `speckit-*` skills (after ponytail for code)
    - Research, explain, learning → learn-and-research rule + `learn-while-building` skill
    - README / onboarding docs → `extensive-readme` skill
+   - Humanize / de-AI prose ("make it sound human", "not AI-generated", "write like a person") → `behuman` skill + `behuman.mdc`
    - UI / React / Next.js files → frontend-architecture rule + skill
    - API / services / server code → backend-architecture rule + skill
    - Agents / LLM / MCP / automations → agentic-systems + mcp-architecture rules + skills

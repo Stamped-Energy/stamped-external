@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Prescription agents · Stamped Energy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="deep-dive.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar__brand" href="../index.html">
+      <img src="https://stamped.work/logo.png" alt="" width="24" height="24" onerror="this.style.display='none'" />
+      Stamped Energy
+    </a>
+    <a class="topbar__back" id="backToDeck" href="../index.html">← Back to decks</a>
+  </header>
+
+  <main class="page">
+    <p class="eyebrow reveal">03 · Agents</p>
+    <h1 class="reveal">Draft the floor action. Don’t invent ₹.</h1>
+    <p class="lede reveal">
+      Bounded agents write what / why / who / effort / ₹ / due.
+      Physics, tariff, and the calculation engine keep vetoes on the money path.
+    </p>
+
+    <section class="panel reveal">
+      <h2 class="section-title">Agent pipeline</h2>
+      <p class="muted" style="margin-bottom:0.85rem;">Click a stage.</p>
+      <div class="pipeline" id="agentPipe">
+        <button type="button" class="pipe-node is-active" data-node="finding">
+          <div class="pipe-node__step">01</div>
+          <strong>Finding</strong>
+          <p>Cite + residual</p>
+        </button>
+        <button type="button" class="pipe-node" data-node="tools">
+          <div class="pipe-node__step">02</div>
+          <strong>Tools</strong>
+          <p>Read-only</p>
+        </button>
+        <button type="button" class="pipe-node" data-node="veto">
+          <div class="pipe-node__step">03</div>
+          <strong>Veto</strong>
+          <p>Physics · tariff</p>
+        </button>
+        <button type="button" class="pipe-node" data-node="rank">
+          <div class="pipe-node__step">04</div>
+          <strong>Rank</strong>
+          <p>₹ × conf / effort</p>
+        </button>
+        <button type="button" class="pipe-node" data-node="rx">
+          <div class="pipe-node__step">05</div>
+          <strong>Rx</strong>
+          <p>WhatsApp-ready</p>
+        </button>
+      </div>
+      <div class="pipe-detail" id="pipeDetail" aria-live="polite"></div>
+    </section>
+
+    <section class="panel reveal" style="margin-top:1rem;">
+      <h2 class="section-title">Tool loop</h2>
+      <svg class="svg-stage" viewBox="0 0 480 160" role="img" aria-label="Agent tool loop">
+        <circle cx="70" cy="80" r="32" fill="#fff" stroke="#e3beb8" stroke-width="2"/>
+        <text x="70" y="85" text-anchor="middle" font-size="11" font-family="Inter" font-weight="700" fill="#051F13">Agent</text>
+        <path class="draw-line" d="M102 80 H160" stroke="#00666b" stroke-width="2"/>
+        <rect x="160" y="30" width="130" height="100" rx="12" fill="#051F13"/>
+        <text x="225" y="70" text-anchor="middle" font-size="11" fill="#e8f2ec" font-family="Inter" font-weight="700">Tools</text>
+        <text x="225" y="92" text-anchor="middle" font-size="9" fill="#ffb4a8" font-family="Inter">calculate_impact</text>
+        <path class="draw-line" d="M290 80 H348" stroke="#F75440" stroke-width="2" style="animation-delay:0.3s"/>
+        <rect x="348" y="48" width="100" height="64" rx="12" fill="rgba(247,84,64,0.1)" stroke="#F75440"/>
+        <text x="398" y="85" text-anchor="middle" font-size="11" font-family="Inter" font-weight="700" fill="#051F13">Veto</text>
+      </svg>
+      <p class="cite">LLM = prose only. No free-form multi-agent crews as default.</p>
+    </section>
+
+    <nav class="nav-pills" aria-label="Tech deep dives">
+      <a href="physics.html" data-pill-from>Physics</a>
+      <a href="models.html" data-pill-from>Models</a>
+      <a class="is-current" href="agents.html" data-pill-from>Agents</a>
+      <a href="evidence.html" data-pill-from>Evidence</a>
+    </nav>
+  </main>
+
+  <script src="deep-dive.js"></script>
+  <script>
+    StampedDeepDive.bindPipeline("#agentPipe", "#pipeDetail", {
+      finding: {
+        title: "Finding intake",
+        body: "Structured finding with residual evidence, confidence, scope, and a cite the EE can open.",
+        code: "finding.rule_or_model_ref · baseline_id"
+      },
+      tools: {
+        title: "Bounded tools",
+        body: "Read-only context. Impact must be recomputed. Prose cannot invent rupees.",
+        code: "query_timeseries · get_baseline · calculate_impact · check_rule_violation"
+      },
+      veto: {
+        title: "Physics and tariff veto",
+        body: "Rule or tariff mismatch blocks issue. The LLM cannot override.",
+        code: "verifier.reject(reason=physics|tariff|impact_mismatch)"
+      },
+      rank: {
+        title: "Deterministic ranking",
+        body: "Queue order is ₹ × confidence / effort.",
+        code: "score = rupees * confidence / effort"
+      },
+      rx: {
+        title: "Floor prescription",
+        body: "WhatsApp-ready action with M&amp;V plan locked at issue.",
+        code: "Rx{action, owner, impact_inr, due, mv_plan_id}"
+      }
+    });
+  </script>
+</body>
+</html>

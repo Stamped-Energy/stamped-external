@@ -21,7 +21,7 @@
 | **L4 agent** | "Template path" vague | Two-lane architecture: deterministic template-fast-path (P0) + bounded LangGraph (P1) |
 | **Evals** | Missing from matrix | L4 golden eval harness (≥20 cases) + L3 golden replay in CI |
 | **§17 Risks** | Mitigation only | Likelihood / impact / contingency columns |
-| **Frontend** | L6 non-goal only | L6 handoff stub for counterfactual `opportunity_cost` display (no L6 commits P0) |
+| **Frontend** | L6 non-goal only | L6 handoff stub for counterfactual `opportunity_cost` display (no L6 commits P0) — **superseded 2026-07-21:** full L6 architecture/UI handoff + `consumers/stamped-l6` seed (ADR-022/023) |
 
 ---
 
@@ -202,7 +202,7 @@ stamped-l3-eval/       Corpus + rolling backtest CLI (artifact repo; P1)
 | WS-3 | Rulepacks | `stamped-l3-rulepacks` | WS-2 rulepack interface |
 | WS-4 | L3 eval | `stamped-l3-eval` | WS-3 golden windows |
 | WS-5 | L4 agent | `stamped-l4` template + graph | WS-1 Prescription schema |
-| WS-6 | L5 ledger | L5 spec + `opportunity_cost` | WS-1 LedgerEntry schema |
+| WS-6 | L5 ledger | L5 spec + `opportunity_cost` (**extended 2026-07-20:** full L5 SSOT + ADR-019/020/021 + handoff — see [PHASE_L5_ARCHITECTURE_COMPLETION.md](PHASE_L5_ARCHITECTURE_COMPLETION.md)) | WS-1 LedgerEntry schema |
 | WS-7 | TS challenger | TimesFM shadow (P2) | WS-4 eval harness |
 
 ### WS-2 — L3 core

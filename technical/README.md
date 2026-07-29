@@ -25,6 +25,8 @@ It deliberately contains **no market, ICP, or GTM research** beyond what the mas
 | 1 | [00-stamped-master-document.md](00-stamped-master-document.md) | What Stamped is: positioning, product vision, capabilities, outcomes, ICP summary, revenue model |
 | 2 | [01-product-architecture.md](01-product-architecture.md) | Product definition: 10 capability modules, UX surfaces, integration paths, competitor learnings, module→layer map |
 | 3 | [02-technical-architecture.md](02-technical-architecture.md) | The engineering spec: L0–L6 stack, savings math for 15–20%, layer contracts, resolved decisions, build phases |
+| 3b | [stamped-research-and-ml-citations.md](stamped-research-and-ml-citations.md) | Client-facing CORE vs FRONTIER bibliography (SPC, TOW-P, LightGBM, TimesFM…) for tech deep-dives and discovery |
+| 3c | [03-two-pillar-technical-bridge.md](03-two-pillar-technical-bridge.md) | Maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding tags, engines, Verify/Improve) — no layer rewrite |
 | 4 | [cross-cutting/03-production-engineering.md](cross-cutting/03-production-engineering.md) | Streaming backbone, reliability patterns, edge, tenancy, observability, deployment |
 | 5 | [cross-cutting/04-evaluation-and-quality.md](cross-cutting/04-evaluation-and-quality.md) | The quality spine: testing pyramid, data-quality gates, ML/LLM evals, CI gates, shadow mode |
 | 6+ | `layers/` (below) | Per-layer deep dives, in build order |
@@ -49,7 +51,7 @@ L6  Experience & integration (dashboard, API)      → layers/L6-experience-and-
 | [L3 — Decision defense brief](layers/L3-decision-defense-brief.md) | Debate-ready synthesis: rules vs ML vs LLM vs foundation models, engine attack/response cards, ADR-012/014 topology & shadowing, eval gates, Zerowatt counters |
 | [L3 — Attribution explainability](layers/L3-attribution-explainability.md) | Co-start/graph ranking of-record; quality grade; why not SHAP/NILM; dual-lane + ADR-016 shadows |
 | [L4 — Knowledge & reasoning](layers/L4-knowledge-and-reasoning.md) | Architecture SSOT: dual-lane agent, adaptive hybrid RAG (H/G/V/W), T4 web trust, dual local/cloud retrieval, Langfuse+Phoenix+DeepEval — [ADR-017](../decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [handoff](../handoff/stamped-l4-architecture-handoff.md) |
-| [L5 — Closure & verification](layers/L5-closure-and-verification.md) | Workflow engine, WhatsApp Business Platform integration, IPMVP-style M&V, Indian bill reconciliation, savings ledger |
+| [L5 — Closure & verification](layers/L5-closure-and-verification.md) | **SSOT** — workflow, WhatsApp, IPMVP M&V, bill reconciliation, L2 ledger append, evidence, P0–P3 cost (ADR-019/020/021) |
 | [L6 — Experience & integration](layers/L6-experience-and-integration.md) | Dashboard stack, prescription queue UX, report/export generation, REST API + webhooks, tiered "connect to any system" integration menu |
 
 ## Cross-cutting engineering specs
@@ -70,4 +72,4 @@ L6  Experience & integration (dashboard, API)      → layers/L6-experience-and-
 
 ## The one-line thesis to keep in mind while building
 
-> 15–20% verified bill reduction is engineered as the **sum of closed prescriptions across six waste categories**, multiplied by **closure rate**, defended by **bill-verified M&V** — not produced by any single model. Detection is necessary; closure and verification are the product.
+> 15–20% verified savings is engineered as the **sum of closed prescriptions across six waste categories**, multiplied by **closure rate**, defended by **evidence-backed M&V** (ops-cleared / calculated ledger; bill path optional) — not produced by any single model. Detection is necessary; closure and verification are the product.

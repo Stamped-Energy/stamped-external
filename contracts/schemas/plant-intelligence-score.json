@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/plant-intelligence-score.v1.json",
+  "title": "PlantIntelligenceScore",
+  "description": "Evidence-backed dual-pillar plant Intelligence Score (0–100). Not RUL%, not vibration health, not a substitute for DISCOM ₹ proof. See technical/03-two-pillar-technical-bridge.md.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "as_of",
+    "lookback",
+    "overall",
+    "pillar1_load_energy",
+    "pillar2_equipment",
+    "components",
+    "family_coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "as_of": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when score was computed"
+    },
+    "lookback": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ISO-8601 duration of Finding lookback e.g. P30D"
+    },
+    "overall": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "0.65 * pillar1_load_energy + 0.35 * pillar2_equipment"
+    },
+    "pillar1_load_energy": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Load & Energy Efficiency Intelligence score"
+    },
+    "pillar2_equipment": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Prescriptive Equipment Intelligence score"
+    },
+    "components": {
+      "type": "object",
+      "required": ["pillar1", "pillar2"],
+      "properties": {
+        "pillar1": { "$ref": "#/$defs/pillarComponents" },
+        "pillar2": { "$ref": "#/$defs/pillarComponents" }
+      },
+      "additionalProperties": false
+    },
+    "family_coverage": {
+      "type": "object",
+      "description": "Technique families A–H with of-record Finding present in lookback",
+      "required": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "properties": {
+        "A": { "type": "boolean", "description": "Peak & coincidence" },
+        "B": { "type": "boolean", "description": "Tariff & commercial" },
+        "C": { "type": "boolean", "description": "Thermal & process timing" },
+        "D": { "type": "boolean", "description": "Pure energy waste" },
+        "E": { "type": "boolean", "description": "Source mix" },
+        "F": { "type": "boolean", "description": "Efficiency drift → maintenance" },
+        "G": { "type": "boolean", "description": "Trip / duty early warning" },
+        "H": { "type": "boolean", "description": "Coarse load signature" }
+      },
+      "additionalProperties": false
+    },
+    "finding_counts": {
+      "type": "object",
+      "properties": {
+        "energy_efficiency": { "type": "integer", "minimum": 0 },
+        "equipment_health": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "precision_proxy": {
+      "type": "object",
+      "description": "Optional Lab champion precision by domain; default prior 0.75 when absent",
+      "properties": {
+        "energy_efficiency": { "type": "number", "minimum": 0, "maximum": 1 },
+        "equipment_health": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "pillarComponents": {
+      "type": "object",
+      "required": ["coverage", "impact_density", "closure_quality", "precision_proxy"],
+      "properties": {
+        "coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Fraction of pillar families with ≥1 of-record Finding"
+        },
+        "impact_density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Normalized open estimated_monthly_inr density"
+        },
+        "closure_quality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Fraction of Findings with complete ops_clearance"
+        },
+        "precision_proxy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

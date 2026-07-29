@@ -198,7 +198,7 @@ Every layer spec follows this pattern. Summary of the highest-impact forks:
 | **OT connectivity** | Modbus profile library (built) | Kepware / NeuronEX per plant | 150+ drivers; OPC-DA tunnelling; air-gapped OT without Stamped building drivers |
 | **Bill OCR** | Open-source layout parser (e.g. Docling) + vision-LLM fallback | Commercial doc-AI (LlamaParse, etc.) | Higher table-extraction accuracy on messy DISCOM PDFs when recompute gate failure rate > threshold |
 | **Observability** | OpenTelemetry → Grafana Cloud free tier | Grafana Cloud Pro / Datadog | Longer retention, enterprise SSO, on-call integrations |
-| **Workflow engine** | Postgres state machine + durable timer rows | Temporal.io | Cross-service durable workflows when satellites multiply beyond one DB |
+| **Workflow engine** | Postgres state machine + durable timer rows (**L5 ADR-019** through P0–P2) | Temporal.io | Only if L5 timer/outbox correctness cost exceeds Temporal Cloud after measured failures |
 | **Compliance** | ISO 27001 via Sprinto-class Indian path `[~]` | Full SOC 2 Type II | Enterprise procurement gate for listed-parent accounts |
 
 **Module boundary to defend:** all event publication goes through one `events` module with versioned JSON schemas — swapping outbox → Redpanda is a relay change, not a rewrite.
@@ -230,7 +230,7 @@ Guarantees L1 makes to L2: units normalised · timestamps UTC (plant TZ preserve
 
 ```
 Finding {
-  schema_version,                      // "1.0.0"
+  schema_version,                      // "1.1.0"
   finding_id, org_id, plant_id,        // plant_id required
   category,                            // closed enum (md_overlap | compressor_sp_drift | …)
   waste_category,                      // 1–6 (§3.1)
@@ -241,19 +241,25 @@ Finding {
     model_version?, rule_version?                   // versions of cited artefacts
   },
   confidence,                          // calibrated 0–1
-  estimated_monthly_kwh, estimated_monthly_inr,
-  inr_decomposition?,                  // bill_line + rate_ref
+  estimated_monthly_kwh, estimated_monthly_inr,  // calculated savings SoT (not bill-verified)
+  inr_decomposition?,                  // bill_line + rate_ref (for deferred bill path)
   urgency,                             // low | medium | high
   engine, engine_version,              // producer identity (e.g. rules.compressor_sp_drift / 1.4.2)
   rule_or_model_ref,                   // URI, e.g. rulepack://compressor/1.4.2#sp_drift
   suppressions_checked?,
+  ops_clearance {                      // required — L5 ops-first verification (ADR-020)
+    measurement_boundary, related_tag_ids[],
+    clearance_predicate, expected_post_fix_signal,
+    stabilize_window, reopen_if_regresses
+  },
+  alarm_hint?,                         // severity + category_code — L5 routes; L3 suggests only
   dedupe_key                           // sha256:… stable business key
 }
 ```
 
-**Naming map (do not mix):** `evidence.baseline_value` / `evidence.actual_value` are the numbers; `evidence.model_version` / `evidence.rule_version` version cited artefacts; top-level `engine` + `engine_version` + `rule_or_model_ref` identify the producer for M&V replay. Layer docs that used `baseline`/`actual` are obsolete.
+**Naming map (do not mix):** `evidence.baseline_value` / `evidence.actual_value` are the numbers; `evidence.model_version` / `evidence.rule_version` version cited artefacts; top-level `engine` + `engine_version` + `rule_or_model_ref` identify the producer for replay. Layer docs that used `baseline`/`actual` are obsolete.
 
-Guarantees L3 makes to L4: findings are category-tagged (generic alerts rejected) · every number traces to a versioned baseline/model/rule · confidence is calibrated, not raw model score · schema matches `finding.json`.
+Guarantees L3 makes to L4/L5: findings are category-tagged (generic alerts rejected) · every number traces to a versioned baseline/model/rule · confidence is calibrated, not raw model score · every Finding carries evalable `ops_clearance` · schema matches `finding.json` **1.1.0**.
 
 ### 5.3 L4 → L5: `Prescription`
 
@@ -272,21 +278,33 @@ Prescription {
 
 Guarantees L4 makes to L5: passed rules-engine veto · impact numbers recomputed deterministically by the impact calculator (never LLM arithmetic) · action drawn from the approved template taxonomy · full provenance for reproducibility.
 
-### 5.4 L5 → L6: `LedgerEntry`
+### 5.4 L5 → L6: `LedgerEntry` + `WorkflowEvent`
+
+**Canonical schemas:** [`ledger-entry.json`](../contracts/schemas/ledger-entry.json) · [`workflow-event.json`](../contracts/schemas/workflow-event.json) — CI via `./scripts/contract-check.sh`. L5 SSOT: [L5](layers/L5-closure-and-verification.md) · ADR-019/020.
 
 ```
 LedgerEntry {
-  entry_id, prescription_id, period_start, period_end,
+  entry_id, prescription_id, entry_type,   // realised_savings | potential_savings | opportunity_cost
+  period_start, period_end,
   potential_kwh, realised_kwh, potential_inr, realised_inr,
   avoided_tco2e,                       // grid kWh × versioned emission factor
   mv_method, baseline_id,              // IPMVP option, locked baseline
   bill_line_refs[],                    // DISCOM bill reconciliation
   intensity_delta,                     // SEC change if production tagged
-  verification_status                  // pending | verified | disputed
+  verification_status,                 // pending | ops_confirmed | verified | disputed | modeled
+                                       // ops_confirmed = P0 telemetry clearance; verified reserved for deferred bill
+  supersedes_entry_id?                 // corrections = new rows (never mutate)
+}
+
+WorkflowEvent {
+  event_id, prescription_id, event_type, // includes alarm_* | ops_verified | ops_regressed
+  from_status, to_status,              // L5 runtime: open…verified|disputed|… (verified = ops-cleared)
+  actor_type, reason_code?, channel?, wamid?,
+  workflow_version, occurred_at, dedupe_key
 }
 ```
 
-Guarantees L5 makes to L6: append-only (corrections are new entries, never edits) · baseline locked at prescription issue, immutable thereafter · disputed entries carry reason codes.
+Guarantees L5 makes to L6: append-only ledger in **L2** (L5 appends via HTTP, ADR-019) · ops clearance evaluated from Finding `ops_clearance` · `ops_confirmed` / `modeled` never presented as bill-verified · EMS alarm list from WorkflowEvents · workflow closure states live on `WorkflowEvent`, not L4 `Prescription.status`.
 
 ---
 
@@ -488,15 +506,18 @@ Full spec: [L5 — Closure & verification](layers/L5-closure-and-verification.md
 
 ### 11.1 Workflow engine
 
+**Binding:** Postgres state machine + durable timers in **`stamped-l5`** through P0–P2 ([ADR-019](../decisions/ADR-019-l5-runtime-and-consistency.md)). Temporal is an upgrade-trigger option, not the default.
+
 | State | Meaning | Triggers |
 | --- | --- | --- |
-| Open | Rx issued | Agent + ranker |
+| Open | Rx accepted by L5 | L4 Prescription intake |
 | In Progress | Owner acknowledged | WhatsApp / dashboard |
 | Done | Action reported complete | Supervisor marks done |
-| Verified | M&V confirmed | M&V engine + bill |
+| Verified | M&V + analyst (P0) + L2 ledger ACK | VerificationCase |
 | Deferred / Rejected | Not actioned | User + reason code |
+| Disputed | Claim challenged | P2 dispute lifecycle |
 
-Reason codes feed L3 calibration: wrong owner, capex blocked, production constraint, already fixed. Reminders, escalation, and SLA timers are native; closure rate per plant/role is a first-class product metric.
+Reason codes feed L3 calibration. Runtime states stream as `WorkflowEvent` — L4 `Prescription.status` remains intake-only.
 
 ### 11.2 Notification router
 
@@ -512,7 +533,7 @@ Reason codes feed L3 calibration: wrong owner, capex blocked, production constra
 
 IPMVP-aligned `[~]` using **standard EVO option naming** (see [L5](layers/L5-closure-and-verification.md) §3.3 for full methodology). Two-tier verification:
 
-1. **Tier 1 — Account truth (Option C):** whole-facility avoided use, production-normalised, reconciled to DISCOM bill lines — the customer-facing "verified on the bill" number.
+1. **Tier 1 — Account truth (Option C):** whole-facility avoided use, production-normalised, reconciled to DISCOM bill lines — a deferred bill-reconciled number; P0 customer-facing verified = ops-cleared evidence (ADR-020).
 2. **Tier 2 — Per-prescription attribution (Option A/B):** boundary-level estimates where metered; engineering allocation elsewhere. Hard constraint: `Σ per-Rx attributed savings ≤ Tier-1 account savings` for the period.
 
 | IPMVP option | What it measures (EVO standard) | Stamped application | Verification source |

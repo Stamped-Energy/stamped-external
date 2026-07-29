@@ -64,6 +64,10 @@
     "errors": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "plant_intelligence_score": {
+      "type": "object",
+      "description": "Optional dual-pillar plant Intelligence Score from L3 Lab export"
     }
   },
   "additionalProperties": false,

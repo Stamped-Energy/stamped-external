@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Stamped Energy - Demo Deck</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,14 +35,32 @@
       --progress-h: 3px;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
       --grid-line: color-mix(in srgb, var(--primary) 10%, transparent);
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left, 0px);
+      --safe-r: env(safe-area-inset-right, 0px);
+      --phone-screen-w: 320px;
+      --phone-ratio: 393 / 852;
+      --phone-frame-pad: 12px;
+      --wa-teal: #075e54;
+      --wa-teal-light: #128c7e;
+      --wa-action: #008069;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       height: 100%;
+      height: 100dvh;
       overflow: hidden;
-      background: var(--secondary);
+      background: var(--surface);
       color: var(--on-surface);
       font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
@@ -60,10 +78,10 @@
     }
 
     .chrome-top {
-      position: fixed; top: var(--progress-h); left: 0; right: 0;
+      position: fixed; top: calc(var(--progress-h) + var(--safe-t)); left: 0; right: 0;
       height: var(--chrome-h); z-index: 90;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1rem, 3vw, 2.25rem);
+      padding: 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-l)) 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-r));
       pointer-events: none;
     }
     .chrome-logo {
@@ -83,15 +101,19 @@
     }
     .chrome-logo, .chrome-counter { color: var(--on-surface); }
 
-    .stage { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+    .stage {
+      position: relative; width: 100%;
+      height: 100%; height: 100dvh;
+      overflow: hidden;
+    }
 
     .slide {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; justify-content: center;
       padding:
-        calc(var(--chrome-h) + var(--progress-h) + clamp(0.25rem, 0.8vh, 0.65rem))
-        clamp(4.25rem, 7.5vw, 6.5rem)
-        clamp(3.25rem, 6vh, 4.4rem);
+        calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + clamp(0.25rem, 0.8vh, 0.65rem))
+        max(clamp(4.25rem, 7.5vw, 6.5rem), var(--safe-r))
+        max(clamp(3.25rem, 6vh, 4.4rem), calc(var(--safe-b) + 2.5rem));
       opacity: 0; visibility: hidden; pointer-events: none;
       transition: opacity 0.28s var(--ease), visibility 0.28s;
       overflow: hidden;
@@ -247,7 +269,6 @@
       color: var(--on-surface-variant);
     }
     .meta { font-size: 0.78rem; opacity: 0.55; margin-top: 1rem; letter-spacing: 0.02em; }
-    .tilde { font-size: 0.72em; opacity: 0.65; font-weight: 500; }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
@@ -354,18 +375,47 @@
     /* 1 Title */
     #scene-title .hero-shell {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
-      gap: clamp(1.5rem, 4vw, 3rem);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(1.75rem, 4.5vw, 3.25rem);
       align-items: center;
+    }
+    #scene-title .hero-copy {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 0;
+    }
+    #scene-title .hero-logo {
+      height: clamp(36px, 4.2vw, 48px); width: auto;
+      margin-bottom: var(--space-5);
+    }
+    #scene-title .eyebrow {
+      margin-bottom: var(--space-3);
     }
     #scene-title .brand-name {
       font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(2.6rem, 5.8vw, 4.2rem);
-      letter-spacing: -0.04em; line-height: 0.98; color: var(--secondary);
-      margin: 0.35rem 0 0.55rem;
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      letter-spacing: -0.045em; line-height: 0.95; color: var(--secondary);
+      margin: 0 0 var(--space-4);
     }
-    #scene-title .hero-logo { height: clamp(42px, 5vw, 58px); width: auto; }
-    #scene-title .wordmark-fallback { display: none; font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--secondary); }
+    #scene-title h1 {
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      max-width: 18em;
+      margin: 0 0 var(--space-4);
+      color: var(--on-surface);
+    }
+    #scene-title .lede {
+      margin: 0 0 var(--space-5);
+      max-width: 38em;
+    }
+    #scene-title .flow-tags { margin-top: 0; margin-bottom: var(--space-2); }
+    #scene-title .btn-row { margin-top: var(--space-5); }
+    #scene-title .meta { margin-top: var(--space-4); }
+    #scene-title .wordmark-fallback {
+      display: none; font-family: var(--font-display); font-weight: 800;
+      font-size: 1.75rem; color: var(--secondary); margin-bottom: var(--space-5);
+    }
     #scene-title.logo-failed .hero-logo { display: none; }
     #scene-title.logo-failed .wordmark-fallback { display: block; }
     .hero-canvas {
@@ -374,13 +424,13 @@
       background:
         linear-gradient(160deg, rgba(247,84,64,0.06), transparent 45%),
         var(--white);
-      padding: 1.15rem;
-      min-height: 320px;
+      padding: clamp(0.85rem, 1.5vw, 1.15rem);
+      min-height: 0;
       position: relative;
       overflow: hidden;
       box-shadow: 0 18px 40px -28px rgba(5,31,19,0.18);
     }
-    .hero-canvas svg { width: 100%; height: 280px; display: block; }
+    .hero-canvas svg { width: 100%; height: auto; aspect-ratio: 420 / 280; display: block; }
     .flow-tags {
       display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem;
     }
@@ -699,13 +749,29 @@
       display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.75rem; margin-top: 1.15rem;
     }
-    .tech-card {
+    a.tech-card {
       background: var(--white);
       border: 1px solid var(--outline-variant);
       border-radius: var(--radius-card);
       padding: 1.1rem 1rem; min-height: 250px;
       box-shadow: 0 12px 30px -24px rgba(5,31,19,0.22);
       display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
+      cursor: pointer;
+    }
+    /* Lite tech cards: only demo-decks/pharma/index.html (Vercel deploy root) */
+    html[data-tech-lite] a.tech-card { min-height: 168px; }
+    html[data-tech-lite] .tech-card__detail { display: none; }
+    html[data-tech-lite] .tech-card > p { margin-bottom: 0; }
+    a.tech-card:hover {
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--primary) 45%, var(--outline-variant));
+      box-shadow: 0 18px 36px -22px rgba(5,31,19,0.32);
+    }
+    a.tech-card:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
     }
     .tech-card__num {
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
@@ -729,6 +795,16 @@
     .tech-card li::before {
       content: ""; position: absolute; left: 0; top: 0.45em;
       width: 5px; height: 5px; border-radius: 1px; background: var(--tertiary);
+    }
+    .tech-card__cta {
+      margin-top: 0.75rem;
+      font-size: 0.72rem; font-weight: 650; letter-spacing: 0.04em;
+      color: var(--tertiary);
+    }
+    a.tech-card:hover .tech-card__cta { color: var(--primary); }
+    @media (prefers-reduced-motion: reduce) {
+      a.tech-card { transition: none; }
+      a.tech-card:hover { transform: none; }
     }
 
     /* Audit + sustainability */
@@ -768,81 +844,532 @@
       padding: 0.85rem 1rem;
     }
 
-    /* 7 Floor / phone */
+    /* 7 Floor / phone — iPhone 15 proportions (393×852 pt) */
+    #scene-floor .slide__inner--wide {
+      max-width: min(1400px, 100%);
+      padding-inline: clamp(1.5rem, 3.5vw, 2.5rem);
+    }
     .floor-layout {
-      display: grid; grid-template-columns: minmax(280px, 340px) 1fr;
-      gap: clamp(1.4rem, 3vw, 2.4rem); align-items: center; margin-top: 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) auto;
+      gap: clamp(1.35rem, 2.4vw, 2.1rem);
+      align-items: start;
+      justify-content: stretch;
+      margin-top: 0.15rem;
+      width: 100%;
+    }
+    .floor-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-width: 0;
+      max-width: 26rem;
+    }
+    .floor-copy .eyebrow { margin-bottom: 0.55rem; }
+    .floor-copy h2 { margin-bottom: 0.35rem; }
+    .floor-copy .lede {
+      margin-bottom: 0;
+      max-width: 34em;
+      font-size: clamp(0.92rem, 1.35vw, 1.02rem);
+      line-height: 1.45;
+    }
+    .floor-copy .status-rail {
+      margin-top: 1.25rem;
+      gap: 1.15rem;
+    }
+    .floor-route {
+      display: grid;
+      gap: 0.9rem;
+      align-content: start;
+      min-width: 0;
+      max-width: 24rem;
+      margin-top: 2.65rem;
+    }
+    .floor-route__title {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .floor-route-grid {
+      display: grid;
+      gap: 0.9rem;
+    }
+    .floor-route-card {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card);
+      background: var(--white);
+      padding: 0.9rem 1rem;
+    }
+    .floor-route-card strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      color: var(--on-surface);
+    }
+    .floor-route-card p {
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+      margin: 0;
+    }
+    #scene-floor .phone-col {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      min-width: 0;
+      padding-top: 0.15rem;
     }
     .phone {
-      width: 100%; max-width: 320px; margin: 0 auto;
-      background: linear-gradient(180deg, #2a211e, #1c1513);
-      border: 1px solid #c49a92; border-radius: 34px; padding: 12px;
+      width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+      max-width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+      flex-shrink: 0;
       position: relative;
+      padding: var(--phone-frame-pad) calc(var(--phone-frame-pad) - 1px) calc(var(--phone-frame-pad) + 2px);
+      border-radius: 52px;
+      background:
+        linear-gradient(165deg, #636366 0%, #3a3a3c 16%, #1c1c1e 52%, #0a0a0b 100%);
+      border: 1.5px solid #48484a;
+      box-shadow:
+        0 42px 84px -34px rgba(5, 31, 19, 0.52),
+        0 18px 36px -22px rgba(0,0,0,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.24),
+        inset 0 -2px 6px rgba(0,0,0,0.52);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+      transform-origin: center right;
+      transition: transform 0.35s var(--ease);
+    }
+    .phone:hover {
+      transform: perspective(1200px) rotateY(-2deg) rotateX(1deg) translateY(-3px);
+    }
+    #scene-floor .phone:hover {
+      transform: perspective(1200px) rotateY(-2deg) rotateX(1deg) translateY(-3px);
     }
     .slide.active .phone {
-      animation: phoneIn 0.62s var(--ease) 0.1s both;
+      animation: phoneIn 0.7s var(--ease) 0.08s both;
     }
-    .phone::before {
-      content: ""; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-      width: 96px; height: 18px; background: #120d0c; border-radius: 12px; z-index: 2;
+    #scene-floor .slide.active .phone {
+      animation: phoneInFloor 0.7s var(--ease) 0.08s both;
+    }
+    @keyframes phoneInFloor {
+      from { opacity: 0; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(18px); }
+      to { opacity: 1; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(0); }
+    }
+    .phone::before { content: none; }
+    .phone::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 9px;
+      border-radius: 42px;
+      background: linear-gradient(125deg, rgba(255,255,255,0.16) 0%, transparent 36%, transparent 64%, rgba(255,255,255,0.05) 100%);
+      z-index: 4;
+    }
+    .phone-btn {
+      position: absolute;
+      background: linear-gradient(90deg, #48484a, #1c1c1e);
+      border-radius: 2px;
+      z-index: 5;
+      box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.14);
+    }
+    .phone-btn--silent {
+      left: -3px; top: 15%; width: 3px; height: 26px;
+      border-radius: 2px 0 0 2px;
+    }
+    .phone-btn--vol-up {
+      left: -3px; top: 22%; width: 3px; height: 48px;
+      border-radius: 2px 0 0 2px;
+    }
+    .phone-btn--vol-down {
+      left: -3px; top: 31%; width: 3px; height: 48px;
+      border-radius: 2px 0 0 2px;
+    }
+    .phone-btn--power {
+      right: -3px; top: 24%; width: 3px; height: 72px;
+      border-radius: 0 2px 2px 0;
+    }
+    .phone__bezel {
+      border-radius: 40px;
+      overflow: hidden;
+      background: #000;
+      padding: 2px;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
     }
     .phone__screen {
-      background: #f7efeC; border-radius: 24px; overflow: hidden;
-      min-height: 460px; display: flex; flex-direction: column;
+      background: #000;
+      border-radius: 38px;
+      overflow: hidden;
+      aspect-ratio: var(--phone-ratio);
+      width: var(--phone-screen-w);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .phone-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 102px;
+      height: 30px;
+      background: #000;
+      border-radius: 18px;
+      z-index: 20;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.06),
+        0 1px 3px rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 11px;
+      gap: 7px;
+      pointer-events: none;
+    }
+    .phone-island::before,
+    .phone-island::after {
+      content: "";
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .phone-island::before {
+      width: 9px; height: 9px;
+      background: radial-gradient(circle at 35% 35%, #2a3540, #080c10 72%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    .phone-island::after {
+      width: 7px; height: 7px;
+      background: #141416;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .phone-statusbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 13px 20px 0;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #fff;
+      background: transparent;
+      pointer-events: none;
+      letter-spacing: -0.01em;
+    }
+    .phone-time {
+      font-variant-numeric: tabular-nums;
+      padding-top: 1px;
+    }
+    .phone-status-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.22rem;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding-top: 1px;
+    }
+    .phone-sig { width: 15px; height: 10px; fill: currentColor; }
+    .phone-bat { width: 21px; height: 10px; fill: currentColor; }
+    .wa-app {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--wa-teal);
     }
     .wa-header {
-      background: #c45a4a; color: #fff; padding: 1.55rem 1rem 0.85rem;
-      display: flex; align-items: center; gap: 0.65rem;
+      background: var(--wa-teal);
+      color: #fff;
+      padding: 2.55rem 0.65rem 0.55rem;
+      display: grid;
+      grid-template-columns: auto auto 1fr auto;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .wa-back {
+      font-size: 1.55rem; line-height: 1; opacity: 0.95;
+      padding: 0 0.15rem 0 0; font-weight: 300;
+      margin-right: -0.1rem;
     }
     .wa-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(255,255,255,0.22); display: flex; align-items: center;
-      justify-content: center; font-size: 0.72rem; font-weight: 750;
-    }
-    .wa-header strong { display: block; font-size: 0.9rem; }
-    .wa-header span { font-size: 0.68rem; opacity: 0.88; }
-    .wa-body { flex: 1; padding: 0.95rem; display: flex; flex-direction: column; gap: 0.65rem; }
-    .wa-meta {
-      font-size: 0.68rem; color: var(--on-surface-variant); text-align: center;
+      width: 34px; height: 34px; border-radius: 50%;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.28), rgba(255,255,255,0.06)),
+        var(--wa-teal-light);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 0.62rem; font-weight: 750;
+      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.2);
       letter-spacing: 0.02em;
     }
-    .wa-bubble {
-      background: #fff; border: 1px solid #e8d0cb;
-      border-radius: 12px 12px 12px 4px; padding: 0.9rem 0.95rem;
-      font-size: 0.78rem; line-height: 1.45; color: #1a1210;
+    .wa-head-text strong {
+      display: block; font-size: 0.86rem; font-weight: 600;
+      letter-spacing: -0.01em; line-height: 1.15;
     }
+    .wa-head-text span {
+      font-size: 0.62rem; opacity: 0.88;
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      margin-top: 0.05rem;
+    }
+    .wa-head-text span::before {
+      content: "";
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #25d366;
+    }
+    .wa-head-icons {
+      opacity: 0.9; font-size: 0.95rem; padding: 0 0.1rem;
+      display: inline-flex; gap: 0.85rem;
+    }
+    .wa-body {
+      flex: 1; padding: 0.55rem 0.55rem 0.35rem;
+      display: flex; flex-direction: column; gap: 0.35rem;
+      justify-content: flex-start;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23c8bdb2' stroke-width='0.85' opacity='0.32'%3E%3Cpath d='M10 30c8-6 16 6 24 0s16 6 24 0'/%3E%3Cpath d='M70 80c6-8 18-2 22-12'/%3E%3Ccircle cx='28' cy='78' r='7'/%3E%3Cpath d='M88 28h12v12'/%3E%3C/g%3E%3C/svg%3E"),
+        #e5ddd5;
+      background-size: 120px 120px, auto;
+      min-height: 0;
+      position: relative;
+      overflow-y: auto;
+    }
+    .wa-meta {
+      font-size: 0.62rem; color: #54656f; text-align: center;
+      letter-spacing: 0.01em;
+      background: rgba(255,255,255,0.78);
+      align-self: center;
+      padding: 0.18rem 0.55rem;
+      border-radius: 7px;
+      box-shadow: 0 1px 0.5px rgba(11,20,26,0.08);
+      margin-bottom: 0.15rem;
+    }
+    .wa-msg {
+      align-self: flex-start;
+      max-width: 92%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 0 0 auto;
+      position: relative;
+      border-radius: 0 8px 8px 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 0.5px rgba(11,20,26,0.13);
+    }
+    .wa-msg::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      bottom: 14px;
+      width: 8px;
+      height: 12px;
+      background: #fff;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      z-index: 1;
+    }
+    .wa-bubble {
+      background: #fff;
+      border: none;
+      border-radius: 0;
+      padding: 0.55rem 0.65rem 0.45rem;
+      font-size: 0.74rem; line-height: 1.42; color: #111b21;
+      box-shadow: none;
+      position: relative;
+      transition: transform 0.15s ease;
+      flex: 0 0 auto;
+    }
+    .wa-bubble::before { content: none; }
+    .wa-bubble:active { transform: scale(0.985); }
     .wa-bubble .tag {
-      display: inline-block; font-size: 0.65rem; font-weight: 750;
+      display: inline-block; font-size: 0.56rem; font-weight: 700;
       letter-spacing: 0.05em; text-transform: uppercase; color: #c45a4a;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.28rem;
+      background: rgba(247,84,64,0.09);
+      padding: 0.1rem 0.38rem;
+      border-radius: 3px;
     }
     .wa-bubble h4 {
-      font-family: var(--font-display); font-size: 0.92rem; font-weight: 750;
-      line-height: 1.3; margin-bottom: 0.55rem;
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 650;
+      line-height: 1.32; margin-bottom: 0.35rem; color: #111b21;
     }
-    .wa-line { margin-top: 0.35rem; }
-    .wa-line b { font-weight: 700; }
-    .wa-cta {
-      margin-top: 0.7rem; border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
-      background: color-mix(in srgb, var(--primary) 9%, transparent);
-      color: var(--primary); border-radius: 8px; padding: 0.55rem 0.7rem;
-      font-size: 0.75rem; font-weight: 700; text-align: center;
+    .wa-bubble__divider {
+      height: 1px;
+      background: rgba(0,0,0,0.06);
+      margin: 0.1rem 0 0.35rem;
+    }
+    .wa-line {
+      margin-top: 0.18rem;
+      font-size: 0.72rem;
+      line-height: 1.38;
+      color: #3b4a54;
+    }
+    .wa-line b { font-weight: 600; color: #111b21; }
+    .wa-bubble__foot {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 0.3rem;
+      padding-top: 0.1rem;
+    }
+    .wa-tick {
+      font-size: 0.58rem; color: #667781;
+      display: inline-flex; align-items: center; gap: 0.18rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .wa-tick::after {
+      content: "✓✓";
+      font-size: 0.56rem;
+      letter-spacing: -0.14em;
+      color: #53bdeb;
     }
     .wa-actions {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 0;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+      background: #fff;
+      flex: 0 0 auto;
     }
     .wa-actions button {
-      border: 1px solid #e0c7c1; background: #fff; border-radius: 8px;
-      padding: 0.55rem; font-size: 0.72rem; font-weight: 650; color: var(--on-surface);
+      border: none;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      background: #fff;
+      border-radius: 0;
+      padding: 0.48rem 0.65rem;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--wa-action);
+      transition: background 0.12s ease;
+      text-align: center;
+      min-height: 0;
+      height: auto;
+      flex: 0 0 auto;
     }
+    .wa-actions button:first-child { border-top: none; }
+    .wa-actions button:hover { background: #f5f6f6; }
+    .wa-actions button:active { background: #eef0f0; }
     .wa-actions button.primary {
-      background: var(--primary); border-color: var(--primary); color: #fff;
+      background: #fff;
+      color: var(--wa-action);
+      font-weight: 700;
     }
-    .status-rail { display: grid; gap: 0.65rem; }
+    .wa-actions button:disabled { opacity: 0.5; cursor: wait; }
+    .wa-compose {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.4rem 0.15rem;
+      background: #f0f2f5;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      flex-shrink: 0;
+    }
+    .wa-compose__icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: grid; place-items: center;
+      color: #54656f; font-size: 0.9rem; font-weight: 600;
+      user-select: none;
+    }
+    .wa-compose__field {
+      background: #fff;
+      border-radius: 20px;
+      padding: 0.38rem 0.7rem;
+      font-size: 0.7rem;
+      color: #8696a0;
+      border: none;
+      min-height: 1.65rem;
+      line-height: 1.65rem;
+    }
+    .wa-compose__mic {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--wa-teal); color: #fff;
+      display: grid; place-items: center;
+      font-size: 0.7rem;
+    }
+    #floorBubble { cursor: pointer; }
+    #floorBubble:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    .wa-bubble.is-dismiss-ack,
+    .wa-msg.is-dismiss-ack {
+      animation: floorAckOut 0.34s var(--ease) forwards;
+    }
+    .wa-bubble.is-dismiss-snooze,
+    .wa-msg.is-dismiss-snooze {
+      animation: floorSnoozeOut 0.34s var(--ease) forwards;
+    }
+    .wa-bubble.is-enter,
+    .wa-msg.is-enter {
+      animation: floorEnter 0.34s var(--ease) both;
+    }
+    .phone.is-pulse .phone__bezel {
+      animation: phonePulse 0.45s var(--ease);
+    }
+    @keyframes floorAckOut {
+      to { opacity: 0; transform: translateY(-18px) scale(0.96); }
+    }
+    @keyframes floorSnoozeOut {
+      to { opacity: 0; transform: translateX(28px) scale(0.97); }
+    }
+    @keyframes floorEnter {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes phonePulse {
+      0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+      50% { box-shadow: inset 0 0 0 1px rgba(247,84,64,0.45), 0 0 0 3px rgba(247,84,64,0.12); }
+    }
+    .wa-end {
+      flex: 1;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.35rem;
+      padding: 1rem;
+    }
+    .wa-end[hidden] { display: none !important; }
+    .wa-msg[hidden] { display: none !important; }
+    .wa-end strong {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--secondary);
+    }
+    .wa-end span { font-size: 0.78rem; color: #667781; }
+    .phone-home {
+      height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      background: #f0f2f5;
+      flex-shrink: 0;
+      padding-bottom: 2px;
+    }
+    .phone-home::after {
+      content: "";
+      width: 108px; height: 4px; border-radius: 999px; background: #1c1c1e;
+      opacity: 0.9;
+    }
+    .floor-rail-lede { margin-bottom: 0.55rem; font-size: 0.92rem; max-width: 26em; line-height: 1.45; }
+    .status-rail { display: grid; gap: 1.15rem; }
     .status-item {
       display: grid; grid-template-columns: 14px 1fr; gap: 0.75rem;
       align-items: start; border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-card); background: var(--white); padding: 0.85rem 1rem;
+      border-radius: var(--radius-card); background: var(--white); padding: 0.95rem 1.05rem;
     }
     .status-dot {
       width: 10px; height: 10px; border-radius: 50%; margin-top: 0.35rem;
@@ -862,16 +1389,19 @@
     }
     .ledger-table {
       width: 100%; border-collapse: collapse;
-      font-size: clamp(0.8rem, 1.15vw, 0.9rem);
+      font-size: clamp(0.68rem, 1vw, 0.8rem);
       font-variant-numeric: tabular-nums;
     }
     .ledger-table th, .ledger-table td {
-      padding: 0.8rem 1rem; text-align: left;
+      padding: 0.65rem 0.75rem; text-align: left;
       border-bottom: 1px solid #e0e3df;
       color: var(--on-surface);
+      word-break: normal;
+      overflow-wrap: normal;
+      hyphens: none;
     }
     .ledger-table th {
-      font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+      font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--on-surface-variant); background: #fafcfa;
     }
     .ledger-table tr:last-child td { border-bottom: none; }
@@ -1045,7 +1575,7 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--outline-variant);
       overflow: hidden; background: #0a140f;
-      height: clamp(420px, 68vh, 720px);
+      height: clamp(520px, 82vh, 820px);
       position: relative;
       box-shadow: 0 18px 40px -28px rgba(5,31,19,0.22);
     }
@@ -1105,26 +1635,414 @@
       margin-bottom: 0.3rem;
     }
     .ask-box p { color: var(--on-surface); font-size: 0.88rem; line-height: 1.45; }
+    .ask-box .ask-cal { margin-top: 0.55rem; }
+    .ask-box .ask-cal a {
+      color: var(--primary); font-weight: 700; text-decoration: none;
+    }
+    .ask-box .ask-cal a:hover { text-decoration: underline; }
     .contact-line { margin-top: 1.15rem; font-size: 0.92rem; color: var(--on-surface-variant); }
     .contact-line a { color: var(--primary); text-decoration: none; font-weight: 650; }
     .contact-line a:hover { text-decoration: underline; }
+    .founders { margin-top: 0.75rem; font-size: 0.88rem; color: var(--on-surface-variant); }
+    .founders a { color: var(--primary); font-weight: 650; text-decoration: none; }
+    .founders a:hover { text-decoration: underline; }
     .cred-quiet { margin-top: 0.7rem; font-size: 0.72rem; color: var(--outline); }
 
-    @media (max-width: 980px) {
-      .hero-shell, .two-col, .rx-layout, .floor-layout, .loop-grid, .ba-grid, .bound-grid, .tech-grid, .audit-grid, .gap-outcomes { grid-template-columns: 1fr; }
-      .rx-flip, .rx-flip__inner { min-height: 380px; }
-      .tech-card { min-height: 0; }
-      .silo-board, .do-chain, .waste-grid, .stat-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .phone { max-width: 300px; }
-      .phone__screen { min-height: 420px; }
-      .dash-shell { height: clamp(320px, 58vh, 520px); }
+
+
+
+    @media (min-width: 721px) {
+      #scene-hook .silo-board {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.65rem;
+        margin-top: 0.75rem;
+        max-width: none;
+      }
+      #scene-hook .silo-card { padding: 0.7rem 0.8rem; min-height: 0; }
+      #scene-hook .silo-meta { margin-top: 0.4rem; font-size: 0.72rem; gap: 0.25rem; }
+      #scene-hook .silo-meta .has { display: none; }
+      #scene-hook .gap-break { display: none; }
+      #scene-hook .problem-top { margin-top: 0.45rem; }
+      #scene-hook .lede { margin-bottom: 0.25rem; max-width: 32em; font-size: 0.95rem; }
+      #scene-hook h2 { margin-bottom: 0.3rem; }
+      #scene-title .lede.hide-mobile { max-width: 30em; font-size: 0.95rem; line-height: 1.45; }
+      #scene-title .flow-tags { margin-bottom: 0; }
+      #scene-math .lede { margin-bottom: 0.4rem; font-size: 0.95rem; max-width: 34em; }
+      #scene-what .do-step p { font-size: 0.84rem; }
+      #scene-tech .tech-card p { font-size: 0.84rem; }
+      #scene-tech .tech-card ul { font-size: 0.78rem; }
+      #scene-floor h2 { margin-bottom: 0.35rem; }
+      #scene-floor .floor-copy .lede { margin-bottom: 0; max-width: 34em; font-size: 0.95rem; }
+      #scene-floor .floor-copy .status-rail { margin-top: 1.25rem; gap: 1.15rem; }
+      #scene-floor .status-item p { font-size: 0.78rem; }
+      #scene-floor .floor-route { margin-top: 2.65rem; }
+      #scene-floor .floor-route-card p { font-size: 0.78rem; }
+      #scene-floor .phone-col { justify-content: flex-end; }
+      #scene-verify .meta { font-size: 0.78rem; }
     }
-    @media (max-height: 760px) {
-      .phone__screen { min-height: 380px; }
-      .dash-shell { height: clamp(300px, 58vh, 480px); }
-      .video-frame { max-height: min(52vh, 420px); }
+
+
+    .show-mobile { display: none !important; }
+    .hide-mobile { display: revert; }
+    /* ponytail: revert would kill grid/flex on shared hide-mobile nodes */
+    .status-rail.hide-mobile { display: grid; }
+    .floor-route.hide-mobile { display: grid; }
+    .floor-route-grid { display: grid; }
+
+    .bill-table-wrap, .ledger-wrap, .phase-table { max-width: 100%; }
+    .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    @media (max-width: 1100px) and (min-width: 721px) {
+      #scene-floor .floor-layout {
+        grid-template-columns: minmax(0, 1.1fr) auto;
+        gap: 1.5rem;
+      }
+      #scene-floor .floor-route {
+        grid-column: 1 / -1;
+        max-width: none;
+        margin-top: 0.35rem;
+      }
+      #scene-floor .floor-route-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .waste-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .do-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .do-arrow { display: none; }
+    }
+
+    @media (max-width: 980px) {
+      .hero-shell, .two-col, .rx-layout, .floor-layout, .loop-grid, .ba-grid, .bound-grid, .audit-grid, .gap-outcomes { grid-template-columns: 1fr; }
+      .rx-flip, .rx-flip__inner { min-height: 360px; }
+      .tech-card, .waste-card, .do-step, .silo-card { min-height: 0; }
+      .silo-board, .stat-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .phone {
+        max-width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+        transform: none;
+      }
+      .phone:hover { transform: none; }
+      .phone__screen { min-height: unset; }
+      .dash-shell { height: clamp(380px, 66vh, 600px); }
+      #scene-title .hero-shell { gap: var(--space-6); }
+    }
+
+    @media (max-width: 720px) {
+      :root { --chrome-h: 48px; }
+
+      .slide {
+        justify-content: flex-start;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding:
+          calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.75rem)
+          max(1.1rem, var(--safe-r))
+          max(4.5rem, calc(var(--safe-b) + 4.25rem));
+      }
+      .slide__inner,
+      .slide__inner--media {
+        transform: none;
+        max-width: 100%;
+        padding-bottom: 0.5rem;
+      }
+      .slide.active > .slide__inner,
+      .slide.active > .slide__inner--media {
+        animation: fadeUp 0.4s var(--ease) both;
+      }
+
+      h1 { font-size: clamp(1.55rem, 7vw, 2.1rem); margin-bottom: 0.55rem; }
+      h2 { font-size: clamp(1.35rem, 6vw, 1.75rem); margin-bottom: 0.45rem; }
+      .lede { font-size: 0.95rem; line-height: 1.5; max-width: none; }
+      .eyebrow { margin-bottom: 0.4rem; letter-spacing: 0.1em; }
+
+      .hide-mobile { display: none !important; }
+      .show-mobile { display: block !important; }
+      .show-mobile.btn-row,
+      .show-mobile.flow-tags { display: flex !important; }
+
+      /* Overflow safety */
+      .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
+      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
+      .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
+      .tl-item, .commercial, .cred-quiet, .video-caption, p {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      /* ponytail: ledger cells wrap at spaces only - never mid-word */
+      #scene-verify .ledger-table th,
+      #scene-verify .ledger-table td {
+        max-width: none;
+        word-break: normal;
+        overflow-wrap: normal;
+        hyphens: none;
+        padding: 0.5rem 0.45rem;
+        font-size: 0.66rem;
+        line-height: 1.35;
+      }
+      #scene-verify .ledger-table th { font-size: 0.58rem; }
+      img, svg, video, iframe, canvas {
+        max-width: 100%;
+      }
+      .rx-ev-table, .bill-table-wrap, .ledger-wrap, .phase-table,
+      .table-scroll, .rx-layout {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .phase-table {
+        display: block;
+        width: 100%;
+      }
+
+      /* Title: content starts in upper third, full width, no dead top */
+      #scene-title.slide {
+        justify-content: flex-start;
+        overflow: hidden;
+        padding-top: calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 8vh);
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 5rem));
+      }
+      #scene-title .slide__inner {
+        width: 100%;
+        min-height: 0;
+        display: block;
+        transform: none !important;
+        animation: none !important;
+      }
+      #scene-title .hero-shell {
+        width: 100%;
+        gap: 0;
+        display: block;
+      }
+      #scene-title .hero-copy {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+      }
+      #scene-title .brand-name {
+        font-size: clamp(2.5rem, 11vw, 3.2rem);
+        margin-bottom: 0.65rem;
+        line-height: 0.95;
+      }
+      #scene-title h1 {
+        font-size: clamp(1.15rem, 4.8vw, 1.35rem);
+        font-weight: 650;
+        max-width: 16em;
+        margin-bottom: 0.7rem;
+        line-height: 1.3;
+      }
+      #scene-title .lede {
+        font-size: 0.92rem;
+        line-height: 1.4;
+        margin-bottom: 1.35rem;
+        max-width: 28em;
+        color: var(--on-surface-variant);
+      }
+      #scene-title .btn-row {
+        margin-top: 0;
+        width: 100%;
+        max-width: 20rem;
+      }
+      #scene-title .btn {
+        width: 100%;
+        height: 50px;
+        font-size: 1rem;
+      }
+      #scene-title .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+
+
+      #scene-hook.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
+      }
+      #scene-hook .slide__inner { transform: none; }
+      #scene-hook .problem-top { margin-top: 0.55rem; gap: 0.85rem; }
+      #scene-hook .silo-board {
+        margin-top: 0.85rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem;
+      }
+      #scene-hook .silo-card { padding: 0.75rem 0.8rem; min-height: 0; }
+      #scene-hook .silo-meta { font-size: 0.72rem; gap: 0.35rem; }
+      #scene-hook .gap-break { margin-top: 0.85rem; padding: 0.75rem 0.9rem; font-size: 0.84rem; }
+      #scene-hook .tl-item { grid-template-columns: 48px 1fr; gap: 0.5rem; }
+
+      /* Floor: proper phone — real iPhone aspect ratio, uniform scale only */
+      #scene-floor.slide {
+        justify-content: flex-start;
+        overflow: hidden;
+        padding-top: calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.55rem);
+        padding-bottom: max(4.75rem, calc(var(--safe-b) + 4.25rem));
+      }
+      #scene-floor .slide__inner { transform: none; }
+      #scene-floor .floor-layout {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        justify-items: center;
+      }
+      #scene-floor .floor-copy {
+        max-width: 100%;
+        width: 100%;
+      }
+      #scene-floor .phone-col {
+        justify-content: center;
+        width: 100%;
+      }
+      #scene-floor .phone {
+        --phone-screen-w: 292px;
+        width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+        max-width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+        margin: 0 auto;
+        transform: none;
+      }
+      #scene-floor .phone:hover { transform: none; }
+      #scene-floor .phone__screen {
+        width: var(--phone-screen-w);
+        height: auto;
+        aspect-ratio: var(--phone-ratio);
+        flex: none;
+      }
+      #scene-floor .wa-header {
+        padding: 2.35rem 0.65rem 0.5rem;
+        flex-shrink: 0;
+      }
+      #scene-floor .wa-body {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 0.5rem;
+        justify-content: flex-start;
+      }
+      #scene-floor .wa-msg { max-width: 94%; }
+      #scene-floor .wa-actions button {
+        min-height: 0;
+        padding: 0.55rem 0.65rem;
+        font-size: 0.78rem;
+      }
+
+      /* ponytail: desktop-only simulated workspace - unusable on phone */
+      #scene-live { display: none !important; }
+
+      .nav-btn {
+        top: auto; bottom: max(0.85rem, calc(var(--safe-b) + 0.55rem));
+        transform: none; width: 44px; height: 44px;
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 8px 20px -12px rgba(5,31,19,0.35);
+      }
+      .nav-btn--prev { left: max(0.65rem, var(--safe-l)); }
+      .nav-btn--next { right: max(0.65rem, var(--safe-r)); }
+
+      .dots {
+        bottom: max(0.95rem, calc(var(--safe-b) + 0.65rem));
+        padding: 0.4rem 0.65rem;
+      }
+      .dots__dot { width: 8px; height: 8px; min-width: 8px; min-height: 8px; }
+      .dots__dot.active { width: 22px; }
+
+      .silo-board, .do-chain, .tech-grid, .stat-row, .kpi-pair {
+        grid-template-columns: 1fr;
+      }
+      .waste-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem;
+      }
+      .waste-card:last-child { grid-column: 1 / -1; }
+      .waste-card ul li:nth-child(n+3) { display: none; }
+      .waste-card h3 { font-size: 0.92rem; }
+      .waste-card { padding: 0.75rem 0.8rem; }
+      #scene-math .slide__inner { transform: none; }
+      #scene-math.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
+      }
+      #scene-offer.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
+      }
+      #scene-offer .slide__inner { transform: none; }
+      #scene-offer .phase-table { font-size: 0.78rem; margin-top: 0.7rem; }
+      #scene-offer .phase-table th, #scene-offer .phase-table td {
+        padding: 0.55rem 0.6rem;
+        word-break: normal;
+        overflow-wrap: normal;
+      }
+      #scene-offer .ask-box { margin-top: 0.85rem; padding: 0.85rem 1rem; }
+      #scene-verify.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      #scene-verify .slide__inner { transform: none; }
+      .tech-card ul { display: none; }
+      .tech-card > p { margin-bottom: 0; }
+      .rx-layout { gap: 0.85rem; }
+      .rx-flip, .rx-flip__inner { min-height: min(58vh, 380px); }
+      .floor-layout { gap: 0.75rem; }
+      .video-frame {
+        width: 100%;
+        max-height: none;
+        aspect-ratio: 16 / 9;
+      }
+      .phase-table { font-size: 0.84rem; }
+      .phase-table th, .phase-table td { padding: 0.65rem 0.75rem; }
+      .ask-box { max-width: none; }
+      .commercial { gap: 0.4rem; }
+      .chip { font-size: 0.7rem; }
+      .btn { min-height: 44px; }
+    }
+
+    @media (max-width: 420px) {
+      .slide {
+        padding-left: max(0.9rem, var(--safe-l));
+        padding-right: max(0.9rem, var(--safe-r));
+      }
+      #scene-title .brand-name { font-size: clamp(2.35rem, 10.5vw, 2.9rem); }
+      #scene-title h1 { max-width: 100%; }
+      .tl-item { grid-template-columns: 56px 1fr; gap: 0.55rem; }
+      .tl-time { font-size: 0.8rem; }
+      .rx-flip, .rx-flip__inner { min-height: 320px; }
+      .rx-row { grid-template-columns: 68px 1fr; font-size: 0.76rem; }
+      .waste-card, .tech-card, .silo-card, .audit-col { padding: 0.85rem; }
+    }
+
+    @media (min-width: 721px) and (max-height: 860px) {
+      #scene-floor .phone { --phone-screen-w: 284px; }
+    }
+    @media (min-width: 721px) and (max-height: 760px) {
+      #scene-floor .phone { --phone-screen-w: 252px; }
+    }
+
+    @media (max-height: 760px) and (min-width: 721px) {
+      .phone__screen { min-height: unset; }
+      .dash-shell { height: clamp(420px, 72vh, 640px); }
+      .video-frame { max-height: min(50vh, 400px); }
       h1 { font-size: clamp(1.7rem, 3.8vw, 2.5rem); }
       h2 { font-size: clamp(1.35rem, 2.8vw, 1.9rem); }
+      #scene-title .brand-name { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
+      #scene-title h1 { font-size: clamp(1.2rem, 2.2vw, 1.55rem); }
+      .slide__inner { transform: translateY(-1vh); }
+    }
+
+    @media (pointer: coarse) {
+      .nav-btn { width: 48px; height: 48px; }
+      .dots__dot { width: 10px; height: 10px; }
+      .dots__dot.active { width: 24px; }
+      .btn { min-height: 48px; }
     }
   </style>
 </head>
@@ -1146,27 +2064,30 @@
     <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
       <div class="slide__inner slide__inner--wide">
         <div class="hero-shell">
-          <div>
-            <div class="reveal">
+          <div class="hero-copy">
+            <div class="reveal hide-mobile">
               <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
-            <p class="eyebrow reveal">Operational energy decisions, verified on the bill</p>
+            <p class="eyebrow reveal hide-mobile">Operational energy decisions, verified with evidence</p>
+            <p class="eyebrow reveal show-mobile">Verified with evidence</p>
             <p class="brand-name reveal">Stamped Energy</p>
-            <h1 class="reveal">From plant signals to owned actions on the invoice.</h1>
-            <p class="lede reveal">You already have meters, EMS, and often renewables. Stamped turns those signals into ranked floor actions with a rupee value, then checks the result on the next DISCOM bill.</p>
-            <div class="flow-tags reveal">
+            <h1 class="reveal hide-mobile">From plant meters to bill-line actions.</h1>
+            <h1 class="reveal show-mobile">Owned ₹ actions on the bill.</h1>
+            <p class="lede reveal hide-mobile">You already have meters and EMS. Stamped ranks floor work in rupees, then checks the result on the next DISCOM bill.</p>
+            <p class="lede reveal show-mobile">Ranked floor actions from your meters and EMS. Verified with evidence.</p>
+            <div class="flow-tags reveal hide-mobile">
               <span class="chip">Physics &amp; rules</span>
               <span class="chip">Foundation models</span>
               <span class="chip">Agentic prescriptions</span>
-              <span class="chip">Bill verification</span>
+              <span class="chip">Verified with evidence</span>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
             </div>
-            <p class="meta reveal">stamped.work</p>
+            <p class="meta reveal hide-mobile">stamped.work</p>
           </div>
-          <div class="hero-canvas reveal" aria-hidden="true">
+          <div class="hero-canvas reveal hide-mobile" aria-hidden="true">
             <svg viewBox="0 0 420 280" fill="none">
               <defs>
                 <pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -1202,33 +2123,34 @@
       </div>
     </section>
 
-    <!-- 2 Hook / incident -->
-    <section class="slide slide--light" id="scene-hook" data-theme="light" aria-label="Incident hook">
+        <!-- 2 Problem: incident + why savings get missed -->
+    <section class="slide slide--light grid-bg" id="scene-hook" data-theme="light" aria-label="Why savings get missed">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Monday 07:15 · Shift handover</p>
-        <h2 class="reveal">Your plant already has the data.</h2>
-        <p class="lede reveal">The incomer saw the MD spike. The EMS logged it. Nobody on the floor received a work order with a rupee figure attached.</p>
-        <div class="two-col">
+        <h2 class="reveal">Your plant already logs this. Nobody owns the fix.</h2>
+        <p class="lede reveal hide-mobile">MD spiked. EMS logged it. No work order went out.</p>
+        <p class="lede reveal show-mobile">MD spiked. EMS logged it. No work order went out.</p>
+        <div class="two-col problem-top">
           <div class="timeline reveal">
             <div class="tl-item">
               <div class="tl-time">07:12</div>
               <div class="tl-card">
                 <strong>Compressors + furnace bay start together</strong>
-                <p>Shift B brings utilities online in a 4-minute overlap.</p>
+                <p class="hide-mobile">Shift B brings utilities online together.</p>
               </div>
             </div>
             <div class="tl-item">
               <div class="tl-time">07:15</div>
               <div class="tl-card tl-card--break">
                 <strong>MD spike hits the incomer</strong>
-                <p>EMS threshold crossed. Alert created. Still no assigned owner.</p>
+                <p class="hide-mobile">Alert created. Still no owner.</p>
               </div>
             </div>
             <div class="tl-item">
               <div class="tl-time">07:40</div>
               <div class="tl-card">
                 <strong>Production continues as usual</strong>
-                <p>The bill will price this later. The floor never saw the fix.</p>
+                <p class="hide-mobile">The floor never saw the fix.</p>
               </div>
             </div>
           </div>
@@ -1236,11 +2158,10 @@
             <div class="meter-label">Sample demand window</div>
             <div class="meter-value">1,180 <span style="font-size:0.45em;color:var(--on-surface-variant)">kVA</span></div>
             <div class="meter-bar"><i class="grow-on-active"></i></div>
-            <p class="meter-note">The EMS recorded the spike, but nobody was assigned to change the next shift start.</p>
             <div class="stat-row" style="grid-template-columns:1fr 1fr;margin-top:1rem;">
               <div class="stat-card">
-                <strong>~₹42k</strong>
-                <span>Monthly demand impact <span class="tilde">[~]</span></span>
+                <strong>₹42k</strong>
+                <span>Monthly demand impact</span>
               </div>
               <div class="stat-card">
                 <strong>0</strong>
@@ -1249,19 +2170,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- 3 Gap -->
-    <section class="slide slide--light grid-bg" id="scene-gap" data-theme="light" aria-label="Data gap">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Why savings get missed</p>
-        <h2 class="reveal">The systems are there. The handoff is not.</h2>
-        <p class="lede reveal">Most plants already meter and log. What breaks is the step between an alert and an owned action that finance can later see on the bill.</p>
         <div class="silo-board reveal" aria-label="Fragmented plant systems">
           <article class="silo-card">
             <h3>SCADA</h3>
-            <p>Live process signals and historian tags.</p>
             <div class="silo-meta">
               <div class="has">Has: run states, starts, setpoints</div>
               <div class="miss">Missing: owner, due date, ₹ impact</div>
@@ -1269,7 +2180,6 @@
           </article>
           <article class="silo-card">
             <h3>EMS</h3>
-            <p>Trends, thresholds, and unread alerts.</p>
             <div class="silo-meta">
               <div class="has">Has: spike logged at 07:15</div>
               <div class="miss">Missing: who acts before next shift</div>
@@ -1277,7 +2187,6 @@
           </article>
           <article class="silo-card">
             <h3>Meters</h3>
-            <p>Interval kWh and demand windows.</p>
             <div class="silo-meta">
               <div class="has">Has: MD window and load profile</div>
               <div class="miss">Missing: link to a floor sequence change</div>
@@ -1285,37 +2194,103 @@
           </article>
           <article class="silo-card">
             <h3>DISCOM bill</h3>
-            <p>The scoreboard finance already reviews.</p>
             <div class="silo-meta">
               <div class="has">Has: MD, energy, PF line items</div>
               <div class="miss">Missing: ops trail that explains the ₹</div>
             </div>
           </article>
         </div>
-        <div class="gap-break reveal">No assignment <span>→</span> no floor action <span>→</span> bill settles unchanged</div>
-        <div class="gap-outcomes reveal">
-          <article class="gap-outcome">
-            <strong>MD locked for the month</strong>
-            <p>Once the demand window prints, the coincidence cost is already on the invoice.</p>
-          </article>
-          <article class="gap-outcome">
-            <strong>Review arrives too late</strong>
-            <p>Weekly energy meetings discuss last week. The shift that caused it has already moved on.</p>
-          </article>
-          <article class="gap-outcome">
-            <strong>Finance sees ₹ without a trail</strong>
-            <p>The bill moves, but nobody can show which owned action closed which line item.</p>
-          </article>
-        </div>
+        <div class="gap-break reveal">No owner <span>→</span> no floor change <span>→</span> bill unchanged</div>
       </div>
     </section>
 
-    <!-- 4 What Stamped does -->
+
+
+    
+
+    <!-- 3 Savings map (early) -->
+    <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Where electricity cost usually hides</p>
+        <h2 class="reveal">Where we look first</h2>
+        <p class="lede reveal">Avoidable ₹ on the HT bill, starting with these lines.</p>
+        <div class="waste-grid reveal">
+          <article class="waste-card">
+            <h3>MD / demand</h3>
+            <ul>
+              <li>Shift-start overlap</li>
+              <li>Coincidence peaks</li>
+              <li>Contract demand headroom</li>
+            </ul>
+            <div class="waste-bill">Bill line · MD (kVA)</div>
+            <p class="waste-sample hide-mobile">Sample: compressors and furnace bay starting together at 07:15</p>
+          </article>
+          <article class="waste-card">
+            <h3>Process heat</h3>
+            <ul>
+              <li>Furnace holding loads</li>
+              <li>Setback gaps</li>
+              <li>Unnecessary preheat windows</li>
+            </ul>
+            <div class="waste-bill">Bill line · Energy (kWh)</div>
+            <p class="waste-sample hide-mobile">Sample: holding heat across a long changeover with no production</p>
+          </article>
+          <article class="waste-card">
+            <h3>Idle loads</h3>
+            <ul>
+              <li>Utilities across breaks</li>
+              <li>Gap and changeover run-on</li>
+              <li>Banks left in unload</li>
+            </ul>
+            <div class="waste-bill">Bill line · Energy (kWh)</div>
+            <p class="waste-sample hide-mobile">Sample: compressor bank B unload with zero production tag</p>
+          </article>
+          <article class="waste-card">
+            <h3>Air / HVAC</h3>
+            <ul>
+              <li>Unload hours</li>
+              <li>Staging discipline</li>
+              <li>Simultaneous bank starts</li>
+            </ul>
+            <div class="waste-bill">Bill line · Energy + MD</div>
+            <p class="waste-sample hide-mobile">Sample: two air banks starting into the same demand window</p>
+          </article>
+          <article class="waste-card">
+            <h3>Tariff dispatch</h3>
+            <ul>
+              <li>Peak import timing</li>
+              <li>Solar / captive / grid mix</li>
+              <li>TOU mistiming</li>
+            </ul>
+            <div class="waste-bill">Bill line · ToD energy</div>
+            <p class="waste-sample hide-mobile">Sample: grid draw during peak while captive capacity sits idle</p>
+          </article>
+        </div>
+        <div class="bill-table-wrap reveal">
+          <table class="bill-table">
+            <thead>
+              <tr>
+                <th>Monthly HT bill</th>
+                <th>About 15% often addressable</th>
+                <th>Cost of waiting 60 days</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>₹30L</td><td>₹4.5L / month</td><td>₹9L</td></tr>
+              <tr><td>₹60L</td><td>₹9L / month</td><td>₹18L</td></tr>
+              <tr><td>₹1Cr</td><td>₹15L / month</td><td>₹30L</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="footnote reveal hide-mobile">Indicative ranges from comparable plants. A 60-day proof run replaces estimates with figures from your plant and DISCOM bills.</p>
+      </div>
+    </section>
+
+<!-- 4 What Stamped does -->
     <section class="slide slide--light" id="scene-what" data-theme="light" aria-label="What Stamped does">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">What Stamped does</p>
-        <h2 class="reveal">From a plant signal to an assigned job.</h2>
-        <p class="lede reveal">Stamped sits on top of the EMS and EnMS you already run. It reads existing data, issues a ranked action in rupees, sends it to the floor, and closes the result on the next bill.</p>
+        <h2 class="reveal">Signals become work orders.</h2>
         <div class="do-chain reveal">
           <article class="do-step">
             <div class="do-step__num">01</div>
@@ -1337,15 +2312,15 @@
           </article>
           <article class="do-step">
             <div class="do-step__num">04</div>
-            <h3>Verify on DISCOM</h3>
-            <p>Potential and realised savings are checked against the same bill lines finance already reviews each month.</p>
+            <h3>Verify with evidence</h3>
+            <p>Potential and realised savings are checked against Stamped’s evidence pack — telemetry clearance and tariff math finance can audit.</p>
           </article>
         </div>
-        <div class="flow-tags reveal" style="margin-top:1.25rem;">
+        <div class="flow-tags reveal hide-mobile" style="margin-top:1.25rem;">
           <span class="chip">Software-only</span>
           <span class="chip">Read-only OT</span>
           <span class="chip">Pilot first</span>
-          <span class="chip">Proof before subscription</span>
+          <span class="chip">Pay-as-you-save</span>
         </div>
       </div>
     </section>
@@ -1354,8 +2329,7 @@
     <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Prescription">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Sample prescriptions</p>
-        <h2 class="reveal">A clear action, priced on a bill line.</h2>
-        <p class="lede reveal">Each card is an owned work order: what to change, who does it, when it is due, and the expected ₹ impact. Click to flip and see the backing evidence <span class="tilde">[~]</span>.</p>
+        <h2 class="reveal">Every action has a bill line and an owner.</h2>
         <div class="rx-layout">
           <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="MD stagger prescription. Show evidence.">
             <div class="rx-flip__inner">
@@ -1370,7 +2344,7 @@
                     <div class="rx-row"><dt>Why</dt><dd>Mon 07:12-07:20 overlap drove the incomer MD window</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd>MD (kVA) · billing demand</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Electrical shift supervisor · Shift B</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹2.5-4L / month</strong> <span class="tilde">[~]</span></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹2.5-4L / month</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd>Sequence only · no capex · no PLC write</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd>md_overlap@v2.4 · Confidence High</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd>This week · verify on next MD line</dd></div>
@@ -1403,14 +2377,14 @@
                     </tbody>
                   </table>
                   <p class="rx-cite"><strong>physics/md_overlap@v2.4</strong> · model conf 0.91 · tariff MD slab · baseline Apr peak week</p>
-                  <p class="rx-mv">M&amp;V · verify on next DISCOM MD line · plan locked at issue</p>
+                  <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
             </div>
           </button>
 
-          <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Idle compressor prescription. Show evidence.">
+          <button type="button" class="rx-flip reveal hide-mobile" data-rx-flip aria-pressed="false" aria-label="Idle compressor prescription. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -1423,7 +2397,7 @@
                     <div class="rx-row"><dt>Why</dt><dd>Unload kWh with no production tag on 3 of last 5 changeovers</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh) · ToD shoulder</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Utilities supervisor · Line 2</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹80k-1.2L / month</strong> <span class="tilde">[~]</span></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹80k-1.2L / month</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd>Staging SOP · no capex · no PLC write</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd>idle_hold@v1.8 · Confidence High</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd>Next changeover · verify on energy line</dd></div>
@@ -1453,12 +2427,12 @@
                     <tbody>
                       <tr><td><code>BANK_B.RUN</code></td><td>ON · unload</td><td>45 min avg</td></tr>
                       <tr><td><code>LINE2.PROD</code></td><td>0 units</td><td>same window</td></tr>
-                      <tr><td><code>BANK_B.kWh</code></td><td>~210 kWh</td><td>per event <span class="tilde">[~]</span></td></tr>
+                      <tr><td><code>BANK_B.kWh</code></td><td>210 kWh</td><td>per event</td></tr>
                       <tr><td><code>CHANGEOVER.FLAG</code></td><td>TRUE</td><td>planned</td></tr>
                     </tbody>
                   </table>
                   <p class="rx-cite"><strong>physics/idle_hold@v1.8</strong> · model conf 0.87 · ToD energy line · baseline last 5 changeovers</p>
-                  <p class="rx-mv">M&amp;V · verify on next energy line · plan locked at issue</p>
+                  <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
@@ -1471,78 +2445,135 @@
     <!-- 7 Floor -->
     <section class="slide slide--light" id="scene-floor" data-theme="light" aria-label="Floor delivery">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Execution channel</p>
-        <h2 class="reveal">The action reaches the floor.</h2>
         <div class="floor-layout">
-          <div class="phone reveal" aria-hidden="true">
-            <div class="phone__screen">
-              <div class="wa-header">
-                <div class="wa-avatar">SE</div>
+          <div class="floor-copy">
+            <p class="eyebrow reveal hide-mobile">Floor channel</p>
+            <p class="eyebrow reveal show-mobile">On the floor</p>
+            <h2 class="reveal">On the supervisor's phone.</h2>
+            <p class="lede reveal hide-mobile">Alarms and prescriptions do not dump straight onto every phone. Routes are set in admin, urgent fixes get a quick confirm, and larger work is assigned before it notifies the owner.</p>
+            <p class="lede reveal show-mobile">Tap Snooze or Acknowledge. Each message is an alarm plus the fix to run.</p>
+            <div class="status-rail hide-mobile reveal">
+              <div class="status-item">
+                <span class="status-dot done"></span>
                 <div>
-                  <strong>Stamped Energy</strong>
-                  <span>online · plant prescriptions</span>
+                  <strong>Open</strong>
+                  <p>Alarm fired. Fix, owner, due time, and ₹ impact attached.</p>
                 </div>
               </div>
-              <div class="wa-body">
-                <p class="wa-meta">Today · Shift B · 07:18</p>
-                <div class="wa-bubble">
-                  <span class="tag">New prescription · High</span>
-                  <h4>Stagger Comp 1 &amp; 3 vs furnace bay ≥8 min</h4>
-                  <p class="wa-line"><b>Why:</b> MD peak Mon 07:12-07:20 overlap</p>
-                  <p class="wa-line"><b>Impact:</b> ₹2.5-4L/mo on MD line <span class="tilde">[~]</span></p>
-                  <p class="wa-line"><b>Owner:</b> Electrical shift supervisor · B</p>
-                  <p class="wa-line"><b>Due:</b> This week · before next peak</p>
-                  <div class="wa-cta">Tap to acknowledge &rarr;</div>
+              <div class="status-item">
+                <span class="status-dot active pulse-on-active"></span>
+                <div>
+                  <strong>In progress</strong>
+                  <p>Supervisor acknowledges and runs the fix on shift.</p>
                 </div>
-                <div class="wa-actions">
-                  <button type="button">Snooze</button>
-                  <button type="button" class="primary">Acknowledge</button>
+              </div>
+              <div class="status-item">
+                <span class="status-dot"></span>
+                <div>
+                  <strong>Done, ready to verify</strong>
+                  <p>Checked on the next MD / energy bill lines.</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="status-rail reveal">
-            <p class="lede" style="margin-bottom:0.35rem;">The prescription arrives as assigned work. Its status changes when the supervisor acts, not when the next review meeting happens.</p>
-            <div class="status-item">
-              <span class="status-dot done"></span>
-              <div>
-                <strong>Open</strong>
-                <p>Prescription issued with owner, due time, and ₹ impact.</p>
+          <div class="floor-route hide-mobile reveal">
+            <p class="floor-route__title">Before it hits the phone</p>
+            <div class="floor-route-grid">
+              <article class="floor-route-card">
+                <strong>Alarm routes</strong>
+                <p>Pick which role gets which alarm. Re-map recipients when the org chart moves, without rewriting the floor SOP.</p>
+              </article>
+              <article class="floor-route-card">
+                <strong>Urgent prescriptions</strong>
+                <p>Admin confirms first, then the recommended fix goes out as an authenticated handoff to the assigned phone.</p>
+              </article>
+              <article class="floor-route-card">
+                <strong>Larger prescriptions</strong>
+                <p>Stay in the admin dashboard until someone assigns an owner. Only then does that person get the notification.</p>
+              </article>
+            </div>
+          </div>
+          <div class="phone-col">
+            <div class="phone reveal" id="floorPhone" role="region" aria-label="Plant prescription phone">
+            <div class="phone-btn phone-btn--silent" aria-hidden="true"></div>
+            <div class="phone-btn phone-btn--vol-up" aria-hidden="true"></div>
+            <div class="phone-btn phone-btn--vol-down" aria-hidden="true"></div>
+            <div class="phone-btn phone-btn--power" aria-hidden="true"></div>
+            <div class="phone__bezel">
+              <div class="phone__screen">
+                <div class="phone-island" aria-hidden="true"></div>
+                <div class="phone-statusbar" aria-hidden="true">
+                  <span class="phone-time">07:18</span>
+                  <span class="phone-status-right">
+                    <svg class="phone-sig" viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
+                    <span>5G</span>
+                    <svg class="phone-bat" viewBox="0 0 28 14" aria-hidden="true"><rect x="1" y="2" width="22" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="16" height="6" rx="1"/><rect x="24" y="5" width="2.5" height="4" rx="0.5"/></svg>
+                  </span>
+                </div>
+                <div class="wa-app">
+                  <div class="wa-header">
+                    <div class="wa-back" aria-hidden="true">‹</div>
+                    <div class="wa-avatar">SE</div>
+                    <div class="wa-head-text">
+                      <strong>Stamped Energy</strong>
+                      <span>online</span>
+                    </div>
+                    <div class="wa-head-icons" aria-hidden="true"><span>⌕</span><span>⋮</span></div>
+                  </div>
+                  <div class="wa-body" id="floorWaBody">
+                    <p class="wa-meta" id="floorMeta">Today · Shift B · 07:18</p>
+                    <div class="wa-msg" id="floorMsg">
+                      <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge alarm and fix">
+                        <span class="tag" id="floorTag">Alarm · High</span>
+                        <h4 id="floorTitle">Stagger Comp 1 &amp; 3 vs furnace bay ≥8 min</h4>
+                        <div class="wa-bubble__divider" aria-hidden="true"></div>
+                        <p class="wa-line" id="floorWhy"><b>Alarm:</b> MD peak Mon 07:12-07:20 · Comp 1 &amp; 3 overlapped furnace bay</p>
+                        <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹2.5-4L/mo on MD line</p>
+                        <p class="wa-line" id="floorOwner"><b>Owner:</b> Electrical shift supervisor · B</p>
+                        <p class="wa-line" id="floorDue"><b>Due:</b> This week · before next peak</p>
+                        <div class="wa-bubble__foot">
+                          <span class="wa-tick" aria-hidden="true">07:18</span>
+                        </div>
+                      </div>
+                      <div class="wa-actions" id="floorActions">
+                        <button type="button" id="floorSnooze" aria-label="Snooze prescription">Snooze</button>
+                        <button type="button" class="primary" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
+                      </div>
+                    </div>
+                    <div class="wa-end" id="floorEnd" hidden>
+                      <strong>Stamped Energy</strong>
+                      <span>Inbox clear for this shift</span>
+                    </div>
+                  </div>
+                  <div class="wa-compose" aria-hidden="true">
+                    <span class="wa-compose__icon">+</span>
+                    <div class="wa-compose__field">Message</div>
+                    <span class="wa-compose__mic">◉</span>
+                  </div>
+                </div>
+                <div class="phone-home" aria-hidden="true"></div>
               </div>
             </div>
-            <div class="status-item">
-              <span class="status-dot active pulse-on-active"></span>
-              <div>
-                <strong>In progress</strong>
-                <p>Supervisor acknowledges and sequences the startup stagger.</p>
-              </div>
-            </div>
-            <div class="status-item">
-              <span class="status-dot"></span>
-              <div>
-                <strong>Completed, ready to verify</strong>
-                <p>Tracked against the next billing cycle MD / energy lines.</p>
-              </div>
-            </div>
+          </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 8 Verify -->
-    <section class="slide slide--light" id="scene-verify" data-theme="light" aria-label="Bill verification">
+    <section class="slide slide--light" id="scene-verify" data-theme="light" aria-label="Evidence verification">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Measurement and verification</p>
-        <h2 class="reveal">Verified on the bill.</h2>
-        <p class="lede reveal">A saving counts only when operating data and the matching DISCOM bill line both move. Finance and plant review the same numbers.</p>
+        <h2 class="reveal">Verified with evidence.</h2>
+        <p class="lede reveal show-mobile">Savings count when evidence clears — telemetry held; bill can confirm later.</p>
         <div class="kpi-pair reveal">
           <div class="kpi">
             <div class="kpi__label">Potential</div>
-            <div class="kpi__value">₹4.0L <span class="tilde">[~]</span></div>
+            <div class="kpi__value">₹4.0L</div>
           </div>
           <div class="kpi kpi--hot">
             <div class="kpi__label">Realised</div>
-            <div class="kpi__value">₹3.4L <span class="tilde">[~]</span></div>
+            <div class="kpi__value">₹3.4L</div>
           </div>
         </div>
         <div class="ledger-wrap reveal">
@@ -1577,7 +2608,7 @@
             </tbody>
           </table>
         </div>
-        <p class="meta reveal">Sample ledger for walkthrough · labelled <span class="tilde">[~]</span> · not a customer guarantee</p>
+        <p class="meta reveal hide-mobile">Sample ledger for walkthrough · labelled · not a customer guarantee</p>
       </div>
     </section>
 
@@ -1585,51 +2616,54 @@
     <section class="slide slide--light grid-bg" id="scene-tech" data-theme="light" aria-label="Technology stack">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Technology</p>
-        <h2 class="reveal">The stack behind every prescription</h2>
-        <p class="lede reveal">Each recommendation is produced by industrial rules, domain foundation models, and an agentic layer that turns findings into owned floor work, then closes the result on the bill.</p>
+        <h2 class="reveal">The stack behind each prescription</h2>
         <div class="tech-grid reveal">
-          <article class="tech-card">
+          <a class="tech-card" href="tech/physics.html?from=__INDUSTRY__" aria-label="Physics and rules engines. Open deep dive.">
             <div class="tech-card__num">01 · Physics</div>
-            <h3>Industrial physics and rules engines</h3>
-            <p>Versioned rule packs for plant energy behaviour, built from published research in energy management, power systems, and equipment efficiency.</p>
-            <ul>
-              <li>MD coincidence, idle and holding loads, compressed air, thermal</li>
+            <h3>Versioned industrial physics &amp; rulepacks</h3>
+            <p>Semver rule packs for affinity laws, holding floors, and tariff arithmetic. Every finding cites a pack a plant EE can open.</p>
+            <ul class="tech-card__detail">
+              <li id="techPhysicsBullet">MD coincidence, idle and holding loads, compressed air, thermal</li>
               <li>PF and tariff arithmetic tied to utility line items</li>
-              <li>Every finding cites a rule version a plant EE can review</li>
+              <li>Physics-informed hybrids. PINN research lineage, not black-box PDEs</li>
             </ul>
-          </article>
-          <article class="tech-card">
+            <span class="tech-card__cta">Open deep dive →</span>
+          </a>
+          <a class="tech-card" href="tech/models.html?from=__INDUSTRY__" aria-label="Industrial energy models. Open deep dive.">
             <div class="tech-card__num">02 · Models</div>
-            <h3>Domain foundation models</h3>
-            <p>A set of models trained for industrial energy work, not a single generic chatbot on top of meter data.</p>
-            <ul>
-              <li>Load and demand forecasting models</li>
-              <li>Pattern and anomaly models for waste detection</li>
-              <li>Equipment efficiency and tariff-aware dispatch models</li>
+            <h3>Plant-calibrated industrial ML</h3>
+            <p>Baselines and ranking models fitted on your plant’s telemetry. Production-normalised residuals. Not a chatbot on meter dumps.</p>
+            <ul class="tech-card__detail">
+              <li>TOW-P baselines · EWMA / CUSUM residual SPC</li>
+              <li>LightGBM quantile MD exceedance ranking</li>
+              <li>TimesFM-class foundation models in shadow only</li>
             </ul>
-          </article>
-          <article class="tech-card">
+            <span class="tech-card__cta">Open deep dive →</span>
+          </a>
+          <a class="tech-card" href="tech/agents.html?from=__INDUSTRY__" aria-label="Prescription agents. Open deep dive.">
             <div class="tech-card__num">03 · Agents</div>
-            <h3>Agentic AI for prescriptions</h3>
-            <p>Agents read structured findings and draft the floor action: what changes, why it matters, who owns it, effort, ₹ impact, and due time.</p>
-            <ul>
-              <li>Ranks the queue so high-₹, low-effort work surfaces first</li>
-              <li>Keeps numbers tied to the finding and tariff line</li>
-              <li>Produces text supervisors can act on without a new dashboard habit</li>
+            <h3>Bounded prescription agents</h3>
+            <p>Agents draft floor actions with tools and vetoes (what, why, who, effort, ₹, due). The calculation engine owns the money path.</p>
+            <ul class="tech-card__detail">
+              <li>Ranks by ₹ × confidence / effort</li>
+              <li>Physics and tariff vetoes are non-overridable</li>
+              <li>LLM for prose only. It does not invent ₹</li>
             </ul>
-          </article>
-          <article class="tech-card">
-            <div class="tech-card__num">04 · Closure</div>
-            <h3>Bill-linked verification</h3>
-            <p>Prescriptions are priced onto DISCOM line items and closed with an M&amp;V plan locked at issue time.</p>
-            <ul>
-              <li>Potential vs realised tracked per action</li>
-              <li>Evidence exportable for plant, finance, and assurance</li>
-              <li>Same ledger feeds intensity and sustainability workpapers</li>
+            <span class="tech-card__cta">Open deep dive →</span>
+          </a>
+          <a class="tech-card" href="tech/evidence.html?from=__INDUSTRY__" aria-label="Verified with evidence. Open deep dive.">
+            <div class="tech-card__num">04 · Evidence</div>
+            <h3>Verified with evidence</h3>
+            <p>In-house calculation engine recomputes ₹ from telemetry deltas and tariff lines, then checks whether the action moved the needle.</p>
+            <ul class="tech-card__detail">
+              <li>Potential vs realised vs remaining opportunity</li>
+              <li>M&amp;V plan and baseline locked at issue time</li>
+              <li>Evidence trail for plant, finance, and assurance</li>
             </ul>
-          </article>
+            <span class="tech-card__cta">Open deep dive →</span>
+          </a>
         </div>
-        <div class="flow-tags reveal" style="margin-top:1rem;">
+        <div class="flow-tags reveal hide-mobile" style="margin-top:1rem;">
           <span class="chip">Read-only OT</span>
           <span class="chip">No PLC writes</span>
           <span class="chip">Multi-plant ready</span>
@@ -1641,14 +2675,13 @@
     <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Auditability and sustainability">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Auditability and sustainability</p>
-        <h2 class="reveal">A full trail from action to bill to evidence pack.</h2>
-        <p class="lede reveal">Closed prescriptions leave a record plant, finance, and assurance partners can reuse. Sustainability numbers come from the same actions, not a second system.</p>
+        <h2 class="reveal">Action, evidence, optional bill line.</h2>
         <div class="audit-grid">
           <div class="audit-col reveal">
             <h3>Auditability</h3>
             <ul class="audit-list">
               <li><span class="mark mark-ok">1</span><span>Immutable trail: issued → viewed → acted → verified</span></li>
-              <li><span class="mark mark-ok">2</span><span>Potential vs realised ledger tied to DISCOM bill lines</span></li>
+              <li><span class="mark mark-ok">2</span><span>Potential vs realised ledger from Stamped evidence (bill optional)</span></li>
               <li><span class="mark mark-ok">3</span><span>IPMVP-style M&amp;V plan locked when each prescription is issued</span></li>
               <li><span class="mark mark-ok">4</span><span>Exportable workpapers for plant EE, finance, and assurance partners</span></li>
             </ul>
@@ -1663,95 +2696,19 @@
             </ul>
           </div>
         </div>
-        <p class="audit-note reveal">For teams that already run EnMS, renewables, and intensity programmes, and still need day-to-day actions that show up on the invoice.</p>
+        <p class="audit-note reveal hide-mobile">For teams that already run EnMS, renewables, and intensity programmes, and still need day-to-day actions that show up on the invoice.</p>
       </div>
     </section>
 
-    <!-- 9 Savings map -->
-    <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Where electricity cost usually hides</p>
-        <h2 class="reveal">Five areas we check first</h2>
-        <p class="lede reveal">These are the first places we look when a plant already has metering and still sees avoidable ₹ on the HT bill.</p>
-        <div class="waste-grid reveal">
-          <article class="waste-card">
-            <h3>MD / demand</h3>
-            <ul>
-              <li>Shift-start overlap</li>
-              <li>Coincidence peaks</li>
-              <li>Contract demand headroom</li>
-            </ul>
-            <div class="waste-bill">Bill line · MD (kVA)</div>
-            <p class="waste-sample">Sample: compressors and furnace bay starting together at 07:15</p>
-          </article>
-          <article class="waste-card">
-            <h3>Process heat</h3>
-            <ul>
-              <li>Furnace holding loads</li>
-              <li>Setback gaps</li>
-              <li>Unnecessary preheat windows</li>
-            </ul>
-            <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample">Sample: holding heat across a long changeover with no production</p>
-          </article>
-          <article class="waste-card">
-            <h3>Idle loads</h3>
-            <ul>
-              <li>Utilities across breaks</li>
-              <li>Gap and changeover run-on</li>
-              <li>Banks left in unload</li>
-            </ul>
-            <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample">Sample: compressor bank B unload with zero production tag</p>
-          </article>
-          <article class="waste-card">
-            <h3>Air / HVAC</h3>
-            <ul>
-              <li>Unload hours</li>
-              <li>Staging discipline</li>
-              <li>Simultaneous bank starts</li>
-            </ul>
-            <div class="waste-bill">Bill line · Energy + MD</div>
-            <p class="waste-sample">Sample: two air banks starting into the same demand window</p>
-          </article>
-          <article class="waste-card">
-            <h3>Tariff dispatch</h3>
-            <ul>
-              <li>Peak import timing</li>
-              <li>Solar / captive / grid mix</li>
-              <li>TOU mistiming</li>
-            </ul>
-            <div class="waste-bill">Bill line · ToD energy</div>
-            <p class="waste-sample">Sample: grid draw during peak while captive capacity sits idle</p>
-          </article>
-        </div>
-        <div class="bill-table-wrap reveal">
-          <table class="bill-table">
-            <thead>
-              <tr>
-                <th>Monthly HT bill</th>
-                <th>About 15% often addressable <span class="tilde">[~]</span></th>
-                <th>Cost of waiting 90 days</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>₹30L</td><td>₹4.5L / month</td><td>₹13.5L</td></tr>
-              <tr><td>₹60L</td><td>₹9L / month</td><td>₹27L</td></tr>
-              <tr><td>₹1Cr</td><td>₹15L / month</td><td>₹45L</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="footnote reveal">Indicative ranges from comparable plants <span class="tilde">[~]</span>. A 90-day proof run replaces estimates with figures from your DISCOM bills.</p>
-      </div>
-    </section>
+    
 
     <!-- 11 Boundaries -->
     <section class="slide slide--light" id="scene-boundaries" data-theme="light" aria-label="Boundaries">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">How we engage OT</p>
-        <h2 class="reveal">Read-only first. Clear boundaries.</h2>
+        <h2 class="reveal">Read-only on OT. Clear limits.</h2>
         <div class="bound-grid">
-          <div class="bound-col bound-col--not reveal">
+          <div class="bound-col bound-col--not reveal hide-mobile">
             <h3>What we are not</h3>
             <ul class="bound-list">
               <li>EMS / SCADA replacement</li>
@@ -1784,8 +2741,7 @@
     <section class="slide slide--light" id="scene-video" data-theme="light" aria-label="How it works video">
       <div class="slide__inner slide__inner--media">
         <p class="eyebrow reveal">2-minute walkthrough</p>
-        <h2 class="reveal">How Stamped works, end to end</h2>
-        <p class="lede reveal">Connect plant data, issue a prescription in rupees, hand it to the floor, and verify on the bill.</p>
+        <h2 class="reveal">How Stamped works</h2>
         <div class="video-frame reveal">
           <video
             controls
@@ -1797,7 +2753,7 @@
             <source src="https://stamped.work/video/how-it-works-cinematic.webm" type="video/webm" />
           </video>
         </div>
-        <p class="video-caption reveal">The video follows the same sequence shown here. Pause whenever a point needs discussion.</p>
+        <p class="video-caption reveal hide-mobile">The video follows the same sequence shown here. Pause whenever a point needs discussion.</p>
       </div>
     </section>
 
@@ -1809,7 +2765,7 @@
           <p>Simulated data, not your plant</p>
         </div>
         <div class="dash-shell reveal">
-          <div class="dash-badge">Simulated sample</div>
+          <div class="dash-badge hide-mobile">Simulated sample</div>
           <iframe
             id="dashFrame"
             data-src="https://stamped-energy.vercel.app/"
@@ -1824,9 +2780,9 @@
     <!-- 14 Offer -->
     <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
       <div class="slide__inner">
-        <p class="eyebrow reveal">90-day bill verification</p>
+        <p class="eyebrow reveal">60-day proof run</p>
         <h2 class="reveal">Proof Run</h2>
-        <p class="lede reveal">Start with one plant. Plant and finance review the same M&amp;V memo. Go or no-go at Day 90. Wider rollout only after that memo is signed.</p>
+        <p class="lede reveal show-mobile">Audit → floor execution → go / no-go at Day 60.</p>
         <table class="phase-table reveal">
           <thead>
             <tr>
@@ -1837,33 +2793,39 @@
           <tbody>
             <tr>
               <td>Weeks 1-2</td>
-              <td>Read-only connect · baseline in writing · first ranked prescriptions</td>
+              <td>Plant audit · map meters, EMS, and bill lines · understand the data you already have</td>
             </tr>
             <tr>
               <td>Weeks 3-8</td>
-              <td>Floor executes · weekly EnMS-style review · WhatsApp ownership</td>
+              <td>Connect read-only · floor executes prescriptions · weekly reviews</td>
             </tr>
             <tr>
-              <td>Day 90</td>
-              <td>Joint plant/finance M&amp;V memo · go / no-go with signed numbers</td>
+              <td>Day 60</td>
+              <td>Go / no-go: on verified ₹ and fit (efficiency, workload, how the floor actually runs)</td>
             </tr>
           </tbody>
         </table>
         <div class="commercial reveal">
-          <span class="chip">Fixed pilot ₹2-5L <span class="tilde">[~]</span></span>
-          <span class="chip">Subscribe only after verified savings</span>
-          <span class="chip">Stop at Day 90 · no lock-in</span>
+          <span class="chip">Fixed pilot ₹1-5L</span>
+          <span class="chip">Then pay-as-you-save · a cut of the value we deliver</span>
         </div>
         <div class="ask-box reveal">
-          <strong>The ask</strong>
-          <p>A scoping conversation + your last 2-3 DISCOM bills. No purchase decision required on the call.</p>
+          <strong>Next step</strong>
+          <p>Let’s get on a short call. No bills required upfront.</p>
+          <p class="ask-cal"><a href="https://calendly.com/stamped-energy/stamped-energy" target="_blank" rel="noopener noreferrer">Book a meet</a></p>
         </div>
         <p class="contact-line reveal">
           <a href="mailto:contact@stamped.work">contact@stamped.work</a>
           ·
           <a href="https://stamped.work" target="_blank" rel="noopener noreferrer">stamped.work</a>
         </p>
-        <p class="cred-quiet reveal">Built on energy systems research at IIT Roorkee.</p>
+        <p class="founders reveal">
+          Founders:
+          <a href="https://in.linkedin.com/in/vinayak-rz" target="_blank" rel="noopener noreferrer">Vinayak</a>
+          ·
+          <a href="https://in.linkedin.com/in/utso" target="_blank" rel="noopener noreferrer">Utso</a>
+        </p>
+        <p class="cred-quiet reveal hide-mobile">Built on energy systems research at IIT Roorkee.</p>
       </div>
     </section>
 
@@ -1880,7 +2842,11 @@
 
   <script>
     (function () {
-      const slides = Array.from(document.querySelectorAll(".slide"));
+      const isMobileDeck = window.matchMedia("(max-width: 720px)").matches;
+      // ponytail: skip simulated dashboard on phone - desktop iframe only
+      const slides = Array.from(document.querySelectorAll(".slide")).filter(function (s) {
+        return !(isMobileDeck && s.id === "scene-live");
+      });
       const total = slides.length;
       const progressFill = document.getElementById("progressFill");
       const counter = document.getElementById("sceneCounter");
@@ -1894,6 +2860,7 @@
 
       let index = 0;
       let touchX = null;
+      let touchY = null;
 
       function onLogoFail(img) {
         chromeLogo.classList.add("fallback");
@@ -1938,6 +2905,116 @@
         });
       }
 
+      /* Interactive floor phone: 3 prescriptions → Stamped Energy end state */
+      var floorRx = Array.isArray(window.__FLOOR_RX__) ? window.__FLOOR_RX__ : [];
+      var floorIdx = 0;
+      var floorBusy = false;
+      var floorBubble = document.getElementById("floorBubble");
+      var floorActions = document.getElementById("floorActions");
+      var floorEnd = document.getElementById("floorEnd");
+      var floorMeta = document.getElementById("floorMeta");
+      var floorTag = document.getElementById("floorTag");
+      var floorTitle = document.getElementById("floorTitle");
+      var floorWhy = document.getElementById("floorWhy");
+      var floorImpact = document.getElementById("floorImpact");
+      var floorOwner = document.getElementById("floorOwner");
+      var floorDue = document.getElementById("floorDue");
+      var floorMsg = document.getElementById("floorMsg");
+      var floorSnooze = document.getElementById("floorSnooze");
+      var floorAck = document.getElementById("floorAck");
+
+      function setFloorControlsEnabled(on) {
+        if (floorSnooze) floorSnooze.disabled = !on;
+        if (floorAck) floorAck.disabled = !on;
+        if (floorBubble) floorBubble.setAttribute("aria-disabled", on ? "false" : "true");
+      }
+
+      function renderFloorRx(i, animateIn) {
+        var rx = floorRx[i];
+        if (!rx || !floorBubble) return;
+        floorIdx = i;
+        if (floorTag) floorTag.textContent = "Alarm · " + (rx.priority || "High");
+        if (floorTitle) floorTitle.textContent = rx.title || "";
+        if (floorWhy) floorWhy.innerHTML = "<b>Alarm:</b> " + (rx.why || "");
+        if (floorImpact) floorImpact.innerHTML = "<b>Impact:</b> " + (rx.impact || "");
+        if (floorOwner) floorOwner.innerHTML = "<b>Owner:</b> " + (rx.owner || "");
+        if (floorDue) floorDue.innerHTML = "<b>Due:</b> " + (rx.due || "This week · before next peak");
+        if (floorMeta) floorMeta.textContent = "Today · Shift B · 07:18 · " + (i + 1) + "/" + floorRx.length;
+        if (floorMsg) floorMsg.hidden = false;
+        floorBubble.hidden = false;
+        if (floorActions) floorActions.hidden = false;
+        if (floorEnd) floorEnd.hidden = true;
+        if (floorMsg) floorMsg.classList.remove("is-dismiss-ack", "is-dismiss-snooze", "is-enter");
+        floorBubble.classList.remove("is-dismiss-ack", "is-dismiss-snooze", "is-enter");
+        if (animateIn) {
+          void floorMsg.offsetWidth;
+          floorMsg.classList.add("is-enter");
+        }
+        setFloorControlsEnabled(true);
+      }
+
+      function showFloorEnd() {
+        if (floorMsg) floorMsg.hidden = true;
+        if (floorMeta) floorMeta.hidden = true;
+        if (floorEnd) floorEnd.hidden = false;
+        floorBusy = false;
+        setFloorControlsEnabled(false);
+      }
+
+      function resetFloorPhone() {
+        floorBusy = false;
+        if (floorMeta) floorMeta.hidden = false;
+        if (!floorRx.length) return;
+        renderFloorRx(0, false);
+      }
+
+      function dismissFloor(mode) {
+        if (floorBusy || !floorBubble || !floorMsg || floorMsg.hidden || !floorRx.length) return;
+        floorBusy = true;
+        setFloorControlsEnabled(false);
+        var phoneEl = document.getElementById("floorPhone");
+        if (phoneEl) {
+          phoneEl.classList.remove("is-pulse");
+          void phoneEl.offsetWidth;
+          phoneEl.classList.add("is-pulse");
+        }
+        floorMsg.classList.remove("is-enter", "is-dismiss-ack", "is-dismiss-snooze");
+        void floorMsg.offsetWidth;
+        floorMsg.classList.add(mode === "snooze" ? "is-dismiss-snooze" : "is-dismiss-ack");
+        window.setTimeout(function () {
+          var next = floorIdx + 1;
+          if (next >= floorRx.length) {
+            showFloorEnd();
+            return;
+          }
+          renderFloorRx(next, true);
+          floorBusy = false;
+        }, 340);
+      }
+
+      if (floorSnooze) {
+        floorSnooze.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dismissFloor("snooze");
+        });
+      }
+      if (floorAck) {
+        floorAck.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dismissFloor("ack");
+        });
+      }
+      if (floorBubble) {
+        floorBubble.addEventListener("click", function () { dismissFloor("ack"); });
+        floorBubble.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            dismissFloor("ack");
+          }
+        });
+      }
+      if (floorRx.length) resetFloorPhone();
+
       function goTo(i, force) {
         if (i < 0 || i >= total) return;
         if (i === index && !force) return;
@@ -1958,7 +3035,9 @@
         index = i;
         const slide = slides[index];
         slide.classList.add("active");
+        slide.scrollTop = 0;
         document.body.setAttribute("data-theme", "light");
+        if (slide.id === "scene-floor") resetFloorPhone();
 
         progressFill.style.width = ((index + 1) / total * 100) + "%";
         counter.textContent = pad(index + 1) + " / " + pad(total);
@@ -1995,8 +3074,9 @@
 
       document.addEventListener("keydown", function (e) {
         const tag = (e.target && e.target.tagName) || "";
-        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "VIDEO") return;
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "VIDEO" || tag === "BUTTON") return;
         if (e.target && e.target.isContentEditable) return;
+        if (e.target && e.target.closest && e.target.closest("#floorPhone")) return;
 
         switch (e.key) {
           case "ArrowRight":
@@ -2030,16 +3110,29 @@
       stage.addEventListener("touchstart", function (e) {
         if (!e.changedTouches || !e.changedTouches[0]) return;
         touchX = e.changedTouches[0].clientX;
+        touchY = e.changedTouches[0].clientY;
       }, { passive: true });
       stage.addEventListener("touchend", function (e) {
-        if (touchX == null || !e.changedTouches || !e.changedTouches[0]) return;
+        if (touchX == null || touchY == null || !e.changedTouches || !e.changedTouches[0]) return;
         const dx = e.changedTouches[0].clientX - touchX;
+        const dy = e.changedTouches[0].clientY - touchY;
         touchX = null;
-        if (Math.abs(dx) < 50) return;
+        touchY = null;
+        if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy)) return;
         if (dx < 0) next(); else prev();
       }, { passive: true });
 
-      goTo(0, true);
+      function slideIndexFromHash() {
+        var id = (location.hash || "").replace(/^#/, "");
+        if (!id) return 0;
+        var idx = slides.findIndex(function (s) { return s.id === id; });
+        return idx >= 0 ? idx : 0;
+      }
+
+      goTo(slideIndexFromHash(), true);
+      window.addEventListener("hashchange", function () {
+        goTo(slideIndexFromHash(), true);
+      });
     })();
   </script>
 </body>

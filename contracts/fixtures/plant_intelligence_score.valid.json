@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "as_of": "2026-07-28T12:00:00Z",
+  "lookback": "P30D",
+  "overall": 72.4,
+  "pillar1_load_energy": 78.0,
+  "pillar2_equipment": 62.0,
+  "components": {
+    "pillar1": {
+      "coverage": 0.8,
+      "impact_density": 0.72,
+      "closure_quality": 0.9,
+      "precision_proxy": 0.75
+    },
+    "pillar2": {
+      "coverage": 0.67,
+      "impact_density": 0.5,
+      "closure_quality": 0.85,
+      "precision_proxy": 0.75
+    }
+  },
+  "family_coverage": {
+    "A": true,
+    "B": true,
+    "C": true,
+    "D": true,
+    "E": false,
+    "F": true,
+    "G": true,
+    "H": false
+  },
+  "finding_counts": {
+    "energy_efficiency": 12,
+    "equipment_health": 4
+  },
+  "precision_proxy": {
+    "energy_efficiency": 0.75,
+    "equipment_health": 0.75
+  }
+}

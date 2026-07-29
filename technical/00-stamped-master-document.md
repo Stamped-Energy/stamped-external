@@ -34,7 +34,7 @@ A prescriptive energy intelligence platform for **energy-intensive Indian manufa
 *Precision energy intelligence. Verified savings. Built for manufacturers.*
 
 **GTM category (June 2026):**
-**Bill-verified operational decision layer** — not an EMS replacement, not an ESG/carbon accounting platform. Enemy positioning: **insight without closure** (dashboards and audits that never become assigned, bill-verified ₹).
+**Evidence-verified operational decision layer** — not an EMS replacement, not an ESG/carbon accounting platform. Enemy positioning: **insight without closure** (dashboards and audits that never become assigned, evidence-verified ₹).
 
 **External properties:**
 - Marketing site: [stamped.work](https://stamped.work/)
@@ -114,7 +114,7 @@ Stamped’s **primary ICP (v2, June 2026)** sits in the **overlap and near-adjac
 
 - **Enterprise platforms (Greenovative):** Built for **70+ plant groups** and **₹3,000+ crore/year** energy spend — sales motion and pricing assume enterprise CoE
 - **Full-stack EMS + M&V (Zerowatt):** Strong at **₹50L+/month**; Stamped competes at **₹30L+** with faster plant pilot and EMS **layer** positioning
-- **Legacy EMS dashboards:** Monitoring without **assigned prescriptions** and **bill verification** — the Greenovative auto conglomerate case explicitly notes dashboards failed to explain variance
+- **Legacy EMS dashboards:** Monitoring without **assigned prescriptions** and **evidence-backed verification** — the Greenovative auto conglomerate case explicitly notes dashboards failed to explain variance
 
 **White space statement:** Hundreds of **large, independent** North India plants have the data infrastructure and the bill pain, but no prescriptive layer that closes the loop in **rupees on the DISCOM bill** at a **90-day plant pilot** cadence.
 
@@ -386,27 +386,27 @@ The following segments informed early product mechanics and remain valid for **P
 | Element | Current state |
 | --- | --- |
 | **Stage** | Pre-validation — discovery calls, warm accounts, demo-led |
-| **Primary motion** | Founder-led outbound + LinkedIn → scoping call → **90-Day Bill Verification Program** |
+| **Primary motion** | Founder-led outbound + LinkedIn → scoping call → **60-Day Proof Run** |
 | **Channels** | Direct (WhatsApp/email) to indexed leads; founder LinkedIn; stamped.work; plant visits |
 | **Not yet scaled** | Paid ads, SEO content farm, channel partners |
 | **Proof gap** | Benchmark outcomes cite Zerowatt/Greenovative `[~]` — own verified case pending |
 
 ### 10.2 Flagship commercial offer
 
-**90-Day Bill Verification Program** — structured engagement (not a “cheap pilot”):
+**60-Day Proof Run** — structured engagement (not a “cheap pilot”):
 
 - **Purpose:** One verified savings line on the DISCOM bill, or clear kill criteria at Day 90
 - **Duration:** ~90 days (connect → prescribe → assign → verify)
 - **Band A fee (working):** **₹2–5 lakh** fixed `[~]` — signals seriousness vs legacy ₹25k–50k SME pilot framing
 - **Optional:** ₹1L credit toward Year 1 if verified savings exceed 3× program fee `[!]`
-- **Leave-behind:** `marketing/content-strategy/90-day-bill-verification-program-one-pager.md`
+- **Leave-behind:** `marketing/content-strategy/sales-collateral/60-day-proof-run-one-pager.md`
 
 ### 10.3 Messaging framework (June 2026)
 
 | Layer | Message |
 | --- | --- |
 | **Hero (website)** | *From plant data to verified savings.* — keep unchanged |
-| **Category** | Bill-verified operational decision layer |
+| **Category** | Evidence-verified operational decision layer |
 | **Enemy** | Insight without closure |
 | **Reframes (outbound)** | **Margin Defense** (OEM price-down years) + **Bill Referee** (trust/conversion) |
 | **LinkedIn** | AIDA-structured posts — ICP + general audience; see `marketing/content-strategy/linkedin-posts.md` |
@@ -428,7 +428,7 @@ The following segments informed early product mechanics and remain valid for **P
 | --- | --- | --- |
 | **Greenovative** | 70+ plant conglomerates | Regional Band A plants; faster plant-level decision |
 | **Zerowatt** | ₹50L+/month cited floor | ₹30L+; EMS **layer**; software-only, no proprietary meters |
-| **Legacy EMS** | Monitoring | Prescriptions + workflow + bill verification |
+| **Legacy EMS** | Monitoring | Prescriptions + workflow + evidence verification |
 
 Full intel: `competitor-research/` + `external-learning/zerowatt/` + `external-learning/greenovative/`
 
@@ -436,7 +436,7 @@ Full intel: `competitor-research/` + `external-learning/zerowatt/` + `external-l
 
 ## 11. Revenue Model
 
-### Entry Phase — 90-Day Bill Verification Program (Band A — primary)
+### Entry Phase — 60-Day Proof Run (Band A — primary)
 
 The entry offer exists for one purpose: **remove career risk from the first purchase and generate the first verified savings data point on the DISCOM bill.**
 
@@ -444,7 +444,7 @@ The entry offer exists for one purpose: **remove career risk from the first purc
 - **Band A pricing (working):** **₹2–5 lakh** fixed fee `[~]` — scoped to plant size and integration depth; calibrate in discovery
 - **Legacy Band B/C pilot (nurture):** ₹10,000–50,000 fixed or pay-as-you-save cap `[~]` — see historical estimates below; not primary GTM
 - **Goal:** Deliver at least one **verified ₹ saving** on invoice. Use that number to convert to subscription or multi-site expansion.
-- **Sales asset:** `marketing/content-strategy/90-day-bill-verification-program-one-pager.md`
+- **Sales asset:** `marketing/content-strategy/sales-collateral/60-day-proof-run-one-pager.md`
 
 ### Pilot Phase (Legacy Band B/C — nurture)
 
@@ -483,7 +483,7 @@ The Insight → Action → Savings loop fails without workflow tracking. Recomme
 **Bet 3: INR-denominated outcomes are the only language that works.**
 This audience makes decisions based on rupees saved per month — not kWh reduced, not percentage improvement, not carbon credits. Every prescription, every dashboard metric, every case study must lead with ₹. This is not a presentation choice; it is a product architecture principle.
 
-**Bet 4: The 90-Day Bill Verification Program is the conversion unlock (Band A).**
+**Bet 4: The 60-Day Proof Run is the conversion unlock (Band A).**
 The biggest barrier is not price — it is **skepticism from previous dashboard failures** and **career risk** on the Plant Head. A structured verification program with kill criteria and bill-matched proof eliminates this more effectively than feature demos. Premium program pricing signals enterprise-safe seriousness; overly cheap pilots signal desperation.
 
 **Bet 5: The Band A segment is genuinely underserved.**
@@ -548,7 +548,7 @@ If it does: build it, price it, communicate it. If it does not: remove it.
 | `Stamped_Product_Definition_and_Architecture.md` | High-level product definition + architecture layers |
 | `Stamped_Technical_Architecture_v1.md` | Detailed technical architecture, engines, M&V |
 | `Stamped_Tech_Archi_Core.md` | Condensed six-layer reference |
-| `Energy-Decision-Optimization-Engine.md` | Decision engine concept |
+| `Stamped_Two_Pillar_Technical_Framing_v1.md` | Two-pillar technical framing + taxonomies |
 
 ### ICP, personas & leads
 
@@ -564,7 +564,7 @@ If it does: build it, price it, communicate it. If it does not: remove it.
 
 | Document | Purpose |
 | --- | --- |
-| `marketing/content-strategy/90-day-bill-verification-program-one-pager.md` | Sales leave-behind |
+| `marketing/content-strategy/sales-collateral/60-day-proof-run-one-pager.md` | Sales leave-behind |
 | `marketing/content-strategy/linkedin-posts.md` | LinkedIn post bank (AIDA) |
 | `marketing/content-strategy/stamped-energy-rory-sutherland-marketing-interrogation-2026-06.md` | Positioning strategy audit |
 | `marketing/content-strategy/stamped-website-sustainability-positioning-strategy.md` | Website sustainability / Industry 4.0 |
@@ -607,4 +607,4 @@ If it does: build it, price it, communicate it. If it does not: remove it.
 *v1.0 — June 2026 — Initial document. All outcome figures are benchmark-derived, not customer-validated.*
 *v1.2 — June 2026 — ICP scope clarified: auto component NCR wedge; multi-vertical expansion noted.*
 *v1.3 — June 2026 — Positioning language professionalised for SaaS-grade tone.*
-*v1.4 — June 2026 — **ICP v2 authoritative** (Band A ≥ ₹30L/mo); new §10 GTM/marketing; 90-Day Bill Verification Program; outcomes/pricing for Band A; repository map; links to `marketing/`, lead clusters (Roorkee/Rudrapur), sustainability dual-ROI; legacy Band B/C marked nurture-only.*
+*v1.4 — June 2026 — **ICP v2 authoritative** (Band A ≥ ₹30L/mo); new §10 GTM/marketing; 60-Day Proof Run; outcomes/pricing for Band A; repository map; links to `marketing/`, lead clusters (Roorkee/Rudrapur), sustainability dual-ROI; legacy Band B/C marked nurture-only.*

@@ -90,8 +90,9 @@ Also read ADRs: [ADR-001](../decisions/ADR-001-l1-repo-split-and-boundaries.md),
 |---|----------|---------|
 | 1 | [stamped-l3-build-order.md](./stamped-l3-build-order.md) | P0 build order across three L3 repos |
 | 2 | [stamped-l3-dual-lane-consumer-prompt.md](./stamped-l3-dual-lane-consumer-prompt.md) | **Paste to core & rulepacks agents** after ADR-015/016 — submodule pin + dual-lane + attribution shadows |
+| 3 | [stamped-l3-ops-clearance-consumer-prompt.md](./stamped-l3-ops-clearance-consumer-prompt.md) | **Paste to L3 agents** — Finding 1.1.0 `ops_clearance` + `alarm_hint` for L5 ops-first verification |
 
-Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015](../decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016](../decisions/ADR-016-attribution-shadow-challengers.md).
+Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015](../decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016](../decisions/ADR-016-attribution-shadow-challengers.md) · [ADR-020](../decisions/ADR-020-l5-mv-claim-governance.md).
 
 ---
 
@@ -102,8 +103,7 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 | 1 | [stamped-l4-architecture-handoff.md](./stamped-l4-architecture-handoff.md) | **Primary handoff** — dual-lane agent, adaptive RAG, T4 web, eval stack, L3 prompt |
 | 2 | [../technical/layers/L4-knowledge-and-reasoning.md](../technical/layers/L4-knowledge-and-reasoning.md) | Architecture SSOT |
 | 3 | [../decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md](../decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Adaptive hybrid RAG + web trust tiers |
-| 4 | [stamped-l4-build-order.md](./stamped-l4-build-order.md) | Superseded stub (redirects here) |
-| 5 | [../consumers/stamped-l4/README.md](../consumers/stamped-l4/README.md) | Platform Lane A scaffold reference |
+| 4 | [../consumers/stamped-l4/README.md](../consumers/stamped-l4/README.md) | Platform Lane A scaffold reference |
 
 ### stamped-l4 one-line mission
 
@@ -116,6 +116,60 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 | Document | Purpose |
 |----------|---------|
 | [L2_L6_VINAYAK_IDENTITY.md](./L2_L6_VINAYAK_IDENTITY.md) | Canonical `plant_vinayak_1` / `org_acme` / “Vinayak Plant”; L4 ingest → L5 plant GETs → L6 BFF; envelope `delivery=l4` ∧ `status=emitted` |
+
+---
+
+## stamped-l5 — consumer live (`closure-verification`)
+
+| # | Document | Purpose |
+|---|----------|---------|
+| 1 | [../consumers/readmes/closure-verification.md](../consumers/readmes/closure-verification.md) | **Consumer README snapshot** — shipped L5 API/worker surface |
+| 2 | [stamped-l5-architecture-handoff.md](./stamped-l5-architecture-handoff.md) | Platform handoff — runtime, modules, consistency |
+| 3 | [stamped-l5-build-plan.md](./stamped-l5-build-plan.md) | Starter commit matrix (historical P0–P2) |
+| 4 | [../technical/layers/L5-closure-and-verification.md](../technical/layers/L5-closure-and-verification.md) | Architecture SSOT |
+| 5 | [../decisions/ADR-019-l5-runtime-and-consistency.md](../decisions/ADR-019-l5-runtime-and-consistency.md) | Runtime + L2 append protocol |
+| 6 | [../decisions/ADR-020-l5-mv-claim-governance.md](../decisions/ADR-020-l5-mv-claim-governance.md) | Ops-first claim gates (`ops_confirmed`; bill deferred) |
+| 7 | [../decisions/ADR-021-l5-notification-and-evidence.md](../decisions/ADR-021-l5-notification-and-evidence.md) | WhatsApp + evidence |
+| 8 | [l6-counterfactual-display-stub.md](./l6-counterfactual-display-stub.md) | Modeled delay-cost display |
+
+### stamped-l5 one-line mission
+
+**stamped-l5** (`closure-verification`) is **Closure & Verification** — EMS alarm routing, ops-clearance verification, WhatsApp-first notification, calculated savings ledger (bill path deferred), and L2 append policy.
+
+---
+
+## stamped-l6 — read first (ops-first UI + BFF)
+
+| # | Document | Purpose |
+|---|----------|---------|
+| 1 | [stamped-l6-architecture-handoff.md](./stamped-l6-architecture-handoff.md) | **Primary handoff** — BFF topology, L2/L4/L5 integration, P0 band |
+| 2 | [stamped-l6-ui-ux-charter.md](./stamped-l6-ui-ux-charter.md) | Routes, EMS, progressive reveal, dual-mode analyst, a11y |
+| 3 | [stamped-l6-build-plan.md](./stamped-l6-build-plan.md) | Nawab commit matrix for consumer |
+| 4 | [stamped-l6-agent-onboarding.md](./stamped-l6-agent-onboarding.md) | Paste into consumer `AGENTS.md` |
+| 5 | [../technical/layers/L6-experience-and-integration.md](../technical/layers/L6-experience-and-integration.md) | Architecture SSOT |
+| 6 | [../decisions/ADR-022-l6-bff-runtime-boundary.md](../decisions/ADR-022-l6-bff-runtime-boundary.md) | BFF / repo charter |
+| 7 | [../decisions/ADR-023-l6-ems-and-analyst-context.md](../decisions/ADR-023-l6-ems-and-analyst-context.md) | EMS + analyst context policy |
+| 8 | [l6-counterfactual-display-stub.md](./l6-counterfactual-display-stub.md) | Modeled delay-cost display |
+| 9 | [../consumers/stamped-l6/README.md](../consumers/stamped-l6/README.md) | Typed UI seed + [TRANSFER.md](../consumers/stamped-l6/TRANSFER.md) |
+| 10 | [../design/forge-industrial-design-system.md](../design/forge-industrial-design-system.md) | Forge Industrial v2.0 |
+| 11 | [l6-alarms-prescriptions-evidence-ia.md](./l6-alarms-prescriptions-evidence-ia.md) | **Proposed** — separate Alarm / Rx / Evidence jobs (live UI audit) |
+| 12 | [audits/2026-07-24-trying-stamped-work.md](./audits/2026-07-24-trying-stamped-work.md) | Playwright audit notes for trying.stamped.work |
+
+### stamped-l6 one-line mission
+
+**stamped-l6** is **Experience & Integration** — ops-first dashboard, EMS alarm console, prescription queue, dual-mode analyst UX, exports, and outbound API/webhooks (P2).
+
+---
+
+## Consumer README snapshots (L1–L4)
+
+Mirrored root READMEs from live consumer repos (context only — canonical docs stay in each repo):
+
+| Layer | Snapshot index |
+|-------|----------------|
+| L1–L4 | [../consumers/readmes/README.md](../consumers/readmes/README.md) |
+
+L5 consumer README snapshot: [../consumers/readmes/closure-verification.md](../consumers/readmes/closure-verification.md) (architecture SSOT remains the L5 layer doc + ADRs).
 
 ---
 
@@ -136,6 +190,7 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 
 | Layer | Document |
 |-------|----------|
+| L5 depth | [../technical/layers/L5-closure-and-verification.md](../technical/layers/L5-closure-and-verification.md) |
 | L4 depth | [../technical/layers/L4-knowledge-and-reasoning.md](../technical/layers/L4-knowledge-and-reasoning.md) |
 | L3 depth | [../technical/layers/L3-intelligence-core.md](../technical/layers/L3-intelligence-core.md) |
 | L2 depth | [../technical/layers/L2-universal-repository.md](../technical/layers/L2-universal-repository.md) |
@@ -153,4 +208,10 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 | 2026-07-12 | Added stamped-l2 handoff section, ADR-009, layer-interfaces-l2 |
 | 2026-07-12 | Submodule distribution (ADR-011); playbooks + deployment-profiles |
 | 2026-07-17 | L4 architecture handoff + ADR-017; build-order superseded |
+| 2026-07-19 | Link consumer README snapshots under `consumers/readmes/` |
+| 2026-07-20 | L5 architecture handoff + build plan; ADR-019/020/021; contracts 0.7.0 |
+| 2026-07-21 | Ops-first L5 + Finding 1.1.0 `ops_clearance`; contracts 0.8.0; L3 ops-clearance consumer prompt |
+| 2026-07-21 | Mirrored completed L5 README → `consumers/readmes/closure-verification.md` |
+| 2026-07-21 | L6 architecture + UI handoff (ADR-022/023); ops-first SSOT; `consumers/stamped-l6` reference seed |
+| 2026-07-24 | Proposed L6 IA: Alarms vs Prescriptions vs Evidence + Playwright audit of trying.stamped.work |
 | 2026-07-29 | Vinayak plant identity handoff (L2→L6, C-ext prep) |

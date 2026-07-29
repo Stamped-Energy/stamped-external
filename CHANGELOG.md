@@ -4,6 +4,20 @@ All notable changes to the shared platform pack. Consumer repos pin via git subm
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.MM.DD` (aligned with [VERSION](VERSION)).
 
+## [Unreleased]
+
+### Added
+
+- Contracts **0.9.0**: Finding **1.2.0** (`value_domain`, equipment-health categories); `plant-intelligence-score.json` v1.0.0
+
+### Changed
+- Framing lock: always present **both** pillars (Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence / equipment early warnings). Proof phrase = **verified with evidence**; do not lead with “bill-verified.” Updated [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) Verify paths and [01-product-architecture.md](technical/01-product-architecture.md).
+- Messaging: primary verification is **verified with evidence** (ops-cleared / calculated ledger); DISCOM bill confirmation secondary. Demo decks + product architecture aligned.
+
+### Added
+
+- [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) — maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding `value_domain`, engine ownership, Verify/Improve); linked from [technical/README.md](technical/README.md)
+
 ## [2026.07.12] - 2026-07-12
 
 ### Added
@@ -33,8 +47,26 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 ### Added
 
 - Extensive README — architecture (L0–L6), tech stack, ADR catalog, contracts reference, deployment modes, Cursor config
+- **L5 architecture overhaul** — authoritative [L5 SSOT](technical/layers/L5-closure-and-verification.md); [ADR-019](decisions/ADR-019-l5-runtime-and-consistency.md) / [ADR-020](decisions/ADR-020-l5-mv-claim-governance.md) / [ADR-021](decisions/ADR-021-l5-notification-and-evidence.md); handoffs [stamped-l5-architecture-handoff.md](handoff/stamped-l5-architecture-handoff.md) + [build plan](handoff/stamped-l5-build-plan.md)
+- Contracts **0.7.0** — `workflow-event.json`, envelope `workflow_event`, ledger `supersedes_entry_id` / `emission_factor_ref`
+- **Ops-first L5 + L3 enablement** — Finding **1.1.0** `ops_clearance` / `alarm_hint`; ledger `ops_confirmed`; workflow `alarm_*` / `ops_verified` / `ops_regressed`; [L3 ops-clearance consumer prompt](handoff/stamped-l3-ops-clearance-consumer-prompt.md)
+- Contracts **0.8.0** — see [contracts/CHANGELOG.md](contracts/CHANGELOG.md)
+- L5 consumer README snapshot — [consumers/readmes/closure-verification.md](consumers/readmes/closure-verification.md) (`Vinayak-RZ/closure-verification`)
+- **L6 architecture + UI handoff** — [ADR-022](decisions/ADR-022-l6-bff-runtime-boundary.md) / [ADR-023](decisions/ADR-023-l6-ems-and-analyst-context.md); [architecture handoff](handoff/stamped-l6-architecture-handoff.md) · [UI charter](handoff/stamped-l6-ui-ux-charter.md) · [build plan](handoff/stamped-l6-build-plan.md) · [agent onboarding](handoff/stamped-l6-agent-onboarding.md); typed seed [consumers/stamped-l6](consumers/stamped-l6/)
+
+### Changed
+
+- L2 `ledger.mv_ledger` DDL sketch aligned to contract `verification_status` (`modeled`, not mutable `superseded`); later **`ops_confirmed`**
+- Production-engineering Temporal default superseded by ADR-019 for L5
+- Arch §5.2 / §5.4 — Finding 1.1.0 + ops_confirmed / alarm events
+- ADR-020 reframed: ops-cleared verification; bill path deferred
+- L5 SSOT / handoffs: EMS alarm router; calculated savings; vertical catalog map
+- L6 SSOT reconciled ops-first + EMS console + dual-mode analyst (P0 Mode A / P1 Mode B); English through P2
 
 ### Planned
 
 - Submodule migration in connectors-edge, connectors-cloud, connectors-bill, universal-repositary
 - `stamped-l1-contracts` PyPI/npm publish (optional P1)
+- Create `stamped-l5` consumer repo per build plan
+- Create `stamped-l6` consumer repo per [handoff/stamped-l6-build-plan.md](handoff/stamped-l6-build-plan.md)
+- Bill reconcile / IPMVP Option C as optional add-on (not P0 gate)
