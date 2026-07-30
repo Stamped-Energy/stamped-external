@@ -24,7 +24,9 @@ Founders explain Stamped Intelligence in **two technical sections** on calls:
 
 Engineering still builds **one** L0–L6 system. This bridge answers: which engines, Finding tags, verification paths, and small schema/rulepack changes are needed so the two sections are real — not just slides.
 
-**Non-goals:** website redesign, CNN models, vibration PdM, full computerized maintenance management system, OT write-back.
+**Product framing lock ([ADR-026](../decisions/ADR-026-two-pillars-shared-context.md)):** exactly **two** outcome pillars; orders / MES-lite / departments / trade-offs / negotiation / Improve are **shared context**, not a third pillar. Not an MES product.
+
+**Non-goals:** website redesign, CNN models, vibration PdM, full computerized maintenance management system, OT write-back, MES replacement, product split into Energy vs Maintenance vs MES.
 
 ---
 
@@ -129,10 +131,28 @@ L4 uses `value_domain` to select playbook corpus and prescription template tone.
 | **L4 output** | Rx with ₹ energy-cost impact primary | Rx with risk / maintenance action primary; ₹ optional co-benefit |
 | **L5 Execute** | Same WhatsApp / owner workflow | Same |
 | **L5 Verify** | **Mandatory** ops-cleared evidence / potential vs realised ledger; DISCOM bill **optional** secondary | Maintenance closure + post-action curve (e.g. specific power recovery); bill optional |
-| **L5 Improve (loop 06)** | Acted vs ignored → MD/waste ranking | Acted vs ignored → early-warning thresholds / false-positive suppression |
+| **L5 Improve (loop 06)** | Acted vs ignored → MD/waste ranking; negotiation objections → preference draft | Acted vs ignored → early-warning thresholds / false-positive suppression |
 | **Commercial SOW** | 60-Day Proof Run / **verified with evidence** success clause (not “bill verification program”) | Same — ops-cleared evidence; avoided downtime need not appear on the invoice |
 
-Improve maps to existing calibration / suppression / HITL feedback patterns in L3/L4/L5 — not a new layer. Document as explicit product step **06 Improve** in UX copy.
+**Improve is productized** as operating-loop step **06** ([ADR-025](../decisions/ADR-025-improve-loop-step-06.md)) — monthly plant-scoped job (ML calibration + agent preferences + developer UI report). Not a new L7 layer. Spec: [stamped-improve-pipeline-spec.md](../handoff/stamped-improve-pipeline-spec.md).
+
+**Holistic management decisions** (order deadlines, departments, negotiation): [ADR-024](../decisions/ADR-024-holistic-plant-decisions.md) · `decision_class` on Rx · TradeoffEngine handoff — all as **shared context** under [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md), not a third pillar.
+
+---
+
+## 7b. Shared context (not a pillar)
+
+Everything below serves **both** pillars. Do **not** sell or label these as Pillar 3 / MES / plant OS.
+
+| Context element | What it does | Primary consumers |
+| --- | --- | --- |
+| Production orders (ERP/MES/MES-lite) | Due dates, hot orders for deadline-aware Rx | Pillar 1 mgmt schedule/capacity |
+| Department / line graph | Owners, incentives, upstream/downstream | Both (routing + ranking) |
+| Trade-off block on management Rx | ₹ energy (hero) + OEE/order/downtime co-benefits | Pillar 1 mgmt classes |
+| Prescription negotiation | Bounded revise under supervisor constraints | Pillar 1 mgmt; optional Pillar 2 |
+| Improve (loop 06) | Acted vs ignored → calibration / preferences | Both |
+
+**Effectiveness / OEE:** first-class **co-benefit language and trade-off fields** — not a separate product outcome pillar.
 
 ---
 
@@ -174,7 +194,9 @@ For decks and [01-product-architecture](01-product-architecture.md) alignment (n
 | L4 playbook split | Separate retrieval namespaces / templates per domain | P1 |
 | L5 Verify branch | Maintenance evidence fields on ledger / workflow (optional downtime / curve recovery) | P1 |
 | L6 queue filter | Pillar / domain filter chip | P1 |
-| Improve metrics | Acted / ignored / false-positive rates per domain into calibration | P1 |
+| Improve metrics | Acted / ignored / false-positive rates per domain into calibration | **Spec done** — [ADR-025](../decisions/ADR-025-improve-loop-step-06.md) · Improve v1 in Phase 2 |
+| TradeoffEngine + orders | Deadline-aware stagger/TOD/shed | P1 — [stamped-l3-tradeoff-engine-spec.md](../handoff/stamped-l3-tradeoff-engine-spec.md) |
+| Prescription negotiation | Discuss UX + revision contract | Phase 2 — [stamped-prescription-negotiation-spec.md](../handoff/stamped-prescription-negotiation-spec.md) |
 | Partner PdM ingest | Consume third-party vibration/MCSA as Findings tagged `equipment_health` | P2 (already product-arch intent) |
 
 **No layer rewrite required.** No new L3 “CNN” path. Prefer rules + baselines already specified in [L3-intelligence-core.md](layers/L3-intelligence-core.md).

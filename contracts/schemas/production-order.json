@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/production-order.v1.json",
+  "title": "ProductionOrder",
+  "description": "ERP/MES or MES-lite production order context for deadline-aware management prescriptions (ADR-024). Read-only — Stamped never owns dispatch.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "order_id",
+    "line_id",
+    "quantity",
+    "unit",
+    "source",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "order_id": { "type": "string", "minLength": 1 },
+    "department_id": {
+      "type": "string",
+      "description": "Optional shop/department (body_shop, paint, assembly, utilities, …)"
+    },
+    "line_id": { "type": "string", "minLength": 1 },
+    "sku": { "type": "string" },
+    "quantity": { "type": "number" },
+    "unit": { "type": "string" },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "1=highest"
+    },
+    "due_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Order due / ship window end; required for deadline-aware stagger when known"
+    },
+    "routing_step": {
+      "type": "string",
+      "description": "Current or planned process step name"
+    },
+    "hot": {
+      "type": "boolean",
+      "description": "MES-lite supervisor hot-order flag for next hours"
+    },
+    "window": {
+      "type": "object",
+      "required": ["start_utc", "end_utc"],
+      "properties": {
+        "start_utc": { "type": "string", "format": "date-time" },
+        "end_utc": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "released", "in_progress", "held", "complete", "cancelled"]
+    },
+    "source": {
+      "type": "string",
+      "enum": ["erp", "mes", "csv", "manual", "hot_order"]
+    },
+    "external_ref": {
+      "type": "string",
+      "description": "Upstream ERP/MES document number"
+    }
+  },
+  "additionalProperties": false
+}

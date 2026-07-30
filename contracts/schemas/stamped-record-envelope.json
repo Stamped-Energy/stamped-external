@@ -38,7 +38,10 @@
         "prescription",
         "ledger_entry",
         "capex_proposal",
-        "workflow_event"
+        "workflow_event",
+        "production_order",
+        "improvement_signal",
+        "prescription_revision"
       ]
     },
     "org_id": { "type": "string", "minLength": 1 },

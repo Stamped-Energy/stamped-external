@@ -109,6 +109,7 @@ git commit -m "chore: add stamped-external submodule at v2026.07.12"
 | 3 | `external/handoff/deployment-profiles.md` |
 | 4 | `external/handoff/README.md` → find **this repo's** handoff doc |
 | 5 | Repo-specific `AGENTS.md` / `docs/` in this repository |
+| 6 | **Holistic plant (2026-07):** `external/handoff/stamped-holistic-consumer-prompt.md` |
 
 ## Ecosystem map
 
@@ -179,3 +180,4 @@ Platform SSOT: `external/` submodule → [stamped-external](https://github.com/v
 | Date | Change |
 | --- | --- |
 | 2026-07-12 | Initial consumer agent prompt for stamped-external submodule model |
+| 2026-07-30 | Link holistic plant consumer prompt (ADR-024/025) |

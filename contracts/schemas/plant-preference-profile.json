@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/plant-preference-profile.v1.json",
+  "title": "PlantPreferenceProfile",
+  "description": "Plant-scoped agent preference profile produced by Improve Track B; human-approved before apply (ADR-025).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "version",
+    "updated_at",
+    "approval"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "integer", "minimum": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "dept_priority_weights": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "throughput": { "type": "number", "minimum": 0, "maximum": 1 },
+          "energy": { "type": "number", "minimum": 0, "maximum": 1 },
+          "quality": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "effort_gate": {
+      "type": "string",
+      "description": "Max effort template tier allowed without plant-head escalation",
+      "enum": ["low", "medium", "high", "capex"]
+    },
+    "evidence_format": {
+      "type": "string",
+      "enum": ["tod_profile", "baseline_band", "coincidence_chart", "sec_trend", "mixed"]
+    },
+    "negotiation_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tag", "preferred_alternative_template"],
+        "properties": {
+          "tag": { "type": "string" },
+          "preferred_alternative_template": { "type": "string" },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "owner_map_corrections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset_or_line_id", "owner_role"],
+        "properties": {
+          "asset_or_line_id": { "type": "string" },
+          "owner_role": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "rank_boosts": {
+      "type": "object",
+      "additionalProperties": { "type": "number" },
+      "description": "template_id or waste_category key → multiplicative boost"
+    },
+    "approval": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "pending_review", "approved", "rejected"]
+        },
+        "reviewed_by": { "type": "string" },
+        "reviewed_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "source_period": {
+      "type": "object",
+      "properties": {
+        "start_utc": { "type": "string", "format": "date-time" },
+        "end_utc": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

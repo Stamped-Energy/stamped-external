@@ -155,6 +155,23 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 | 11 | [l6-alarms-prescriptions-evidence-ia.md](./l6-alarms-prescriptions-evidence-ia.md) | **Proposed** — separate Alarm / Rx / Evidence jobs (live UI audit) |
 | 12 | [audits/2026-07-24-trying-stamped-work.md](./audits/2026-07-24-trying-stamped-work.md) | Playwright audit notes for trying.stamped.work |
 
+### Holistic plant effectiveness (2026-07-30)
+
+| Document | Purpose |
+|----------|---------|
+| [../decisions/ADR-024-holistic-plant-decisions.md](../decisions/ADR-024-holistic-plant-decisions.md) | Energy wedge + order co-benefits + negotiation boundary |
+| [../decisions/ADR-025-improve-loop-step-06.md](../decisions/ADR-025-improve-loop-step-06.md) | Step 06 Improve — ML / agent prefs / UI report |
+| [../decisions/ADR-026-two-pillars-shared-context.md](../decisions/ADR-026-two-pillars-shared-context.md) | **Framing lock** — two pillars + shared context; not MES |
+| [stamped-mes-erp-integration-brief.md](./stamped-mes-erp-integration-brief.md) | Tier A integrate + Tier B MES-lite |
+| [stamped-l3-tradeoff-engine-spec.md](./stamped-l3-tradeoff-engine-spec.md) | Deadline/department-aware ranking |
+| [stamped-prescription-negotiation-spec.md](./stamped-prescription-negotiation-spec.md) | L4/L5/L6 Discuss + revision |
+| [stamped-improve-pipeline-spec.md](./stamped-improve-pipeline-spec.md) | Monthly Improve job |
+| [stamped-improve-report-template.md](./stamped-improve-report-template.md) | Track C markdown template |
+| [stamped-holistic-pilot-stack.md](./stamped-holistic-pilot-stack.md) | L1–L6 pilot checklist (fixtures → live) |
+| [stamped-holistic-architecture-audit.md](./stamped-holistic-architecture-audit.md) | Phase 0 architecture + ponytail audit |
+| [stamped-holistic-consumer-prompt.md](./stamped-holistic-consumer-prompt.md) | **Copy-paste** agent form — bump `external/` + reading order per layer |
+| [../contracts/schemas/plant-department-graph.json](../contracts/schemas/plant-department-graph.json) | Department → line → asset model |
+
 ### stamped-l6 one-line mission
 
 **stamped-l6** is **Experience & Integration** — ops-first dashboard, EMS alarm console, prescription queue, dual-mode analyst UX, exports, and outbound API/webhooks (P2).
@@ -215,3 +232,5 @@ L5 consumer README snapshot: [../consumers/readmes/closure-verification.md](../c
 | 2026-07-21 | L6 architecture + UI handoff (ADR-022/023); ops-first SSOT; `consumers/stamped-l6` reference seed |
 | 2026-07-24 | Proposed L6 IA: Alarms vs Prescriptions vs Evidence + Playwright audit of trying.stamped.work |
 | 2026-07-29 | Vinayak plant identity handoff (L2→L6, C-ext prep) |
+| 2026-07-30 | Holistic plant ADRs 024/025; MES/ERP brief; TradeoffEngine; negotiation; Improve pipeline; pilot stack; contracts 0.10.0 |
+| 2026-07-30 | Holistic architecture audit + unified consumer agent prompt |

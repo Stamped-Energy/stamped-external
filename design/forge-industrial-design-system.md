@@ -15,8 +15,9 @@ The design system is built for **manufacturing decision-makers** who need immedi
 **Product voice (from marketing):**
 
 - Lead with **rupees on the bill**, not abstract kWh.
-- Five-step loop: **Connect → Observe → Decide → Execute → Verify**.
+- Six-step loop: **Connect → Observe → Decide → Execute → Verify → Improve**.
 - Prescriptions show **What · Why · Who · Impact · Due** — bill upload UI should feel like step **01 Connect** ("Start with meter + bill").
+- Management prescriptions also show **trade-off** (energy vs order/department) when relevant; **Improve** is an internal monthly step, not a customer nav item.
 
 ---
 
@@ -188,7 +189,7 @@ From dashboard demo pattern:
 
 Reuse for **empty states & onboarding** in bill upload:
 
-- **Five-step loop** visual — bill upload is **Step 1: Connect**.
+- **Six-step loop** visual — bill upload is **Step 1: Connect**; step **6 Improve** is internal (developer report), not a customer wizard step.
 - **Utility bill** icon in unified ingestion diagram (alongside SCADA, meters).
 - Copy tone: "Start with meter + bill", "Check the next bill".
 - Section structure: eyebrow label → headline → supporting body → CTA.
