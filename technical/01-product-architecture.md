@@ -41,7 +41,23 @@ This document defines **what the product provides** and **how it is architected 
 | **Operating loop** | Connect → Observe → Decide → Execute → Verify → **Improve** |
 | **Differentiator** | Closed-loop accountability — potential vs realised savings, not passive EMS |
 
-Stamped is **not**: a generic EMS dashboard, ESG/carbon accounting platform, SCADA replacement, or **vibration** predictive-maintenance company. Product framing always has two sections — **Load & Energy Efficiency Intelligence** and **Prescriptive Equipment Intelligence** (equipment early warnings / health prescriptions before breakdown; electrical/process signatures) — see [03-two-pillar-technical-bridge.md](03-two-pillar-technical-bridge.md). Proof is **verified with evidence**; DISCOM bill confirmation is optional. Third-party vibration / motor-current feeds may be consumed later.
+Stamped is **not**: a generic EMS dashboard, ESG/carbon accounting platform, SCADA replacement, **MES**, **CMMS**, or **vibration** predictive-maintenance company. Product framing is locked at **exactly two pillars** — **Load & Energy Efficiency Intelligence** and **Prescriptive Equipment Intelligence** — plus **shared plant context** (orders, departments, trade-offs) — see [03-two-pillar-technical-bridge.md](03-two-pillar-technical-bridge.md) and [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md). Proof is **verified with evidence**; DISCOM bill confirmation is optional. Third-party vibration / motor-current feeds may be consumed later.
+
+### Anti-confusion (what we are / are not)
+
+| Concern | Stamped is | Stamped is not |
+| --- | --- | --- |
+| Energy efficiency | Pillar 1 — hero ₹ / SEC | Passive EMS charts only |
+| Equipment / maintenance | Pillar 2 — early-warning prescriptions | Full CMMS / vibration PdM company |
+| Plant effectiveness (OEE, orders) | **Co-benefit** on management Rx via shared context | Separate OEE / MES product |
+| MES / ERP | Read orders & schedules | Dispatch, WIP, or scheduling system of record |
+
+### 2.1b Named outcomes on prescriptions
+
+| Outcome | Role |
+| --- | --- |
+| **Energy efficiency** | Hero — ₹ / kWh / SEC on every relevant Rx |
+| **Plant effectiveness** | Co-benefit — OEE / order-on-time / downtime risk when order context exists (ADR-024 trade-off block) |
 
 ### 2.2 What the product provides (capability modules)
 
@@ -67,8 +83,8 @@ The **primary UX is not a kWh chart**. Reference surfaces:
 **A. Prescription card (hero artifact)**
 Structured action the maintenance supervisor receives — matches stamped.work sample and demo dashboard "Action Intelligence" panel:
 - What · Why · Impact (₹ + optional tCO₂e) · Owner · Due · Priority
-- **Management-class only:** Trade-off block — energy benefit · throughput/order risk · recommended window · alternatives · department owners ([ADR-024](../decisions/ADR-024-holistic-plant-decisions.md))
-- **Discuss:** bounded negotiation to revise parameters (not free-form rewrite)
+- **Management-class only:** Trade-off block — energy benefit (hero) · **effectiveness co-benefits** (throughput/order risk, OEE impact, downtime) · recommended window · alternatives · department owners ([ADR-024](../decisions/ADR-024-holistic-plant-decisions.md), [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md))
+- **Discuss:** bounded negotiation to revise parameters (not free-form rewrite) — shared context, not a third pillar
 
 **B. Plant head / energy manager dashboard** `[demo: stamped-energy.vercel.app]`
 - Savings ledger (verified M&V)

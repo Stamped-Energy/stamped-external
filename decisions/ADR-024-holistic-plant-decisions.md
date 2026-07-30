@@ -5,7 +5,7 @@
 | **Status** | Accepted |
 | **Date** | 2026-07-30 |
 | **Deciders** | Product + Engineering |
-| **Related** | [ADR-013](ADR-013-counterfactual-savings-ledger.md) · [ADR-018](ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](ADR-020-l5-mv-claim-governance.md) · [ADR-023](ADR-023-l6-ems-and-analyst-context.md) · [ADR-025](ADR-025-improve-loop-step-06.md) · [03-two-pillar-technical-bridge](../technical/03-two-pillar-technical-bridge.md) · [`production-order.json`](../contracts/schemas/production-order.json) · [`prescription-revision.json`](../contracts/schemas/prescription-revision.json) |
+| **Related** | [ADR-013](ADR-013-counterfactual-savings-ledger.md) · [ADR-018](ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](ADR-020-l5-mv-claim-governance.md) · [ADR-023](ADR-023-l6-ems-and-analyst-context.md) · [ADR-025](ADR-025-improve-loop-step-06.md) · [ADR-026](ADR-026-two-pillars-shared-context.md) · [03-two-pillar-technical-bridge](../technical/03-two-pillar-technical-bridge.md) · [`production-order.json`](../contracts/schemas/production-order.json) · [`prescription-revision.json`](../contracts/schemas/prescription-revision.json) |
 
 ---
 
@@ -19,6 +19,8 @@ Product lock (2026-07-30):
 2. Add **plant-effectiveness co-benefits** (order risk, OEE/throughput, downtime) on the same prescriptions.
 3. **Integrate** MES/ERP where present; offer **MES-lite** order context where absent.
 4. Do **not** replace MES dispatch, CMMS, or quality systems.
+
+**Framing lock:** Holistic capabilities are **shared context** under the two-pillar product — not a third pillar or MES product. See [ADR-026](ADR-026-two-pillars-shared-context.md).
 
 ---
 

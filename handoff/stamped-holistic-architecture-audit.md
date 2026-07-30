@@ -12,6 +12,8 @@
 **Phase 0 platform SSOT is complete and lean enough to ship as contracts + ADRs + handoffs.**  
 Consumer implementation has **not** started — that is correct per plan (“no consumer code until ADR + contract bump”). The gap is **execution in product repos**, not missing platform docs.
 
+**Framing lock (2026-07-30):** [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md) — one product, **two pillars**, shared context. Holistic artifacts are **not** a third pillar or MES product. Efficiency (₹) is hero; effectiveness (OEE/order/downtime) is co-benefit language.
+
 ---
 
 ## 1. What exists (inventory)
@@ -19,7 +21,7 @@ Consumer implementation has **not** started — that is correct per plan (“no 
 | Layer of truth | Artifact | Status |
 | --- | --- | --- |
 | Decision | [ADR-024](../decisions/ADR-024-holistic-plant-decisions.md) | Accepted |
-| Decision | [ADR-025](../decisions/ADR-025-improve-loop-step-06.md) | Accepted |
+| Decision | [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md) | Accepted — framing lock |
 | Contract 0.10.0 | `production-order`, `prescription-revision`, `improvement-signal`, `plant-preference-profile`, `plant-department-graph` | Present + fixtures |
 | Contract | `production-record` 1.1.0; Rx/Finding `decision_class`; Rx `tradeoff` | Present |
 | Spec | TradeoffEngine, negotiation, MES/ERP, Improve pipeline, pilot stack, report template | Present under `handoff/` |

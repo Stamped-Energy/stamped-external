@@ -24,7 +24,9 @@ Founders explain Stamped Intelligence in **two technical sections** on calls:
 
 Engineering still builds **one** L0–L6 system. This bridge answers: which engines, Finding tags, verification paths, and small schema/rulepack changes are needed so the two sections are real — not just slides.
 
-**Non-goals:** website redesign, CNN models, vibration PdM, full computerized maintenance management system, OT write-back.
+**Product framing lock ([ADR-026](../decisions/ADR-026-two-pillars-shared-context.md)):** exactly **two** outcome pillars; orders / MES-lite / departments / trade-offs / negotiation / Improve are **shared context**, not a third pillar. Not an MES product.
+
+**Non-goals:** website redesign, CNN models, vibration PdM, full computerized maintenance management system, OT write-back, MES replacement, product split into Energy vs Maintenance vs MES.
 
 ---
 
@@ -134,7 +136,23 @@ L4 uses `value_domain` to select playbook corpus and prescription template tone.
 
 **Improve is productized** as operating-loop step **06** ([ADR-025](../decisions/ADR-025-improve-loop-step-06.md)) — monthly plant-scoped job (ML calibration + agent preferences + developer UI report). Not a new L7 layer. Spec: [stamped-improve-pipeline-spec.md](../handoff/stamped-improve-pipeline-spec.md).
 
-**Holistic management decisions** (order deadlines, departments, negotiation): [ADR-024](../decisions/ADR-024-holistic-plant-decisions.md) · `decision_class` on Rx · TradeoffEngine handoff.
+**Holistic management decisions** (order deadlines, departments, negotiation): [ADR-024](../decisions/ADR-024-holistic-plant-decisions.md) · `decision_class` on Rx · TradeoffEngine handoff — all as **shared context** under [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md), not a third pillar.
+
+---
+
+## 7b. Shared context (not a pillar)
+
+Everything below serves **both** pillars. Do **not** sell or label these as Pillar 3 / MES / plant OS.
+
+| Context element | What it does | Primary consumers |
+| --- | --- | --- |
+| Production orders (ERP/MES/MES-lite) | Due dates, hot orders for deadline-aware Rx | Pillar 1 mgmt schedule/capacity |
+| Department / line graph | Owners, incentives, upstream/downstream | Both (routing + ranking) |
+| Trade-off block on management Rx | ₹ energy (hero) + OEE/order/downtime co-benefits | Pillar 1 mgmt classes |
+| Prescription negotiation | Bounded revise under supervisor constraints | Pillar 1 mgmt; optional Pillar 2 |
+| Improve (loop 06) | Acted vs ignored → calibration / preferences | Both |
+
+**Effectiveness / OEE:** first-class **co-benefit language and trade-off fields** — not a separate product outcome pillar.
 
 ---
 

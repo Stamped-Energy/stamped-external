@@ -29,6 +29,7 @@ Decision records for the Stamped platform. **Distributed via [stamped-external](
 | [ADR-023](ADR-023-l6-ems-and-analyst-context.md) | L6 EMS console + dual-mode analyst context policy | **Accepted** (2026-07-21) |
 | [ADR-024](ADR-024-holistic-plant-decisions.md) | Holistic plant decisions — energy wedge + co-benefits + negotiation | **Accepted** (2026-07-30) |
 | [ADR-025](ADR-025-improve-loop-step-06.md) | Improve loop (step 06) — ML calibration + agent preferences + UI report | **Accepted** (2026-07-30) |
+| [ADR-026](ADR-026-two-pillars-shared-context.md) | Product framing — two pillars + shared context; OEE co-benefits; not MES | **Accepted** (2026-07-30) |
 
 Compliance register: [../compliance/india-compliance-register.md](../compliance/india-compliance-register.md)
 

@@ -161,6 +161,7 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 |----------|---------|
 | [../decisions/ADR-024-holistic-plant-decisions.md](../decisions/ADR-024-holistic-plant-decisions.md) | Energy wedge + order co-benefits + negotiation boundary |
 | [../decisions/ADR-025-improve-loop-step-06.md](../decisions/ADR-025-improve-loop-step-06.md) | Step 06 Improve — ML / agent prefs / UI report |
+| [../decisions/ADR-026-two-pillars-shared-context.md](../decisions/ADR-026-two-pillars-shared-context.md) | **Framing lock** — two pillars + shared context; not MES |
 | [stamped-mes-erp-integration-brief.md](./stamped-mes-erp-integration-brief.md) | Tier A integrate + Tier B MES-lite |
 | [stamped-l3-tradeoff-engine-spec.md](./stamped-l3-tradeoff-engine-spec.md) | Deadline/department-aware ranking |
 | [stamped-prescription-negotiation-spec.md](./stamped-prescription-negotiation-spec.md) | L4/L5/L6 Discuss + revision |

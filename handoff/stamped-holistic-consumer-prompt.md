@@ -3,15 +3,24 @@
 > **Use this:** One copy-paste block for **any** Stamped consumer-repo agent (L1–L6).  
 > **Also paste into:** company onboarding / internal eng channel when spinning agents on this work.  
 > **Platform:** [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external)  
-> **Authority:** [ADR-024](../decisions/ADR-024-holistic-plant-decisions.md) · [ADR-025](../decisions/ADR-025-improve-loop-step-06.md) · [architecture audit](./stamped-holistic-architecture-audit.md)
+> **Authority:** [ADR-026](../decisions/ADR-026-two-pillars-shared-context.md) · [ADR-024](../decisions/ADR-024-holistic-plant-decisions.md) · [ADR-025](../decisions/ADR-025-improve-loop-step-06.md) · [architecture audit](./stamped-holistic-architecture-audit.md)
 
 ---
 
 ## Copy-paste prompt (full — start here)
 
 ```text
-PLATFORM UPDATE — Holistic plant effectiveness (energy wedge + order/MES
-context + prescription negotiation + Improve step 06).
+PLATFORM UPDATE — Holistic plant shared context (ADR-024/025) under the
+two-pillar product lock (ADR-026).
+
+FRAMING (mandatory — read first):
+  One product. Exactly TWO outcome pillars:
+    1) Load & Energy Efficiency Intelligence (hero ₹)
+    2) Prescriptive Equipment Intelligence
+  Shared context (NOT a third pillar, NOT an MES product):
+    orders / MES-lite / departments / tradeoffs / negotiation / Improve
+  Named outcomes: energy efficiency (hero) + plant effectiveness/OEE
+  co-benefits on management Rx. Do not invent Pillar 3 or split products.
 
 stamped-external is the single source of truth (ADR-011). Your product repo
 must bump the `external/` submodule, READ the listed files, then PLAN (and
@@ -54,14 +63,15 @@ Run platform contract check (from repo root, if submodule scripts are used):
 ═══════════════════════════════════════════════════════════════════
 
 Shared (everyone):
-  1. external/handoff/stamped-holistic-architecture-audit.md
-  2. external/decisions/ADR-024-holistic-plant-decisions.md
-  3. external/decisions/ADR-025-improve-loop-step-06.md
-  4. external/technical/01-product-architecture.md  (§2.1 six-step loop, Rx card)
-  5. external/technical/03-two-pillar-technical-bridge.md  (§7 Improve)
-  6. external/handoff/stamped-holistic-pilot-stack.md
-  7. external/contracts/CHANGELOG.md  (0.10.0 section)
-  8. external/AGENTS.md + ponytail skill before any code
+  1. external/decisions/ADR-026-two-pillars-shared-context.md
+  2. external/handoff/stamped-holistic-architecture-audit.md
+  3. external/decisions/ADR-024-holistic-plant-decisions.md
+  4. external/decisions/ADR-025-improve-loop-step-06.md
+  5. external/technical/01-product-architecture.md  (§2.1 six-step loop, Rx card, anti-confusion)
+  6. external/technical/03-two-pillar-technical-bridge.md  (§7 Improve + §7b Shared context)
+  7. external/handoff/stamped-holistic-pilot-stack.md
+  8. external/contracts/CHANGELOG.md  (0.10.0 section)
+  9. external/AGENTS.md + ponytail skill before any code
 
 Then layer-specific (read ONLY your layer block after shared):
 
@@ -122,7 +132,9 @@ Then layer-specific (read ONLY your layer block after shared):
 3) HARD RULES (non-negotiable)
 ═══════════════════════════════════════════════════════════════════
 
-  - Positioning: ₹ energy is the HERO; order/OEE/throughput are CO-BENEFITS.
+  - Positioning: ₹ energy is the HERO; order/OEE/throughput are CO-BENEFITS
+    (plant effectiveness — not Pillar 3).
+  - Framing: two pillars + shared context only ([ADR-026]).
   - Not an MES / CMMS / quality system. Read + recommend only.
   - Improve is step 06, plant-scoped, human-gated — not a new layer repo.
   - Bounded action templates only (no free-text physical instructions).
@@ -136,12 +148,13 @@ Then layer-specific (read ONLY your layer block after shared):
 
   A. Confirm submodule pin (tag/SHA) and contracts 0.10.0 visible.
   B. Restate which layer you are (L1…L6) and which files you read.
-  C. Produce an IMPLEMENTATION PLAN only:
+  C. Restate framing: two pillars + shared context (not MES).
+  D. Produce an IMPLEMENTATION PLAN only:
        Goal / Scope / Non-goals / Dependencies / Risks / Phases
-  D. STOP for human approval before writing application code.
-  E. Do not edit external/. Do not edit the holistic plan file.
+  E. STOP for human approval before writing application code.
+  F. Do not edit external/. Do not edit the holistic plan file.
 
-If requirements conflict with ADR-024/025, STOP and ask — platform wins.
+If requirements conflict with ADR-024/025/026, STOP and ask — platform wins.
 ```
 
 ---
@@ -149,10 +162,10 @@ If requirements conflict with ADR-024/025, STOP and ask — platform wins.
 ## Short form (Slack / ticket one-liner)
 
 ```text
-Bump external/ to stamped-external pin with contracts 0.10.0 + ADR-024/025.
-Read external/handoff/stamped-holistic-consumer-prompt.md (full block) and
-external/handoff/stamped-holistic-architecture-audit.md, then plan YOUR layer
-only — no MES, no L7, no edits under external/.
+Bump external/ to stamped-external pin with contracts 0.10.0 + ADR-024/025/026.
+Read external/decisions/ADR-026-two-pillars-shared-context.md first, then
+external/handoff/stamped-holistic-consumer-prompt.md (full block). Plan YOUR
+layer only — two pillars + shared context, no MES, no L7, no edits under external/.
 ```
 
 ---

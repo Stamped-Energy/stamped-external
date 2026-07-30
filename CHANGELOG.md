@@ -10,9 +10,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 - Contracts **0.10.0**: `production-order`, `prescription-revision`, `improvement-signal`, `plant-preference-profile`, `plant-department-graph`; ProductionRecord **1.1.0**; prescription `decision_class`/`tradeoff`; envelope record_types extended ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
 - [ADR-024](decisions/ADR-024-holistic-plant-decisions.md) — holistic plant decisions (energy wedge + co-benefits + negotiation)
-- [ADR-025](decisions/ADR-025-improve-loop-step-06.md) — Improve loop step 06
+- [ADR-026](decisions/ADR-026-two-pillars-shared-context.md) — product framing lock (two pillars + shared context; OEE co-benefits; not MES)
 - Handoffs: MES/ERP brief, TradeoffEngine, negotiation, Improve pipeline, holistic pilot stack
 - Operating loop six steps in product architecture + Forge design system
+- Holistic architecture audit + unified consumer agent prompt (ADR-026 enforced)
 
 ### Changed
 - Framing lock: always present **both** pillars (Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence / equipment early warnings). Proof phrase = **verified with evidence**; do not lead with “bill-verified.” Updated [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) Verify paths and [01-product-architecture.md](technical/01-product-architecture.md).
