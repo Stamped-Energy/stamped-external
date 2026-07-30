@@ -344,7 +344,7 @@ Consolidated decisions that **must** appear in ADRs and implementation:
 | C-11 | WPC-certified **4G hardware** in BOM | DoT radio regulations |
 | C-12 | ISO 27001 **controls without cert** until deal trigger | Enterprise sales |
 
-Full ADR: [ADR-004-compliance-driven-architecture.md](../decisions/ADR-004-compliance-driven-architecture.md).
+Full ADR: [ADR-004-compliance-driven-architecture.md](../decisions/001-005/ADR-004-compliance-driven-architecture.md).
 
 ---
 

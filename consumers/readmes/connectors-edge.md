@@ -8,7 +8,7 @@
 # connectors-edge — L1 plant connectivity and tag mapping
 
 > **What it is:** Stamped's L1 (Connect & normalise) monorepo — edge gateway, OT/IT protocol adapters, schema normaliser, tag-mapping onboarding, and lab MQTT ingest for Indian ICP manufacturing plants.  
-> **What it is not:** L2–L6 cloud intelligence, production Timescale fleet, DISCOM bill PDF ingest, or customer-facing prescription dashboard. Those live in [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) and [`connectors-bill`](external/decisions/ADR-001-l1-repo-split-and-boundaries.md) (future).  
+> **What it is not:** L2–L6 cloud intelligence, production Timescale fleet, DISCOM bill PDF ingest, or customer-facing prescription dashboard. Those live in [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) and [`connectors-bill`](external/decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) (future).  
 > **Primary interface:** Edge agent (MQTT uplink) + tag-mapping web UI + onboarding API.
 
 **GitHub:** `Vinayak-RZ/Connectors` · **Canonical name:** `connectors-edge`  
@@ -27,7 +27,7 @@
 - **OTA mapping:** signed manifest publish from tag-mapping-api; edge-agent pulls via HTTPS.
 - **Path B pilot:** cellular gateway + Modbus incomer + EMS filewatch — [path-b-pilot runbook](docs/runbooks/path-b-pilot.md).
 - **CI:** edge-agent certification, Path B E2E, per-package unit/integration tests — all green on `main`.
-- **Next repo:** [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) — **L1 cloud ingest only** (not L2–L6). Downstream layers: separate `stamped-l2` … `stamped-l6` repos per [ADR-008](external/decisions/ADR-008-layer-repo-topology-and-interfaces.md).
+- **Next repo:** [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) — **L1 cloud ingest only** (not L2–L6). Downstream layers: separate `stamped-l2` … `stamped-l6` repos per [ADR-008](external/decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md).
 
 ---
 
@@ -53,7 +53,7 @@
 
 `connectors-edge` implements **Stamped L1** — read-only taps on plant OT/IT systems, on-device normalisation and quality gates, tag discovery and mapping, and MQTT uplink of canonical `Measurement` and `Event` records to the cloud data plane.
 
-Primary spec: [L1 — Connect & normalise](external/technical/layers/L1-connect-and-normalise.md).
+Primary spec: [L1 — Connect & normalise](external/technical/layers/l1-l2/L1-connect-and-normalise.md).
 
 ### 1.2 What it is not
 
@@ -63,7 +63,7 @@ Primary spec: [L1 — Connect & normalise](external/technical/layers/L1-connect-
 | L3–L6 intelligence, prescriptions, dashboard | `stamped-l2` … `stamped-l6` (one repo per layer) |
 | DISCOM bill PDF ingest | `connectors-bill` (future) |
 | Production cloud ingest at fleet scale | `connectors-cloud` (L1 boundary publish only) |
-| Fleet managed OTA (balena/k3s) | Deferred per [ADR-006](external/decisions/ADR-006-fleet-ota-substrate.md) |
+| Fleet managed OTA (balena/k3s) | Deferred per [ADR-006](external/decisions/006-010/ADR-006-fleet-ota-substrate.md) |
 
 ### 1.3 Who it is for
 
@@ -159,7 +159,7 @@ sequenceDiagram
 
 ### 3.2 Clone and platform submodule
 
-Platform contracts, ADRs, and cross-repo architecture live in **[stamped-external](https://github.com/vinayak-rz/stamped-external)** — mounted here as git submodule `external/` ([ADR-011](external/decisions/ADR-011-stamped-platform-submodule-distribution.md)).
+Platform contracts, ADRs, and cross-repo architecture live in **[stamped-external](https://github.com/vinayak-rz/stamped-external)** — mounted here as git submodule `external/` ([ADR-011](external/decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md)).
 
 ```bash
 git clone --recurse-submodules https://github.com/Vinayak-RZ/connectors-edge.git
@@ -428,7 +428,7 @@ Under `TAG_MAPPING_DATA`:
 
 ### 7.5 `asset_id` namespace
 
-Temporary format until L2 graph exists: `stamped.local/{plant_slug}/{asset_slug}` ([ADR-003 §3](external/decisions/ADR-003-connectors-edge-monorepo.md)).
+Temporary format until L2 graph exists: `stamped.local/{plant_slug}/{asset_slug}` ([ADR-003 §3](external/decisions/001-005/ADR-003-connectors-edge-monorepo.md)).
 
 ---
 
@@ -475,7 +475,7 @@ Certification checklist: [`tests/edge-agent/CERTIFICATION.md`](tests/edge-agent/
 
 ## 9. Deployment
 
-Per [ADR-010](external/decisions/ADR-010-deployment-profiles-and-portability.md), the same images deploy in three modes via compose profile + env:
+Per [ADR-010](external/decisions/006-010/ADR-010-deployment-profiles-and-portability.md), the same images deploy in three modes via compose profile + env:
 
 | Mode | Orchestration | connectors-ingest |
 |------|---------------|-------------------|
@@ -512,7 +512,7 @@ File: [`deploy/profiles/local.yml`](deploy/profiles/local.yml) (legacy shim: [`d
 
 ### 9.3 Production targets (pilot)
 
-Per [ADR-002](external/decisions/ADR-002-build-all-aws-networking.md):
+Per [ADR-002](external/decisions/001-005/ADR-002-build-all-aws-networking.md):
 
 - **Edge:** plant gateway Docker on approved hardware ([hardware list](docs/hardware/approved-edge-hardware.md))
 - **tag-mapping-api:** AWS ECS Fargate `ap-south-1`
@@ -569,8 +569,8 @@ See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilo
 |-----|---------|
 | [connectors-cloud handoff](docs/handoff/connectors-cloud-spec.md) | L1 cloud ingest workspace bootstrap |
 | [layer-interfaces](docs/architecture/layer-interfaces.md) | Production-grade cross-repo contracts |
-| [ADR-007](external/decisions/ADR-007-connectors-cloud-repo-charter.md) | L1 cloud repo charter |
-| [ADR-008](external/decisions/ADR-008-layer-repo-topology-and-interfaces.md) | Layer-per-repo topology |
+| [ADR-007](external/decisions/006-010/ADR-007-connectors-cloud-repo-charter.md) | L1 cloud repo charter |
+| [ADR-008](external/decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md) | Layer-per-repo topology |
 
 | Repo | Layer | Scope |
 |------|-------|-------|
@@ -607,8 +607,8 @@ See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilo
 | Doc | Purpose |
 |-----|---------|
 | [AGENTS.md](AGENTS.md) | AI agent orchestration |
-| [L1 spec](external/technical/layers/L1-connect-and-normalise.md) | Primary build spec |
-| [Technical architecture](external/technical/02-technical-architecture.md) | Full L0–L6 stack |
+| [L1 spec](external/technical/layers/l1-l2/L1-connect-and-normalise.md) | Primary build spec |
+| [Technical architecture](external/technical/STAMPED_ARCHITECTURE.md) | Full L0–L6 stack |
 | [Edge architecture](docs/architecture/edge-agent-architecture.md) | Edge agent design |
 | [ADRs](external/decisions/README.md) | Architecture decisions |
 | [Path B hardening log](docs/plans/path-b-hardening-plan.md) | E2E progress |

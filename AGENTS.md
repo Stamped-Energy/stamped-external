@@ -9,13 +9,13 @@ Engineering workflow: **ponytail → (spec-kit for features) → research → pl
 
 | Area | Guidance |
 |------|----------|
-| **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contract-check.sh` pass |
-| **ADRs** (`decisions/`) | New decisions as ADR-NNN; update `decisions/README.md` index |
-| **Handoff** (`handoff/`) | Cross-repo integration docs; keep in sync with consumer repos |
+| **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
+| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index |
+| **Handoff** (`handoff/`) | Cross-repo integration docs by topic folder; start at `handoff/README.md` |
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag `vYYYY.MM.DD`; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) |
 
-**Reading order for new agents:** [README.md](README.md) → [technical/00-stamped-master-document.md](technical/00-stamped-master-document.md) → [decisions/README.md](decisions/README.md).
+**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
 
 ## Ponytail — mandatory gate for all coding
 
@@ -95,7 +95,7 @@ For agentic design, **query MCP first** (`find_pattern`, `recommend_recipe`, `pa
 ## Before completion
 
 10. Apply `quality-gates.mdc` — validate, report, update progress docs, **commit**.
-11. Contract changes: run `./scripts/contract-check.sh` before marking done.
+11. Contract changes: run `./scripts/contracts/contract-check.sh` before marking done.
 
 ## Pre-installed skills (37)
 

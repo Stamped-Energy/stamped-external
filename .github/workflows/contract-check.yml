@@ -13,4 +13,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install jsonschema
-      - run: ./scripts/contract-check.sh
+      - run: ./scripts/contracts/contract-check.sh

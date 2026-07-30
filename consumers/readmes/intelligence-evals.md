@@ -10,7 +10,7 @@
 > **What it is:** Golden corpus, offline backtest CLI, champion/challenger gates, and an **internal Lab UI** for engineers to triage, explore, and download every L3 engine / rule / ML-shadow detection candidate.  
 > **What it is not:** Plant operator dashboard (L6), rule authoring (rulepacks), prescription approval (L4/L5), or the engine runtime (intelligence-core).  
 > **Primary interfaces:** CLI (`stamped-l3-eval`) · Lab UI (Next.js at `ui/`) · JSON/CSV export APIs  
-> **Authority:** [ADR-012](external/decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 attribution](external/decisions/ADR-016-attribution-shadow-challengers.md) · [finding.json](external/contracts/schemas/finding.json)  
+> **Authority:** [ADR-012](external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 attribution](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) · [finding.json](external/contracts/schemas/intelligence/finding.json)  
 > **Package:** `stamped-l3-eval` **0.3.0** · Python ≥3.11 · Lab UI Next.js 15 / React 19  
 > **Platform pack:** git submodule [`external/`](https://github.com/Vinayak-RZ/stamped-external) @ `d1e1539`
 
@@ -78,7 +78,7 @@ An **L3 evaluation workbench** for Stamped Energy: maintain a golden corpus of t
 
 | Criterion | How we know |
 | --- | --- |
-| Gates reproducible offline | `./scripts/validate.sh` backtests `corpus/v1` → precision ≥ 0.75 |
+| Gates reproducible offline | `./scripts/contracts/validate.sh` backtests `corpus/v1` → precision ≥ 0.75 |
 | Lab truth = RunArtifact | UI/export only load disk or live export of schema 1.1.0 |
 | Dual-lane correct | Unit tests: hypothesis / lab_only never land on L4 board |
 | Demo without core | Showcase pack + `npm run dev` shows series + dual boards |
@@ -151,7 +151,7 @@ False positives in gates count **only** L4 emitted whose category ∉ expects (s
 | [`ui/lib/paths.ts`](ui/lib/paths.ts) | `LAB_CORPUS` → showcase \| v1 \| v0 |
 | [`ui/components/trust/LaneSplit.tsx`](ui/components/trust/LaneSplit.tsx) | Dual-board forensic |
 | [`scripts/generate_showcase.py`](scripts/generate_showcase.py) | Deterministic demo fixtures |
-| [`scripts/validate.sh`](scripts/validate.sh) | Local / CI unit orchestrator |
+| [`scripts/contracts/validate.sh`](scripts/contracts/validate.sh) | Local / CI unit orchestrator |
 
 ---
 
@@ -185,7 +185,7 @@ stamped-l3-eval corpus list
 stamped-l3-eval backtest run
 stamped-l3-eval gate check --report artifacts/reports/<report_id>.json
 stamped-l3-eval artifact show --path artifacts/golden/run_w-md-001.json
-./scripts/validate.sh
+./scripts/contracts/validate.sh
 ```
 
 ### 3.4 Lab UI (offline showcase)
@@ -246,7 +246,7 @@ export CORE_LAB_TOKEN=dev-token
 
 | Check | Command | Expect |
 | --- | --- | --- |
-| Full unit gate | `./scripts/validate.sh` | `validate: OK` |
+| Full unit gate | `./scripts/contracts/validate.sh` | `validate: OK` |
 | UI unit | `cd ui && npm test` | all pass |
 | UI build | `cd ui && npm run build` | success |
 | E2E | `cd ui && npm run build && npm run test:e2e` | 5 passed |
@@ -323,7 +323,7 @@ intelligence-evals/
 
 | Check | Command | Expect |
 | --- | --- | --- |
-| Full unit gate | `./scripts/validate.sh` | `validate: OK` |
+| Full unit gate | `./scripts/contracts/validate.sh` | `validate: OK` |
 | UI unit | `cd ui && npm test` | all pass |
 | UI build | `cd ui && npm run build` | success |
 | E2E | `cd ui && npm run build && npm run test:e2e` | 5 passed |
@@ -403,7 +403,7 @@ Impeccable **product** register — light laboratory theme (IBM Plex, steel-blue
 | RunArtifact | [`schemas/run-artifact.v1.json`](schemas/run-artifact.v1.json) | **1.1.0** — required `delivery` |
 | Corpus window | [`schemas/corpus-window.v1.json`](schemas/corpus-window.v1.json) | expects.of_record[] |
 | Eval report | [`schemas/eval-report.v1.json`](schemas/eval-report.v1.json) | aggregate + per-window + lanes |
-| Finding | `external/contracts/schemas/finding.json` | Platform SSOT (read-only) |
+| Finding | `external/contracts/schemas/intelligence/finding.json` | Platform SSOT (read-only) |
 
 ### 8.2 RunArtifact (conceptual)
 
@@ -435,7 +435,7 @@ Regenerate showcase: `python3 scripts/generate_showcase.py` — see [`docs/SHOWC
 
 | Tier | Command | Coverage |
 | --- | --- | --- |
-| Unit (all) | `./scripts/validate.sh` | submodule · contract-check · pytest · v1 backtest+gate · UI `lib/*.test.mjs` |
+| Unit (all) | `./scripts/contracts/validate.sh` | submodule · contract-check · pytest · v1 backtest+gate · UI `lib/*.test.mjs` |
 | Python | `pytest -q` | CLI, metrics, backtest/gates, schemas, live mock, showcase generator |
 | UI unit | `cd ui && npm test` | lanes, coverage, series, csv, paths, status, reports |
 | Build | `cd ui && npx tsc --noEmit && npm run build` | Typecheck + Next production build |
@@ -477,7 +477,7 @@ E2E runs with `LAB_SHARED_SECRET` unset (open middleware). Gate report for Gates
 | `external/decisions/` | ADRs |
 | `external/handoff/` | Cross-repo integration docs |
 | `external/technical/` | L0–L6 reference architecture |
-| `external/scripts/contract-check.sh` | Shared CI validation |
+| `external/scripts/contracts/contract-check.sh` | Shared CI validation |
 | `external/consumers/stamped-l3-eval/` | Historical reference scaffold — **not** the product tree |
 
 ### 10.2 Editable here

@@ -432,7 +432,7 @@ cd packages/relay
 pytest tests/unit -q
 
 # Contracts (repo root)
-./scripts/contract-check.sh
+./scripts/contracts/contract-check.sh
 
 # Full hardening iteration
 ./scripts/hardening-loop.sh 1
@@ -461,7 +461,7 @@ Golden fixtures: [`packages/ingest/tests/fixtures/`](packages/ingest/tests/fixtu
 
 ### 11.1 Three deployment modes
 
-Per [ADR-010](external/decisions/ADR-010-deployment-profiles-and-portability.md):
+Per [ADR-010](external/decisions/006-010/ADR-010-deployment-profiles-and-portability.md):
 
 | Mode | Compose profile | Orchestration | L2 target |
 |------|-----------------|---------------|-----------|
@@ -481,7 +481,7 @@ docker compose -f deploy/docker-compose.cloud.yml up -d --build --wait
 
 ### 11.2 Cloud production (P1 Terraform)
 
-Per [ADR-002](external/decisions/ADR-002-build-all-aws-networking.md):
+Per [ADR-002](external/decisions/001-005/ADR-002-build-all-aws-networking.md):
 
 - **ECS Fargate** `ap-south-1` — separate tasks for ingest and relay  
 - **RDS Postgres** — lightweight (not Timescale)  
@@ -578,7 +578,7 @@ Fails if `measurements_raw`, MQTT in relay, or silent `except: pass` appear in p
 | [docs/architecture/layer-interfaces.md](docs/architecture/layer-interfaces.md) | Cross-repo boundary authority |
 | [docs/plans/connectors-cloud-implementation-plan.md](docs/plans/connectors-cloud-implementation-plan.md) | Build plan + hardening loop |
 | [docs/plans/connectors-cloud-hardening-log.md](docs/plans/connectors-cloud-hardening-log.md) | Iteration pass log |
-| [external/decisions/ADR-007-connectors-cloud-repo-charter.md](external/decisions/ADR-007-connectors-cloud-repo-charter.md) | Repo charter |
+| [external/decisions/006-010/ADR-007-connectors-cloud-repo-charter.md](external/decisions/006-010/ADR-007-connectors-cloud-repo-charter.md) | Repo charter |
 | [packages/ingest/README.md](packages/ingest/README.md) | Ingest runbook (DLQ, alerts) |
 
 **Sibling repos:** [connectors-edge](https://github.com/Vinayak-RZ/connectors-edge) · `connectors-bill` (future) · `stamped-l2` (future)

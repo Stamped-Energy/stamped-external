@@ -5,7 +5,7 @@
 - JSON Schema validation for manifests and rule files
 - Catalog coverage vs all `finding.json` categories
 - Golden fixture structure checks (≥11)
-- `scripts/validate.sh` already hooks rulepacks pytest
+- `scripts/contracts/validate.sh` already hooks rulepacks pytest
 
 ## Validation
 

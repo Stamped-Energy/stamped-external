@@ -1,6 +1,6 @@
 # MQTT topic layout (v1)
 
-Draft — aligns with [ADR-001](../decisions/ADR-001-l1-repo-split-and-boundaries.md) and [ADR-002](../decisions/ADR-002-build-all-aws-networking.md).
+Draft — aligns with [ADR-001](../decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) and [ADR-002](../decisions/001-005/ADR-002-build-all-aws-networking.md).
 
 **P0 broker:** self-hosted Mosquitto on AWS EC2 (`ap-south-1`), TLS via ACM or Let's Encrypt on instance.
 

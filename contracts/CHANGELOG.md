@@ -21,7 +21,7 @@
 - `finding.json` **1.2.0**: required `value_domain` (`energy_efficiency` | `equipment_health`); add categories `trip_cascade_risk`, `abnormal_duty`, `feeder_unexplained_draw`, `air_leak_survey` (two-pillar L3)
 - Add `plant-intelligence-score.json` v1.0.0 + golden fixture — dual-pillar plant Intelligence Score (not RUL / not DISCOM substitute)
 - Fixture `finding.valid.json` bumped to 1.2.0 with `value_domain`
-- Aligns with `technical/03-two-pillar-technical-bridge.md`
+- Aligns with `technical/STAMPED_ARCHITECTURE.md`
 
 ## 0.8.0 — 2026-07-21
 

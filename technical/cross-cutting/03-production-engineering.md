@@ -11,7 +11,7 @@ timestamp: "2026-07-09T00:00:00Z"
 *Cross-cutting research doc · July 2026 · Status: pre-build engineering reference*
 
 > **Honesty convention:** `[~]` approximate / benchmark-derived · `[!]` evolving — verify before committing.
-> **Companions:** [technical architecture](../02-technical-architecture.md) · [L1 connect & normalise](../layers/L1-connect-and-normalise.md) · [L2 universal repository](../layers/L2-universal-repository.md) · [evaluation doc](04-evaluation-and-quality.md)
+> **Companions:** [technical architecture](../02-technical-architecture.md) · [L1 connect & normalise](../layers/l1-l2/L1-connect-and-normalise.md) · [L2 universal repository](../layers/l1-l2/L2-universal-repository.md) · [evaluation doc](04-evaluation-and-quality.md)
 
 The single most important sentence in this document: **Stamped's worst-case sustained ingest is a few thousand data points per second — roughly 1/50th of the throughput at which Kafka, Flink, microservices, or Kubernetes start paying for their own complexity.** Every recommendation below follows from taking that number seriously instead of pattern-matching to big-tech architectures.
 
@@ -62,7 +62,7 @@ Two crucial corrections to naive math:
 
 ### 2.3 Volume and storage
 
-At ~60 bytes/point stored (timestamp, value, quality, tag ref): 100 plants × ~10k points/s ≈ **50 GB/day raw ≈ 18 TB/year** before compression — and TimescaleDB columnar compression typically achieves 90–95% on regular telemetry `[~]`, i.e. ~1–2 TB/year effective. At year-1 scale (10 plants) it is ~5 GB/day raw. This fits comfortably on a single managed Postgres instance with tiering; see [L2](../layers/L2-universal-repository.md).
+At ~60 bytes/point stored (timestamp, value, quality, tag ref): 100 plants × ~10k points/s ≈ **50 GB/day raw ≈ 18 TB/year** before compression — and TimescaleDB columnar compression typically achieves 90–95% on regular telemetry `[~]`, i.e. ~1–2 TB/year effective. At year-1 scale (10 plants) it is ~5 GB/day raw. This fits comfortably on a single managed Postgres instance with tiering; see [L2](../layers/l1-l2/L2-universal-repository.md).
 
 ### 2.4 What this envelope rules in and out
 
@@ -168,7 +168,7 @@ Full CQRS (separate write/read models, projections, eventual consistency) is war
 
 #### 3.2.5 Event sourcing for the M&V ledger specifically — yes, in spirit
 
-The M&V ledger is the one place where event-sourcing *properties* (append-only, replayable, auditable) are product requirements: verified savings must be reconstructible and tamper-evident for audits ([L2](../layers/L2-universal-repository.md), §6.5). But those properties don't require an event-sourcing *framework*:
+The M&V ledger is the one place where event-sourcing *properties* (append-only, replayable, auditable) are product requirements: verified savings must be reconstructible and tamper-evident for audits ([L2](../layers/l1-l2/L2-universal-repository.md), §6.5). But those properties don't require an event-sourcing *framework*:
 
 - `ledger_entries` is **append-only** (no UPDATE/DELETE grants to the app role; corrections are new entries with `supersedes_entry_id`).
 - Each entry carries a **hash chain** (`entry_hash = H(prev_hash ‖ canonical_payload)`) making silent mutation detectable `[~]`.
@@ -277,7 +277,7 @@ Ad-hoc SSH-and-update "should be treated as a security incident" [15]. Two layer
 - **No inbound ports. Ever.** All flows are outbound-only: MQTT over TLS (8883) + HTTPS (443). This single property defuses most plant-IT security reviews and most attack surface.
 - **mTLS with per-device certificates**: unique X.509 identity per gateway, issued at provisioning, rotated ~every 90 days via an automated renewal call (the gateway requests a new cert with its current one before expiry `[~]`); revocation list on the broker. Compromised device = one cert revoked, not a shared secret rotated fleet-wide.
 - **Remote support without inbound ports:** on-demand outbound reverse tunnel (WireGuard to a bastion, or Mender/balena remote terminal), activated per-session, audited, off by default `[!]`.
-- **Read-only enforcement in depth:** OPC-UA sessions opened without write scopes; Modbus adapter compiled with read function codes only (0x01–0x04); gateway firewall egress-restricted to broker/control-plane IPs; where a customer demands it, a hardware data diode is the L1 topology option ([L1](../layers/L1-connect-and-normalise.md); [technical architecture](../02-technical-architecture.md) §14).
+- **Read-only enforcement in depth:** OPC-UA sessions opened without write scopes; Modbus adapter compiled with read function codes only (0x01–0x04); gateway firewall egress-restricted to broker/control-plane IPs; where a customer demands it, a hardware data diode is the L1 topology option ([L1](../layers/l1-l2/L1-connect-and-normalise.md); [technical architecture](../02-technical-architecture.md) §14).
 - **Flaky 4G:** QoS 1 + persistent sessions absorb blips; the buffer absorbs outages; delta/report-by-exception encoding keeps a typical plant under ~0.5 GB/day uplink `[~]` [7] — within industrial 4G data plans; backfill is throttled to avoid burning the data cap in one burst.
 
 ### 3.5 Multi-tenancy & isolation
@@ -309,7 +309,7 @@ Every current decision framework lands the same way: for teams under ~8–15 eng
 
 | Component | Why it's separate | Runtime |
 |---|---|---|
-| **Per-layer modular monoliths** (ADR-008) — e.g. L3 core, L4, **L5 workflow/M&V/notification** ([ADR-019](../../decisions/ADR-019-l5-runtime-and-consistency.md)), L6 | Domain logic per repo; each owns its DB; no cross-repo SQL | ECS Fargate per service |
+| **Per-layer modular monoliths** (ADR-008) — e.g. L3 core, L4, **L5 workflow/M&V/notification** ([ADR-019](../../decisions/016-020/ADR-019-l5-runtime-and-consistency.md)), L6 | Domain logic per repo; each owns its DB; no cross-repo SQL | ECS Fargate per service |
 | **Edge agent** | Runs on customer premises — separate by physics | Gateway (Docker/systemd) |
 | **Ingest service** | Availability isolation: must keep accepting telemetry during monolith deploys; different load profile (steady stream vs request/response) | ECS Fargate service |
 | **ML batch workers** | Different resource shape (CPU/memory burst), different cadence (scheduled), crash-isolation from API | ECS Fargate tasks (scheduled/queued) |
@@ -323,7 +323,7 @@ Inside the monolith: module boundaries by domain (`ingest_contracts`, `intellige
 |---|---|---|
 | **Postgres-backed job queue** (Procrastinate/pgmq-class, `SKIP LOCKED`) | **P0 default** | Same durability/backup story as the outbox; zero new infra; ideal for short idempotent jobs (rollups, notifications, bill OCR) [1][2] |
 | **Celery/Dramatiq + Redis** | Acceptable alternative | Adds Redis as a dependency; fine, but buys little over the Postgres queue at our job rates [23] |
-| **Temporal** | **Deferred — upgrade trigger only** | L5 owns M&V window + delivery/escalation as a **Postgres state machine + durable `scheduled_actions`** through P0–P2 ([ADR-019](../../decisions/ADR-019-l5-runtime-and-consistency.md); [L5 SSOT](../layers/L5-closure-and-verification.md)). Temporal Cloud is reconsidered only if timer/outbox correctness cost exceeds vendor cost after measured failures. |
+| **Temporal** | **Deferred — upgrade trigger only** | L5 owns M&V window + delivery/escalation as a **Postgres state machine + durable `scheduled_actions`** through P0–P2 ([ADR-019](../../decisions/016-020/ADR-019-l5-runtime-and-consistency.md); [L5 SSOT](../layers/l4-l6/L5-closure-and-verification.md)). Temporal Cloud is reconsidered only if timer/outbox correctness cost exceeds vendor cost after measured failures. |
 
 **Recommendation (binding for L5):** Postgres queue + durable timers at P0–P2. Do **not** schedule Temporal as a default P1 milestone — that earlier draft is superseded by ADR-019.
 

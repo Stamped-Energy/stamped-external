@@ -36,7 +36,7 @@ Meeting default: open the Lohia brief. Keep the anonymous OEM demo ready if the 
 | [tech/agents.html](./tech/agents.html) | Bounded prescription agents |
 | [tech/evidence.html](./tech/evidence.html) | Verified with evidence (calculation engine) |
 
-Back-links use `?from={cement|steel|pharma|machinery-oem}` → deck `#scene-tech` (client decks resolve under `clients/`). Citation SSOT: [`../technical/stamped-research-and-ml-citations.md`](../technical/stamped-research-and-ml-citations.md).
+Back-links use `?from={cement|steel|pharma|machinery-oem}` → deck `#scene-tech` (client decks resolve under `clients/`). Citation SSOT: [`../technical/research/stamped-research-and-ml-citations.md`](../technical/research/stamped-research-and-ml-citations.md).
 
 Each industry deck keeps the same Proof Run structure. What changes:
 

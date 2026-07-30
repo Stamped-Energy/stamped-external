@@ -14,4 +14,4 @@ Product UI for **connectors-bill**, **stamped-l6**, and related apps must follow
 
 ## connectors-bill
 
-See [../handoff/connectors-bill-ui-ux-charter.md](../handoff/connectors-bill-ui-ux-charter.md) for screen inventory; apply this design system to all customer-facing surfaces.
+See [../handoff/connectors/bill/connectors-bill-ui-ux-charter.md](../handoff/connectors/bill/connectors-bill-ui-ux-charter.md) for screen inventory; apply this design system to all customer-facing surfaces.

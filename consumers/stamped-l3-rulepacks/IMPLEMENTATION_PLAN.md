@@ -8,7 +8,7 @@
 | --- | --- |
 | Mode | project (artifact catalog) |
 | Stack | YAML packs + pytest |
-| Authority | ADR-012 · L3 §3.5 · `contracts/schemas/finding.json` |
+| Authority | ADR-012 · L3 §3.5 · `contracts/schemas/intelligence/finding.json` |
 | Estimated commits | 18–28 |
 
 ## §1 Objective

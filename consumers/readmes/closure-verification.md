@@ -25,7 +25,7 @@
 - **Dispute + optional bill** — `disputed` lifecycle; FixtureBill dual-label without ungating ops.
 - **No L2 DB URL** — measurements and ledger only via HTTP ports / fixtures (ADR-019).
 - **Platform SSOT** — `external/` submodule → [stamped-external](https://github.com/Vinayak-RZ/stamped-external); this repo implements, it does not redefine.
-- **Validate gate** — `./scripts/validate.sh` = contracts + ruff + OpenAPI smoke + **42** pytest.
+- **Validate gate** — `./scripts/contracts/validate.sh` = contracts + ruff + OpenAPI smoke + **42** pytest.
 - **Engineering OS** — ponytail (minimal diffs) · nawab-plans · Spec Kit · core-engineering rules under `.cursor/`.
 
 ---
@@ -64,7 +64,7 @@ Stamped’s **Layer 5 — Closure & Verification**. Given an L4 `Prescription` t
 5. Appends **ledger intents** to L2 (`pending` → `ops_confirmed`; opportunity cost as `modeled`)
 6. Emits **WorkflowEvents** to L6 (outbox + poll) and stores evidence bundles
 
-Product target (platform): high-priority prescriptions acted within a billing cycle, with trustworthy ops clearance — see `external/technical/layers/L5-closure-and-verification.md`.
+Product target (platform): high-priority prescriptions acted within a billing cycle, with trustworthy ops clearance — see `external/technical/layers/l4-l6/L5-closure-and-verification.md`.
 
 ### 1.2 What it is not
 
@@ -94,7 +94,7 @@ Product target (platform): high-priority prescriptions acted within a billing cy
 - Meta failure → SMS recorded; SLA escalate works; silence auto-unsilences
 - L6 FakeReceiver gets signed webhooks; list/detail/ack/events work under API keys
 - Hash-chain verifies; dispute + bill dual-label green in tests
-- `./scripts/validate.sh` green; CI on `main` and `cursor/**`
+- `./scripts/contracts/validate.sh` green; CI on `main` and `cursor/**`
 
 ---
 
@@ -218,7 +218,7 @@ pip install -e ".[dev]"
 ### 3.3 Verify (required gate)
 
 ```bash
-./scripts/validate.sh
+./scripts/contracts/validate.sh
 # submodule pin · forbid L2 DB URL · contract-check · ruff · openapi smoke · pytest (42)
 ```
 
@@ -297,7 +297,7 @@ closure-verification/
 ├── docs/
 │   ├── openapi/l5-v1.json           # OpenAPI snapshot
 │   ├── SPEC_KIT.md · INDUSTRY_PRACTICES.md · …
-├── scripts/validate.sh              # single CI/local gate
+├── scripts/contracts/validate.sh              # single CI/local gate
 ├── external/                        # stamped-external submodule (SSOT)
 ├── docker-compose.yml               # postgres (+ minio profile)
 ├── pyproject.toml                   # stamped-l5 0.1.0 · requires-python >=3.12
@@ -455,7 +455,7 @@ Per `org_id`: monotonic `seq`; `entry_hash = H(prev ‖ canonical_row)`. Canonic
 ### 9.1 Commands
 
 ```bash
-./scripts/validate.sh          # full gate (what CI runs): unit → integration → fuzz → e2e
+./scripts/contracts/validate.sh          # full gate (what CI runs): unit → integration → fuzz → e2e
 pytest -q                      # ~73 tests
 pytest -m unit -q
 pytest -m fuzz -q              # Hypothesis property tests
@@ -481,7 +481,7 @@ Fixtures load contract JSON from `external/contracts/fixtures/` via [`tests/conf
 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — on `push` to `main` / `cursor/**` and PRs to `main`:
 
 1. Checkout with submodules → Python 3.12 (pip cache) → `pip install -e ".[dev]"`
-2. `./scripts/validate.sh` (contracts, private-key grep, ruff, openapi, unit/integration/fuzz/e2e)
+2. `./scripts/contracts/validate.sh` (contracts, private-key grep, ruff, openapi, unit/integration/fuzz/e2e)
 3. Extra Hypothesis fuzz stress (`HYPOTHESIS_PROFILE=ci`)
 4. Advisory `pip-audit` job on project deps (`continue-on-error`)
 
@@ -530,7 +530,7 @@ L5 is **source of closure truth**. L6 owns Next.js UI, SSE fan-out, and Forge de
 5. Subscribe to outbox webhooks **or** poll `GET /v1/events?since=`
 6. Render **both** `ops_label` and `bill_label`; never imply DISCOM verification from ops alone
 7. Fetch ledger ₹ series from **L2**, not L5 (L5 returns `ledger_entry_refs` only)
-8. Show opportunity-cost rows with modeled disclaimer ([L6 stub](external/handoff/l6-counterfactual-display-stub.md))
+8. Show opportunity-cost rows with modeled disclaimer ([L6 stub](external/handoff/l6/l6-counterfactual-display-stub.md))
 
 ### 11.2 Example: list + ack
 
@@ -586,7 +586,7 @@ ponytail → nawab-plans (Plan mode) → (spec-kit for large features)
 2. **Append-only money truth** — ledger corrections are compensating intents, not UPDATEs
 3. **Fixture-first CI** — FakeMeta / FakeSms / FixtureL2 / FixtureL3 / FakeL6 / FixtureBill; live vendors behind flags
 4. **Layer isolation** — no L2 DB credentials; no L6 UI in-tree
-5. **Contract discipline** — `external/scripts/contract-check.sh` in validate; additive event types preferred
+5. **Contract discipline** — `external/scripts/contracts/contract-check.sh` in validate; additive event types preferred
 
 ### 12.4 Commit & PR hygiene
 
@@ -698,10 +698,10 @@ A: Timestamps are normalized in canonical hashing for SQLite’s tz-naive roundt
 
 Read in order before changing L5 semantics:
 
-1. [`external/technical/layers/L5-closure-and-verification.md`](external/technical/layers/L5-closure-and-verification.md)  
-2. [`external/technical/layers/L6-experience-and-integration.md`](external/technical/layers/L6-experience-and-integration.md) §3–4 (consumer expectations)  
+1. [`external/technical/layers/l4-l6/L5-closure-and-verification.md`](external/technical/layers/l4-l6/L5-closure-and-verification.md)  
+2. [`external/technical/layers/l4-l6/L6-experience-and-integration.md`](external/technical/layers/l4-l6/L6-experience-and-integration.md) §3–4 (consumer expectations)  
 3. ADR-019 · ADR-020 · ADR-021 · ADR-013 under `external/decisions/`  
-4. [`external/handoff/stamped-l5-architecture-handoff.md`](external/handoff/stamped-l5-architecture-handoff.md)  
+4. [`external/handoff/l5/stamped-l5-architecture-handoff.md`](external/handoff/l5/stamped-l5-architecture-handoff.md)  
 5. [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) · [`DECISIONS.md`](DECISIONS.md) · [`PROJECT_OVERVIEW.md`](PROJECT_OVERVIEW.md)  
 6. [`AGENTS.md`](AGENTS.md) — agent/human contributor contract  
 

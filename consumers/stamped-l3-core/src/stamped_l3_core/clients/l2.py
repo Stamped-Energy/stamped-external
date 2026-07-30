@@ -17,7 +17,7 @@ class L2QueryClient(Protocol):
         from_ts: str,
         to_ts: str,
     ) -> dict[str, Any]:
-        """Return L2 measurements response (see handoff/stamped-l2-query-api-sketch.md)."""
+        """Return L2 measurements response (see handoff/l2/core/stamped-l2-query-api-sketch.md)."""
         ...
 
 

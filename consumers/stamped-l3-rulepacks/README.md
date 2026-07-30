@@ -3,7 +3,7 @@
 > **What it is:** Semver **YAML/JSON rulepack artifact repo** for Stamped L3 — domain physics thresholds, furnace/idle/load-management optimization methods, DISCOM tariff tables, and vertical fleet priors. Loaded by `stamped-l3-core` via `RULEPACK_PATH`.  
 > **What it is not:** An engine runtime, TOW-P fitter, L4 template store, plant-parameter DB, or actuator.  
 > **Primary interface:** Filesystem packs (`domain/`, `verticals/`, `tariffs/`) + pytest golden CI  
-> **Authority:** [ADR-012](../../decisions/ADR-012-l3-artifact-repo-topology.md) · [L3 §3.5](../../technical/layers/L3-intelligence-core.md) · [`finding.json`](../../contracts/schemas/finding.json)
+> **Authority:** [ADR-012](../../decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [L3 §3.5](../../technical/layers/l3/L3-intelligence-core.md) · [`finding.json`](../../contracts/schemas/intelligence/finding.json)
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Authority:** Implementation contract for cross-repo agents.  
 > **Supersedes:** Stub in connectors-bill `docs/architecture/layer-interfaces.md` for L2 work.  
-> **Related:** [ADR-008](../decisions/ADR-008-layer-repo-topology-and-interfaces.md) · [ADR-009](../decisions/ADR-009-stamped-l2-repo-charter.md)
+> **Related:** [ADR-008](../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md) · [ADR-009](../decisions/006-010/ADR-009-stamped-l2-repo-charter.md)
 
 ---
 
@@ -41,7 +41,7 @@ Computed by connectors-cloud; **reused unchanged** on envelope and L2 inbox.
 
 | record_type | Dedupe formula | Golden hash |
 | --- | --- | --- |
-| `measurement` | `sha256(plant_id \| source_tag \| ts_utc \| granularity \| metric.type)` | See [dedupe_golden.json](../contracts/fixtures/dedupe_golden.json) |
+| `measurement` | `sha256(plant_id \| source_tag \| ts_utc \| granularity \| metric.type)` | See [dedupe_golden.json](../contracts/fixtures/golden/dedupe_golden.json) |
 | `event` | `sha256(plant_id \| event_type \| event_id)` | idem |
 | `production_record` | `sha256(plant_id \| batch_id \| window_start)` | idem |
 | `bill_line` | `sha256(plant_id \| bill_id \| line_type \| bill_month)` | idem |
@@ -69,7 +69,7 @@ Env: `L2_INGEST_URL` on cloud relay.
 
 ### 3.2 Envelope schema
 
-`StampedRecordEnvelope` — [stamped-record-envelope.json](../contracts/schemas/stamped-record-envelope.json)
+`StampedRecordEnvelope` — [stamped-record-envelope.json](../contracts/schemas/envelope/stamped-record-envelope.json)
 
 Required fields: `schema_version`, `envelope_id`, `record_type`, `org_id`, `plant_id`, `dedupe_key`, `ingest_batch_id`, `ingested_at`, `late`, `correlation_id`, `payload`.
 
@@ -89,7 +89,7 @@ PRIMARY KEY (dedupe_key)
 
 Store writes occur **only** when inbox insert succeeds (new dedupe_key).
 
-Full API: [stamped-l2-l1-consumer-contract.md](../handoff/stamped-l2-l1-consumer-contract.md).
+Full API: [stamped-l2-l1-consumer-contract.md](../handoff/l2/core/stamped-l2-l1-consumer-contract.md).
 
 ### 3.4 Authentication
 
@@ -129,7 +129,7 @@ Late flag: preserve on envelope; do not reject.
 
 Auth: `X-Service-Key` + `X-Org-Id`.
 
-Full sketch: [stamped-l2-query-api-sketch.md](../handoff/stamped-l2-query-api-sketch.md).
+Full sketch: [stamped-l2-query-api-sketch.md](../handoff/l2/core/stamped-l2-query-api-sketch.md).
 
 ### 5.3 Latency budgets (p95)
 
@@ -149,10 +149,10 @@ Full sketch: [stamped-l2-query-api-sketch.md](../handoff/stamped-l2-query-api-sk
 | L2 → L3 | Query API | Aggregates, graph refs, baselines |
 | L3 → L4 | Outbox / bus | `Finding` |
 | L4 → L5 | Outbox | `Prescription` |
-| L5 → L2 | HTTP | Query + baseline lock + **idempotent** `POST /v1/ledger/entries` ([ADR-019](../decisions/ADR-019-l5-runtime-and-consistency.md)) |
+| L5 → L2 | HTTP | Query + baseline lock + **idempotent** `POST /v1/ledger/entries` ([ADR-019](../decisions/016-020/ADR-019-l5-runtime-and-consistency.md)) |
 | L5 → L6 | Outbox + query | `WorkflowEvent`, `LedgerEntry` refs |
 
-L5 runtime SSOT: [L5-closure-and-verification.md](../technical/layers/L5-closure-and-verification.md). L2 repo does **not** implement L4/L5/L6 app boundaries — documented for context only.
+L5 runtime SSOT: [L5-closure-and-verification.md](../technical/layers/l4-l6/L5-closure-and-verification.md). L2 repo does **not** implement L4/L5/L6 app boundaries — documented for context only.
 
 ---
 
@@ -171,7 +171,7 @@ L5 runtime SSOT: [L5-closure-and-verification.md](../technical/layers/L5-closure
 Each repo runs contract checks on PR:
 
 ```bash
-./scripts/contract-check.sh
+./scripts/contracts/contract-check.sh
 ```
 
 Breaking schema changes require major version bump + migration plan.

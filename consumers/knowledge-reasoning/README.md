@@ -2,7 +2,7 @@
 
 > **Platform mirror:** This file is copied into `stamped-external` for discoverability.  
 > **Canonical live repo:** [Vinayak-RZ/knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning)  
-> **Platform decisions:** [ADR-018](../../decisions/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [L4 SSOT](../../technical/layers/L4-knowledge-and-reasoning.md)
+> **Platform decisions:** [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md)
 
 > **What it is:** The L4 consumer that turns L3 `Finding` records into L5-ready `Prescription` records and answers read-only plant energy questions with citations.  
 > **What it is not:** A plant dashboard, OT controller, bill-truth engine, WhatsApp sender, or product chat UI (those belong to L2/L3/L5/L6).  
@@ -85,7 +85,7 @@ Stamped Energy’s **L4 — Knowledge & Reasoning** layer. It composes evidence 
 - Fixture Finding → valid Prescription on Lane A (0 LLM) and Lane B (mock model)
 - Durable job survives restart without duplicate emit (lease + checkpointer path)
 - Analyst multi-turn with citations; Path W results labelled T4
-- `./scripts/validate.sh` green with `L4_MODEL_*` unset
+- `./scripts/contracts/validate.sh` green with `L4_MODEL_*` unset
 - No product UI in this repo
 
 ---
@@ -208,7 +208,7 @@ test -f external/VERSION
 python -m pip install -e ".[dev,postgres,obs]"
 # leave model env unset for mock mode
 unset L4_MODEL_PROVIDER L4_MODEL_BASE_URL L4_MODEL_API_KEY L4_MODEL_NAME
-./scripts/validate.sh
+./scripts/contracts/validate.sh
 ```
 
 ### 3.3 Run API locally (SQLite or Postgres)
@@ -313,7 +313,7 @@ knowledge-reasoning/
 ├── IMPLEMENTATION_PLAN*.md   # Nawab plans P0/P1/P2
 ├── DECISIONS.md              # Consumer ADRs
 ├── PROGRESS.md
-└── scripts/validate.sh
+└── scripts/contracts/validate.sh
 ```
 
 ---
@@ -414,7 +414,7 @@ Checkpointer tables (LangGraph Sqlite/Postgres saver) are managed by the checkpo
 unset L4_MODEL_PROVIDER L4_MODEL_BASE_URL L4_MODEL_API_KEY L4_MODEL_NAME
 
 # Full orchestrator (contracts + forbidden patterns + coverage + suites)
-./scripts/validate.sh
+./scripts/contracts/validate.sh
 
 # Tiers
 python -m pytest tests/unit tests/api tests/contract -q          # fast
@@ -435,7 +435,7 @@ L4_DATABASE_URL=postgresql+psycopg://l4:l4@localhost:5432/stamped_l4 \
 | Eval | `tests/eval/` | Lane B goldens + **60-case** `p2_manifest_60.json` |
 | Integration | `tests/integration/` | Real Postgres leases/API (skipped without URL) |
 
-Coverage gate: ≥85% lines on `api/`, `analyst/`, `jobs/`, `web/`, `db/` (see `scripts/validate.sh`).
+Coverage gate: ≥85% lines on `api/`, `analyst/`, `jobs/`, `web/`, `db/` (see `scripts/contracts/validate.sh`).
 
 ### 9.3 Eval gates (60)
 
@@ -524,16 +524,16 @@ export L4_PATH_W_TRANSPORT=httpx   # or L4_PATH_W_LIVE=1
 | Path | Role |
 |------|------|
 | [`external/`](external/) | Submodule → [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external) |
-| [`external/technical/layers/L4-knowledge-and-reasoning.md`](external/technical/layers/L4-knowledge-and-reasoning.md) | **L4 architecture SSOT** |
-| [`external/handoff/stamped-l4-architecture-handoff.md`](external/handoff/stamped-l4-architecture-handoff.md) | Consumer bootstrap |
-| [`external/decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md`](external/decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Path W / T4 trust |
+| [`external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md`](external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md) | **L4 architecture SSOT** |
+| [`external/handoff/l4/stamped-l4-architecture-handoff.md`](external/handoff/l4/stamped-l4-architecture-handoff.md) | Consumer bootstrap |
+| [`external/decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md`](external/decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Path W / T4 trust |
 | [`external/contracts/schemas/`](external/contracts/schemas/) | `finding.json`, `prescription.json` |
 
 Current pin: `external @ 77fe042` (includes L4 SSOT + handoff; ahead of tag `v2026.07.12`).
 
 ```bash
 git submodule update --init --recursive
-./external/scripts/contract-check.sh
+./external/scripts/contracts/contract-check.sh
 ```
 
 **Do not fork** layer specs, schemas, or ADRs into this repo. Change them in `stamped-external`, tag, then bump the pin.

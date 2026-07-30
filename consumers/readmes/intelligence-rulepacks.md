@@ -11,7 +11,7 @@
 > **What it is not:** An engine runtime, TOW-P fitter, Lab UI, L4 template store, plant-parameter database, SCADA writer, MILP optimizer, or NILM stack.  
 > **Primary interface:** Filesystem packs (`domain/`, `verticals/`, `tariffs/`) + pytest golden / schema CI  
 > **Package:** `stamped-l3-rulepacks` **0.5.1** · **Python ≥3.11** · Catalog index **1.3.1**  
-> **Authority:** [ADR-012](external/decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 shadows](external/decisions/ADR-016-attribution-shadow-challengers.md) · [L3 intelligence core](external/technical/layers/L3-intelligence-core.md) · [`finding.json`](external/contracts/schemas/finding.json)
+> **Authority:** [ADR-012](external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 shadows](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) · [L3 intelligence core](external/technical/layers/l3/L3-intelligence-core.md) · [`finding.json`](external/contracts/schemas/intelligence/finding.json)
 
 ---
 
@@ -98,7 +98,7 @@ Zerowatt-class **rule breadth** with a Stamped **audit trail**: every threshold 
 - Every Finding `category` in platform `finding.json` maps to ≥1 rule URI
 - Catalog index on disk matches `domain/*/*/rules/*.yaml` (33 rules today)
 - Every `rule_id` has ≥1 deep of-record golden (≥12 measurements)
-- `./scripts/validate.sh` green; optional `VALIDATE_FUZZ=1`
+- `./scripts/contracts/validate.sh` green; optional `VALIDATE_FUZZ=1`
 - No engine code, no Lab→L4 promote, no shadow Finding categories in this repo
 
 ### 1.5 Inventory snapshot
@@ -185,16 +185,16 @@ git clone <this-repo>
 cd stamped-l3-rulepacks   # or intelligence-rulepacks
 git submodule update --init --recursive
 test -f external/VERSION
-test -f external/contracts/schemas/finding.json
+test -f external/contracts/schemas/intelligence/finding.json
 python3 -m pip install -e ".[dev]"
 ```
 
 ### 3.3 Verify
 
 ```bash
-./scripts/validate.sh
+./scripts/contracts/validate.sh
 # optional:
-VALIDATE_FUZZ=1 ./scripts/validate.sh
+VALIDATE_FUZZ=1 ./scripts/contracts/validate.sh
 ```
 
 Expected: pytest green (unit + e2e); with `VALIDATE_FUZZ=1`, Hypothesis fuzz also green.
@@ -435,9 +435,9 @@ Platform-owned (do **not** invent a different model):
 
 | Doc | Role |
 | --- | --- |
-| [ADR-015](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) | `delivery` ∈ {`l4`,`lab_only`}; statuses include `hypothesis` |
-| [ADR-016](external/decisions/ADR-016-attribution-shadow-challengers.md) | Of-record co-start; shadows Lab-only (no SHAP / full NILM) |
-| [L3-attribution-explainability.md](external/technical/layers/L3-attribution-explainability.md) | Engineer-facing explainability guide |
+| [ADR-015](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) | `delivery` ∈ {`l4`,`lab_only`}; statuses include `hypothesis` |
+| [ADR-016](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) | Of-record co-start; shadows Lab-only (no SHAP / full NILM) |
+| [L3-attribution-explainability.md](external/technical/layers/l3/L3-attribution-explainability.md) | Engineer-facing explainability guide |
 
 **Invariant:** `delivery == l4` ⇔ `status == emitted` ⇔ Finding outbox.  
 Everything else stays `lab_only` until a future rulepack/threshold/calibration change makes a new emit legitimate.
@@ -492,7 +492,7 @@ Core handoffs:
 
 | Script | Purpose |
 | --- | --- |
-| [`scripts/validate.sh`](scripts/validate.sh) | Submodule check + consumer_manifest drift + unit/e2e pytest + export; `VALIDATE_FUZZ=1` adds fuzz |
+| [`scripts/contracts/validate.sh`](scripts/contracts/validate.sh) | Submodule check + consumer_manifest drift + unit/e2e pytest + export; `VALIDATE_FUZZ=1` adds fuzz |
 | [`scripts/rebuild_catalog_index.py`](scripts/rebuild_catalog_index.py) | Rebuild `schemas/catalog_index.json` from disk |
 | [`scripts/rebuild_consumer_manifest.py`](scripts/rebuild_consumer_manifest.py) | Rebuild / `--check` `schemas/consumer_manifest.json` for core pin |
 | [`scripts/generate_mock_windows.py`](scripts/generate_mock_windows.py) | Deterministic synthetic windows/goldens (D025) |
@@ -509,8 +509,8 @@ Full guide: [`docs/TESTING.md`](docs/TESTING.md). Done report: [`docs/TEST_HARDE
 ### 14.1 Commands
 
 ```bash
-./scripts/validate.sh                    # unit + e2e + export
-VALIDATE_FUZZ=1 ./scripts/validate.sh    # + Hypothesis fuzz
+./scripts/contracts/validate.sh                    # unit + e2e + export
+VALIDATE_FUZZ=1 ./scripts/contracts/validate.sh    # + Hypothesis fuzz
 python3 -m pytest -q -m "not fuzz"
 python3 -m pytest -q -m e2e
 python3 -m pytest -q -m fuzz --hypothesis-profile=ci
@@ -552,7 +552,7 @@ Step-by-step: [`docs/AUTHORING.md`](docs/AUTHORING.md).
 3. Register in that pack’s `manifest.yaml`.  
 4. Add deep golden under `fixtures/golden/` (≥12 measurements, `rule_or_model_ref`, evidence).  
 5. `python3 scripts/rebuild_catalog_index.py`.  
-6. `./scripts/validate.sh`.  
+6. `./scripts/contracts/validate.sh`.  
 7. Bump pack semver on behaviour change; bump package when cutting a release.
 
 ### 15.2 Common recipes
@@ -573,11 +573,11 @@ Workflow: [`.github/workflows/catalog-ci.yml`](.github/workflows/catalog-ci.yml)
 | Job | What |
 | --- | --- |
 | **integrity** (3.12) | Repo integrity, P0/P1/P2 pack gates, dual-lane docs, golden coverage/depth, verticals, bindings |
-| **catalog** (3.11 + 3.12) | Full `./scripts/validate.sh` + JUnit artifacts |
+| **catalog** (3.11 + 3.12) | Full `./scripts/contracts/validate.sh` + JUnit artifacts |
 | **schemas** (3.12) | Manifest/golden/tariff/vertical schemas + export |
 | **fuzz** (3.12) | `pytest -m fuzz --hypothesis-profile=ci` |
 
-Local gate of record: `./scripts/validate.sh`.
+Local gate of record: `./scripts/contracts/validate.sh`.
 
 ---
 

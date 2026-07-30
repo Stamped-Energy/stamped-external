@@ -17,11 +17,11 @@ Consumer repos mount this platform pack as a git submodule at `external/`.
 
 **README snapshots index:** [consumers/readmes/README.md](consumers/readmes/README.md)
 
-**L4 handoff:** [handoff/stamped-l4-architecture-handoff.md](handoff/stamped-l4-architecture-handoff.md) · [ADR-017](decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md)
+**L4 handoff:** [handoff/l4/stamped-l4-architecture-handoff.md](handoff/l4/stamped-l4-architecture-handoff.md) · [ADR-017](decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md)
 
-**L5 handoff:** [handoff/stamped-l5-architecture-handoff.md](handoff/stamped-l5-architecture-handoff.md) · [build plan](handoff/stamped-l5-build-plan.md) · [ADR-019](decisions/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](decisions/ADR-020-l5-mv-claim-governance.md) · [ADR-021](decisions/ADR-021-l5-notification-and-evidence.md)
+**L5 handoff:** [handoff/l5/stamped-l5-architecture-handoff.md](handoff/l5/stamped-l5-architecture-handoff.md) · [build plan](handoff/l5/stamped-l5-build-plan.md) · [ADR-019](decisions/016-020/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-021](decisions/020-023/ADR-021-l5-notification-and-evidence.md)
 
-**L6 handoff:** [handoff/stamped-l6-architecture-handoff.md](handoff/stamped-l6-architecture-handoff.md) · [UI charter](handoff/stamped-l6-ui-ux-charter.md) · [build plan](handoff/stamped-l6-build-plan.md) · [ADR-022](decisions/ADR-022-l6-bff-runtime-boundary.md) · [ADR-023](decisions/ADR-023-l6-ems-and-analyst-context.md)
+**L6 handoff:** [handoff/l6/stamped-l6-architecture-handoff.md](handoff/l6/stamped-l6-architecture-handoff.md) · [UI charter](handoff/l6/stamped-l6-ui-ux-charter.md) · [build plan](handoff/l6/stamped-l6-build-plan.md) · [ADR-022](decisions/020-023/ADR-022-l6-bff-runtime-boundary.md) · [ADR-023](decisions/020-023/ADR-023-l6-ems-and-analyst-context.md)
 
 **Platform repo:** `vinayak-rz/stamped-external` — see [SUBMODULE.md](SUBMODULE.md)
 

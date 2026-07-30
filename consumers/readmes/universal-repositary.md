@@ -44,7 +44,7 @@ Run locally: [`scripts/demo-walkthrough.sh`](scripts/demo-walkthrough.sh) · [`d
 - **Idempotent ingest** on `dedupe_key` — `201` new, `200` duplicate; routes `measurement`, `bill_line`, `event`, `production_record`
 - **L1 reference packages** co-located under `l1/` (cloud, bill, edge) for local full-stack demos
 - **Platform contracts** in git submodule `external/` — schemas, ADRs, dedupe golden; CI enforces via `contract-check.sh`
-- **Three deployment modes** (`local`, `local-dashboard`, `cloud`) — same contracts, different compose profiles ([ADR-010](external/decisions/ADR-010-deployment-profiles-and-portability.md))
+- **Three deployment modes** (`local`, `local-dashboard`, `cloud`) — same contracts, different compose profiles ([ADR-010](external/decisions/006-010/ADR-010-deployment-profiles-and-portability.md))
 - **Demo seed toolkit** (`packages/seed`) — Faker + diurnal load curves; SQL bulk or HTTP replay
 - **11 console pages** — Overview, Sources, Calibration, Telemetry, Commercial, Production, Graph, Ingest, Baselines, Ledger, Evidence
 - **No AWS SDK in `packages/`** — Terraform stubs only under `deploy/terraform/aws/`
@@ -214,9 +214,9 @@ test -f external/VERSION || { echo "Run: git submodule update --init"; exit 1; }
 | `contracts/fixtures/` | Canonical test fixtures |
 | `decisions/` | ADRs (e.g. ADR-010 deployment modes) |
 | `handoff/` | Cross-repo playbooks and L2 spec |
-| `scripts/contract-check.sh` | Shared CI validation |
+| `scripts/contracts/contract-check.sh` | Shared CI validation |
 
-**Authority:** [ADR-011](external/decisions/ADR-011-stamped-platform-submodule-distribution.md) — PR in `stamped-external`, tag, submodule bump in consumers.
+**Authority:** [ADR-011](external/decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md) — PR in `stamped-external`, tag, submodule bump in consumers.
 
 ---
 
@@ -385,7 +385,7 @@ universal-repositary/
 | Decisions log | [DECISIONS.md](DECISIONS.md) |
 | Operator guide | [docs/local-stack-operator-guide.md](docs/local-stack-operator-guide.md) |
 | Console design system | [packages/console/DESIGN.md](packages/console/DESIGN.md) |
-| L2 handoff spec | [external/handoff/stamped-l2-spec.md](external/handoff/stamped-l2-spec.md) |
+| L2 handoff spec | [external/handoff/l2/core/stamped-l2-spec.md](external/handoff/l2/core/stamped-l2-spec.md) |
 
 ---
 
@@ -770,7 +770,7 @@ npm start   # listens on 8092
 ### 11.7 Validate contracts after submodule bump
 
 ```bash
-./scripts/contract-check.sh
+./scripts/contracts/contract-check.sh
 ```
 
 ---
@@ -885,5 +885,5 @@ Platform contracts in `external/` follow the stamped-external repo license. Appl
 
 1. `git submodule update --init --recursive`
 2. `pytest -m "unit or contract" packages/ -q`
-3. `./scripts/contract-check.sh`
+3. `./scripts/contracts/contract-check.sh`
 4. Update this README if you change ports, env vars, API routes, or schema counts

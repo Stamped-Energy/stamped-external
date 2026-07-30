@@ -9,7 +9,7 @@
 
 > **What it is:** The deployable **L3 Intelligence Core** for Stamped Energy — a Python runtime that reads L2 telemetry/bills (fixture or HTTP), runs hot/warm/cold engines, and emits contract-aligned `Finding` objects through a durable outbox for L4.  
 > **What it is not:** A plant UI, a rulepack authoring repo, an eval workbench, or a database client for L2 (`L2_DATABASE_URL` is forbidden).  
-> **Primary interface:** Python library (`stamped_l3_core`) + CLI scripts (`scripts/run_mock_plant.py`, `scripts/validate.sh`)  
+> **Primary interface:** Python library (`stamped_l3_core`) + CLI scripts (`scripts/run_mock_plant.py`, `scripts/contracts/validate.sh`)  
 > **Runtime:** Python **3.11+** · optional extras `[dev]`, `[ml]`, `[challenger]` · platform SSOT via git submodule `external/` → [stamped-external](https://github.com/Vinayak-RZ/stamped-external) @ `d1e1539` (`VERSION` `2026.07.12`; ADR-015/016 dual-lane)
 
 ---
@@ -83,7 +83,7 @@ Numeric intelligence only — no prose templates, no plant actuation, no custome
 
 ### 1.4 Success criteria (today)
 
-- `./scripts/validate.sh` green (unit · golden · integration · smoke · e2e)
+- `./scripts/contracts/validate.sh` green (unit · golden · integration · smoke · e2e)
 - `python scripts/run_mock_plant.py --enable-source-mix` exits 0 and publishes ≥1 envelope
 - Schema-valid Findings for MD / PF / TOD / `dispatch_gap` / optional `md_exceedance_risk`
 - Static guard: TimesFM not imported from hot/warm scheduler paths
@@ -210,8 +210,8 @@ Expected: JSON summary on stdout with `published >= 1` and categories such as `m
 ### 3.4 Verify
 
 ```bash
-./scripts/validate.sh
-FUZZ=1 ./scripts/validate.sh   # opt-in Hypothesis fuzz
+./scripts/contracts/validate.sh
+FUZZ=1 ./scripts/contracts/validate.sh   # opt-in Hypothesis fuzz
 ```
 
 Compose one-shot smoke (fixture plant):
@@ -260,7 +260,7 @@ Without `[ml]`, MD LGBM uses an **empirical P90** fallback and never fails the h
 
 | Name | Rule |
 | --- | --- |
-| `L2_DATABASE_URL` | Must not appear in Python under `src/` or `tests/` — enforced by `scripts/validate.sh` |
+| `L2_DATABASE_URL` | Must not appear in Python under `src/` or `tests/` — enforced by `scripts/contracts/validate.sh` |
 
 ---
 
@@ -385,7 +385,7 @@ Redacted keys (never emitted): `l2_service_key`, `service_key`, `password`, `tok
 
 ### 7.1 Finding (contract `finding.json` v1.0.0)
 
-Domain dataclass: [`models/finding.py`](src/stamped_l3_core/models/finding.py). Schema SSOT: [`external/contracts/schemas/finding.json`](external/contracts/schemas/finding.json).
+Domain dataclass: [`models/finding.py`](src/stamped_l3_core/models/finding.py). Schema SSOT: [`external/contracts/schemas/intelligence/finding.json`](external/contracts/schemas/intelligence/finding.json).
 
 | Field | Notes |
 | --- | --- |
@@ -445,13 +445,13 @@ pip install -e ".[dev]"
 pytest tests/unit tests/golden tests/integration tests/smoke -q
 pip install -e ".[ml]" && pytest tests/e2e -q
 pytest tests/fuzz -q --hypothesis-profile=ci
-./scripts/validate.sh
-FUZZ=1 ./scripts/validate.sh
+./scripts/contracts/validate.sh
+FUZZ=1 ./scripts/contracts/validate.sh
 ```
 
 ### 8.3 Validate orchestrator
 
-[`scripts/validate.sh`](scripts/validate.sh) runs: submodule presence → forbid `L2_DATABASE_URL` → `external/scripts/contract-check.sh` → ruff → pytest unit/golden/integration/smoke → e2e → docs sync (`IMPLEMENTATION_PLAN.md`, `PROGRESS.md`, `DECISIONS.md`, `PROJECT_OVERVIEW.md`) → optional fuzz when `FUZZ=1`.
+[`scripts/contracts/validate.sh`](scripts/contracts/validate.sh) runs: submodule presence → forbid `L2_DATABASE_URL` → `external/scripts/contracts/contract-check.sh` → ruff → pytest unit/golden/integration/smoke → e2e → docs sync (`IMPLEMENTATION_PLAN.md`, `PROGRESS.md`, `DECISIONS.md`, `PROJECT_OVERVIEW.md`) → optional fuzz when `FUZZ=1`.
 
 ### 8.4 Mock plant contract
 
@@ -646,12 +646,12 @@ Hot MD overlap uses rulepack CMD/band. TOW-P refit is cold-path of-record baseli
 | [`DECISIONS.md`](DECISIONS.md) | ADR-LOCAL + dual-lane sync notes |
 | [`AGENTS.md`](AGENTS.md) | Cursor / ponytail / nawab workflow |
 | [`docs/L3_BOOTSTRAP.md`](docs/L3_BOOTSTRAP.md) | Bootstrap notes |
-| [`external/technical/layers/L3-intelligence-core.md`](external/technical/layers/L3-intelligence-core.md) | Platform L3 spec (read-only) |
-| [`external/technical/layers/L3-attribution-explainability.md`](external/technical/layers/L3-attribution-explainability.md) | Co-start of-record + Lab shadows |
-| [`external/handoff/stamped-l3-build-order.md`](external/handoff/stamped-l3-build-order.md) | Core · rulepacks · eval build order |
-| [`external/decisions/ADR-012-l3-artifact-repo-topology.md`](external/decisions/ADR-012-l3-artifact-repo-topology.md) | Three-repo split |
-| [`external/decisions/ADR-014-ts-foundation-model-role.md`](external/decisions/ADR-014-ts-foundation-model-role.md) | TimesFM role |
-| [`external/decisions/ADR-015-l3-dual-lane-lab-detections.md`](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) | Dual-lane Lab retention |
-| [`external/decisions/ADR-016-attribution-shadow-challengers.md`](external/decisions/ADR-016-attribution-shadow-challengers.md) | Attribution shadows (Lab-only) |
+| [`external/technical/layers/l3/L3-intelligence-core.md`](external/technical/layers/l3/L3-intelligence-core.md) | Platform L3 spec (read-only) |
+| [`external/technical/layers/l3/L3-attribution-explainability.md`](external/technical/layers/l3/L3-attribution-explainability.md) | Co-start of-record + Lab shadows |
+| [`external/handoff/l3/stamped-l3-build-order.md`](external/handoff/l3/stamped-l3-build-order.md) | Core · rulepacks · eval build order |
+| [`external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md`](external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md) | Three-repo split |
+| [`external/decisions/011-015/ADR-014-ts-foundation-model-role.md`](external/decisions/011-015/ADR-014-ts-foundation-model-role.md) | TimesFM role |
+| [`external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md`](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) | Dual-lane Lab retention |
+| [`external/decisions/016-020/ADR-016-attribution-shadow-challengers.md`](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) | Attribution shadows (Lab-only) |
 
 **Platform pin:** `external/` @ `d1e1539` · `VERSION` `2026.07.12` (ADR-015/016) — bump submodule deliberately; never edit contracts inside consumers.

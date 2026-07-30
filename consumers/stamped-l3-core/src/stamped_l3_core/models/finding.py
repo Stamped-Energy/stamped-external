@@ -1,4 +1,4 @@
-"""L3 Finding domain model aligned with contracts/schemas/finding.json v1.1.0."""
+"""L3 Finding domain model aligned with contracts/schemas/intelligence/finding.json v1.1.0."""
 
 from __future__ import annotations
 

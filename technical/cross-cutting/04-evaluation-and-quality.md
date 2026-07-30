@@ -12,7 +12,7 @@ timestamp: "2026-07-09T00:00:00Z"
 
 > **Honesty convention:** `[~]` approximate / benchmark-derived · `[!]` evolving — verify before relying on it.
 >
-> **Companions:** [technical architecture](../02-technical-architecture.md) · [L3 intelligence core](../layers/L3-intelligence-core.md) · [L4 knowledge & reasoning](../layers/L4-knowledge-and-reasoning.md) (Langfuse + Phoenix + DeepEval) · [L4 handoff](../../handoff/stamped-l4-architecture-handoff.md) · [production engineering](03-production-engineering.md)
+> **Companions:** [technical architecture](../02-technical-architecture.md) · [L3 intelligence core](../layers/l3/L3-intelligence-core.md) · [L4 knowledge & reasoning](../layers/l4-l6/L4-knowledge-and-reasoning.md) (Langfuse + Phoenix + DeepEval) · [L4 handoff](../../handoff/l4/stamped-l4-architecture-handoff.md) · [production engineering](03-production-engineering.md)
 
 ---
 
@@ -274,7 +274,7 @@ The standard 2026 setup — one code-first framework as the CI gate plus one obs
 
 For Stamped, the judge's role is deliberately narrow: it scores *clarity, actionability, tone, evidence citation* — the soft dimensions. **Everything numeric or safety-critical is scored deterministically, never by a judge** (next paragraph). This division keeps the judge's known unreliability away from the claims that matter most.
 
-**Faithfulness, groundedness, and numeric consistency — the Stamped-critical eval.** Standard RAG faithfulness (every claim in the answer supported by retrieved context [27]) covers the *procedural* content of a prescription: maintenance steps must trace to a playbook or plant-SOP chunk (the grounding rule in [L4](../layers/L4-knowledge-and-reasoning.md) §8.1). But Stamped prescriptions also make *numeric* claims, and generic faithfulness metrics don't verify arithmetic. The required check is deterministic recomputation:
+**Faithfulness, groundedness, and numeric consistency — the Stamped-critical eval.** Standard RAG faithfulness (every claim in the answer supported by retrieved context [27]) covers the *procedural* content of a prescription: maintenance steps must trace to a playbook or plant-SOP chunk (the grounding rule in [L4](../layers/l4-l6/L4-knowledge-and-reasoning.md) §8.1). But Stamped prescriptions also make *numeric* claims, and generic faithfulness metrics don't verify arithmetic. The required check is deterministic recomputation:
 
 > **Numeric-consistency gate:** every ₹/kWh/tCO₂e figure in a prescription must be *recomputed* by the impact calculator (deterministic tariff engine, §8.4 of the [technical architecture](../02-technical-architecture.md)) from the prescription's own `evidence_refs` (tag IDs, windows, baseline ID, tariff contract), and must match the agent's stated figure exactly (the agent is required to source numbers from the `calculate_impact` tool, so any mismatch means the agent edited a number in prose). Mismatch = hard block, prescription never leaves L4. An Rx claiming ₹62k/month must trace to: MD delta (kVA) × MD rate (₹/kVA) from the plant's `TariffContract`, reproducible by anyone with the evidence pointers.
 
@@ -351,7 +351,7 @@ The `compressor_sp_drift` row is the archetypal finding: impact models that mult
 
 **Data-contract breaks** block at two points: PR time (schema diff classified breaking without a migration) and runtime (invalid-fraction threshold trips the batch to quarantine and pages).
 
-**Rule-pack validation before publish.** Rule packs are versioned, deterministic, and auditable ([L3](../layers/L3-intelligence-core.md) §7.4) — treat them like code with an extra gate: schema/syntax validation, per-rule unit tests (synthetic telemetry snippets that must / must not fire), conflict detection (two rules claiming the same finding category with contradictory thresholds), full replay against the golden-telemetry library with a diff report of finding changes ("this pack change adds 3 findings, removes 1, on the fixture set"), and a human review of that diff. Publish = registry version bump; M&V cites the rule version, so unpublished edits to live rules are impossible by construction.
+**Rule-pack validation before publish.** Rule packs are versioned, deterministic, and auditable ([L3](../layers/l3/L3-intelligence-core.md) §7.4) — treat them like code with an extra gate: schema/syntax validation, per-rule unit tests (synthetic telemetry snippets that must / must not fire), conflict detection (two rules claiming the same finding category with contradictory thresholds), full replay against the golden-telemetry library with a diff report of finding changes ("this pack change adds 3 findings, removes 1, on the fixture set"), and a human review of that diff. Publish = registry version bump; M&V cites the rule version, so unpublished edits to live rules are impossible by construction.
 
 **Model promotion gates** (separate from code deploys): candidate passes backtest vs champion (no per-plant segment degrades beyond tolerance [8]), then shadow period on live plants, then alias flip in MLflow with previous champion retained for instant rollback [19].
 
@@ -607,4 +607,4 @@ Aligned with the build phases in the [technical architecture](../02-technical-ar
 
 ---
 
-*Related: [L3 intelligence core](../layers/L3-intelligence-core.md) · [L4 knowledge & reasoning](../layers/L4-knowledge-and-reasoning.md) · [production engineering](03-production-engineering.md) · [technical architecture](../02-technical-architecture.md)*
+*Related: [L3 intelligence core](../layers/l3/L3-intelligence-core.md) · [L4 knowledge & reasoning](../layers/l4-l6/L4-knowledge-and-reasoning.md) · [production engineering](03-production-engineering.md) · [technical architecture](../02-technical-architecture.md)*

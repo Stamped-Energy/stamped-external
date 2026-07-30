@@ -9,7 +9,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = json.loads((ROOT / "schemas" / "catalog_index.json").read_text())
-FINDING_SCHEMA = Path("/workspace/contracts/schemas/finding.json")
+FINDING_SCHEMA = Path("/workspace/contracts/schemas/intelligence/finding.json")
 
 
 def test_every_finding_category_mapped() -> None:

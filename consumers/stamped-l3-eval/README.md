@@ -2,7 +2,7 @@
 
 > **What it is:** Golden corpus, rolling backtest CLI, and an **internal Lab UI** for engineers to inspect every L3 engine / rule / ML-shadow detection.  
 > **What it is not:** Plant operator dashboard (L6), rule authoring (rulepacks), prescription approval (L4/L5), or the engine runtime (core).  
-> **Authority:** [ADR-012](../../decisions/ADR-012-l3-artifact-repo-topology.md) · [finding.json](../../contracts/schemas/finding.json)
+> **Authority:** [ADR-012](../../decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [finding.json](../../contracts/schemas/intelligence/finding.json)
 
 ---
 

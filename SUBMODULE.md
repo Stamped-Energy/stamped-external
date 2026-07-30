@@ -1,7 +1,7 @@
 # Submodule setup and migration — stamped-external
 
 > **Audience:** Engineers wiring `stamped-external` into Stamped product repos  
-> **ADR:** [ADR-011](decisions/ADR-011-stamped-platform-submodule-distribution.md)
+> **ADR:** [ADR-011](decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md)
 
 ---
 
@@ -124,7 +124,7 @@ Add to PR pipeline:
 ```bash
 git submodule update --init --recursive
 test -f external/VERSION || (echo "submodule not initialized" && exit 1)
-./external/scripts/contract-check.sh
+./external/scripts/contracts/contract-check.sh
 # Optional: fail if submodule not pinned to tag
 cd external && git describe --exact-match --tags HEAD
 ```

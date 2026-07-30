@@ -49,7 +49,7 @@ L3 never receives `L2_DATABASE_URL`. Until the L2 query API is live, `FixtureL2C
 
 ## Contracts
 
-Findings conform to `contracts/schemas/finding.json` in the pinned platform submodule. Dedupe key = `sha256(category|sorted_assets|window)`.
+Findings conform to `contracts/schemas/intelligence/finding.json` in the pinned platform submodule. Dedupe key = `sha256(category|sorted_assets|window)`.
 
 ## Platform pin
 

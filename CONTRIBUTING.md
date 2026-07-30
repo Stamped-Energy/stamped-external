@@ -13,7 +13,7 @@
 
 1. Branch from `main` in **stamped-external** (not in consumer repos)
 2. If schema change: update `contracts/CHANGELOG.md` semver
-3. Run locally: `./scripts/contract-check.sh`
+3. Run locally: `./scripts/contracts/contract-check.sh`
 4. PR description must list **consumer repos** that need submodule bump
 5. After merge: tag release (see below)
 6. Open submodule bump PRs in each listed consumer
@@ -37,10 +37,10 @@ git push origin main --tags
 
 ## Contract compatibility rules
 
-Per [ADR-008](decisions/ADR-008-layer-repo-topology-and-interfaces.md):
+Per [ADR-008](decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md):
 
 - **BACKWARD** mode on JSON Schema changes
-- Dedupe golden in `contracts/fixtures/dedupe_golden.json` is authoritative — all repos must match
+- Dedupe golden in `contracts/fixtures/golden/dedupe_golden.json` is authoritative — all repos must match
 - Never change `dedupe_key` algorithm without ADR + coordinated major bump
 
 ## What not to put here

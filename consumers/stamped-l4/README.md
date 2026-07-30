@@ -4,9 +4,9 @@ L4 **template-fast-path** scaffold (Lane A, P0). Maps high-confidence `Finding` 
 
 > **Live consumer:** The production L4 implementation (P0–P2) lives in **[knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning)**.  
 > Platform mirror of its README: [`../knowledge-reasoning/README.md`](../knowledge-reasoning/README.md).  
-> Pilot decisions: [ADR-018](../../decisions/ADR-018-l4-pilot-execution-knowledge-reasoning.md).
+> Pilot decisions: [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md).
 
-Aligned with [handoff/stamped-l4-architecture-handoff.md](../../handoff/stamped-l4-architecture-handoff.md), [L4 SSOT](../../technical/layers/L4-knowledge-and-reasoning.md), [ADR-017](../../decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md), [ADR-018](../../decisions/ADR-018-l4-pilot-execution-knowledge-reasoning.md), and platform contracts under `contracts/`.
+Aligned with [handoff/l4/stamped-l4-architecture-handoff.md](../../handoff/l4/stamped-l4-architecture-handoff.md), [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md), [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md), [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md), and platform contracts under `contracts/`.
 ## Supported categories
 
 | Finding category | Template ID |
@@ -56,4 +56,4 @@ ok, errors = verify(prescription, finding_dict)
 
 ## Contracts
 
-Pin platform submodule at `external/` and validate against `contracts/schemas/prescription.json` when wiring CI.
+Pin platform submodule at `external/` and validate against `contracts/schemas/intelligence/prescription.json` when wiring CI.

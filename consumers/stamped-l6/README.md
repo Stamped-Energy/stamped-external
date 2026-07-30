@@ -1,7 +1,7 @@
 # stamped-l6 (platform reference UI seed)
 
 > **Non-canonical.** Adapt into the live consumer repo `Vinayak-RZ/stamped-l6` (planned).  
-> **Authority:** [handoff/stamped-l6-ui-ux-charter.md](../../handoff/stamped-l6-ui-ux-charter.md) · [ADR-022](../../decisions/ADR-022-l6-bff-runtime-boundary.md) · [ADR-023](../../decisions/ADR-023-l6-ems-and-analyst-context.md) · [Forge](../../design/forge-industrial-design-system.md)
+> **Authority:** [handoff/l6/stamped-l6-ui-ux-charter.md](../../handoff/l6/stamped-l6-ui-ux-charter.md) · [ADR-022](../../decisions/020-023/ADR-022-l6-bff-runtime-boundary.md) · [ADR-023](../../decisions/020-023/ADR-023-l6-ems-and-analyst-context.md) · [Forge](../../design/forge-industrial-design-system.md)
 
 Typed Next.js App Router seed for the ops-first L6 control room: Today, EMS alarms, prescription queue, dual-mode analyst chrome, progressive **More tools** reveal, and Forge tokens.
 
