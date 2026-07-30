@@ -53,7 +53,9 @@ L1 delivers four canonical record types over the event bus (Kafka/Redpanda topic
 |---|---|---|
 | `Measurement` | `plant_id, asset_id, metric_type, ts_utc, value, quality (good/estimated/bad), source_system, source_tag, granularity` | Time-series store (hypertable), lineage columns preserved |
 | `Event` | asset state transitions, alarms, detected ramps | Time-series store (separate event hypertable) |
-| `ProductionRecord` | `batch_id, sku, qty, uom, line_id, window_start/end, source (ERP/MES/manual)` | Commercial & production context store |
+| `ProductionRecord` | `batch_id, sku, qty, uom, line_id, window_start/end, source (ERP/MES/manual)` · optional `order_id`, `department_id`, `due_at` (1.1.0) | Commercial & production context store |
+| `ProductionOrder` | `order_id, line_id, due_at, priority, status, source` ([ADR-024](../../decisions/ADR-024-holistic-plant-decisions.md)) | Deadline-aware TradeoffEngine |
+| `PlantDepartmentGraph` | department → line → asset + incentive weights | Cross-shop ranking / owners |
 | `BillLine` | parsed DISCOM bill: energy, MD recorded, billing demand, PF, TOD splits, FPPCA, penalties, ₹ amounts, bill period | Commercial context store; referenced by the M&V ledger |
 
 L2 must accept **out-of-order and late data** (edge-buffered plants upload in batches after WAN outages; historian CSV backfills can arrive days late) and must preserve the `quality` flag end-to-end — L3 baselines must be able to exclude `estimated` points.

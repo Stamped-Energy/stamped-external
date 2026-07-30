@@ -632,7 +632,7 @@ Authority: [ADR-004](decisions/ADR-004-compliance-driven-architecture.md).
 | Design system doc | [`design/forge-industrial-design-system.md`](design/forge-industrial-design-system.md) |
 | Machine-readable tokens | [`design/forge-industrial-v2.tokens.yaml`](design/forge-industrial-v2.tokens.yaml) |
 | Primary CTA color | `#F75440` |
-| Product voice | Rupees on the bill; Connect → Observe → Decide → Execute → Verify |
+| Product voice | Rupees on the bill; Connect → Observe → Decide → Execute → Verify → Improve |
 
 ---
 

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/prescription-revision.v1.json",
+  "title": "PrescriptionRevision",
+  "description": "L4→L5 negotiated prescription revision. Supersedes a prior Rx under supervisor constraints; human must confirm (ADR-024).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "org_id",
+    "plant_id",
+    "supersedes_rx_id",
+    "finding_refs",
+    "constraint_summary",
+    "revised_prescription",
+    "diff_summary",
+    "proposed_at",
+    "confirmation"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "supersedes_rx_id": { "type": "string", "minLength": 1 },
+    "finding_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "negotiation_thread_id": { "type": "string" },
+    "constraint_summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable supervisor constraint"
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "no_stagger_until_utc": { "type": "string", "format": "date-time" },
+        "exclude_line_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "exclude_asset_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "order_ids_protected": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "production_constraint",
+            "order_deadline",
+            "wrong_owner",
+            "capex_blocked",
+            "already_fixed",
+            "not_real",
+            "ops_challenge",
+            "other"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "revised_prescription": {
+      "type": "object",
+      "description": "Full Prescription payload (prescription.json) for the revised card"
+    },
+    "diff_summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What changed vs superseded Rx (template params, owners, windows)"
+    },
+    "tradeoff": {
+      "type": "object",
+      "description": "Optional recomputed trade-off block",
+      "properties": {
+        "energy_benefit_inr_monthly": { "type": "number" },
+        "throughput_risk": { "type": "string" },
+        "oee_impact": { "type": "string" },
+        "recommended_window": { "type": "string" },
+        "alternatives": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "department_owners": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "order_context": {
+          "type": "string",
+          "enum": ["known", "unknown", "partial"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "proposed_at": { "type": "string", "format": "date-time" },
+    "confirmation": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["proposed", "accepted", "rejected", "escalated"]
+        },
+        "confirmed_by": { "type": "string" },
+        "confirmed_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "lane": {
+          "type": "string",
+          "enum": ["negotiation", "template_fast_path"]
+        },
+        "agent_version": { "type": "string" },
+        "tradeoff_engine_version": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

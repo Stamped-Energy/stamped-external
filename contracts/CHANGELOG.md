@@ -1,5 +1,17 @@
 # Changelog — stamped-l1-contracts
 
+## 0.10.0 — 2026-07-30
+
+- Add `production-order.json` v1.0.0 — ERP/MES/MES-lite order context (ADR-024)
+- `production-record.json` **1.1.0**: optional `department_id`, `order_id`, `due_at_utc`, `priority`, `routing_step`; source adds `csv`
+- Add `prescription-revision.json` v1.0.0 — negotiated Rx supersession (ADR-024)
+- `prescription.json`: optional `decision_class`, `tradeoff`, `supersedes_rx_id` (BACKWARD additive)
+- `finding.json`: optional `decision_class` (BACKWARD additive; schema_version unchanged)
+- Add `improvement-signal.json` v1.0.0 + `plant-preference-profile.json` v1.0.0 (ADR-025 Improve loop)
+- Add `plant-department-graph.json` v1.0.0 — department/line topology for TradeoffEngine
+- Extend `stamped-record-envelope.json` `record_type`: `production_order`, `improvement_signal`, `prescription_revision`
+- Golden fixtures for all new schemas; bump `production_record.valid.json` to 1.1.0
+
 ## 0.9.1 — 2026-07-28
 
 - Consumer `stamped-l3-eval` RunArtifact schema: optional `plant_intelligence_score` (Lab dual-pillar export)

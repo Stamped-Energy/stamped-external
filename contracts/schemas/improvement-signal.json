@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/improvement-signal.v1.json",
+  "title": "ImprovementSignal",
+  "description": "Append-only Improve (step 06) signal from L5 workflow, ledger, negotiation, or L6 friction (ADR-025).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "org_id",
+    "plant_id",
+    "signal_type",
+    "emitted_at",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "rx_outcome",
+        "rx_pair_contrast",
+        "negotiation_objection",
+        "evidence_challenge",
+        "calibration_point",
+        "ui_friction"
+      ]
+    },
+    "emitted_at": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "string",
+      "enum": ["l5_workflow", "l5_ledger", "l5_negotiation", "l6_audit", "improve_job"]
+    },
+    "prescription_id": { "type": "string" },
+    "finding_id": { "type": "string" },
+    "negotiation_thread_id": { "type": "string" },
+    "payload": {
+      "type": "object",
+      "description": "Signal-type-specific fields",
+      "properties": {
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "acted",
+            "done",
+            "verified",
+            "deferred",
+            "rejected",
+            "disputed",
+            "open_stale"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "production_constraint",
+            "order_deadline",
+            "wrong_owner",
+            "capex_blocked",
+            "already_fixed",
+            "not_real",
+            "ops_challenge",
+            "bill_mismatch",
+            "customer_dispute",
+            "data_quality",
+            "other"
+          ]
+        },
+        "decision_class": {
+          "type": "string",
+          "enum": [
+            "maint",
+            "mgmt_schedule",
+            "mgmt_capacity",
+            "mgmt_cross_dept"
+          ]
+        },
+        "waste_category": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "template_id": { "type": "string" },
+        "owner_role": { "type": "string" },
+        "effort": { "type": "string" },
+        "followed_rx_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "ignored_rx_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "contrast_dims": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "objection_text": { "type": "string" },
+        "evidence_chart_type": { "type": "string" },
+        "predicted_inr": { "type": "number" },
+        "realised_inr": { "type": "number" },
+        "ratio": { "type": "number" },
+        "ui_route": { "type": "string" },
+        "view_count_before_ack": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

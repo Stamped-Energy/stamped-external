@@ -59,6 +59,16 @@
       "enum": ["energy_efficiency", "equipment_health"],
       "description": "Pillar 1 Load & Energy Efficiency = energy_efficiency; Pillar 2 Prescriptive Equipment Intelligence = equipment_health (03-two-pillar-technical-bridge)"
     },
+    "decision_class": {
+      "type": "string",
+      "enum": [
+        "maint",
+        "mgmt_schedule",
+        "mgmt_capacity",
+        "mgmt_cross_dept"
+      ],
+      "description": "Optional ADR-024 taxonomy — management classes feed TradeoffEngine"
+    },
     "waste_category": {
       "type": "integer",
       "minimum": 1,

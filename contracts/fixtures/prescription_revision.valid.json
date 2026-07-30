@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "id": "rxrev-2026-07-30-0001",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "supersedes_rx_id": "rx-2026-07-08-0031",
+  "finding_refs": ["f-2026-07-08-0042"],
+  "negotiation_thread_id": "neg-2026-07-30-01",
+  "constraint_summary": "Cannot stagger Line 2 — order PO-8842 due 14:00",
+  "constraints": {
+    "no_stagger_until_utc": "2026-07-30T14:00:00+05:30",
+    "exclude_line_ids": ["line_2"],
+    "order_ids_protected": ["PO-8842"],
+    "reason_code": "order_deadline"
+  },
+  "revised_prescription": {
+    "schema_version": "1.0.0",
+    "id": "rx-2026-07-30-0044",
+    "org_id": "org_acme",
+    "plant_id": "plant_ghaziabad_1",
+    "status": "open",
+    "priority": 2,
+    "what": "Stagger Line 3 startup by 8 minutes; leave Line 2 on schedule until PO-8842 clears.",
+    "why": "MD coincidence still addressable via Line 3; Line 2 protected by order deadline.",
+    "who": "electrical_supervisor",
+    "effort": "low_schedule_change",
+    "when": "today_shift_start",
+    "template_id": "md_overlap.stagger_costart.v2",
+    "impact": {
+      "inr_monthly": 18500,
+      "kwh_monthly": 2100,
+      "tco2e_monthly": 1.6,
+      "confidence_interval": [14000, 22000]
+    },
+    "waste_category": 1,
+    "decision_class": "mgmt_schedule",
+    "finding_refs": ["f-2026-07-08-0042"],
+    "evidence_refs": [
+      "tag:incomer_1/apparent_power_kva?window=2026-07-30T06:00:00Z/2026-07-30T07:00:00Z"
+    ],
+    "mv_plan": {
+      "method": "option_c",
+      "baseline_id": "bl-incomer-2026Q2",
+      "verification_window": "2026-08-01/2026-09-01"
+    },
+    "dedupe_key": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "supersedes_rx_id": "rx-2026-07-08-0031"
+  },
+  "diff_summary": "Excluded line_2; stagger line_3 only; impact ₹31.2k → ₹18.5k/mo",
+  "tradeoff": {
+    "energy_benefit_inr_monthly": 18500,
+    "throughput_risk": "PO-8842 on Line 2 protected through 14:00",
+    "oee_impact": "Assembly buffer −0 min on Line 2",
+    "recommended_window": "Stagger Line 3 at 06:55; revisit Line 2 after 14:00",
+    "alternatives": ["Shed non-critical HVAC 15 min during 06:45–07:00"],
+    "department_owners": ["electrical_supervisor", "body_shop_supervisor"],
+    "order_context": "known"
+  },
+  "proposed_at": "2026-07-30T07:20:00+05:30",
+  "confirmation": {
+    "status": "proposed"
+  },
+  "provenance": {
+    "lane": "negotiation",
+    "agent_version": "l4-negotiation-0.1.0",
+    "tradeoff_engine_version": "1.0.0"
+  }
+}

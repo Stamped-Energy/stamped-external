@@ -1,8 +1,10 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "org_id": "org_test",
   "plant_id": "plant_test",
   "line_id": "line_1",
+  "department_id": "body_shop",
+  "order_id": "PO-1001",
   "batch_id": "batch-2026-06-001",
   "window": {
     "start_utc": "2026-06-15T06:00:00Z",

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "version": 1,
+  "updated_at": "2026-07-30T08:00:00+05:30",
+  "dept_priority_weights": {
+    "body_shop": {
+      "throughput": 0.7,
+      "energy": 0.2,
+      "quality": 0.1
+    },
+    "paint": {
+      "throughput": 0.5,
+      "energy": 0.3,
+      "quality": 0.2
+    }
+  },
+  "effort_gate": "medium",
+  "evidence_format": "coincidence_chart",
+  "negotiation_patterns": [
+    {
+      "tag": "order_deadline",
+      "preferred_alternative_template": "md_overlap.stagger_costart.v2_exclude_hot_lines",
+      "notes": "Body shop frequently protects hot orders before 14:00"
+    }
+  ],
+  "owner_map_corrections": [
+    {
+      "asset_or_line_id": "line_2",
+      "owner_role": "body_shop_supervisor"
+    }
+  ],
+  "rank_boosts": {
+    "md_overlap.stagger_costart.v2": 1.15
+  },
+  "approval": {
+    "status": "draft"
+  },
+  "source_period": {
+    "start_utc": "2026-07-01T00:00:00Z",
+    "end_utc": "2026-07-31T00:00:00Z"
+  }
+}

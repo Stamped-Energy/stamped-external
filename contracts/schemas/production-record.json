@@ -2,13 +2,33 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/production-record.v1.json",
   "title": "ProductionRecord",
+  "description": "Completed or in-window production quantity for SEC denominator. v1.1.0 adds optional order/department linkage (ADR-024).",
   "type": "object",
-  "required": ["schema_version", "org_id", "plant_id", "line_id", "batch_id", "window", "quantity", "unit", "source"],
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "line_id",
+    "batch_id",
+    "window",
+    "quantity",
+    "unit",
+    "source"
+  ],
   "properties": {
-    "schema_version": { "type": "string" },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.1.0"
+    },
     "org_id": { "type": "string" },
     "plant_id": { "type": "string" },
     "line_id": { "type": "string" },
+    "department_id": { "type": "string" },
+    "order_id": {
+      "type": "string",
+      "description": "Links to ProductionOrder.order_id when known"
+    },
     "window": {
       "type": "object",
       "required": ["start_utc", "end_utc"],
@@ -22,6 +42,17 @@
     "quantity": { "type": "number" },
     "unit": { "type": "string" },
     "shift_code": { "type": "string" },
-    "source": { "type": "string", "enum": ["erp", "mes", "manual"] }
-  }
+    "due_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "routing_step": { "type": "string" },
+    "source": { "type": "string", "enum": ["erp", "mes", "manual", "csv"] }
+  },
+  "additionalProperties": false
 }

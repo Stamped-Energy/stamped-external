@@ -8,7 +8,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ### Added
 
-- Contracts **0.9.0**: Finding **1.2.0** (`value_domain`, equipment-health categories); `plant-intelligence-score.json` v1.0.0
+- Contracts **0.10.0**: `production-order`, `prescription-revision`, `improvement-signal`, `plant-preference-profile`, `plant-department-graph`; ProductionRecord **1.1.0**; prescription `decision_class`/`tradeoff`; envelope record_types extended ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
+- [ADR-024](decisions/ADR-024-holistic-plant-decisions.md) — holistic plant decisions (energy wedge + co-benefits + negotiation)
+- [ADR-025](decisions/ADR-025-improve-loop-step-06.md) — Improve loop step 06
+- Handoffs: MES/ERP brief, TradeoffEngine, negotiation, Improve pipeline, holistic pilot stack
+- Operating loop six steps in product architecture + Forge design system
 
 ### Changed
 - Framing lock: always present **both** pillars (Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence / equipment early warnings). Proof phrase = **verified with evidence**; do not lead with “bill-verified.” Updated [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) Verify paths and [01-product-architecture.md](technical/01-product-architecture.md).
@@ -16,6 +20,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ### Added
 
+- Contracts **0.9.0**: Finding **1.2.0** (`value_domain`, equipment-health categories); `plant-intelligence-score.json` v1.0.0
 - [03-two-pillar-technical-bridge.md](technical/03-two-pillar-technical-bridge.md) — maps Load & Energy Efficiency Intelligence + Prescriptive Equipment Intelligence onto L0–L6 (Finding `value_domain`, engine ownership, Verify/Improve); linked from [technical/README.md](technical/README.md)
 
 ## [2026.07.12] - 2026-07-12

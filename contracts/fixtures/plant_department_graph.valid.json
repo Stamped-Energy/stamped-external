@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "updated_at": "2026-07-30T06:00:00+05:30",
+  "departments": [
+    {
+      "department_id": "body_shop",
+      "label": "Body Shop",
+      "supervisor_role": "body_shop_supervisor",
+      "shift_pattern": "3x8",
+      "incentive_weight": {
+        "throughput": 0.7,
+        "energy": 0.2,
+        "quality": 0.1
+      },
+      "critical_assets": ["press_1"],
+      "upstream_department_ids": [],
+      "downstream_department_ids": ["paint"],
+      "lines": [
+        {
+          "line_id": "line_2",
+          "label": "BIW Line 2",
+          "asset_ids": ["weld_cell_2", "press_1"]
+        },
+        {
+          "line_id": "line_3",
+          "label": "BIW Line 3",
+          "asset_ids": ["weld_cell_3"]
+        }
+      ]
+    },
+    {
+      "department_id": "paint",
+      "label": "Paint Shop",
+      "supervisor_role": "paint_supervisor",
+      "incentive_weight": {
+        "throughput": 0.5,
+        "energy": 0.3,
+        "quality": 0.2
+      },
+      "upstream_department_ids": ["body_shop"],
+      "downstream_department_ids": ["assembly"],
+      "lines": [
+        {
+          "line_id": "paint_1",
+          "asset_ids": ["booth_1", "oven_1"]
+        }
+      ]
+    },
+    {
+      "department_id": "assembly",
+      "label": "Assembly",
+      "supervisor_role": "assembly_supervisor",
+      "incentive_weight": {
+        "throughput": 0.8,
+        "energy": 0.1,
+        "quality": 0.1
+      },
+      "upstream_department_ids": ["paint"],
+      "downstream_department_ids": [],
+      "lines": [
+        {
+          "line_id": "asm_1",
+          "asset_ids": ["asm_station_1"]
+        }
+      ]
+    },
+    {
+      "department_id": "utilities",
+      "label": "Utilities",
+      "supervisor_role": "electrical_supervisor",
+      "incentive_weight": {
+        "throughput": 0.2,
+        "energy": 0.7,
+        "quality": 0.1
+      },
+      "lines": [
+        {
+          "line_id": "util_main",
+          "asset_ids": ["incomer_1", "compressor_1"]
+        }
+      ]
+    }
+  ]
+}

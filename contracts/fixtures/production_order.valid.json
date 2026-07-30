@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "order_id": "PO-8842",
+  "department_id": "body_shop",
+  "line_id": "line_2",
+  "sku": "BIW-DOOR-LH",
+  "quantity": 240,
+  "unit": "pcs",
+  "priority": 1,
+  "due_at_utc": "2026-07-30T14:00:00+05:30",
+  "routing_step": "weld",
+  "hot": true,
+  "window": {
+    "start_utc": "2026-07-30T06:00:00+05:30",
+    "end_utc": "2026-07-30T14:00:00+05:30"
+  },
+  "status": "in_progress",
+  "source": "erp",
+  "external_ref": "SAP-45001234"
+}

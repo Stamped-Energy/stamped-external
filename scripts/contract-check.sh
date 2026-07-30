@@ -46,6 +46,12 @@ pairs = {
     "workflow_event.valid.json": "workflow-event.json",
     "workflow_event_ops_verified.valid.json": "workflow-event.json",
     "plant_intelligence_score.valid.json": "plant-intelligence-score.json",
+    "production_order.valid.json": "production-order.json",
+    "production_record.valid.json": "production-record.json",
+    "prescription_revision.valid.json": "prescription-revision.json",
+    "improvement_signal.valid.json": "improvement-signal.json",
+    "plant_preference_profile.valid.json": "plant-preference-profile.json",
+    "plant_department_graph.valid.json": "plant-department-graph.json",
 }
 for fixture, schema_name in pairs.items():
     fp, sp = fixtures / fixture, schemas / schema_name

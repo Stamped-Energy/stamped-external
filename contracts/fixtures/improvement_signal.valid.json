@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "id": "impsig-2026-07-30-0009",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "signal_type": "negotiation_objection",
+  "emitted_at": "2026-07-30T07:18:00+05:30",
+  "source": "l5_negotiation",
+  "prescription_id": "rx-2026-07-08-0031",
+  "finding_id": "f-2026-07-08-0042",
+  "negotiation_thread_id": "neg-2026-07-30-01",
+  "payload": {
+    "reason_code": "order_deadline",
+    "decision_class": "mgmt_schedule",
+    "objection_text": "Cannot stagger Line 2 — order PO-8842 due 14:00",
+    "template_id": "md_overlap.stagger_costart.v1",
+    "owner_role": "body_shop_supervisor"
+  }
+}
