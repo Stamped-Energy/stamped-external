@@ -111,6 +111,14 @@ Authority ADRs: [ADR-012](../decisions/ADR-012-l3-artifact-repo-topology.md) · 
 
 ---
 
+## L2→L6 Vinayak demo identity
+
+| Document | Purpose |
+|----------|---------|
+| [L2_L6_VINAYAK_IDENTITY.md](./L2_L6_VINAYAK_IDENTITY.md) | Canonical `plant_vinayak_1` / `org_acme` / “Vinayak Plant”; L4 ingest → L5 plant GETs → L6 BFF; envelope `delivery=l4` ∧ `status=emitted` |
+
+---
+
 ## stamped-l5 — consumer live (`closure-verification`)
 
 | # | Document | Purpose |
@@ -205,4 +213,5 @@ L5 consumer README snapshot: [../consumers/readmes/closure-verification.md](../c
 | 2026-07-21 | Ops-first L5 + Finding 1.1.0 `ops_clearance`; contracts 0.8.0; L3 ops-clearance consumer prompt |
 | 2026-07-21 | Mirrored completed L5 README → `consumers/readmes/closure-verification.md` |
 | 2026-07-21 | L6 architecture + UI handoff (ADR-022/023); ops-first SSOT; `consumers/stamped-l6` reference seed |
-2026-07-24 | Proposed L6 IA: Alarms vs Prescriptions vs Evidence + Playwright audit of trying.stamped.work
+| 2026-07-24 | Proposed L6 IA: Alarms vs Prescriptions vs Evidence + Playwright audit of trying.stamped.work |
+| 2026-07-29 | Vinayak plant identity handoff (L2→L6, C-ext prep) |
