@@ -22,11 +22,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Assemble demo site
         run: |
-          mkdir -p _site
-          cp index.html _site/
-          cp -r demo-decks _site/demo-decks
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/demo-decks
+          # Disable Jekyll so every HTML/asset is served as-is
+          touch _site/.nojekyll
+          cp index.html _site/index.html
+          # Prefer rsync so nested assets stay intact; fall back to cp -a
+          if command -v rsync >/dev/null 2>&1; then
+            rsync -a --delete demo-decks/ _site/demo-decks/
+          else
+            cp -a demo-decks/. _site/demo-decks/
+          fi
+          test -f _site/index.html
+          test -f _site/demo-decks/steel.html
+          test -f _site/demo-decks/prescriptions-examples.html
+          echo "Site root:"
+          ls -la _site
+          echo "Demo decks (top):"
+          ls -la _site/demo-decks | head -40
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
