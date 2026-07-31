@@ -6,6 +6,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Added
+
+- Root [`index.html`](index.html) demo hub for GitHub Pages (industry decks, prescriptions, clients, tech)
+- [`demo-decks/prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — prescription examples walkthrough
+- [`.github/workflows/pages.yml`](.github/workflows/pages.yml) — deploy demo site from `main`
+
 ## [2026.07.30] - 2026-07-30
 
 ### Added

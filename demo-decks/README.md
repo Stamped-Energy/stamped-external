@@ -4,7 +4,8 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 
 | Path | Use |
 |------|-----|
-| [index.html](./index.html) | Industry picker (hub) |
+| [/index.html](../index.html) | **GitHub Pages entry** — demo hub (industry + prescriptions + clients + tech) |
+| [index.html](./index.html) | Industry picker (same links, relative) |
 | [cement.html](./cement.html) | Cement: kiln, mills, WHR |
 | [steel.html](./steel.html) | Steel: furnace, rolling mill |
 | [pharma.html](./pharma.html) | Pharma: load management, HVAC, chillers |
@@ -14,7 +15,8 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [clients/](./clients/) | Client deck picker + OEM / Lohia walkthroughs (linked from hub) |
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
 | [assets/](./assets/) | Industry and client hero photos |
-| [../project/index.html](../project/index.html) | Same hub under `/project/` on GitHub Pages |
+
+**GitHub Pages:** workflow [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) deploys root `index.html` + `demo-decks/` from `main`. Enable Pages → Source: **GitHub Actions** once in repo Settings.
 
 ### Client decks
 
