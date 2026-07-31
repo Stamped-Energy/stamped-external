@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+ <title>Stamped Energy · Prescription examples</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+ <style>
+  :root {
+   --primary: #F75440;
+   --on-primary: #ffffff;
+   --secondary: #051F13;
+   --on-secondary: #ffffff;
+   --surface: #f7faf5;
+   --surface-low: #f1f4f0;
+   --white: #ffffff;
+   --on-surface: #191c1a;
+   --on-surface-variant: #5a403c;
+   --outline: #8f706b;
+   --outline-variant: #e3beb8;
+   --tertiary: #00666b;
+   --inverse-primary: #ffb4a8;
+   --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+   --font-body: "Inter", system-ui, sans-serif;
+   --radius-btn: 8px;
+   --radius-card: 12px;
+   --radius-lg: 16px;
+   --chrome-h: 52px;
+   --progress-h: 3px;
+   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+   --grid-line: color-mix(in srgb, var(--primary) 10%, transparent);
+   --safe-t: env(safe-area-inset-top, 0px);
+   --safe-b: env(safe-area-inset-bottom, 0px);
+   --safe-l: env(safe-area-inset-left, 0px);
+   --safe-r: env(safe-area-inset-right, 0px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+   height: 100%;
+   height: 100dvh;
+   overflow: hidden;
+   background: var(--surface);
+   color: var(--on-surface);
+   font-family: var(--font-body);
+   -webkit-font-smoothing: antialiased;
+  }
+
+  .progress {
+   position: fixed; top: 0; left: 0; right: 0;
+   height: var(--progress-h); z-index: 100;
+   background: rgba(247, 84, 64, 0.15);
+  }
+  .progress__fill {
+   height: 100%; width: 0%;
+   background: linear-gradient(90deg, var(--primary), rgba(247, 84, 64, 0.55));
+   transition: width 0.45s var(--ease);
+  }
+
+  .chrome-top {
+   position: fixed; top: calc(var(--progress-h) + var(--safe-t)); left: 0; right: 0;
+   height: var(--chrome-h); z-index: 90;
+   display: flex; align-items: center; justify-content: space-between;
+   padding: 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-l)) 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-r));
+   pointer-events: none;
+  }
+  .chrome-logo {
+   display: flex; align-items: center; gap: 0.55rem;
+   pointer-events: auto; text-decoration: none; color: inherit;
+  }
+  .chrome-logo img { height: 26px; width: auto; display: block; }
+  .chrome-logo .wordmark {
+   display: none; font-family: var(--font-display); font-weight: 800;
+   font-size: 0.85rem; letter-spacing: -0.02em;
+  }
+  .chrome-logo.fallback img { display: none; }
+  .chrome-logo.fallback .wordmark { display: block; }
+  .chrome-counter {
+   font-size: 0.72rem; font-weight: 650; letter-spacing: 0.08em;
+   font-variant-numeric: tabular-nums; opacity: 0.72;
+   color: var(--on-surface);
+  }
+
+  .stage {
+   position: relative; width: 100%;
+   height: 100%; height: 100dvh;
+   overflow: hidden;
+  }
+
+  .slide {
+   position: absolute; inset: 0;
+   display: flex; flex-direction: column; justify-content: center;
+   padding:
+    calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + clamp(0.25rem, 0.8vh, 0.65rem))
+    max(clamp(4.25rem, 7.5vw, 6.5rem), var(--safe-r))
+    max(clamp(3.25rem, 6vh, 4.4rem), calc(var(--safe-b) + 2.5rem));
+   opacity: 0; visibility: hidden; pointer-events: none;
+   transition: opacity 0.28s var(--ease), visibility 0.28s;
+   overflow: auto;
+  }
+  .slide.active {
+   opacity: 1; visibility: visible; pointer-events: auto; z-index: 1;
+  }
+
+  .slide--light {
+   background:
+    linear-gradient(180deg, #ffffff 0%, var(--surface) 55%, #f3f6f2 100%),
+    radial-gradient(ellipse 42% 32% at 94% 6%, rgba(227,190,184,0.22), transparent 60%);
+   color: var(--on-surface);
+  }
+  .slide--light.grid-bg::after {
+   content: "";
+   position: absolute; inset: 0; pointer-events: none; z-index: 0;
+   background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+   background-size: 40px 40px;
+   opacity: 0.45;
+   mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
+  }
+
+  .slide__inner {
+   position: relative; z-index: 1;
+   width: 100%; max-width: min(920px, 100%);
+   margin: 0 auto;
+   transform: translateY(-1.2vh);
+  }
+  .slide__inner--wide { max-width: min(980px, 100%); }
+
+  .reveal { opacity: 0; transform: translateY(14px); }
+  .slide.active .reveal { animation: fadeUp 0.48s var(--ease) forwards; }
+  .slide.active .reveal:nth-child(1) { animation-delay: 0.04s; }
+  .slide.active .reveal:nth-child(2) { animation-delay: 0.10s; }
+  .slide.active .reveal:nth-child(3) { animation-delay: 0.16s; }
+  .slide.active .reveal:nth-child(4) { animation-delay: 0.22s; }
+
+  @keyframes fadeUp {
+   from { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+   to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes sceneIn {
+   from { opacity: 0; transform: translateY(calc(-1.2vh + 10px)) scale(0.996); }
+   to { opacity: 1; transform: translateY(-1.2vh) scale(1); }
+  }
+  @keyframes itemIn {
+   from { opacity: 0; transform: translateY(12px); }
+   to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lineSweep {
+   from { background-position: 180% 0; }
+   to { background-position: -80% 0; }
+  }
+
+  .slide.active > .slide__inner {
+   animation: sceneIn 0.52s var(--ease) both;
+  }
+
+  .rx-row { opacity: 0; transform: translateY(12px); }
+  .slide.active .rx-row {
+   animation: itemIn 0.46s var(--ease) forwards;
+  }
+  .slide.active .rx-row:nth-child(1) { animation-delay: 0.16s; }
+  .slide.active .rx-row:nth-child(2) { animation-delay: 0.22s; }
+  .slide.active .rx-row:nth-child(3) { animation-delay: 0.28s; }
+  .slide.active .rx-row:nth-child(4) { animation-delay: 0.34s; }
+  .slide.active .rx-row:nth-child(5) { animation-delay: 0.40s; }
+  .slide.active .rx-row:nth-child(6) { animation-delay: 0.46s; }
+  .slide.active .rx-row:nth-child(7) { animation-delay: 0.52s; }
+  .slide.active .rx-row:nth-child(8) { animation-delay: 0.58s; }
+  .slide.active .rx-row:nth-child(9) { animation-delay: 0.64s; }
+
+  @media (prefers-reduced-motion: reduce) {
+   .reveal { opacity: 1; transform: none; }
+   .slide.active .reveal { animation: none; }
+   .slide.active > .slide__inner { animation: none; }
+   .rx-row { opacity: 1; transform: none; animation: none !important; }
+   .progress__fill, .nav-btn, .dots__dot, .rx-flip__inner { transition: none; }
+  }
+
+  .eyebrow {
+   font-size: clamp(0.68rem, 1vw, 0.78rem);
+   font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase;
+   color: var(--primary); margin-bottom: 0.55rem;
+  }
+  h1, h2 {
+   font-family: var(--font-display); font-weight: 800;
+   letter-spacing: -0.025em; line-height: 1.12;
+  }
+  h1 { font-size: clamp(1.85rem, 4.2vw, 3rem); margin-bottom: 0.7rem; }
+  h2 { font-size: clamp(1.35rem, 2.8vw, 2rem); margin-bottom: 0.45rem; }
+  .lede {
+   font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+   line-height: 1.55; max-width: 42em;
+   color: var(--on-surface-variant);
+  }
+  .meta { font-size: 0.78rem; opacity: 0.55; margin-top: 1rem; letter-spacing: 0.02em; }
+
+  .btn {
+   display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+   height: 48px; padding: 0 1.35rem; border-radius: var(--radius-btn);
+   font-size: 0.95rem; font-weight: 650; border: 1px solid transparent;
+   cursor: pointer; text-decoration: none;
+   transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn--primary { background: var(--primary); color: var(--on-primary); }
+  .btn--primary:hover { background: #e04634; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.4rem; }
+
+  .chip {
+   display: inline-flex; align-items: center; gap: 0.35rem;
+   font-size: 0.72rem; font-weight: 650; letter-spacing: 0.03em;
+   padding: 0.35rem 0.7rem; border-radius: 999px;
+   border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+   background: color-mix(in srgb, var(--primary) 8%, transparent);
+   color: var(--primary);
+  }
+  .flow-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+
+  .nav-btn {
+   position: fixed; top: 50%; transform: translateY(-50%); z-index: 95;
+   width: clamp(42px, 4.6vw, 52px); height: clamp(42px, 4.6vw, 52px);
+   border-radius: 50%; border: 1px solid var(--outline-variant);
+   background: rgba(255,255,255,0.9); color: var(--on-surface);
+   cursor: pointer; display: flex; align-items: center; justify-content: center;
+   transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+  .nav-btn--prev { left: clamp(0.55rem, 1.4vw, 1.15rem); }
+  .nav-btn--next { right: clamp(0.55rem, 1.4vw, 1.15rem); }
+  .nav-btn svg { width: 18px; height: 18px; }
+  .nav-btn:hover {
+   background: var(--white); border-color: var(--primary); color: var(--primary);
+  }
+  .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
+
+  .dots {
+   position: fixed; bottom: clamp(0.85rem, 2.2vh, 1.5rem);
+   left: 50%; transform: translateX(-50%); z-index: 95;
+   display: flex; align-items: center; gap: 0.35rem;
+   padding: 0.32rem 0.5rem; border-radius: 999px;
+   background: rgba(25,28,26,0.08); backdrop-filter: blur(6px);
+   max-width: calc(100vw - 2rem); overflow-x: auto;
+  }
+  .dots__dot {
+   width: 6px; height: 6px; border-radius: 999px; border: none; padding: 0;
+   background: rgba(25,28,26,0.28); cursor: pointer; flex-shrink: 0;
+   transition: width 0.3s var(--ease), background 0.25s;
+  }
+  .dots__dot.active { width: 20px; background: var(--primary); }
+
+  /* Single prescription flip card — grid stack so height follows content */
+  .rx-solo {
+   margin-top: 0.85rem;
+   perspective: 1400px;
+   max-width: 720px;
+   width: 100%;
+  }
+  .rx-flip {
+   position: relative;
+   border: none; background: transparent; padding: 0;
+   cursor: pointer; text-align: left; color: inherit;
+   font: inherit; width: 100%;
+   -webkit-tap-highlight-color: transparent;
+  }
+  .rx-flip:focus-visible {
+   outline: 2px solid var(--primary);
+   outline-offset: 3px;
+   border-radius: var(--radius-lg);
+  }
+  .rx-flip__inner {
+   display: grid;
+   width: 100%;
+   transition: transform 0.55s var(--ease);
+   transform-style: preserve-3d;
+  }
+  .rx-flip.is-flipped .rx-flip__inner { transform: rotateY(180deg); }
+  .rx-face {
+   grid-area: 1 / 1;
+   backface-visibility: hidden; -webkit-backface-visibility: hidden;
+   border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+   border-radius: var(--radius-lg); background: var(--white);
+   display: flex; flex-direction: column;
+   min-height: 100%;
+   min-width: 0;
+   overflow: hidden;
+  }
+  .rx-face--back {
+   transform: rotateY(180deg);
+   border-color: color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+   background: #f7faf8;
+  }
+  .rx-face::before {
+   content: "";
+   position: absolute; top: 0; left: 0; right: 0; height: 3px;
+   background: linear-gradient(90deg, transparent 0%, var(--primary) 42%, var(--inverse-primary) 55%, transparent 100%);
+   background-size: 220% 100%;
+   opacity: 0;
+   z-index: 2;
+  }
+  .rx-face { position: relative; }
+  .slide.active .rx-flip:not(.is-flipped) .rx-face--front::before {
+   opacity: 1;
+   animation: lineSweep 1.25s var(--ease) 0.35s both;
+  }
+  .rx-hero__head {
+   display: flex; justify-content: space-between; align-items: center;
+   padding: 0.75rem 1.1rem; border-bottom: 1px solid #e0e3df; background: #fafcfa;
+   flex-shrink: 0; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .rx-badge {
+   font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+   color: var(--on-surface-variant); border: 1px solid var(--outline-variant);
+   background: var(--surface-low); padding: 0.22rem 0.5rem; border-radius: 6px;
+  }
+  .rx-priority {
+   font-size: 0.68rem; font-weight: 700; color: #fff; background: var(--primary);
+   padding: 0.22rem 0.5rem; border-radius: 6px;
+   white-space: nowrap;
+  }
+  .rx-priority--med { background: var(--tertiary); }
+  .rx-hero__body {
+   padding: 0.95rem 1.15rem 0.9rem;
+   display: flex; flex-direction: column; flex: 1; min-height: 0;
+   min-width: 0;
+  }
+  .rx-action {
+   font-family: var(--font-display); font-weight: 750;
+   font-size: clamp(1.05rem, 1.8vw, 1.3rem); line-height: 1.3; margin-bottom: 0.85rem;
+  }
+  .rx-fields { display: grid; gap: 0.48rem; flex: 1; }
+  .rx-row {
+   display: grid; grid-template-columns: 88px 1fr; gap: 0.5rem;
+   font-size: 0.82rem; line-height: 1.4;
+   min-width: 0;
+  }
+  .rx-row dt {
+   font-weight: 650; color: var(--on-surface-variant); font-size: 0.66rem;
+   text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.15rem;
+  }
+  .rx-row dd {
+   min-width: 0;
+   overflow-wrap: anywhere;
+   word-break: break-word;
+  }
+  .rx-row dd strong { color: var(--on-surface); font-weight: 700; }
+  .rx-flip-cue {
+   margin-top: 0.75rem; padding-top: 0.65rem;
+   border-top: 1px dashed var(--outline-variant);
+   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+   text-transform: uppercase; color: var(--primary);
+  }
+  .rx-ev-title {
+   font-size: 0.66rem; font-weight: 700; letter-spacing: 0.07em;
+   text-transform: uppercase; color: var(--on-surface-variant); margin-bottom: 0.35rem;
+  }
+  .rx-spark {
+   width: 100%; height: 64px; margin-bottom: 0.55rem;
+   border-radius: 8px; background: var(--white);
+   border: 1px solid #e0e3df;
+   display: block;
+  }
+  .rx-ev-table-wrap {
+   width: 100%;
+   max-width: 100%;
+   overflow-x: auto;
+   -webkit-overflow-scrolling: touch;
+   margin-bottom: 0.55rem;
+  }
+  .rx-ev-table {
+   width: 100%; border-collapse: collapse;
+   font-size: 0.72rem; font-variant-numeric: tabular-nums;
+   margin-bottom: 0;
+   min-width: 260px;
+  }
+  .rx-ev-table th, .rx-ev-table td {
+   padding: 0.32rem 0.4rem; text-align: left;
+   border-bottom: 1px solid #e0e3df;
+   vertical-align: top;
+  }
+  .rx-ev-table th {
+   font-size: 0.6rem; letter-spacing: 0.05em; text-transform: uppercase;
+   color: var(--on-surface-variant); font-weight: 700;
+  }
+  .rx-ev-table code {
+   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+   font-size: 0.68rem; color: var(--secondary);
+   word-break: break-all;
+  }
+  .rx-cite {
+   font-size: 0.72rem; line-height: 1.4; color: var(--on-surface-variant);
+   background: var(--white); border: 1px solid #e0e3df;
+   border-radius: 8px; padding: 0.55rem 0.65rem; margin-bottom: 0.45rem;
+   overflow-wrap: anywhere;
+  }
+  .rx-cite strong { color: var(--on-surface); font-weight: 650; }
+  .rx-mv {
+   font-size: 0.74rem; font-weight: 650; color: var(--tertiary);
+   margin-top: auto;
+  }
+
+  .close-list {
+   list-style: none; display: grid; gap: 0.75rem; margin-top: 1.25rem;
+   max-width: 36em;
+  }
+  .close-list li {
+   font-size: 0.95rem; line-height: 1.5; color: var(--on-surface);
+   padding: 0.85rem 1rem; background: var(--white);
+   border: 1px solid var(--outline-variant); border-radius: var(--radius-card);
+   padding-left: 1.15rem; position: relative;
+  }
+  .close-list li::before {
+   content: ""; position: absolute; left: 0; top: 0.9rem; bottom: 0.9rem;
+   width: 3px; border-radius: 2px; background: var(--primary);
+  }
+  .close-list strong { font-weight: 700; }
+
+  .hint {
+   font-size: 0.78rem; color: var(--on-surface-variant); margin-top: 0.35rem;
+   line-height: 1.4;
+  }
+
+  /* Tablet */
+  @media (max-width: 980px) {
+   .slide {
+    padding-left: max(3.5rem, var(--safe-l));
+    padding-right: max(3.5rem, var(--safe-r));
+   }
+   .rx-solo { max-width: 100%; }
+  }
+
+  /* Phone */
+  @media (max-width: 720px) {
+   :root { --chrome-h: 48px; }
+
+   .slide {
+    justify-content: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding:
+     calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.65rem)
+     max(1rem, var(--safe-r))
+     max(5.25rem, calc(var(--safe-b) + 4.75rem));
+   }
+   .slide__inner,
+   .slide__inner--wide {
+    transform: none;
+    max-width: 100%;
+    width: 100%;
+    padding-bottom: 0.35rem;
+   }
+   .slide.active > .slide__inner { animation: none; }
+
+   h1 {
+    font-size: clamp(1.5rem, 7vw, 1.95rem);
+    margin-bottom: 0.55rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+   }
+   h2 {
+    font-size: clamp(1.2rem, 5.5vw, 1.45rem);
+    margin-bottom: 0.35rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+   }
+   .lede {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    max-width: none;
+   }
+   .eyebrow {
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.1em;
+    font-size: 0.66rem;
+   }
+   .hint {
+    font-size: 0.74rem;
+    margin-bottom: 0.15rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+   }
+   .meta { font-size: 0.72rem; }
+   .flow-tags { gap: 0.35rem; margin-top: 0.85rem; }
+   .chip { font-size: 0.68rem; padding: 0.3rem 0.6rem; }
+   .btn { width: 100%; height: 48px; font-size: 1rem; }
+   .btn-row { width: 100%; margin-top: 1.1rem; }
+
+   .chrome-top {
+    padding-left: max(0.85rem, var(--safe-l));
+    padding-right: max(0.85rem, var(--safe-r));
+   }
+   .chrome-counter { font-size: 0.68rem; }
+
+   .nav-btn {
+    width: 42px; height: 42px;
+    top: auto;
+    bottom: calc(var(--safe-b) + 3.35rem);
+    transform: none;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 4px 14px -6px rgba(5,31,19,0.28);
+   }
+   .nav-btn--prev { left: max(0.55rem, var(--safe-l)); }
+   .nav-btn--next { right: max(0.55rem, var(--safe-r)); }
+
+   .dots {
+    bottom: max(0.65rem, calc(var(--safe-b) + 0.45rem));
+    max-width: min(72vw, 16rem);
+    gap: 0.28rem;
+    padding: 0.28rem 0.45rem;
+   }
+   .dots__dot { width: 5px; height: 5px; }
+   .dots__dot.active { width: 16px; }
+
+   .rx-solo { margin-top: 0.65rem; max-width: 100%; }
+   .rx-flip,
+   .rx-flip__inner,
+   .rx-face { max-width: 100%; width: 100%; }
+   .rx-hero__head { padding: 0.65rem 0.85rem; gap: 0.35rem; }
+   .rx-badge { font-size: 0.6rem; padding: 0.18rem 0.4rem; }
+   .rx-priority { font-size: 0.62rem; padding: 0.18rem 0.4rem; }
+   .rx-hero__body { padding: 0.8rem 0.85rem 0.8rem; }
+   .rx-action {
+    font-size: 1rem;
+    line-height: 1.32;
+    margin-bottom: 0.7rem;
+    overflow-wrap: anywhere;
+   }
+   .rx-fields { gap: 0.42rem; }
+   .rx-row {
+    grid-template-columns: 64px 1fr;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    line-height: 1.38;
+   }
+   .rx-row dt { font-size: 0.62rem; }
+   /* Keep What / Why / How + Bill / Owner / Impact; hide Effort / Rule / Due */
+   .rx-row:nth-child(7),
+   .rx-row:nth-child(8),
+   .rx-row:nth-child(9) { display: none; }
+   .rx-flip-cue {
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    font-size: 0.68rem;
+   }
+   .rx-spark { height: 52px; margin-bottom: 0.45rem; }
+   .rx-ev-table { font-size: 0.66rem; min-width: 0; }
+   .rx-ev-table th, .rx-ev-table td { padding: 0.28rem 0.3rem; }
+   .rx-ev-table code { font-size: 0.6rem; }
+   .rx-cite { font-size: 0.66rem; padding: 0.45rem 0.5rem; }
+   .rx-mv { font-size: 0.68rem; }
+
+   .close-list { gap: 0.6rem; margin-top: 1rem; }
+   .close-list li {
+    font-size: 0.88rem;
+    padding: 0.75rem 0.85rem 0.75rem 1rem;
+   }
+
+   .slide, .slide__inner, h1, h2, .lede, .hint, .rx-action,
+   .rx-row dd, .rx-cite, .chip, .close-list li, .meta {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+   }
+   img, svg { max-width: 100%; height: auto; }
+   .rx-spark { height: 52px; }
+  }
+
+  @media (max-width: 380px) {
+   .slide {
+    padding-left: max(0.75rem, var(--safe-l));
+    padding-right: max(0.75rem, var(--safe-r));
+   }
+   .rx-row { grid-template-columns: 58px 1fr; font-size: 0.74rem; }
+   .rx-action { font-size: 0.95rem; }
+   .nav-btn { width: 38px; height: 38px; }
+   .dots { max-width: 64vw; }
+  }
+
+  @media (max-width: 720px) and (orientation: landscape) {
+   .slide {
+    padding-bottom: max(4.5rem, calc(var(--safe-b) + 3.75rem));
+   }
+   .nav-btn {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+   }
+   .rx-row:nth-child(n+6) { display: none; }
+  }
+  </style>
+</head>
+<body data-theme="light">
+ <div class="progress" aria-hidden="true"><div class="progress__fill" id="progressFill"></div></div>
+
+ <header class="chrome-top">
+  <a class="chrome-logo" id="chromeLogo" href="https://stamped.work" target="_blank" rel="noopener noreferrer" aria-label="Stamped Energy">
+   <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
+   <span class="wordmark">Stamped</span>
+  </a>
+  <span class="chrome-counter" id="sceneCounter">01 / 12</span>
+ </header>
+
+ <button type="button" class="nav-btn nav-btn--prev" id="btnPrev" aria-label="Previous slide" disabled>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+ </button>
+ <button type="button" class="nav-btn nav-btn--next" id="btnNext" aria-label="Next slide">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+ </button>
+ <nav class="dots" id="dots" aria-label="Slide navigation"></nav>
+
+ <main class="stage" id="stage">
+
+  <!-- 0 Title -->
+  <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
+   <div class="slide__inner">
+    <p class="eyebrow reveal">Client pack · sample numbers</p>
+    <h1 class="reveal">Ten clear floor actions that need live plant data.</h1>
+    <p class="lede reveal">Each card says what to do, why, how, who owns it, which bill line it hits, and the evidence behind it. Four work on most plants. Six are for steel, cement, pharma, or specific machines.</p>
+    <div class="flow-tags reveal">
+     <span class="chip">4 agnostic</span>
+     <span class="chip">6 plant / equipment</span>
+     <span class="chip">Flip for evidence</span>
+     <span class="chip">← → to navigate</span>
+    </div>
+    <div class="btn-row reveal">
+     <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
+    </div>
+    <p class="meta reveal">Click a card to flip. Arrow keys or space move between slides.</p>
+   </div>
+  </section>
+
+  <!-- 1 MD co-start -->
+  <section class="slide slide--light" id="scene-rx-1" data-theme="light" aria-label="Prescription 1">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">01 · Agnostic</p>
+    <h2 class="reveal">MD co-start stagger</h2>
+    <p class="hint reveal">The MD bill window is 15 minutes or less. You must see feeder overlap live.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Hold second large feeder start. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · MD coincidence</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Hold the second large feeder until the first settles. Usual stagger: 8-12 min</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>Release the second start only after the first load drops below its settle level (for example 95% of ramp), inside the open 15-min rolling MD window.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Two heavy feeders started in the same billing slot and stacked on the HT incomer. The monthly bill shows the peak later. It does not say which machines overlapped while the window was still open.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Spot co-start. Hold the second owner with settle level and minutes left. Release on settle or log override. Log accept/snooze for M&amp;V.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>MD (kVA)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Electrical / area supervisor · active shift</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹2.5-4.5L / month</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Sequence change · no new equipment</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>md_overlap@v2.4 · High</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>This week · before next peak week</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">MD window</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Signal window · Mon 07:10-07:22</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA</text>
+          <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,48 40,46 72,44 104,40 136,22 168,18 200,28 232,42 264,44 304,46"/>
+          <rect x="128" y="8" width="48" height="48" fill="rgba(247,84,64,0.12)" stroke="none"/>
+          <text x="152" y="58" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">overlap</text>
+          <line x1="8" y1="8" x2="8" y2="56" stroke="#e0e3df"/>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>HT_INCOMER.MD</code></td><td>1,180 kVA</td><td>07:14-07:18</td></tr>
+           <tr><td><code>FEEDER_A.RESTART</code></td><td>TRUE</td><td>07:12</td></tr>
+           <tr><td><code>FEEDER_B.START</code></td><td>ON</td><td>07:14+</td></tr>
+           <tr><td><code>AUX_BANK.RUN</code></td><td>ON</td><td>07:13+</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/md_overlap@v2.4</strong> · model conf 0.91 · tariff MD slab · baseline Apr peak week</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 2 ToD -->
+  <section class="slide slide--light" id="scene-rx-2" data-theme="light" aria-label="Prescription 2">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">02 · Agnostic</p>
+    <h2 class="reveal">ToD peak load shift</h2>
+    <p class="hint reveal">Tariff clock + process ready decide today’s move. A fixed night-shift plan is not enough.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Shift pause-able loads off peak ToD. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · ToD shift</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Move pause-able loads off the peak tariff block when the process allows</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>Shift non-critical / pause-able loads into shoulder or off-peak in the same shift, only when process and quality rules allow.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>The plant is buying peak-rate power while pause-able loads are still on and the process is fine. A monthly average cannot give a same-shift protect list.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>At peak start (or 15 min before), list pause-able loads. Send ranked cut/shift with ₹/kWh savings. Supervisor accepts or protects named loads. Bring them back when peak ends.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>ToD energy (₹/kWh peak)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Electrical lead · Shift A</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹0.9-1.8L / month</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Dispatch nudge · SOP protect-list</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>tod_interruptible@v1.6 · High</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next peak tariff window</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Peak block</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Peak block · 18:00-22:00</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kW import</text>
+          <rect x="20" y="30" width="50" height="26" fill="rgba(0,102,107,0.35)"/>
+          <rect x="80" y="22" width="50" height="34" fill="rgba(247,84,64,0.55)"/>
+          <rect x="140" y="18" width="50" height="38" fill="rgba(247,84,64,0.75)"/>
+          <rect x="200" y="24" width="50" height="32" fill="rgba(247,84,64,0.6)"/>
+          <rect x="260" y="34" width="40" height="22" fill="rgba(0,102,107,0.35)"/>
+          <text x="165" y="14" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">peak · 480 kW pause-able</text>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>TARIFF.TOD_BLOCK</code></td><td>PEAK</td><td>18:00-22:00</td></tr>
+           <tr><td><code>HT_INCOMER.kW</code></td><td>3,420 kW</td><td>18:22</td></tr>
+           <tr><td><code>LOAD.INTERRUPTIBLE_kW</code></td><td>480 kW</td><td>same</td></tr>
+           <tr><td><code>PROC.READY_SCORE</code></td><td>0.82</td><td>18:20</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/tod_shift@v1.6</strong> · model conf 0.88 · DISCOM ToD schedule · baseline last 4 peak weeks</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 3 Idle aux -->
+  <section class="slide slide--light" id="scene-rx-3" data-theme="light" aria-label="Prescription 3">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">03 · Agnostic</p>
+    <h2 class="reveal">Idle auxiliary cut</h2>
+    <p class="hint reveal">Idle waste is time × kW. Monthly totals hide the event.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Cut auxiliaries when production is idle. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Idle auxiliaries</span>
+         <span class="rx-priority rx-priority--med">Priority · Med-High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Switch off tagged auxiliaries when main production is zero for N minutes</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>After a plant-set idle (often 15-30 min) with production = 0, cut conveyors, idle pumps, and non-critical fans. Restart them when production comes back.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Auxiliaries stay on during idle because production count and machine kW are never watched together in time. Month-end energy looks “a bit high,” but the floor never gets a timed cut.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Confirm production = 0 for N min and aux still drawing. Send cut list with restart rule. Protect safety/quality loads. Add up avoided kWh for the billing cycle.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Area supervisor · owning process</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹1.0-2.2L / month</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Idle SOP · no new equipment</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>idle_aux@v1.9 · High</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next idle window of N min or more</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Idle kWh</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Last 5 idle events · aux still online</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">aux kWh / event</text>
+          <rect x="24" y="28" width="36" height="28" fill="rgba(0,102,107,0.55)"/>
+          <rect x="76" y="36" width="36" height="20" fill="rgba(0,102,107,0.35)"/>
+          <rect x="128" y="22" width="36" height="34" fill="rgba(0,102,107,0.7)"/>
+          <rect x="180" y="40" width="36" height="16" fill="rgba(0,102,107,0.3)"/>
+          <rect x="232" y="20" width="36" height="36" fill="rgba(0,102,107,0.75)"/>
+          <text x="160" y="14" text-anchor="middle" fill="#00666b" font-size="7" font-family="Inter" font-weight="700">prod = 0 · aux ON</text>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>PROC.COUNT</code></td><td>0</td><td>22+ min avg</td></tr>
+           <tr><td><code>AUX_CONV.kW</code></td><td>38 kW</td><td>same</td></tr>
+           <tr><td><code>AUX_FAN.RUN</code></td><td>ON</td><td>same</td></tr>
+           <tr><td><code>IDLE.FLAG</code></td><td>TRUE</td><td>planned / unplanned</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/idle_aux@v1.9</strong> · model conf 0.86 · flat/ToD energy · baseline last 5 idles</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 4 CMD soft-landing -->
+  <section class="slide slide--light" id="scene-rx-4" data-theme="light" aria-label="Prescription 4">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">04 · Agnostic</p>
+    <h2 class="reveal">Contract demand soft-landing</h2>
+    <p class="hint reveal">CMD risk is decided inside one rolling window. Alarms alone are not a soft-hold list.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Soft-land rolling MD before CMD breach. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · CMD headroom</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Hold soft loads when rolling MD enters the CMD headroom band</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>When projected window-end MD enters about 5-8% of CMD, delay starts and soft-hold lowest-risk loads before the 15-min window locks. This is not an emergency trip.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Plants often see breaches on the bill, or only at 98% with minutes left. Soft-landing needs the MD trend plus a ranked list of loads you can hold while headroom still exists.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Estimate window-end MD and pending starts. If in the headroom band, issue ranked soft holds. Block new deferrable starts. Record near-miss vs breach.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>MD (kVA) + CMD / penalty risk</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Electrical lead · plant head on breach path</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹1.5-5.0L / event</strong> avoided · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Soft-hold SOP · protect critical path</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>cmd_headroom@v1.3 · Critical</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Live · inside open MD window</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">Open MD window</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Rolling MD trend · T+6 of 15 min</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA vs CMD</text>
+          <line x1="8" y1="18" x2="304" y2="18" stroke="#F75440" stroke-dasharray="4 3" stroke-width="1"/>
+          <text x="280" y="16" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">CMD</text>
+          <polyline fill="none" stroke="#00666b" stroke-width="2" points="8,50 50,46 100,42 150,36 200,28 250,22 300,16"/>
+          <circle cx="250" cy="22" r="4" fill="#F75440"/>
+          <text x="160" y="60" text-anchor="middle" fill="#5a403c" font-size="7" font-family="Inter">5.6% headroom · 2 starts pending</text>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>HT_INCOMER.MD_ROLL</code></td><td>4,720 kVA</td><td>T+6 min</td></tr>
+           <tr><td><code>CMD.LIMIT</code></td><td>5,000 kVA</td><td>contract</td></tr>
+           <tr><td><code>MD.HEADROOM_PCT</code></td><td>5.6%</td><td>live</td></tr>
+           <tr><td><code>STARTS.PENDING</code></td><td>2 deferrable</td><td>queued</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/cmd_softland@v1.3</strong> · model conf 0.90 · CMD contract · baseline peak weeks</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 5 Steel furnace -->
+  <section class="slide slide--light" id="scene-rx-5" data-theme="light" aria-label="Prescription 5">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">05 · Steel · melt shop</p>
+    <h2 class="reveal">Furnace holding cut on delay</h2>
+    <p class="hint reveal">Delay flags live in production. Furnace kW lives in EMS. Join them in time.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Cut furnace holding on long delays. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Idle / holding</span>
+         <span class="rx-priority rx-priority--med">Priority · Med-High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Cut furnace holding on cast/roll delays longer than 30 minutes</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>On a planned cast or roll delay over 30 min, run the melt-shop holding SOP (controlled ramp to hold-safe). Do not leave full holding kW with zero heats.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Holding power with no cast or roll on 3 of the last 5 delay events burned kWh you did not need. A post-shift report cannot get that energy back.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Detect delay over 30 min with cast/roll = 0. Confirm HOLD and kW above cut level. Tell supervisor with restart lead time. Check event kWh vs normal hold profile.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Melt-shop supervisor · Furnace 2</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹1.0-1.8L / month</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Holding SOP · no new equipment</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>idle_hold@v1.8 · High</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next delay window over 30 min</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Idle kWh</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Delay / holding windows · last 5 events</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kWh hold</text>
+          <rect x="24" y="28" width="36" height="28" fill="rgba(0,102,107,0.55)"/>
+          <rect x="76" y="36" width="36" height="20" fill="rgba(0,102,107,0.35)"/>
+          <rect x="128" y="22" width="36" height="34" fill="rgba(0,102,107,0.7)"/>
+          <rect x="180" y="40" width="36" height="16" fill="rgba(0,102,107,0.3)"/>
+          <rect x="232" y="20" width="36" height="36" fill="rgba(0,102,107,0.75)"/>
+          <text x="160" y="14" text-anchor="middle" fill="#00666b" font-size="7" font-family="Inter" font-weight="700">3 / 5 waste events</text>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>FURNACE2.HOLD</code></td><td>ON</td><td>35 min avg</td></tr>
+           <tr><td><code>CAST.PROD</code></td><td>0 heats</td><td>same window</td></tr>
+           <tr><td><code>FURNACE2.kWh</code></td><td>~180 kWh</td><td>per event</td></tr>
+           <tr><td><code>DELAY.FLAG</code></td><td>TRUE</td><td>planned</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/idle_hold@v1.8</strong> · model conf 0.87 · ToD energy · baseline last 5 delays</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 6 Cement -->
+  <section class="slide slide--light" id="scene-rx-6" data-theme="light" aria-label="Prescription 6">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">06 · Cement · pyro + grinding</p>
+    <h2 class="reveal">Kiln + mill stagger / prefer WHR</h2>
+    <p class="hint reveal">Watch kiln, mill, WHR, and incomer live together. Do not treat them as four separate screens.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Stagger kiln and mill; prefer WHR. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · MD + WHR</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Stagger Kiln 1 and Raw Mill 2 by about 10 min. Prefer WHR over peak grid</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>Hold mill start until kiln load settles (for example under 95% of design) or 10 min pass with MD headroom. When WHR is available in a peak window, prefer WHR before starting grind load that can wait.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Starting together in the TOD peak pushed rolling MD toward CMD while WHR sat under-used. Preferring WHR after the peak block ends does not fix the bill line that already locked.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>On kiln ramp, hold the mill. If WHR is available and peak import is high, prefer WHR. Release the mill when MD trend allows. Close on MD + peak import vs locked week.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>MD (kVA) + peak grid energy</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>CCR / pyro supervisor · Shift B</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹84k / mo MD</strong> + peak energy · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Sequence + dispatch · no new equipment</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>md_overlap@v2.4 · whr_prefer@v1.2</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>This week · before next peak</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">MD + WHR</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Co-start window · Tue 09:40 IST</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA</text>
+          <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,50 40,48 80,44 120,30 160,18 200,20 240,28 280,36 304,40"/>
+          <rect x="110" y="8" width="60" height="48" fill="rgba(247,84,64,0.12)"/>
+          <text x="140" y="58" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">kiln+mill</text>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>KILN1.LOAD_PCT</code></td><td>108%</td><td>09:40</td></tr>
+           <tr><td><code>RAWMILL2.START</code></td><td>ON</td><td>09:40 co-start</td></tr>
+           <tr><td><code>HT_INCOMER.MD</code></td><td>4,680 kVA</td><td>rolling 15-min</td></tr>
+           <tr><td><code>WHR.AVAIL_kW</code></td><td>1,100 under-used</td><td>same</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/md_overlap@v2.4</strong> · whr_prefer@v1.2 · conf 0.89 · TOD + MD · baseline peak week</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 7 Pharma HVAC -->
+  <section class="slide slide--light" id="scene-rx-7" data-theme="light" aria-label="Prescription 7">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">07 · Pharma · batch utilities</p>
+    <h2 class="reveal">HVAC idle-duty drop</h2>
+    <p class="hint reveal">Use setback set-points from the approved SOP list only. No free-text changes.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Drop HVAC duty when batch is idle. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · HVAC idle duty</span>
+         <span class="rx-priority rx-priority--med">Priority · Med</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Drop HVAC from full duty to setback when the batch area is idle</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>When occupancy / batch demand is idle for a set window and temp/RH stay in the validated band, move to approved setback set-points (temp/RH/ACH).</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Full HVAC runs across empty batch blocks. Energy dashboards show high HVAC kWh. They do not give a timed, zone-specific setback with an owner.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Confirm idle and env in band. Propose setback from the SOP list. Utilities lead accepts. Auto-revert on batch start or env alarm. Add up kWh vs full duty.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities / HVAC lead · Block C</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹0.8-1.6L / month</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Validated setback SOP · no new equipment</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>hvac_idle_duty@v1.4 · Med</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next confirmed idle batch window</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Idle HVAC</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Last 6 idle windows · duty still FULL</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">HVAC kW</text>
+          <rect x="28" y="20" width="32" height="36" fill="rgba(247,84,64,0.55)"/>
+          <rect x="72" y="34" width="32" height="22" fill="rgba(0,102,107,0.4)"/>
+          <rect x="116" y="18" width="32" height="38" fill="rgba(247,84,64,0.65)"/>
+          <rect x="160" y="36" width="32" height="20" fill="rgba(0,102,107,0.35)"/>
+          <rect x="204" y="16" width="32" height="40" fill="rgba(247,84,64,0.7)"/>
+          <rect x="248" y="32" width="32" height="24" fill="rgba(0,102,107,0.4)"/>
+          <text x="160" y="12" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">4 / 6 full-duty idle</text>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>BATCH.OCCUPANCY</code></td><td>0</td><td>4 / 6 windows</td></tr>
+           <tr><td><code>HVAC.DUTY</code></td><td>FULL</td><td>same</td></tr>
+           <tr><td><code>ZONE.TEMP_RH</code></td><td>in band</td><td>continuous</td></tr>
+           <tr><td><code>HVAC.kW</code></td><td>+42 kW vs setback</td><td>per idle hour</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/hvac_idle@v1.4</strong> · model conf 0.84 · energy tariff · validated env envelope</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 8 Compressors -->
+  <section class="slide slide--light" id="scene-rx-8" data-theme="light" aria-label="Prescription 8">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">08 · Equipment · compressors</p>
+    <h2 class="reveal">Multi-unit sequencing</h2>
+    <p class="hint reveal">You need header pressure plus three power readings. Monthly compressor kWh is not enough.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Sequence compressors to two units. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Compressor sequence</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Keep two of three 75 kW VFDs online. Stop the third at part-load</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>When header stays in 6.5-7.3 bar with three units ON for 10+ min, stop or unload the lowest-loaded machine. Keep Lag armed (+30 s).</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Three machines at partial load when two would have met demand. About 130 MWh/year avoidable. Habit keeps all three on “to avoid dips.”</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Detect three ON with header in band. Pick the lowest-loaded unit. Stop or unload under watch. Alarm if three ON returns. Optional later: sequencer + receiver after the trial is stable.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh) + peak kW</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities supervisor · compressor house</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹9.0-12.5L / year</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Sequencing SOP · optional sequencer later</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>comp_sequence@v2.1 · High</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>This week · supervised trial</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">Header band</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Event snapshot · 06:30 IST · three at part-load</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kW / unit</text>
+          <rect x="40" y="28" width="50" height="28" fill="rgba(0,102,107,0.5)"/>
+          <text x="65" y="48" text-anchor="middle" fill="#fff" font-size="8" font-family="Inter">43</text>
+          <rect x="120" y="20" width="50" height="36" fill="rgba(0,102,107,0.65)"/>
+          <text x="145" y="48" text-anchor="middle" fill="#fff" font-size="8" font-family="Inter">54</text>
+          <rect x="200" y="12" width="50" height="44" fill="rgba(247,84,64,0.7)"/>
+          <text x="225" y="48" text-anchor="middle" fill="#fff" font-size="8" font-family="Inter">68</text>
+          <text x="160" y="10" text-anchor="middle" fill="#5a403c" font-size="7" font-family="Inter">combined 165 kW · band OK</text>
+          <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>COMP1.kW</code></td><td>43 (57%)</td><td>part-load</td></tr>
+           <tr><td><code>COMP2.kW</code></td><td>54 (72%)</td><td>part-load</td></tr>
+           <tr><td><code>COMP3.kW</code></td><td>68 (91%)</td><td>near loaded</td></tr>
+           <tr><td><code>HEADER.BAR</code></td><td>6.9 in band</td><td>same</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/comp_sequence@v2.1</strong> · model conf 0.92 · energy + peak kW · baseline 30-day profile</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 9 Chillers -->
+  <section class="slide slide--light" id="scene-rx-9" data-theme="light" aria-label="Prescription 9">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">09 · Equipment · chillers</p>
+    <h2 class="reveal">Approach / condenser waste</h2>
+    <p class="hint reveal">Live approach vs outdoor air flags the week to clean. Calendar cleaning is often too late or too early.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Clean condenser; restore approach. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Chiller approach</span>
+         <span class="rx-priority rx-priority--med">Priority · Med-High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Clean condenser and check tower fans before efficiency drops further</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>When approach and condenser rise vs outdoor air go past band, clean and check fan staging. Time the job from live readings.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Fouling shows as slow efficiency drift. Operators see “chiller busy.” Energy teams see higher kWh per TR weeks later. Live approach flags the week to act.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Flag approach/rise above band for X hours or more while load is above Y%. Send clean + fan-stage check. Re-check kW per TR. Lock seasonal baseline.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities / HVAC · chiller plant</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹1.2-2.5L / month</strong> when fouling is real · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Cleaning + fan staging · scheduled window</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>chiller_approach@v1.5 · High</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next maintenance window within 7 days</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">14-day drift</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Approach vs design · 14-day window</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">approach °C</text>
+          <line x1="8" y1="40" x2="304" y2="40" stroke="#00666b" stroke-dasharray="3 3"/>
+          <text x="260" y="38" fill="#00666b" font-size="7" font-family="Inter">design</text>
+          <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 50,40 100,36 150,30 200,24 250,18 304,14"/>
+          <text x="160" y="58" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">+2.1 °C · +12% kW/TR</text>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>CHILLER1.APPROACH_C</code></td><td>+2.1 vs design</td><td>14-day</td></tr>
+           <tr><td><code>COND.DTdw</code></td><td>high vs ambient</td><td>same</td></tr>
+           <tr><td><code>CHILLER1.kW_per_TR</code></td><td>+12%</td><td>vs baseline</td></tr>
+           <tr><td><code>CT.FAN_STAGES</code></td><td>under-staged</td><td>peak hours</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/chiller_approach@v1.5</strong> · model conf 0.85 · energy · seasonal baseline</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 10 Pumps -->
+  <section class="slide slide--light" id="scene-rx-10" data-theme="light" aria-label="Prescription 10">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">10 · Equipment · pumps</p>
+    <h2 class="reveal">Overpressure recirculation trim</h2>
+    <p class="hint reveal">High pressure + open bypass + low demand lasts a short time. End-of-shift logs often miss it.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Trim VFD or close bypass on recirculation. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Pump recirculation</span>
+         <span class="rx-priority rx-priority--med">Priority · Med</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Trim VFD set-point or close bypass when the pump is wasting power</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>What</dt><dd>When header pressure is high, bypass is open, and process demand is low, trim VFD set-point or close bypass. Keep min-flow protect for critical users.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Pumps run hard against an open bypass. Power stays high while useful flow is low. One ammeter does not show the bypass + low demand mismatch. Watching several tags together does.</dd></div>
+          <div class="rx-row"><dt>How</dt><dd>Detect high header + bypass open + low demand for N min or more. Propose VFD trim or bypass close per SOP. Do it under watch. Measure kWh at the same delivered volume.</dd></div>
+          <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh)</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Area / utilities supervisor · pump skid</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹0.6-1.4L / month</strong> · sample</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Set-point / bypass SOP · no new equipment</dd></div>
+          <div class="rx-row"><dt>Rule</dt><dd>pump_recirc@v1.1 · Med</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next confirmed overpressure window</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Overpressure</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Overpressure + bypass window · 42 min</p>
+         <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+          <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">header bar / kW</text>
+          <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,40 40,36 80,28 120,22 160,18 200,20 240,24 280,30 304,34"/>
+          <polyline fill="none" stroke="#00666b" stroke-width="2" points="8,50 40,48 80,46 120,44 160,42 200,40 240,38 280,36 304,35"/>
+          <text x="160" y="58" text-anchor="middle" fill="#5a403c" font-size="7" font-family="Inter">pressure high · bypass OPEN · demand low</text>
+         </svg>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>PUMP_A.HEADER_BAR</code></td><td>high vs set-point</td><td>42 min</td></tr>
+           <tr><td><code>BYPASS.POS</code></td><td>OPEN</td><td>same</td></tr>
+           <tr><td><code>PROC.DEMAND</code></td><td>low</td><td>same</td></tr>
+           <tr><td><code>PUMP_A.kW</code></td><td>+18% vs trimmed</td><td>same</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>physics/pump_recirc@v1.1</strong> · model conf 0.83 · energy · skid baseline</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- Close -->
+  <section class="slide slide--light grid-bg" id="scene-close" data-theme="light" aria-label="How to use">
+   <div class="slide__inner">
+    <p class="eyebrow reveal">How to use with a client</p>
+    <h2 class="reveal">One agnostic. One that matches their plant.</h2>
+    <p class="lede reveal">Walk What → Why → How, then flip for evidence. That is the “only with live data” moment. Stress owner, bill line, and M&amp;V lock. Do not lead with a vague savings claim.</p>
+    <ol class="close-list reveal">
+     <li><strong>Pick two.</strong> One agnostic (MD, ToD, idle, CMD) and one plant or equipment example that maps to their site.</li>
+     <li><strong>Flip the card.</strong> Tags + window + cite show why a monthly bill or single meter cannot issue this in time.</li>
+     <li><strong>Say the caveat.</strong> Figures are samples. A live audit binds tags, tariff, and baseline to <em>their</em> plant.</li>
+    </ol>
+    <p class="meta reveal">Markdown twin · prescriptions-examples.md · stamped.work</p>
+   </div>
+  </section>
+
+ </main>
+
+ <script>
+  (function () {
+   const slides = Array.from(document.querySelectorAll(".slide"));
+   const total = slides.length;
+   const progressFill = document.getElementById("progressFill");
+   const counter = document.getElementById("sceneCounter");
+   const btnPrev = document.getElementById("btnPrev");
+   const btnNext = document.getElementById("btnNext");
+   const btnBegin = document.getElementById("btnBegin");
+   const dotsNav = document.getElementById("dots");
+   const chromeLogo = document.getElementById("chromeLogo");
+
+   let index = 0;
+   let touchX = null;
+   let touchY = null;
+
+   function onLogoFail(img) {
+    if (chromeLogo) chromeLogo.classList.add("fallback");
+    if (img) img.style.display = "none";
+   }
+   var logoImg = document.getElementById("chromeLogoImg");
+   if (logoImg) {
+    logoImg.addEventListener("error", function () { onLogoFail(logoImg); });
+    if (logoImg.complete && logoImg.naturalWidth === 0) onLogoFail(logoImg);
+   }
+
+   slides.forEach(function (_, i) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "dots__dot" + (i === 0 ? " active" : "");
+    b.setAttribute("aria-label", "Go to slide " + (i + 1));
+    b.addEventListener("click", function () { goTo(i); });
+    dotsNav.appendChild(b);
+   });
+   const dots = Array.from(dotsNav.querySelectorAll(".dots__dot"));
+
+   function pad(n) { return String(n).padStart(2, "0"); }
+
+   function resetRxFlips(root) {
+    if (!root) return;
+    root.querySelectorAll("[data-rx-flip].is-flipped").forEach(function (card) {
+     card.classList.remove("is-flipped");
+     card.setAttribute("aria-pressed", "false");
+     var label = card.getAttribute("aria-label") || "";
+     card.setAttribute("aria-label", label.replace("Hide evidence.", "Show evidence."));
+    });
+   }
+
+   function goTo(i, force) {
+    if (i < 0 || i >= total) return;
+    if (i === index && !force) return;
+
+    const prev = slides[index];
+    if (prev !== slides[i]) {
+     resetRxFlips(prev);
+     prev.classList.remove("active");
+     prev.querySelectorAll(".reveal").forEach(function (el) {
+      el.style.animation = "none";
+      void el.offsetWidth;
+      el.style.animation = "";
+     });
+    }
+
+    index = i;
+    const slide = slides[index];
+    slide.classList.add("active");
+    slide.scrollTop = 0;
+    document.body.setAttribute("data-theme", "light");
+
+    progressFill.style.width = ((index + 1) / total * 100) + "%";
+    counter.textContent = pad(index + 1) + " / " + pad(total);
+
+        dots.forEach(function (d, di) {
+          d.classList.toggle("active", di === index);
+          if (di === index) d.setAttribute("aria-current", "true");
+          else d.removeAttribute("aria-current");
+        });
+
+    btnPrev.disabled = index === 0;
+    btnNext.disabled = index === total - 1;
+   }
+
+   document.querySelectorAll("[data-rx-flip]").forEach(function (card) {
+    card.addEventListener("click", function () {
+     var flipped = card.classList.toggle("is-flipped");
+     card.setAttribute("aria-pressed", flipped ? "true" : "false");
+     var base = (card.getAttribute("aria-label") || "").replace(/\s*(Show|Hide) evidence\./, "");
+     card.setAttribute("aria-label", base + (flipped ? " Hide evidence." : " Show evidence."));
+    });
+   });
+
+   function next() { goTo(Math.min(index + 1, total - 1)); }
+   function prev() { goTo(Math.max(index - 1, 0)); }
+
+   btnPrev.addEventListener("click", prev);
+   btnNext.addEventListener("click", next);
+   if (btnBegin) btnBegin.addEventListener("click", next);
+
+   document.addEventListener("keydown", function (e) {
+    const tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    if (e.target && e.target.isContentEditable) return;
+    if (tag === "BUTTON" && e.target.hasAttribute("data-rx-flip")) {
+     if (e.key === "Escape" && e.target.classList.contains("is-flipped")) {
+      e.preventDefault();
+      e.target.click();
+      return;
+     }
+     if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+      e.preventDefault();
+      next();
+      return;
+     }
+     if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      e.preventDefault();
+      prev();
+      return;
+     }
+     return;
+    }
+    if (tag === "BUTTON") return;
+
+    switch (e.key) {
+     case "ArrowRight":
+     case " ":
+     case "PageDown":
+      e.preventDefault();
+      next();
+      break;
+     case "ArrowLeft":
+     case "PageUp":
+      e.preventDefault();
+      prev();
+      break;
+     case "Home":
+      e.preventDefault();
+      goTo(0);
+      break;
+     case "End":
+      e.preventDefault();
+      goTo(total - 1);
+      break;
+     default:
+      if (e.key >= "1" && e.key <= "9") {
+       const n = parseInt(e.key, 10) - 1;
+       if (n < total) { e.preventDefault(); goTo(n); }
+      }
+    }
+   });
+
+   const stage = document.getElementById("stage");
+   stage.addEventListener("touchstart", function (e) {
+    if (!e.changedTouches || !e.changedTouches[0]) return;
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+   }, { passive: true });
+   stage.addEventListener("touchend", function (e) {
+    if (touchX == null || touchY == null || !e.changedTouches || !e.changedTouches[0]) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    touchX = null;
+    touchY = null;
+    if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) next(); else prev();
+   }, { passive: true });
+
+   function slideIndexFromHash() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id) return -1;
+    return slides.findIndex(function (s) { return s.id === id; });
+   }
+
+   var fromHash = slideIndexFromHash();
+   goTo(fromHash >= 0 ? fromHash : 0, true);
+  })();
+ </script>
+</body>
+</html>
