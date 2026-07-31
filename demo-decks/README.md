@@ -8,11 +8,13 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [cement.html](./cement.html) | Cement: kiln, mills, WHR |
 | [steel.html](./steel.html) | Steel: furnace, rolling mill |
 | [pharma.html](./pharma.html) | Pharma: load management, HVAC, chillers |
+| [prescriptions-examples.html](./prescriptions-examples.html) | 10 sample prescriptions (flip cards; client pack) |
+| [prescriptions-examples.md](./prescriptions-examples.md) | Markdown twin of the sample prescriptions |
 | [pharma/](./pharma/) | Pharma Vercel deploy root (`index.html`; `vercel --prod`) |
 | [clients/](./clients/) | Client deck picker + OEM / Lohia walkthroughs (linked from hub) |
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
 | [assets/](./assets/) | Industry and client hero photos |
-| [/index.html](../index.html) | Same hub at repo root for GitHub Pages |
+| [../project/index.html](../project/index.html) | Same hub under `/project/` on GitHub Pages |
 
 ### Client decks
 
@@ -60,7 +62,15 @@ python3 scripts/build-client-decks.py   # private OEM + Lohia brief
 python3 scripts/check-client-decks.py
 ```
 
-**GitHub Pages:** enable Pages from the repo root so `/` serves the hub and `/demo-decks/*.html` serves each deck.
+**GitHub Pages** (`Stamped-Energy/stamped-external`, branch `main`, path `/`):
+
+| URL | Serves |
+|-----|--------|
+| https://stamped-energy.github.io/stamped-external/demo-decks/ | Industry hub (picker) |
+| https://stamped-energy.github.io/stamped-external/demo-decks/prescriptions-examples.html | Sample prescriptions deck |
+| https://stamped-energy.github.io/stamped-external/project/ | Same hub via `project/index.html` |
+
+Static HTML under `demo-decks/` and `project/` deploys automatically when merged to `main`. No extra workflow step.
 
 **Vercel (pharma only):** deploy the standalone folder:
 
