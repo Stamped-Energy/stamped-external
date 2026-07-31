@@ -1,5 +1,10 @@
 # Changelog — stamped-l1-contracts
 
+## 0.10.1 — 2026-07-31
+
+- Extend `workflow-event.json` `event_type`: `negotiation_started`, `revision_proposed`, `revised`, `negotiation_rejected` (ADR-024 negotiation lifecycle)
+- Extend `workflow-event.json` `reason_code`: `order_deadline`, `ops_challenge`, `not_real`, `other`
+
 ## 0.10.0 — 2026-07-30
 
 - Add `production-order.json` v1.0.0 — ERP/MES/MES-lite order context (ADR-024)

@@ -45,7 +45,11 @@
         "alarm_acked",
         "alarm_cleared",
         "ops_verified",
-        "ops_regressed"
+        "ops_regressed",
+        "negotiation_started",
+        "revision_proposed",
+        "revised",
+        "negotiation_rejected"
       ]
     },
     "from_status": {
@@ -90,7 +94,11 @@
         "already_fixed",
         "disagree_diagnosis",
         "safety_quality_risk",
-        "no_response"
+        "no_response",
+        "order_deadline",
+        "ops_challenge",
+        "not_real",
+        "other"
       ]
     },
     "channel": {
