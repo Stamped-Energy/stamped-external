@@ -504,6 +504,14 @@ def build_forge_ht(mod, base: str) -> str:
     html = inject_two_pillars_scene(html, TWO_PILLARS)
     html = patch_what_loop(html, WHAT_LOOP_HTML)
     html = patch_offer_brief(html, OFFER_PATCH)
+    # Offer slide: keep eyebrow/h2/table; drop lede paragraphs when pack lede is blank
+    html = re.sub(
+        r'\s*<p class="lede reveal[^"]*" id="offerLede[DM]"[^>]*>.*?</p>',
+        "",
+        html,
+        count=2,
+        flags=re.S,
+    )
     for old, new in HEADING_PATCHES:
         if old not in html:
             # allow already-patched verify heading

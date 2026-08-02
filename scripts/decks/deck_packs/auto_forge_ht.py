@@ -215,7 +215,7 @@ TWO_PILLARS = {
 OFFER_PATCH = {
     "eyebrow": "Scoped proof",
     "h2": "How a 60-day proof works",
-    "lede": "Connect read-only to meters you already have. Pick one boundary (forge and HT, compressors, or a die-cast cell). Floor executes ranked actions. Go or no-go on verified outcomes.",
+    "lede": "",
     "rows": [
         (
             "Connect",
