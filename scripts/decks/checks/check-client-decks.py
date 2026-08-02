@@ -5,18 +5,24 @@ from __future__ import annotations
 import http.server
 import re
 import socketserver
+import tempfile
 import threading
 from functools import partial
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
-ROOT = Path(__file__).resolve().parents[1]
-OUT = Path("/tmp/client-deck-audit")
+# external/scripts/decks/checks → stamped-external root
+ROOT = Path(__file__).resolve().parents[3]
+OUT = Path(tempfile.gettempdir()) / "client-deck-audit"
 FORBIDDEN = re.compile(r"lohia|chaubepur|vijay|panki|peenya|lohiagroup", re.I)
+FORBIDDEN_LNM = re.compile(
+    r"\blnm\b|lnmauto|divyansh|sandeep\s+mall|sector\s*59|faridabad", re.I
+)
 
 FULL = "demo-decks/clients/machinery-oem.html"
 BRIEF = "demo-decks/clients/lohia-corp-brief.html"
+FORGE = "demo-decks/clients/auto-forge-ht.html"
 
 FULL_PREFIX = [
     "scene-title",
@@ -38,6 +44,17 @@ BRIEF_PREFIX = [
     "scene-floor",
     "scene-verify",
     "scene-vs-audit",
+    "scene-offer",
+]
+FORGE_PREFIX = [
+    "scene-title",
+    "scene-hook",
+    "scene-two-pillars",
+    "scene-math",
+    "scene-what",
+    "scene-prescription",
+    "scene-floor",
+    "scene-verify",
     "scene-offer",
 ]
 
@@ -79,6 +96,12 @@ def file_gate() -> list[str]:
     issues: list[str] = []
     full = (ROOT / FULL).read_text(encoding="utf-8")
     brief = (ROOT / BRIEF).read_text(encoding="utf-8")
+    forge_path = ROOT / FORGE
+    if not forge_path.is_file():
+        issues.append(f"missing {FORGE}")
+        forge = ""
+    else:
+        forge = forge_path.read_text(encoding="utf-8")
     hub = (ROOT / "demo-decks/index.html").read_text(encoding="utf-8")
     root_hub = (ROOT / "index.html").read_text(encoding="utf-8")
     clients_hub = ROOT / "demo-decks/clients/index.html"
@@ -88,6 +111,8 @@ def file_gate() -> list[str]:
         ch = clients_hub.read_text(encoding="utf-8")
         if "lohia-corp-brief.html" not in ch or "machinery-oem.html" not in ch:
             issues.append("clients hub missing deck links")
+        if "auto-forge-ht.html" not in ch:
+            issues.append("clients hub missing auto-forge-ht.html link")
     if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
         issues.append("demo-decks hub missing Clients link")
     if "demo-decks/clients/" not in root_hub:
@@ -165,11 +190,30 @@ def file_gate() -> list[str]:
         issues.append("client deck still uses AI-ish audit contrast phrasing")
     if "Signals become work orders" in brief or "On the supervisor's phone." in brief:
         issues.append("brief still has punchy shared-base headings")
+    if forge:
+        lnm_hits = sorted(set(FORBIDDEN_LNM.findall(forge)))
+        if lnm_hits:
+            issues.append(f"forge-HT naming gate failed: {lnm_hits}")
+        if 'id="scene-two-pillars"' not in forge:
+            issues.append("forge-HT missing scene-two-pillars")
+        if "Improve" not in forge:
+            issues.append("forge-HT missing Improve loop step")
+        if "Verified with evidence" not in forge:
+            issues.append("forge-HT missing verified-with-evidence framing")
+        if "Load and energy" not in forge and "energy efficiency" not in forge.lower():
+            issues.append("forge-HT missing energy pillar framing")
+        if "equipment" not in forge.lower():
+            issues.append("forge-HT missing equipment pillar framing")
+        if "Signals become work orders" in forge or "On the supervisor's phone." in forge:
+            issues.append("forge-HT still has punchy shared-base headings")
+        if 'src="assets/auto-forge-ht/steel-hero.jpg"' not in forge:
+            issues.append("forge-HT hero src should be clients-local assets/auto-forge-ht/...")
     # Co-located assets must resolve next to the HTML
     for rel in (
         "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
         "demo-decks/clients/assets/lohia-corp/tape-extrusion.jpg",
         "demo-decks/clients/assets/lohia-corp/lohia-logo.svg",
+        "demo-decks/clients/assets/auto-forge-ht/steel-hero.jpg",
     ):
         if not (ROOT / rel).is_file():
             issues.append(f"missing co-located asset: {rel}")
@@ -178,7 +222,9 @@ def file_gate() -> list[str]:
     if 'src="assets/lohia-corp/tape-extrusion.jpg"' not in brief:
         issues.append("brief hero src should be clients-local assets/...")
     # no em dash / en dash in user-facing copy
-    for label, html in (("full", full), ("brief", brief)):
+    for label, html in (("full", full), ("brief", brief), ("forge", forge)):
+        if not html:
+            continue
         body = re.sub(r"<style[\s\S]*?</style>", "", html)
         body = re.sub(r"<script[\s\S]*?</script>", "", body)
         if re.search(r"[—–]", body):
@@ -267,6 +313,22 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
         if "Stamped" not in body:
             issues.append(f"{label}: vs-audit slide missing Stamped side")
 
+    if deck.endswith("auto-forge-ht.html") and "scene-two-pillars" in slides:
+        go_to(page, "scene-two-pillars")
+        body = page.locator("#scene-two-pillars").inner_text()
+        if "energy" not in body.lower():
+            issues.append(f"{label}: two-pillars slide missing energy framing")
+        if "equipment" not in body.lower():
+            issues.append(f"{label}: two-pillars slide missing equipment framing")
+        if FORBIDDEN_LNM.search(body):
+            issues.append(f"{label}: two-pillars slide must stay anonymous")
+
+    if deck.endswith("auto-forge-ht.html") and "scene-what" in slides:
+        go_to(page, "scene-what")
+        body = page.locator("#scene-what").inner_text()
+        if "Improve" not in body:
+            issues.append(f"{label}: what slide missing Improve step")
+
     return issues
 
 
@@ -282,6 +344,8 @@ def main() -> None:
                 ("full-mobile", FULL, FULL_PREFIX, 390, 844),
                 ("brief-desktop", BRIEF, BRIEF_PREFIX, 1440, 900),
                 ("brief-mobile", BRIEF, BRIEF_PREFIX, 390, 844),
+                ("forge-desktop", FORGE, FORGE_PREFIX, 1440, 900),
+                ("forge-mobile", FORGE, FORGE_PREFIX, 390, 844),
             ]:
                 page = browser.new_page()
                 all_issues += audit(page, base, deck, label, w, h, prefix)

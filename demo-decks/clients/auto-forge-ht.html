@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-industry="machinery oem">
+<html lang="en" data-industry="auto-forge-ht" data-client-brief="forge-ht">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Stamped Energy · Packaging machinery OEM demo</title>
-  <link rel="preload" as="image" href="assets/machinery-oem/tape-line.jpg" />
+  <title>Stamped Energy · Forge and heat-treatment demo</title>
+  <link rel="preload" as="image" href="assets/auto-forge-ht/steel-hero.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -485,7 +485,6 @@
       padding-left: 0.55rem; border-left: 1px solid var(--outline-variant);
       text-transform: uppercase;
     }
-
 
     .flow-tags {
       display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem;
@@ -1704,9 +1703,6 @@
     .founders a:hover { text-decoration: underline; }
     .cred-quiet { margin-top: 0.7rem; font-size: 0.72rem; color: var(--outline); }
 
-
-
-
     @media (min-width: 721px) {
       #scene-hook .silo-board {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1736,7 +1732,6 @@
       #scene-floor .phone-col { justify-content: flex-end; }
       #scene-verify .meta { font-size: 0.78rem; }
     }
-
 
     .show-mobile { display: none !important; }
     .hide-mobile { display: revert; }
@@ -2164,16 +2159,6 @@
       .dots__dot.active { width: 24px; }
       .btn { min-height: 48px; }
     }
-  
-    .dash-title-row--actions {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .dash-title-row--actions .btn { flex: 0 0 auto; text-decoration: none; }
-
   </style>
 </head>
 <body data-theme="light">
@@ -2199,14 +2184,14 @@
               <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
-            <p class="industry-chip reveal" id="industryChip">Machinery OEM</p>
-            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Packaging-machinery OEM · after solar and VFDs</p>
-            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Machinery OEM · bill-verified operations</p>
+            <p class="industry-chip reveal" id="industryChip">Forge · HT · Die cast</p>
+            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Forging, die casting, heat treatment · verified with evidence</p>
+            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Forge · HT · die cast · verified with evidence</p>
             <p class="brand-name reveal">Stamped Energy</p>
-            <h1 class="reveal hide-mobile" id="titleH1D">Operating decisions on tape lines and test bays, confirmed on the bill</h1>
-            <h1 class="reveal show-mobile" id="titleH1M">Floor decisions confirmed on the bill</h1>
-            <p class="lede reveal hide-mobile" id="titleLedeD">After solar, VFDs, and compressor upgrades, the remaining value is live floor decisions in rupees, early warnings on those lines, and confirmation on the next DISCOM bill. A 60-day Proof Run is available when you want a scoped pilot.</p>
-            <p class="lede reveal show-mobile" id="titleLedeM">Live actions and early warnings after solar and VFDs. 60-day Proof Run when useful.</p>
+            <h1 class="reveal hide-mobile" id="titleH1D">From plant data to assigned actions</h1>
+            <h1 class="reveal show-mobile" id="titleH1M">Assigned actions. Verified with evidence.</h1>
+            <p class="lede reveal hide-mobile" id="titleLedeD">On floors that run presses, furnaces, and die-casting cells together, Stamped ranks energy and equipment work in rupees, assigns an owner, and checks the outcome with evidence. DISCOM bill confirmation can follow.</p>
+            <p class="lede reveal show-mobile" id="titleLedeM">Energy and equipment prescriptions on forge and HT floors. Verified with evidence.</p>
             <div class="flow-tags reveal hide-mobile">
               <span class="chip">Physics &amp; rules</span>
               <span class="chip">Foundation models</span>
@@ -2222,8 +2207,8 @@
           <figure class="hero-photo reveal" id="heroPhoto">
             <img
               id="heroPhotoImg"
-              src="assets/machinery-oem/tape-line.jpg"
-              alt="Tape extrusion line on a packaging-machinery manufacturing floor"
+              src="assets/auto-forge-ht/steel-hero.jpg"
+              alt="Thermal and heavy manufacturing floor (illustrative)"
               width="1800"
               height="1200"
               loading="eager"
@@ -2270,31 +2255,31 @@
         <!-- 2 Problem: incident + why savings get missed -->
     <section class="slide slide--light grid-bg" id="scene-hook" data-theme="light" aria-label="Why savings get missed">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal" id="hookEyebrow">Monday 06:50 · Machine acceptance / utilities handover</p>
-        <h2 class="reveal" id="hookH2">The plant recorded the overlap. No one was assigned to fix it.</h2>
-        <p class="lede reveal hide-mobile" id="hookLedeD">Test bay and utility banks overlapped. EMS logged it. No work order went out.</p>
-        <p class="lede reveal show-mobile" id="hookLedeM">Test bay and utilities overlapped. No work order went out.</p>
+        <p class="eyebrow reveal" id="hookEyebrow">Monday 06:48 · Forge / heat-treatment handover</p>
+        <h2 class="reveal" id="hookH2">The plant logged the overlap. Nobody owned the fix.</h2>
+        <p class="lede reveal hide-mobile" id="hookLedeD">Press start and furnace preheat stacked in the same MD window. EMS recorded it. No work order went out.</p>
+        <p class="lede reveal show-mobile" id="hookLedeM">Press and furnace overlapped. No work order went out.</p>
         <div class="two-col problem-top">
           <div class="timeline reveal">
             <div class="tl-item">
               <div class="tl-time">07:12</div>
               <div class="tl-card">
-                <strong id="hookT1s">Machine trial and compressor bank start together</strong>
-                <p class="hide-mobile" id="hookT1p">Shift B brings test bay load and plant air online in the same window.</p>
+                <strong id="hookT1s">Press ramp and furnace preheat overlap</strong>
+                <p class="hide-mobile" id="hookT1p">Day shift brings forging and heat treatment online in the same window.</p>
               </div>
             </div>
             <div class="tl-item">
               <div class="tl-time">07:15</div>
               <div class="tl-card tl-card--break">
                 <strong id="hookT2s">MD spike hits the incomer</strong>
-                <p class="hide-mobile" id="hookT2p">EMS threshold crossed. Alert created. Still no assigned owner.</p>
+                <p class="hide-mobile" id="hookT2p">Threshold crossed. Alert created. Still no assigned owner.</p>
               </div>
             </div>
             <div class="tl-item">
               <div class="tl-time">07:40</div>
               <div class="tl-card">
-                <strong id="hookT3s">Trials and fab continue as usual</strong>
-                <p class="hide-mobile" id="hookT3p">The bill will price this later. The floor never saw the fix.</p>
+                <strong id="hookT3s">Batches and presses continue as usual</strong>
+                <p class="hide-mobile" id="hookT3p">The bill prices it later. The floor never saw the fix.</p>
               </div>
             </div>
           </div>
@@ -2304,7 +2289,7 @@
             <div class="meter-bar"><i class="grow-on-active"></i></div>
             <div class="stat-row" style="grid-template-columns:1fr 1fr;margin-top:1rem;">
               <div class="stat-card">
-                <strong id="hookStatImpact">₹45k</strong>
+                <strong id="hookStatImpact">₹42k</strong>
                 <span id="hookStatImpactLabel">Monthly demand impact (sample)</span>
               </div>
               <div class="stat-card">
@@ -2318,21 +2303,21 @@
           <article class="silo-card">
             <h3>SCADA</h3>
             <div class="silo-meta">
-              <div class="has" id="gapScadaHas">Has: tape line, loom, test-bay run states</div>
+              <div class="has" id="gapScadaHas">Has: press, furnace, die-cast run states</div>
               <div class="miss">Missing: owner, due date, ₹ impact</div>
             </div>
           </article>
           <article class="silo-card">
             <h3>EMS</h3>
             <div class="silo-meta">
-              <div class="has" id="gapEmsHas">Has: spike logged at 06:50</div>
+              <div class="has" id="gapEmsHas">Has: spike logged at 06:48</div>
               <div class="miss">Missing: who acts before next shift</div>
             </div>
           </article>
           <article class="silo-card">
             <h3>Meters</h3>
             <div class="silo-meta">
-              <div class="has" id="gapMetersHas">Has: MD window and trial / utility load profile</div>
+              <div class="has" id="gapMetersHas">Has: MD window and forge / HT load profile</div>
               <div class="miss">Missing: link to a floor sequence change</div>
             </div>
           </article>
@@ -2348,66 +2333,94 @@
       </div>
     </section>
 
-
-
     
 
     <!-- 3 Savings map (early) -->
-    <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
+    
+    <section class="slide slide--light" id="scene-two-pillars" data-theme="light" aria-label="Two pillars one product">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal" id="mathEyebrow">Priority checks on packaging-machinery floors</p>
-        <h2 class="reveal" id="mathH2">What we check first on your lines</h2>
-        <p class="lede reveal" id="mathLede">Live rupee actions and early warnings on your lines.</p>
+        <p class="eyebrow reveal">One product · two pillars</p>
+        <h2 class="reveal">How Stamped helps on these floors</h2>
+        <p class="lede reveal">Same meters. Same loop. Two kinds of assigned work: cut avoidable electricity cost, and flag equipment issues early so maintenance can act before a stoppage.</p>
+        <div class="bound-grid reveal" style="margin-top:1rem;">
+          <div class="bound-col bound-col--ot">
+            <h3>01 · Load and energy efficiency</h3>
+            <ul class="bound-list">
+              <li>Maximum demand and shift-start overlap</li>
+              <li>Furnace hold, idle loads, tariff windows</li>
+              <li>Ranked prescriptions with owner and monthly rupees</li>
+              <li>Proof on the energy ledger · bill can confirm</li>
+            </ul>
+          </div>
+          <div class="bound-col bound-col--not">
+            <h3>02 · Prescriptive equipment intelligence</h3>
+            <ul class="bound-list">
+              <li>Early warnings from electrical and process signatures</li>
+              <li>Inspect / clean / tune cards for utilities and cells</li>
+              <li>Not vibration PdM and not a CMMS replacement</li>
+              <li>Verify when the signature recovers after close-out</li>
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">Not an MES. Not a plant OS. Shared plant context (schedules, departments) only makes management actions practical.</p>
+      </div>
+    </section>
+
+<section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal" id="mathEyebrow">Where value usually shows up on forge and HT floors</p>
+        <h2 class="reveal" id="mathH2">What we check first</h2>
+        <p class="lede reveal" id="mathLede">Energy and equipment checks on forge, HT, and die-cast floors.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>MD / demand</h3>
+            <h3>Energy · MD / demand</h3>
             <ul>
-              <li>Machine trials + utility coincidence</li>
-              <li>Tape-line and chiller overlap</li>
+              <li>Press + furnace coincidence</li>
+              <li>Quench pumps with forge start</li>
               <li>Contract demand headroom</li>
             </ul>
             <div class="waste-bill">Bill line · MD (kVA)</div>
-            <p class="waste-sample hide-mobile">Example: acceptance bay and compressor bank in the same MD window</p>
+            <p class="waste-sample hide-mobile">Example: press ramp and SQF preheat in the same MD window</p>
           </article>
           <article class="waste-card">
-            <h3>Compressed air</h3>
+            <h3>Energy · process heat / idle</h3>
             <ul>
-              <li>Night unload baseload</li>
-              <li>Leak / load residual after upgrades</li>
-              <li>Simultaneous bank starts</li>
-            </ul>
-            <div class="waste-bill">Bill line · Energy + MD</div>
-            <p class="waste-sample hide-mobile">Example: Bank B unload with no fab or trial tags</p>
-          </article>
-          <article class="waste-card">
-            <h3>Idle CNC / aux</h3>
-            <ul>
-              <li>Empty bay chillers</li>
-              <li>Test-bay holding loads</li>
-              <li>Aux run-on across dark shifts</li>
+              <li>Furnace hold over breaks</li>
+              <li>Empty-batch soak</li>
+              <li>Die-cast hold with zero shots</li>
             </ul>
             <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample hide-mobile">Example: CNC aux left online when the bay is empty</p>
+            <p class="waste-sample hide-mobile">Example: hold load flat through lunch with no charge scheduled</p>
           </article>
           <article class="waste-card">
-            <h3>Early warnings</h3>
+            <h3>Energy · air / PF</h3>
             <ul>
-              <li>Line-tied drift before a trip</li>
-              <li>Motor / utility stress on tape or loom islands</li>
-              <li>Not a generic plant alarm dump</li>
+              <li>Off-shift compressor unload</li>
+              <li>Pressure band too high</li>
+              <li>PF penalty before more APFC capex</li>
             </ul>
-            <div class="waste-bill">Ops + bill risk</div>
-            <p class="waste-sample hide-mobile">Example: flag trial-bay or air trouble before a breakdown or MD event</p>
+            <div class="waste-bill">Bill line · Energy + PF</div>
+            <p class="waste-sample hide-mobile">Example: night air unload with forge and HT dark</p>
           </article>
           <article class="waste-card">
-            <h3>Live decisions</h3>
+            <h3>Equipment · utility drift</h3>
             <ul>
-              <li>Ranked rupee actions during the shift</li>
-              <li>Owner and due time on WhatsApp</li>
-              <li>60-day Proof Run when a scoped pilot is useful</li>
+              <li>Compressor specific-power rise</li>
+              <li>Inspect / clean / tune cards</li>
+              <li>Between AMC visits</li>
             </ul>
-            <div class="waste-bill">Bill line · MD + energy</div>
-            <p class="waste-sample hide-mobile">Example: close the loop in the week, not after the next audit cycle</p>
+            <div class="waste-bill">Ops risk + energy co-benefit</div>
+            <p class="waste-sample hide-mobile">Example: Compressor 2 kW per air unit up 16% versus baseline</p>
+          </article>
+          <article class="waste-card">
+            <h3>Equipment · trips / duty</h3>
+            <ul>
+              <li>Quench or circulation start retries</li>
+              <li>Abnormal die-cast duty overnight</li>
+              <li>Press ramp signature change</li>
+            </ul>
+            <div class="waste-bill">Ops risk · downtime</div>
+            <p class="waste-sample hide-mobile">Example: three start retries on quench pump before a batch</p>
           </article>
         </div>
         <div class="bill-table-wrap reveal">
@@ -2434,30 +2447,42 @@
     <section class="slide slide--light" id="scene-what" data-theme="light" aria-label="What Stamped does">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">How Stamped works</p>
-        <h2 class="reveal">From plant data to assigned work</h2>
+        <h2 class="reveal">Connect to Improve</h2>
         <div class="do-chain reveal">
           <article class="do-step">
             <div class="do-step__num">01</div>
-            <h3>Read existing signals</h3>
-            <p id="whatStep1">Incomer, sub-meters, SCADA and PLC states for tape lines, looms, test bays, CNC, compressors, and chillers. Read-only. Real-time decisions and line-tied early warnings. No control writes to the plant.</p>
+            <h3>Connect</h3>
+            <p id="whatStep1">Incomer and feeder meters, furnace / press / die-cast states where available, and bill lines. Optional production or ERP schedule read. Read-only. No control writes.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">02</div>
-            <h3>Rank fixes in ₹</h3>
-            <p>Rules, models, and agents turn findings into prescriptions with why, owner, effort, and expected bill impact.</p>
+            <h3>Observe</h3>
+            <p>Baselines, MD windows, idle and hold patterns, equipment drift and trip clusters.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">03</div>
-            <h3>Reach the floor</h3>
-            <p>The shift supervisor gets the task where they already work, with a due time and a clear action.</p>
+            <h3>Decide</h3>
+            <p>Ranked prescriptions with why, owner, effort, and expected rupee or risk impact.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">04</div>
-            <h3>Verify with evidence</h3>
-            <p>Potential and realised savings are checked against Stamped’s evidence pack  ·  telemetry clearance and tariff math finance can audit.</p>
+            <h3>Execute</h3>
+            <p>WhatsApp and dashboard to the person who can act. Status tracked.</p>
+            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          </article>
+          <article class="do-step">
+            <div class="do-step__num">05</div>
+            <h3>Verify</h3>
+            <p>Ops-cleared evidence pack. Bill confirmation optional when the period closes.</p>
+            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          </article>
+          <article class="do-step">
+            <div class="do-step__num">06</div>
+            <h3>Improve</h3>
+            <p>Learn from followed versus ignored actions. Tighten ranking and baselines with human review.</p>
           </article>
         </div>
         <div class="flow-tags reveal hide-mobile" style="margin-top:1.25rem;">
@@ -2473,22 +2498,22 @@
     <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Prescription">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Example prescriptions</p>
-        <h2 class="reveal">Each action has a bill line and an owner</h2>
+        <h2 class="reveal">One energy card. One equipment card.</h2>
         <div class="rx-layout">
-          <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Stagger machine trials and utility starts. Show evidence.">
+          <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Stagger press and furnace preheat. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge" id="rx1Badge">Rx · MD coincidence</span>
+                  <span class="rx-badge" id="rx1Badge">Rx · Energy · MD</span>
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action" id="rx1Action">Stagger machine-acceptance trials vs compressor / chiller start by 10 minutes</p>
+                  <p class="rx-action" id="rx1Action">Stagger Press Line 1 start versus SQF furnace preheat by 10-12 minutes at day-shift start</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd id="rx1Why">They started together and pushed MD over the limit</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd id="rx1Why">They started together and pushed the incomer MD window</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx1Bill">MD (kVA)</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx1Owner">Electrical shift supervisor · Shift B</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹2-3.5L / month</strong></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹0.8-1.2L / month (example)</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd id="rx1Effort">Sequence change · no new equipment</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd id="rx1Rule">md_overlap@v2.4 · High</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd id="rx1Due">This week</dd></div>
@@ -2502,7 +2527,7 @@
                   <span class="rx-priority">MD window</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title" id="rx1EvTitle">Signal window · Mon 06:45-07:00</p>
+                  <p class="rx-ev-title" id="rx1EvTitle">Signal window · Mon 06:45-07:05</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
                     <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA</text>
                     <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,48 40,46 72,44 104,40 136,22 168,18 200,28 232,42 264,44 304,46"/>
@@ -2514,13 +2539,13 @@
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>HT_INCOMER.MD</code></td><td>1,050 kVA</td><td>06:52-06:56</td></tr>
-                      <tr><td><code>TEST_BAY.TRIAL</code></td><td>TRUE</td><td>06:48</td></tr>
-                      <tr><td><code>COMP_BANK.A</code></td><td>ON</td><td>06:50+</td></tr>
-                      <tr><td><code>CHILLER.START</code></td><td>ON</td><td>06:51+</td></tr>
+                      <tr><td><code>HT_INCOMER.MD</code></td><td>peak window</td><td>06:48-06:56</td></tr>
+                      <tr><td><code>PRESS_L1.START</code></td><td>TRUE</td><td>06:47</td></tr>
+                      <tr><td><code>SQF1.PREHEAT</code></td><td>ON</td><td>06:49+</td></tr>
+                      <tr><td><code>COMP_BANK.RUN</code></td><td>ON</td><td>06:48+</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · model conf 0.90 · tariff MD slab · baseline sample peak week</p>
+                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · example only · confirm on live plant data</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2528,23 +2553,23 @@
             </div>
           </button>
 
-          <button type="button" class="rx-flip reveal hide-mobile" data-rx-flip aria-pressed="false" aria-label="Cut night unload baseload on plant air. Show evidence.">
+          <button type="button" class="rx-flip reveal hide-mobile" data-rx-flip aria-pressed="false" aria-label="Inspect compressor inlet filter after specific-power drift. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge" id="rx2Badge">Rx · Compressed air</span>
+                  <span class="rx-badge" id="rx2Badge">Rx · Equipment · drift</span>
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action" id="rx2Action">Stage Compressor Bank B offline in the planned night unload window</p>
+                  <p class="rx-action" id="rx2Action">Inspect inlet filter and oil separator on Compressor 2 · check unload valve</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd id="rx2Why">Unload kWh with no trial or fab tag on 3 of last 5 nights</dd></div>
-                    <div class="rx-row"><dt>Bill line</dt><dd id="rx2Bill">Energy (kWh) · night</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd id="rx2Owner">Utilities supervisor · Plant air</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹70k-1.2L / month</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd id="rx2Effort">Staging SOP · no new equipment</dd></div>
-                    <div class="rx-row"><dt>Rule</dt><dd id="rx2Rule">idle_hold@v1.8 · High</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd id="rx2Due">Next night unload</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd id="rx2Why">Specific power up about 16% versus 8-week baseline on similar shift hours</dd></div>
+                    <div class="rx-row"><dt>Bill line</dt><dd id="rx2Bill">Energy (kWh) · equipment risk</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd id="rx2Owner">Utilities / maintenance</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹45-70k / month if curve recovers (example)</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd id="rx2Effort">About 2 h · bypass on Compressor 1 if available</dd></div>
+                    <div class="rx-row"><dt>Rule</dt><dd id="rx2Rule">sp_drift@v1.6 · High</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd id="rx2Due">This maintenance window</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2555,7 +2580,7 @@
                   <span class="rx-priority rx-priority--med">Idle kWh</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title" id="rx2EvTitle">Night unload windows · last 5 events</p>
+                  <p class="rx-ev-title" id="rx2EvTitle">Specific-power trend · last 8 weeks</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
                     <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kWh unload</text>
                     <rect x="24" y="28" width="36" height="28" fill="rgba(0,102,107,0.55)"/>
@@ -2569,13 +2594,13 @@
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>BANK_B.RUN</code></td><td>ON · unload</td><td>95 min avg</td></tr>
-                      <tr><td><code>FAB.PROD</code></td><td>0 tags</td><td>same window</td></tr>
-                      <tr><td><code>BANK_B.kWh</code></td><td>185 kWh</td><td>per event</td></tr>
-                      <tr><td><code>NIGHT.UNLOAD</code></td><td>TRUE</td><td>planned</td></tr>
+                      <tr><td><code>COMP2.kW_PER_AIR</code></td><td>+16% vs base</td><td>same hours</td></tr>
+                      <tr><td><code>COMP2.RUN_H</code></td><td>aligned</td><td>baseline window</td></tr>
+                      <tr><td><code>PROD.SHIFT</code></td><td>matched</td><td>not volume-driven</td></tr>
+                      <tr><td><code>FILTER.SERVICE</code></td><td>overdue proxy</td><td>inspect</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx2Cite">physics/idle_hold@v1.8 · model conf 0.86 · energy line · baseline last 5 nights</p>
+                  <p class="rx-cite" id="rx2Cite">rules/sp_drift@v1.6 · example only · confirm on live plant data</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2669,10 +2694,10 @@
                     <div class="wa-msg" id="floorMsg">
                       <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge alarm and fix">
                         <span class="tag" id="floorTag">Alarm · High</span>
-                        <h4 id="floorTitle">Stagger trials vs utility starts by 10 min</h4>
+                        <h4 id="floorTitle">Stagger press vs furnace preheat by 10-12 min</h4>
                         <div class="wa-bubble__divider" aria-hidden="true"></div>
-                        <p class="wa-line" id="floorWhy"><b>Alarm:</b> MD peak from Monday trial / air overlap</p>
-                        <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹2-3.5L/mo on MD line</p>
+                        <p class="wa-line" id="floorWhy"><b>Alarm:</b> MD peak from Monday forge / HT overlap</p>
+                        <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹0.8-1.2L/mo on MD line (example)</p>
                         <p class="wa-line" id="floorOwner"><b>Owner:</b> Electrical supervisor · B</p>
                         <p class="wa-line" id="floorDue"><b>Due:</b> This week · before next peak</p>
                         <div class="wa-bubble__foot">
@@ -2732,21 +2757,21 @@
             </thead>
             <tbody>
               <tr>
-                <td>MD stagger · trial/utility</td>
+                <td>MD stagger · press/furnace</td>
                 <td>Sample MD peak</td>
-                <td>10-min trial lag</td>
+                <td>10-12 min lag</td>
                 <td>VERIFIED</td>
               </tr>
               <tr>
-                <td>Night air unload cut</td>
-                <td>Night unload kWh</td>
-                <td>Bank B staging</td>
+                <td>Compressor 2 filter service</td>
+                <td>kW / air curve</td>
+                <td>Service close-out</td>
                 <td>PENDING</td>
               </tr>
               <tr>
-                <td>Early warning · line stress</td>
-                <td>Pre-trip drift window</td>
-                <td>Same-shift action</td>
+                <td>Quench-pump trip cluster</td>
+                <td>Start retries</td>
+                <td>Inspect + clear</td>
                 <td>IN REVIEW</td>
               </tr>
             </tbody>
@@ -2757,179 +2782,29 @@
     </section>
 
     <!-- Tech stack -->
-    <section class="slide slide--light grid-bg" id="scene-tech" data-theme="light" aria-label="Technology stack">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Technology</p>
-        <h2 class="reveal">What sits behind each prescription</h2>
-        <div class="tech-grid reveal">
-          <a class="tech-card" href="../tech/physics.html?from=machinery-oem" aria-label="Physics and rules engines. Open deep dive.">
-            <div class="tech-card__num">01 · Physics</div>
-            <h3>Versioned industrial physics &amp; rulepacks</h3>
-            <p>Semver rule packs for affinity laws, holding floors, and tariff arithmetic. Every finding cites a pack a plant EE can open.</p>
-            <ul class="tech-card__detail">
-              <li id="techPhysicsBullet">Live MD and idle actions, line-level early warnings, compressed-air residual, 60-day Proof Run when useful</li>
-              <li>PF and tariff arithmetic tied to utility line items</li>
-              <li>Physics-informed hybrids. PINN research lineage, not black-box PDEs</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-          <a class="tech-card" href="../tech/models.html?from=machinery-oem" aria-label="Industrial energy models. Open deep dive.">
-            <div class="tech-card__num">02 · Models</div>
-            <h3>Plant-calibrated industrial ML</h3>
-            <p>Baselines and ranking models fitted on your plant’s telemetry. Production-normalised residuals. Not a chatbot on meter dumps.</p>
-            <ul class="tech-card__detail">
-              <li>TOW-P baselines · EWMA / CUSUM residual SPC</li>
-              <li>LightGBM quantile MD exceedance ranking</li>
-              <li>TimesFM-class foundation models in shadow only</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-          <a class="tech-card" href="../tech/agents.html?from=machinery-oem" aria-label="Prescription agents. Open deep dive.">
-            <div class="tech-card__num">03 · Agents</div>
-            <h3>Bounded prescription agents</h3>
-            <p>Agents draft floor actions with tools and vetoes (what, why, who, effort, ₹, due). The calculation engine owns the money path.</p>
-            <ul class="tech-card__detail">
-              <li>Ranks by ₹ × confidence / effort</li>
-              <li>Physics and tariff vetoes are non-overridable</li>
-              <li>LLM for prose only. It does not invent ₹</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-          <a class="tech-card" href="../tech/evidence.html?from=machinery-oem" aria-label="Verified with evidence. Open deep dive.">
-            <div class="tech-card__num">04 · Evidence</div>
-            <h3>Verified with evidence</h3>
-            <p>In-house calculation engine recomputes ₹ from telemetry deltas and tariff lines, then checks whether the action moved the needle.</p>
-            <ul class="tech-card__detail">
-              <li>Potential vs realised vs remaining opportunity</li>
-              <li>M&amp;V plan and baseline locked at issue time</li>
-              <li>Evidence trail for plant, finance, and assurance</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-        </div>
-        <div class="flow-tags reveal hide-mobile" style="margin-top:1rem;">
-          <span class="chip">Read-only OT</span>
-          <span class="chip">No PLC writes</span>
-          <span class="chip">Multi-plant ready</span>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- Auditability & sustainability -->
-    <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Auditability and sustainability">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Auditability and sustainability</p>
-        <h2 class="reveal">Action, evidence, and optional bill line</h2>
-        <div class="audit-grid">
-          <div class="audit-col reveal">
-            <h3>Auditability</h3>
-            <ul class="audit-list">
-              <li><span class="mark mark-ok">1</span><span>Immutable trail: issued → viewed → acted → verified</span></li>
-              <li><span class="mark mark-ok">2</span><span>Potential vs realised ledger from Stamped evidence (bill optional)</span></li>
-              <li><span class="mark mark-ok">3</span><span>IPMVP-style M&amp;V plan locked when each prescription is issued</span></li>
-              <li><span class="mark mark-ok">4</span><span>Exportable workpapers for plant EE, finance, and assurance partners</span></li>
-            </ul>
-          </div>
-          <div class="audit-col audit-col--sus reveal">
-            <h3>Sustainability</h3>
-            <ul class="audit-list">
-              <li><span class="mark mark-te">1</span><span>Verified kWh, intensity, and tCO₂e with factor disclosure from the same actions</span></li>
-              <li><span class="mark mark-te">2</span><span>Evidence adjuncts for ISO 50001 opportunity closure</span></li>
-              <li><span class="mark mark-te">3</span><span>BRSR / PAT workpaper inputs. We do not file ESG returns for you</span></li>
-              <li><span class="mark mark-te">4</span><span>We do not replace EnMS or certify the plant. We close ops into proof those systems need</span></li>
-            </ul>
-          </div>
-        </div>
-        <p class="audit-note reveal hide-mobile">For teams that already run EnMS, renewables, and intensity programmes, and still need day-to-day actions that show up on the invoice.</p>
-      </div>
-    </section>
+    
 
     
 
     <!-- 11 Boundaries -->
-    <section class="slide slide--light" id="scene-boundaries" data-theme="light" aria-label="Boundaries">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">How we engage OT</p>
-        <h2 class="reveal">Read-only on OT, with clear limits</h2>
-        <div class="bound-grid">
-          <div class="bound-col bound-col--not reveal hide-mobile">
-            <h3>What we are not</h3>
-            <ul class="bound-list">
-              <li>EMS / SCADA replacement</li>
-              <li>ESG-first carbon platform</li>
-              <li>Hardware or metering vendor</li>
-              <li>PLC / DCS control writes</li>
-              <li>Another monitoring dashboard</li>
-            </ul>
-          </div>
-          <div class="bound-col bound-col--ot reveal">
-            <h3>How we engage OT</h3>
-            <ul class="bound-list">
-              <li>Read-only data access only</li>
-              <li>No new hardware in Phase 1</li>
-              <li>NDA before plant data leaves the site</li>
-              <li>Data returned on exit, with no lock-in</li>
-              <li>Single-site proof before multi-plant rollout</li>
-            </ul>
-            <div class="protocol-row">
-              <span class="chip">Modbus · OPC-UA · MQTT</span>
-              <span class="chip">Incomer + bills first</span>
-              <span class="chip">Group-ready after proof</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- 12 Video -->
-    <section class="slide slide--light" id="scene-video" data-theme="light" aria-label="How it works video">
-      <div class="slide__inner slide__inner--media">
-        <p class="eyebrow reveal">Short product walkthrough</p>
-        <h2 class="reveal">How Stamped works in practice</h2>
-        <div class="video-frame reveal">
-          <video
-            controls
-            playsinline
-            preload="metadata"
-            poster="https://stamped.work/video/how-it-works-poster.png"
-            aria-label="How Stamped Energy works video"
-          >
-            <source src="https://stamped.work/video/how-it-works-cinematic.webm" type="video/webm" />
-          </video>
-        </div>
-        <p class="video-caption reveal hide-mobile">The video follows the same sequence shown here. Pause whenever a point needs discussion.</p>
-      </div>
-    </section>
+    
 
     <!-- 13 Dashboard -->
-    <section class="slide slide--light" id="scene-live" data-theme="light" aria-label="Simulated dashboard">
-      <div class="slide__inner slide__inner--wide">
-        <div class="dash-title-row reveal dash-title-row--actions">
-          <div>
-            <h2>Sample workspace</h2>
-            <p>Live demo · trying.stamped.work · sample plant, not your site</p>
-          </div>
-          <a class="btn btn--primary" id="openSampleWorkspace" href="https://trying.stamped.work/" target="_blank" rel="noopener noreferrer">Open workspace</a>
-        </div>
-        <div class="dash-shell reveal">
-          <div class="dash-badge hide-mobile">trying.stamped.work</div>
-          <iframe
-            id="dashFrame"
-            data-src="https://trying.stamped.work/"
-            title="Stamped Energy sample workspace"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- 14 Offer -->
     <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
       <div class="slide__inner">
-        <p class="eyebrow reveal">Optional 60-day Proof Run</p>
-        <h2 class="reveal">Start with one works</h2>
-        <p class="lede reveal show-mobile" id="offerLedeM">One works. Live decisions and early warnings. 60-day Proof Run when useful.</p>
+        <p class="eyebrow reveal">Scoped proof</p>
+        <h2 class="reveal">How a 60-day proof works</h2>
+        <p class="lede reveal hide-mobile" id="offerLedeD">Connect read-only to meters you already have. Pick one boundary (forge and HT, compressors, or a die-cast cell). Floor executes ranked actions. Go or no-go on verified outcomes.</p>
+        <p class="lede reveal show-mobile" id="offerLedeM">Connect read-only to meters you already have. Pick one boundary (forge and HT, compressors, or a die-cast cell). Floor executes ranked actions. Go or no-go on verified outcomes.</p>
         <table class="phase-table reveal">
           <thead>
             <tr>
@@ -2940,27 +2815,31 @@
           <tbody>
             <tr>
               <td>Connect</td>
-              <td>Read-only on meters / EMS · map tape, loom, test-bay, and utility islands</td>
+              <td>Read-only meters · optional feeder · bill lines for context</td>
             </tr>
             <tr>
               <td>Live</td>
-              <td>Real-time prescriptions and line-tied early warnings · floor owns each ₹ action</td>
+              <td>Energy and equipment prescriptions · WhatsApp to the owner</td>
+            </tr>
+            <tr>
+              <td>Verify</td>
+              <td>Evidence pack on signature or MD / energy movement · bill optional</td>
             </tr>
             <tr>
               <td>Day 60</td>
-              <td>Optional scoped Proof Run: go / no-go on verified ₹ and plant fit</td>
+              <td>Go / no-go on verified outcomes and plant fit</td>
             </tr>
           </tbody>
         </table>
         <div class="commercial reveal">
-          <span class="chip">Live decisions</span>
-          <span class="chip">Line-level early warnings</span>
-          <span class="chip">60-day Proof Run when useful</span>
+          <span class="chip">Two pillars</span>
+          <span class="chip">Verified with evidence</span>
           <span class="chip">Read-only OT</span>
+          <span class="chip">Improve from follow / ignore</span>
         </div>
         <div class="ask-box reveal">
-          <strong>Next step</strong>
-          <p>Start with one works. Live prescriptions and line-level early warnings from your meters. Use a 60-day Proof Run when you want a clear go / no-go on verified rupees and plant fit.</p>
+          <strong>Useful next step</strong>
+          <p>A short walk of one boundary with your electrical or maintenance host, plus recent HT bills when you are ready. No hardware. No PLC writes.</p>
           <p class="ask-cal"><a href="https://calendly.com/stamped-energy/stamped-energy" target="_blank" rel="noopener noreferrer">Book a meet</a></p>
         </div>
         <p class="contact-line reveal">
@@ -2992,13 +2871,13 @@
   
   <script>
     /* Industry chrome + floor prescriptions + resolve hero against this HTML file's URL */
-    window.__FLOOR_RX__ = [{"title": "Stagger trials vs utility starts by 10 min", "why": "MD peak from Monday trial / air overlap", "impact": "₹2-3.5L/mo on MD line", "owner": "Electrical supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Stage Bank B offline in night unload", "why": "Unload kWh with no fab or trial tag", "impact": "₹0.7-1.2L/mo on energy", "owner": "Utilities supervisor · A", "priority": "High", "due": "Next night unload"}, {"title": "Act on early warning · tape-line motor stress", "why": "Line-tied drift signal before a trial bay trip", "impact": "Avoid unplanned downtime + MD risk", "owner": "Electrical supervisor · B", "priority": "Med", "due": "Same shift · before next trial"}];
+    window.__FLOOR_RX__ = [{"title": "Stagger press vs furnace preheat by 10-12 min", "why": "MD peak from Monday forge / HT overlap", "impact": "₹0.8-1.2L/mo on MD line (example)", "owner": "Electrical supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Inspect Compressor 2 filter after kW drift", "why": "Specific power up versus baseline · fouling proxy", "impact": "₹45-70k/mo if curve recovers (example)", "owner": "Utilities / maintenance", "priority": "High", "due": "This maintenance window"}, {"title": "Check SQF quench-pump start retries", "why": "Trip / retry cluster before heat-treatment batch", "impact": "Avoid batch loss + MD risk", "owner": "HT electrician · furnace bay", "priority": "Med", "due": "Before next charge"}];
     (function () {
       var el = document.getElementById("chromeIndustry");
-      if (el) el.textContent = "Machinery OEM";
+      if (el) el.textContent = "Forge \u00b7 HT";
       var img = document.getElementById("heroPhotoImg");
       if (!img) return;
-      var rel = "assets/machinery-oem/tape-line.jpg";
+      var rel = "assets/auto-forge-ht/steel-hero.jpg";
       var resolved = new URL(rel, window.location.href).href;
       if (img.src !== resolved) img.src = resolved;
       img.addEventListener("error", function onHeroErr() {

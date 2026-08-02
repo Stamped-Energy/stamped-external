@@ -733,21 +733,21 @@ def inject_hero_photo(html: str, industry: str) -> str:
     # Add industry chip + photo; keep SVG for desktop as secondary (hide via CSS preference: show photo instead)
     # Replace hero-copy opening content to add chip after brand area
     html = html.replace(
-        '<p class="eyebrow reveal hide-mobile">Operational energy decisions, verified on the bill</p>\n'
-        '            <p class="eyebrow reveal show-mobile">Bill-verified decisions</p>\n'
+        '<p class="eyebrow reveal hide-mobile">Operational energy decisions, verified with evidence</p>\n'
+        '            <p class="eyebrow reveal show-mobile">Verified with evidence</p>\n'
         '            <p class="brand-name reveal">Stamped Energy</p>\n'
         '            <h1 class="reveal hide-mobile">From plant meters to bill-line actions.</h1>\n'
         '            <h1 class="reveal show-mobile">Owned ₹ actions on the bill.</h1>\n'
         '            <p class="lede reveal hide-mobile">You already have meters and EMS. Stamped ranks floor work in rupees, then checks the result on the next DISCOM bill.</p>\n'
-        '            <p class="lede reveal show-mobile">Ranked floor actions from your meters and EMS. Verified on the DISCOM bill.</p>',
+        '            <p class="lede reveal show-mobile">Ranked floor actions from your meters and EMS. Verified with evidence.</p>',
         '<p class="industry-chip reveal" id="industryChip">Industry</p>\n'
-        '            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Operational energy decisions, verified on the bill</p>\n'
-        '            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Bill-verified decisions</p>\n'
+        '            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Operational energy decisions, verified with evidence</p>\n'
+        '            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Verified with evidence</p>\n'
         '            <p class="brand-name reveal">Stamped Energy</p>\n'
         '            <h1 class="reveal hide-mobile" id="titleH1D">From plant meters to bill-line actions.</h1>\n'
         '            <h1 class="reveal show-mobile" id="titleH1M">Owned ₹ actions on the bill.</h1>\n'
         '            <p class="lede reveal hide-mobile" id="titleLedeD">You already have meters and EMS. Stamped ranks floor work in rupees, then checks the result on the next DISCOM bill.</p>\n'
-        '            <p class="lede reveal show-mobile" id="titleLedeM">Ranked floor actions from your meters and EMS. Verified on the DISCOM bill.</p>',
+        '            <p class="lede reveal show-mobile" id="titleLedeM">Ranked floor actions from your meters and EMS. Verified with evidence.</p>',
         1,
     )
 

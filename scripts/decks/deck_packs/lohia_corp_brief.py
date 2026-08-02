@@ -300,8 +300,8 @@ BRIEF_HEADING_PATCHES = [
     ),
     (
         '<p class="eyebrow reveal">Measurement and verification</p>\n'
-        '        <h2 class="reveal">Checked on the DISCOM bill.</h2>',
+        '        <h2 class="reveal">Verified with evidence.</h2>',
         '<p class="eyebrow reveal">Measurement and verification</p>\n'
-        '        <h2 class="reveal">Confirmed on the DISCOM bill</h2>',
+        '        <h2 class="reveal">Verified with evidence</h2>',
     ),
 ]

@@ -5,6 +5,7 @@ Outputs:
   demo-decks/clients/machinery-oem.html          anonymous full Proof Run
   demo-decks/clients/machinery-oem/index.html    optional deploy root
   demo-decks/clients/lohia-corp-brief.html       short named walkthrough
+  demo-decks/clients/auto-forge-ht.html          forge / HT / die-cast value walkthrough
 
 Assets are co-located under demo-decks/clients/assets/ so relative paths work
 when the HTML is opened from the clients/ folder (file:// or HTTP).
@@ -17,21 +18,27 @@ import shutil
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "scripts"
-DECKS = ROOT / "demo-decks"
+_HERE = Path(__file__).resolve().parent  # scripts/decks/build
+DECKS_PKG = _HERE.parent  # scripts/decks (deck_packs live here)
+EXTERNAL = _HERE.parents[2]  # stamped-external root
+DECKS = EXTERNAL / "demo-decks"
 CLIENTS = DECKS / "clients"
 CLIENT_ASSETS = CLIENTS / "assets"
 FORBIDDEN_FULL = re.compile(
     r"lohia|chaubepur|vijay|panki|peenya|lohiagroup", re.I
 )
+FORBIDDEN_LNM = re.compile(
+    r"\blnm\b|lnmauto|divyansh|sandeep\s+mall|sector\s*59|faridabad", re.I
+)
 SAMPLE_WORKSPACE_URL = "https://trying.stamped.work/"
 
 
 def load_industry_builder():
-    path = SCRIPTS / "build-industry-decks.py"
+    path = _HERE / "build-industry-decks.py"
     code = path.read_text(encoding="utf-8")
-    code = code.replace('ROOT = Path("/workspace")', f"ROOT = Path(r{str(ROOT)!r})")
+    code = code.replace(
+        'ROOT = Path("/workspace")', f"ROOT = Path(r{str(EXTERNAL)!r})"
+    )
     spec = importlib.util.spec_from_loader("build_industry_decks", loader=None)
     mod = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
     exec(compile(code, str(path), "exec"), mod.__dict__)
@@ -39,7 +46,7 @@ def load_industry_builder():
 
 
 def sync_client_assets() -> None:
-    """Copy OEM + Lohia visuals next to client HTML so assets/ resolves locally."""
+    """Copy OEM + Lohia + forge-HT visuals next to client HTML so assets/ resolves locally."""
     CLIENT_ASSETS.mkdir(parents=True, exist_ok=True)
     for name in ("lohia-corp", "machinery-oem"):
         src = DECKS / "assets" / name
@@ -52,7 +59,14 @@ def sync_client_assets() -> None:
         # Drop markdown from runtime asset tree (keep sources under demo-decks/assets/)
         for md in dst.glob("*.md"):
             md.unlink()
-    print(f"synced assets → {CLIENT_ASSETS}")
+    # Forge / HT brief reuses steel industry hero (illustrative thermal / heavy floor)
+    forge_dst = CLIENT_ASSETS / "auto-forge-ht"
+    forge_dst.mkdir(parents=True, exist_ok=True)
+    steel_hero = DECKS / "assets" / "steel-hero.jpg"
+    if not steel_hero.is_file():
+        raise SystemExit(f"missing steel hero for forge-HT deck: {steel_hero}")
+    shutil.copy2(steel_hero, forge_dst / "steel-hero.jpg")
+    print(f"synced assets -> {CLIENT_ASSETS}")
 
 
 def rewrite_client_paths(html: str, *, asset_prefix: str, tech_prefix: str) -> str:
@@ -299,6 +313,56 @@ def inject_vs_audit_scene(html: str, vs: dict) -> str:
     return html.replace(marker, scene + marker, 1)
 
 
+def inject_two_pillars_scene(html: str, pillars: dict) -> str:
+    left = "\n".join(f"              <li>{item}</li>" for item in pillars["left"])
+    right = "\n".join(f"              <li>{item}</li>" for item in pillars["right"])
+    scene = f"""
+    <section class="slide slide--light" id="scene-two-pillars" data-theme="light" aria-label="Two pillars one product">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">{pillars["eyebrow"]}</p>
+        <h2 class="reveal">{pillars["h2"]}</h2>
+        <p class="lede reveal">{pillars["lede"]}</p>
+        <div class="bound-grid reveal" style="margin-top:1rem;">
+          <div class="bound-col bound-col--ot">
+            <h3>{pillars["left_title"]}</h3>
+            <ul class="bound-list">
+{left}
+            </ul>
+          </div>
+          <div class="bound-col bound-col--not">
+            <h3>{pillars["right_title"]}</h3>
+            <ul class="bound-list">
+{right}
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:1.1rem;max-width:48em;">{pillars["note"]}</p>
+      </div>
+    </section>
+
+"""
+    marker = '<section class="slide slide--light" id="scene-math"'
+    if marker not in html:
+        raise SystemExit("scene-math not found for two-pillars inject")
+    if 'id="scene-two-pillars"' in html:
+        return html
+    return html.replace(marker, scene + marker, 1)
+
+
+def patch_what_loop(html: str, loop_html: str) -> str:
+    """Replace the four-step do-chain with Connect→Improve (six steps)."""
+    pattern = re.compile(
+        r'<div class="do-chain reveal">.*?</div>\s*<div class="flow-tags',
+        re.S,
+    )
+    html2, n = pattern.subn(
+        loop_html.strip() + '\n        <div class="flow-tags', html, count=1
+    )
+    if n != 1:
+        raise SystemExit(f"what-loop patch failed (n={n})")
+    return html2
+
+
 def patch_sample_workspace(html: str, url: str = SAMPLE_WORKSPACE_URL) -> str:
     """Point the Sample workspace iframe at trying.stamped.work and add an Open button."""
     old_title = """        <div class="dash-title-row reveal">
@@ -350,6 +414,11 @@ def patch_sample_workspace(html: str, url: str = SAMPLE_WORKSPACE_URL) -> str:
     return html
 
 
+def normalize_dashes(html: str) -> str:
+    """Client decks forbid em/en dashes in visible copy (check-client-decks gate)."""
+    return html.replace("—", " · ").replace("–", "-")
+
+
 def build_full(mod, base: str) -> str:
     from deck_packs.machinery_oem import (
         HERO,
@@ -371,7 +440,7 @@ def build_full(mod, base: str) -> str:
             raise SystemExit(f"OEM heading patch missed:\n{old[:80]}...")
         html = html.replace(old, new, 1)
     html = patch_sample_workspace(html)
-    return html
+    return normalize_dashes(html)
 
 
 def build_brief(mod, base: str) -> str:
@@ -409,7 +478,54 @@ def build_brief(mod, base: str) -> str:
         count=1,
     )
     _ = SLUG
-    return html
+    return normalize_dashes(html)
+
+
+def build_forge_ht(mod, base: str) -> str:
+    from deck_packs.auto_forge_ht import (
+        HEADING_PATCHES,
+        HERO,
+        HERO_ALT,
+        KEEP_SCENES,
+        OFFER_PATCH,
+        PACK,
+        SLUG,
+        TWO_PILLARS,
+        WHAT_LOOP_HTML,
+    )
+
+    key = SLUG
+    mod.PACKS[key] = PACK
+    mod.HERO_BY_INDUSTRY[key] = HERO
+    mod.HERO_ALT[key] = HERO_ALT
+    html = mod.build_one(base, key)
+    html = strip_scenes(html, KEEP_SCENES)
+    html = rewrite_client_paths(html, asset_prefix="assets/", tech_prefix="../")
+    html = inject_two_pillars_scene(html, TWO_PILLARS)
+    html = patch_what_loop(html, WHAT_LOOP_HTML)
+    html = patch_offer_brief(html, OFFER_PATCH)
+    for old, new in HEADING_PATCHES:
+        if old not in html:
+            # allow already-patched verify heading
+            if "Verified with evidence" in new and "Verified with evidence" in html:
+                continue
+            raise SystemExit(f"forge-HT heading patch missed:\n{old[:80]}...")
+        html = html.replace(old, new, 1)
+    html = html.replace(
+        'data-industry="forge · ht · die cast"',
+        'data-industry="auto-forge-ht" data-client-brief="forge-ht"',
+        1,
+    )
+    html = re.sub(
+        r"<title>.*?</title>",
+        f"<title>{PACK['docTitle']}</title>",
+        html,
+        count=1,
+    )
+    hits = FORBIDDEN_LNM.findall(html)
+    if hits:
+        raise SystemExit(f"forge-HT pack must stay anonymous; found {sorted(set(hits))}")
+    return normalize_dashes(html)
 
 
 def assert_anonymous(html: str, path: Path) -> None:
@@ -421,7 +537,7 @@ def assert_anonymous(html: str, path: Path) -> None:
 
 
 def main() -> None:
-    sys.path.insert(0, str(SCRIPTS))
+    sys.path.insert(0, str(DECKS_PKG))
     mod = load_industry_builder()
     snapshot = DECKS / "_base.snapshot.html"
     if not snapshot.exists():
@@ -462,7 +578,7 @@ def main() -> None:
         raw, asset_prefix="../assets/", tech_prefix="../../"
     )
     assert_anonymous(deploy_html, deploy_path)
-    deploy_path.write_text(deploy_html, encoding="utf-8")
+    deploy_path.write_text(normalize_dashes(deploy_html), encoding="utf-8")
     print(f"wrote {deploy_path} ({len(deploy_html)} bytes)")
 
     brief = build_brief(mod, base)
@@ -476,6 +592,17 @@ def main() -> None:
         raise SystemExit("brief missing lohia-lines scene")
     print(f"wrote {brief_path} ({len(brief)} bytes)")
 
+    forge = build_forge_ht(mod, base)
+    forge_path = CLIENTS / "auto-forge-ht.html"
+    forge_path.write_text(forge, encoding="utf-8")
+    if 'id="scene-two-pillars"' not in forge:
+        raise SystemExit("forge-HT missing scene-two-pillars")
+    if "Improve" not in forge:
+        raise SystemExit("forge-HT missing Improve loop step")
+    if FORBIDDEN_LNM.search(forge):
+        raise SystemExit("forge-HT must not name LNM / Faridabad / Mall")
+    print(f"wrote {forge_path} ({len(forge)} bytes)")
+
     write_clients_hub()
     note = CLIENTS / "README.md"
     note.write_text(
@@ -487,8 +614,9 @@ def main() -> None:
         "| [machinery-oem.html](./machinery-oem.html) | Anonymous full Proof Run (packaging-machinery OEM) |\n"
         "| [machinery-oem/](./machinery-oem/) | Optional standalone deploy root |\n"
         "| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |\n"
+        "| [auto-forge-ht.html](./auto-forge-ht.html) | Forge / HT / die-cast value walkthrough (two pillars) |\n"
         "| [assets/](./assets/) | Co-located images (open HTML from this folder) |\n\n"
-        "Rebuild: `python3 scripts/build-client-decks.py`\n",
+        "Rebuild: `python scripts/decks/build/build-client-decks.py`\n",
         encoding="utf-8",
     )
     print("wrote clients/README.md")
@@ -557,8 +685,13 @@ CLIENT_HUB = """<!DOCTYPE html>
     <a class="back" href="../index.html">← Back to industry decks</a>
     <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
     <h1>Client decks</h1>
-    <p class="lede">Meeting walkthroughs for named accounts and anonymous OEM demos. Same Stamped Proof Run design as the industry decks.</p>
+    <p class="lede">Meeting walkthroughs for named accounts and anonymous process demos. Same Stamped Proof Run design as the industry decks.</p>
     <div class="grid">
+      <a class="card" href="./auto-forge-ht.html">
+        <strong>Forge · HT · Die cast</strong>
+        <span>Value walkthrough: two pillars (energy + equipment), evidence, Improve loop. Process-focused, not a named-account brochure.</span>
+        <em>Open forge / HT demo →</em>
+      </a>
       <a class="card" href="./lohia-corp-brief.html">
         <strong>Lohia Corp · brief</strong>
         <span>Named walkthrough: woven raffia lines, real-time decisions vs audit, early warnings, on-site Chaubepur ask.</span>
