@@ -512,6 +512,12 @@ def build_forge_ht(mod, base: str) -> str:
         count=2,
         flags=re.S,
     )
+    html = re.sub(
+        r'\s*<span class="chip">Pay-as-you-save</span>',
+        "",
+        html,
+        count=0,
+    )
     for old, new in HEADING_PATCHES:
         if old not in html:
             # allow already-patched verify heading
