@@ -2368,46 +2368,46 @@
 
 <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal" id="mathEyebrow">Where value usually shows up on forge and HT floors</p>
+        <p class="eyebrow reveal" id="mathEyebrow">Where value usually shows up on integrated forge floors</p>
         <h2 class="reveal" id="mathH2">What we check first</h2>
-        <p class="lede reveal" id="mathLede">Energy and equipment checks on forge, HT, and die-cast floors.</p>
+        <p class="lede reveal" id="mathLede">Energy and equipment checks on forge, HT, CNC, and surface floors.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
             <h3>Energy · MD / demand</h3>
             <ul>
-              <li>Press + furnace coincidence</li>
-              <li>Quench pumps with forge start</li>
-              <li>Contract demand headroom</li>
+              <li>2500 T press / hammer + HT furnace coincidence</li>
+              <li>Quench / shot-blast aux with forge start</li>
+              <li>CNC bay or surface line in the same MD window</li>
             </ul>
             <div class="waste-bill">Bill line · MD (kVA)</div>
-            <p class="waste-sample hide-mobile">Example: press ramp and SQF preheat in the same MD window</p>
+            <p class="waste-sample hide-mobile">Example: press-line ramp and SQF preheat stack at day-shift start</p>
           </article>
           <article class="waste-card">
             <h3>Energy · process heat / idle</h3>
             <ul>
-              <li>Furnace hold over breaks</li>
-              <li>Empty-batch soak</li>
-              <li>Die-cast hold with zero shots</li>
+              <li>Carburize / Q&T hold over lunch</li>
+              <li>Induction idle between lots</li>
+              <li>Surface bath heaters or rectifier left on</li>
             </ul>
             <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample hide-mobile">Example: hold load flat through lunch with no charge scheduled</p>
+            <p class="waste-sample hide-mobile">Example: sealed-quench hold flat through lunch with no charge scheduled</p>
           </article>
           <article class="waste-card">
             <h3>Energy · air / PF</h3>
             <ul>
-              <li>Off-shift compressor unload</li>
-              <li>Pressure band too high</li>
-              <li>PF penalty before more APFC capex</li>
+              <li>Off-shift compressor unload (forge / CNC air)</li>
+              <li>Header pressure too high for gantries and tools</li>
+              <li>PF penalty on HT incomer before more APFC</li>
             </ul>
             <div class="waste-bill">Bill line · Energy + PF</div>
-            <p class="waste-sample hide-mobile">Example: night air unload with forge and HT dark</p>
+            <p class="waste-sample hide-mobile">Example: night air unload with forge, HT, and CNC dark</p>
           </article>
           <article class="waste-card">
             <h3>Equipment · utility drift</h3>
             <ul>
-              <li>Compressor specific-power rise</li>
-              <li>Inspect / clean / tune cards</li>
-              <li>Between AMC visits</li>
+              <li>Compressor specific-power rise between AMC visits</li>
+              <li>Inspect / clean / tune cards for filter and unload</li>
+              <li>Cooling or quench circuit kW drift</li>
             </ul>
             <div class="waste-bill">Ops risk + energy co-benefit</div>
             <p class="waste-sample hide-mobile">Example: Compressor 2 kW per air unit up 16% versus baseline</p>
@@ -2415,12 +2415,12 @@
           <article class="waste-card">
             <h3>Equipment · trips / duty</h3>
             <ul>
-              <li>Quench or circulation start retries</li>
-              <li>Abnormal die-cast duty overnight</li>
-              <li>Press ramp signature change</li>
+              <li>SQF quench / circulation start retries</li>
+              <li>Press or hammer ramp signature change</li>
+              <li>CNC spindle idle or gantry parked with aux on</li>
             </ul>
             <div class="waste-bill">Ops risk · downtime</div>
-            <p class="waste-sample hide-mobile">Example: three start retries on quench pump before a batch</p>
+            <p class="waste-sample hide-mobile">Example: three quench-pump start retries before a HT batch</p>
           </article>
         </div>
         <div class="bill-table-wrap reveal">
