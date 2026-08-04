@@ -982,6 +982,36 @@
       background: color-mix(in srgb, var(--primary) 4%, var(--white));
     }
     .routing-card--stamped strong { color: var(--primary); }
+    .routing-steps {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+      margin: 0.35rem 0 0;
+      padding: 0;
+    }
+    .routing-steps li {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--on-surface-variant);
+      padding-left: 1.35rem;
+      position: relative;
+    }
+    .routing-steps li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: color-mix(in srgb, var(--primary) 12%, var(--white));
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
+    }
     .floor-status .status-rail {
       margin-top: 0;
       gap: 0.95rem;
@@ -1549,6 +1579,22 @@
     .waste-grid {
       display: grid; grid-template-columns: repeat(5, minmax(0,1fr));
       gap: 0.65rem; margin-top: 1.15rem;
+    }
+    #scene-load .waste-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem;
+      width: 100%;
+    }
+    #scene-load .waste-card {
+      min-height: 168px;
+      padding: 1.15rem 1.25rem;
+    }
+    #scene-load .waste-card h3 { font-size: 1.05rem; margin-bottom: 0.55rem; }
+    #scene-load .waste-card p {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
     }
     .waste-card {
       background: var(--white); border: 1px solid var(--outline-variant);
@@ -2885,9 +2931,6 @@
             </div>
           </button>
 
-          <details class="mobile-fold rx-fold">
-            <summary>Second example · ToD warm-up</summary>
-            <div class="mobile-fold__body">
           <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Shift gravure dryer warm-up. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
@@ -2936,8 +2979,6 @@
               </div>
             </div>
           </button>
-            </div>
-          </details>
         </div>
       </div>
     </section>
@@ -3009,16 +3050,21 @@
           </div>
           <div class="floor-routing reveal">
             <article class="routing-card">
-              <strong>Today at most plants</strong>
-              <p>A finding starts a chain: utilities checks load, production confirms the job window, maintenance slots the work, shift supervisor signs off. Four handoffs before the floor moves.</p>
+              <strong>Without Stamped</strong>
+              <p>A finding becomes a meeting chain: utilities → production → maintenance → shift supervisor. Four handoffs before anyone on the floor gets a clear ask.</p>
             </article>
             <article class="routing-card routing-card--stamped">
-              <strong>What Stamped does</strong>
-              <p>We read asset, role, and production context, then send one prescription to the owner who can act, with why, impact, and evidence on the same card.</p>
+              <strong>How we route it</strong>
+              <ul class="routing-steps">
+                <li data-n="1">Map the asset to the owner (e.g. compressor → utilities + maintenance).</li>
+                <li data-n="2">Check the job / ToD window so the ask is feasible this shift.</li>
+                <li data-n="3">Pack why, impact, and evidence on one card.</li>
+                <li data-n="4">Send that card on WhatsApp (or the dashboard queue) to that owner.</li>
+              </ul>
             </article>
             <article class="routing-card">
-              <strong>What that saves</strong>
-              <p>Less time in cross-section meetings and email threads. Decision rights stay distributed; coordination overhead drops because routing is automatic.</p>
+              <strong>What changes for you</strong>
+              <p>Owners still decide. We remove the chase: no round-robin emails, no “who owns this?” thread. Leadership still sees the full queue and outcomes.</p>
             </article>
           </div>
           <div class="phone-col">
