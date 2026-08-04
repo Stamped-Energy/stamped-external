@@ -479,6 +479,19 @@
       padding: 0.28rem 0.55rem; border-radius: 999px;
       margin-bottom: var(--space-3);
     }
+    .client-mark {
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: color-mix(in srgb, var(--primary) 10%, var(--white));
+      border-color: color-mix(in srgb, var(--primary) 32%, transparent);
+    }
+    #scene-title .client-mark {
+      font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+      padding: 0.42rem 0.9rem;
+      margin-bottom: 0.55rem;
+    }
     #chromeIndustry {
       font-size: 0.72rem; font-weight: 650; letter-spacing: 0.04em;
       color: var(--on-surface-variant); margin-left: 0.55rem;
@@ -933,16 +946,42 @@
       margin-top: 1.25rem;
       gap: 1.15rem;
     }
-    .floor-status {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-self: center;
+    .floor-routing {
+      display: grid;
+      gap: 0.65rem;
+      align-content: center;
       min-width: 0;
-      max-width: 22rem;
+      max-width: 24rem;
       width: 100%;
       margin: 0 auto;
     }
+    .routing-card {
+      padding: 0.75rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-btn);
+    }
+    .routing-card strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 0.35rem;
+    }
+    .routing-card p {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.42;
+      color: var(--on-surface-variant);
+    }
+    .routing-card--stamped {
+      border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
+      background: color-mix(in srgb, var(--primary) 4%, var(--white));
+    }
+    .routing-card--stamped strong { color: var(--primary); }
     .floor-status .status-rail {
       margin-top: 0;
       gap: 0.95rem;
@@ -2131,22 +2170,15 @@
       #scene-fit .do-chain-fold .do-step { display: grid !important; }
       #scene-fit .meta { font-size: 0.82rem; }
 
-      #scene-load .waste-grid { grid-template-columns: 1fr; }
-      #scene-load .waste-card:nth-child(n+3) { display: none; }
-      #scene-load .waste-fold { grid-column: 1 / -1; }
-      #scene-load .waste-fold .waste-card { display: block !important; }
-      #scene-load .waste-fold .waste-grid { grid-template-columns: 1fr; gap: 0.55rem; }
+      #scene-load .waste-grid { grid-template-columns: 1fr 1fr; }
       #scene-load .footnote { font-size: 0.8rem; margin-top: 0.55rem; }
 
       #scene-equipment .waste-grid { grid-template-columns: 1fr 1fr; }
-      #scene-equipment .waste-card ul { display: none; }
-      #scene-equipment .bound-col--ot { margin-top: 0 !important; }
+      #scene-equipment .bound-col--ot { margin-top: 0.65rem !important; }
       #scene-equipment .footnote { font-size: 0.8rem; }
 
-      #scene-agentic .agent-fold { grid-column: 1 / -1; }
-      #scene-agentic .agent-fold .agent-step { display: grid !important; }
+      #scene-agentic .agent-step p { font-size: 0.82rem; }
       #scene-agentic .agent-callout { font-size: 0.8rem; padding: 0.65rem 0.85rem; margin-top: 0.65rem; }
-      #scene-agentic .meta { font-size: 0.82rem; }
 
       #scene-prescription .rx-fold { width: 100%; }
       #scene-prescription .rx-fold .rx-flip { margin: 0; }
@@ -2198,7 +2230,7 @@
         gap: 0.5rem;
         font-size: 0.82rem;
       }
-      #scene-prescription .rx-row:nth-child(n+6) { display: none; }
+      #scene-prescription .rx-row:nth-child(n+5) { display: none; }
       #scene-prescription .rx-flip-cue {
         margin-top: 0.85rem;
         font-weight: 650;
@@ -2225,17 +2257,15 @@
       }
       #scene-floor .floor-copy { order: 1; }
       #scene-floor .phone-col { order: 2; }
-      #scene-floor .floor-status { order: 3; }
+      #scene-floor .floor-routing { order: 3; }
       #scene-floor .floor-copy .footnote { display: none; }
-      #scene-floor .status-item p { font-size: 0.78rem; }
-      #scene-floor .floor-fold { width: 100%; }
-      #scene-floor .status-item:nth-child(n+4) { display: none; }
-      #scene-floor .floor-fold .status-item { display: grid !important; }
+      #scene-floor .routing-card p { font-size: 0.78rem; }
+      #scene-floor .routing-card { padding: 0.65rem 0.75rem; }
       #scene-floor .floor-copy {
         max-width: 100%;
         width: 100%;
       }
-      #scene-floor .floor-status {
+      #scene-floor .floor-routing {
         max-width: 100%;
         width: 100%;
       }
@@ -2284,27 +2314,12 @@
       }
       #scene-verify .footnote { font-size: 0.8rem; }
 
-      #scene-integration .bound-fold { grid-column: 1 / -1; }
-      #scene-integration .bound-fold .bound-grid { grid-template-columns: 1fr; gap: 0.65rem; }
-      #scene-integration .bound-fold .bound-col { display: block !important; }
-      #scene-integration .bound-list { font-size: 0.84rem; }
-      #scene-integration .bound-list li:nth-child(n+3) { display: none; }
-      #scene-integration .mobile-fold .bound-list li { display: list-item !important; }
-      #scene-integration .meta,
-      #scene-integration .footnote { font-size: 0.82rem; }
-
       #scene-offer h2 { font-size: clamp(1.2rem, 5.2vw, 1.5rem); }
       #scene-offer .offer-main { grid-template-columns: 1fr; margin-top: 0.55rem; }
       #scene-offer .offer-fold { grid-column: 1 / -1; }
-      #scene-offer .offer-success-fold { margin-top: 0.65rem; }
-      #scene-offer .offer-success { margin-top: 0; }
-      #scene-offer .success-grid .success-card:nth-child(n+3) { display: none; }
-      #scene-offer .offer-success-fold .success-card { display: block !important; }
       #scene-offer .offer-bottom { grid-template-columns: 1fr; }
       #scene-offer .offer-chips { display: none; }
-      #scene-offer .scope-list { font-size: 0.84rem; }
-      #scene-offer .scope-list li:nth-child(n+4) { display: none; }
-      #scene-offer .mobile-fold .scope-list li { display: list-item !important; }
+      #scene-offer .success-grid { grid-template-columns: 1fr 1fr; }
 
       /* ponytail: desktop-only simulated workspace - unusable on phone */
       #scene-live { display: none !important; }
@@ -2647,12 +2662,12 @@
               <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
-            <p class="industry-chip reveal" id="industryChip">ITC Nadiad</p>
-            <p class="eyebrow reveal">ITC Packaging &amp; Printing, Nadiad · Technical brief</p>
+            <p class="industry-chip client-mark reveal" id="industryChip">ITC Nadiad</p>
+            <p class="eyebrow reveal">Packaging &amp; Printing, Gujarat · Prepared for Marut Shukla</p>
             <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">From plant signals to better load and equipment decisions</h1>
-            <p class="lede reveal hide-mobile">Stamped Intelligence sits read-only on existing meters, SCADA/EMS, production context, and MGVCL bills. It recommends what to change or inspect, assigns who acts, and verifies what improved.</p>
-            <p class="mobile-lede reveal show-mobile">Read-only on meters, SCADA, and MGVCL bills — prescribe, assign, verify.</p>
+            <h1 class="reveal">How we help Nadiad turn plant signals into clear, owned actions</h1>
+            <p class="lede reveal hide-mobile">We connect read-only to your meters, SCADA, shift data, and MGVCL bills. When something is worth acting on, we name the owner, spell out the action, attach the evidence, and check whether it paid off.</p>
+            <p class="mobile-lede reveal show-mobile">Read-only on your stack. Clear actions to the right owner, with proof when it works.</p>
             <div class="flow-tags reveal hide-mobile">
               <span class="chip">Real-time load decisions</span>
               <span class="chip">Plant-calibrated equipment ML</span>
@@ -2680,10 +2695,10 @@
 
     <section class="slide slide--light grid-bg" id="scene-gap" data-theme="light" aria-label="Decision gap">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">The question after monitoring</p>
-        <h2 class="reveal">Your stack can see the plant. What should the team do next?</h2>
-        <p class="lede reveal hide-mobile">Nadiad already has real-time monitoring, dynamic job sequencing, shift planning, and TPM. Stamped does not recreate those capabilities. We test whether combining their signals with utility and tariff context can improve the next operating decision.</p>
-        <p class="mobile-lede reveal show-mobile">Nadiad already monitors the plant. Stamped tests whether tariff + utility context improves the next decision.</p>
+        <p class="eyebrow reveal">What Marut asked us to answer</p>
+        <h2 class="reveal">You already see the plant. Who should act, and on what?</h2>
+        <p class="lede reveal hide-mobile">Nadiad has monitoring, job sequencing, shift planning, and TPM. We are not rebuilding that. The practical question is whether tying those signals to utility and tariff context gets a faster, owned next step for the team.</p>
+        <p class="mobile-lede reveal show-mobile">Not more dashboards — a named next step someone can actually run.</p>
         <details class="mobile-fold reveal">
           <summary>Compare what you have vs what Stamped adds</summary>
           <div class="mobile-fold__body">
@@ -2710,7 +2725,7 @@
           </div>
         </div>
         <p class="gap-bridge reveal">Decision and closure</p>
-        <p class="meta reveal" style="margin-top:0.85rem;max-width:52em;">The layer to test is not more visibility. It is faster movement from signal → feasible decision → assigned action → measured result.</p>
+        <p class="meta reveal" style="margin-top:0.85rem;max-width:52em;">Less time debating what the chart means. More time running the action and checking the result.</p>
           </div>
         </details>
       </div>
@@ -2719,8 +2734,7 @@
     <section class="slide slide--light" id="scene-fit" data-theme="light" aria-label="Where Stamped fits">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Read-only on the existing plant stack</p>
-        <h2 class="reveal">One context layer across energy, equipment, production, and tariff</h2>
-        <p class="mobile-lede reveal show-mobile">Connect → context → decide → assign → verify. Read-only on OT.</p>
+        <h2 class="reveal">We sit on what you already have — meters, SCADA, bills, shifts</h2>
         <div class="do-chain reveal">
           <article class="do-step">
             <div class="do-step__num">01</div>
@@ -2731,32 +2745,27 @@
           <article class="do-step">
             <div class="do-step__num">02</div>
             <h3>Build plant context</h3>
-            <p>Time-align signals and map them to the plant energy graph: consumer → feeder → line → utility → equipment.</p>
+            <p>Line up signals in time and map them to how load actually flows: consumer → feeder → line → utility → equipment.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
-          <details class="mobile-fold do-chain-fold">
-            <summary>Steps 3–5 · Decide, assign, verify</summary>
-            <div class="mobile-fold__body">
           <article class="do-step">
             <div class="do-step__num">03</div>
             <h3>Decide</h3>
-            <p>Load and tariff models identify better operating windows. Equipment models flag drift against comparable plant baselines.</p>
+            <p>Load and tariff models flag better windows. Equipment models flag drift against comparable runs at Nadiad.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">04</div>
             <h3>Assign</h3>
-            <p>Each finding becomes a prescription with what, why, owner, effort, expected impact, and timing.</p>
+            <p>Each finding becomes a prescription: what to do, why, who owns it, effort, expected impact, and timing.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">05</div>
             <h3>Verify and improve</h3>
-            <p>Compare the post-action signal with the locked baseline. Track potential versus realised impact and improve future ranking.</p>
+            <p>Compare the post-action signal to the locked baseline. Track what was possible vs what actually landed.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
-            </div>
-          </details>
         </div>
         <p class="meta reveal" style="margin-top:0.85rem;">Read-only OT · Existing systems remain systems of record · No automatic line-control changes</p>
       </div>
@@ -2765,43 +2774,38 @@
     <section class="slide slide--light grid-bg" id="scene-load" data-theme="light" aria-label="Load and energy management">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Pillar 1 · Load &amp; Energy Efficiency Intelligence</p>
-        <h2 class="reveal">Manage the whole load, not only the monthly peak</h2>
-        <p class="lede reveal hide-mobile">Stamped continuously combines electrical load, production state, operating schedule, and tariff windows to recommend the best practical energy decision available at that moment.</p>
-        <p class="mobile-lede reveal show-mobile">Combine load, schedule, and MGVCL ToD to recommend the best practical move each shift.</p>
+        <h2 class="reveal">Work the full load picture, not just the MD spike</h2>
+        <p class="lede reveal hide-mobile">Most plants react when the bill lands. We watch load against the shift plan and MGVCL ToD through the month, and call out moves that are realistic for production.</p>
+        <p class="mobile-lede reveal show-mobile">Practical load moves tied to shift plan and ToD — not only end-of-month MD firefighting.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
             <h3>Sequence</h3>
-            <p>Stagger large starts, preheat, and utility loading where the schedule has room.</p>
+            <p>When the schedule allows, stagger big starts and preheats so you do not stack demand in one window.</p>
           </article>
           <article class="waste-card">
             <h3>Reduce</h3>
-            <p>Find idle machines, unloaded compressors, excess holding, and off-shift utilities consuming without useful output.</p>
+            <p>Call out compressors running unloaded, machines left on with no output, and utilities holding load off-shift.</p>
           </article>
-          <details class="mobile-fold waste-fold">
-            <summary>Shift &amp; correct · more levers</summary>
-            <div class="mobile-fold__body waste-grid">
           <article class="waste-card">
             <h3>Shift</h3>
-            <p>Move flexible demand to better ToD, solar, or captive-generation windows without risking output or quality.</p>
+            <p>Move flexible work into cheaper ToD or solar hours when gravure, offset, or utilities can still deliver.</p>
           </article>
           <article class="waste-card">
             <h3>Correct</h3>
-            <p>Act on PF drift, inefficient pressure or temperature bands, contract-demand mismatch, and recurring MD events.</p>
+            <p>Catch PF drift, wide pressure or temperature bands, and repeat MD hits before they show up on the bill.</p>
           </article>
-            </div>
-          </details>
         </div>
-        <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Illustrative application areas: offset makeready · gravure dryer warm-up · compressor and chiller staging · HVAC and extraction schedules · MGVCL ToD windows</p>
-        <p class="footnote reveal">Production commitment, quality, and safety remain hard constraints. The lowest-energy option is rejected if it disrupts the job plan.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Examples at Nadiad: offset makeready · gravure dryer warm-up · compressor and chiller staging · HVAC and extraction · MGVCL ToD windows</p>
+        <p class="footnote reveal">Production, quality, and safety stay first. If a lower-energy option breaks the job plan, we do not push it.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-equipment" data-theme="light" aria-label="Equipment intelligence">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Pillar 2 · Prescriptive Equipment Intelligence</p>
-        <h2 class="reveal">Each asset is compared with its own normal operating behaviour</h2>
-        <p class="lede reveal hide-mobile">Equipment-specific ML models calibrate to Nadiad&#x27;s operating data after connection. They compare an asset with matched shifts, production conditions, and operating states, so gradual deterioration is not hidden inside a plant-wide average.</p>
-        <p class="mobile-lede reveal show-mobile">Per-asset ML compares each machine to its own baseline — not a plant-wide average.</p>
+        <h2 class="reveal">Each machine judged against its own normal — not the plant average</h2>
+        <p class="lede reveal hide-mobile">After we connect, models learn how each asset runs at Nadiad by shift and job. Slow drift on one compressor does not get buried in a site-wide kW number.</p>
+        <p class="mobile-lede reveal show-mobile">Per-asset baselines — drift shows up before the monthly review.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
             <h3>Baseline model</h3>
@@ -2820,10 +2824,7 @@
             <p>Recommends inspect, clean, or tune; then checks whether the curve recovered after close-out.</p>
           </article>
         </div>
-        <details class="mobile-fold reveal">
-          <summary>Typical signals we watch</summary>
-          <div class="mobile-fold__body">
-        <div class="bound-col bound-col--ot reveal" style="margin-top:0;padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
+        <div class="bound-col bound-col--ot reveal" style="margin-top:0.85rem;padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
           <h3 style="font-size:0.88rem;margin-bottom:0.45rem;">Typical signals</h3>
           <ul class="bound-list">
               <li>Compressor specific-power drift at comparable header demand</li>
@@ -2832,16 +2833,14 @@
               <li>Repeated starts, trips, or longer ramp behaviour on connected assets</li>
           </ul>
         </div>
-          </div>
-        </details>
-        <p class="footnote reveal">Earlier warning than fixed thresholds. No bearing-failure date or remaining-useful-life claim without the necessary condition-monitoring data.</p>
+        <p class="footnote reveal">Earlier than a fixed alarm threshold. We do not claim bearing life or RUL without the right condition-monitoring data.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescriptions">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Example prescriptions · Equipment drift &amp; load</p>
-        <h2 class="reveal">The floor receives a decision, not an anomaly score</h2>
+        <h2 class="reveal">A prescription tied to what is happening on the floor</h2>
         <span class="illustrative-badge reveal">Illustrative examples · not Nadiad measurements</span>
         <div class="rx-layout reveal">
           <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Inspect compressor 2. Show evidence.">
@@ -2855,11 +2854,9 @@
                   <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days.</dd></div>
-                    <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh) · specific power</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + mechanical maintenance</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000-₹70,000 / month [illustrative]</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
-                    <div class="rx-row"><dt>Rule</dt><dd>RX-UTL-024 · sp_drift@v1.6 · High</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
@@ -2907,11 +2904,9 @@
                   <p class="rx-action">Start gravure dryer warm-up 25 minutes earlier into the lower MGVCL ToD window before day-shift gravure release, without changing job start time.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Why</dt><dd>Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable.</dd></div>
-                    <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh) · ToD</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + gravure shift supervisor</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong>₹35,000-₹55,000 / month [illustrative]</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production sign-off</dd></div>
-                    <div class="rx-row"><dt>Rule</dt><dd>RX-ENE-031 · tod_warmup@v2.1 · Med</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd>Next gravure day-shift cycle</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
@@ -2955,9 +2950,9 @@
     <section class="slide slide--light grid-bg" id="scene-agentic" data-theme="light" aria-label="ML and agentic intelligence">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">How a finding becomes the next-best plant decision</p>
-        <h2 class="reveal">ML detects the change. Agentic intelligence makes it usable.</h2>
-        <p class="lede reveal hide-mobile">The agentic layer works alongside the load and equipment models. It combines each finding with plant context, checks practical constraints, and prepares the action the right person can execute.</p>
-        <p class="mobile-lede reveal show-mobile">ML finds the change; agentic layer makes it actionable for the right owner.</p>
+        <h2 class="reveal">ML spots the issue. The system turns it into something people can act on.</h2>
+        <p class="lede reveal hide-mobile">Models flag drift or tariff overlap. The agentic layer adds job window, shift state, and maintenance constraints, then drafts an action the right person can run.</p>
+        <p class="mobile-lede reveal show-mobile">Findings get context and a feasible owner — not a raw alert.</p>
         <div class="agent-pipe reveal hide-mobile">
           <span>ML finding</span><span>↓</span>
           <span>Plant + production + tariff context</span><span>↓</span>
@@ -2979,21 +2974,18 @@
               <p>Read the relevant job or batch window, shift state, tariff, asset relationship, and approved maintenance knowledge.</p>
             </div>
           </article>
-          <details class="mobile-fold agent-fold">
-            <summary>Steps 3–5 · Propose, adapt, learn</summary>
-            <div class="mobile-fold__body agent-stack">
           <article class="agent-step">
             <div class="agent-step__num">3</div>
             <div>
               <strong>Propose</strong>
-              <p>Draft what to change or inspect, expected impact, owner, effort, and verification method.</p>
+              <p>Draft what to change or inspect, expected impact, owner, effort, and how you will verify it.</p>
             </div>
           </article>
           <article class="agent-step">
             <div class="agent-step__num">4</div>
             <div>
               <strong>Adapt</strong>
-              <p>If the preferred action conflicts with production, suggest the next feasible option instead of issuing an unusable recommendation.</p>
+              <p>If the first option clashes with production, suggest the next feasible window instead of sending something unusable.</p>
             </div>
           </article>
           <article class="agent-step">
@@ -3003,16 +2995,9 @@
               <p>Followed, deferred, and rejected actions improve ranking and plant preferences with human review.</p>
             </div>
           </article>
-            </div>
-          </details>
         </div>
-        <p class="meta reveal" style="margin-top:0.75rem;">Grounded in plant data and approved operating knowledge. It is not a generic chatbot and does not autonomously change process setpoints.</p>
-        <details class="mobile-fold reveal">
-          <summary>Example constraint message</summary>
-          <div class="mobile-fold__body">
-        <p class="agent-callout reveal">&quot;Inspection cannot run in the proposed window because standby air capacity is insufficient. Next feasible window: Thursday 14:00-16:00, after Job 447 closes.&quot;</p>
-          </div>
-        </details>
+        <p class="meta reveal" style="margin-top:0.75rem;">Grounded in plant data and approved operating knowledge — not a generic chatbot, and no autonomous setpoint writes.</p>
+        <p class="agent-callout reveal">Compressor inspection was suggested for Tuesday morning, but standby air capacity that day is too low to isolate safely. Stamped flags that and proposes Thursday 2–4 pm instead, after Job 447 closes.</p>
       </div>
     </section>
 
@@ -3020,56 +3005,26 @@
       <div class="slide__inner slide__inner--wide">
         <div class="floor-layout">
           <div class="floor-copy">
-            <p class="eyebrow reveal">From decision to floor action</p>
-            <h2 class="reveal">The right action reaches the right owner with its evidence attached</h2>
-            <p class="lede reveal hide-mobile">Stamped routes prescriptions by asset and role. Urgent work can require an admin confirmation before release; larger work stays in the queue until an owner and approved window are assigned.</p>
-            <p class="lede reveal show-mobile">Tap Snooze or Acknowledge on each assigned prescription. Evidence and impact travel with the action.</p>
+            <p class="eyebrow reveal">How we cut coordination overhead</p>
+            <h2 class="reveal">The right action reaches the right owner — with evidence attached</h2>
+            <p class="lede reveal hide-mobile">At a plant Nadiad&#x27;s size, one energy finding often crosses utilities, production, maintenance, and shift supervision before anyone acts. Stamped routes the prescription to whoever can actually run it.</p>
+            <p class="lede reveal show-mobile">One action card to the right owner — utilities, gravure supervisor, or maintenance — with evidence attached.</p>
             <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">WhatsApp for assigned actions · dashboard for queue and evidence · export for management review</p>
-            <p class="footnote reveal">The floor sees a short action card. Plant leadership sees the queue, constraints, expected value, and realised outcome.</p>
+            <p class="footnote reveal">Workers see a short card. Leadership sees queue, constraints, expected value, and what actually landed.</p>
           </div>
-          <div class="floor-status reveal">
-            <details class="mobile-fold floor-fold">
-              <summary>Workflow · 5 steps</summary>
-              <div class="mobile-fold__body">
-            <div class="status-rail" id="floorStatusRail" aria-label="Prescription workflow">
-              <div class="status-item is-active" data-status-step="0">
-                <span class="status-dot active pulse-on-active"></span>
-                <div>
-                  <strong>Open</strong>
-                  <p>Prescription issued with evidence, impact, priority, and proposed owner.</p>
-                </div>
-              </div>
-              <div class="status-item" data-status-step="1">
-                <span class="status-dot"></span>
-                <div>
-                  <strong>Acknowledged</strong>
-                  <p>Owner accepts, requests a different window, or flags a production constraint.</p>
-                </div>
-              </div>
-              <div class="status-item" data-status-step="2">
-                <span class="status-dot"></span>
-                <div>
-                  <strong>In progress</strong>
-                  <p>Action runs under the plant&#x27;s existing SOP, permit, and maintenance process.</p>
-                </div>
-              </div>
-              <div class="status-item" data-status-step="3">
-                <span class="status-dot"></span>
-                <div>
-                  <strong>Done</strong>
-                  <p>Completion recorded with notes or maintenance evidence.</p>
-                </div>
-              </div>
-              <div class="status-item" data-status-step="4">
-                <span class="status-dot"></span>
-                <div>
-                  <strong>Verified / deferred</strong>
-                  <p>Outcome checked against the baseline. Deferred actions retain a reason code and return only when relevant.</p>
-                </div>
-              </div>
-            </div>
-              </div>
-            </details>
+          <div class="floor-routing reveal">
+            <article class="routing-card">
+              <strong>Today at most plants</strong>
+              <p>A finding starts a chain: utilities checks load, production confirms the job window, maintenance slots the work, shift supervisor signs off. Four handoffs before the floor moves.</p>
+            </article>
+            <article class="routing-card routing-card--stamped">
+              <strong>What Stamped does</strong>
+              <p>We read asset, role, and production context, then send one prescription to the owner who can act — with why, impact, and evidence on the same card.</p>
+            </article>
+            <article class="routing-card">
+              <strong>What that saves</strong>
+              <p>Less time in cross-section meetings and email threads. Decision rights stay distributed; coordination overhead drops because routing is automatic.</p>
+            </article>
           </div>
           <div class="phone-col">
             <div class="phone reveal" id="floorPhone" role="region" aria-label="Prescription phone preview">
@@ -3105,7 +3060,6 @@
                           <span class="tag" id="floorTag">Rx · High</span>
                           <h4 id="floorTitle">Inspect Compressor 2 inlet filter and unload valve</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
-                          <p class="wa-line" id="floorRule"><b>ID:</b> RX-UTL-024 · sp_drift@v1.6</p>
                           <p class="wa-line" id="floorWhy"><b>Why:</b> Specific power 14% above eight-week baseline for nine days</p>
                           <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹45-70k/mo if curve recovers [illustrative]</p>
                           <p class="wa-line" id="floorOwner"><b>Owner:</b> Utilities lead + maintenance</p>
@@ -3144,13 +3098,10 @@
     <section class="slide slide--light" id="scene-verify" data-theme="light" aria-label="Verification">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Evidence before credit</p>
-        <h2 class="reveal">Potential becomes realised only after the signal moves</h2>
-        <p class="lede reveal hide-mobile">A prescription is not counted as a saving when it is issued or marked done. Stamped locks the pre-action baseline, observes the post-action period, and records realised value only when the agreed evidence clears.</p>
-        <p class="mobile-lede reveal show-mobile">Savings count only after baseline lock, post-action observation, and agreed evidence.</p>
-        <details class="mobile-fold reveal">
-          <summary>Verification steps (5)</summary>
-          <div class="mobile-fold__body">
-        <div class="verify-steps reveal">
+        <h2 class="reveal">Savings count only after the signal actually moves</h2>
+        <p class="lede reveal hide-mobile">Issuing a prescription or marking it done is not a saving. We lock the baseline before action, watch the post-action period, and record value only when the agreed evidence clears.</p>
+        <p class="mobile-lede reveal show-mobile">Baseline locked first. Credit only when post-action evidence clears.</p>
+        <div class="verify-steps reveal hide-mobile">
           <div class="verify-step">
             <strong>Baseline</strong>
             <span>Expected performance under comparable production, shift, and operating conditions.</span>
@@ -3172,29 +3123,27 @@
             <span>Utility bill lines can provide secondary confirmation when the billing period closes.</span>
           </div>
         </div>
-          </div>
-        </details>
         <div class="ledger-wrap reveal">
           <table class="ledger-table">
             <thead><tr><th>Prescription</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
             <tbody>
               <tr>
-                <td>RX-UTL-024</td>
+                <td>Compressor inlet filter</td>
                 <td>Potential</td>
                 <td>₹55k/mo</td>
-                <td>IN REVIEW</td>
+                <td>In review</td>
               </tr>
               <tr>
-                <td>RX-ENE-031</td>
+                <td>Gravure warm-up shift</td>
                 <td>Realised</td>
-                <td>₹__</td>
-                <td>VERIFIED</td>
+                <td>₹41k/mo</td>
+                <td>Verified</td>
               </tr>
               <tr>
-                <td>RX-ENE-036</td>
+                <td>Chiller staging</td>
                 <td>Deferred</td>
-                <td> · </td>
-                <td>PRODUCTION CONSTRAINT</td>
+                <td>Pending</td>
+                <td>Production hold</td>
               </tr>
             </tbody>
           </table>
@@ -3207,8 +3156,7 @@
     <section class="slide slide--light grid-bg" id="scene-integration" data-theme="light" aria-label="Integration and boundaries">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Designed for brownfield plants</p>
-        <h2 class="reveal">Add intelligence without changing the control hierarchy</h2>
-        <p class="mobile-lede reveal show-mobile">Read-only OT in the Proof Run. Existing EMS/MES stay systems of record.</p>
+        <h2 class="reveal">Fits a brownfield plant — read-only, no control writes</h2>
         <div class="bound-grid reveal">
           <div class="bound-col bound-col--ot">
             <h3>Integration</h3>
@@ -3218,9 +3166,6 @@
               <li>Start with meter + bill; add feeder, SCADA, and production context only where useful</li>
             </ul>
           </div>
-          <details class="mobile-fold bound-fold">
-            <summary>Boundaries &amp; data governance</summary>
-            <div class="mobile-fold__body bound-grid">
           <div class="bound-col ">
             <h3>Operating boundaries</h3>
             <ul class="bound-list">
@@ -3239,8 +3184,6 @@
               <li>Source lineage retained for every prescription</li>
             </ul>
           </div>
-            </div>
-          </details>
         </div>
         <p class="meta reveal" style="margin-top:0.85rem;">Stamped is not an EMS replacement, MES, CMMS, vibration-monitoring system, solar/EPC service, or autonomous plant-control system.</p>
         <p class="footnote reveal">The Proof Run should be small enough to review technically and valuable enough to produce one decision worth verifying.</p>
@@ -3249,10 +3192,10 @@
 
     <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="60-day proof run">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">A scoped way to test the decision layer</p>
-        <h2 class="reveal">One consumer. One utility system. One production context.</h2>
-        <p class="offer-lede reveal hide-mobile">A bounded 60-day Proof Run at Nadiad — small enough to review technically, valuable enough to produce one decision worth verifying.</p>
-        <p class="mobile-lede reveal show-mobile">60-day Proof Run — one consumer, one utility system, one verified decision.</p>
+        <p class="eyebrow reveal">How we would prove it at Nadiad</p>
+        <h2 class="reveal">One consumer. One utility system. One production feed.</h2>
+        <p class="offer-lede reveal hide-mobile">A bounded 60-day Proof Run — small enough for your team to review, large enough to produce one prescription Marut can verify on real data.</p>
+        <p class="mobile-lede reveal show-mobile">60-day proof on one consumer, one utility system, one verified decision.</p>
 
         <div class="offer-main reveal">
           <div class="offer-panel offer-panel--scope">
@@ -3293,9 +3236,6 @@
           </details>
         </div>
 
-        <details class="mobile-fold offer-success-fold reveal">
-          <summary>Success criteria (4)</summary>
-          <div class="mobile-fold__body">
         <div class="offer-success reveal">
           <h3>Success criteria</h3>
           <div class="success-grid">
@@ -3317,8 +3257,6 @@
             </article>
           </div>
         </div>
-          </div>
-        </details>
 
         <div class="offer-bottom reveal">
           <div class="offer-chips">
@@ -3330,8 +3268,8 @@
             </div>
           </div>
           <div class="ask-box">
-            <strong>Next working session</strong>
-            <p>Map the current utility data path, one target asset class, and how energy opportunities are assigned today.</p>
+            <strong>Next working session with Marut</strong>
+            <p>Walk through how energy opportunities are assigned today, which utility data you trust, and one asset class to test first.</p>
           </div>
         </div>
 
@@ -3339,6 +3277,10 @@
           <a href="mailto:contact@stamped.work">contact@stamped.work</a>
           ·
           <a href="https://stamped.work" target="_blank" rel="noopener noreferrer">stamped.work</a>
+          ·
+          <a href="https://in.linkedin.com/in/vinayak-rz" target="_blank" rel="noopener noreferrer">Vinayak</a>
+          ·
+          <a href="https://in.linkedin.com/in/utso" target="_blank" rel="noopener noreferrer">Utso</a>
         </p>
       </div>
     </section>
@@ -3466,25 +3408,12 @@
       var floorOwner = document.getElementById("floorOwner");
       var floorEffort = document.getElementById("floorEffort");
       var floorVerify = document.getElementById("floorVerify");
-      var floorRule = document.getElementById("floorRule");
       var floorDue = document.getElementById("floorDue");
       var floorMsg = document.getElementById("floorMsg");
       var floorSnooze = document.getElementById("floorSnooze");
       var floorAck = document.getElementById("floorAck");
-      var floorStatusRail = document.getElementById("floorStatusRail");
 
-      function setFloorStatus(step) {
-        if (!floorStatusRail) return;
-        floorStatusRail.querySelectorAll(".status-item").forEach(function (item) {
-          var i = Number(item.getAttribute("data-status-step") || 0);
-          var dot = item.querySelector(".status-dot");
-          item.classList.toggle("is-active", i === step);
-          if (!dot) return;
-          dot.classList.remove("done", "active", "pulse-on-active");
-          if (i < step) dot.classList.add("done");
-          else if (i === step) dot.classList.add("active", "pulse-on-active");
-        });
-      }
+      function setFloorStatus(step) { /* routing slide — no status rail */ }
 
       function setFloorControlsEnabled(on) {
         if (floorSnooze) floorSnooze.disabled = !on;
@@ -3498,7 +3427,6 @@
         floorIdx = i;
         if (floorTag) floorTag.textContent = "Rx · " + (rx.priority || "High");
         if (floorTitle) floorTitle.textContent = rx.title || "";
-        if (floorRule) floorRule.innerHTML = "<b>ID:</b> " + (rx.rule || "");
         if (floorWhy) floorWhy.innerHTML = "<b>Why:</b> " + (rx.why || "");
         if (floorImpact) floorImpact.innerHTML = "<b>Impact:</b> " + (rx.impact || "");
         if (floorOwner) floorOwner.innerHTML = "<b>Owner:</b> " + (rx.owner || "");
