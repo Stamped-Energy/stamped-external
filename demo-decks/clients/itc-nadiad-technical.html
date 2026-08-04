@@ -2029,6 +2029,10 @@
         max-width: 100%;
         width: 100%;
       }
+      #scene-floor .floor-status {
+        max-width: 100%;
+        width: 100%;
+      }
       #scene-floor .phone-col {
         justify-content: center;
         width: 100%;
@@ -2243,6 +2247,143 @@
       list-style: none; display: grid; gap: 0.4rem; margin: 0.65rem 0 0; font-size: 0.86rem;
     }
     .scope-list li::before { content: "✓"; color: var(--tertiary); font-weight: 700; margin-right: 0.45rem; }
+
+    /* Offer slide (11) */
+    #scene-offer .slide__inner--wide {
+      max-width: min(1180px, 100%);
+    }
+    #scene-offer .offer-lede {
+      max-width: 40em;
+      margin: 0;
+      font-size: clamp(0.9rem, 1.35vw, 0.98rem);
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+    #scene-offer .offer-main {
+      display: grid;
+      grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: stretch;
+    }
+    #scene-offer .offer-panel {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem;
+      height: 100%;
+      box-shadow: 0 12px 30px -26px rgba(5, 31, 19, 0.18);
+    }
+    #scene-offer .offer-panel h3 {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin: 0 0 0.65rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e8ebe7;
+    }
+    #scene-offer .offer-timeline {
+      display: grid;
+      gap: 0.5rem;
+    }
+    #scene-offer .offer-phase {
+      display: grid;
+      grid-template-columns: minmax(7.5rem, auto) 1fr;
+      gap: 0.7rem;
+      align-items: start;
+      padding: 0.62rem 0.72rem;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--outline-variant);
+      background: linear-gradient(180deg, #fff 0%, var(--surface-low) 100%);
+    }
+    #scene-offer .offer-phase__when {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--primary);
+      line-height: 1.35;
+    }
+    #scene-offer .offer-phase p {
+      font-size: 0.81rem;
+      line-height: 1.42;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    #scene-offer .offer-success {
+      margin-top: 0.9rem;
+    }
+    #scene-offer .offer-success h3 {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin: 0 0 0.55rem;
+    }
+    #scene-offer .success-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+    #scene-offer .success-card {
+      padding: 0.72rem 0.78rem;
+      background: #fff;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-btn);
+      font-size: 0.78rem;
+      line-height: 1.38;
+      color: var(--on-surface-variant);
+      min-height: 100%;
+    }
+    #scene-offer .success-card strong {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 0.28rem;
+    }
+    #scene-offer .offer-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+      gap: 1rem;
+      align-items: stretch;
+      margin-top: 0.9rem;
+    }
+    #scene-offer .offer-chips {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.55rem;
+    }
+    #scene-offer .commercial { margin-top: 0; }
+    #scene-offer .ask-box {
+      margin-top: 0;
+      max-width: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #scene-offer .contact-line { margin-top: 0.9rem; }
+
+    @media (max-width: 980px) {
+      #scene-offer .offer-main { grid-template-columns: 1fr; }
+      #scene-offer .success-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #scene-offer .offer-bottom { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      #scene-offer .success-grid { grid-template-columns: 1fr; }
+      #scene-offer .offer-phase { grid-template-columns: 1fr; gap: 0.3rem; }
+    }
+
   @media (max-width: 900px) {
     .gap-compare, .verify-steps { grid-template-columns: 1fr; }
   }
@@ -2812,56 +2953,79 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">A scoped way to test the decision layer</p>
         <h2 class="reveal">One consumer. One utility system. One production context.</h2>
-        <div class="two-col reveal" style="margin-top:0.85rem;align-items:start;">
-          <div class="bound-col bound-col--ot" style="padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
-            <h3 style="font-size:0.9rem;margin-bottom:0.45rem;">Proposed Nadiad scope</h3>
-            <ul class="scope-list"><li>One MGVCL consumer and its incomer interval data</li><li>Compressor house or another agreed utility system</li><li>One production or major-load context feed, selected after data mapping</li><li>Three recent MGVCL bills and relevant tariff/contract details</li><li>Named Electrical/Utilities owner and Industry 4.0 data contact</li>
+        <p class="offer-lede reveal hide-mobile">A bounded 60-day Proof Run at Nadiad — small enough to review technically, valuable enough to produce one decision worth verifying.</p>
+
+        <div class="offer-main reveal">
+          <div class="offer-panel offer-panel--scope">
+            <h3>Proposed Nadiad scope</h3>
+            <ul class="scope-list">
+              <li>One MGVCL consumer and its incomer interval data</li>
+              <li>Compressor house or another agreed utility system</li>
+              <li>One production or major-load context feed, selected after data mapping</li>
+              <li>Three recent MGVCL bills and relevant tariff/contract details</li>
+              <li>Named Electrical/Utilities owner and Industry 4.0 data contact</li>
             </ul>
           </div>
-          <div>
-            <table class="phase-table">
-              <thead><tr><th>Phase</th><th>What happens</th></tr></thead>
-              <tbody>
-            <tr>
-              <td>Weeks 1-2 · Map and baseline</td>
-              <td>Confirm data quality, plant topology, tariff context, operating windows, and baseline method.</td>
-            </tr>
-            <tr>
-              <td>Weeks 3-4 · First prescriptions</td>
-              <td>Run load and equipment models; review findings with the plant team before any action is issued.</td>
-            </tr>
-            <tr>
-              <td>Weeks 5-8 · Execute and verify</td>
-              <td>Assign approved actions, capture constraints, and test whether the agreed signal and ₹ calculation move.</td>
-            </tr>
-            <tr>
-              <td>Day 60 · Go / no-go</td>
-              <td>Continue only if the evidence shows a repeatable decision advantage and the integration burden is acceptable.</td>
-            </tr>
-              </tbody>
-            </table>
+          <div class="offer-panel offer-panel--timeline">
+            <h3>60-day timeline</h3>
+            <div class="offer-timeline">
+              <article class="offer-phase">
+                <div class="offer-phase__when">Weeks 1–2<br>Map &amp; baseline</div>
+                <p>Confirm data quality, plant topology, tariff context, operating windows, and baseline method.</p>
+              </article>
+              <article class="offer-phase">
+                <div class="offer-phase__when">Weeks 3–4<br>First prescriptions</div>
+                <p>Run load and equipment models; review findings with the plant team before any action is issued.</p>
+              </article>
+              <article class="offer-phase">
+                <div class="offer-phase__when">Weeks 5–8<br>Execute &amp; verify</div>
+                <p>Assign approved actions, capture constraints, and test whether the agreed signal and ₹ calculation move.</p>
+              </article>
+              <article class="offer-phase">
+                <div class="offer-phase__when">Day 60<br>Go / no-go</div>
+                <p>Continue only if the evidence shows a repeatable decision advantage and the integration burden is acceptable.</p>
+              </article>
+            </div>
           </div>
         </div>
-        <div class="bound-col reveal" style="margin-top:0.85rem;padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
-          <h3 style="font-size:0.88rem;margin-bottom:0.45rem;">Success criteria</h3>
-          <ul class="bound-list">
-              <li>At least one plant-approved prescription with clear evidence</li>
-              <li>No production, quality, or safety compromise</li>
-              <li>Quantified potential and realised outcome under an agreed method</li>
-              <li>A repeatable path from finding to owner to verification</li>
-          </ul>
+
+        <div class="offer-success reveal">
+          <h3>Success criteria</h3>
+          <div class="success-grid">
+            <article class="success-card">
+              <strong>01 · Evidence</strong>
+              At least one plant-approved prescription with clear evidence
+            </article>
+            <article class="success-card">
+              <strong>02 · Safety</strong>
+              No production, quality, or safety compromise
+            </article>
+            <article class="success-card">
+              <strong>03 · Value</strong>
+              Quantified potential and realised outcome under an agreed method
+            </article>
+            <article class="success-card">
+              <strong>04 · Repeatable</strong>
+              A repeatable path from finding to owner to verification
+            </article>
+          </div>
         </div>
-        <div class="commercial reveal" style="margin-top:0.85rem;">
-          <span class="chip">Read-only OT</span>
-          <span class="chip">Verified outcomes</span>
-          <span class="chip">Complements I4.0</span>
-          <span class="chip">60-day proof</span>
-          
+
+        <div class="offer-bottom reveal">
+          <div class="offer-chips">
+            <div class="commercial">
+              <span class="chip">Read-only OT</span>
+              <span class="chip">Verified outcomes</span>
+              <span class="chip">Two pillars</span>
+              <span class="chip">60-day proof</span>
+            </div>
+          </div>
+          <div class="ask-box">
+            <strong>Next working session</strong>
+            <p>Map the current utility data path, one target asset class, and how energy opportunities are assigned today.</p>
+          </div>
         </div>
-        <div class="ask-box reveal">
-          <strong>Next working session</strong>
-          <p>Map the current utility data path, one target asset class, and how energy opportunities are assigned today.</p>
-        </div>
+
         <p class="contact-line reveal">
           <a href="mailto:contact@stamped.work">contact@stamped.work</a>
           ·
