@@ -47,10 +47,18 @@
       display: inline-block; margin-top: 0.75rem; font-style: normal;
       font-size: 0.8rem; font-weight: 700; color: var(--primary);
     }
-    a.card--clients {
-      border-color: rgba(247,84,64,0.45);
-      background: linear-gradient(180deg, #fff 0%, #fff7f5 100%);
+    a.card--visual {
+      padding: 0;
+      overflow: hidden;
     }
+    a.card--visual .card__thumb {
+      display: block;
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+    a.card--visual .card__body { padding: 1.15rem 1.25rem; }
     .section-label {
       margin: 1.75rem 0 0.65rem; font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
@@ -105,10 +113,13 @@
         <span>11-slide browser deck: how Stamped reads the plant, prescribes, and proves savings.</span>
         <em>Open technical explainer →</em>
       </a>
-      <a class="card" href="./demo-decks/clients/itc-nadiad-technical.html">
-        <strong>ITC Nadiad · technical brief</strong>
-        <span>Account-specific technical walkthrough for ITC Packaging &amp; Printing, Nadiad.</span>
-        <em>Open ITC brief →</em>
+      <a class="card card--visual" href="./demo-decks/clients/itc-nadiad-technical/">
+        <img class="card__thumb" src="./demo-decks/clients/itc-nadiad-technical/assets/itc-nadiad-technical/tape-line.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>ITC Nadiad · technical brief</strong>
+          <span>Account-specific technical walkthrough for ITC Packaging &amp; Printing, Nadiad.</span>
+          <em>Open ITC brief →</em>
+        </span>
       </a>
     </div>
     <p class="section-label">Tech deep-dives</p>
