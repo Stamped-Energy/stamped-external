@@ -2216,7 +2216,8 @@
       #scene-fit .do-chain-fold .do-step { display: grid !important; }
       #scene-fit .meta { font-size: 0.82rem; }
 
-      #scene-load .waste-grid { grid-template-columns: 1fr 1fr; }
+      #scene-load .waste-grid { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+      #scene-load .waste-card { min-height: 0; padding: 0.9rem 0.95rem; }
       #scene-load .footnote { font-size: 0.8rem; margin-top: 0.55rem; }
 
       #scene-equipment .waste-grid { grid-template-columns: 1fr 1fr; }
@@ -2225,9 +2226,6 @@
 
       #scene-agentic .agent-step p { font-size: 0.82rem; }
       #scene-agentic .agent-callout { font-size: 0.8rem; padding: 0.65rem 0.85rem; margin-top: 0.65rem; }
-
-      #scene-prescription .rx-fold { width: 100%; }
-      #scene-prescription .rx-fold .rx-flip { margin: 0; }
 
       /* Prescriptions: breathing room + readable action titles */
       #scene-prescription.slide {
@@ -2305,8 +2303,10 @@
       #scene-floor .phone-col { order: 2; }
       #scene-floor .floor-routing { order: 3; }
       #scene-floor .floor-copy .footnote { display: none; }
-      #scene-floor .routing-card p { font-size: 0.78rem; }
+      #scene-floor .routing-card p,
+      #scene-floor .routing-steps li { font-size: 0.76rem; }
       #scene-floor .routing-card { padding: 0.65rem 0.75rem; }
+      #scene-floor .routing-steps { gap: 0.32rem; }
       #scene-floor .floor-copy {
         max-width: 100%;
         width: 100%;
