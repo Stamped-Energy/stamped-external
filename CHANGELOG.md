@@ -10,6 +10,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 - Root [`index.html`](index.html) demo hub for GitHub Pages (industry decks, prescriptions, clients, tech)
 - [`demo-decks/prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — prescription examples walkthrough
+- [`demo-decks/clients/technical-explainer.html`](demo-decks/clients/technical-explainer.html) — Stamped Intelligence technical explainer (11 slides)
+- [`demo-decks/clients/itc-nadiad-technical.html`](demo-decks/clients/itc-nadiad-technical.html) — ITC Nadiad account technical brief
 - [`.github/workflows/pages.yml`](.github/workflows/pages.yml) — deploy demo site from `main`
 
 ## [2026.07.30] - 2026-07-30

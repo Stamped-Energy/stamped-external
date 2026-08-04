@@ -28,8 +28,12 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (real-time decisions, early warnings, 60-day as needed) |
 | [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root for the OEM demo |
 | [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; on-site Chaubepur ask) |
+| [clients/technical-explainer.html](./clients/technical-explainer.html) | Generic Stamped Intelligence technical explainer (11 slides; sales collateral) |
+| [clients/itc-nadiad-technical.html](./clients/itc-nadiad-technical.html) | ITC Nadiad account technical brief (named; packaging &amp; printing) |
 
 Meeting default: open the Lohia brief. Keep the anonymous OEM demo ready if the room wants a full product walkthrough without account research on-screen.
+
+**Technical explainers** (also linked from the root hub): generic product explainer plus named-account briefs. Source HTML is authored in `Stamped-Energy` and copied here for GitHub Pages.
 
 **Tech deep-dives** (shared across industries; open from `#scene-tech` cards):
 
