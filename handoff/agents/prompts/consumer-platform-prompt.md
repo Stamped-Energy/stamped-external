@@ -105,11 +105,12 @@ git commit -m "chore: add stamped-external submodule at v2026.07.12"
 | # | Document |
 | --- | --- |
 | 1 | `external/technical/STAMPED_ARCHITECTURE.md` |
-| 2 | `external/decisions/README.md` |
-| 3 | `external/handoff/deployment/deployment-profiles.md` |
-| 4 | `external/handoff/README.md` → find **this repo's** handoff doc |
-| 5 | Repo-specific `AGENTS.md` / `docs/` in this repository |
-| 6 | **Holistic plant (2026-07):** `external/handoff/agents/prompts/stamped-holistic-consumer-prompt.md` |
+| 2 | `external/technical/product/Stamped_Client_Positioning_and_Narrative_v1.md` (client story + practical Rx) |
+| 3 | `external/decisions/README.md` |
+| 4 | `external/handoff/deployment/deployment-profiles.md` |
+| 5 | `external/handoff/README.md` → find **this repo's** handoff doc |
+| 6 | Repo-specific `AGENTS.md` / `docs/` in this repository |
+| 7 | **Holistic plant (2026-07):** `external/handoff/agents/prompts/stamped-holistic-consumer-prompt.md` |
 
 ## Ecosystem map
 

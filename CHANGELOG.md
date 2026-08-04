@@ -19,7 +19,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ### Added
 
-- [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) — single latest product + technical architecture SSOT
+- [`technical/product/Stamped_Client_Positioning_and_Narrative_v1.md`](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) — canonical client narrative (four-step story, I4.0 positioning, WhatsApp templates)
+- Floor-tied practical prescription illustrations + constraint table in [`demo-decks/prescriptions-examples.md`](demo-decks/prescriptions-examples.md)
+- Agent reading order updated (`AGENTS.md`, consumer prompts, `STAMPED_ARCHITECTURE.md`)
 - [`handoff/PATH_MAP.md`](handoff/PATH_MAP.md) — old → new path map for submodule consumers
 - Contracts **0.10.0**: `production-order`, `prescription-revision`, `improvement-signal`, `plant-preference-profile`, `plant-department-graph`; ProductionRecord **1.1.0**; prescription `decision_class`/`tradeoff`; envelope record_types extended ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
 - [ADR-024](decisions/024-026/ADR-024-holistic-plant-decisions.md) — holistic plant decisions (energy wedge + co-benefits + negotiation)

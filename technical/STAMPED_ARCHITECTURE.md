@@ -13,8 +13,9 @@
 
 | Dimension | Definition |
 | --- | --- |
-| **Category** | Prescriptive energy + equipment intelligence |
+| **Category** | Verified-with-evidence **operational decision layer** (not EMS / monitoring-only) |
 | **Buyer outcome** | Verified ₹ / SEC reduction with evidence; effectiveness co-benefits when context exists |
+| **Client enemy** | Insight without closure — dashboards and OEE that never become assigned, verified actions |
 | **Integration** | Read-only — no control writes, not a hardware retrofit program |
 | **Operating loop** | Connect → Observe → Decide → Execute → Verify → **Improve** |
 | **Proof phrase** | **Verified with evidence** (ops-cleared / calculated ledger). DISCOM bill confirmation is optional, not the lead claim. |
@@ -37,6 +38,8 @@ One product
 | Read ERP/MES orders | We replace MES scheduling |
 
 **30-second pitch:** (1) Cut energy cost with assigned, evidence-verified actions. (2) Same stack flags equipment issues early for maintenance. (3) For schedule-type actions, read orders/departments so we do not break production — **not your MES**. (4) Management Rx show **₹ energy** (hero) plus **effectiveness co-benefits** when context exists.
+
+**Client narrative (canonical order):** load & energy management → equipment ML baselines → **practical prescriptions** → agentic layer that makes Rx feasible at scale. Do **not** lead with “agentic AI”. Full copy: [Stamped_Client_Positioning_and_Narrative_v1.md](product/Stamped_Client_Positioning_and_Narrative_v1.md).
 
 ---
 
@@ -132,10 +135,15 @@ India compliance by design: CERT-In residency, DPDP, read-only OT — [`../compl
 
 ## 8. Prescription card (hero UX)
 
-- What · Why · Impact (₹ hero) · Owner · Due · Priority  
-- **Management-class:** trade-off block (energy + effectiveness co-benefits + window + alternatives)  
-- **Discuss:** bounded negotiation  
+**Practical floor action** — not a chart insight. Client-visible fields:
+
+- **What** · **Why** · **Owner** (role + department) · **Effort** · **Impact** (₹ hero, `[illustrative]` until M&V locked) · **Due** (real window: shift, job, maintenance slot) · **Priority**
+- **Flip for evidence** — tags, baseline comparison, tariff window
+- **Management-class:** trade-off block (energy + effectiveness co-benefits + alternatives)
+- **Discuss:** bounded negotiation when first window is unsafe (low standby, active order) → next-best slot
 - Proof: verified with evidence badges (ops vs bill paths separate)
+
+Illustrative cards + constraints: [prescriptions-examples.md](../demo-decks/prescriptions-examples.md). Client wording: [product/Stamped_Client_Positioning_and_Narrative_v1.md](product/Stamped_Client_Positioning_and_Narrative_v1.md) §2 step 3.
 
 ---
 
@@ -155,10 +163,12 @@ India compliance by design: CERT-In residency, DPDP, read-only OT — [`../compl
 | Priority | Doc |
 | --- | --- |
 | 1 | **This file** |
-| 2 | [ADR-026](../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md) |
-| 3 | [handoff/README.md](../handoff/README.md) → your layer / [`agents/prompts/stamped-holistic-consumer-prompt.md`](../handoff/agents/prompts/stamped-holistic-consumer-prompt.md) |
-| 4 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
-| 5 | Layer specs under [`layers/`](layers/) as needed |
+| 2 | [Client positioning & narrative](product/Stamped_Client_Positioning_and_Narrative_v1.md) — WhatsApp, decks, I4.0 buyers, Rx practicality |
+| 3 | [ADR-026](../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md) |
+| 4 | [prescriptions-examples.md](../demo-decks/prescriptions-examples.md) — floor-tied illustrative Rx |
+| 5 | [handoff/README.md](../handoff/README.md) → your layer / [`agents/prompts/stamped-holistic-consumer-prompt.md`](../handoff/agents/prompts/stamped-holistic-consumer-prompt.md) |
+| 6 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
+| 7 | Layer specs under [`layers/`](layers/) as needed |
 | Legacy names | Thin pointers in [`pointers/`](pointers/) redirect here |
 
 Research/ML bibliography: [`research/stamped-research-and-ml-citations.md`](research/stamped-research-and-ml-citations.md).

@@ -64,14 +64,16 @@ Run platform contract check (from repo root, if submodule scripts are used):
 
 Shared (everyone):
   1. external/decisions/024-026/ADR-026-two-pillars-shared-context.md
-  2. external/handoff/holistic/stamped-holistic-architecture-audit.md
-  3. external/decisions/024-026/ADR-024-holistic-plant-decisions.md
-  4. external/decisions/024-026/ADR-025-improve-loop-step-06.md
-  5. external/technical/STAMPED_ARCHITECTURE.md  (§2.1 six-step loop, Rx card, anti-confusion)
-  6. external/technical/STAMPED_ARCHITECTURE.md  (§7 Improve + §7b Shared context)
-  7. external/handoff/holistic/stamped-holistic-pilot-stack.md
-  8. external/contracts/CHANGELOG.md  (0.10.0 section)
-  9. external/AGENTS.md + ponytail skill before any code
+  2. external/technical/product/Stamped_Client_Positioning_and_Narrative_v1.md
+     (four-step client story; practical Rx rules; do NOT lead with "agentic AI")
+  3. external/demo-decks/prescriptions-examples.md (floor-tied illustrations)
+  4. external/handoff/holistic/stamped-holistic-architecture-audit.md
+  5. external/decisions/024-026/ADR-024-holistic-plant-decisions.md
+  6. external/decisions/024-026/ADR-025-improve-loop-step-06.md
+  7. external/technical/STAMPED_ARCHITECTURE.md
+  8. external/handoff/holistic/stamped-holistic-pilot-stack.md
+  9. external/contracts/CHANGELOG.md  (0.10.0 section)
+  10. external/AGENTS.md + ponytail skill before any code
 
 Then layer-specific (read ONLY your layer block after shared):
 

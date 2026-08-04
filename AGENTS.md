@@ -15,7 +15,7 @@ Engineering workflow: **ponytail → (spec-kit for features) → research → pl
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag `vYYYY.MM.DD`; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) |
 
-**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
+**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
 
 ## Ponytail — mandatory gate for all coding
 

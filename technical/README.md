@@ -8,8 +8,8 @@ This folder is the portable technical pack (submodule path `external/technical/`
 
 | # | Document | For |
 | --- | --- | --- |
-| 1 | [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) | Product framing, loop, L0–L6, shared context, savings thesis |
-| 2 | [ADR-026](../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md) | Framing + holistic + Improve |
+| 1 | [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) | **SSOT** — product + technical architecture (two pillars + shared context) |
+| 2 | [product/Stamped_Client_Positioning_and_Narrative_v1.md](product/Stamped_Client_Positioning_and_Narrative_v1.md) | Client story, WhatsApp, practical Rx rules |
 | 3 | [`layers/`](layers/) | Per-layer deep dives |
 | 4 | [`cross-cutting/`](cross-cutting/) | Production engineering + evaluation |
 | 5 | [research/stamped-research-and-ml-citations.md](research/stamped-research-and-ml-citations.md) | CORE vs FRONTIER bibliography |

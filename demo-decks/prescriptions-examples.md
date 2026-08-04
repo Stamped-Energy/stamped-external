@@ -2,10 +2,66 @@
 
 **Sample numbers only.** Use these in client talks. Live prescriptions use your plant tags, tariff, and a locked M&V baseline.
 
-A **prescription** is a clear floor action: what to do, why the data says so, who owns it, which bill line it hits, and how we check the result. These only fire when Stamped watches **many live signals together** (incomer, machine state, tariff clock, and production or idle) in the short window when a decision can still change the bill.
+A **prescription** is a clear **floor action**: what to do, why the data says so, who owns it, effort and window, and how we check the result. Rx must be **operationally feasible** — if the first suggested window conflicts with standby capacity or an active order, Stamped proposes the **next-best slot** (negotiation), not a generic alarm.
+
+These only fire when Stamped watches **many live signals together** (incomer, machine state, tariff clock, production or idle) in the short window when a decision can still change the bill.
+
+---
+
+## Floor-tied illustrations (not live plant measurements)
+
+Canonical pattern for **practical** client-facing cards. HTML deck: [prescriptions-examples.html](./prescriptions-examples.html).
+
+### RX · EQUIPMENT · DRIFT — Priority: High
+
+| Field | Content |
+| --- | --- |
+| **What** | Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed. |
+| **Why** | Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days. |
+| **Owner** | Utilities lead + mechanical maintenance |
+| **Impact** | ₹45,000–₹70,000/month `[illustrative]` |
+| **Effort** | ~2 hours · subject to isolation and permit |
+| **Due** | Next approved low-load maintenance window |
+| **Evidence (flip)** | Tag comparison vs eight-week matched baseline; specific-power trend |
+
+### RX · TOD / WARM-UP — Priority: Med
+
+| Field | Content |
+| --- | --- |
+| **What** | Start gravure dryer warm-up **25 minutes earlier** into the lower MGVCL ToD window before day-shift gravure release, **without changing job start time**. |
+| **Why** | Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable. |
+| **Owner** | Utilities lead + gravure shift supervisor |
+| **Impact** | ₹35,000–₹55,000/month `[illustrative]` |
+| **Effort** | Schedule change only · production sign-off |
+| **Due** | Next gravure day-shift cycle |
+| **Evidence (flip)** | ToD clock + incomer draw during warm-up vs release time |
+
+### Schedule negotiation (shared context — not a third product)
+
+> Compressor inspection was suggested for Tuesday morning, but standby air capacity that day is too low to isolate safely. Stamped flags that and proposes **Thursday 2–4 pm** instead, after Job 447 closes.
+
+This is **bounded negotiation** ([ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md)): revise window/parameters, not rewrite the Rx from scratch.
+
+### How we constrain ourselves (agents + L4/L6)
+
+| Constraint | Do |
+| --- | --- |
+| No vague actions | “Inspect C2 inlet filter in next low-load window” not “improve compressor efficiency” |
+| Honest effort | hours, permits, production sign-off |
+| Illustrative ₹ until locked | label sample ranges; lock at Rx issue for M&V |
+| Role + department owners | never orphan “maintenance” |
+| Feasibility check | orders, standby capacity, department graph before final Due |
+| Evidence on flip | tags, baseline window, tariff band — supervisor can defend |
+| Do not claim | vibration PdM, RUL %, “fine-tuned before connect”, MES scheduling |
+
+Client narrative SSOT: [Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md).
+
+---
+
+## Catalog (10 sample types)
 
 | # | Type | Prescription |
-|---|------|----------------|
+|---|---|---|
 | 1 | Agnostic | MD co-start stagger |
 | 2 | Agnostic | ToD peak load shift |
 | 3 | Agnostic | Idle auxiliary cut |
