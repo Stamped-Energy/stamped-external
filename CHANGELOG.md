@@ -9,6 +9,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 ### Changed
 
 - Rewrite [`demo-decks/prescriptions-examples.md`](demo-decks/prescriptions-examples.md) and [`prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — practical client-conversation examples (plain talk tracks, technical evidence on flip, negotiation vignette)
+- Enlarge prescription flip cards in HTML deck to match ITC reference layout (full-width, Why/Owner/Impact/Effort/Due, illustrative badge)
 
 ### Added
 

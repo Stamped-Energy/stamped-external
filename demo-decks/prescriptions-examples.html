@@ -128,7 +128,7 @@
    margin: 0 auto;
    transform: translateY(-1.2vh);
   }
-  .slide__inner--wide { max-width: min(980px, 100%); }
+  .slide__inner--wide { max-width: min(1040px, 100%); }
 
   .reveal { opacity: 0; transform: translateY(14px); }
   .slide.active .reveal { animation: fadeUp 0.48s var(--ease) forwards; }
@@ -251,15 +251,21 @@
   }
   .dots__dot.active { width: 20px; background: var(--primary); }
 
-  /* Single prescription flip card — grid stack so height follows content */
+  /* Prescription flip card — sized to match ITC reference cards */
+  .illustrative-badge {
+   display: inline-block; margin-bottom: 0.5rem; padding: 0.28rem 0.6rem;
+   border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em;
+   text-transform: uppercase; background: rgba(247,84,64,0.12); color: var(--primary);
+  }
   .rx-solo {
-   margin-top: 0.85rem;
+   margin-top: 0.75rem;
    perspective: 1400px;
-   max-width: 720px;
+   max-width: 100%;
    width: 100%;
   }
   .rx-flip {
    position: relative;
+   min-height: min(52vh, 440px);
    border: none; background: transparent; padding: 0;
    cursor: pointer; text-align: left; color: inherit;
    font: inherit; width: 100%;
@@ -273,6 +279,7 @@
   .rx-flip__inner {
    display: grid;
    width: 100%;
+   min-height: min(52vh, 440px);
    transition: transform 0.55s var(--ease);
    transform-style: preserve-3d;
   }
@@ -307,7 +314,7 @@
   }
   .rx-hero__head {
    display: flex; justify-content: space-between; align-items: center;
-   padding: 0.75rem 1.1rem; border-bottom: 1px solid #e0e3df; background: #fafcfa;
+   padding: 0.85rem 1.25rem; border-bottom: 1px solid #e0e3df; background: #fafcfa;
    flex-shrink: 0; gap: 0.5rem; flex-wrap: wrap;
   }
   .rx-badge {
@@ -322,22 +329,22 @@
   }
   .rx-priority--med { background: var(--tertiary); }
   .rx-hero__body {
-   padding: 0.95rem 1.15rem 0.9rem;
+   padding: 1.15rem 1.35rem 1.05rem;
    display: flex; flex-direction: column; flex: 1; min-height: 0;
    min-width: 0;
   }
   .rx-action {
    font-family: var(--font-display); font-weight: 750;
-   font-size: clamp(1.05rem, 1.8vw, 1.3rem); line-height: 1.3; margin-bottom: 0.85rem;
+   font-size: clamp(1.05rem, 1.85vw, 1.35rem); line-height: 1.4; margin-bottom: 1rem;
   }
-  .rx-fields { display: grid; gap: 0.48rem; flex: 1; }
+  .rx-fields { display: grid; gap: 0.55rem; flex: 1; }
   .rx-row {
-   display: grid; grid-template-columns: 88px 1fr; gap: 0.5rem;
-   font-size: 0.82rem; line-height: 1.4;
+   display: grid; grid-template-columns: 96px 1fr; gap: 0.55rem;
+   font-size: 0.9rem; line-height: 1.45;
    min-width: 0;
   }
   .rx-row dt {
-   font-weight: 650; color: var(--on-surface-variant); font-size: 0.66rem;
+   font-weight: 650; color: var(--on-surface-variant); font-size: 0.72rem;
    text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.15rem;
   }
   .rx-row dd {
@@ -418,15 +425,15 @@
   .close-list strong { font-weight: 700; }
 
   .hint {
-   font-size: 0.78rem; color: var(--on-surface-variant); margin-top: 0.35rem;
-   line-height: 1.4;
+   font-size: 0.88rem; color: var(--on-surface-variant); margin-top: 0.35rem;
+   line-height: 1.5; max-width: 52em;
   }
 
   .vignette-box {
-   margin-top: 0.85rem; padding: 1rem 1.15rem;
+   margin-top: 0.85rem; padding: 1.25rem 1.35rem;
    background: var(--white); border: 1px solid var(--outline-variant);
-   border-radius: var(--radius-lg); font-size: 0.92rem; line-height: 1.55;
-   max-width: 720px;
+   border-radius: var(--radius-lg); font-size: 1rem; line-height: 1.55;
+   max-width: 100%;
   }
   .vignette-box blockquote {
    margin: 0; padding: 0; border: none; font-style: normal;
@@ -539,6 +546,8 @@
    .dots__dot.active { width: 16px; }
 
    .rx-solo { margin-top: 0.65rem; max-width: 100%; }
+   .rx-flip { min-height: min(58vh, 400px); }
+   .rx-flip__inner { min-height: min(58vh, 400px); }
    .rx-flip,
    .rx-flip__inner,
    .rx-face { max-width: 100%; width: 100%; }
@@ -547,22 +556,22 @@
    .rx-priority { font-size: 0.62rem; padding: 0.18rem 0.4rem; }
    .rx-hero__body { padding: 0.8rem 0.85rem 0.8rem; }
    .rx-action {
-    font-size: 1rem;
-    line-height: 1.32;
-    margin-bottom: 0.7rem;
+    font-size: 1.02rem;
+    line-height: 1.38;
+    margin-bottom: 0.85rem;
     overflow-wrap: anywhere;
    }
-   .rx-fields { gap: 0.42rem; }
+   .rx-fields { gap: 0.48rem; }
    .rx-row {
-    grid-template-columns: 64px 1fr;
-    gap: 0.4rem;
-    font-size: 0.78rem;
-    line-height: 1.38;
+    grid-template-columns: 72px 1fr;
+    gap: 0.45rem;
+    font-size: 0.84rem;
+    line-height: 1.42;
    }
    .rx-row dt { font-size: 0.62rem; }
-   /* Keep What / Why / Owner / Impact; hide Effort / Due on phone */
-   .rx-row:nth-child(5),
-   .rx-row:nth-child(6) { display: none; }
+   /* Keep Why / Owner / Impact on phone; hide Effort / Due */
+   .rx-row:nth-child(4),
+   .rx-row:nth-child(5) { display: none; }
    .rx-flip-cue {
     margin-top: 0.65rem;
     padding-top: 0.55rem;
@@ -610,7 +619,7 @@
     bottom: auto;
     transform: translateY(-50%);
    }
-   .rx-row:nth-child(n+5) { display: none; }
+   .rx-row:nth-child(n+4) { display: none; }
   }
   </style>
 </head>
@@ -655,27 +664,28 @@
   </section>
 
 
+
   <!-- 1 -->
   <section class="slide slide--light" id="scene-rx-1" data-theme="light" aria-label="Prescription 1">
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">01 · Agnostic · MD</p>
     <h2 class="reveal">Hold the second feeder start 10 minutes</h2>
-    <p class="hint reveal">Two big loads in the same MD window — the bill won’t tell you which machines until it’s too late.</p>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Two big loads hit your incomer in the same 15-minute MD window — the bill won’t tell you which machines until it’s too late.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Hold second feeder start. Show evidence.">
       <div class="rx-flip__inner">
        <div class="rx-face rx-face--front">
         <div class="rx-hero__head">
-         <span class="rx-badge">Rx · MD stagger</span>
+         <span class="rx-badge">Rx · Agnostic · MD</span>
          <span class="rx-priority">Priority · High</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Hold the second large feeder until the first settles — usual stagger 8–12 min</p>
+         <p class="rx-action">Hold the second large feeder start until the first load settles (for example under 95% of its ramp). Usual stagger: <strong>8–12 minutes</strong> inside the open MD window.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Hold the second large feeder start until the first load settles (for example under 95% of ramp). Usual stagger: <strong>8–12 minutes</strong> inside the open MD window.</dd></div>
           <div class="rx-row"><dt>Why</dt><dd>Two heavy feeders started in the same billing slot and stacked on the HT incomer. The monthly bill shows the peak later — not which machines overlapped while the window was still open.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Electrical lead + area supervisor · active shift</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹80k–₹1.2L/month</strong> on MD · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹80,000–₹1.2L / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Sequence change · no new equipment</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next morning ramp · before peak week</dd></div>
          </dl>
@@ -685,7 +695,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority">Technical</span>
+         <span class="rx-priority">MD window</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Co-start window · Mon 07:10–07:22</p>
@@ -716,22 +726,22 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">02 · Agnostic · ToD / thermal</p>
     <h2 class="reveal">Gravure dryer warm-up 25 min earlier</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Warm-up is eating peak ToD even when output is the same — shift warm-up, not production start.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Gravure dryer warm-up earlier. Show evidence.">
       <div class="rx-flip__inner">
        <div class="rx-face rx-face--front">
         <div class="rx-hero__head">
-         <span class="rx-badge">Rx · ToD warm-up</span>
+         <span class="rx-badge">Rx · ToD / warm-up</span>
          <span class="rx-priority rx-priority--med">Priority · Med</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Start gravure dryer warm-up 25 min earlier — jobs still release on time</p>
+         <p class="rx-action">Start gravure dryer warm-up <strong>25 minutes earlier</strong> into the lower MGVCL ToD window before day-shift gravure release, <strong>without changing job start time</strong>.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Start gravure dryer warm-up <strong>25 minutes earlier</strong> into the lower MGVCL ToD window before day-shift gravure release — <strong>without changing job start time</strong>.</dd></div>
           <div class="rx-row"><dt>Why</dt><dd>Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + gravure shift supervisor</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹35k–₹55k/month</strong> on ToD energy · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹35,000–₹55,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production sign-off</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next gravure day-shift cycle</dd></div>
          </dl>
@@ -741,10 +751,10 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority rx-priority--med">Technical</span>
+         <span class="rx-priority rx-priority--med">ToD overlap</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-ev-title">Warm-up vs release · weekday gravure runs</p>
+         <p class="rx-ev-title">Warm-up vs MGVCL ToD band · weekday gravure</p>
          <div class="rx-ev-table-wrap">
          <table class="rx-ev-table">
           <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
@@ -772,22 +782,22 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">03 · Equipment · drift</p>
     <h2 class="reveal">Inspect Compressor 2 filter / unload valve</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Compressor 2 is using more power than usual for the same air pressure — nine days. Inspect before extra bill and breakdown.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Inspect Compressor 2 filter and unload valve. Show evidence.">
       <div class="rx-flip__inner">
        <div class="rx-face rx-face--front">
         <div class="rx-hero__head">
-         <span class="rx-badge">Rx · Equipment drift</span>
+         <span class="rx-badge">Rx · Equipment · drift</span>
          <span class="rx-priority">Priority · High</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve in the next low-load window</p>
+         <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</dd></div>
-          <div class="rx-row"><dt>Why</dt><dd>Compressor 2 is working harder than its own recent baseline for the same header pressure and shift load — drift for nine days.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + mechanical maintenance</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹45k–₹70k/month</strong> on air system · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000–₹70,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
          </dl>
@@ -797,10 +807,10 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority">Technical</span>
+         <span class="rx-priority">Specific power</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-ev-title">Specific power drift · 9-day trend</p>
+         <p class="rx-ev-title">Specific-power trend · last 8 weeks</p>
          <div class="rx-ev-table-wrap">
          <table class="rx-ev-table">
           <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
@@ -828,6 +838,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">04 · Agnostic · idle</p>
     <h2 class="reveal">Switch off packaging line aux when nothing runs 20 min</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Conveyors and fans stay on when the line is empty — nobody connects no output to aux power in real time.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Switch off packaging line aux when idle. Show evidence.">
@@ -838,12 +849,11 @@
          <span class="rx-priority rx-priority--med">Priority · Med-High</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Switch off packaging line aux when output is zero for 20 minutes</p>
+         <p class="rx-action">When packaging line output is zero for <strong>20 minutes</strong>, switch off tagged auxiliaries (conveyors, idle fans, non-critical pumps). Restart when production pulse returns or supervisor overrides.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>When packaging line output is zero for <strong>20 minutes</strong>, switch off tagged auxiliaries (conveyors, idle fans, non-critical pumps). Restart when production returns or supervisor overrides.</dd></div>
-          <div class="rx-row"><dt>Why</dt><dd>Auxiliaries stay on during idle because production count and machine power are not watched together in time.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Auxiliaries stay on during idle because production count and machine power are not watched together in time — month-end energy looks high but the floor never gets a timed cut with an owner.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Area supervisor · packaging line + utilities lead</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹50k–₹90k/month</strong> on energy · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹50,000–₹90,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Idle SOP · safety loads on protect list</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next idle window of 20 min or more</dd></div>
          </dl>
@@ -853,7 +863,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority rx-priority--med">Technical</span>
+         <span class="rx-priority rx-priority--med">Idle kWh</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Last 5 idle events · aux still online</p>
@@ -884,6 +894,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">05 · Agnostic · ToD</p>
     <h2 class="reveal">Start batch chiller later — batch still on time</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">You’re cooling for a batch that doesn’t start for 90 minutes — that’s peak-rate power you can move.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Start batch chiller later. Show evidence.">
@@ -894,12 +905,11 @@
          <span class="rx-priority">Priority · High</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Delay batch chiller pull — hall still hits temp before batch start</p>
+         <p class="rx-action">Delay batch chiller pull until <strong>90 minutes before</strong> batch start (instead of 150 min early), when validated temp band allows — batch hall still hits temperature before start.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Delay batch chiller pull until <strong>90 minutes before</strong> batch start (instead of 150 min early), when validated temp band allows.</dd></div>
           <div class="rx-row"><dt>Why</dt><dd>Pre-cooling runs through the peak ToD block while the batch hall is still empty — kWh you can shift to shoulder rate without missing batch readiness.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + batch hall supervisor</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹40k–₹75k/month</strong> on ToD energy · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹40,000–₹75,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Schedule change · quality sign-off on temp band</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next scheduled batch in peak block</dd></div>
          </dl>
@@ -909,7 +919,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority">Technical</span>
+         <span class="rx-priority">Peak block</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Pre-cool vs batch start · peak block</p>
@@ -940,6 +950,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">06 · Shared context</p>
     <h2 class="reveal">Schedule negotiation vignette</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">We suggested Tuesday inspection but standby air was too low — so we moved it to Thursday after Job 447 closes.</p>
     <div class="vignette-box reveal">
      <blockquote>Compressor 2 filter inspection was suggested for <strong>Tuesday 9–11 am</strong>, but standby air capacity that day is too low to isolate safely. Stamped flags that and proposes <strong>Thursday 2–4 pm</strong> instead, after <strong>Job 447</strong> closes.</blockquote>
@@ -950,7 +961,7 @@
        <tr><th>Status</th><td>Standby air below isolation threshold</td><td>Order cleared · standby confirmed</td></tr>
       </tbody>
      </table>
-     <p class="hint" style="margin-top:0.75rem;">Bounded negotiation (ADR-024): revise window and parameters, not rewrite the Rx from scratch.</p>
+     <p class="hint" style="margin-top:0.85rem;">Bounded negotiation (ADR-024): revise window and parameters, not rewrite the Rx from scratch.</p>
     </div>
    </div>
   </section>
@@ -960,6 +971,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">07 · Steel · melt shop</p>
     <h2 class="reveal">Reduce furnace holding when roll is delayed 45+ min</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Holding power keeps running through a delay — melt schedule and furnace kW aren’t looked at together until the shift ends.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Reduce furnace holding on roll delay. Show evidence.">
@@ -970,12 +982,11 @@
          <span class="rx-priority rx-priority--med">Priority · Med-High</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Cut furnace holding on roll delays longer than 45 minutes</p>
+         <p class="rx-action">On a planned cast or roll delay <strong>longer than 45 minutes</strong>, reduce furnace holding power per melt-shop SOP (controlled ramp to hold-safe). Do not leave full holding kW with zero heats.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>On a planned cast or roll delay <strong>longer than 45 minutes</strong>, reduce furnace holding power per melt-shop SOP (controlled ramp to hold-safe). Do not leave full holding kW with zero heats.</dd></div>
-          <div class="rx-row"><dt>Why</dt><dd>Holding power with no cast or roll on three of the last five delay events burned kWh the shift did not need.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Holding power with no cast or roll on three of the last five delay events burned kWh the shift did not need — delay flags and furnace kW are rarely joined in time for the supervisor to act.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Melt-shop supervisor · Furnace 2 + utilities lead</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹60k–₹1.0L/month</strong> on energy · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹60,000–₹1.0L / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Holding SOP · note restart lead time before cast resumes</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next delay window over 45 min</dd></div>
          </dl>
@@ -985,7 +996,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority rx-priority--med">Technical</span>
+         <span class="rx-priority rx-priority--med">Idle kWh</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Delay / holding · last 5 events</p>
@@ -1016,6 +1027,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">08 · Cement · pyro + grinding</p>
     <h2 class="reveal">Start the mill after the kiln settles</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Kiln and mill ramp together every morning — that’s when demand and peak grid import hurt.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Start mill after kiln settles. Show evidence.">
@@ -1026,12 +1038,11 @@
          <span class="rx-priority">Priority · High</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Hold Raw Mill 2 start until Kiln 1 settles — prefer WHR over peak grid</p>
+         <p class="rx-action">Hold <strong>Raw Mill 2</strong> start until <strong>Kiln 1</strong> load settles (for example under 95% of ramp) or ~10 minutes pass. Prefer available <strong>WHR</strong> over peak grid import when WHR is online.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Hold <strong>Raw Mill 2</strong> start until <strong>Kiln 1</strong> load settles (for example under 95% of ramp) or ~10 minutes pass. Prefer available <strong>WHR</strong> over peak grid import when WHR is online.</dd></div>
-          <div class="rx-row"><dt>Why</dt><dd>Kiln and mill co-start in the morning peak window pushed rolling MD up while WHR sat under-used.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Kiln and mill co-start in the morning peak window pushed rolling MD up while WHR sat under-used — EMS often shows kiln, mill, WHR, and incomer on separate screens.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>CCR / pyro supervisor + electrical lead · Shift B</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹50k–₹90k/month</strong> MD + peak import · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹50,000–₹90,000 / month [illustrative]</strong> MD + peak import</dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Sequence + dispatch · no new equipment</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next morning ramp · before peak week</dd></div>
          </dl>
@@ -1041,7 +1052,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority">Technical</span>
+         <span class="rx-priority">MD + WHR</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Morning co-start · Tue 09:40 IST</p>
@@ -1072,6 +1083,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">09 · Pharma · batch utilities</p>
     <h2 class="reveal">Trim chillers when the batch hall is empty</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Full chiller run on an empty batch block — utilities can trim within your approved temperature band.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Trim chillers when batch hall empty. Show evidence.">
@@ -1082,12 +1094,11 @@
          <span class="rx-priority rx-priority--med">Priority · Med</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Trim chiller duty when batch hall is empty — approved setback only</p>
+         <p class="rx-action">Trim chiller duty when batch hall occupancy is zero for the idle window, using <strong>approved setback set-points</strong> only (temp/RH/ACH). Auto-revert on batch start or env alarm.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Trim chiller duty when batch hall occupancy is zero for the idle window, using <strong>approved setback set-points</strong> only (temp/RH/ACH). Auto-revert on batch start or env alarm.</dd></div>
-          <div class="rx-row"><dt>Why</dt><dd>Full chiller duty runs across empty batch blocks — no timed, zone-specific setback with an owner when the area is actually empty.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Full chiller duty runs across empty batch blocks — validation worry and split BMS ownership mean no timed, zone-specific setback with an owner when the area is actually empty.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Utilities / HVAC lead · Block C + batch supervisor</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹45k–₹85k/month</strong> on energy · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000–₹85,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Validated setback SOP · no free-text set-point changes</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next confirmed idle batch window</dd></div>
          </dl>
@@ -1097,7 +1108,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority rx-priority--med">Technical</span>
+         <span class="rx-priority rx-priority--med">Idle HVAC</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Last 6 idle windows · full duty</p>
@@ -1128,6 +1139,7 @@
    <div class="slide__inner slide__inner--wide">
     <p class="eyebrow reveal">10 · Equipment · pumps</p>
     <h2 class="reveal">Check CW pump P-12 — valve may be stuck recirculating</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
     <p class="hint reveal">Pump working harder than needed for the same flow — a two-hour mechanical check, not a vibration project.</p>
     <div class="rx-solo">
      <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Check CW pump P-12 recirc valve. Show evidence.">
@@ -1138,12 +1150,11 @@
          <span class="rx-priority rx-priority--med">Priority · Med</span>
         </div>
         <div class="rx-hero__body">
-         <p class="rx-action">Inspect P-12 bypass valve and VFD set-point in next low-load window</p>
+         <p class="rx-action">Inspect CW pump <strong>P-12</strong> bypass / recirc valve and VFD set-point during next low-load window. Trim or close bypass per skid SOP; keep min-flow protection for critical users.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>What</dt><dd>Inspect CW pump <strong>P-12</strong> bypass / recirc valve and VFD set-point during next low-load window. Trim or close bypass per skid SOP; keep min-flow protection.</dd></div>
           <div class="rx-row"><dt>Why</dt><dd>Pump power stayed high for 40+ minutes while header pressure was above set-point and process demand was low — likely open recirc, not more useful flow.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Area supervisor · pump skid + mechanical maintenance</dd></div>
-          <div class="rx-row"><dt>Impact</dt><dd><strong>₹25k–₹55k/month</strong> on energy · sample</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹25,000–₹55,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>~2 hours mechanical check · no new equipment</dd></div>
           <div class="rx-row"><dt>Due</dt><dd>Next overpressure window or scheduled maint slot</dd></div>
          </dl>
@@ -1153,7 +1164,7 @@
        <div class="rx-face rx-face--back">
         <div class="rx-hero__head">
          <span class="rx-badge">Evidence · sample</span>
-         <span class="rx-priority rx-priority--med">Technical</span>
+         <span class="rx-priority rx-priority--med">Overpressure</span>
         </div>
         <div class="rx-hero__body">
          <p class="rx-ev-title">Overpressure + bypass · 42 min window</p>
@@ -1179,12 +1190,13 @@
    </div>
   </section>
 
+
   <!-- Close -->
   <section class="slide slide--light grid-bg" id="scene-close" data-theme="light" aria-label="How to use">
    <div class="slide__inner">
     <p class="eyebrow reveal">How to use with a client</p>
     <h2 class="reveal">One load example. One that matches their plant.</h2>
-    <p class="lede reveal">Read the talk track aloud. Walk What → Why → Owner → Due, then flip for evidence. You already monitor — Stamped helps decide <strong>what to do next</strong>, checks feasibility, assigns it, and measures the result.</p>
+    <p class="lede reveal">Read the talk track aloud. Walk action → Why → Owner → Due, then flip for evidence. You already monitor — Stamped helps decide <strong>what to do next</strong>, checks feasibility, assigns it, and measures the result.</p>
     <ol class="close-list reveal">
      <li><strong>Pick two.</strong> One agnostic (MD stagger, ToD warm-up, idle aux, batch chiller) and one vertical or equipment example.</li>
      <li><strong>Flip the card.</strong> Tags + baseline show why a monthly bill alone cannot issue this in time.</li>

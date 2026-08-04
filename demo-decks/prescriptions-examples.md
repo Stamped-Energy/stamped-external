@@ -14,7 +14,7 @@ HTML deck: [prescriptions-examples.html](./prescriptions-examples.html). Client 
 
 1. Pick **one load** example (MD stagger, ToD warm-up, idle aux, or batch chiller) and **one equipment** example (compressor drift or pump check).
 2. Read the **talk track** aloud — if it sounds like a spec, skip it.
-3. Walk **What → Why → Owner → Due**, then **flip for evidence**.
+3. Walk **action → Why → Owner → Due**, then **flip for evidence**.
 4. Say figures are **`[illustrative]`** until M&V baseline is locked on their plant.
 
 ---
@@ -131,9 +131,9 @@ Compressor 2 is using more power than usual for the same air pressure — nine d
 | Field | Content |
 | --- | --- |
 | **What** | Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed. |
-| **Why** | Compressor 2 is working harder than its own recent baseline for the same header pressure and shift load — drift for nine days. |
+| **Why** | Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days. |
 | **Owner** | Utilities lead + mechanical maintenance |
-| **Impact** | Roughly ₹45k–₹70k/month on the air system `[illustrative]` |
+| **Impact** | ₹45,000–₹70,000 / month [illustrative] |
 | **Effort** | ~2 hours · subject to isolation and permit |
 | **Due** | Next approved low-load maintenance window |
 
@@ -382,7 +382,7 @@ Baseline: skid matched-flow profile · 30-day pump baseline.
 ## How to use these with a client
 
 1. Pick **one agnostic** and **one plant/equipment** example that matches their site.
-2. Read **talk track** → walk **What → Why → Owner → Due** → flip for evidence.
+2. Read **talk track** → walk **action → Why → Owner → Due** → flip for evidence.
 3. Stress **owner + department + M&V lock**. Do not lead with a vague savings claim.
 4. Say clearly: figures are **samples**. A live audit binds tags, tariff, and baseline to *their* plant.
 
