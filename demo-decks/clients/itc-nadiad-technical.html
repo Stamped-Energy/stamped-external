@@ -905,9 +905,9 @@
     }
     .floor-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) auto;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr) auto;
       gap: clamp(1.35rem, 2.4vw, 2.1rem);
-      align-items: start;
+      align-items: center;
       justify-content: stretch;
       margin-top: 0.15rem;
       width: 100%;
@@ -917,7 +917,8 @@
       flex-direction: column;
       align-items: stretch;
       min-width: 0;
-      max-width: 26rem;
+      max-width: 24rem;
+      align-self: center;
     }
     .floor-copy .eyebrow { margin-bottom: 0.55rem; }
     .floor-copy h2 { margin-bottom: 0.35rem; }
@@ -930,6 +931,30 @@
     .floor-copy .status-rail {
       margin-top: 1.25rem;
       gap: 1.15rem;
+    }
+    .floor-status {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-self: center;
+      min-width: 0;
+      max-width: 22rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .floor-status .status-rail {
+      margin-top: 0;
+      gap: 0.95rem;
+    }
+    .floor-status .status-item {
+      padding: 0.55rem 0.65rem;
+      border-radius: var(--radius-btn);
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .floor-status .status-item.is-active {
+      border-color: color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+      background: color-mix(in srgb, var(--tertiary) 5%, var(--white));
     }
     .floor-route {
       display: grid;
@@ -1724,7 +1749,7 @@
       #scene-tech .tech-card ul { font-size: 0.78rem; }
       #scene-floor h2 { margin-bottom: 0.35rem; }
       #scene-floor .floor-copy .lede { margin-bottom: 0; max-width: 34em; font-size: 0.95rem; }
-      #scene-floor .floor-copy .status-rail { margin-top: 1.25rem; gap: 1.15rem; }
+      #scene-floor .floor-status .status-rail { gap: 0.85rem; }
       #scene-floor .status-item p { font-size: 0.78rem; }
       #scene-floor .floor-route { margin-top: 2.65rem; }
       #scene-floor .floor-route-card p { font-size: 0.78rem; }
@@ -1744,17 +1769,12 @@
 
     @media (max-width: 1100px) and (min-width: 721px) {
       #scene-floor .floor-layout {
-        grid-template-columns: minmax(0, 1.1fr) auto;
+        grid-template-columns: minmax(0, 1fr) auto;
         gap: 1.5rem;
       }
-      #scene-floor .floor-route {
+      #scene-floor .floor-status {
         grid-column: 1 / -1;
-        max-width: none;
-        margin-top: 0.35rem;
-      }
-      #scene-floor .floor-route-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.75rem;
+        max-width: 28rem;
       }
     }
 
@@ -2581,68 +2601,111 @@
             <p class="eyebrow reveal">From decision to floor action</p>
             <h2 class="reveal">The right action reaches the right owner with its evidence attached</h2>
             <p class="lede reveal hide-mobile">Stamped routes prescriptions by asset and role. Urgent work can require an admin confirmation before release; larger work stays in the queue until an owner and approved window are assigned.</p>
-            <div class="status-rail hide-mobile reveal">
-              <div class="status-item">
-                <span class="status-dot done"></span>
+            <p class="lede reveal show-mobile">Tap Snooze or Acknowledge on each assigned prescription. Evidence and impact travel with the action.</p>
+            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">WhatsApp for assigned actions · dashboard for queue and evidence · export for management review</p>
+            <p class="footnote reveal">The floor sees a short action card. Plant leadership sees the queue, constraints, expected value, and realised outcome.</p>
+          </div>
+          <div class="floor-status reveal">
+            <div class="status-rail" id="floorStatusRail" aria-label="Prescription workflow">
+              <div class="status-item is-active" data-status-step="0">
+                <span class="status-dot active pulse-on-active"></span>
                 <div>
                   <strong>Open</strong>
                   <p>Prescription issued with evidence, impact, priority, and proposed owner.</p>
                 </div>
               </div>
-              <div class="status-item">
-                <span class="status-dot active pulse-on-active"></span>
+              <div class="status-item" data-status-step="1">
+                <span class="status-dot"></span>
                 <div>
                   <strong>Acknowledged</strong>
                   <p>Owner accepts, requests a different window, or flags a production constraint.</p>
                 </div>
               </div>
-              <div class="status-item">
-                <span class="status-dot "></span>
+              <div class="status-item" data-status-step="2">
+                <span class="status-dot"></span>
                 <div>
                   <strong>In progress</strong>
                   <p>Action runs under the plant&#x27;s existing SOP, permit, and maintenance process.</p>
                 </div>
               </div>
-              <div class="status-item">
-                <span class="status-dot "></span>
+              <div class="status-item" data-status-step="3">
+                <span class="status-dot"></span>
                 <div>
                   <strong>Done</strong>
                   <p>Completion recorded with notes or maintenance evidence.</p>
                 </div>
               </div>
-              <div class="status-item">
-                <span class="status-dot "></span>
+              <div class="status-item" data-status-step="4">
+                <span class="status-dot"></span>
                 <div>
                   <strong>Verified / deferred</strong>
                   <p>Outcome checked against the baseline. Deferred actions retain a reason code and return only when relevant.</p>
                 </div>
               </div>
             </div>
-            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">WhatsApp for assigned actions · dashboard for queue and evidence · export for management review</p>
-            <p class="footnote reveal">The floor sees a short action card. Plant leadership sees the queue, constraints, expected value, and realised outcome.</p>
           </div>
           <div class="phone-col">
-            <div class="phone reveal" role="region" aria-label="Prescription phone preview">
+            <div class="phone reveal" id="floorPhone" role="region" aria-label="Prescription phone preview">
+              <div class="phone-btn phone-btn--silent" aria-hidden="true"></div>
+              <div class="phone-btn phone-btn--vol-up" aria-hidden="true"></div>
+              <div class="phone-btn phone-btn--vol-down" aria-hidden="true"></div>
+              <div class="phone-btn phone-btn--power" aria-hidden="true"></div>
               <div class="phone__bezel">
                 <div class="phone__screen">
+                  <div class="phone-island" aria-hidden="true"></div>
+                  <div class="phone-statusbar" aria-hidden="true">
+                    <span class="phone-time">10:42</span>
+                    <span class="phone-status-right">
+                      <svg class="phone-sig" viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
+                      <span>5G</span>
+                      <svg class="phone-bat" viewBox="0 0 28 14" aria-hidden="true"><rect x="1" y="2" width="22" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="16" height="6" rx="1"/><rect x="24" y="5" width="2.5" height="4" rx="0.5"/></svg>
+                    </span>
+                  </div>
                   <div class="wa-app">
                     <div class="wa-header">
+                      <div class="wa-back" aria-hidden="true">‹</div>
                       <div class="wa-avatar">SE</div>
-                      <div class="wa-head-text"><strong>Stamped Energy</strong><span>online</span></div>
+                      <div class="wa-head-text">
+                        <strong>Stamped Energy</strong>
+                        <span>online</span>
+                      </div>
+                      <div class="wa-head-icons" aria-hidden="true"><span>⌕</span><span>⋮</span></div>
                     </div>
-                    <div class="wa-body">
-                      <p class="wa-meta">Today · assigned action</p>
-                      <div class="wa-msg">
-                        <div class="wa-bubble">
-                          <span class="tag">Rx · High</span>
-                          <h4>Inspect Compressor 2 filter and unload valve</h4>
-                          <p class="wa-line"><b>Why:</b> Specific power 14% above baseline for nine days</p>
-                          <p class="wa-line"><b>Impact:</b> ₹45-70k/mo if curve recovers [illustrative]</p>
-                          <p class="wa-line"><b>Owner:</b> Utilities lead + maintenance</p>
+                    <div class="wa-body" id="floorWaBody">
+                      <p class="wa-meta" id="floorMeta">Today · assigned action · 1/2</p>
+                      <div class="wa-msg" id="floorMsg">
+                        <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
+                          <span class="tag" id="floorTag">Rx · High</span>
+                          <h4 id="floorTitle">Inspect Compressor 2 inlet filter and unload valve</h4>
+                          <div class="wa-bubble__divider" aria-hidden="true"></div>
+                          <p class="wa-line" id="floorRule"><b>ID:</b> RX-UTL-024 · sp_drift@v1.6</p>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> Specific power 14% above eight-week baseline for nine days</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹45-70k/mo if curve recovers [illustrative]</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> Utilities lead + maintenance</p>
+                          <p class="wa-line" id="floorEffort"><b>Effort:</b> ~2 hrs · isolation/permit dependent</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Compare post-service kW/Air for 72 operating hours</p>
+                          <p class="wa-line" id="floorDue"><b>Due:</b> Next approved low-load window</p>
+                          <div class="wa-bubble__foot">
+                            <span class="wa-tick" aria-hidden="true">10:42</span>
+                          </div>
+                        </div>
+                        <div class="wa-actions" id="floorActions">
+                          <button type="button" id="floorSnooze" aria-label="Snooze prescription">Snooze</button>
+                          <button type="button" class="primary" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
                         </div>
                       </div>
+                      <div class="wa-end" id="floorEnd" hidden>
+                        <strong>Stamped Energy</strong>
+                        <span>Inbox clear for this shift</span>
+                      </div>
+                    </div>
+                    <div class="wa-compose" aria-hidden="true">
+                      <span class="wa-compose__icon">+</span>
+                      <div class="wa-compose__field">Message</div>
+                      <span class="wa-compose__mic">◉</span>
                     </div>
                   </div>
+                  <div class="phone-home" aria-hidden="true"></div>
                 </div>
               </div>
             </div>
@@ -2819,6 +2882,32 @@
 
 
   <script>
+    window.__FLOOR_RX__ = [
+      {
+        "title": "Inspect Compressor 2 inlet filter and unload valve",
+        "rule": "RX-UTL-024 · sp_drift@v1.6",
+        "why": "Specific power 14% above eight-week baseline for matched header pressure and shift load; persisted nine days",
+        "impact": "₹45-70k/mo if curve returns to baseline [illustrative]",
+        "owner": "Utilities lead + mechanical maintenance",
+        "effort": "~2 hrs · subject to isolation and permit",
+        "verify": "Compare post-service kW/Air with locked baseline for 72 operating hours",
+        "priority": "High",
+        "due": "Next approved low-load window",
+        "statusStep": 0
+      },
+      {
+        "title": "Shift gravure dryer warm-up into lower ToD window",
+        "rule": "RX-ENE-031 · tod_warmup@v2.1",
+        "why": "Warm-up load overlaps MGVCL peak ToD on three of five weekday gravure runs",
+        "impact": "₹35-55k/mo [illustrative]",
+        "owner": "Utilities lead + gravure shift supervisor",
+        "effort": "Schedule change only · production sign-off",
+        "verify": "Compare warm-up kWh in ToD bands for two weeks post-change",
+        "priority": "Med",
+        "due": "Next gravure day-shift cycle",
+        "statusStep": 1
+      }
+    ];
     (function () {
       var img = document.getElementById("heroPhotoImg");
       if (!img) return;
@@ -2902,10 +2991,27 @@
       var floorWhy = document.getElementById("floorWhy");
       var floorImpact = document.getElementById("floorImpact");
       var floorOwner = document.getElementById("floorOwner");
+      var floorEffort = document.getElementById("floorEffort");
+      var floorVerify = document.getElementById("floorVerify");
+      var floorRule = document.getElementById("floorRule");
       var floorDue = document.getElementById("floorDue");
       var floorMsg = document.getElementById("floorMsg");
       var floorSnooze = document.getElementById("floorSnooze");
       var floorAck = document.getElementById("floorAck");
+      var floorStatusRail = document.getElementById("floorStatusRail");
+
+      function setFloorStatus(step) {
+        if (!floorStatusRail) return;
+        floorStatusRail.querySelectorAll(".status-item").forEach(function (item) {
+          var i = Number(item.getAttribute("data-status-step") || 0);
+          var dot = item.querySelector(".status-dot");
+          item.classList.toggle("is-active", i === step);
+          if (!dot) return;
+          dot.classList.remove("done", "active", "pulse-on-active");
+          if (i < step) dot.classList.add("done");
+          else if (i === step) dot.classList.add("active", "pulse-on-active");
+        });
+      }
 
       function setFloorControlsEnabled(on) {
         if (floorSnooze) floorSnooze.disabled = !on;
@@ -2917,13 +3023,17 @@
         var rx = floorRx[i];
         if (!rx || !floorBubble) return;
         floorIdx = i;
-        if (floorTag) floorTag.textContent = "Alarm · " + (rx.priority || "High");
+        if (floorTag) floorTag.textContent = "Rx · " + (rx.priority || "High");
         if (floorTitle) floorTitle.textContent = rx.title || "";
-        if (floorWhy) floorWhy.innerHTML = "<b>Alarm:</b> " + (rx.why || "");
+        if (floorRule) floorRule.innerHTML = "<b>ID:</b> " + (rx.rule || "");
+        if (floorWhy) floorWhy.innerHTML = "<b>Why:</b> " + (rx.why || "");
         if (floorImpact) floorImpact.innerHTML = "<b>Impact:</b> " + (rx.impact || "");
         if (floorOwner) floorOwner.innerHTML = "<b>Owner:</b> " + (rx.owner || "");
+        if (floorEffort) floorEffort.innerHTML = "<b>Effort:</b> " + (rx.effort || "");
+        if (floorVerify) floorVerify.innerHTML = "<b>Verify:</b> " + (rx.verify || "");
         if (floorDue) floorDue.innerHTML = "<b>Due:</b> " + (rx.due || "This week · before next peak");
-        if (floorMeta) floorMeta.textContent = "Today · Shift B · 07:18 · " + (i + 1) + "/" + floorRx.length;
+        if (floorMeta) floorMeta.textContent = "Today · assigned action · " + (i + 1) + "/" + floorRx.length;
+        setFloorStatus(typeof rx.statusStep === "number" ? rx.statusStep : i);
         if (floorMsg) floorMsg.hidden = false;
         floorBubble.hidden = false;
         if (floorActions) floorActions.hidden = false;
@@ -2941,6 +3051,7 @@
         if (floorMsg) floorMsg.hidden = true;
         if (floorMeta) floorMeta.hidden = true;
         if (floorEnd) floorEnd.hidden = false;
+        setFloorStatus(4);
         floorBusy = false;
         setFloorControlsEnabled(false);
       }
@@ -2971,6 +3082,7 @@
             showFloorEnd();
             return;
           }
+          setFloorStatus(Math.min((floorRx[floorIdx] && floorRx[floorIdx].statusStep || floorIdx) + 1, 4));
           renderFloorRx(next, true);
           floorBusy = false;
         }, 340);
