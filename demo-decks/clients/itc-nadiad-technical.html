@@ -2412,13 +2412,13 @@
       </div>
     </section>
 
-    <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescription">
+    <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescriptions">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Example prescription · Equipment drift</p>
+        <p class="eyebrow reveal">Example prescriptions · Equipment drift &amp; load</p>
         <h2 class="reveal">The floor receives a decision, not an anomaly score</h2>
-        <span class="illustrative-badge reveal">Illustrative example · not a Nadiad measurement</span>
-        <div class="rx-layout rx-single reveal">
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Inspect compressor. Show evidence.">
+        <span class="illustrative-badge reveal">Illustrative examples · not Nadiad measurements</span>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Inspect compressor 2. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -2428,14 +2428,13 @@
                 <div class="rx-hero__body">
                   <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>ID</dt><dd>RX-UTL-024 · Compressor 2 · Priority: High</dd></div>
-                    <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days, so production volume alone does not explain it.</dd></div>
-                    <div class="rx-row"><dt>Who</dt><dd>Utilities lead + mechanical maintenance</dd></div>
-                    <div class="rx-row"><dt>When</dt><dd>Next approved low-load maintenance window</dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>Approximately two hours, subject to plant isolation and permit procedure</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000-₹70,000 per month if the specific-power curve returns to baseline [illustrative]</strong></dd></div>
-                    <div class="rx-row"><dt>Production check</dt><dd>Confirm standby compressor capacity and critical air demand. If capacity is unavailable, move the inspection to the next feasible window.</dd></div>
-                    <div class="rx-row"><dt>Verify</dt><dd>Compare post-service specific power with the locked baseline for 72 operating hours. Close as realised only if the curve returns to band.</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days.</dd></div>
+                    <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh) · specific power</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + mechanical maintenance</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000-₹70,000 / month [illustrative]</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
+                    <div class="rx-row"><dt>Rule</dt><dd>RX-UTL-024 · sp_drift@v1.6 · High</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2461,6 +2460,58 @@
                     </tbody>
                   </table>
                   <p class="rx-cite">sp_drift@v1.6 · example only · confirm on live plant data</p>
+                  <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Shift gravure dryer warm-up. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx · ToD / warm-up</span>
+                  <span class="rx-priority rx-priority--med">Priority · Med</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Start gravure dryer warm-up 25 minutes earlier into the lower MGVCL ToD window before day-shift gravure release, without changing job start time.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Why</dt><dd>Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable.</dd></div>
+                    <div class="rx-row"><dt>Bill line</dt><dd>Energy (kWh) · ToD</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + gravure shift supervisor</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹35,000-₹55,000 / month [illustrative]</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production sign-off</dd></div>
+                    <div class="rx-row"><dt>Rule</dt><dd>RX-ENE-031 · tod_warmup@v2.1 · Med</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Next gravure day-shift cycle</dd></div>
+                  </dl>
+                  <p class="rx-flip-cue">Flip for evidence →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · sample</span>
+                  <span class="rx-priority rx-priority--med">ToD overlap</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-ev-title">Warm-up vs MGVCL ToD band · weekday gravure</p>
+                  <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+                    <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kWh</text>
+                    <rect x="104" y="18" width="56" height="34" fill="rgba(247,84,64,0.18)" stroke="none"/>
+                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,46 56,44 104,30 160,24 216,28 272,40 304,44"/>
+                    <text x="132" y="14" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">peak ToD</text>
+                    <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+                  </svg>
+                  <table class="rx-ev-table">
+                    <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>DRYER.WARMUP</code></td><td>ON</td><td>peak ToD</td></tr>
+                      <tr><td><code>MGVCL.TOD_BAND</code></td><td>peak</td><td>3 / 5 runs</td></tr>
+                      <tr><td><code>GRAVURE.JOB_REL</code></td><td>unchanged</td><td>day shift</td></tr>
+                    </tbody>
+                  </table>
+                  <p class="rx-cite">tod_warmup@v2.1 · example only · confirm on live plant data</p>
+                  <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
