@@ -12,6 +12,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 - [`demo-decks/prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — prescription examples walkthrough
 - [`demo-decks/clients/technical-explainer.html`](demo-decks/clients/technical-explainer.html) — Stamped Intelligence technical explainer (11 slides)
 - [`demo-decks/clients/itc-nadiad-technical.html`](demo-decks/clients/itc-nadiad-technical.html) — ITC Nadiad account technical brief
+- [`demo-decks/clients/itc-nadiad-technical/`](demo-decks/clients/itc-nadiad-technical/) — GitHub Pages deploy root for ITC brief (hero `tape-line.jpg`)
 - [`.github/workflows/pages.yml`](.github/workflows/pages.yml) — deploy demo site from `main`
 
 ## [2026.07.30] - 2026-07-30
