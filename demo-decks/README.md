@@ -30,6 +30,7 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; on-site Chaubepur ask) |
 | [clients/technical-explainer.html](./clients/technical-explainer.html) | Generic Stamped Intelligence technical explainer (11 slides; sales collateral) |
 | [clients/itc-nadiad-technical.html](./clients/itc-nadiad-technical.html) | ITC Nadiad account technical brief (named; packaging &amp; printing) |
+| [clients/itc-nadiad-technical/](./clients/itc-nadiad-technical/) | GitHub Pages deploy root for ITC brief (hero `tape-line.jpg`) |
 
 Meeting default: open the Lohia brief. Keep the anonymous OEM demo ready if the room wants a full product walkthrough without account research on-screen.
 
