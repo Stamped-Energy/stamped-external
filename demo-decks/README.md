@@ -9,8 +9,8 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [cement.html](./cement.html) | Cement: kiln, mills, WHR |
 | [steel.html](./steel.html) | Steel: furnace, rolling mill |
 | [pharma.html](./pharma.html) | Pharma: load management, HVAC, chillers |
-| [prescriptions-examples.html](./prescriptions-examples.html) | 10 sample prescriptions (flip cards; client pack) |
-| [prescriptions-examples.md](./prescriptions-examples.md) | Markdown twin — **floor-tied illustrations** + constraint rules |
+| [prescriptions-examples.html](./prescriptions-examples.html) | **Cold-call / discovery:** 10 practical prescriptions (flip cards + negotiation vignette) |
+| [prescriptions-examples.md](./prescriptions-examples.md) | Markdown twin — talk tracks, plain-language cards, evidence on flip |
 | [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) | Canonical client narrative (WhatsApp, decks, I4.0) |
 | [pharma/](./pharma/) | Pharma Vercel deploy root (`index.html`; `vercel --prod`) |
 | [clients/](./clients/) | Client deck picker + OEM / Lohia walkthroughs (linked from hub) |

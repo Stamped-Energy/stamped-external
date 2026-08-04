@@ -1,48 +1,25 @@
-# Stamped · Client prescription examples
+# Stamped · Practical prescription examples
 
 **Sample numbers only.** Use these in client talks. Live prescriptions use your plant tags, tariff, and a locked M&V baseline.
 
 A **prescription** is a clear **floor action**: what to do, why the data says so, who owns it, effort and window, and how we check the result. Rx must be **operationally feasible** — if the first suggested window conflicts with standby capacity or an active order, Stamped proposes the **next-best slot** (negotiation), not a generic alarm.
 
-These only fire when Stamped watches **many live signals together** (incomer, machine state, tariff clock, production or idle) in the short window when a decision can still change the bill.
+**Plain language on the card.** Talk tracks and card fronts use plant-floor words. Technical proof (tags, baseline, tariff band) lives on **flip for evidence** — for the engineer who asks “how do you know?”
+
+HTML deck: [prescriptions-examples.html](./prescriptions-examples.html). Client narrative SSOT: [Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md).
 
 ---
 
-## Floor-tied illustrations (not live plant measurements)
+## How to use in a meeting
 
-Canonical pattern for **practical** client-facing cards. HTML deck: [prescriptions-examples.html](./prescriptions-examples.html).
+1. Pick **one load** example (MD stagger, ToD warm-up, idle aux, or batch chiller) and **one equipment** example (compressor drift or pump check).
+2. Read the **talk track** aloud — if it sounds like a spec, skip it.
+3. Walk **What → Why → Owner → Due**, then **flip for evidence**.
+4. Say figures are **`[illustrative]`** until M&V baseline is locked on their plant.
 
-### RX · EQUIPMENT · DRIFT — Priority: High
+---
 
-| Field | Content |
-| --- | --- |
-| **What** | Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed. |
-| **Why** | Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days. |
-| **Owner** | Utilities lead + mechanical maintenance |
-| **Impact** | ₹45,000–₹70,000/month `[illustrative]` |
-| **Effort** | ~2 hours · subject to isolation and permit |
-| **Due** | Next approved low-load maintenance window |
-| **Evidence (flip)** | Tag comparison vs eight-week matched baseline; specific-power trend |
-
-### RX · TOD / WARM-UP — Priority: Med
-
-| Field | Content |
-| --- | --- |
-| **What** | Start gravure dryer warm-up **25 minutes earlier** into the lower MGVCL ToD window before day-shift gravure release, **without changing job start time**. |
-| **Why** | Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable. |
-| **Owner** | Utilities lead + gravure shift supervisor |
-| **Impact** | ₹35,000–₹55,000/month `[illustrative]` |
-| **Effort** | Schedule change only · production sign-off |
-| **Due** | Next gravure day-shift cycle |
-| **Evidence (flip)** | ToD clock + incomer draw during warm-up vs release time |
-
-### Schedule negotiation (shared context — not a third product)
-
-> Compressor inspection was suggested for Tuesday morning, but standby air capacity that day is too low to isolate safely. Stamped flags that and proposes **Thursday 2–4 pm** instead, after Job 447 closes.
-
-This is **bounded negotiation** ([ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md)): revise window/parameters, not rewrite the Rx from scratch.
-
-### How we constrain ourselves (agents + L4/L6)
+## How we constrain ourselves (agents + L4/L6)
 
 | Constraint | Do |
 | --- | --- |
@@ -54,436 +31,359 @@ This is **bounded negotiation** ([ADR-024](../decisions/024-026/ADR-024-holistic
 | Evidence on flip | tags, baseline window, tariff band — supervisor can defend |
 | Do not claim | vibration PdM, RUL %, “fine-tuned before connect”, MES scheduling |
 
-Client narrative SSOT: [Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md).
-
 ---
 
 ## Catalog (10 sample types)
 
-| # | Type | Prescription |
-|---|---|---|
-| 1 | Agnostic | MD co-start stagger |
-| 2 | Agnostic | ToD peak load shift |
-| 3 | Agnostic | Idle auxiliary cut |
-| 4 | Agnostic | Contract demand soft-landing |
-| 5 | Steel | Furnace holding cut on delay |
-| 6 | Cement | Kiln + mill stagger / prefer WHR |
-| 7 | Pharma · utilities | HVAC idle-duty drop |
-| 8 | Equipment · compressors | Multi-unit sequencing |
-| 9 | Equipment · chillers | Approach / condenser waste |
-| 10 | Equipment · pumps | Overpressure recirculation trim |
+| # | Badge | Title | Lever |
+| --- | --- | --- | --- |
+| 1 | Agnostic · MD | Hold the second feeder start 10 minutes | Load staggering |
+| 2 | Agnostic · ToD / thermal | Gravure dryer warm-up 25 min earlier | ToD + thermal timing |
+| 3 | Equipment · drift | Inspect Compressor 2 filter / unload valve | Equipment drift |
+| 4 | Agnostic · idle | Switch off packaging line aux when nothing runs 20 min | Idle-load reduction |
+| 5 | Agnostic · ToD | Start batch chiller later — batch still on time | Utility scheduling + ToD |
+| 6 | Shared context | Schedule negotiation vignette | Agentic feasibility |
+| 7 | Steel | Reduce furnace holding when roll delayed 45+ min | Thermal / idle holding |
+| 8 | Cement | Start the mill after the kiln settles | Stagger + WHR preference |
+| 9 | Pharma | Trim chillers when the batch hall is empty | Utility scheduling / HVAC |
+| 10 | Equipment · pumps | Check CW pump P-12 — valve may be stuck recirculating | Inspect / tune |
 
 ---
 
-## Agnostic (works on most plants)
+## 1 · Hold the second feeder start 10 minutes
 
-### 1 · MD co-start stagger
+**Type:** Agnostic · MD · **Priority:** High
 
-**Type:** Agnostic · **Priority:** High · **Bill line:** MD (kVA)
+#### Talk track
 
-#### What
-Hold the second big feeder start until the first load settles (for example under 95% of its ramp). Then release it. Usual stagger is **8-12 minutes** inside the open 15-minute MD window.
+Two big loads hit your incomer in the same 15-minute MD window — the bill won’t tell you which machines until it’s too late. We can see the overlap live and ask the second owner to wait about ten minutes.
 
-#### Why
-Two heavy feeders started in the same billing slot and stacked on the HT incomer. The monthly bill only shows the peak later. It cannot tell Shift B *which two machines* overlapped *while the window was still open*. You need live feeder starts plus rolling MD.
+#### Card
 
-#### How
-1. Spot a co-start (or a second start about to happen) on tagged large feeders.
-2. Tell the second owner to hold, with the settle level and minutes left in the MD window.
-3. Release when the first feeder drops below the settle level, or log an override if the window closes.
-4. Log accept / snooze / override for M&V.
-
-| | |
-|---|---|
-| **Owner** | Electrical / area supervisor · active shift |
-| **Impact (sample)** | ₹2.5-4.5L / month on MD |
+| Field | Content |
+| --- | --- |
+| **What** | Hold the second large feeder start until the first load settles (for example under 95% of its ramp). Usual stagger: **8–12 minutes** inside the open MD window. |
+| **Why** | Two heavy feeders started in the same billing slot and stacked on the HT incomer. The monthly bill shows the peak later — not which machines overlapped while the window was still open. |
+| **Owner** | Electrical lead + area supervisor · active shift |
+| **Impact** | Roughly ₹80k–₹1.2L/month on MD `[illustrative]` |
 | **Effort** | Sequence change · no new equipment |
-| **Rule** | `md_overlap@v2.4` · High |
-| **Due** | This week · before next peak week |
+| **Due** | Next morning ramp · before peak week |
 
-**Why you need live data:** Rolling MD is set in 15 minutes or less. You need restart flags, incomer MD, and feeder ID *inside that window*. A week-later EMS report is too late.
+**Use when:** Any plant with multiple large feeders on one incomer.
 
-**Evidence (sample · Mon 07:10-07:22)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
-| `HT_INCOMER.MD` | 1,180 kVA | 07:14-07:18 |
+| --- | --- | --- |
+| `HT_INCOMER.MD` | 1,180 kVA | 07:14–07:18 |
 | `FEEDER_A.RESTART` | TRUE | 07:12 |
 | `FEEDER_B.START` | ON | 07:14+ |
 | `AUX_BANK.RUN` | ON | 07:13+ |
 
-**Cite:** `physics/md_overlap@v2.4` · model conf 0.91 · tariff MD slab · baseline Apr peak week  
-**M&V:** Check next bill MD peak against the locked baseline. Plan locked when the Rx is issued.
+Baseline: Apr peak week · MD slab · Stamped check: co-start inside rolling 15-min window.
 
 ---
 
-### 2 · ToD peak load shift
+## 2 · Gravure dryer warm-up 25 min earlier
 
-**Type:** Agnostic · **Priority:** High · **Bill line:** ToD energy (₹/kWh peak)
+**Type:** Agnostic · ToD / thermal · **Priority:** Med · **Canonical**
 
-#### What
-Move loads you can pause (batch utilities, non-critical auxiliaries, deferrable test loads) **off the peak tariff block** when the process allows. Usually shift them into shoulder or off-peak in the same shift.
+#### Talk track
 
-#### Why
-The plant is buying peak-rate power while tagged pause-able loads are still on and the process is fine. A fixed “run at night” plan misses days when you could move earlier, or forces a move when you should not. Live tariff clock + process ready + incomer draw decide *today’s* move.
+Warm-up is eating peak ToD even when output is the same — shift warm-up, not production start. Start the gravure dryer 25 minutes earlier into the cheaper window; jobs still release on time.
 
-#### How
-1. At peak start (or 15 min before), list pause-able loads against process and quality rules.
-2. Send a ranked cut/shift list with ₹/kWh savings vs leaving them on.
-3. Supervisor accepts the list or protects named loads. Stamped watches to bring them back when peak ends.
-4. Close on the ToD bill line vs the locked baseline week.
+#### Card
 
-| | |
-|---|---|
-| **Owner** | Electrical lead · Shift A |
-| **Impact (sample)** | ₹0.9-1.8L / month on ToD |
-| **Effort** | Dispatch nudge · SOP protect-list |
-| **Rule** | `tod_interruptible@v1.6` · High |
-| **Due** | Next peak tariff window |
+| Field | Content |
+| --- | --- |
+| **What** | Start gravure dryer warm-up **25 minutes earlier** into the lower MGVCL ToD window before day-shift gravure release — **without changing job start time**. |
+| **Why** | Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable. |
+| **Owner** | Utilities lead + gravure shift supervisor |
+| **Impact** | Roughly ₹35k–₹55k/month on ToD energy `[illustrative]` |
+| **Effort** | Schedule change only · production sign-off |
+| **Due** | Next gravure day-shift cycle |
 
-**Why you need live data:** Peak price changes by the clock, and by whether the process can take a cut *right now*. Monthly averages cannot give a same-shift protect list.
+**Use when:** Printing, packaging, gravure, or any thermal warm-up before release.
 
-**Evidence (sample · peak block 18:00-22:00)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
-| `TARIFF.TOD_BLOCK` | PEAK | 18:00-22:00 |
-| `HT_INCOMER.kW` | 3,420 kW | 18:22 |
-| `LOAD.INTERRUPTIBLE_kW` | 480 kW | same |
-| `PROC.READY_SCORE` | 0.82 | 18:20 |
+| --- | --- | --- |
+| `TARIFF.TOD_BLOCK` | PEAK during warm-up | Mon–Fri avg |
+| `DRYER.kW` | elevated | 25 min pre-release |
+| `GRAVURE.RELEASE` | unchanged | shift start |
+| `HT_INCOMER.kW` | +120 kW vs shoulder | warm-up overlap |
 
-**Cite:** `physics/tod_shift@v1.6` · model conf 0.88 · DISCOM ToD schedule · baseline last 4 peak weeks  
-**M&V:** Peak-block kWh × tariff delta vs locked plan. Check on next bill ToD lines.
+Baseline: last 4 gravure weeks · MGVCL ToD schedule · warm-up vs release timestamp.
 
 ---
 
-### 3 · Idle auxiliary cut
+## 3 · Inspect Compressor 2 filter / unload valve
 
-**Type:** Agnostic · **Priority:** Med-High · **Bill line:** Energy (kWh)
+**Type:** Equipment · drift · **Priority:** High · **Canonical**
 
-#### What
-When the main process shows **zero production for N minutes** (plant-set, often 15-30), switch off tagged auxiliaries: conveyors, idle bag filters, idle pumps, non-critical fans. Use a timed SOP, and restart them when production comes back.
+#### Talk track
 
-#### Why
-Auxiliaries stay on during idle because no one watches production count and machine kW together. Month-end energy looks “a bit high,” but the floor never gets a timed cut with an owner. Live trigger: production = 0 *and* aux kW still high.
+Compressor 2 is using more power than usual for the same air pressure — nine days straight. Inspect before it becomes extra bill and a breakdown.
 
-#### How
-1. Confirm production = 0 for at least N minutes and aux feeder still drawing.
-2. Send a cut list by asset, with restart rule (production pulse or supervisor override).
-3. Keep safety and quality loads on the protect list.
-4. Add up avoided kWh for the billing cycle.
+#### Card
 
-| | |
-|---|---|
-| **Owner** | Area supervisor · owning process |
-| **Impact (sample)** | ₹1.0-2.2L / month on energy |
-| **Effort** | Idle SOP · no new equipment |
-| **Rule** | `idle_aux@v1.9` · High |
-| **Due** | Next idle window of N min or more |
+| Field | Content |
+| --- | --- |
+| **What** | Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed. |
+| **Why** | Compressor 2 is working harder than its own recent baseline for the same header pressure and shift load — drift for nine days. |
+| **Owner** | Utilities lead + mechanical maintenance |
+| **Impact** | Roughly ₹45k–₹70k/month on the air system `[illustrative]` |
+| **Effort** | ~2 hours · subject to isolation and permit |
+| **Due** | Next approved low-load maintenance window |
 
-**Why you need live data:** Idle waste is time × kW. Monthly totals hide it. You need production and asset power at the same time for each stop.
+**Use when:** Compressed air, any multi-unit house with metered compressors.
 
-**Evidence (sample · last 5 idle events)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
-| `PROC.COUNT` | 0 | 22+ min avg |
-| `AUX_CONV.kW` | 38 kW | same window |
+| --- | --- | --- |
+| `COMP2.kW` | +14% vs matched baseline | 9-day trend |
+| `HEADER.BAR` | matched band | same runs |
+| `COMP2.SPEC_PWR` | elevated | 8-week baseline |
+| `COMP2.RUN_HRS` | normal | same |
+
+Baseline: eight-week matched specific-power · same header pressure and run hours.
+
+---
+
+## 4 · Switch off packaging line aux when nothing runs 20 min
+
+**Type:** Agnostic · idle · **Priority:** Med-High
+
+#### Talk track
+
+Conveyors and fans stay on when the line is empty — nobody connects “no output” to aux power in real time. After 20 minutes with zero output, switch aux off per SOP; bring back when production returns.
+
+#### Card
+
+| Field | Content |
+| --- | --- |
+| **What** | When packaging line output is zero for **20 minutes**, switch off tagged auxiliaries (conveyors, idle fans, non-critical pumps). Restart when production pulse returns or supervisor overrides. |
+| **Why** | Auxiliaries stay on during idle because production count and machine power are not watched together in time. |
+| **Owner** | Area supervisor · packaging line + utilities lead |
+| **Impact** | Roughly ₹50k–₹90k/month on energy `[illustrative]` |
+| **Effort** | Idle SOP · safety loads on protect list |
+| **Due** | Next idle window of 20 min or more |
+
+**Use when:** Packaging, FMCG, any line with clear output counter + aux feeders.
+
+#### Evidence (flip)
+
+| Tag | Value | Window |
+| --- | --- | --- |
+| `LINE.OUTPUT` | 0 | 22+ min avg |
+| `AUX_CONV.kW` | 38 kW | same |
 | `AUX_FAN.RUN` | ON | same |
 | `IDLE.FLAG` | TRUE | planned / unplanned |
 
-**Cite:** `physics/idle_aux@v1.9` · model conf 0.86 · flat/ToD energy · baseline last 5 idles  
-**M&V:** Event kWh avoided × tariff. One ledger entry per closed idle cut.
+Baseline: last 5 idle events · flat/ToD energy tariff.
 
 ---
 
-### 4 · Contract demand soft-landing
+## 5 · Start batch chiller later — batch still on time
 
-**Type:** Agnostic · **Priority:** High · **Bill line:** MD (kVA) + CMD / penalty risk
+**Type:** Agnostic · ToD · **Priority:** High
 
-#### What
-When rolling MD nears the **contract demand (CMD) headroom band** (for example within 5-8%), hold soft loads and delay starts that can wait, *before* the 15-minute window locks. This is a soft landing, not an emergency trip.
+#### Talk track
 
-#### Why
-Plants often see CMD breaches on the bill, or only at 98% with minutes left. Soft-landing needs the MD trend plus a ranked list of loads you can hold *while headroom still exists*. A single-meter alarm without machine context only shouts. It does not say who holds what.
+You’re cooling for a batch that doesn’t start for 90 minutes — that’s peak-rate power you can move. Start the batch chiller later; batch hall still hits temperature before start.
 
-#### How
-1. Estimate window-end MD from the current trend and known pending starts.
-2. If projected MD enters the headroom band, issue ranked soft holds (lowest production risk first).
-3. Block new deferrable starts until the window closes or headroom recovers.
-4. Record near-miss vs breach for CMD review.
+#### Card
 
-| | |
-|---|---|
-| **Owner** | Electrical lead · plant head on breach path |
-| **Impact (sample)** | ₹1.5-5.0L / event avoided (MD slab / penalty) |
-| **Effort** | Soft-hold SOP · protect critical path |
-| **Rule** | `cmd_headroom@v1.3` · Critical |
-| **Due** | Live · inside open MD window |
+| Field | Content |
+| --- | --- |
+| **What** | Delay batch chiller pull until **90 minutes before** batch start (instead of 150 min early), when validated temp band allows. |
+| **Why** | Pre-cooling runs through the peak ToD block while the batch hall is still empty — kWh you can shift to shoulder rate without missing batch readiness. |
+| **Owner** | Utilities lead + batch hall supervisor |
+| **Impact** | Roughly ₹40k–₹75k/month on ToD energy `[illustrative]` |
+| **Effort** | Schedule change · quality sign-off on temp band |
+| **Due** | Next scheduled batch in peak block |
 
-**Why you need live data:** CMD risk is decided inside one rolling window. You need predicted MD, the start queue, and which loads can wait. Yesterday’s peak log is too late.
+**Use when:** Pharma, food, any batch hall with pre-cool before batch start.
 
-**Evidence (sample · open 15-min MD)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
-| `HT_INCOMER.MD_ROLL` | 4,720 kVA | T+6 min |
-| `CMD.LIMIT` | 5,000 kVA | contract |
-| `MD.HEADROOM_PCT` | 5.6% | live |
-| `STARTS.PENDING` | 2 deferrable | queued |
+| --- | --- | --- |
+| `TARIFF.TOD_BLOCK` | PEAK | pre-batch window |
+| `CHILLER.kW` | 180 kW | 90 min early pull |
+| `BATCH.START` | T+90 min | scheduled |
+| `HALL.TEMP` | in band at start | historical |
 
-**Cite:** `physics/cmd_softland@v1.3` · model conf 0.90 · CMD contract · baseline peak weeks  
-**M&V:** Window-end MD vs what would have happened with no soft hold. CMD breach flag = 0.
+Baseline: last 4 batch cycles · DISCOM ToD schedule · hall temp at batch start.
 
 ---
 
-## Plant / equipment specific
+## 6 · Schedule negotiation vignette
 
-### 5 · Steel · Furnace holding cut on delay
+**Type:** Shared context · not a full Rx · **Priority:** —
 
-**Type:** Steel · melt shop · **Priority:** Med-High · **Bill line:** Energy (kWh)
+#### Talk track
 
-#### What
-On a **planned cast or roll delay longer than 30 minutes**, cut furnace holding power per melt-shop SOP (controlled ramp to a hold-safe state). Do not leave full holding kW with zero heats.
+We suggested Tuesday inspection but standby air was too low — so we moved it to Thursday after Job 447 closes. That’s negotiation, not a new alarm.
 
-#### Why
-Holding power with no cast or roll on 3 of the last 5 delay events burned kWh you did not need. Delay flags sit in production systems. Furnace kW sits in EMS. Nobody joins them in time for the supervisor to cut hold.
+#### Narrative
 
-#### How
-1. Detect delay over 30 min with cast / roll production = 0.
-2. Confirm furnace in HOLD and kW above the hold-cut level.
-3. Tell melt-shop supervisor: run holding SOP; note restart lead time before cast resumes.
-4. Check event kWh vs the normal hold profile.
+> Compressor 2 filter inspection was suggested for **Tuesday 9–11 am**, but standby air capacity that day is too low to isolate safely. Stamped flags that and proposes **Thursday 2–4 pm** instead, after **Job 447** closes.
 
-| | |
-|---|---|
-| **Owner** | Melt-shop supervisor · Furnace 2 |
-| **Impact (sample)** | ₹1.0-1.8L / month on energy |
-| **Effort** | Holding SOP · no new equipment |
-| **Rule** | `idle_hold@v1.8` · High |
-| **Due** | Next delay window over 30 min |
+| Before | After |
+| --- | --- |
+| **Due:** Tue 9–11 am | **Due:** Thu 2–4 pm after Job 447 |
+| **Blocker:** standby air below isolation threshold | **Feasible:** production order cleared · standby confirmed |
 
-**Why you need live data:** Delay length and furnace hold state change during the event. A post-shift report cannot get back the kWh already spent.
+Bounded negotiation ([ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md)): revise window and parameters, not rewrite the Rx from scratch.
 
-**Evidence (sample · last 5 delay / hold events)**
+**Use when:** Explaining agentic layer vs static CMMS work orders.
+
+---
+
+## 7 · Reduce furnace holding when roll is delayed 45+ min
+
+**Type:** Steel · melt shop · **Priority:** Med-High
+
+#### Talk track
+
+Holding power keeps running through a delay — the melt schedule and furnace kW aren’t looked at together until the shift ends. On a 45+ minute roll delay, cut holding per melt-shop SOP.
+
+#### Card
+
+| Field | Content |
+| --- | --- |
+| **What** | On a planned cast or roll delay **longer than 45 minutes**, reduce furnace holding power per melt-shop SOP (controlled ramp to hold-safe). Do not leave full holding kW with zero heats. |
+| **Why** | Holding power with no cast or roll on three of the last five delay events burned kWh the shift did not need. |
+| **Owner** | Melt-shop supervisor · Furnace 2 + utilities lead |
+| **Impact** | Roughly ₹60k–₹1.0L/month on energy `[illustrative]` |
+| **Effort** | Holding SOP · note restart lead time before cast resumes |
+| **Due** | Next delay window over 45 min |
+
+**Use when:** Steel melt shop, EAF / holding furnaces with production delay flags.
+
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
-| `FURNACE2.HOLD` | ON | 35 min avg |
-| `CAST.PROD` | 0 heats | same window |
+| --- | --- | --- |
+| `FURNACE2.HOLD` | ON | 48 min avg |
+| `ROLL.PROD` | 0 | same window |
 | `FURNACE2.kWh` | ~180 kWh | per event |
 | `DELAY.FLAG` | TRUE | planned |
 
-**Cite:** `physics/idle_hold@v1.8` · model conf 0.87 · ToD energy · baseline last 5 delays  
-**M&V:** Holding kWh per delay event vs locked SOP baseline.
+Baseline: last 5 delay events · ToD energy · normal hold profile.
 
 ---
 
-### 6 · Cement · Kiln + mill stagger / prefer WHR
+## 8 · Start the mill after the kiln settles
 
-**Type:** Cement · pyro + grinding · **Priority:** High · **Bill line:** MD (kVA) + peak grid energy
+**Type:** Cement · pyro + grinding · **Priority:** High
 
-#### What
-Stagger **Kiln 1** and **Raw Mill 2** start by about 10 minutes into the TOD peak. Prefer available **WHR** over peak grid import when WHR is online and the process allows.
+#### Talk track
 
-#### Why
-Kiln and mill started together in the peak window and pushed rolling MD toward CMD while WHR sat under-used. Cement EMS often logs kiln, mill, WHR, and incomer as separate screens. The overlap and WHR preference only show when all four are watched live together.
+Kiln and mill ramp together every morning — that’s when demand and peak grid import hurt. Hold the mill start ~10 minutes until the kiln settles; use WHR when it’s available instead of peak grid.
 
-#### How
-1. On kiln ramp, hold mill start until kiln load settles (for example under 95% of design) or 10 minutes pass with MD headroom.
-2. If WHR is available and peak grid import is high, prefer WHR before starting grind load that can wait.
-3. Release the mill when MD trend and process allow.
-4. Close on MD + peak import vs the locked week.
+#### Card
 
-| | |
-|---|---|
-| **Owner** | CCR / pyro supervisor · Shift B |
-| **Impact (sample)** | ₹84k / mo MD · plus peak energy when WHR preferred |
+| Field | Content |
+| --- | --- |
+| **What** | Hold **Raw Mill 2** start until **Kiln 1** load settles (for example under 95% of ramp) or ~10 minutes pass. Prefer available **WHR** over peak grid import when WHR is online. |
+| **Why** | Kiln and mill co-start in the morning peak window pushed rolling MD up while WHR sat under-used. |
+| **Owner** | CCR / pyro supervisor + electrical lead · Shift B |
+| **Impact** | Roughly ₹50k–₹90k/month MD + peak import `[illustrative]` |
 | **Effort** | Sequence + dispatch · no new equipment |
-| **Rule** | `md_overlap@v2.4` + `whr_prefer@v1.2` · High |
-| **Due** | This week · before next peak |
+| **Due** | Next morning ramp · before peak week |
 
-**Why you need live data:** Co-start and WHR availability change by the minute. Preferring WHR after the peak block ends does not fix the bill line that already locked.
+**Use when:** Cement, lime, or any pyro + grind with WHR.
 
-**Evidence (sample · Tue 09:40 IST)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
+| --- | --- | --- |
 | `KILN1.LOAD_PCT` | 108% | 09:40 |
-| `RAWMILL2.START` | ON | 09:40 (co-start) |
+| `RAWMILL2.START` | ON (co-start) | 09:40 |
 | `HT_INCOMER.MD` | 4,680 kVA | rolling 15-min |
-| `WHR.AVAIL_kW` | 1,100 kW under-used | same |
+| `WHR.AVAIL_kW` | 1,100 under-used | same |
 
-**Cite:** `physics/md_overlap@v2.4` · `whr_prefer@v1.2` · conf 0.89 · TOD + MD · baseline peak week  
-**M&V:** Peak MD and peak-block grid import vs co-start with no stagger. Credit WHR MWh.
+Baseline: peak week morning ramp · TOD + MD · WHR availability log.
 
 ---
 
-### 7 · Pharma · HVAC idle-duty drop
+## 9 · Trim chillers when the batch hall is empty
 
-**Type:** Pharma / batch utilities · **Priority:** Med · **Bill line:** Energy (kWh)
+**Type:** Pharma · batch utilities · **Priority:** Med
 
-#### What
-Drop HVAC from **full duty to idle/setback** when batch occupancy and cleanroom demand show no active batch for a set window (for example 4 of last 6 idle windows), without breaking validated env limits.
+#### Talk track
 
-#### Why
-Full HVAC runs across empty batch blocks because of validation worry and split BMS/SCADA ownership. Energy dashboards show high HVAC kWh. They do not give a *timed, zone-specific* setback with an owner when the area is actually empty.
+Full chiller run on an empty batch block — utilities can trim within your approved temperature band. Setback when hall is empty; auto-revert when batch starts.
 
-#### How
-1. Confirm occupancy / batch = idle for the zone window, and temp/RH stay inside the validated band.
-2. Propose setback set-points (temp/RH/ACH) from the approved SOP list only. No free-text changes.
-3. Utilities lead accepts. Auto-revert on batch start or env alarm.
-4. Add up HVAC kWh saved vs full duty.
+#### Card
 
-| | |
-|---|---|
-| **Owner** | Utilities / HVAC lead · Block C |
-| **Impact (sample)** | ₹0.8-1.6L / month on energy |
-| **Effort** | Validated setback SOP · no new equipment |
-| **Rule** | `hvac_idle_duty@v1.4` · Med |
+| Field | Content |
+| --- | --- |
+| **What** | Trim chiller duty when batch hall occupancy is zero for the idle window, using **approved setback set-points** only (temp/RH/ACH). Auto-revert on batch start or env alarm. |
+| **Why** | Full chiller duty runs across empty batch blocks because validation worry and split BMS ownership — no timed, zone-specific setback with an owner. |
+| **Owner** | Utilities / HVAC lead · Block C + batch supervisor |
+| **Impact** | Roughly ₹45k–₹85k/month on energy `[illustrative]` |
+| **Effort** | Validated setback SOP · no free-text set-point changes |
 | **Due** | Next confirmed idle batch window |
 
-**Why you need live data:** Occupancy and env band are live. A monthly HVAC intensity number cannot safely allow a setback mid-shift.
+**Use when:** Pharma, biotech, regulated batch halls with validated env envelope.
 
-**Evidence (sample · last 6 idle windows)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
+| --- | --- | --- |
 | `BATCH.OCCUPANCY` | 0 | 4 / 6 windows |
-| `HVAC.DUTY` | FULL | same |
+| `CHILLER.DUTY` | FULL | same |
 | `ZONE.TEMP_RH` | in band | continuous |
-| `HVAC.kW` | +42 kW vs setback | per idle hour |
+| `CHILLER.kW` | +42 kW vs setback | per idle hour |
 
-**Cite:** `physics/hvac_idle@v1.4` · model conf 0.84 · energy tariff · validated env envelope  
-**M&V:** HVAC kWh in idle hours × duty delta. No env trips blamed on the setback.
-
----
-
-### 8 · Compressors · Multi-unit sequencing
-
-**Type:** Equipment · compressed air · **Priority:** High · **Bill line:** Energy (kWh) + peak kW
-
-#### What
-Keep **two of three 75 kW VFD compressors** online when header pressure stays in band. Stop or unload the third unit that is running at part-load. Fix sequencing with SOP first. Add PLC + small receiver later if people keep overriding.
-
-#### Why
-Three machines stayed online at partial load when two would have met demand. About **130 MWh/year** avoidable. Each compressor follows its own pressure switch. Without live header pressure plus per-unit kW and % load, the floor keeps all three on “to avoid dips.”
-
-#### How
-1. Detect 10+ minutes with three units ON and header in 6.5-7.3 bar.
-2. Pick the lowest-loaded unit. Stop or unload it under watch, with Lag armed (+30 s).
-3. Trial two-unit running. Alarm if all three stay online over 10 min again.
-4. Optional later: commission sequencer + receiver after the trial is stable.
-
-| | |
-|---|---|
-| **Owner** | Utilities supervisor · compressor house |
-| **Impact (sample)** | ₹9.0-12.5L / year |
-| **Effort** | Sequencing SOP · optional sequencer later |
-| **Rule** | `comp_sequence@v2.1` · High |
-| **Due** | This week · supervised trial |
-
-**Why you need live data:** Part-load waste is a live header plus three power readings. Monthly compressor kWh cannot tell you *which* unit to stop *this hour*.
-
-**Evidence (sample · 06:30 IST)**
-
-| Tag | Value | Window |
-|-----|-------|--------|
-| `COMP1.kW` | 43 (57%) | part-load |
-| `COMP2.kW` | 54 (72%) | part-load |
-| `COMP3.kW` | 68 (91%) | near loaded |
-| `HEADER.BAR` | 6.9 in band | same |
-
-**Cite:** `physics/comp_sequence@v2.1` · model conf 0.92 · energy + peak kW · baseline 30-day load profile  
-**M&V:** Minutes with 3 units ON at or under 5%. Yearly kWh vs locked baseline.
+Baseline: validated env envelope · last 6 idle windows · energy tariff.
 
 ---
 
-### 9 · Chillers · Approach / condenser waste
+## 10 · Check CW pump P-12 — valve may be stuck recirculating
 
-**Type:** Equipment · chiller + cooling tower · **Priority:** Med-High · **Bill line:** Energy (kWh)
+**Type:** Equipment · pumps · **Priority:** Med
 
-#### What
-When **approach temperature** and condenser temperature rise vs outdoor air go past the plant band, clean the condenser/tower and check fan staging before efficiency drops further. Time the job from live readings, not only from a calendar.
+#### Talk track
 
-#### Why
-Fouling and weak tower staging show up as slow efficiency drift. Operators see “chiller busy.” Energy teams see higher kWh per TR weeks later. Live approach vs design plus outdoor air flags the week to clean *before* the bill.
+Pump working harder than needed for the same flow — a two-hour mechanical check, not a vibration project. Valve may be stuck open at partial recirc.
 
-#### How
-1. Flag approach / condenser rise above band for X hours or more while load is above Y%.
-2. Send clean + fan-stage check to utilities with a target approach to restore.
-3. Re-check efficiency (kW per TR) after the work.
-4. Lock the seasonal baseline for the next drift check.
+#### Card
 
-| | |
-|---|---|
-| **Owner** | Utilities / HVAC · chiller plant |
-| **Impact (sample)** | ₹1.2-2.5L / month when fouling is real |
-| **Effort** | Cleaning + fan staging · scheduled window |
-| **Rule** | `chiller_approach@v1.5` · High |
-| **Due** | Next maintenance window within 7 days |
+| Field | Content |
+| --- | --- |
+| **What** | Inspect CW pump **P-12** bypass / recirc valve and VFD set-point during next low-load window. Trim or close bypass per skid SOP; keep min-flow protection for critical users. |
+| **Why** | Pump power stayed high for 40+ minutes while header pressure was above set-point and process demand was low — likely open recirc, not more useful flow. |
+| **Owner** | Area supervisor · pump skid + mechanical maintenance |
+| **Impact** | Roughly ₹25k–₹55k/month on energy `[illustrative]` |
+| **Effort** | ~2 hours mechanical check · no new equipment |
+| **Due** | Next confirmed overpressure window or scheduled maint slot |
 
-**Why you need live data:** Approach vs outdoor air is continuous. Calendar cleaning misses early fouling. Yearly energy intensity is too late.
+**Use when:** Utility pumps, cooling water, any VFD pump with bypass/recirc.
 
-**Evidence (sample · 14-day drift)**
+#### Evidence (flip)
 
 | Tag | Value | Window |
-|-----|-------|--------|
-| `CHILLER1.APPROACH_C` | +2.1 vs design | 14-day |
-| `COND.DTdw` | high vs ambient | same |
-| `CHILLER1.kW_per_TR` | +12% | vs baseline |
-| `CT.FAN_STAGES` | under-staged | peak hours |
-
-**Cite:** `physics/chiller_approach@v1.5` · model conf 0.85 · energy · seasonal baseline  
-**M&V:** Approach back in band + kW/TR change after clean vs locked pre-clean week.
-
----
-
-### 10 · Pumps · Overpressure recirculation trim
-
-**Type:** Equipment · process / utility pumps (VFD) · **Priority:** Med · **Bill line:** Energy (kWh)
-
-#### What
-When **header pressure is high**, recirculation / bypass is open, and process demand is low, **trim the VFD set-point** or close bypass so the pump stops wasting power. Keep min-flow protection for critical users.
-
-#### Why
-Pumps run hard against an open bypass. Power stays high while useful flow is low. One pump ammeter does not show the bypass + low demand mismatch. Watching several tags together does.
-
-#### How
-1. Detect high header pressure + bypass open + low process demand for N minutes or more.
-2. Propose VFD trim (lower Hz / bar set-point) or bypass close per SOP, with min-flow protect.
-3. Area owner does it under watch. Alarm if pressure drops below band.
-4. Measure kWh saved at the same delivered process volume.
-
-| | |
-|---|---|
-| **Owner** | Area / utilities supervisor · pump skid |
-| **Impact (sample)** | ₹0.6-1.4L / month on energy |
-| **Effort** | Set-point / bypass SOP · no new equipment |
-| **Rule** | `pump_recirc@v1.1` · Med |
-| **Due** | Next confirmed overpressure window |
-
-**Why you need live data:** High pressure + open bypass + low demand lasts a short time. End-of-shift logs miss the hours the pump recirculated.
-
-**Evidence (sample · overpressure window)**
-
-| Tag | Value | Window |
-|-----|-------|--------|
-| `PUMP_A.HEADER_BAR` | high vs set-point | 42 min |
-| `BYPASS.POS` | OPEN | same |
+| --- | --- | --- |
+| `P12.HEADER_BAR` | high vs set-point | 42 min |
+| `P12.BYPASS` | OPEN ~40% | same |
 | `PROC.DEMAND` | low | same |
-| `PUMP_A.kW` | +18% vs trimmed | same |
+| `P12.kW` | +18% vs trimmed | same |
 
-**Cite:** `physics/pump_recirc@v1.1` · model conf 0.83 · energy · skid baseline  
-**M&V:** kWh per delivered m³ (or batch) vs locked trim set-point week.
+Baseline: skid matched-flow profile · 30-day pump baseline.
 
 ---
 
 ## How to use these with a client
 
 1. Pick **one agnostic** and **one plant/equipment** example that matches their site.
-2. Walk **What → Why → How**, then flip (or scroll) to **evidence tags**. That is the “only with live data” moment.
-3. Stress **owner + bill line + M&V lock**. Do not lead with a vague savings claim.
+2. Read **talk track** → walk **What → Why → Owner → Due** → flip for evidence.
+3. Stress **owner + department + M&V lock**. Do not lead with a vague savings claim.
 4. Say clearly: figures are **samples**. A live audit binds tags, tariff, and baseline to *their* plant.
 
 Companion deck (flip cards, keyboard nav): [`prescriptions-examples.html`](./prescriptions-examples.html)

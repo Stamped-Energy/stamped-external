@@ -82,7 +82,7 @@ Maps to **Pillar 2 — Prescriptive Equipment Intelligence** in [STAMPED_ARCHITE
 | **Schedule-aware** | if first window is unsafe (low standby air, active order), **negotiate** to next feasible slot — see [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) |
 | **Evidence on flip** | tag readings, baseline comparison, tariff window — supervisor can defend the Rx |
 
-Examples: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md) § Floor-tied illustrations.
+Examples: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md) — talk tracks + 10 sample cards (plain language front, evidence on flip).
 
 ### Step 4 — Agentic intelligence layer (alongside, not “under the hood”)
 

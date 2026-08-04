@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Changed
+
+- Rewrite [`demo-decks/prescriptions-examples.md`](demo-decks/prescriptions-examples.md) and [`prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — practical client-conversation examples (plain talk tracks, technical evidence on flip, negotiation vignette)
+
 ### Added
 
 - Root [`index.html`](index.html) demo hub for GitHub Pages (industry decks, prescriptions, clients, tech)
