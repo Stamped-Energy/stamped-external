@@ -1,9 +1,4 @@
-<!-- SNAPSHOT: mirrored from connectors-cloud/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-
-> **Snapshot** of [`connectors-cloud`](https://github.com/Vinayak-RZ/connectors-cloud) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from connectors-cloud/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # connectors-cloud — L1 cloud ingest for Stamped Energy
 
@@ -12,6 +7,11 @@
 > **Primary interface:** MQTT QoS 1 subscriber + **3 HTTP routes** on `packages/ingest`; outbox drain via **`packages/relay`** sidecar.
 
 **Deploy target (P0):** Docker Compose locally · ECS Fargate `ap-south-1` (stub in `deploy/terraform/`) · Postgres 16 for outbox/audit only (not Timescale).
+
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** MQTT → L2 relay (transactional outbox drain); Wave A tag table for incomer, idle/output, compressor measurements
+- Fail-closed jsonschema at L1→L2 boundary; Wave B production-order topics deferred
 
 ---
 
@@ -28,6 +28,25 @@
 - Contract CI on **9 JSON schemas** in `external/contracts/schemas/`.
 - **26 automated tests** (25 ingest + 1 relay) with ~71% coverage on ingest core.
 - Mock L2 consumer in `mocks/stamped-l2/` for full-stack E2E without stamped-l2 deployed.
+
+### Relay to real L2 (L1→L6 full stack)
+
+For Vinayak demos with **universal-repositary** on host `:8090`, do **not** start `mock-l2`.
+
+```bash
+# L2 must already own :8090
+docker compose -f deploy/profiles/l1-l6-real-l2.yml up -d --build --wait
+curl http://127.0.0.1:8081/health
+```
+
+| Env | Value |
+|-----|-------|
+| `L2_INGEST_URL` | `http://host.docker.internal:8090/v1/ingest/records` |
+| `L2_SERVICE_KEY` | `dev-local-key` |
+| Cloud Postgres host port | `5434` (avoids L6 `5432`) |
+| Mosquitto | `1883` |
+
+Plant-sim / EMS publish to `stamped/v1/org_acme/plant_vinayak_1/measurements`. See workspace `DEPLOY_L1_TO_L6.md`.
 
 ---
 
@@ -432,7 +451,7 @@ cd packages/relay
 pytest tests/unit -q
 
 # Contracts (repo root)
-./scripts/contracts/contract-check.sh
+./scripts/contract-check.sh
 
 # Full hardening iteration
 ./scripts/hardening-loop.sh 1
@@ -461,7 +480,7 @@ Golden fixtures: [`packages/ingest/tests/fixtures/`](packages/ingest/tests/fixtu
 
 ### 11.1 Three deployment modes
 
-Per [ADR-010](external/decisions/006-010/ADR-010-deployment-profiles-and-portability.md):
+Per [ADR-010](external/decisions/ADR-010-deployment-profiles-and-portability.md):
 
 | Mode | Compose profile | Orchestration | L2 target |
 |------|-----------------|---------------|-----------|
@@ -481,7 +500,7 @@ docker compose -f deploy/docker-compose.cloud.yml up -d --build --wait
 
 ### 11.2 Cloud production (P1 Terraform)
 
-Per [ADR-002](external/decisions/001-005/ADR-002-build-all-aws-networking.md):
+Per [ADR-002](external/decisions/ADR-002-build-all-aws-networking.md):
 
 - **ECS Fargate** `ap-south-1` — separate tasks for ingest and relay  
 - **RDS Postgres** — lightweight (not Timescale)  
@@ -578,7 +597,7 @@ Fails if `measurements_raw`, MQTT in relay, or silent `except: pass` appear in p
 | [docs/architecture/layer-interfaces.md](docs/architecture/layer-interfaces.md) | Cross-repo boundary authority |
 | [docs/plans/connectors-cloud-implementation-plan.md](docs/plans/connectors-cloud-implementation-plan.md) | Build plan + hardening loop |
 | [docs/plans/connectors-cloud-hardening-log.md](docs/plans/connectors-cloud-hardening-log.md) | Iteration pass log |
-| [external/decisions/006-010/ADR-007-connectors-cloud-repo-charter.md](external/decisions/006-010/ADR-007-connectors-cloud-repo-charter.md) | Repo charter |
+| [external/decisions/ADR-007-connectors-cloud-repo-charter.md](external/decisions/ADR-007-connectors-cloud-repo-charter.md) | Repo charter |
 | [packages/ingest/README.md](packages/ingest/README.md) | Ingest runbook (DLQ, alerts) |
 
 **Sibling repos:** [connectors-edge](https://github.com/Vinayak-RZ/connectors-edge) · `connectors-bill` (future) · `stamped-l2` (future)

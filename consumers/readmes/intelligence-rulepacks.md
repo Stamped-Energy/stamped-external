@@ -1,30 +1,33 @@
-<!-- SNAPSHOT: mirrored from intelligence-rulepacks/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-
-> **Snapshot** of [`intelligence-rulepacks`](https://github.com/Vinayak-RZ/intelligence-rulepacks) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from intelligence-rulepacks/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # stamped-l3-rulepacks — Stamped L3 Physics & Optimization Catalog
 
 > **What it is:** Semver **YAML/JSON rulepack artifact repository** for Stamped L3 — domain physics thresholds, optimization method rules, DISCOM HT tariff tables, and vertical industry priors. Consumed by `stamped-l3-core` via `RULEPACK_PATH`.  
 > **What it is not:** An engine runtime, TOW-P fitter, Lab UI, L4 template store, plant-parameter database, SCADA writer, MILP optimizer, or NILM stack.  
 > **Primary interface:** Filesystem packs (`domain/`, `verticals/`, `tariffs/`) + pytest golden / schema CI  
-> **Package:** `stamped-l3-rulepacks` **0.5.1** · **Python ≥3.11** · Catalog index **1.3.1**  
-> **Authority:** [ADR-012](external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 shadows](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) · [L3 intelligence core](external/technical/layers/l3/L3-intelligence-core.md) · [`finding.json`](external/contracts/schemas/intelligence/finding.json)
+> **Package:** `stamped-l3-rulepacks` **0.5.1** · **Python ≥3.11** · Catalog index **1.4.0**  
+> **Authority:** [ADR-012](external/decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 shadows](external/decisions/ADR-016-attribution-shadow-challengers.md) · [ADR-020 ops clearance](external/decisions/ADR-020-l5-mv-claim-governance.md) · [L3 intelligence core](external/technical/layers/L3-intelligence-core.md) · [`finding.json` v1.2.0](external/contracts/schemas/finding.json) · [two-pillar bridge](external/technical/03-two-pillar-technical-bridge.md) · [ops_clearance consumer prompt](external/handoff/stamped-l3-ops-clearance-consumer-prompt.md)
+
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** `idle_load` + `compressor_sp_drift` packs at **1.1.0**; dual-pillar `value_domain` on every rule
+- Deep goldens + corpus fixtures for dual-pillar eval replay in `stamped-l3-eval`
+- **Wave B:** order-aware stagger rules deferred to holistic phase
 
 ---
 
 **TL;DR**
 
-- **9 domain packs**, **33 rules**, **12 Finding categories** covered end-to-end
-- Wastes **1–6** at production `1.1.0` (incomer/tariff/LM/attribution + furnace/idle/compressor + **hvac** + **source_mix**)
+- **10 domain packs**, **37 rules**, **16 Finding categories** (two-pillar `value_domain` on every rule)
+- Wastes **1–6** at production `1.1.0` + **`equipment_health` 1.0.0** (trip/duty/feeder/air leak)
 - Optimization methods are **first-class rule IDs** (holding, setback, stagger, shed, idle sleep, COP, dispatch gap, …)
 - Findings cite `rulepack://{pack}/{semver}#{rule_id}` — math runs in **core**, not here
 - **4 DISCOM HT tables** (JVVNL, UPCL, UPPCL, PSPCL) — all `provisional: true` until human order cite
 - **8 vertical overlays** (thresholds/priors only — never delivery overrides)
-- Dual-lane Lab trust synced via `external @ d1e1539` (ADR-015/016) — of-record only in this repo
-- **39 deep synthetic goldens** — every catalog `rule_id` has ≥1 of-record fixture (D025)
+- Dual-lane Lab trust synced via platform pin above (Finding **1.2.0** / ADR-020) — of-record only in this repo
+- **43 deep synthetic goldens** — every catalog `rule_id` has ≥1 of-record fixture with `ops_clearance` + `value_domain` (D025)
+- Rule YAML documents `related_tag_ids_pattern` + default `stabilize_window`; **L5 owns verification** (no alarm router / clearance poller here)
+- Two-pillar map: [`docs/TWO_PILLAR.md`](docs/TWO_PILLAR.md)
 - CI: integrity + schema + Python **3.11/3.12** + Hypothesis **fuzz** job
 - Platform contracts via git submodule [`external/`](https://github.com/Vinayak-RZ/stamped-external)
 
@@ -98,7 +101,7 @@ Zerowatt-class **rule breadth** with a Stamped **audit trail**: every threshold 
 - Every Finding `category` in platform `finding.json` maps to ≥1 rule URI
 - Catalog index on disk matches `domain/*/*/rules/*.yaml` (33 rules today)
 - Every `rule_id` has ≥1 deep of-record golden (≥12 measurements)
-- `./scripts/contracts/validate.sh` green; optional `VALIDATE_FUZZ=1`
+- `./scripts/validate.sh` green; optional `VALIDATE_FUZZ=1`
 - No engine code, no Lab→L4 promote, no shadow Finding categories in this repo
 
 ### 1.5 Inventory snapshot
@@ -106,7 +109,7 @@ Zerowatt-class **rule breadth** with a Stamped **audit trail**: every threshold 
 | Artifact | Count / version |
 | --- | --- |
 | Package | `0.5.1` |
-| Catalog index | `1.3.1` |
+| Catalog index | `1.4.0` |
 | Domain packs | **9** |
 | Rules | **33** |
 | Formula registry entries | **29** |
@@ -185,16 +188,16 @@ git clone <this-repo>
 cd stamped-l3-rulepacks   # or intelligence-rulepacks
 git submodule update --init --recursive
 test -f external/VERSION
-test -f external/contracts/schemas/intelligence/finding.json
+test -f external/contracts/schemas/finding.json
 python3 -m pip install -e ".[dev]"
 ```
 
 ### 3.3 Verify
 
 ```bash
-./scripts/contracts/validate.sh
+./scripts/validate.sh
 # optional:
-VALIDATE_FUZZ=1 ./scripts/contracts/validate.sh
+VALIDATE_FUZZ=1 ./scripts/validate.sh
 ```
 
 Expected: pytest green (unit + e2e); with `VALIDATE_FUZZ=1`, Hypothesis fuzz also green.
@@ -237,7 +240,7 @@ stamped-l3-rulepacks/
 │   └── tables.yaml
 ├── shared/suppressions.yaml
 ├── schemas/
-│   ├── catalog_index.json           # derived index (1.3.1)
+│   ├── catalog_index.json           # derived index (1.4.0)
 │   ├── formula_registry.json
 │   ├── rulepack-manifest.schema.json
 │   ├── rule-file.schema.json
@@ -269,6 +272,8 @@ stamped-l3-rulepacks/
 
 Full machine index: [`schemas/catalog_index.json`](schemas/catalog_index.json).
 
+Two-pillar map (A–H → packs / `value_domain`): [`docs/TWO_PILLAR.md`](docs/TWO_PILLAR.md).
+
 | Pack | Semver | Rules | Waste | Finding categories |
 | --- | --- | ---: | ---: | --- |
 | `incomer` | 1.1.0 | 6 | 1 | md_overlap, md_exceedance_risk, cmd_oversized, pf_slab_breach, pf_leading, tod_exposure |
@@ -284,7 +289,7 @@ Full machine index: [`schemas/catalog_index.json`](schemas/catalog_index.json).
 **URI form:** `rulepack://{pack}/{semver}#{rule_id}`  
 Example: `rulepack://furnace/1.1.0#furnace_holding_detect`
 
-### 6.1 Complete rule index (33)
+### 6.1 Complete rule index (37)
 
 | Pack | Rule id | Category |
 | --- | --- | --- |
@@ -362,10 +367,11 @@ Example: `rulepack://furnace/1.1.0#furnace_holding_detect`
 
 | Pack | Rules | Notes |
 | --- | --- | --- |
-| compressor | SP drift, unload seq, **leak off-shift** | D020 |
-| hvac | `cop_degradation`, `ahu_offhours` | Research: [P2_HVAC_SOURCEMIX_RESEARCH.md](docs/P2_HVAC_SOURCEMIX_RESEARCH.md) |
+| compressor | SP drift, unload seq, **leak off-shift** | D020 · `equipment_health` |
+| hvac | `cop_degradation`, `ahu_offhours` | COP = P2; AHU off-hours = P1 grey-zone |
 | source_mix | `dispatch_gap` | Peak-ToD under-draw of cheaper source; no MILP |
 | attribution | `costart_window` | Of-record `score = ramp_kw × 1/(1+hops)`; Lab shadows engine-side |
+| **equipment_health** | `trip_cascade_risk`, `abnormal_duty`, `feeder_unexplained_draw`, `air_leak_survey` | Pillar 2 families F–H · `1.0.0` |
 
 **Forbidden here:** SCADA writes, plant-wide MILP, NILM as of-record, PINNs, promote Lab→L4.
 
@@ -435,9 +441,9 @@ Platform-owned (do **not** invent a different model):
 
 | Doc | Role |
 | --- | --- |
-| [ADR-015](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) | `delivery` ∈ {`l4`,`lab_only`}; statuses include `hypothesis` |
-| [ADR-016](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) | Of-record co-start; shadows Lab-only (no SHAP / full NILM) |
-| [L3-attribution-explainability.md](external/technical/layers/l3/L3-attribution-explainability.md) | Engineer-facing explainability guide |
+| [ADR-015](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) | `delivery` ∈ {`l4`,`lab_only`}; statuses include `hypothesis` |
+| [ADR-016](external/decisions/ADR-016-attribution-shadow-challengers.md) | Of-record co-start; shadows Lab-only (no SHAP / full NILM) |
+| [L3-attribution-explainability.md](external/technical/layers/L3-attribution-explainability.md) | Engineer-facing explainability guide |
 
 **Invariant:** `delivery == l4` ⇔ `status == emitted` ⇔ Finding outbox.  
 Everything else stays `lab_only` until a future rulepack/threshold/calibration change makes a new emit legitimate.
@@ -492,7 +498,7 @@ Core handoffs:
 
 | Script | Purpose |
 | --- | --- |
-| [`scripts/contracts/validate.sh`](scripts/contracts/validate.sh) | Submodule check + consumer_manifest drift + unit/e2e pytest + export; `VALIDATE_FUZZ=1` adds fuzz |
+| [`scripts/validate.sh`](scripts/validate.sh) | Submodule check + consumer_manifest drift + unit/e2e pytest + export; `VALIDATE_FUZZ=1` adds fuzz |
 | [`scripts/rebuild_catalog_index.py`](scripts/rebuild_catalog_index.py) | Rebuild `schemas/catalog_index.json` from disk |
 | [`scripts/rebuild_consumer_manifest.py`](scripts/rebuild_consumer_manifest.py) | Rebuild / `--check` `schemas/consumer_manifest.json` for core pin |
 | [`scripts/generate_mock_windows.py`](scripts/generate_mock_windows.py) | Deterministic synthetic windows/goldens (D025) |
@@ -509,8 +515,8 @@ Full guide: [`docs/TESTING.md`](docs/TESTING.md). Done report: [`docs/TEST_HARDE
 ### 14.1 Commands
 
 ```bash
-./scripts/contracts/validate.sh                    # unit + e2e + export
-VALIDATE_FUZZ=1 ./scripts/contracts/validate.sh    # + Hypothesis fuzz
+./scripts/validate.sh                    # unit + e2e + export
+VALIDATE_FUZZ=1 ./scripts/validate.sh    # + Hypothesis fuzz
 python3 -m pytest -q -m "not fuzz"
 python3 -m pytest -q -m e2e
 python3 -m pytest -q -m fuzz --hypothesis-profile=ci
@@ -552,7 +558,7 @@ Step-by-step: [`docs/AUTHORING.md`](docs/AUTHORING.md).
 3. Register in that pack’s `manifest.yaml`.  
 4. Add deep golden under `fixtures/golden/` (≥12 measurements, `rule_or_model_ref`, evidence).  
 5. `python3 scripts/rebuild_catalog_index.py`.  
-6. `./scripts/contracts/validate.sh`.  
+6. `./scripts/validate.sh`.  
 7. Bump pack semver on behaviour change; bump package when cutting a release.
 
 ### 15.2 Common recipes
@@ -573,11 +579,11 @@ Workflow: [`.github/workflows/catalog-ci.yml`](.github/workflows/catalog-ci.yml)
 | Job | What |
 | --- | --- |
 | **integrity** (3.12) | Repo integrity, P0/P1/P2 pack gates, dual-lane docs, golden coverage/depth, verticals, bindings |
-| **catalog** (3.11 + 3.12) | Full `./scripts/contracts/validate.sh` + JUnit artifacts |
+| **catalog** (3.11 + 3.12) | Full `./scripts/validate.sh` + JUnit artifacts |
 | **schemas** (3.12) | Manifest/golden/tariff/vertical schemas + export |
 | **fuzz** (3.12) | `pytest -m fuzz --hypothesis-profile=ci` |
 
-Local gate of record: `./scripts/contracts/validate.sh`.
+Local gate of record: `./scripts/validate.sh`.
 
 ---
 

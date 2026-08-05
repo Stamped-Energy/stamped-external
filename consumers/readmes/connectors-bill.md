@@ -1,9 +1,4 @@
-<!-- SNAPSHOT: mirrored from connectors-bill/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-
-> **Snapshot** of [`connectors-bill`](https://github.com/Vinayak-RZ/connectors-bill) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from connectors-bill/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # connectors-bill — L1 document intake for Stamped Energy
 
@@ -14,6 +9,11 @@
 > **Primary interface:** Web PWA at `/upload` (customers) and `/analyst/queue` (tariff analysts). REST API at `/v1/*`.
 
 **Runtime:** Python 3.12+ · Node 20+ · Postgres · MinIO/S3 · Mosquitto MQTT
+
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** DISCOM MD/PF proof lines on `BillLine` publish for L2 commercial + L3 MD/PF engines
+- Deterministic ₹ recompute gate before MQTT publish; no direct L2 writes
 
 ---
 
@@ -241,7 +241,7 @@ Set `NEXT_PUBLIC_API_URL=http://localhost:8000` in `.env` or shell.
 
 ```bash
 pip install -e ".[dev]"
-bash scripts/contracts/contract-check.sh
+bash scripts/contract-check.sh
 APP_ENV=test DATABASE_URL=sqlite:///./test.db pytest packages/ -q
 bash scripts/run-all-tests.sh   # full suite; run twice for P2 gate
 ```
@@ -666,15 +666,15 @@ Full spec: [external/contracts/TOPICS.md](external/contracts/TOPICS.md)
 
 | Schema | Path |
 |--------|------|
-| BillLine | `external/contracts/schemas/telemetry/bill-line.json` |
-| Measurement | `external/contracts/schemas/telemetry/measurement.json` |
-| ProductionRecord | `external/contracts/schemas/telemetry/production-record.json` |
-| Event | `external/contracts/schemas/envelope/event.json` |
-| SiteConfig | `external/contracts/schemas/config/site-config.json` |
-| MappingConfig | `external/contracts/schemas/config/mapping-config.json` |
-| ModbusProfile | `external/contracts/schemas/config/modbus-profile.json` |
-| TagInventory | `external/contracts/schemas/telemetry/tag-inventory.json` |
-| StampedRecordEnvelope | `external/contracts/schemas/envelope/stamped-record-envelope.json` |
+| BillLine | `external/contracts/schemas/bill-line.json` |
+| Measurement | `external/contracts/schemas/measurement.json` |
+| ProductionRecord | `external/contracts/schemas/production-record.json` |
+| Event | `external/contracts/schemas/event.json` |
+| SiteConfig | `external/contracts/schemas/site-config.json` |
+| MappingConfig | `external/contracts/schemas/mapping-config.json` |
+| ModbusProfile | `external/contracts/schemas/modbus-profile.json` |
+| TagInventory | `external/contracts/schemas/tag-inventory.json` |
+| StampedRecordEnvelope | `external/contracts/schemas/stamped-record-envelope.json` |
 
 Validation at publish: [`packages/publish/schema_validate.py`](packages/publish/schema_validate.py)
 
@@ -686,7 +686,7 @@ BillLine dedupe (must match connectors-cloud):
 sha256(plant_id | bill_id | line_type | bill_month)
 ```
 
-Golden vector: [external/contracts/fixtures/golden/dedupe_golden.json](external/contracts/fixtures/golden/dedupe_golden.json)
+Golden vector: [external/contracts/fixtures/dedupe_golden.json](external/contracts/fixtures/dedupe_golden.json)
 
 ---
 
@@ -755,7 +755,7 @@ await setAnalystToken(page, process.env.ANALYST_JWT!);
 
 | Layer | Command | Count | Scope |
 |-------|---------|-------|-------|
-| Contract | `bash scripts/contracts/contract-check.sh` | 9 schemas + 4 fixtures | JSON Schema parse + validate |
+| Contract | `bash scripts/contract-check.sh` | 9 schemas + 4 fixtures | JSON Schema parse + validate |
 | Python unit/integration | `pytest packages/ -q` | 48 tests | api, extract, validate, publish |
 | Hypothesis fuzz | (in pytest) | 4 modules | dedupe, recompute, schema, API |
 | Shell E2E | `scripts/e2e-*.sh` | 4 scripts | MQTT publish smoke |
@@ -971,8 +971,8 @@ Set `AUTH_ENABLED=true` and pass `Authorization: Bearer <jwt>` with `role=analys
 
 | Document | Description |
 |----------|-------------|
-| [external/handoff/connectors/bill/connectors-bill-spec.md](external/handoff/connectors/bill/connectors-bill-spec.md) | Product charter and scope |
-| [external/handoff/agents/onboarding/connectors-bill-agent-onboarding.md](external/handoff/agents/onboarding/connectors-bill-agent-onboarding.md) | Agent onboarding |
+| [external/handoff/connectors-bill-spec.md](external/handoff/connectors-bill-spec.md) | Product charter and scope |
+| [external/handoff/connectors-bill-agent-onboarding.md](external/handoff/connectors-bill-agent-onboarding.md) | Agent onboarding |
 | [docs/research/plant-document-intake-taxonomy.md](docs/research/plant-document-intake-taxonomy.md) | Full document taxonomy |
 | [docs/architecture/layer-interfaces.md](docs/architecture/layer-interfaces.md) | L1 boundary definitions |
 | [docs/P2_MOCKS_AND_SIMULATION.md](docs/P2_MOCKS_AND_SIMULATION.md) | Mock layer runbook |

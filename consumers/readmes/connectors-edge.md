@@ -1,25 +1,26 @@
-<!-- SNAPSHOT: mirrored from connectors-edge/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-
-> **Snapshot** of [`connectors-edge`](https://github.com/Vinayak-RZ/connectors-edge) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from connectors-edge/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # connectors-edge — L1 plant connectivity and tag mapping
 
 > **What it is:** Stamped's L1 (Connect & normalise) monorepo — edge gateway, OT/IT protocol adapters, schema normaliser, tag-mapping onboarding, and lab MQTT ingest for Indian ICP manufacturing plants.  
-> **What it is not:** L2–L6 cloud intelligence, production Timescale fleet, DISCOM bill PDF ingest, or customer-facing prescription dashboard. Those live in [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) and [`connectors-bill`](external/decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) (future).  
+> **What it is not:** L2–L6 cloud intelligence, production Timescale fleet, DISCOM bill PDF ingest, or customer-facing prescription dashboard. Those live in [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) and [`connectors-bill`](external/decisions/ADR-001-l1-repo-split-and-boundaries.md) (future).  
 > **Primary interface:** Edge agent (MQTT uplink) + tag-mapping web UI + onboarding API.
 
 **GitHub:** `Vinayak-RZ/Connectors` · **Canonical name:** `connectors-edge`  
 **Deploy context:** Plant gateway (arm64/amd64) + AWS Fargate for tag-mapping-api at pilot scale.
+
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** `plant-sim` scenarios `idle_load` + `compressor_sp_drift`; publish incomer/idle/output + compressor kW/pressure tags over MQTT
+- Read-only OT uplink — feeds L1 cloud ingest for generic-energy pilot (do not block on Wave B)
 
 ---
 
 **TL;DR**
 
 - **Four packages:** Go `edge-agent`, Python `tag-mapping-api`, TypeScript `tag-mapping-ui`, Python `connectors-ingest` (lab MVP only).
-- **11 connector plugins:** modbus, mqtt, sparkplug, filewatch, opcua, dlms, historian, restpoller, bacnet, mtconnect, fake.
+- **11 protocol connectors** in `edge-agent` — see [§3 Protocols and connectors](#3-protocols-and-connectors) (Modbus + OPC UA included; P0/P1/P2 maturity).
+- **Read-only OT:** Modbus FC3/FC4 only; no PLC writes. Uplink is outbound MQTT/TLS.
 - **Closed-loop lab E2E:** harvest → map → publish → OTA → MQTT → Timescale via `./scripts/e2e-pathb.sh`.
 - **16 HTTP routes** on tag-mapping-api; **6 SPA screens** on tag-mapping-ui; **0 HTTP server** on edge-agent.
 - **7 L1 JSON schemas** in `external/contracts/schemas/` — single source of truth for edge, bill, and cloud ingest.
@@ -27,7 +28,22 @@
 - **OTA mapping:** signed manifest publish from tag-mapping-api; edge-agent pulls via HTTPS.
 - **Path B pilot:** cellular gateway + Modbus incomer + EMS filewatch — [path-b-pilot runbook](docs/runbooks/path-b-pilot.md).
 - **CI:** edge-agent certification, Path B E2E, per-package unit/integration tests — all green on `main`.
-- **Next repo:** [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) — **L1 cloud ingest only** (not L2–L6). Downstream layers: separate `stamped-l2` … `stamped-l6` repos per [ADR-008](external/decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md).
+- **Next repo:** [`connectors-cloud`](docs/handoff/connectors-cloud-spec.md) — **L1 cloud ingest only** (not L2–L6). Downstream layers: separate `stamped-l2` … `stamped-l6` repos per [ADR-008](external/decisions/ADR-008-layer-repo-topology-and-interfaces.md).
+
+### Vinayak plant-sim & EMS drop (L1→L6 demo)
+
+Python physics simulator (numpy/scipy — **not** Simulink yet) for `plant_vinayak_1` / `org_acme`:
+
+```bash
+cd packages/plant-sim && pip install -e .
+plant-sim --scenario all --mode scenario --transport mqtt --broker localhost
+plant-sim --mode continuous --transport mqtt --hz 1
+```
+
+- Site config: [`deploy/site-config.vinayak.json`](deploy/site-config.vinayak.json)
+- EMS drop / bulk replay: [`data/ems-drop/`](data/ems-drop/) + `ems-replay` CLI
+- Simulink later: [`docs/SIMULINK_FMI_LATER.md`](docs/SIMULINK_FMI_LATER.md)
+- Full stack runbook: sibling workspace `knowledge-reasoning/docs/DEPLOY_L1_TO_L6.md`
 
 ---
 
@@ -35,15 +51,16 @@
 
 1. [Vision](#1-vision)
 2. [Architecture](#2-architecture)
-3. [Quickstart](#3-quickstart)
-4. [Configuration](#4-configuration)
-5. [Project structure](#5-project-structure)
-6. [Interfaces](#6-interfaces)
-7. [Data model](#7-data-model)
-8. [Testing](#8-testing)
-9. [Deployment](#9-deployment)
-10. [Cookbook](#10-cookbook)
-11. [Roadmap and changelog](#11-roadmap-and-changelog)
+3. [Protocols and connectors](#3-protocols-and-connectors)
+4. [Quickstart](#4-quickstart)
+5. [Configuration](#5-configuration)
+6. [Project structure](#6-project-structure)
+7. [Interfaces](#7-interfaces)
+8. [Data model](#8-data-model)
+9. [Testing](#9-testing)
+10. [Deployment](#10-deployment)
+11. [Cookbook](#11-cookbook)
+12. [Roadmap and changelog](#12-roadmap-and-changelog)
 
 ---
 
@@ -53,7 +70,7 @@
 
 `connectors-edge` implements **Stamped L1** — read-only taps on plant OT/IT systems, on-device normalisation and quality gates, tag discovery and mapping, and MQTT uplink of canonical `Measurement` and `Event` records to the cloud data plane.
 
-Primary spec: [L1 — Connect & normalise](external/technical/layers/l1-l2/L1-connect-and-normalise.md).
+Primary spec: [L1 — Connect & normalise](external/technical/layers/L1-connect-and-normalise.md).
 
 ### 1.2 What it is not
 
@@ -63,7 +80,7 @@ Primary spec: [L1 — Connect & normalise](external/technical/layers/l1-l2/L1-co
 | L3–L6 intelligence, prescriptions, dashboard | `stamped-l2` … `stamped-l6` (one repo per layer) |
 | DISCOM bill PDF ingest | `connectors-bill` (future) |
 | Production cloud ingest at fleet scale | `connectors-cloud` (L1 boundary publish only) |
-| Fleet managed OTA (balena/k3s) | Deferred per [ADR-006](external/decisions/006-010/ADR-006-fleet-ota-substrate.md) |
+| Fleet managed OTA (balena/k3s) | Deferred per [ADR-006](external/decisions/ADR-006-fleet-ota-substrate.md) |
 
 ### 1.3 Who it is for
 
@@ -144,22 +161,114 @@ sequenceDiagram
 | L1 contracts | [`external/contracts/schemas/`](external/contracts/schemas/) | JSON Schema 7 files |
 | Vertical templates | [`templates/verticals/`](templates/verticals/) | YAML per industry |
 
-**Edge connectors** (`packages/edge-agent/internal/connectors/`): bacnet, dlms, fake, filewatch, historian, modbus, mqtt, mtconnect, opcua, restpoller, sparkplug.
+### 2.4 Edge runtime pipeline
+
+```mermaid
+flowchart LR
+  Conn[connectors] --> Map[mapping]
+  Map --> Norm[normaliser]
+  Norm --> QG[quality_gates]
+  QG --> Buf[sqlite_buffer]
+  Buf --> Up[mqtt_uplink]
+```
+
+| Stage | Package path | Role |
+|-------|--------------|------|
+| Connectors | `internal/connectors/*` | Protocol plugins emit `RawReading` |
+| Mapping | `internal/mapping` | Lookup published mapping snapshot |
+| Pipeline | `internal/pipeline` | Normalise units + quality gates |
+| Buffer | `internal/buffer` | SQLite WAL store-and-forward (≥72h) |
+| Uplink | `internal/uplink` | MQTT QoS 1 publish to Stamped broker |
+| Harvest / OTA | `internal/harvest`, `internal/config` | Tag inventory POST; HTTPS manifest pull |
+
+Full design: [`docs/architecture/edge-agent-architecture.md`](docs/architecture/edge-agent-architecture.md).
 
 ---
 
-## 3. Quickstart
+## 3. Protocols and connectors
 
-### 3.1 Prerequisites
+All plant protocol adapters live in [`packages/edge-agent/internal/connectors/`](packages/edge-agent/internal/connectors/). Each implements the shared `Connector` interface (`ID` / `Start` / `Stop` / `Health`) and emits `RawReading` into the pipeline. Enable instances via `connectors.enabled[]` in site-config.
+
+### 3.1 Inventory (11 connectors)
+
+| # | Connector | Protocol / source | Transport | Library / stack | Maturity | Field notes |
+|---|-----------|-------------------|-----------|-----------------|----------|-------------|
+| 1 | **modbus** | Modbus TCP, RTU, RTU-over-TCP | TCP / RS-485 | `github.com/goburrow/modbus` | **P0** | Primary Path B incomer path; profile-driven; FC3/FC4 read-only |
+| 2 | **mqtt** | Plant/EMS MQTT JSON topics | MQTT | Eclipse Paho | **P0** | Ingest connector (plant broker) — distinct from Stamped **uplink** MQTT |
+| 3 | **sparkplug** | Sparkplug B over MQTT | MQTT | Custom Tahu subset decoder | **P0** | Same MQTT config shape; `decoder: sparkplug` |
+| 4 | **filewatch** | CSV / file-drop EMS exports | Local FS | `fsnotify` | **P0** | Topology F / EMS wedge |
+| 5 | **opcua** | OPC UA client (node reads) | `opc.tcp` | `github.com/gopcua/opcua` | **P1** | Cert exchange runbook; Path A SCADA |
+| 6 | **dlms** | DLMS/COSEM (IS 15959 OBIS) | TCP | Sim + field Gurux gate | **P1** | Sim mode for CI; field stack behind pilot gate |
+| 7 | **historian** | Incremental SQL reads | DB DSN | `modernc.org/sqlite` (+ DSN drivers) | **P1** | Read-only query + watermark |
+| 8 | **restpoller** | REST / OData JSON | HTTPS | Go `net/http` | **P1** | JSON-path tag extraction |
+| 9 | **bacnet** | BACnet/IP points | UDP/IP | Sim + OSS stack gate | **P2** | Sim-first; field via pilot gate |
+| 10 | **mtconnect** | MTConnect agent | HTTP/XML | Go HTTP + XML | **P2** | Sim-first; CNC / machine tools |
+| 11 | **fake** | Synthetic sine wave | — | — | Dev | Auto-starts when no connectors enabled |
+
+**Yes — Modbus and OPC UA are both first-class connectors in this repo.** Modbus is the Path B default; OPC UA is the Path A SCADA path (`stamped-edge:p1` / `full`).
+
+### 3.2 Image flavours vs connector set
+
+| Image tag | Connectors included | Typical use |
+|-----------|---------------------|-------------|
+| `stamped-edge:p0` | modbus, mqtt, sparkplug, filewatch | Path B pilots |
+| `stamped-edge:p1` | p0 + opcua, dlms, historian, restpoller | Path A (SCADA / historian) |
+| `stamped-edge:full` | all 11 | Field standard |
+
+Build: `docker build -f packages/edge-agent/deploy/Dockerfile --build-arg FLAVOUR=p1 -t stamped-edge:p1 .`  
+Runbook: [`docs/runbooks/edge-manual-ota.md`](docs/runbooks/edge-manual-ota.md).
+
+### 3.3 Modbus profiles (7)
+
+Register maps live in [`packages/edge-agent/profiles/modbus/`](packages/edge-agent/profiles/modbus/). Schema: `external/contracts/schemas/modbus-profile.json`.
+
+| Profile YAML | Typical meter |
+|--------------|---------------|
+| `schneider-pm5560.yaml` | Schneider PowerLogic PM5560 |
+| `schneider-em6400ng.yaml` | Schneider EM6400NG |
+| `secure-elite-500.yaml` | Secure Elite 500 |
+| `lnt-quasar.yaml` | L&T Quasar |
+| `hpl-smart-prepaid.yaml` | HPL smart prepaid |
+| `elmeasure-lg-series.yaml` | Elmeasure LG series |
+| `generic-float32-abcd.yaml` | Generic float32 ABCD byte order |
+
+Modes: `tcp` | `rtu` | `rtu_over_tcp`. Bus scan: `go run ./cmd/modbus-scan --host … --port …` (from `packages/edge-agent`).
+
+### 3.4 Security and operational constraints
+
+| Constraint | Detail |
+|------------|--------|
+| **Read-only OT** | Modbus FC3/FC4 only — no writes to meters/PLCs ([edge architecture](docs/architecture/edge-agent-architecture.md)) |
+| **OPC UA certs** | Per-plant client cert + trust store — [opcua-cert-exchange](docs/runbooks/opcua-cert-exchange.md) |
+| **Uplink mTLS** | Plant → Mosquitto TLS 1.2+ client certs — [mtls-plant-certs](docs/runbooks/mtls-plant-certs.md) |
+| **Offline buffer** | SQLite WAL ≥72h retention when WAN down |
+| **Two MQTT roles** | **Ingest** connectors subscribe to plant EMS topics; **uplink** publishes canonical records to Stamped broker |
+
+### 3.5 Out of scope (other repos / deferred)
+
+| Protocol / capability | Where |
+|-----------------------|-------|
+| DISCOM bill PDF / tariff ingest | `connectors-bill` (future) |
+| Cloud MQTT fleet ingest at scale | `connectors-cloud` |
+| OPC-DA (legacy Windows) | Spec only — [`docs/architecture/opc-da-sidecar.md`](docs/architecture/opc-da-sidecar.md) |
+| BACnet/DLMS production field stacks | Behind pilot gates (sim works in CI today) |
+
+Site-config keys: `connectors.modbus[]`, `.mqtt[]`, `.filewatch[]`, `.opcua[]`, `.historian[]`, `.rest_poller[]`, `.dlms[]`, `.bacnet[]`, `.mtconnect[]` — see [`packages/edge-agent/internal/config/config.go`](packages/edge-agent/internal/config/config.go).
+
+---
+
+## 4. Quickstart
+
+### 4.1 Prerequisites
 
 - Docker and Docker Compose
 - Go 1.25+ (edge-agent local tests)
 - Python 3.12+ (API, ingest)
 - Node.js 20+ (UI)
 
-### 3.2 Clone and platform submodule
+### 4.2 Clone and platform submodule
 
-Platform contracts, ADRs, and cross-repo architecture live in **[stamped-external](https://github.com/vinayak-rz/stamped-external)** — mounted here as git submodule `external/` ([ADR-011](external/decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md)).
+Platform contracts, ADRs, and cross-repo architecture live in **[stamped-external](https://github.com/vinayak-rz/stamped-external)** — mounted here as git submodule `external/` ([ADR-011](external/decisions/ADR-011-stamped-platform-submodule-distribution.md)).
 
 ```bash
 git clone --recurse-submodules https://github.com/Vinayak-RZ/connectors-edge.git
@@ -174,7 +283,7 @@ Current platform pin: `external/VERSION` (target tag `v2026.07.12`). See [extern
 
 **Do not edit** `external/` in this repo — open PRs in `stamped-external` only.
 
-### 3.3 Full closed-loop E2E (recommended)
+### 4.3 Full closed-loop E2E (recommended)
 
 ```bash
 # Harvest → map → publish → OTA → MQTT → Timescale
@@ -184,7 +293,7 @@ Current platform pin: `external/VERSION` (target tag `v2026.07.12`). See [extern
 ./scripts/e2e-full-stack.sh
 ```
 
-### 3.4 Manual stack
+### 4.4 Manual stack
 
 ```bash
 docker compose -f deploy/profiles/local.yml up -d --build
@@ -196,26 +305,26 @@ docker compose -f deploy/profiles/local.yml up -d --build
 | tag-mapping-ui | http://127.0.0.1:5173 |
 | Mosquitto | localhost:1883 |
 
-### 3.5 UI offline demo (no edge-agent)
+### 4.5 UI offline demo (no edge-agent)
 
 ```bash
 cd packages/tag-mapping-ui && VITE_USE_FIXTURES=true npm run dev
 ```
 
-### 3.6 Seed demo plants
+### 4.6 Seed demo plants
 
 ```bash
 TAG_MAPPING_API_URL=http://127.0.0.1:18080 ./scripts/seed-ui-demo.sh
 ```
 
-### 3.7 Verify smoke
+### 4.7 Verify smoke
 
 ```bash
 curl -s http://127.0.0.1:18080/health
 # {"status":"ok",...}
 ```
 
-### 3.8 Demo walkthrough
+### 4.8 Demo walkthrough
 
 End-to-end operator flow in `tag-mapping-ui`: harvest tags → generate mapping suggestions → accept a rule → publish a signed mapping with OTA wake-up.
 
@@ -229,31 +338,39 @@ End-to-end operator flow in `tag-mapping-ui`: harvest tags → generate mapping 
 
 ---
 
-## 4. Configuration
+## 5. Configuration
 
-### 4.1 edge-agent (JSON file — no process env vars)
+### 5.1 edge-agent (JSON file — no process env vars)
 
 Configured via `--config` flag (default `/etc/stamped/site-config.json`).
 
 | Field | Purpose |
 |-------|---------|
 | `plant_id`, `org_id`, `timezone` | Plant identity |
-| `connectors.enabled[]` | Which plugins start |
-| `connectors.modbus[]` | Modbus TCP profiles |
-| `uplink.broker_url` | MQTT broker (e.g. `tcp://mosquitto:1883`) |
+| `connectors.enabled[]` | Which connector instance IDs start |
+| `connectors.modbus[]` | Modbus TCP/RTU devices + profile names |
+| `connectors.mqtt[]` / `sparkplug` via `decoder` | Plant MQTT ingest |
+| `connectors.filewatch[]` | CSV/file path + profile |
+| `connectors.opcua[]` | Endpoint, nodes, cert paths |
+| `connectors.dlms[]` | Host/port, OBIS profile |
+| `connectors.historian[]` | DSN + incremental SQL |
+| `connectors.rest_poller[]` | URL + JSON path |
+| `connectors.bacnet[]` / `mtconnect[]` | P2 device endpoints |
+| `uplink.broker_url` | Stamped MQTT broker (e.g. `tcp://mosquitto:1883`) |
+| `uplink.client_cert_path` / `client_key_path` / `ca_path` | mTLS uplink |
 | `config.manifest_url` | OTA manifest HTTPS URL |
 | `harvest.url` | Tag inventory POST endpoint |
 | `mapping.path` | Local mapping JSON path |
-| `buffer.*` | SQLite WAL buffer settings |
+| `buffer.path` / `buffer.retention_hours` | SQLite WAL buffer (default 72h) |
 
 Example configs:
 
 - Lab Path B: [`deploy/site-config.pathb.json`](deploy/site-config.pathb.json)
 - Dev: [`packages/edge-agent/deploy/site-config.dev.json`](packages/edge-agent/deploy/site-config.dev.json)
 
-Modbus profiles: [`packages/edge-agent/profiles/modbus/`](packages/edge-agent/profiles/modbus/) (7 YAML profiles).
+Modbus profiles: [`packages/edge-agent/profiles/modbus/`](packages/edge-agent/profiles/modbus/) (7 YAML profiles) — see [§3.3](#33-modbus-profiles-7).
 
-### 4.2 tag-mapping-api
+### 5.2 tag-mapping-api
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -274,7 +391,7 @@ Modbus profiles: [`packages/edge-agent/profiles/modbus/`](packages/edge-agent/pr
 
 Persistence is file-backed JSON under `TAG_MAPPING_DATA`. Postgres (`DATABASE_URL`) is noted in code comments but **not implemented**.
 
-### 4.3 connectors-ingest (lab MVP)
+### 5.3 connectors-ingest (lab MVP)
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -286,7 +403,7 @@ Persistence is file-backed JSON under `TAG_MAPPING_DATA`. Postgres (`DATABASE_UR
 | `INGEST_MODE` | No | (unset) | `once` skips MQTT loop (tests) |
 | `OUTBOX_WEBHOOK_URL` | No | `""` | Outbox publisher webhook stub |
 
-### 4.4 tag-mapping-ui (Vite build-time)
+### 5.4 tag-mapping-ui (Vite build-time)
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -295,7 +412,7 @@ Persistence is file-backed JSON under `TAG_MAPPING_DATA`. Postgres (`DATABASE_UR
 
 ---
 
-## 5. Project structure
+## 6. Project structure
 
 ```text
 connectors-edge/
@@ -329,9 +446,9 @@ connectors-edge/
 
 ---
 
-## 6. Interfaces
+## 7. Interfaces
 
-### 6.1 tag-mapping-api — 16 HTTP routes
+### 7.1 tag-mapping-api — 16 HTTP routes
 
 | # | Method | Path | Purpose |
 |---|--------|------|---------|
@@ -354,7 +471,7 @@ connectors-edge/
 
 Auth: Bearer JWT when `JWT_SECRET` is set; plant-scoped via `plant_ids` claim or `*`.
 
-### 6.2 tag-mapping-ui — 6 SPA routes
+### 7.2 tag-mapping-ui — 6 SPA routes
 
 | Path | Page |
 |------|------|
@@ -365,7 +482,7 @@ Auth: Bearer JWT when `JWT_SECRET` is set; plant-scoped via `plant_ids` claim or
 | `/publish` | Publish |
 | `/drift` | Drift |
 
-### 6.3 connectors-ingest — 1 HTTP route (lab)
+### 7.3 connectors-ingest — 1 HTTP route (lab)
 
 | Method | Path | Auth | Purpose |
 |--------|------|------|---------|
@@ -373,7 +490,7 @@ Auth: Bearer JWT when `JWT_SECRET` is set; plant-scoped via `plant_ids` claim or
 
 MQTT subscribe: `stamped/v1/+/+/measurements` only (cloud repo expands to all topics).
 
-### 6.4 edge-agent — MQTT topics (no HTTP server)
+### 7.4 edge-agent — MQTT topics (no HTTP server)
 
 Prefix: `stamped/v1/{org_id}/{plant_id}/`
 
@@ -389,9 +506,9 @@ Full contract: [`external/contracts/TOPICS.md`](external/contracts/TOPICS.md).
 
 ---
 
-## 7. Data model
+## 8. Data model
 
-### 7.1 L1 contracts (7 schemas)
+### 8.1 L1 contracts (7 schemas)
 
 | Schema file | Used by |
 |-------------|---------|
@@ -407,11 +524,11 @@ Full contract: [`external/contracts/TOPICS.md`](external/contracts/TOPICS.md).
 
 Changelog: [`external/contracts/CHANGELOG.md`](external/contracts/CHANGELOG.md) (0.1.0, 0.2.0).
 
-### 7.2 Edge buffer (SQLite)
+### 8.2 Edge buffer (SQLite)
 
 Table `buffered_records` in [`packages/edge-agent/internal/buffer/sqlite.go`](packages/edge-agent/internal/buffer/sqlite.go) — WAL-mode offline buffer with MQTT flush on reconnect.
 
-### 7.3 Tag mapping persistence (file-backed)
+### 8.3 Tag mapping persistence (file-backed)
 
 Under `TAG_MAPPING_DATA`:
 
@@ -419,22 +536,22 @@ Under `TAG_MAPPING_DATA`:
 - `artifacts/mapping.{version}.json` — signed mapping artifacts
 - `artifacts/manifest.{version}.json` — OTA manifests
 
-### 7.4 Ingest tables (lab MVP)
+### 8.4 Ingest tables (lab MVP)
 
 | Table | Purpose |
 |-------|---------|
 | `measurements_raw` | Deduped measurements hypertable |
 | `ingest_outbox` | Transactional outbox (webhook stub) |
 
-### 7.5 `asset_id` namespace
+### 8.5 `asset_id` namespace
 
-Temporary format until L2 graph exists: `stamped.local/{plant_slug}/{asset_slug}` ([ADR-003 §3](external/decisions/001-005/ADR-003-connectors-edge-monorepo.md)).
+Temporary format until L2 graph exists: `stamped.local/{plant_slug}/{asset_slug}` ([ADR-003 §3](external/decisions/ADR-003-connectors-edge-monorepo.md)).
 
 ---
 
-## 8. Testing
+## 9. Testing
 
-### 8.1 Per-package commands
+### 9.1 Per-package commands
 
 ```bash
 # edge-agent — race detector + coverage
@@ -450,14 +567,14 @@ cd packages/connectors-ingest && pip install -r requirements.txt && python -m py
 cd packages/tag-mapping-ui && npm run lint && npm test && npm run build
 ```
 
-### 8.2 Integration and E2E
+### 9.2 Integration and E2E
 
 ```bash
 ./scripts/e2e-pathb.sh
 ./scripts/e2e-full-stack.sh   # includes Playwright
 ```
 
-### 8.3 CI workflows
+### 9.3 CI workflows
 
 | Workflow | Scope |
 |----------|-------|
@@ -473,9 +590,9 @@ Certification checklist: [`tests/edge-agent/CERTIFICATION.md`](tests/edge-agent/
 
 ---
 
-## 9. Deployment
+## 10. Deployment
 
-Per [ADR-010](external/decisions/006-010/ADR-010-deployment-profiles-and-portability.md), the same images deploy in three modes via compose profile + env:
+Per [ADR-010](external/decisions/ADR-010-deployment-profiles-and-portability.md), the same images deploy in three modes via compose profile + env:
 
 | Mode | Orchestration | connectors-ingest |
 |------|---------------|-------------------|
@@ -490,7 +607,7 @@ docker compose -f deploy/profiles/local.yml up -d --build
 
 Runbook: [`docs/runbooks/deployment-profiles.md`](docs/runbooks/deployment-profiles.md) · Architecture: [`deploy/profiles/ARCHITECTURE.md`](deploy/profiles/ARCHITECTURE.md)
 
-### 9.1 Docker images
+### 10.1 Docker images
 
 | Image | Dockerfile | Flavours |
 |-------|------------|----------|
@@ -499,7 +616,7 @@ Runbook: [`docs/runbooks/deployment-profiles.md`](docs/runbooks/deployment-profi
 | `stamped-tag-mapping-ui` | `packages/tag-mapping-ui/Dockerfile` | static `serve` :5173 |
 | ingest (lab) | `packages/connectors-ingest/Dockerfile` | — |
 
-### 9.2 Local profile services
+### 10.2 Local profile services
 
 File: [`deploy/profiles/local.yml`](deploy/profiles/local.yml) (legacy shim: [`deploy/docker-compose.pathb.yml`](deploy/docker-compose.pathb.yml))
 
@@ -510,9 +627,9 @@ File: [`deploy/profiles/local.yml`](deploy/profiles/local.yml) (legacy shim: [`d
 | tag-mapping-ui | 127.0.0.1:5173 → 5173 |
 | timescaledb, modbus-sim, edge-agent, connectors-ingest | internal only |
 
-### 9.3 Production targets (pilot)
+### 10.3 Production targets (pilot)
 
-Per [ADR-002](external/decisions/001-005/ADR-002-build-all-aws-networking.md):
+Per [ADR-002](external/decisions/ADR-002-build-all-aws-networking.md):
 
 - **Edge:** plant gateway Docker on approved hardware ([hardware list](docs/hardware/approved-edge-hardware.md))
 - **tag-mapping-api:** AWS ECS Fargate `ap-south-1`
@@ -522,9 +639,9 @@ Per [ADR-002](external/decisions/001-005/ADR-002-build-all-aws-networking.md):
 
 ---
 
-## 10. Cookbook
+## 11. Cookbook
 
-### 10.1 Path B closed loop (operator flow)
+### 11.1 Path B closed loop (operator flow)
 
 1. Start stack: `docker compose -f deploy/profiles/local.yml up -d --build`
 2. Edge harvests tags → `POST /v1/plants/{id}/harvest`
@@ -533,27 +650,50 @@ Per [ADR-002](external/decisions/001-005/ADR-002-build-all-aws-networking.md):
 5. Edge pulls OTA mapping, normalises Modbus reads, publishes `measurements`
 6. `connectors-ingest` writes to Timescale; verify with E2E script or SQL
 
-### 10.2 Run edge-agent locally (dev compose)
+### 11.2 Run edge-agent locally (dev compose)
 
 ```bash
 docker compose -f packages/edge-agent/deploy/docker-compose.dev.yml up --build
 ```
 
-### 10.3 Modbus bus scan utility
+### 11.3 Modbus bus scan utility
 
 ```bash
 cd packages/edge-agent && go run ./cmd/modbus-scan --host 127.0.0.1 --port 5020
 ```
 
-### 10.4 Manual OTA troubleshooting
+### 11.4 Manual OTA troubleshooting
 
 See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilot runbook](docs/runbooks/path-b-pilot.md).
 
+### 11.5 Enable OPC UA (Path A sketch)
+
+1. Build `stamped-edge:p1` or `full`.
+2. Exchange certs per [opcua-cert-exchange](docs/runbooks/opcua-cert-exchange.md).
+3. Add to site-config:
+
+```json
+{
+  "connectors": {
+    "enabled": ["opcua-scada"],
+    "opcua": [{
+      "id": "opcua-scada",
+      "endpoint": "opc.tcp://scada:4840",
+      "nodes": ["ns=2;s=Incomer.kW"],
+      "client_cert_path": "/etc/stamped/opcua/client.pem",
+      "client_key_path": "/etc/stamped/opcua/client.key",
+      "trust_store_path": "/etc/stamped/opcua/trust",
+      "poll_interval_s": 5
+    }]
+  }
+}
+```
+
 ---
 
-## 11. Roadmap and changelog
+## 12. Roadmap and changelog
 
-### 11.1 Build phases (completed in this repo)
+### 12.1 Build phases (completed in this repo)
 
 | Phase | Theme | Status |
 |-------|-------|--------|
@@ -563,14 +703,14 @@ See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilo
 | Path B | Full compose E2E, tag-mapping UI triple-pass | Done |
 | Repo completion | ingest MVP, UI fixtures, certification rows 14–17 | Done |
 
-### 11.2 Next: connectors-cloud (L1 only) + stamped-l2…l6
+### 12.2 Next: connectors-cloud (L1 only) + stamped-l2…l6
 
 | Doc | Purpose |
 |-----|---------|
 | [connectors-cloud handoff](docs/handoff/connectors-cloud-spec.md) | L1 cloud ingest workspace bootstrap |
 | [layer-interfaces](docs/architecture/layer-interfaces.md) | Production-grade cross-repo contracts |
-| [ADR-007](external/decisions/006-010/ADR-007-connectors-cloud-repo-charter.md) | L1 cloud repo charter |
-| [ADR-008](external/decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md) | Layer-per-repo topology |
+| [ADR-007](external/decisions/ADR-007-connectors-cloud-repo-charter.md) | L1 cloud repo charter |
+| [ADR-008](external/decisions/ADR-008-layer-repo-topology-and-interfaces.md) | Layer-per-repo topology |
 
 | Repo | Layer | Scope |
 |------|-------|-------|
@@ -580,7 +720,7 @@ See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilo
 
 **L1 cloud is complete** when ingest publishes `StampedRecordEnvelope` to `stamped-l2` with contract CI green. L2–L6 handoff docs are created when those workspaces start.
 
-### 11.3 Remaining edge-only items
+### 12.3 Remaining edge-only items
 
 | Item | Status |
 |------|--------|
@@ -591,10 +731,11 @@ See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilo
 | Fleet OTA substrate (ADR-006) | Deferred until ~20 devices |
 | OPC-DA sidecar | Spec only — [docs/architecture/opc-da-sidecar.md](docs/architecture/opc-da-sidecar.md) |
 
-### 11.4 Changelog
+### 12.4 Changelog
 
 | Date | Change |
 |------|--------|
+| 2026-07-21 | README: full protocols/connectors catalog (§3), pipeline, security constraints, OPC UA cookbook |
 | 2026-07-10 | Amended connectors-cloud scope to L1 only; ADR-008 layer interfaces; layer-interfaces.md |
 | 2026-07-09 | Repo completion master plan merged (PR #6); Path B E2E green |
 | 2026-07-09 | Path B hardening: harvest loop, OTA signing, Timescale ingest |
@@ -607,10 +748,12 @@ See [edge-manual-ota runbook](docs/runbooks/edge-manual-ota.md) and [path-b-pilo
 | Doc | Purpose |
 |-----|---------|
 | [AGENTS.md](AGENTS.md) | AI agent orchestration |
-| [L1 spec](external/technical/layers/l1-l2/L1-connect-and-normalise.md) | Primary build spec |
-| [Technical architecture](external/technical/STAMPED_ARCHITECTURE.md) | Full L0–L6 stack |
+| [L1 spec](external/technical/layers/L1-connect-and-normalise.md) | Primary build spec |
+| [Technical architecture](external/technical/02-technical-architecture.md) | Full L0–L6 stack |
 | [Edge architecture](docs/architecture/edge-agent-architecture.md) | Edge agent design |
 | [ADRs](external/decisions/README.md) | Architecture decisions |
 | [Path B hardening log](docs/plans/path-b-hardening-plan.md) | E2E progress |
 | [Tag mapping user guide](docs/guides/tag-mapping-user-guide.md) | How operators use the onboarding UI (L1 §4.5) |
+| [OPC UA cert exchange](docs/runbooks/opcua-cert-exchange.md) | Path A OPC UA trust setup |
+| [Edge manual OTA](docs/runbooks/edge-manual-ota.md) | Image flavours p0/p1/full |
 | [Cursor setup](docs/TECH_STACK_SKILLS.md) | Skills and MCP |

@@ -1,9 +1,4 @@
-<!-- SNAPSHOT: mirrored from universal-repositary/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-
-> **Snapshot** of [`universal-repositary`](https://github.com/Vinayak-RZ/universal-repositary) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from universal-repositary/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # Stamped L2 — Universal Repository
 
@@ -33,19 +28,24 @@ The internal ops console lives in [`packages/console`](packages/console/) (port 
 
 Run locally: [`scripts/demo-walkthrough.sh`](scripts/demo-walkthrough.sh) · [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) · [local-stack operator guide](docs/local-stack-operator-guide.md) · [AGENTS.md](AGENTS.md) (Cursor Cloud caveats).
 
-# Stamped platform — single source of truth
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** baselines schema + `GET /v1/baselines` and `GET /v1/evidence/window` for L3/L4 idle_load + compressor_sp_drift
+- Finding/Prescription ingest; SEC/duty baseline windows for generic-energy pilot
+- **Wave B:** ProductionOrder + department graph (holistic phase — not Wave A gate)
 
 ---
 
 **TL;DR**
 
-- **Six Postgres schemas** (`ingest`, `telemetry`, `graph`, `commercial`, `features`, `baselines`, `ledger`) on TimescaleDB — tenant-isolated via RLS
-- **17 L2 API routes** across ingest (2), query-api (4), and admin-api (11)
-- **Idempotent ingest** on `dedupe_key` — `201` new, `200` duplicate; routes `measurement`, `bill_line`, `event`, `production_record`
+- **7 Postgres schemas** (`ingest`, `telemetry`, `graph`, `commercial`, `features`, `baselines`, `ledger`) on TimescaleDB — tenant-isolated via RLS
+- **4 L1 intake record types** (`measurement`, `bill_line`, `event`, `production_record`) demuxed into store tables — see [§7](#7-data-model--intake--storage)
+- **17+ L2 API routes** across ingest (2), query-api (4), and admin-api (demo + ops)
+- **Idempotent ingest** on `dedupe_key` — `201` new, `200` duplicate
 - **L1 reference packages** co-located under `l1/` (cloud, bill, edge) for local full-stack demos
 - **Platform contracts** in git submodule `external/` — schemas, ADRs, dedupe golden; CI enforces via `contract-check.sh`
-- **Three deployment modes** (`local`, `local-dashboard`, `cloud`) — same contracts, different compose profiles ([ADR-010](external/decisions/006-010/ADR-010-deployment-profiles-and-portability.md))
-- **Demo seed toolkit** (`packages/seed`) — Faker + diurnal load curves; SQL bulk or HTTP replay
+- **Three deployment modes** (`local`, `local-dashboard`, `cloud`) — same contracts, different compose profiles ([ADR-010](external/decisions/ADR-010-deployment-profiles-and-portability.md))
+- **Demo seed toolkit** (`packages/seed`) — public-data persona + SQL/HTTP/hybrid modes
 - **11 console pages** — Overview, Sources, Calibration, Telemetry, Commercial, Production, Graph, Ingest, Baselines, Ledger, Evidence
 - **No AWS SDK in `packages/`** — Terraform stubs only under `deploy/terraform/aws/`
 - **7 CI workflows** — contract, unit, smoke/e2e, fuzz nightly, L1 reference, console Playwright
@@ -61,7 +61,7 @@ Run locally: [`scripts/demo-walkthrough.sh`](scripts/demo-walkthrough.sh) · [`d
 4. [Configuration](#4-configuration)
 5. [Project structure](#5-project-structure)
 6. [API reference](#6-api-reference)
-7. [Data model](#7-data-model)
+7. [Data model — intake & storage](#7-data-model--intake--storage)
 8. [Demo seed toolkit](#8-demo-seed-toolkit)
 9. [Testing](#9-testing)
 10. [Deployment](#10-deployment)
@@ -214,9 +214,9 @@ test -f external/VERSION || { echo "Run: git submodule update --init"; exit 1; }
 | `contracts/fixtures/` | Canonical test fixtures |
 | `decisions/` | ADRs (e.g. ADR-010 deployment modes) |
 | `handoff/` | Cross-repo playbooks and L2 spec |
-| `scripts/contracts/contract-check.sh` | Shared CI validation |
+| `scripts/contract-check.sh` | Shared CI validation |
 
-**Authority:** [ADR-011](external/decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md) — PR in `stamped-external`, tag, submodule bump in consumers.
+**Authority:** [ADR-011](external/decisions/ADR-011-stamped-platform-submodule-distribution.md) — PR in `stamped-external`, tag, submodule bump in consumers.
 
 ---
 
@@ -385,7 +385,7 @@ universal-repositary/
 | Decisions log | [DECISIONS.md](DECISIONS.md) |
 | Operator guide | [docs/local-stack-operator-guide.md](docs/local-stack-operator-guide.md) |
 | Console design system | [packages/console/DESIGN.md](packages/console/DESIGN.md) |
-| L2 handoff spec | [external/handoff/l2/core/stamped-l2-spec.md](external/handoff/l2/core/stamped-l2-spec.md) |
+| L2 handoff spec | [external/handoff/stamped-l2-spec.md](external/handoff/stamped-l2-spec.md) |
 
 ---
 
@@ -458,74 +458,239 @@ Design tokens: [`packages/console/DESIGN.md`](packages/console/DESIGN.md) — St
 
 ---
 
-## 7. Data model
+## 7. Data model — intake & storage
 
-### 7.1 Schemas overview
+L2 stores everything in one TimescaleDB database named **`stamped_l2`**, partitioned logically into **7 schemas**. L1 publishes a single envelope shape (`StampedRecordEnvelope`); ingest demuxes by `record_type` into the correct schema/table. Topology, tariffs, baselines, and ledger rows are typically **SQL-seeded** (not HTTP-ingested).
 
-**7 Postgres schemas** on database `stamped_l2`:
+Authoritative contracts: [`external/contracts/schemas/`](external/contracts/schemas/) · handoff: [`external/handoff/stamped-l2-database-schema.md`](external/handoff/stamped-l2-database-schema.md) · [`external/handoff/stamped-l2-l1-consumer-contract.md`](external/handoff/stamped-l2-l1-consumer-contract.md).
 
-| Schema | Purpose |
-|--------|---------|
-| `ingest` | Dedupe inbox + ingest audit |
-| `telemetry` | Measurements, events, 15min continuous aggregate |
-| `graph` | Asset hierarchy |
-| `commercial` | Tariffs, bills, bill lines |
-| `features` | Production records (batch/window) |
-| `baselines` | M&V baseline registry (lock trigger) |
-| `ledger` | Append-only M&V ledger (immutability trigger) |
+### 7.1 Storage units (schemas)
 
-### 7.2 Tables and views
+| Schema | Storage role | What lives here | Write path |
+|--------|--------------|-----------------|------------|
+| `ingest` | Control plane | Dedupe inbox + ingest audit | Every HTTP ingest POST |
+| `telemetry` | Time-series (hypertables + cagg) | kW/kWh points, SCADA-style events, 15-min rollups | HTTP: `measurement`, `event` |
+| `graph` | Topology | Plant → system → equipment → measurement_point assets | SQL seed / migrate bootstrap |
+| `commercial` | Billing context | Tariff versions, bill headers, bill lines | HTTP: `bill_line` (+ parent `bill`); tariff via SQL |
+| `features` | Derived / production | Batch production windows | HTTP: `production_record` |
+| `baselines` | M&V reference | Baseline models (draft → locked → retired) | SQL seed / admin writes |
+| `ledger` | Verified savings | Append-only M&V ledger entries | SQL seed / admin insert only |
 
-| Schema | Object | Type |
-|--------|--------|------|
-| `ingest` | `l1_processed_inbox` | table |
-| `ingest` | `l1_ingest_audit` | table |
-| `telemetry` | `measurement` | Timescale hypertable |
-| `telemetry` | `event` | Timescale hypertable |
-| `telemetry` | `agg_15min` | continuous aggregate |
-| `graph` | `asset` | table |
-| `commercial` | `tariff_version` | table |
-| `commercial` | `bill` | table |
-| `commercial` | `bill_line` | table |
-| `features` | `production_record` | table |
-| `baselines` | `baseline` | table |
-| `ledger` | `mv_ledger` | table (append-only) |
+**Database extensions:** `timescaledb`, `pgcrypto`  
+**Migrations:** [`packages/migrate/sql/`](packages/migrate/sql/) via [`packages/migrate/apply.sh`](packages/migrate/apply.sh)
 
-**Migrations:** [`packages/migrate/sql/`](packages/migrate/sql/) — applied by [`packages/migrate/apply.sh`](packages/migrate/apply.sh).
+| Migration file | Creates / configures |
+|----------------|----------------------|
+| `001_bootstrap.sql` | Schemas + `ingest.*` |
+| `002_telemetry.sql` | `telemetry.measurement`, `telemetry.event` hypertables |
+| `003_commercial.sql` | `tariff_version`, `bill`, `bill_line` |
+| `004_graph_cagg.sql` | `graph.asset` + `telemetry.agg_15min` continuous aggregate |
+| `005_baselines_ledger.sql` | `baselines.baseline`, `ledger.mv_ledger` + immutability triggers |
+| `006_rls.sql` | RLS policies + `l2_app` / `l2_readonly` roles |
+| `007_features_production_record.sql` | `features.production_record` + RLS |
+| `seed_jvvnl_tariff.sql` | Demo LP/HT-5 tariff row |
 
-**Extensions:** `timescaledb`, `pgcrypto`
+### 7.2 Things we intake (L1 record types)
 
-### 7.3 Tenancy and security
+All HTTP intake is **one envelope per POST** to `POST /v1/ingest/records` (no batch arrays in P0).
 
-- **RLS** on 11 tenant tables — policy: `org_id = current_setting('app.current_org', true)`
-- App sets org via `SELECT set_config('app.current_org', %s, true)` in [`packages/l2_common/db.py`](packages/l2_common/db.py)
-- **Roles:** `l2_app` (read/write), `l2_readonly` (read)
-- **Ledger immutability:** UPDATE/DELETE rejected by trigger
-- **Baseline lock:** locked baselines cannot be edited (only retired)
+| `record_type` | Domain meaning | Typical L1 source | Payload schema | Routed to |
+|---------------|----------------|--------------------|----------------|-----------|
+| `measurement` | Time-stamped metric (e.g. `active_power_kw`) | Edge Modbus → cloud MQTT → relay | [`measurement.json`](external/contracts/schemas/measurement.json) | `telemetry.measurement` |
+| `bill_line` | One validated line on a utility bill | Bill PDF extract → MQTT → relay | [`bill-line.json`](external/contracts/schemas/bill-line.json) | `commercial.bill` + `commercial.bill_line` |
+| `event` | Discrete plant/SCADA event | Edge/cloud event publisher | [`event.json`](external/contracts/schemas/event.json) | `telemetry.event` |
+| `production_record` | Production batch over a time window | MES / seed (MoSPI-scaled) | [`production-record.json`](external/contracts/schemas/production-record.json) | `features.production_record` |
 
-### 7.4 L1 cloud database (`connectors_cloud`)
+**Envelope wrapper** ([`stamped-record-envelope.json`](external/contracts/schemas/stamped-record-envelope.json)):
 
-Separate Postgres DB for cloud connector:
+| Field | Required | Notes |
+|-------|----------|-------|
+| `schema_version` | yes | Must be `"1.0.0"` |
+| `envelope_id` | yes | UUID |
+| `record_type` | yes | One of the four types above |
+| `org_id` / `plant_id` | yes | Tenant keys (RLS) |
+| `dedupe_key` | yes | `sha256:` + 64 hex chars |
+| `ingest_batch_id` | yes | UUID |
+| `ingested_at` | yes | ISO timestamptz |
+| `late` | yes | Out-of-order allowed; cagg invalidates |
+| `correlation_id` | yes | Cross-service trace |
+| `traceparent` | no | OpenTelemetry (P1 export) |
+| `payload` | yes | Validated against type-specific schema |
+
+**Auth / response codes:**
+
+| Header / status | Meaning |
+|-----------------|---------|
+| `X-Service-Key` | Required (prod); local `dev-local-key` / `dev-key` when `L2_ENV=development` |
+| `201` | Inserted (`inserted: true`) |
+| `200` | Duplicate dedupe (`inserted: false`) — no second store write |
+| `400` | `envelope_invalid` / `payload_invalid` |
+| `401` | Unauthorized |
+| `422` | Routing / validation business rule (e.g. unvalidated bill_line) |
+| `500` | DB error — L1 relay retries (at-least-once; safe via dedupe) |
+
+Router implementation: [`packages/ingest/routers/store.py`](packages/ingest/routers/store.py).
+
+### 7.3 Demux map — intake → schema → table
+
+| Intake | Control-plane writes | Store write(s) | Storage engine notes |
+|--------|----------------------|----------------|----------------------|
+| `measurement` | `ingest.l1_processed_inbox` + `l1_ingest_audit` | `telemetry.measurement` | Hypertable on `ts` (7-day chunks); unique `(dedupe_key, ts)` |
+| `bill_line` | same | Upsert `commercial.bill`, insert `commercial.bill_line` | Relational PK on bill; line PK = `dedupe_key`; requires `extraction.validated=true` |
+| `event` | same | `telemetry.event` | Hypertable on `ts`; JSONB `payload` |
+| `production_record` | same | `features.production_record` | Relational; PK = `dedupe_key` |
+
+```mermaid
+flowchart TB
+  subgraph Intake[L1_HTTP_POST]
+    Env[StampedRecordEnvelope]
+  end
+  subgraph Control[ingest_schema]
+    Inbox[l1_processed_inbox]
+    Audit[l1_ingest_audit]
+  end
+  subgraph Stores[Domain_schemas]
+    Meas[telemetry.measurement]
+    Ev[telemetry.event]
+    Bill[commercial.bill + bill_line]
+    Prod[features.production_record]
+    Cagg[telemetry.agg_15min]
+  end
+  Env --> Inbox
+  Env --> Audit
+  Env -->|measurement| Meas
+  Env -->|event| Ev
+  Env -->|bill_line| Bill
+  Env -->|production_record| Prod
+  Meas -->|continuous_aggregate| Cagg
+```
+
+**Transaction:** inbox insert + store write run in **one DB transaction**. Inbox conflict → `200 duplicate` without store write.
+
+### 7.4 Tables and views (catalog)
+
+| Schema | Object | Kind | Primary contents |
+|--------|--------|------|------------------|
+| `ingest` | `l1_processed_inbox` | table | `dedupe_key` PK, envelope_id, record_type, org/plant, timestamps |
+| `ingest` | `l1_ingest_audit` | table | accepted / duplicate / rejected + error_code |
+| `telemetry` | `measurement` | **hypertable** | org, plant, asset, metric, ts, value, quality, lineage tags, dedupe_key |
+| `telemetry` | `event` | **hypertable** | org, plant, asset?, event_type, ts, jsonb payload, dedupe_key |
+| `telemetry` | `agg_15min` | **continuous aggregate** | 15-min avg/min/max/count from good-quality measurements |
+| `graph` | `asset` | table | Hierarchy levels: `plant` / `system` / `equipment` / `measurement_point` |
+| `commercial` | `tariff_version` | table | DISCOM, category, CMD kVA, demand/energy rates |
+| `commercial` | `bill` | table | Bill header (org, plant, bill_id, bill_month, discom) |
+| `commercial` | `bill_line` | table | line_type, qty, rate, amount_inr, validated |
+| `features` | `production_record` | table | batch_id, window, quantity, unit, source |
+| `baselines` | `baseline` | table | model + training window; status draft/active/locked/retired |
+| `ledger` | `mv_ledger` | table | Append-only M&V kWh/INR/tCO₂e entries |
+
+**Not HTTP-ingested (SQL / migrate / aux seed):**
+
+| Entity | How it gets there | Why separate from envelope intake |
+|--------|-------------------|-----------------------------------|
+| `graph.asset` | Migrate seed (`incomer_1`) + `packages/seed` SQL aux | Topology is config, not streaming telemetry |
+| `commercial.tariff_version` | `seed_jvvnl_tariff.sql` + seed | Tariff schedules are reference data |
+| `baselines.baseline` | SQL aux seed | M&V artifacts written by L4/ops flows |
+| `ledger.mv_ledger` | SQL aux seed | Append-only verified savings; no L1 envelope type |
+| `telemetry.agg_15min` | Timescale policy / `refresh_telemetry_cagg` | Derived from measurements |
+
+### 7.5 Public-data sources → storage arrangement (demo)
+
+Virtual RIICO persona (`jvvnl-riico`) calibrates public datasets into the same schemas. Provenance: [`packages/seed/DATA_PROVENANCE.md`](packages/seed/DATA_PROVENANCE.md).
+
+| External source | Fixture / artifact | Becomes (record or SQL) | Lands in |
+|-----------------|--------------------|-------------------------|----------|
+| I-BLEND Academic (CC BY 4.0) | `sources/fixtures/iblend/` (+ raw CSV gitignored) | `measurement` envelopes | `telemetry.measurement` → `agg_15min` |
+| CEEP JVVNL consumer sales | `sources/fixtures/ceep/jvvnl_consumer_sales_summary.json` | Calibration targets (not stored as rows) | Scales I-BLEND kWh; surfaced in demo manifest / admin |
+| MoSPI IIP manufacturing | `sources/fixtures/mospi_iip_manufacturing.json` | `production_record` + monthly kWh weights | `features.production_record` |
+| JVVNL Tariff 2024 LP/HT-5 | `jvvnl_lp_ht5_2024.yaml` / `.json` + migrate SQL | Tariff row + derived `bill_line`s (ToD / FS) | `commercial.tariff_version`, `bill`, `bill_line` |
+| RIICO graph template | `sources/riico_graph.py` | SQL aux inserts | `graph.asset` |
+| Seed baselines / ledger | `sql_loader.apply_sql_aux` | Direct SQL | `baselines.baseline`, `ledger.mv_ledger` |
+| Demo manifest | `sources/fixtures/demo_manifest.json` (+ console copy) | File + admin `/demo/*` | Not a DB schema — ops metadata |
+
+**Seed write modes** (`python3 -m seed --mode …`):
+
+| Mode | Envelope types | Topology / baselines / ledger | Typical use |
+|------|----------------|-------------------------------|-------------|
+| `sql` | Direct SQL into store tables | SQL | Fast CI / smoke |
+| `http` | POST → ingest demux | (none unless pre-seeded) | Exercise L1 contract |
+| `hybrid` | POST → ingest demux | SQL aux first | **Recommended demo** (`seed-public-plant.sh`) |
+
+### 7.6 L1 intermediate storage (separate database)
+
+L1 cloud uses its **own** Postgres (`connectors_cloud`, local port **5434**) before relaying envelopes to L2:
 
 | Table | Purpose |
 |-------|---------|
-| `l1_processed_inbox` | Dedupe inbox |
+| `l1_processed_inbox` | Cloud-side dedupe |
 | `l1_ingress_audit` | Ingress audit |
-| `l1_outbox` | Relay outbox (JSONB envelopes) |
+| `l1_outbox` | Pending JSONB envelopes for L2 relay |
 | `l1_dlq` | Dead letter queue |
 
-Migration: [`l1/connectors_cloud/migrate/001_cloud.sql`](l1/connectors_cloud/migrate/001_cloud.sql)
+Migration: [`l1/connectors_cloud/migrate/001_cloud.sql`](l1/connectors_cloud/migrate/001_cloud.sql). Optional seed: `python3 -m seed --l1-cloud`.
 
-### 7.5 Dedupe keys
+Other L1 artifacts (not L2 schemas): MQTT topics (Mosquitto **1883**), MinIO object storage for bill PDFs (port **9000**) in full `local` profile.
 
-Computed in [`packages/ingest/dedupe/keys.py`](packages/ingest/dedupe/keys.py); golden expectations in [`mocks/dedupe-canonical.json`](mocks/dedupe-canonical.json).
+### 7.7 Field mapping (payload → columns)
 
-| Record type | Key material |
-|-------------|--------------|
-| `measurement` | plant_id, source_tag, ts_utc, granularity, metric type |
-| `bill_line` | plant_id, bill_id, line_type, bill_month |
-| `event` | plant_id, event_type, event_id |
-| `production_record` | plant_id, batch_id, window.start_utc |
+**measurement**
+
+| L1 payload field | L2 column |
+|------------------|-----------|
+| envelope `org_id` / `plant_id` | `org_id`, `plant_id` |
+| `asset_id` (default `incomer_1`) | `asset_id` |
+| `metric.type` | `metric` |
+| `ts_utc` | `ts` |
+| `value` | `value` |
+| `quality` (`good`/`estimated`/`bad`/…) | `quality` smallint (0/1/2) |
+| `lineage.source_system` / `source_tag` | `source_system`, `source_tag` |
+| envelope `dedupe_key` | `dedupe_key` |
+
+**bill_line**
+
+| L1 payload field | L2 column |
+|------------------|-----------|
+| `bill_id`, `bill_month`, `discom` | `commercial.bill` (+ month as `YYYY-MM-01`) |
+| `line_type`, `qty`, `rate`, `amount_inr` | `commercial.bill_line` |
+| `extraction.validated` | Must be `true` or ingest returns 422 |
+
+**production_record**
+
+| L1 payload field | L2 column |
+|------------------|-----------|
+| `batch_id`, `line_id` | same |
+| `window.start_utc` / `end_utc` | `window_start`, `window_end` |
+| `quantity`, `unit`, `source` | same |
+
+### 7.8 Dedupe keys
+
+Computed in [`packages/ingest/dedupe/keys.py`](packages/ingest/dedupe/keys.py); golden hashes in [`mocks/dedupe-canonical.json`](mocks/dedupe-canonical.json) / `external/contracts/fixtures/dedupe_golden.json`.
+
+| Record type | Key material (SHA-256 of joined fields) |
+|-------------|-----------------------------------------|
+| `measurement` | `plant_id`, `source_tag`, `ts_utc`, granularity, metric type |
+| `bill_line` | `plant_id`, `bill_id`, `line_type`, `bill_month` |
+| `event` | `plant_id`, `event_type`, `event_id` |
+| `production_record` | `plant_id`, `batch_id`, `window.start_utc` |
+
+### 7.9 Tenancy, roles, and integrity
+
+| Mechanism | Detail |
+|-----------|--------|
+| RLS | Policy `org_id = current_setting('app.current_org', true)` on tenant tables (inbox, audit, measurement, event, asset, bill, bill_line, tariff_version, baseline, ledger, production_record) |
+| Session org | `SELECT set_config('app.current_org', %s, true)` in [`packages/l2_common/db.py`](packages/l2_common/db.py) |
+| Roles | `l2_app` (SELECT/INSERT), `l2_readonly` (SELECT); ledger INSERT only for app |
+| Baseline lock | Trigger blocks updates when `status=locked` except retire |
+| Ledger immutability | Trigger rejects UPDATE/DELETE on `ledger.mv_ledger` |
+| Timescale | Hypertables chunk by 7 days; cagg policy refreshes `agg_15min` every 15 minutes |
+
+### 7.10 Read paths (which API serves which storage)
+
+| Consumer need | API | Primary schemas |
+|---------------|-----|-----------------|
+| Telemetry series / assets / bill lines (L3+) | query-api `:8091` | `telemetry`, `graph`, `commercial` |
+| Ingest audit, graph, baselines, ledger, evidence, demo provenance | admin-api `:8093` | `ingest`, `graph`, `baselines`, `ledger` + demo JSON |
+| Ops UI | console `:8092` | Calls query + admin (never DB direct) |
 
 ---
 
@@ -539,7 +704,7 @@ Computed in [`packages/ingest/dedupe/keys.py`](packages/ingest/dedupe/keys.py); 
 | Schema | Data |
 |--------|------|
 | `telemetry` | I-BLEND Academic curve (scaled) or synthetic diurnal `active_power_kw` on `incomer_1` |
-| `commercial` | JVVNL HT-I bill lines from metered aggregates (`jvvnl-riico` persona) |
+| `commercial` | JVVNL LP/HT-5 bill lines (ToD + fuel surcharge) from metered aggregates (`jvvnl-riico` persona) |
 | `graph` | RIICO Jaipur HT hierarchy (`jvvnl-riico`) or generic plant template |
 | `baselines` | 1 draft + 1 locked baseline |
 | `ledger` | 5 M&V entries linked to locked baseline |
@@ -770,7 +935,7 @@ npm start   # listens on 8092
 ### 11.7 Validate contracts after submodule bump
 
 ```bash
-./scripts/contracts/contract-check.sh
+./scripts/contract-check.sh
 ```
 
 ---
@@ -885,5 +1050,5 @@ Platform contracts in `external/` follow the stamped-external repo license. Appl
 
 1. `git submodule update --init --recursive`
 2. `pytest -m "unit or contract" packages/ -q`
-3. `./scripts/contracts/contract-check.sh`
+3. `./scripts/contract-check.sh`
 4. Update this README if you change ports, env vars, API routes, or schema counts

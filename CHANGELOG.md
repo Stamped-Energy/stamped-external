@@ -6,6 +6,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Changed
+
+- [REPOS.md](REPOS.md) — all consumer platform pins target **v2026.08.05** (`5900531`)
+- Consumer README snapshots re-synced 2026-08-05 (Wave A/B notes + pin banner)
+
 ## [2026.08.05] - 2026-08-05
 
 ### Added

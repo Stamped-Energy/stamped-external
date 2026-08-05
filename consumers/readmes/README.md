@@ -4,10 +4,12 @@
 > **What it is not:** Canonical product docs — each consumer repo owns its README.  
 > **Sync rule:** When a consumer README changes, re-copy it here and bump the snapshot date in that file’s banner.
 >
-> **Platform pin (2026-08-05):** consumers should target stamped-external **≥ 0.11.2** / `VERSION` **2026.08.05**.  
+> **Platform pin (2026-08-05):** consumers should target stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**.  
 > **Wave A (generic-energy):** MD/PF/ToD + `idle_load` + `compressor_sp_drift` + AD-5 gate + L5 Internal Console (all Rx).  
 > **Wave B (holistic):** ProductionOrder + TradeoffEngine + negotiation + Discuss.  
 > Agent form: [stamped-holistic-consumer-prompt.md](../../handoff/agents/prompts/stamped-holistic-consumer-prompt.md).
+>
+> Snapshots re-synced from live consumer READMEs on **2026-08-05**. L6 live repo: `experience-integration` — see [experience-integration.md](./experience-integration.md).
 
 ---
 
@@ -15,16 +17,17 @@
 
 | Layer | Repo name | Snapshot | Status |
 |-------|-----------|----------|--------|
-| **L1** | `connectors-edge` | [connectors-edge.md](./connectors-edge.md) | ✅ Mirrored |
-| **L1** | `connectors-cloud` | [connectors-cloud.md](./connectors-cloud.md) | ✅ Mirrored |
-| **L1** | `connectors-bill` | [connectors-bill.md](./connectors-bill.md) | ✅ Mirrored |
-| **L2** | `universal-repositary` | [universal-repositary.md](./universal-repositary.md) | ✅ Mirrored (product: stamped-l2) |
-| **L3** | `intelligence-core` | [intelligence-core.md](./intelligence-core.md) | ✅ Mirrored (product: stamped-l3-core) |
-| **L3** | `intelligence-evals` | [intelligence-evals.md](./intelligence-evals.md) | ✅ Mirrored (product: stamped-l3-eval) |
-| **L3** | `intelligence-rulepacks` | [intelligence-rulepacks.md](./intelligence-rulepacks.md) | ✅ Mirrored (product: stamped-l3-rulepacks) |
-| **L4** | `knowledge-reasoning` | [knowledge-reasoning.md](./knowledge-reasoning.md) | ✅ Mirrored (product: stamped-l4) |
-| **L5** | `closure-verification` | [closure-verification.md](./closure-verification.md) | ✅ Mirrored (product: stamped-l5) |
-| **L6** | `stamped-l6` (planned) | [../stamped-l6/README.md](../stamped-l6/README.md) | 📋 Platform UI seed (not a live README snapshot) |
+| **L1** | `connectors-edge` | [connectors-edge.md](./connectors-edge.md) | ✅ Mirrored 2026-08-05 |
+| **L1** | `connectors-cloud` | [connectors-cloud.md](./connectors-cloud.md) | ✅ Mirrored 2026-08-05 |
+| **L1** | `connectors-bill` | [connectors-bill.md](./connectors-bill.md) | ✅ Mirrored 2026-08-05 |
+| **L2** | `universal-repositary` | [universal-repositary.md](./universal-repositary.md) | ✅ Mirrored 2026-08-05 |
+| **L3** | `intelligence-core` | [intelligence-core.md](./intelligence-core.md) | ✅ Mirrored 2026-08-05 |
+| **L3** | `intelligence-evals` | [intelligence-evals.md](./intelligence-evals.md) | ✅ Mirrored 2026-08-05 |
+| **L3** | `intelligence-rulepacks` | [intelligence-rulepacks.md](./intelligence-rulepacks.md) | ✅ Mirrored 2026-08-05 |
+| **L4** | `knowledge-reasoning` | [knowledge-reasoning.md](./knowledge-reasoning.md) | ✅ Mirrored 2026-08-05 |
+| **L5** | `closure-verification` | [closure-verification.md](./closure-verification.md) | ✅ Mirrored 2026-08-05 |
+| **L6** | `experience-integration` (live) | [experience-integration.md](./experience-integration.md) | ✅ Note 2026-08-05 |
+| **L6** | `stamped-l6` (seed) | [../stamped-l6/README.md](../stamped-l6/README.md) | 📋 Platform UI seed |
 
 Related: [REPOS.md](../../REPOS.md) · [handoff/](../../handoff/) · scaffold code under [`../`](../) (reference only; not these snapshots).
 

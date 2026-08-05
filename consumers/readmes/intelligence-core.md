@@ -1,31 +1,32 @@
-<!-- SNAPSHOT: mirrored from intelligence-core/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-<!-- PLATFORM NOTE 2026-08-05: pin external ≥ 0.11.2. Wave A hot path MUST emit idle_load + compressor_sp_drift with required value_domain (energy_efficiency | equipment_health). MD/PF/ToD alone is insufficient. -->
-
-> **Snapshot** of [`intelligence-core`](https://github.com/Vinayak-RZ/intelligence-core) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from intelligence-core/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # intelligence-core — Stamped L3 Intelligence Engine Runtime
 
 > **What it is:** The deployable **L3 Intelligence Core** for Stamped Energy — a Python runtime that reads L2 telemetry/bills (fixture or HTTP), runs hot/warm/cold engines, and emits contract-aligned `Finding` objects through a durable outbox for L4.  
 > **What it is not:** A plant UI, a rulepack authoring repo, an eval workbench, or a database client for L2 (`L2_DATABASE_URL` is forbidden).  
-> **Primary interface:** Python library (`stamped_l3_core`) + CLI scripts (`scripts/run_mock_plant.py`, `scripts/contracts/validate.sh`)  
-> **Runtime:** Python **3.11+** · optional extras `[dev]`, `[ml]`, `[challenger]` · platform SSOT via git submodule `external/` → [stamped-external](https://github.com/Vinayak-RZ/stamped-external) @ `d1e1539` (`VERSION` `2026.07.12`; ADR-015/016 dual-lane)
+> **Primary interface:** Python library (`stamped_l3_core`) + CLI scripts (`scripts/run_mock_plant.py`, `scripts/validate.sh`)  
+> **Runtime:** Python **3.11+** · optional extras `[dev]`, `[ml]`, `[challenger]` · platform SSOT via git submodule [`external/`](https://github.com/Vinayak-RZ/stamped-external)
+
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** hot path emits `idle_load` + `compressor_sp_drift` with required `value_domain` (`energy_efficiency` | `equipment_health`)
+- Finding **1.2.0** two-pillar; dual-lane Lab (ADR-015/016) — MD/PF/ToD alone insufficient for Wave A
+- **Wave B:** TradeoffEngine + ProductionOrder awareness (holistic phase)
 
 ---
 
 **TL;DR**
 
-- Turns L2 measurements/bills into schema-valid `Finding` payloads inside `StampedRecordEnvelope` rows
+- Turns L2 measurements/bills into schema-valid `Finding` **1.2.0** payloads inside `StampedRecordEnvelope` rows
+- **Two-pillar tagging:** every Finding carries `value_domain` (`energy_efficiency` | `equipment_health`); Lab export includes dual `PlantIntelligenceScore`
 - **Dual-lane Lab (ADR-015):** every candidate → `LabLog` / RunArtifact **1.1.0** with `status` + `delivery`; outbox only when `emitted`/`l4`
-- Hot path: MD overlap, PF slab, TOD (+ optional LightGBM MD exceedance + greedy source-mix)
+- Hot path: MD overlap, PF slab, TOD (+ optional LightGBM MD exceedance + greedy source-mix + equipment-health engines)
 - Attribution of-record = graph co-start; runner-ups + ranking/STUMPY shadows stay `lab_only` (ADR-016)
 - Warm path: EWMA + CUSUM on TOW-P residuals; cold path: TOW-P refit to filesystem registry
 - TimesFM and LightGBM baseline challengers are **cold shadow only** — never of-record, never M&V
 - Stdlib **JSON structured logging** with `correlation_id` / plant context and secret redaction
 - Mock-plant corpus proves engines without live L2 (`tests/fixtures/mock_plant/` + CLI)
-- Lab export: `LabLog.to_run_artifact()` / optional `stamped-l3-lab` → `GET /lab/export`
+- Lab export: `LabLog.to_run_artifact()` (+ optional `plant_intelligence_score`) / `stamped-l3-lab` → `GET /lab/export`
 - CI matrix: validate · smoke · e2e (`[ml]`) · fuzz (Hypothesis); nightly soft challenger
 - Hard locks: no `L2_DATABASE_URL`, pin `external/`, load rulepacks by path/semver, TOW-P of record; never promote Lab→L4
 - Siblings own rulepack YAML (`stamped-l3-rulepacks`) and fleet eval UI (`stamped-l3-eval`)
@@ -84,7 +85,7 @@ Numeric intelligence only — no prose templates, no plant actuation, no custome
 
 ### 1.4 Success criteria (today)
 
-- `./scripts/contracts/validate.sh` green (unit · golden · integration · smoke · e2e)
+- `./scripts/validate.sh` green (unit · golden · integration · smoke · e2e)
 - `python scripts/run_mock_plant.py --enable-source-mix` exits 0 and publishes ≥1 envelope
 - Schema-valid Findings for MD / PF / TOD / `dispatch_gap` / optional `md_exceedance_risk`
 - Static guard: TimesFM not imported from hot/warm scheduler paths
@@ -211,8 +212,8 @@ Expected: JSON summary on stdout with `published >= 1` and categories such as `m
 ### 3.4 Verify
 
 ```bash
-./scripts/contracts/validate.sh
-FUZZ=1 ./scripts/contracts/validate.sh   # opt-in Hypothesis fuzz
+./scripts/validate.sh
+FUZZ=1 ./scripts/validate.sh   # opt-in Hypothesis fuzz
 ```
 
 Compose one-shot smoke (fixture plant):
@@ -243,7 +244,9 @@ Variables match [`.env.example`](.env.example). Feature flags are env-only (not 
 | --- | --- | --- |
 | `ENABLE_LGBM_MD` | off | Hot path LightGBM/empirical `md_exceedance_risk` Finding |
 | `ENABLE_SOURCE_MIX` | off | Hot path greedy `dispatch_gap` Finding |
+| `ENABLE_EQUIPMENT_HEALTH` | off | Hot path Pillar 2 engines: trip/duty, feeder signature, air leak survey |
 | `ENABLE_TIMESFM_SHADOW` | off | Cold path writes shadow JSON under `data/shadow/` only — never outbox Finding |
+| `ENABLE_TRADEOFF_ENGINE` | off | After `md_overlap`, rank stagger candidates via ADR-024 TradeoffEngine (orders + department graph); sets `decision_class=mgmt_schedule` |
 
 Truthy values: `1`, `true`, `yes`, `on` (case-insensitive).
 
@@ -261,7 +264,7 @@ Without `[ml]`, MD LGBM uses an **empirical P90** fallback and never fails the h
 
 | Name | Rule |
 | --- | --- |
-| `L2_DATABASE_URL` | Must not appear in Python under `src/` or `tests/` — enforced by `scripts/contracts/validate.sh` |
+| `L2_DATABASE_URL` | Must not appear in Python under `src/` or `tests/` — enforced by `scripts/validate.sh` |
 
 ---
 
@@ -278,11 +281,11 @@ intelligence-core/
 │   ├── calibration_feedback.py
 │   ├── clients/l2.py
 │   ├── models/                # Finding, envelope, schema, adversarial
-│   ├── engines/               # md, md_lgbm, pf, tod, source_mix, …
+│   ├── engines/               # md, md_lgbm, pf, tod, source_mix, trip_duty, feeder, air_leak, value_domain, …
+│   ├── metrics/               # PlantIntelligenceScore dual-pillar rollup
 │   ├── challenger/            # timesfm_shadow, lgbm_baseline
 │   ├── gates/                 # g14, precision, psi
-│   └── registry/              # FileBaselineRegistry
-├── tests/
+│   └── registry/              # FileBaselineRegistry├── tests/
 │   ├── unit/ golden/ integration/
 │   ├── smoke/ fuzz/ e2e/
 │   └── fixtures/ (+ mock_plant/)
@@ -384,36 +387,53 @@ Redacted keys (never emitted): `l2_service_key`, `service_key`, `password`, `tok
 
 ## 7. Data model
 
-### 7.1 Finding (contract `finding.json` v1.0.0)
+### 7.1 Finding (contract `finding.json` v1.2.0)
 
-Domain dataclass: [`models/finding.py`](src/stamped_l3_core/models/finding.py). Schema SSOT: [`external/contracts/schemas/intelligence/finding.json`](external/contracts/schemas/intelligence/finding.json).
+Domain dataclass: [`models/finding.py`](src/stamped_l3_core/models/finding.py). Schema SSOT: [`external/contracts/schemas/finding.json`](external/contracts/schemas/finding.json). Authority: [ADR-020](external/decisions/ADR-020-l5-mv-claim-governance.md) · two-pillar bridge [`external/technical/03-two-pillar-technical-bridge.md`](external/technical/03-two-pillar-technical-bridge.md) · consumer prompt [`external/handoff/stamped-l3-ops-clearance-consumer-prompt.md`](external/handoff/stamped-l3-ops-clearance-consumer-prompt.md).
+
+**L3 emits** the clearance contract; **L5 owns** ops verification (poll L2 tags, stabilize_window, `ops_verified` / `ops_regressed`). This repo does **not** implement alarm router, clearance poller, or ledger append.
 
 | Field | Notes |
 | --- | --- |
-| `schema_version` | Const `1.0.0` |
+| `schema_version` | Const `1.2.0` |
 | `finding_id` / `org_id` / `plant_id` | Identifiers |
 | `category` | Enum — see §7.2 |
+| `value_domain` | **Required** — `energy_efficiency` (Pillar 1) \| `equipment_health` (Pillar 2). Resolver: `engines/value_domain.py` |
 | `waste_category` | 1=MD/PQ … 6=source mix |
 | `assets` | ≥1 asset ids |
 | `evidence` | Requires `metric`, `baseline_value`, `actual_value`, `window`; extensions via `supporting_tags` (`additionalProperties: false` on evidence) |
 | `confidence` | 0–1 |
-| `estimated_monthly_kwh` / `estimated_monthly_inr` | Economics |
-| `inr_decomposition` | Required when INR non-trivial (adversarial guard) |
+| `estimated_monthly_kwh` / `estimated_monthly_inr` | Calculated-savings SoT (never bill-verified from L3) |
+| `inr_decomposition` | Required when INR non-trivial (adversarial guard); maps to bill lines for deferred bill path |
 | `urgency` | `low` \| `medium` \| `high` |
 | `engine` / `engine_version` / `rule_or_model_ref` | Provenance |
+| `ops_clearance` | **Required** — machine-evalable L5 contract (`related_tag_ids`, `clearance_predicate`, `stabilize_window`, `reopen_if_regresses`). Helper: `default_ops_clearance(...)` |
+| `alarm_hint` | Optional L3 suggestion only (`severity` + `category_code`); L5 routes/acks |
 | `dedupe_key` | `sha256:` of category + sorted assets + window |
 
-### 7.2 Finding categories (contract enum — 12)
+Outbox `stage` bounces Findings missing `ops_clearance` / `value_domain` or not validating as schema `1.2.0`. Defaults: MD/coincidence `PT30M`; idle/SP-style `PT1H`; SEC `PT24H`.
 
-`md_overlap` · `md_exceedance_risk` · `pf_slab_breach` · `pf_leading` · `tod_exposure` · `compressor_sp_drift` · `furnace_holding` · `idle_load` · `sec_drift` · `dispatch_gap` · `cop_degradation` · `cmd_oversized`
+### 7.2 Finding categories (contract enum — 16)
 
-Core engines today emit a subset (MD/PF/TOD/SEC/dispatch_gap). Remaining categories are reserved for rulepack-driven engines in siblings / later packs.
+**Pillar 1 (`energy_efficiency`):** `md_overlap` · `md_exceedance_risk` · `pf_slab_breach` · `pf_leading` · `tod_exposure` · `furnace_holding` · `idle_load` · `sec_drift` · `dispatch_gap` · `cmd_oversized`
 
-### 7.3 Envelope
+**Pillar 2 (`equipment_health`):** `compressor_sp_drift` · `cop_degradation` · `trip_cascade_risk` · `abnormal_duty` · `feeder_unexplained_draw` · `air_leak_survey`
+
+Core hot path emits MD/PF/TOD (+ optional source-mix / LGBM / equipment-health behind flags). Remaining categories are covered by rulepack-driven engines in siblings.
+
+### 7.3 Plant Intelligence Score
+
+Lab export may include `plant_intelligence_score` ([`metrics/plant_score.py`](src/stamped_l3_core/metrics/plant_score.py), schema `external/contracts/schemas/plant-intelligence-score.json`):
+
+- `overall = 0.65 * pillar1_load_energy + 0.35 * pillar2_equipment`
+- Each pillar mixes coverage (families A–E / F–H), impact density, closure quality, precision proxy
+- **Not** RUL%, vibration health, or a DISCOM ₹ substitute (ADR-LOCAL-020)
+
+### 7.4 Envelope
 
 `wrap_finding_envelope` → `record_type: "finding"` plus `envelope_id`, `dedupe_key`, `correlation_id`, `ingested_at`, `late`, nested `payload`.
 
-### 7.4 Persistence
+### 7.5 Persistence
 
 | Store | Location | Contents |
 | --- | --- | --- |
@@ -446,13 +466,13 @@ pip install -e ".[dev]"
 pytest tests/unit tests/golden tests/integration tests/smoke -q
 pip install -e ".[ml]" && pytest tests/e2e -q
 pytest tests/fuzz -q --hypothesis-profile=ci
-./scripts/contracts/validate.sh
-FUZZ=1 ./scripts/contracts/validate.sh
+./scripts/validate.sh
+FUZZ=1 ./scripts/validate.sh
 ```
 
 ### 8.3 Validate orchestrator
 
-[`scripts/contracts/validate.sh`](scripts/contracts/validate.sh) runs: submodule presence → forbid `L2_DATABASE_URL` → `external/scripts/contracts/contract-check.sh` → ruff → pytest unit/golden/integration/smoke → e2e → docs sync (`IMPLEMENTATION_PLAN.md`, `PROGRESS.md`, `DECISIONS.md`, `PROJECT_OVERVIEW.md`) → optional fuzz when `FUZZ=1`.
+[`scripts/validate.sh`](scripts/validate.sh) runs: submodule presence → forbid `L2_DATABASE_URL` → `external/scripts/contract-check.sh` → ruff → pytest unit/golden/integration/smoke → e2e → docs sync (`IMPLEMENTATION_PLAN.md`, `PROGRESS.md`, `DECISIONS.md`, `PROJECT_OVERVIEW.md`) → optional fuzz when `FUZZ=1`.
 
 ### 8.4 Mock plant contract
 
@@ -647,12 +667,12 @@ Hot MD overlap uses rulepack CMD/band. TOW-P refit is cold-path of-record baseli
 | [`DECISIONS.md`](DECISIONS.md) | ADR-LOCAL + dual-lane sync notes |
 | [`AGENTS.md`](AGENTS.md) | Cursor / ponytail / nawab workflow |
 | [`docs/L3_BOOTSTRAP.md`](docs/L3_BOOTSTRAP.md) | Bootstrap notes |
-| [`external/technical/layers/l3/L3-intelligence-core.md`](external/technical/layers/l3/L3-intelligence-core.md) | Platform L3 spec (read-only) |
-| [`external/technical/layers/l3/L3-attribution-explainability.md`](external/technical/layers/l3/L3-attribution-explainability.md) | Co-start of-record + Lab shadows |
-| [`external/handoff/l3/stamped-l3-build-order.md`](external/handoff/l3/stamped-l3-build-order.md) | Core · rulepacks · eval build order |
-| [`external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md`](external/decisions/011-015/ADR-012-l3-artifact-repo-topology.md) | Three-repo split |
-| [`external/decisions/011-015/ADR-014-ts-foundation-model-role.md`](external/decisions/011-015/ADR-014-ts-foundation-model-role.md) | TimesFM role |
-| [`external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md`](external/decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) | Dual-lane Lab retention |
-| [`external/decisions/016-020/ADR-016-attribution-shadow-challengers.md`](external/decisions/016-020/ADR-016-attribution-shadow-challengers.md) | Attribution shadows (Lab-only) |
+| [`external/technical/layers/L3-intelligence-core.md`](external/technical/layers/L3-intelligence-core.md) | Platform L3 spec (read-only) |
+| [`external/technical/layers/L3-attribution-explainability.md`](external/technical/layers/L3-attribution-explainability.md) | Co-start of-record + Lab shadows |
+| [`external/handoff/stamped-l3-build-order.md`](external/handoff/stamped-l3-build-order.md) | Core · rulepacks · eval build order |
+| [`external/decisions/ADR-012-l3-artifact-repo-topology.md`](external/decisions/ADR-012-l3-artifact-repo-topology.md) | Three-repo split |
+| [`external/decisions/ADR-014-ts-foundation-model-role.md`](external/decisions/ADR-014-ts-foundation-model-role.md) | TimesFM role |
+| [`external/decisions/ADR-015-l3-dual-lane-lab-detections.md`](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) | Dual-lane Lab retention |
+| [`external/decisions/ADR-016-attribution-shadow-challengers.md`](external/decisions/ADR-016-attribution-shadow-challengers.md) | Attribution shadows (Lab-only) |
 
-**Platform pin:** `external/` @ `d1e1539` · `VERSION` `2026.07.12` (ADR-015/016) — bump submodule deliberately; never edit contracts inside consumers.
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2** — bump submodule deliberately; never edit contracts inside consumers.

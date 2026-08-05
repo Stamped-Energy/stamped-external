@@ -1,9 +1,4 @@
-<!-- SNAPSHOT: mirrored from knowledge-reasoning/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
-
-> **Snapshot** of [`knowledge-reasoning`](https://github.com/Vinayak-RZ/knowledge-reasoning) root README (copied 2026-07-19).
-> Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.
-
----
+﻿<!-- SNAPSHOT: mirrored from knowledge-reasoning/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
 # knowledge-reasoning — Stamped L4 Knowledge & Reasoning
 
@@ -14,11 +9,18 @@
 **Runtime:** Python 3.11+ · package `stamped-l4` v0.2.0 · modular monolith (`api` + `worker` + dedicated Postgres).  
 **Authority:** Platform SSOT lives in the `external/` submodule — do not fork layer specs into this repo.
 
+**Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
+
+- **Wave A:** Lane A templates for `idle_load` + `compressor_sp_drift` + AD-5 practical fields (What/Why/Who/Effort/Impact/When)
+- Rich `evidence_refs` on every RX (`tag:` / `baseline:` / `finding:` / `rule:`)
+- **Wave B:** negotiation revise path (holistic phase)
+
 ---
 
 **TL;DR**
 
-- Dual prescription lanes: **Lane A** (template, **0 LLM**) and **Lane B** (Path H RAG + ≤2 structured generation calls)
+- Dual prescription lanes: **Lane A** (template, **0 LLM**, **all 16 Finding categories**) and **Lane B** (Path H RAG + ≤2 structured generation calls)
+- Rich `evidence_refs` on every Lane A RX (`tag:` / `baseline:` / `tariff:` / `finding:` / `rule:`)
 - Durable jobs with lease fencing (`FOR UPDATE SKIP LOCKED`) and LangGraph checkpointer resume
 - Conversational analyst: budgeted **LangGraph ReAct**, session transcript + rolling summary + explicit notes
 - Path H hybrid retrieval (SQLite FTS5 + hash dense + RRF) over `corpus/seed/`
@@ -28,7 +30,7 @@
 - **6** Postgres tables via Alembic; compose stack for local ops
 - Optional Phoenix/OTel (`--profile obs`) + 60-case eval dataset sync helpers
 - CI without live models: mock structured model when `L4_MODEL_*` unset
-- Product UI is **L6-only**; live L2/L3/L5 HTTP remains stubs until cutover
+- Product UI is **L6-only**; live L2/L3/L5 HTTP remains stubs until cutover (file bridge for L2→L3→L4 e2e)
 
 ---
 
@@ -45,9 +47,10 @@
 9. [Testing & eval](#9-testing--eval)
 10. [Deployment & observability](#10-deployment--observability)
 11. [Cookbook](#11-cookbook)
-12. [Platform SSOT & reading order](#12-platform-ssot--reading-order)
-13. [Roadmap & changelog](#13-roadmap--changelog)
-14. [FAQ & glossary](#14-faq--glossary)
+12. [L2→L3→L4 pipeline showcase](#12-l2l3l4-pipeline-showcase)
+13. [Platform SSOT & reading order](#13-platform-ssot--reading-order)
+14. [Roadmap & changelog](#14-roadmap--changelog)
+15. [FAQ & glossary](#15-faq--glossary)
 
 ---
 
@@ -85,12 +88,13 @@ Stamped Energy’s **L4 — Knowledge & Reasoning** layer. It composes evidence 
 
 ### 1.4 Success criteria (today)
 
-- Fixture Finding → valid Prescription on Lane A (0 LLM) and Lane B (mock model)
+- Fixture Finding → valid Prescription on Lane A (0 LLM) for **all 16** Finding categories, with ≥2 `evidence_refs` including a `tag:` pointer
+- Lane B still available via `force_lane=b` (mock or live OmniRoute)
 - Durable job survives restart without duplicate emit (lease + checkpointer path)
 - Analyst multi-turn with citations; Path W results labelled T4
-- `./scripts/contracts/validate.sh` green with `L4_MODEL_*` unset
+- `./scripts/validate.sh` green with `L4_MODEL_*` unset
 - No product UI in this repo
-
+- L2→L3→L4 e2e produces **16/16** Lane A prescriptions (live L3 + L2-seed fallback for residual gaps)
 ---
 
 ## 2. Architecture
@@ -211,7 +215,7 @@ test -f external/VERSION
 python -m pip install -e ".[dev,postgres,obs]"
 # leave model env unset for mock mode
 unset L4_MODEL_PROVIDER L4_MODEL_BASE_URL L4_MODEL_API_KEY L4_MODEL_NAME
-./scripts/contracts/validate.sh
+./scripts/validate.sh
 ```
 
 ### 3.3 Run API locally (SQLite or Postgres)
@@ -254,6 +258,8 @@ curl -s http://127.0.0.1:8000/health | jq .
 ## 4. Configuration
 
 Source of truth for local secrets template: [`deploy/.env.example`](deploy/.env.example). Never commit real values.
+
+**Local OmniRoute (testing):** point `L4_MODEL_*` at a local gateway — see [`docs/OMNIROUTE_LOCAL.md`](docs/OMNIROUTE_LOCAL.md) and [`deploy/.env.omniroute.example`](deploy/.env.omniroute.example). Smoke: `python scripts/smoke_omniroute.py`.
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -316,7 +322,7 @@ knowledge-reasoning/
 ├── IMPLEMENTATION_PLAN*.md   # Nawab plans P0/P1/P2
 ├── DECISIONS.md              # Consumer ADRs
 ├── PROGRESS.md
-└── scripts/contracts/validate.sh
+└── scripts/validate.sh
 ```
 
 ---
@@ -417,7 +423,7 @@ Checkpointer tables (LangGraph Sqlite/Postgres saver) are managed by the checkpo
 unset L4_MODEL_PROVIDER L4_MODEL_BASE_URL L4_MODEL_API_KEY L4_MODEL_NAME
 
 # Full orchestrator (contracts + forbidden patterns + coverage + suites)
-./scripts/contracts/validate.sh
+./scripts/validate.sh
 
 # Tiers
 python -m pytest tests/unit tests/api tests/contract -q          # fast
@@ -438,7 +444,7 @@ L4_DATABASE_URL=postgresql+psycopg://l4:l4@localhost:5432/stamped_l4 \
 | Eval | `tests/eval/` | Lane B goldens + **60-case** `p2_manifest_60.json` |
 | Integration | `tests/integration/` | Real Postgres leases/API (skipped without URL) |
 
-Coverage gate: ≥85% lines on `api/`, `analyst/`, `jobs/`, `web/`, `db/` (see `scripts/contracts/validate.sh`).
+Coverage gate: ≥85% lines on `api/`, `analyst/`, `jobs/`, `web/`, `db/` (see `scripts/validate.sh`).
 
 ### 9.3 Eval gates (60)
 
@@ -513,6 +519,8 @@ export L4_MODEL_API_KEY=sk-...
 export L4_MODEL_NAME=gpt-4o-mini
 ```
 
+**Local OmniRoute gateway (testing):** see [`docs/OMNIROUTE_LOCAL.md`](docs/OMNIROUTE_LOCAL.md) — set `L4_MODEL_BASE_URL=http://127.0.0.1:20128/v1` and run `python scripts/smoke_omniroute.py`.
+
 ### 11.5 Path W live fetch
 
 ```bash
@@ -520,23 +528,80 @@ export L4_PATH_W_TRANSPORT=httpx   # or L4_PATH_W_LIVE=1
 # Allowlist only: beeindia.gov.in, cea.nic.in, powermin.gov.in, DISCOM/OEM hosts, …
 ```
 
+### 11.6 L2 → L3 → L4 pipeline (Lane A, 0 LLM)
+
+Requires sibling checkouts of `universal-repositary` (L2) and `Intellience - L3/intelligence-core` (L3) next to this repo.
+
+```bash
+# Dry-run (fixtures + L2-seed Finding fallbacks, no Docker):
+python scripts/l2_l3_l4_e2e.py --dry-run --write-showcase
+
+# Live (Docker L2 :5433/:8090/:8091 + L3 hot path + Lane A):
+set L2_BASE_URL=http://127.0.0.1:8091
+set L2_SERVICE_KEY=dev-local-key
+set L2_DATABASE_URL=postgresql://l2:l2@127.0.0.1:5433/stamped_l2
+python scripts/l2_l3_l4_e2e.py --live --write-showcase
+```
+
+Ports: Timescale **5433**, ingest **8090**, query-api **8091**. Artifacts land under `artifacts/l2-l3-l4-e2e/` (gitignored). Committed showcase: §12.
+
 ---
 
-## 12. Platform SSOT & reading order
+## 12. L2→L3→L4 pipeline showcase
+
+Full run narrative (one non-LLM prescription per Finding category):
+
+- Markdown: [`docs/L2_L3_L4_PIPELINE_SHOWCASE.md`](docs/L2_L3_L4_PIPELINE_SHOWCASE.md)
+- JSON: [`docs/L2_L3_L4_PIPELINE_SHOWCASE.json`](docs/L2_L3_L4_PIPELINE_SHOWCASE.json)
+- Raw run tree (local only): `artifacts/l2-l3-l4-e2e/<stamp>/`
+
+| Category | RX id | ₹/mo | Evidence refs | Source |
+|---|---|---:|---:|---|
+| `md_overlap` | `rx-md-20260615T110000` | 7000 | 6 | live L3 |
+| `md_exceedance_risk` | `rx-bridge-md_exceedance_risk-20260615` | 42000 | 6 | bridge |
+| `pf_slab_breach` | `rx-pf-20260615T050000` | 12000 | 6 | live L3 |
+| `pf_leading` | `rx-bridge-pf_leading-20260615` | 8500 | 6 | bridge |
+| `tod_exposure` | `rx-tod-2026-06-15` | 3098 | 6 | live L3 |
+| `cmd_oversized` | `rx-bridge-cmd_oversized-20260615` | 55000 | 6 | fallback |
+| `furnace_holding` | `rx-bridge-furnace_holding-20260615` | 36400 | 6 | fallback |
+| `idle_load` | `rx-bridge-idle_load-20260615` | 57400 | 6 | fallback |
+| `sec_drift` | `rx-sec-2026-06-15` | 0 | 7 | live L3 |
+| `dispatch_gap` | `rx-bridge-dispatch_gap-20260615` | 33600 | 6 | fallback |
+| `compressor_sp_drift` | `rx-bridge-compressor_sp_drift-20260615` | 12600 | 6 | fallback |
+| `cop_degradation` | `rx-bridge-cop_degradation-20260615` | 29400 | 6 | fallback |
+| `trip_cascade_risk` | `rx-trip-compressor_1-2026-06-15` | 15000 | 4 | live L3 |
+| `abnormal_duty` | `rx-duty-furnace_1-2026-06-15` | 5200 | 5 | live L3 |
+| `feeder_unexplained_draw` | `rx-feeder-feeder_a-2026-06-15` | 490800 | 5 | live L3 |
+| `air_leak_survey` | `rx-bridge-air_leak_survey-20260615` | 10500 | 6 | fallback |
+
+Lane B / OmniRoute live demos (optional LLM path): [`docs/L4_OMNIROUTE_LIVE_PRESCRIPTIONS.md`](docs/L4_OMNIROUTE_LIVE_PRESCRIPTIONS.md).
+
+### L2→L6 (Vinayak Plant)
+
+Full-stack bring-up for `plant_vinayak_1` / `org_acme`:
+
+- Runbook: [`docs/DEPLOY_L2_TO_L6.md`](docs/DEPLOY_L2_TO_L6.md)
+- QA checklist (S1–S6): [`docs/L2_L6_QA_CHECKLIST.md`](docs/L2_L6_QA_CHECKLIST.md)
+- Orchestrator: `python scripts/l2_l6_e2e.py --dry-run` (or `--live --write-showcase`)
+- Showcase: [`docs/L2_L6_PIPELINE_SHOWCASE.md`](docs/L2_L6_PIPELINE_SHOWCASE.md)
+
+---
+
+## 13. Platform SSOT & reading order
 
 | Path | Role |
 |------|------|
 | [`external/`](external/) | Submodule → [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external) |
-| [`external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md`](external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md) | **L4 architecture SSOT** |
-| [`external/handoff/l4/stamped-l4-architecture-handoff.md`](external/handoff/l4/stamped-l4-architecture-handoff.md) | Consumer bootstrap |
-| [`external/decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md`](external/decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Path W / T4 trust |
+| [`external/technical/layers/L4-knowledge-and-reasoning.md`](external/technical/layers/L4-knowledge-and-reasoning.md) | **L4 architecture SSOT** |
+| [`external/handoff/stamped-l4-architecture-handoff.md`](external/handoff/stamped-l4-architecture-handoff.md) | Consumer bootstrap |
+| [`external/decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md`](external/decisions/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Path W / T4 trust |
 | [`external/contracts/schemas/`](external/contracts/schemas/) | `finding.json`, `prescription.json` |
 
 Current pin: `external @ 77fe042` (includes L4 SSOT + handoff; ahead of tag `v2026.07.12`).
 
 ```bash
 git submodule update --init --recursive
-./external/scripts/contracts/contract-check.sh
+./external/scripts/contract-check.sh
 ```
 
 **Do not fork** layer specs, schemas, or ADRs into this repo. Change them in `stamped-external`, tag, then bump the pin.
@@ -552,7 +617,7 @@ git submodule update --init --recursive
 
 ---
 
-## 13. Roadmap & changelog
+## 14. Roadmap & changelog
 
 ### 13.1 Build phases (completed)
 
@@ -582,7 +647,7 @@ git submodule update --init --recursive
 
 ---
 
-## 14. FAQ & glossary
+## 15. FAQ & glossary
 
 ### 14.1 FAQ
 
