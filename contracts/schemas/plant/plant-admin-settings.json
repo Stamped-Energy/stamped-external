@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/plant-admin-settings.v1.json",
+  "title": "PlantAdminSettings",
+  "description": "Stamped-internal plant levers (L5 Internal Console). Not customer-facing.",
+  "type": "object",
+  "required": ["schema_version", "org_id", "plant_id"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "stamped_rx_gate_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, prescriptions enter pending_stamped_review until staff approve."
+    },
+    "improve_cadence": {
+      "type": "string",
+      "enum": ["weekly"],
+      "default": "weekly"
+    },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "updated_by": { "type": "string" }
+  },
+  "additionalProperties": false
+}

@@ -1,5 +1,19 @@
 # Changelog — stamped-l1-contracts
 
+## 0.11.1 — 2026-08-01 (as-built)
+
+- Add [stamped-l5-internal-console-handoff.md](../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md) — internal API + console surface
+- Forge design: Improve = internal weekly human-gated step (L5 console, not customer nav)
+
+## 0.11.0 — 2026-08-01
+
+- `improvement-signal.json` **1.1.0**: add `time_to_outcome`, `ledger_calibration`, `escalation_event`, `workflow_lifecycle`, `admin_manual_input`; extend payload
+- Add `improve-cycle.json`, `calibration-patch.json`, `model-run.json` (Improve admin + ML shadow/promote)
+- Add `plant-admin-settings.json` — `stamped_rx_gate_enabled`, weekly cadence
+- `workflow-event.json`: add `pending_stamped_review`, `withheld` statuses; `stamped_review_approved`, `stamped_review_withheld` event types
+- ADR-025 revised (weekly, A+B, human-gated, Track C removed); ADR-027 plant calibration + champion promote
+- Improve pipeline spec: weekly ImproveCycle, shadow/promote, plant notes manual
+
 ## 0.10.1 — 2026-07-31
 
 - Extend `workflow-event.json` `event_type`: `negotiation_started`, `revision_proposed`, `revised`, `negotiation_rejected` (ADR-024 negotiation lifecycle)

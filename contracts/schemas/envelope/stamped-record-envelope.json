@@ -41,7 +41,10 @@
         "workflow_event",
         "production_order",
         "improvement_signal",
-        "prescription_revision"
+        "prescription_revision",
+        "improve_cycle",
+        "calibration_patch",
+        "model_run"
       ]
     },
     "org_id": { "type": "string", "minLength": 1 },
