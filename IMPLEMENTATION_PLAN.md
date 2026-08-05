@@ -11,12 +11,12 @@ Align platform + L1–L6 with four-step client narrative; ship Wave A generic-en
 
 | Phase | Status |
 | --- | --- |
-| 0 Platform docs + contracts 0.11.2 | in progress |
-| 1 L1+L2 pilot signals/baselines | pending |
-| 2 L3 dual-pillar emit | pending |
-| 3 L4/L5 gates + console | pending |
-| 4 L6 live approved Rx | pending |
-| 5 Holistic (deferred after Wave A proof) | pending |
+| 0 Platform docs + contracts 0.11.2 | completed |
+| 1 L1+L2 pilot signals/baselines | completed |
+| 2 L3 dual-pillar emit | completed |
+| 3 L4/L5 gates + console | completed |
+| 4 L6 live approved Rx | completed |
+| 5 Holistic Wave B | completed (verified + Tradeoff TOD/preheat) |
 
 ## Non-goals
 
