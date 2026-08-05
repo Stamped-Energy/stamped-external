@@ -94,7 +94,7 @@ Bills list by month → status chips: Draft | Review | Published | Failed
 
 | Reference | Use |
 |-----------|-----|
-| [stamped.work/how-it-works](https://stamped.work/how-it-works) | Onboarding copy, five-step loop, "Connect" = bill upload |
+| [stamped.work/how-it-works](https://stamped.work/how-it-works) | Onboarding copy; **six-step** ops loop + four-step client narrative; "Connect" = bill upload |
 | [stamped-energy.vercel.app](https://stamped-energy.vercel.app/) | KPI strips, status chips, prescription-style review cards, tables |
 | [forge-industrial-v2.tokens.yaml](../../../design/forge-industrial-v2.tokens.yaml) | Tailwind / CSS token import |
 

@@ -9,7 +9,7 @@ Product UI for **connectors-bill**, **stamped-l6**, and related apps must follow
 
 ## Live references
 
-- [stamped.work/how-it-works](https://stamped.work/how-it-works) — marketing tone, five-step loop, "Connect" step (meter + bill)
+- [stamped.work/how-it-works](https://stamped.work/how-it-works) — marketing tone; align to **six-step** ops loop (Connect → Observe → Decide → Execute → Verify → Improve) and **four-step** client narrative (load → equipment → prescriptions → agentic)
 - [stamped-energy.vercel.app](https://stamped-energy.vercel.app/) — dashboard KPIs, status chips, prescription cards, data tables
 
 ## connectors-bill
