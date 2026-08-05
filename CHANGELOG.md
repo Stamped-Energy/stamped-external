@@ -6,9 +6,17 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+## [2026.08.05.1] - 2026-08-05
+
+### Fixed
+
+- Legacy CI entrypoints restored: [`scripts/contract-check.sh`](scripts/contract-check.sh) and [`scripts/validate.sh`](scripts/validate.sh) wrap `scripts/contracts/*`
+- Flat basename symlinks under `contracts/schemas/` and `contracts/fixtures/` for pre-nesting consumer paths (`finding.json`, `tag-inventory.json`, `bill_line.valid.json`, …)
+- [`scripts/contracts/contract-check.sh`](scripts/contracts/contract-check.sh) dedupes by basename (prefers nested paths over aliases)
+
 ### Changed
 
-- [REPOS.md](REPOS.md) — all consumer platform pins target **v2026.08.05** (`5900531`)
+- [REPOS.md](REPOS.md) — all consumer platform pins target **v2026.08.05** (`5900531`); bump consumers to **v2026.08.05.1** for CI path compat
 - Consumer README snapshots re-synced 2026-08-05 (Wave A/B notes + pin banner)
 
 ## [2026.08.05] - 2026-08-05

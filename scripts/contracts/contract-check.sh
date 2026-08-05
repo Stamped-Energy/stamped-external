@@ -24,20 +24,31 @@ except ImportError:
     print("contract-check: pip install jsonschema", file=sys.stderr)
     sys.exit(1)
 
+def _prefer_nested(paths):
+    """Dedupe by basename; prefer nested paths over flat legacy aliases."""
+    by_name = {}
+    for path in paths:
+        cur = by_name.get(path.name)
+        # nested = more parents under schemas/fixtures → higher depth wins
+        if cur is None or len(path.parts) > len(cur.parts):
+            by_name[path.name] = path
+    return by_name
+
 schema_files = sorted(schemas.rglob("*.json"))
 if not schema_files:
     print("contract-check: no schemas found", file=sys.stderr)
     sys.exit(1)
 
-schema_by_name = {}
 for sf in schema_files:
     with open(sf) as f:
         json.load(f)
-    schema_by_name[sf.name] = sf
+schema_by_name = _prefer_nested(schema_files)
 
-for ff in sorted(fixtures.rglob("*.json")):
+fixture_files = sorted(fixtures.rglob("*.json"))
+for ff in fixture_files:
     with open(ff) as f:
         json.load(f)
+fixture_by_name = _prefer_nested(fixture_files)
 
 pairs = {
     "bill_line.valid.json": "bill-line.json",
@@ -59,7 +70,6 @@ pairs = {
     "model_run.valid.json": "model-run.json",
     "plant_admin_settings.valid.json": "plant-admin-settings.json",
 }
-fixture_by_name = {ff.name: ff for ff in fixtures.rglob("*.json")}
 for fixture, schema_name in pairs.items():
     fp, sp = fixture_by_name.get(fixture), schema_by_name.get(schema_name)
     if fp is not None and sp is not None:
@@ -69,7 +79,7 @@ for fixture, schema_name in pairs.items():
             data = json.load(f)
         jsonschema.validate(instance=data, schema=schema)
 
-print(f"contract-check: OK ({len(schema_files)} schemas, {len(list(fixtures.rglob('*.json')))} fixtures)")
+print(f"contract-check: OK ({len(schema_by_name)} schemas, {len(fixture_by_name)} fixtures)")
 PY
 
 test -f "${FIXTURES}/golden/dedupe_golden.json" || fail "missing golden/dedupe_golden.json"

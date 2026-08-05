@@ -104,9 +104,13 @@ Breaking path changes for submodule consumers. Update `external/...` references 
 | `scripts/contract-check.sh` | `scripts/contracts/contract-check.sh` |
 | `scripts/validate.sh` | `scripts/contracts/validate.sh` |
 
+**Compat (2026.08.05.1):** legacy wrappers restored at `scripts/contract-check.sh` and `scripts/validate.sh` (exec into `scripts/contracts/`). Prefer the nested paths for new code.
+
 ## Contracts
 
 Schemas/fixtures nested under `contracts/schemas/{envelope,telemetry,intelligence,closure,plant,config}/` and matching `fixtures/`.
+
+**Compat (2026.08.05.1):** flat basename symlinks at `contracts/schemas/<name>.json` and `contracts/fixtures/<name>.json` point at nested files so older consumer CI (`test -f …/finding.json`, `…/tag-inventory.json`, `…/bill_line.valid.json`) keeps working. Canonical paths remain nested.
 
 ## Project meta
 
