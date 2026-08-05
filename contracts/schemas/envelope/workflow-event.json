@@ -49,7 +49,9 @@
         "negotiation_started",
         "revision_proposed",
         "revised",
-        "negotiation_rejected"
+        "negotiation_rejected",
+        "stamped_review_approved",
+        "stamped_review_withheld"
       ]
     },
     "from_status": {
@@ -57,6 +59,8 @@
       "enum": [
         null,
         "blocked",
+        "pending_stamped_review",
+        "withheld",
         "open",
         "in_progress",
         "done",
@@ -70,6 +74,8 @@
       "type": "string",
       "enum": [
         "blocked",
+        "pending_stamped_review",
+        "withheld",
         "open",
         "in_progress",
         "done",

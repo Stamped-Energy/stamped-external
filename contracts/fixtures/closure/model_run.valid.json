@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "id": "mrun-2026-08-01-0003",
+  "org_id": "org_acme",
+  "plant_id": "plant_vinayak_1",
+  "engine": "ts_foundation_md",
+  "base_ref": "@champion:ts_foundation_md@v2026.07",
+  "artifact_uri": "s3://stamped-ml/plant_vinayak_1/mrun-2026-08-01-0003/",
+  "lane": "shadow",
+  "metrics": {
+    "pinball_p90": 0.11,
+    "precision": 0.84,
+    "psi": 0.08,
+    "n_samples": 420
+  },
+  "promotion_recommendation": "keep_shadow",
+  "started_at": "2026-08-01T02:00:00+05:30",
+  "completed_at": "2026-08-01T04:30:00+05:30"
+}

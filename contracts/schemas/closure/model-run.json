@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/model-run.v1.json",
+  "title": "ModelRun",
+  "description": "Plant fine-tune or shadow challenger run metadata (ADR-027). Champion flip requires human promote in L5 console.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "org_id",
+    "plant_id",
+    "engine",
+    "base_ref",
+    "lane",
+    "started_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "engine": { "type": "string", "minLength": 1 },
+    "base_ref": { "type": "string", "minLength": 1 },
+    "artifact_uri": { "type": "string" },
+    "lane": {
+      "type": "string",
+      "enum": ["shadow", "champion"]
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "pinball_p90": { "type": "number" },
+        "precision": { "type": "number", "minimum": 0, "maximum": 1 },
+        "psi": { "type": "number", "minimum": 0 },
+        "n_samples": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "promotion_recommendation": {
+      "type": "string",
+      "enum": ["promote", "keep_shadow", "reject", "insufficient_data"]
+    },
+    "started_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" },
+    "promoted_by": { "type": "string" },
+    "promoted_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

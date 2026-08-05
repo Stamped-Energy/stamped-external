@@ -1,19 +1,19 @@
-# ADR-025: Improve loop (step 06) — ML calibration + agent preferences + UI report
+# ADR-025: Improve loop (step 06) — ML calibration + agent preferences
 
 | Field | Value |
 | --- | --- |
-| **Status** | Accepted |
+| **Status** | Accepted (revised 2026-08-01) |
 | **Date** | 2026-07-30 |
 | **Deciders** | Product + Engineering |
-| **Related** | [ADR-024](ADR-024-holistic-plant-decisions.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](../020-023/ADR-020-l5-mv-claim-governance.md) · [04-evaluation-and-quality](../../technical/cross-cutting/04-evaluation-and-quality.md) · [03-two-pillar-technical-bridge §7](../../technical/STAMPED_ARCHITECTURE.md) · [`improvement-signal.json`](../../contracts/schemas/closure/improvement-signal.json) · [`plant-preference-profile.json`](../../contracts/schemas/plant/plant-preference-profile.json) |
+| **Related** | [ADR-024](ADR-024-holistic-plant-decisions.md) · [ADR-027](ADR-027-plant-calibration-champion-promote.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](../020-023/ADR-020-l5-mv-claim-governance.md) · [04-evaluation-and-quality](../../technical/cross-cutting/04-evaluation-and-quality.md) · [`improvement-signal.json`](../../contracts/schemas/closure/improvement-signal.json) · [`plant-preference-profile.json`](../../contracts/schemas/plant/plant-preference-profile.json) · [`improve-cycle.json`](../../contracts/schemas/closure/improve-cycle.json) |
 
 ---
 
 ## Context
 
-The product operating loop was five steps: Connect → Observe → Decide → Execute → Verify. Calibration and supervisor reason codes exist in the eval spine but are not a **named product step**. Negotiation objections, followed-vs-ignored contrasts, and per-plant UI friction are not captured into a single Improve pipeline.
+The product operating loop was five steps: Connect → Observe → Decide → Execute → Verify. Calibration and supervisor reason codes exist in the eval spine but are not a **named product step**. Negotiation objections, followed-vs-ignored contrasts, and richer outcome signals are not captured into a single Improve pipeline.
 
-Product lock (2026-07-30): add **step 06 Improve** — simple, plant-scoped, human-gated. Not a new L7 repo.
+Product lock: add **step 06 Improve** — plant-scoped, **human-gated on every cycle**. Not a new L7 repo.
 
 ---
 
@@ -22,13 +22,14 @@ Product lock (2026-07-30): add **step 06 Improve** — simple, plant-scoped, hum
 | # | Topic | Decision |
 | --- | --- | --- |
 | 1 | Loop | Canonical six steps: Connect → Observe → Decide → Execute → Verify → **Improve** |
-| 2 | Shape | Cross-cutting monthly job (not L7); lives in L5 or L3-eval `improve/` module |
-| 3 | Tracks | **A** ML calibration · **B** agent preference profile · **C** monthly developer UI report |
-| 4 | Signals | Append-only `ImprovementSignal` from L5 workflow / ledger / negotiation |
+| 2 | Shape | Cross-cutting weekly job in L5 `improve/` module |
+| 3 | Tracks | **A** ML calibration + fine-tune/shadow · **B** agent preference profile |
+| 4 | Signals | Append-only `ImprovementSignal` from L5 workflow / ledger / negotiation / admin |
 | 5 | Scope | **Plant-scoped only** until ≥20 plants + consent for anonymised fleet aggregates |
-| 6 | Gates | Human approval before agent rank / UI layout changes; ML promotion via existing T4 gates |
-| 7 | Cadence | Monthly default; weekly optional for calibration math only |
-| 8 | Reason codes | Reuse L5 taxonomy — no parallel supervisor labels |
+| 6 | Gates | **Human approval on every ImproveCycle** before Track A/B apply; ML promote via ADR-027 |
+| 7 | Cadence | **Weekly** per plant |
+| 8 | Rx gate | Optional `stamped_rx_gate_enabled` — staff approve before client sees Rx |
+| 9 | UI | L5 Internal Console (Stamped staff only); plant notes scratchpad (manual, not automated Track C) |
 
 ---
 
@@ -37,46 +38,45 @@ Product lock (2026-07-30): add **step 06 Improve** — simple, plant-scoped, hum
 | Step | Layers | Improve feedback |
 | --- | --- | --- |
 | 1 Connect | L1 | — |
-| 2 Observe | L2 + L3 | Threshold / baseline updates from Track A |
-| 3 Decide | L3 + L4 | Preference profile from Track B |
-| 4 Execute | L5 + L6 | UI config pins from Track C (after dev review) |
+| 2 Observe | L2 + L3 | Threshold / baseline updates from Track A (after human approve) |
+| 3 Decide | L3 + L4 | Preference profile from Track B (after human approve) |
+| 4 Execute | L5 + L6 | Rx delivery; optional Stamped pre-review gate |
 | 5 Verify | L5 | Ledger calibration points |
-| **6 Improve** | Cross-cutting | Reads 4–5; writes plant config |
+| **6 Improve** | L5 + L3 | Reads 4–5; writes draft cycles; staff approve |
 
 ---
 
-## 2. Three tracks
+## 2. Two tracks
 
-### Track A — ML (L3)
+### Track A — ML calibration + fine-tune loop (L3 + L5)
 
-Threshold tuning from reject/"not real" rates; impact shrinkage from predicted/realised ledger ratios; baseline refresh; champion/challenger promotion (existing MLflow/T4 gates). **No continuous online retrain in P0–P1.**
+Threshold tuning from reject/"not real" rates; impact shrinkage from predicted/realised ledger ratios; plant fine-tune on customer data → shadow → human promote ([ADR-027](ADR-027-plant-calibration-champion-promote.md)). **No continuous online retrain in P0.**
 
 ### Track B — Agent preferences (L4)
 
-Plant preference profile keys: `dept_priority_weights`, `effort_gate`, `evidence_format`, `negotiation_patterns`, `owner_map_corrections`. Built from followed-vs-ignored contrast + negotiation objections. Engineer reviews `PreferenceDelta` before apply.
+Plant preference profile keys: `dept_priority_weights`, `effort_gate`, `evidence_format`, `negotiation_patterns`, `owner_map_corrections`. Built from followed-vs-ignored contrast + negotiation + richer signals. Staff approve in L5 console before L4 apply.
 
-### Track C — Developer UI report (L6)
+### Plant notes (manual)
 
-Internal monthly markdown/PDF: closure summary, friction hotspots, negotiation themes, evidence gaps, suggested nav pins / card defaults. Developers implement as **plant-scoped L6 config** — not forked code.
+Staff jot plant down-points in L5 Internal Console. Not consumed by Improve job. UI/config changes applied manually by engineering.
 
 ---
 
 ## 3. Non-goals
 
-- Auto-deploy of new Rx logic without review
-- Cross-plant fleet learning in v1 ([ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) L4 non-goal)
+- Auto-deploy of new Rx logic or model weights without review
+- Cross-plant fleet learning in v1
 - Customer-facing "AI is learning about you" UX copy in P0
-- Seventh layer repository until fleet scale demands it
+- Automated developer UI report (former Track C)
+- Seventh layer repository
 
 ---
 
 ## Consequences
 
-- Contracts: `improvement-signal.json`, `plant-preference-profile.json`
+- Contracts: `improvement-signal.json` 1.1.0, `improve-cycle.json`, `calibration-patch.json`, `model-run.json`, `plant-admin-settings.json`
 - Spec: [stamped-improve-pipeline-spec.md](../../handoff/holistic/improve/stamped-improve-pipeline-spec.md)
-- Product/docs: six-step loop in `01-product-architecture`, Forge design system, two-pillar §7
-- Improve v1 (Phase 2): report + contrast + calibration, no auto-promote
-- Improve v2 (Phase 3): preference profile with approval gate
+- L5 Internal Console for Improve cycles, Rx gate, ML promote
 
 ---
 
@@ -84,7 +84,7 @@ Internal monthly markdown/PDF: closure summary, friction hotspots, negotiation t
 
 | Option | Rejected because |
 | --- | --- |
-| New L7 Improve service | Premature; one cron job suffices |
-| Silent online learning into L4 | Trust / safety / eval regression risk |
-| Fleet-wide preference sharing now | Overfits early plants; privacy |
-| Real-time UI mutation from Improve | UI churn; monthly report + human apply is enough |
+| New L7 Improve service | Premature; L5 job + console suffices |
+| Silent online learning into L4 | Trust / safety risk |
+| Track C automated markdown report | Replaced by manual plant notes UI |
+| Improve in L6 customer nav | Wrong audience |

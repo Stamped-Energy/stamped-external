@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "id": "impcyc-2026-08-01-0001",
+  "org_id": "org_acme",
+  "plant_id": "plant_vinayak_1",
+  "period_start": "2026-07-21",
+  "period_end": "2026-07-27",
+  "status": "draft",
+  "track_a_draft": {
+    "patch_id": "calpatch-2026-08-01-0001",
+    "approval_status": "draft"
+  },
+  "track_b_profile_version": 3,
+  "signal_summary": {
+    "signal_count": 12,
+    "followed": 7,
+    "ignored": 3,
+    "median_time_to_outcome_hours": 18.5,
+    "predicted_realised_ratio": 0.72
+  },
+  "created_at": "2026-08-01T06:00:00+05:30"
+}

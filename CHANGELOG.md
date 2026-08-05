@@ -20,6 +20,18 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 - [`demo-decks/clients/itc-nadiad-technical/`](demo-decks/clients/itc-nadiad-technical/) — GitHub Pages deploy root for ITC brief (hero `nadiad-plant.jpg`)
 - [`.github/workflows/pages.yml`](.github/workflows/pages.yml) — deploy demo site from `main`
 
+## [2026.08.01] - 2026-08-01
+
+### Added
+
+- Contracts **0.11.0 / 0.11.1**: Improve admin schemas (`improve-cycle`, `calibration-patch`, `model-run`, `plant-admin-settings`); `improvement-signal` **1.1.0**; workflow statuses `pending_stamped_review` / `withheld` ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
+- [ADR-027](decisions/024-026/ADR-027-plant-calibration-champion-promote.md) — plant calibration patch + champion promote (human-gated)
+- [stamped-l5-internal-console-handoff.md](handoff/holistic/improve/stamped-l5-internal-console-handoff.md) — L5 internal console API surface
+
+### Changed
+
+- [ADR-025](decisions/024-026/ADR-025-improve-loop-step-06.md) — weekly human-gated Improve (A+B); Track C removed
+
 ## [2026.07.30] - 2026-07-30
 
 ### Added

@@ -54,6 +54,10 @@ pairs = {
     "improvement_signal.valid.json": "improvement-signal.json",
     "plant_preference_profile.valid.json": "plant-preference-profile.json",
     "plant_department_graph.valid.json": "plant-department-graph.json",
+    "improve_cycle.valid.json": "improve-cycle.json",
+    "calibration_patch.valid.json": "calibration-patch.json",
+    "model_run.valid.json": "model-run.json",
+    "plant_admin_settings.valid.json": "plant-admin-settings.json",
 }
 fixture_by_name = {ff.name: ff for ff in fixtures.rglob("*.json")}
 for fixture, schema_name in pairs.items():

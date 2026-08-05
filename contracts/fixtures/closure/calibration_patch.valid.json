@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "id": "calpatch-2026-08-01-0001",
+  "org_id": "org_acme",
+  "plant_id": "plant_vinayak_1",
+  "improve_cycle_id": "impcyc-2026-08-01-0001",
+  "approval": {
+    "status": "draft"
+  },
+  "shrinkage_multipliers": {
+    "md_overlap": 0.92,
+    "idle_aux": 0.88
+  },
+  "threshold_adjustments": {
+    "idle_minutes": 20
+  },
+  "model_run_refs": ["mrun-2026-08-01-0003"],
+  "notes": "Draft from weekly Improve job — awaiting L5 console approval",
+  "generated_at": "2026-08-01T06:05:00+05:30"
+}
