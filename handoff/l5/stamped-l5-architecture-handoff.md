@@ -22,6 +22,18 @@
 | Calculated potential + ops_confirmed realised ledger | Claiming “verified on DISCOM bill” |
 | WhatsApp-first notification | Plant dashboard UI (L6) |
 | Opportunity-cost job (`modeled`) | OT / SCADA writes |
+| **Internal Console** (all Rx + gate + force send/stop) | Customer-facing Forge |
+| Weekly Improve + ML promote (human-gated) | Auto-promote |
+
+### Positioning alignment
+
+| Client step | L5 role |
+| --- | --- |
+| 3 Prescriptions | Score AD-5 gate; assign; WhatsApp shadow; ops-verify → ledger |
+| Internal ops | All-Rx inbox; force send/stop; plant gate profile ([console handoff](../holistic/improve/stamped-l5-internal-console-handoff.md)) |
+| 6 Improve | Weekly cycles — Phase 5 full use |
+
+**Negotiation / Discuss:** Phase 5.
 
 ---
 

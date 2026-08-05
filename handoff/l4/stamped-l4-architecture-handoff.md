@@ -50,7 +50,17 @@ flowchart LR
 | **A — Template** | Known high-confidence categories | **0** calls |
 | **B — Evidence synthesis** | Compound / novel / non-template | Normal **1**; hard max **2** |
 
-Foundation templates: `md_overlap`, `pf_slab_breach`, `tod_exposure`. Expand taxonomy under **engineer approval** + golden cases.
+Foundation templates (generic-energy pilot): `md_overlap`, `pf_slab_breach`, `tod_exposure`, **`idle_load`**, **`compressor_sp_drift`**. Expand further taxonomy under **engineer approval** + golden cases.
+
+### Positioning alignment
+
+| Client step | L4 role |
+| --- | --- |
+| 3 Prescriptions | Compile What/Why/Who/Effort/Impact/When + evidence_refs + mv_plan |
+| 4 Agentic | Rank/dedupe; emit gate diagnostics for L5; **no free-form What rewrite** |
+| Order-aware next-best | Negotiation API — **Phase 5** |
+
+**Practicality (AD-5):** incomplete owner/window/evidence → L5 `withheld` / `pending_stamped_review`, not prose fill-in.
 
 Orchestration: **LangGraph StateGraph** for both lanes (ADR-018 early pull). Lane A has zero LLM nodes.
 

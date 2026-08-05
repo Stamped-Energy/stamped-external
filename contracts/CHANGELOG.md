@@ -1,5 +1,10 @@
 # Changelog — stamped-l1-contracts
 
+## 0.11.2 — 2026-08-05
+
+- `plant-admin-settings.json` **1.1.0**: add practicality gate profile — `practicality_gate_mode` (`strict`|`balanced`|`lenient`), `require_named_owner`, `require_evidence_refs`, `require_mv_plan`, `min_impact_confidence`, `allow_illustrative_impact`, `auto_withhold_on_gate_fail` (AD-5 / AD-7 L5 Internal Console)
+- Expand [stamped-l5-internal-console-handoff.md](../handoff/holistic/improve/stamped-l5-internal-console-handoff.md) — all-Rx inbox, gate diagnostics, force-send, plant gate profile
+
 ## 0.11.1 — 2026-08-01 (as-built)
 
 - Add [stamped-l5-internal-console-handoff.md](../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md) — internal API + console surface

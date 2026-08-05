@@ -524,3 +524,16 @@ Deliberately late: embedded analytics, named connectors, SCIM, native mobile, Hi
 38. https://workos.com/blog/enterprise-readiness-checklist-2026
 39. https://www.zulbera.com/insights/enterprise-authentication-sso-saas-guide/
 40. https://stamped-energy.vercel.app/ (demo dashboard — intermittently unreachable during research)
+
+---
+
+## Positioning alignment (client narrative)
+
+| Client step | L6 surface | Phase |
+| --- | --- | --- |
+| 1–2 Load / equipment | Pillar badges on findings / Rx | Generic-energy pilot |
+| 3 Prescriptions | Queue + detail: What/Why/Who/Effort/Impact/When + **flip for evidence** | Pilot |
+| 4 Agentic lite | Analyst Mode A/B (read-only) | Pilot |
+| Feasibility / next-best | Discuss panel + tradeoff block | **Phase 5** (order-aware) |
+
+**Customer lists must exclude** `pending_stamped_review` and `withheld` (L5 Internal Console owns those). BFF reads live L5 via `L5_BASE_URL`; fixtures only when `USE_FIXTURES=1`.

@@ -136,10 +136,16 @@ L6 is the ops-first control room for Indian manufacturing energy teams. Users tr
 Lanes: **Needs review · Active · Verifying · Closed**.  
 Default sort: addressable ₹/month × confidence with ageing boost.  
 Header: total addressable ₹ for open queue.  
+Card fields (client): **What · Why · Who · Effort · Impact · When** + **flip for evidence** (tags, baseline, tariff).  
 Expand: pre-scoped evidence chart + rule id + tariff math + lineage tags.  
+Pillar badge: energy vs equipment (`value_domain`).  
 Defer/Reject: **reason required**.  
 Done → Verifying → **Ops-confirmed ₹X** (badge) or Disputed.  
 Opportunity cost: **Modeled — not bill-verified** disclaimer.
+
+**Must exclude from customer lists:** `pending_stamped_review`, `withheld` (those live in L5 Internal Console only).
+
+**Phase 5 (not Wave A):** Discuss panel, management `tradeoff` block, hot-order MES-lite UI.
 
 ---
 

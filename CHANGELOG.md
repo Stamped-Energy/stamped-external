@@ -6,12 +6,26 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+## [2026.08.05] - 2026-08-05
+
+### Added
+
+- Contracts **0.11.2**: `plant-admin-settings` **1.1.0** practicality gate profile (`practicality_gate_mode`, named-owner/evidence/mv flags, force-send path in console handoff)
+- L5 Internal Console AD-7 ops model — all-Rx inbox, gate diagnostics, force send/stop ([stamped-l5-internal-console-handoff.md](handoff/holistic/improve/stamped-l5-internal-console-handoff.md))
+- Generic-energy pilot sequencing in [stamped-holistic-pilot-stack.md](handoff/holistic/stamped-holistic-pilot-stack.md) and reconciled [architecture audit](handoff/holistic/stamped-holistic-architecture-audit.md)
+
 ### Changed
+
+- Layer SSOTs L3/L5/L6 + L4/L5 handoffs aligned to four-step client narrative and AD-5 practicality gate
+- Holistic consumer prompt — Wave A generic-energy first; contracts ≥ 0.11.2
+- Design / bill UX charters — six-step ops loop (retire five-step copy)
+
+### Changed (prior unreleased)
 
 - Rewrite [`demo-decks/prescriptions-examples.md`](demo-decks/prescriptions-examples.md) and [`prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — practical client-conversation examples (plain talk tracks, technical evidence on flip, negotiation vignette)
 - Enlarge prescription flip cards in HTML deck to match ITC reference layout (full-width, Why/Owner/Impact/Effort/Due, illustrative badge)
 
-### Added
+### Added (prior unreleased)
 
 - Root [`index.html`](index.html) demo hub for GitHub Pages (industry decks, prescriptions, clients, tech)
 - [`demo-decks/prescriptions-examples.html`](demo-decks/prescriptions-examples.html) — prescription examples walkthrough

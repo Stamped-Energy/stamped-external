@@ -453,7 +453,25 @@ IPMVP Option C/A/B, bill decomposition, G14 gates remain **future work**. They d
 
 ---
 
-## 15. Research appendix (condensed)
+## 15. Practicality gate + Internal Console (AD-5 / AD-7)
+
+L5 scores each L4 Prescription against the plant gate profile ([`plant-admin-settings` 1.1.0+](../../../contracts/schemas/plant/plant-admin-settings.json)) before client delivery.
+
+| Outcome | When |
+| --- | --- |
+| Client delivery | Gate pass + (`stamped_rx_gate_enabled=false` **or** staff approved) |
+| `pending_stamped_review` | Gate pass + gate enabled, awaiting staff |
+| `withheld` | Gate fail (default) **or** staff force-stop |
+
+**Internal Console** (Stamped staff, port 8095): sees **all** Rx including impractical; gate diagnostics; approve / force-send / withhold; plant gate profile editor. Spec: [stamped-l5-internal-console-handoff.md](../../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md).
+
+**Weekly Improve** (ADR-025): human-gated cycles in the same console — never auto-promote.
+
+**Negotiation / Discuss:** Phase 5 only — use existing `prescription-revision` + workflow events; do not free-form rewrite `what`.
+
+---
+
+## 16. Research appendix (condensed)
 
 Prior WhatsApp / IPMVP / bill research remains background for the **deferred** bill path. Ops-first verification and EMS alarms supersede bill-as-gate language from earlier drafts.
 

@@ -79,11 +79,12 @@ All nine engines emit the same schema. **Canonical:** [`contracts/schemas/intell
 
 ```json
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "finding_id": "f-2026-07-08-0042",
   "org_id": "org_acme",
   "plant_id": "plant_ghaziabad_1",
   "category": "compressor_sp_drift",
+  "value_domain": "equipment_health",
   "waste_category": 4,
   "assets": ["compressor-2"],
   "evidence": {
@@ -132,7 +133,16 @@ All nine engines emit the same schema. **Canonical:** [`contracts/schemas/intell
 }
 ```
 
-**Field names (locked):** use `baseline_value` / `actual_value` — not `baseline` / `actual`. `plant_id` and `org_id` are required. Top-level `engine` + `engine_version` + `rule_or_model_ref` identify the producer; optional `evidence.model_version` / `evidence.rule_version` version the cited baseline/rule artefacts. **`schema_version` is `1.1.0`** (required `ops_clearance`).
+**Field names (locked):** use `baseline_value` / `actual_value` — not `baseline` / `actual`. `plant_id` and `org_id` are required. Top-level `engine` + `engine_version` + `rule_or_model_ref` identify the producer; optional `evidence.model_version` / `evidence.rule_version` version the cited baseline/rule artefacts. **`schema_version` is `1.2.0`** (required `value_domain` + `ops_clearance`).
+
+### 2.2.1 Generic-energy pilot hot path (not MD-only)
+
+| Pillar | Categories | Notes |
+| --- | --- | --- |
+| **1 Load & energy** | Existing MD/PF/ToD **plus** `idle_load` | MD is one lever — pilot must also emit a non-MD finding |
+| **2 Equipment** | `compressor_sp_drift` first; `abnormal_duty` only if signals exist | Plant baseline calibration; shadow never customer-facing (ADR-027) |
+
+Every Finding **must** emit `value_domain`: `energy_efficiency` \| `equipment_health`.
 
 Contract rules that matter for L3 design:
 
