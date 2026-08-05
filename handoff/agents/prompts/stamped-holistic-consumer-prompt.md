@@ -1,17 +1,16 @@
-# Prompt — Holistic plant effectiveness (ADR-024 / ADR-025)
+# Prompt — Positioning + holistic plant (ADR-024–027)
 
 > **Use this:** One copy-paste block for **any** Stamped consumer-repo agent (L1–L6).  
-> **Also paste into:** company onboarding / internal eng channel when spinning agents on this work.  
 > **Platform:** [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external)  
-> **Authority:** [ADR-026](../../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [architecture audit](./stamped-holistic-architecture-audit.md)
+> **Authority:** [ADR-026](../../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [architecture audit](../../holistic/stamped-holistic-architecture-audit.md) · [console AD-7](../../holistic/improve/stamped-l5-internal-console-handoff.md)
 
 ---
 
 ## Copy-paste prompt (full — start here)
 
 ```text
-PLATFORM UPDATE — Holistic plant shared context (ADR-024/025) under the
-two-pillar product lock (ADR-026).
+PLATFORM UPDATE — Positioning-aligned generic-energy pilot + holistic Phase 5
+(ADR-024/025/026/027). Contracts ≥ 0.11.2.
 
 FRAMING (mandatory — read first):
   One product. Exactly TWO outcome pillars:
@@ -19,8 +18,22 @@ FRAMING (mandatory — read first):
     2) Prescriptive Equipment Intelligence
   Shared context (NOT a third pillar, NOT an MES product):
     orders / MES-lite / departments / tradeoffs / negotiation / Improve
+  Client narrative order (do NOT lead with "agentic AI"):
+    load → equipment ML → practical prescriptions → agentic layer
   Named outcomes: energy efficiency (hero) + plant effectiveness/OEE
   co-benefits on management Rx. Do not invent Pillar 3 or split products.
+
+GENERIC-ENERGY FIRST (Wave A) before order-aware Wave B:
+  Pillar 1: MD/PF/ToD + idle_load
+  Pillar 2: compressor_sp_drift (abnormal_duty only if signals exist)
+  L5 Internal Console: ALL Rx visible to Stamped staff; force send/stop;
+  plant practicality_gate_mode. Customer L6 sees approved only.
+
+AD-5 PRACTICALITY GATE (client-visible Rx must have):
+  concrete action · reason · role+department owner · feasible window ·
+  honest effort · impact ([illustrative] OK if allowed) · evidence ·
+  mv_plan/ops_clearance · delivery intent. Incomplete → withheld /
+  pending_stamped_review — never fill gaps with prose.
 
 stamped-external is the single source of truth (ADR-011). Your product repo
 must bump the `external/` submodule, READ the listed files, then PLAN (and
@@ -31,156 +44,97 @@ Do not invent a MES. Do not add L7. Do not edit files under external/.
 1) UPDATE THE PLATFORM SUBMODULE
 ═══════════════════════════════════════════════════════════════════
 
-In this consumer repo:
-
   git submodule update --init --recursive
   test -f external/VERSION || { echo "missing external/"; exit 1; }
-
-  cd external
-  git fetch origin
-  # Prefer a release tag after platform merge, e.g.:
-  #   git checkout v2026.07.30
-  # Until tagged, pin the SHA that contains contracts 0.10.0 + ADR-024/025:
-  #   git log --oneline -- contracts/CHANGELOG.md decisions/ADR-024*
-  git checkout <pin-tag-or-sha>
-  cd ..
-
-  # Confirm contracts bump:
-  grep -n "0.10.0" external/contracts/CHANGELOG.md
-  test -f external/decisions/024-026/ADR-024-holistic-plant-decisions.md
-  test -f external/decisions/024-026/ADR-025-improve-loop-step-06.md
-
+  cd external && git fetch origin
+  # Prefer v2026.08.05+ ; confirm:
+  grep -n "0.11.2" contracts/CHANGELOG.md
+  git checkout <pin-tag-or-sha> && cd ..
   git add external
-  git commit -m "chore(external): pin stamped-external for ADR-024/025 holistic plant"
-
-Run platform contract check (from repo root, if submodule scripts are used):
-
+  git commit -m "chore(external): pin stamped-external for practical Rx gates"
   bash external/scripts/contracts/contract-check.sh
-  # or: sh external/scripts/contracts/contract-check.sh
 
 ═══════════════════════════════════════════════════════════════════
-2) MANDATORY READING ORDER (all layers — do this before planning)
+2) MANDATORY READING ORDER
 ═══════════════════════════════════════════════════════════════════
 
-Shared (everyone):
+Shared:
   1. external/decisions/024-026/ADR-026-two-pillars-shared-context.md
   2. external/technical/product/Stamped_Client_Positioning_and_Narrative_v1.md
-     (four-step client story; practical Rx rules; do NOT lead with "agentic AI")
-  3. external/demo-decks/prescriptions-examples.md (floor-tied illustrations)
+  3. external/demo-decks/prescriptions-examples.md
   4. external/handoff/holistic/stamped-holistic-architecture-audit.md
-  5. external/decisions/024-026/ADR-024-holistic-plant-decisions.md
-  6. external/decisions/024-026/ADR-025-improve-loop-step-06.md
-  7. external/technical/STAMPED_ARCHITECTURE.md
-  8. external/handoff/holistic/stamped-holistic-pilot-stack.md
-  9. external/contracts/CHANGELOG.md  (0.10.0 section)
-  10. external/AGENTS.md + ponytail skill before any code
+  5. external/handoff/holistic/stamped-holistic-pilot-stack.md
+  6. external/handoff/holistic/improve/stamped-l5-internal-console-handoff.md
+  7. external/decisions/024-026/ADR-024-holistic-plant-decisions.md
+  8. external/decisions/024-026/ADR-025-improve-loop-step-06.md
+  9. external/technical/STAMPED_ARCHITECTURE.md
+  10. external/contracts/CHANGELOG.md (0.11.2)
+  11. external/AGENTS.md + ponytail skill before any code
 
-Then layer-specific (read ONLY your layer block after shared):
+Layer blocks:
 
-── L1 connectors-edge / connectors-cloud / connectors-bill ──
-  A. external/handoff/holistic/stamped-mes-erp-integration-brief.md
-  B. external/contracts/schemas/plant/production-order.json
-  C. external/contracts/schemas/telemetry/production-record.json
-  D. external/contracts/schemas/envelope/stamped-record-envelope.json
-  E. external/technical/layers/l1-l2/L1-connect-and-normalise.md  (ERP/MES sections)
-  Plan: CSV MES-lite + optional SAP/Tally/OData path; emit production_order
-        envelopes; never write to ERP.
+── L1 ── Wave A: meter + idle/output + compressor kW/pressure + bill MD/PF.
+  Wave B later: production_order (mes-erp brief). Never OT write.
 
-── L2 universal-repositary ──
-  A. external/contracts/schemas/plant/plant-department-graph.json
-  B. external/contracts/schemas/plant/production-order.json
-  C. external/contracts/schemas/telemetry/production-record.json
-  D. external/technical/layers/l1-l2/L2-universal-repository.md  (§2.1 Production*)
-  E. external/handoff/l2/core/stamped-l2-spec.md  (if present)
-  Plan: store + query orders + department graph; no graph DB product.
+── L2 ── Wave A: baselines SEC/duty; Finding/Prescription ingest.
+  Wave B: ProductionOrder + department graph. No graph DB.
 
-── L3 intelligence-core + intelligence-rulepacks ──
-  A. external/handoff/holistic/stamped-l3-tradeoff-engine-spec.md
-  B. external/contracts/schemas/intelligence/finding.json  (optional decision_class)
-  C. external/contracts/schemas/intelligence/prescription.json  (tradeoff, decision_class)
-  D. external/contracts/fixtures/plant/plant_department_graph.valid.json
-  E. external/contracts/fixtures/plant/production_order.valid.json
-  Plan: TradeoffEngine for stagger_costart / load_shift_tod /
-        furnace_preheat_early; never recommend hot-line stagger as primary
-        when due_at blocks it.
+── L3 ── Wave A: emit idle_load + compressor_sp_drift with value_domain;
+  MD/PF/ToD remain; golden/eval. Wave B: TradeoffEngine. Shadow never customer-facing.
 
-── L4 knowledge-reasoning ──
-  A. external/handoff/holistic/stamped-prescription-negotiation-spec.md
-  B. external/contracts/schemas/intelligence/prescription-revision.json
-  C. external/contracts/fixtures/intelligence/prescription_revision.valid.json
-  D. external/decisions/020-023/ADR-023-l6-ems-and-analyst-context.md  (propose≠commit)
-  E. external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md
-  Plan: POST /v1/negotiation/revise; template-bound only; human confirm.
+── L4 ── Wave A: pilot templates; AD-5 fields; rank/dedupe; gate diagnostics.
+  No free-form What rewrite. Wave B: POST /v1/negotiation/revise.
 
-── L5 closure-verification ──
-  A. external/handoff/holistic/stamped-prescription-negotiation-spec.md
-  B. external/handoff/holistic/improve/stamped-improve-pipeline-spec.md
-  C. external/handoff/holistic/improve/stamped-improve-report-template.md
-  D. external/contracts/schemas/closure/improvement-signal.json
-  E. external/contracts/schemas/plant/plant-preference-profile.json
-  Plan: revision workflow events; emit ImprovementSignal; monthly Improve
-        job (draft prefs + markdown report); NO auto-promote without approval.
+── L5 ── Wave A: gate vs plant-admin-settings; all-Rx console; force-send/
+  withhold; approve-for-client; WhatsApp shadow. Wave B: negotiation + Improve full.
+  Read: stamped-l5-internal-console-handoff.md
 
-── L6 stamped-l6 ──
-  A. external/handoff/holistic/stamped-prescription-negotiation-spec.md
-  B. external/handoff/holistic/stamped-holistic-pilot-stack.md
-  C. external/decisions/020-023/ADR-023-l6-ems-and-analyst-context.md
-  D. external/design/forge-industrial-design-system.md  (six-step)
-  Plan: Discuss UX on Rx detail; tradeoff on card; BFF→L5 live;
-        fixtures only as USE_FIXTURES fallback. Improve report is INTERNAL
-        (devs), not a customer nav item.
+── L6 ── Wave A: BFF→L5 live; Rx card + flip evidence; exclude withheld/
+  pending_stamped_review. Wave B: Discuss + tradeoff. Improve is INTERNAL only.
 
 ═══════════════════════════════════════════════════════════════════
-3) HARD RULES (non-negotiable)
+3) HARD RULES
 ═══════════════════════════════════════════════════════════════════
 
-  - Positioning: ₹ energy is the HERO; order/OEE/throughput are CO-BENEFITS
-    (plant effectiveness — not Pillar 3).
-  - Framing: two pillars + shared context only ([ADR-026]).
-  - Not an MES / CMMS / quality system. Read + recommend only.
-  - Improve is step 06, plant-scoped, human-gated — not a new layer repo.
-  - Bounded action templates only (no free-text physical instructions).
-  - Contract changes only in stamped-external PRs — never fork schemas here.
-  - Ponytail: smallest diff; plan → approve → implement.
-  - After implement: run external/scripts/contracts/contract-check.sh + repo tests.
+  - ₹ energy HERO; order/OEE CO-BENEFITS. Two pillars only ([ADR-026]).
+  - Not MES/CMMS. Improve weekly human-gated — not L7.
+  - Bounded templates only. Contract changes only in stamped-external.
+  - Commit after each validated milestone; push check at 10 unpushed.
+  - Ponytail: smallest diff. Run contract-check + repo tests after implement.
 
 ═══════════════════════════════════════════════════════════════════
-4) YOUR DELIVERABLE IN THIS SESSION
+4) DELIVERABLE THIS SESSION
 ═══════════════════════════════════════════════════════════════════
 
-  A. Confirm submodule pin (tag/SHA) and contracts 0.10.0 visible.
-  B. Restate which layer you are (L1…L6) and which files you read.
-  C. Restate framing: two pillars + shared context (not MES).
-  D. Produce an IMPLEMENTATION PLAN only:
-       Goal / Scope / Non-goals / Dependencies / Risks / Phases
-  E. STOP for human approval before writing application code.
-  F. Do not edit external/. Do not edit the holistic plan file.
+  A. Confirm submodule pin and contracts ≥ 0.11.2.
+  B. Restate layer (L1…L6) + files read + framing.
+  C. IMPLEMENTATION PLAN only; STOP for approval before app code.
+  D. Do not edit external/.
 
-If requirements conflict with ADR-024/025/026, STOP and ask — platform wins.
+If requirements conflict with ADR-024/025/026, STOP — platform wins.
 ```
 
 ---
 
-## Short form (Slack / ticket one-liner)
+## Short form
 
 ```text
-Bump external/ to stamped-external pin with contracts 0.10.0 + ADR-024/025/026.
-Read external/decisions/024-026/ADR-026-two-pillars-shared-context.md first, then
-external/handoff/agents/prompts/stamped-holistic-consumer-prompt.md (full block). Plan YOUR
-layer only — two pillars + shared context, no MES, no L7, no edits under external/.
+Bump external/ to stamped-external ≥ 0.11.2 / v2026.08.05. Read ADR-026 +
+stamped-holistic-consumer-prompt.md. Wave A = generic-energy (idle + compressor
+SP + practical Rx gates + L5 console). Wave B = orders/Tradeoff/Discuss. No MES, no L7.
 ```
 
 ---
 
-## Per-repo checklist (company internal)
+## Per-repo checklist (Wave A done when)
 
-| Repo | Owner agent pastes | Done when |
-| --- | --- | --- |
-| connectors-edge / cloud | Full prompt + L1 block | `production_order` ingest Path B CSV |
-| universal-repositary | Full prompt + L2 block | Orders + department graph queryable |
-| intelligence-core / rulepacks | Full prompt + L3 block | Tradeoff on stagger/TOD/preheat |
-| knowledge-reasoning | Full prompt + L4 block | Negotiation revise API |
-| closure-verification | Full prompt + L5 block | Revision workflow + Improve job draft |
-| stamped-l6 | Full prompt + L6 block | Discuss UX + live BFF path |
+| Repo | Done when |
+| --- | --- |
+| connectors-edge / cloud / bill | Pilot tags + bill MD/PF envelopes publish |
+| universal-repositary | Baseline/evidence queries for idle + compressor |
+| intelligence-core / rulepacks | Findings emit with `value_domain` |
+| knowledge-reasoning | Practical templates compile |
+| closure-verification | Gate + all-Rx console + force send/stop |
+| stamped-l6 | Live approved-only Rx + flip evidence |
 
-Pin note: until `v2026.07.30` (or later) is tagged on stamped-external, use the merge SHA that contains `contracts/CHANGELOG.md` **0.10.0**.
+Pin note: use `v2026.08.05` or SHA with contracts **0.11.2**.

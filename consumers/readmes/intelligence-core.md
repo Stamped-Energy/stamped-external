@@ -1,4 +1,5 @@
 <!-- SNAPSHOT: mirrored from intelligence-core/README.md on 2026-07-19. Canonical README lives in the consumer repo — re-sync when that README changes. -->
+<!-- PLATFORM NOTE 2026-08-05: pin external ≥ 0.11.2. Wave A hot path MUST emit idle_load + compressor_sp_drift with required value_domain (energy_efficiency | equipment_health). MD/PF/ToD alone is insufficient. -->
 
 > **Snapshot** of [`intelligence-core`](https://github.com/Vinayak-RZ/intelligence-core) root README (copied 2026-07-19).
 > Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.

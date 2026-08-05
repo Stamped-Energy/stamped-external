@@ -1,4 +1,5 @@
 <!-- SNAPSHOT: mirrored from closure-verification/README.md on 2026-07-21. Canonical README lives in the consumer repo — re-sync when that README changes. -->
+<!-- PLATFORM NOTE 2026-08-05: pin external ≥ 0.11.2. Wave A: practicality gate + Internal Console all-Rx / force-send / plant gate profile — see handoff/holistic/improve/stamped-l5-internal-console-handoff.md -->
 
 > **Snapshot** of [`closure-verification`](https://github.com/Vinayak-RZ/closure-verification) root README (copied 2026-07-21).
 > Canonical source: consumer repo `README.md`. Do not edit here for product truth — update the consumer repo, then re-copy.

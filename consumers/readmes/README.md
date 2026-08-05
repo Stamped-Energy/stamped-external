@@ -3,6 +3,11 @@
 > **What it is:** Mirrored root `README.md` files from Stamped layer consumer repos, kept in the platform pack for cross-repo context.  
 > **What it is not:** Canonical product docs — each consumer repo owns its README.  
 > **Sync rule:** When a consumer README changes, re-copy it here and bump the snapshot date in that file’s banner.
+>
+> **Platform pin (2026-08-05):** consumers should target stamped-external **≥ 0.11.2** / `VERSION` **2026.08.05**.  
+> **Wave A (generic-energy):** MD/PF/ToD + `idle_load` + `compressor_sp_drift` + AD-5 gate + L5 Internal Console (all Rx).  
+> **Wave B (holistic):** ProductionOrder + TradeoffEngine + negotiation + Discuss.  
+> Agent form: [stamped-holistic-consumer-prompt.md](../../handoff/agents/prompts/stamped-holistic-consumer-prompt.md).
 
 ---
 
