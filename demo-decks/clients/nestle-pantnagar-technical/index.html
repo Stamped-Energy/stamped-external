@@ -2766,20 +2766,20 @@
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
             <p class="industry-chip client-mark reveal" id="industryChip">Nestlé Pantnagar</p>
-            <p class="eyebrow reveal">Maggi / culinary · warehouses · SIDCUL · Technical brief</p>
+            <p class="eyebrow reveal">Culinary plant · warehouses · SIDCUL · Technical brief</p>
             <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">Act on warehouse HVAC and ToD / MD windows before they close</h1>
-            <p class="lede reveal hide-mobile">A short walkthrough of how Stamped turns meters, BAS, shift data, and UPCL bills into rupee-scored prescriptions: named owner, clear action, WhatsApp delivery, and month-end proof of what ran, what did not, and why.</p>
-            <p class="mobile-lede reveal show-mobile">Warehouse HVAC and ToD / MD actions with owners, on WhatsApp, with proof.</p>
+            <h1 class="reveal">Act on energy opportunities before the window closes</h1>
+            <p class="lede reveal hide-mobile">Stamped turns meters, BAS, shift data, and UPCL bills into rupee-scored prescriptions: what to do, who owns it, the rupee benefit, and the evidence. Industry Energy Management and Asset Health Intelligence on the stack you already run.</p>
+            <p class="mobile-lede reveal show-mobile">Rupee-scored prescriptions with owners and evidence. Energy and asset health in one loop.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Warehouse HVAC</span>
-              <span class="chip">ToD / MD</span>
+              <span class="chip">Energy management</span>
+              <span class="chip">Asset health</span>
               <span class="chip">Assigned actions</span>
               <span class="chip">Verified outcomes</span>
             </div>
             <div class="flow-tags reveal show-mobile">
-              <span class="chip">Warehouse HVAC</span>
-              <span class="chip">ToD / MD</span>
+              <span class="chip">Energy management</span>
+              <span class="chip">Asset health</span>
               <span class="chip">Verified outcomes</span>
             </div>
             <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Works alongside NEE / E&amp;AMES. Read-only. No PLC or setpoint writes. Operators stay in control.</p>
@@ -2799,8 +2799,8 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">The question after monitoring</p>
         <h2 class="reveal">You already see the plant. Who should act, and on what?</h2>
-        <p class="lede reveal hide-mobile">Pantnagar already has Nestlé Engineering Excellence, E&amp;AMES, meters, FSSC, and warehouse plus hall HVAC. We are not rebuilding that. This brief shows how a signal becomes a named next step someone can run, before any commitment.</p>
-        <p class="mobile-lede reveal show-mobile">Not more dashboards. A named next step someone can actually run.</p>
+        <p class="lede reveal hide-mobile">Pantnagar already has Nestlé Engineering Excellence, E&amp;AMES, meters, FSSC, and warehouse plus hall HVAC. We are not rebuilding that. This brief shows how a signal becomes a ranked next step someone can run: energy cost and asset health, before any commitment.</p>
+        <p class="mobile-lede reveal show-mobile">Not more dashboards. A ranked next step someone can actually run.</p>
         <div class="gap-compare reveal">
           <div class="gap-col">
             <h3>What Nestlé already has</h3>
@@ -2815,11 +2815,11 @@
           <div class="gap-col">
             <h3>What Stamped adds</h3>
             <ul>
-              <li>One time-aligned view of HVAC, process, schedule, and UPCL ToD / MD</li>
-              <li>A named action at a named time, not only an alert</li>
-              <li>An alternative when storage-spec or hygiene blocks the first option</li>
-              <li>Owner, expected impact, and due window on WhatsApp</li>
-              <li>Month-end: completed, skipped, blocked, and why</li>
+              <li>Industry Energy Management: MD, idle loads, HVAC, ToD / tariff windows</li>
+              <li>Asset Health Intelligence: early drift on compressors, chillers, fans, pumps</li>
+              <li>Rupee-scored prescription with owner, effort, and due window</li>
+              <li>WhatsApp to the floor · alternative when quality blocks the first option</li>
+              <li>Month-end ledger: completed, skipped, blocked, and why</li>
             </ul>
           </div>
         </div>
@@ -2836,19 +2836,19 @@
           <article class="do-step">
             <div class="do-step__num">01</div>
             <h3>Connect</h3>
-            <p>Warehouse + hall HVAC feeders · BAS / SCADA export · occupancy / dispatch / CIP state · shift calendar · UPCL bill (MD + ToD)</p>
+            <p>Incomer and feeder meters · BAS / SCADA export · occupancy / dispatch / line state · shift calendar · UPCL bill (MD + ToD)</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">02</div>
             <h3>Build plant context</h3>
-            <p>Line up signals in time and map them to how load actually flows: consumer → feeder → warehouse / Maggi block → utility → AHU.</p>
+            <p>Line up signals in time: consumer → feeder → warehouse / production block → utility → asset.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">03</div>
             <h3>Decide</h3>
-            <p>Load and tariff models flag better ToD / MD windows. Per-AHU models flag drift against comparable Pantnagar runs.</p>
+            <p>Energy models flag MD, idle, and ToD windows. Asset-health models flag drift against each machine&apos;s own baseline.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
@@ -2870,81 +2870,82 @@
 
     <section class="slide slide--light grid-bg" id="scene-load" data-theme="light" aria-label="Load and energy management">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Pillar 1 · Load &amp; Energy Efficiency Intelligence</p>
+        <p class="eyebrow reveal">Pillar 1 · Industry Energy Management</p>
         <h2 class="reveal">Work the full load picture, not only the MD spike</h2>
-        <p class="lede reveal hide-mobile">Most plants react when the bill lands. We watch warehouse HVAC, Maggi utilities, and UPCL ToD / MD through the month, and call out moves that are realistic for production and storage specs.</p>
-        <p class="mobile-lede reveal show-mobile">Practical load moves tied to warehouse, Maggi shift plan, and ToD, not only end-of-month MD firefighting.</p>
+        <p class="lede reveal hide-mobile">Most plants react when the bill lands. We watch demand, idle loads, HVAC, and UPCL ToD through the month, and call out moves that are realistic for production and storage specs.</p>
+        <p class="mobile-lede reveal show-mobile">MD, idle, HVAC, and ToD moves tied to the shift plan, not only end-of-month firefighting.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
             <h3>Sequence</h3>
-            <p>When the schedule allows, stagger warehouse HVAC pull-up, Maggi fryer heat-up, and packer air so they do not stack demand in one window.</p>
+            <p>When the schedule allows, stagger heavy starts so warehouse cooling, process heat-up, and packer air do not stack demand in one window.</p>
           </article>
           <article class="waste-card">
             <h3>Reduce</h3>
-            <p>Call out warehouse AHUs on occupied duty after dispatch closes, hall HVAC through CIP, and compressors unloading off-shift.</p>
+            <p>Call out warehouse cooling on full duty after dispatch, hall HVAC through empty windows, and compressors unloading off-shift.</p>
           </article>
           <article class="waste-card">
             <h3>Shift</h3>
-            <p>Move flexible warehouse and utility work into cheaper ToD or lower-MD shoulders when Maggi release and dispatch can still deliver.</p>
+            <p>Move flexible warehouse and utility work into cheaper ToD or lower-MD shoulders when production release and dispatch can still deliver.</p>
           </article>
           <article class="waste-card">
             <h3>Correct</h3>
             <p>Catch PF drift, wide pressure or temperature bands, and repeat MD hits before they show up on the UPCL bill.</p>
           </article>
         </div>
-        <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Examples at Pantnagar: warehouse AHU setback · hall HVAC vs CIP · fryer + HVAC + packer air MD overlap · compressed-air unload · UPCL ToD / demand (~480 rupees/kVA class, illustrative tariff context)</p>
-        <p class="footnote reveal">Production, quality, storage specs, and safety stay first. If a lower-energy option breaks Maggi release or warehouse RH, we do not push it.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Examples at Pantnagar: warehouse idle · hall HVAC vs CIP · demand overlap · compressed-air unload · UPCL ToD / demand (~480 rupees/kVA class, illustrative tariff context)</p>
+        <p class="footnote reveal">Production, quality, storage specs, and safety stay first. If a lower-energy option breaks release timing or warehouse humidity, we do not push it.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-equipment" data-theme="light" aria-label="Equipment intelligence">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Pillar 2 · Prescriptive Equipment Intelligence</p>
-        <h2 class="reveal">Each AHU and utility judged against its own normal, not the plant average</h2>
-        <p class="lede reveal hide-mobile">After we connect, models learn how each warehouse AHU, chiller, and compressor runs at Pantnagar by shift and occupancy. Slow drift on one fan does not get buried in a site-wide kW number.</p>
-        <p class="mobile-lede reveal show-mobile">Per-asset baselines. Drift shows up before the monthly review.</p>
+        <p class="eyebrow reveal">Pillar 2 · Asset Health Intelligence</p>
+        <h2 class="reveal">Catch energy-linked equipment drift early, with an owner attached</h2>
+        <p class="lede reveal hide-mobile">The same stack that finds bill waste also flags equipment issues early. Compressors, chillers, fans, and pumps are judged against their own normal, not a plant-wide average, so drift shows up before trips and waste compound.</p>
+        <p class="mobile-lede reveal show-mobile">Per-asset baselines. Early warnings with owners, not another ignored alert.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>Baseline model</h3>
-            <p>Learns the expected operating band by time, shift, occupancy / dispatch state, and outdoor wet-bulb.</p>
+            <h3>Expected behaviour</h3>
+            <p>Learns the operating band by time, shift, occupancy / dispatch state, and comparable load.</p>
           </article>
           <article class="waste-card">
-            <h3>Drift and anomaly model</h3>
-            <p>Flags sustained changes in fan duty, filter ΔP, specific power, startup shape, or chiller approach.</p>
+            <h3>Energy-linked drift</h3>
+            <p>Flags sustained changes in fan duty, filter load, specific power, startup shape, or chiller approach.</p>
           </article>
           <article class="waste-card">
-            <h3>Context check</h3>
-            <p>Separates production- or weather-driven change from a likely equipment or operating issue.</p>
+            <h3>Root cause with rupee impact</h3>
+            <p>Separates production- or weather-driven change from a likely equipment or operating issue, ranked by cost.</p>
           </article>
           <article class="waste-card">
-            <h3>Prescription and verification</h3>
-            <p>Recommends setback, inspect, clean, or tune; then checks whether the curve recovered after close-out.</p>
+            <h3>Assigned inspect / tune</h3>
+            <p>Routes inspect, clean, or tune to utilities or maintenance, then checks whether the curve recovered.</p>
           </article>
         </div>
         <div class="bound-col bound-col--ot reveal" style="margin-top:0.85rem;padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
-          <h3 style="font-size:0.88rem;margin-bottom:0.45rem;">Typical signals</h3>
+          <h3 style="font-size:0.88rem;margin-bottom:0.45rem;">Typical signals at Pantnagar</h3>
           <ul class="bound-list">
-              <li>Warehouse AHU filter ΔP / fan duty vs empty-aisle occupancy</li>
+              <li>Warehouse fan duty vs empty-aisle occupancy</li>
               <li>Chiller condenser approach under similar ambient and load</li>
               <li>Compressor specific-power drift at comparable header demand</li>
-              <li>Extraction fans on tastemaker / powder rooms changing for matched runs</li>
+              <li>Cooling-water pump recirculation or stuck bypass</li>
           </ul>
         </div>
-        <p class="footnote reveal">Earlier than a fixed alarm threshold. We do not claim bearing life or RUL without the right condition-monitoring data.</p>
+        <p class="footnote reveal">Earlier than a fixed alarm threshold. Not a CMMS or full vibration PdM claim. We do not claim bearing life or RUL without the right condition-monitoring data.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescriptions">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Example prescriptions · Warehouse HVAC &amp; ToD / MD</p>
+        <p class="eyebrow reveal">Example prescriptions · Both pillars</p>
         <h2 class="reveal">A prescription tied to what is happening on the floor</h2>
         <span class="illustrative-badge reveal">Illustrative examples · not Pantnagar measurements</span>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 is Industry Energy Management (idle HVAC). Card 2 is Asset Health Intelligence (compressor drift). The same loop also covers MD / ToD stagger, chiller approach, and pump recirculation.</p>
         <div class="rx-layout reveal">
           <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Switch warehouse cooling to idle after dispatch. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · Warehouse HVAC</span>
+                  <span class="rx-badge">Rx · Energy · idle HVAC</span>
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
@@ -2987,21 +2988,21 @@
             </div>
           </button>
 
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Hold warehouse cooling and packer air for demand window. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Inspect compressor inlet filter and unload valve. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · ToD / MD</span>
+                  <span class="rx-badge">Rx · Asset health</span>
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Hold warehouse cooling pull-up and packer air until process heat-up has settled, about 10-12 minutes inside the open UPCL demand window. Do not change first production release time.</p>
+                  <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Warehouse cooling, process heat-up, and packer air stack on the same demand interval on three of five weekday starts, even when throughput is stable.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + production supervisor + warehouse stores</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>35,000-55,000 rupees / month [illustrative] on the demand / ToD line</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production + warehouse sign-off</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>Next day-shift start</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure and shift load. The drift has persisted for nine days.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + mechanical maintenance</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>45,000-70,000 rupees / month [illustrative]</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -3009,26 +3010,24 @@
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
                   <span class="rx-badge">Evidence · sample</span>
-                  <span class="rx-priority rx-priority--med">Demand overlap</span>
+                  <span class="rx-priority rx-priority--med">Specific power</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">Site demand vs UPCL peak window · weekday start (example tags)</p>
+                  <p class="rx-ev-title">Specific-power trend · last 8 weeks (example tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
-                    <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA</text>
-                    <rect x="104" y="18" width="56" height="34" fill="rgba(247,84,64,0.18)" stroke="none"/>
-                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,46 56,44 104,30 160,24 216,28 272,40 304,44"/>
-                    <text x="132" y="14" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">MD interval</text>
-                    <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 48,40 88,38 128,36 168,28 208,24 248,26 288,30"/>
+                    <line x1="168" y1="8" x2="168" y2="56" stroke="#00666b" stroke-dasharray="4 3"/>
+                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">drift +14%</text>
                   </svg>
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>WH.PULLUP</code></td><td>ON</td><td>MD interval</td></tr>
-                      <tr><td><code>PROC.HEATUP</code></td><td>ON</td><td>3 / 5 starts</td></tr>
-                      <tr><td><code>PACK.AIR</code></td><td>ON</td><td>same window</td></tr>
+                      <tr><td><code>COMP2.kW_PER_AIR</code></td><td>+14% vs base</td><td>9 days</td></tr>
+                      <tr><td><code>COMP2.RUN_H</code></td><td>aligned</td><td>baseline window</td></tr>
+                      <tr><td><code>PROD.SHIFT</code></td><td>matched</td><td>not volume-driven</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite">md_tod_stagger@v2.1 · example only · confirm on live plant data</p>
+                  <p class="rx-cite">sp_drift@v1.6 · example only · confirm on live plant data</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -3043,7 +3042,7 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">How a finding becomes the next-best plant decision</p>
         <h2 class="reveal">A finding becomes a doable action, with an owner and a window</h2>
-        <p class="lede reveal hide-mobile">We flag warehouse HVAC drift or ToD / MD overlap, then add shift state, storage-spec, and Maggi constraints, and draft an action the right person can run. The point is the decision, not the model.</p>
+        <p class="lede reveal hide-mobile">We flag energy windows (MD, idle, ToD) and asset drift, then add shift state, storage-spec, and production constraints, and draft an action the right person can run. Operators review every prescription and stay in control.</p>
         <p class="mobile-lede reveal show-mobile">Findings get context and a feasible owner, not a raw alert.</p>
         <div class="agent-pipe reveal hide-mobile">
           <span>Finding + evidence</span><span>↓</span>
@@ -3063,7 +3062,7 @@
             <div class="agent-step__num">2</div>
             <div>
               <strong>Add context</strong>
-              <p>Read warehouse occupancy / dispatch, Maggi shift state, UPCL ToD, asset relationships, and approved operating knowledge.</p>
+              <p>Read warehouse occupancy / dispatch, production shift state, UPCL ToD, asset relationships, and approved operating knowledge.</p>
             </div>
           </article>
           <article class="agent-step">
@@ -3077,7 +3076,7 @@
             <div class="agent-step__num">4</div>
             <div>
               <strong>Adapt</strong>
-              <p>If the first option clashes with storage-spec or Maggi release, suggest the next feasible window instead of sending something unusable.</p>
+              <p>If the first option clashes with storage-spec or production release, suggest the next feasible window instead of sending something unusable.</p>
             </div>
           </article>
           <article class="agent-step">
@@ -3099,8 +3098,8 @@
           <div class="floor-copy">
             <p class="eyebrow reveal">Getting the action to the right person</p>
             <h2 class="reveal">The right action reaches the right owner, with evidence attached</h2>
-            <p class="lede reveal hide-mobile">At a Pantnagar-scale Maggi site, one energy finding often crosses utilities, warehouse stores, production, and shift supervision before anyone acts. Stamped routes the prescription to whoever can actually run it.</p>
-            <p class="lede reveal show-mobile">One action card to the right owner (utilities, warehouse stores, or Maggi supervisor), with evidence attached.</p>
+            <p class="lede reveal hide-mobile">At a Pantnagar-scale culinary site, one energy or asset-health finding often crosses utilities, warehouse stores, production, and maintenance before anyone acts. Stamped routes the prescription to whoever can actually run it.</p>
+            <p class="lede reveal show-mobile">One action card to the right owner (utilities, warehouse stores, production, or maintenance), with evidence attached.</p>
             <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">WhatsApp for assigned actions · dashboard for queue and evidence · export for management review</p>
             <p class="footnote reveal">Workers see a short card. Leadership sees queue, constraints, expected value, and what actually landed.</p>
           </div>
@@ -3113,7 +3112,7 @@
               <strong>How we route it</strong>
               <ul class="routing-steps">
                 <li data-n="1">Map the asset to the owner (e.g. warehouse cooling → utilities + stores).</li>
-                <li data-n="2">Check the dispatch / Maggi / ToD window so the ask is feasible this shift.</li>
+                <li data-n="2">Check the dispatch / production / ToD window so the ask is feasible this shift.</li>
                 <li data-n="3">Pack why, impact, and evidence on one card.</li>
                 <li data-n="4">Send that card on WhatsApp (or the dashboard queue) to that owner.</li>
               </ul>
@@ -3231,9 +3230,9 @@
                 <td>Verified · completed</td>
               </tr>
               <tr>
-                <td>ToD / MD stagger</td>
+                <td>Compressor 2 filter inspect</td>
                 <td>Realised</td>
-                <td>41k rupees/mo</td>
+                <td>48k rupees/mo</td>
                 <td>Verified · completed</td>
               </tr>
               <tr>
@@ -3253,14 +3252,14 @@
     <section class="slide slide--light grid-bg" id="scene-integration" data-theme="light" aria-label="Integration and boundaries">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Designed for brownfield plants</p>
-        <h2 class="reveal">Fits a brownfield Maggi site: read-only, no control writes</h2>
+        <h2 class="reveal">Fits a brownfield culinary site: read-only, no control writes</h2>
         <div class="bound-grid reveal">
           <div class="bound-col bound-col--ot">
             <h3>Integration</h3>
             <ul class="bound-list">
               <li>OPC-UA, Modbus, MQTT, API, or scheduled file export, depending on existing access</li>
               <li>Optional edge-buffered path when direct cloud connectivity is not permitted</li>
-              <li>Start with meter + UPCL bill; add warehouse HVAC feeders, BAS, and Maggi context only where useful</li>
+              <li>Start with meter + UPCL bill; add warehouse HVAC feeders, BAS, and production context only where useful</li>
             </ul>
           </div>
           <div class="bound-col ">
@@ -3269,7 +3268,7 @@
               <li>Read-only on OT in the Proof Run</li>
               <li>No PLC, AHU, chiller, or utility setpoint writes from Stamped</li>
               <li>Existing EMS, MES, production, and maintenance systems remain systems of record</li>
-              <li>Human approval for warehouse storage-spec, Maggi, maintenance, or high-impact actions</li>
+              <li>Human approval for warehouse storage-spec, production, maintenance, or high-impact actions</li>
             </ul>
           </div>
           <div class="bound-col bound-col--ot">
@@ -3291,17 +3290,17 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">A conversation, not a commitment</p>
         <h2 class="reveal">Happy to walk your team through how this would work at Pantnagar</h2>
-        <p class="offer-lede reveal hide-mobile">This brief is so engineering, warehouse, and utilities can see the approach. If it looks useful, we can sit with the right contacts and map one realistic starting point: one warehouse HVAC boundary, plus how ToD / MD would be scoped. No rollout ask in that meeting.</p>
+        <p class="offer-lede reveal hide-mobile">This brief is so engineering, warehouse, and utilities can see the approach across Industry Energy Management and Asset Health Intelligence. If it looks useful, we map one realistic starting point: one warehouse or utility boundary, plus how demand / ToD and early equipment warnings would be scoped. No rollout ask in that meeting.</p>
         <p class="mobile-lede reveal show-mobile">See the approach first. Then a short working session if useful.</p>
 
         <div class="offer-main reveal">
           <div class="offer-panel offer-panel--scope">
             <h3>What we&#x27;d cover in a working session</h3>
             <ul class="scope-list">
-              <li>One warehouse HVAC boundary that would be a fair first look</li>
+              <li>One warehouse or utility boundary that would be a fair first look</li>
               <li>Which BAS, meter, or UPCL bill data you already trust</li>
-              <li>Who would own an idle-warehouse-AHU action if one landed</li>
-              <li>How ToD / MD stagger would be scoped against Maggi release</li>
+              <li>Who would own an idle-warehouse or compressor-inspect action if one landed</li>
+              <li>How demand / ToD stagger and asset-health warnings would be scoped</li>
               <li>Two recent UPCL HT bills (MD, ToD, PF) if available</li>
             </ul>
           </div>
@@ -3318,11 +3317,11 @@
               </article>
               <article class="offer-phase">
                 <div class="offer-phase__when">No AI workshop</div>
-                <p>We walk warehouse HVAC and ToD / MD actions, not a models pitch.</p>
+                <p>We walk energy and asset-health actions, not a models pitch.</p>
               </article>
               <article class="offer-phase">
                 <div class="offer-phase__when">Keep it practical</div>
-                <p>One warehouse or utility boundary and one Maggi / dispatch context if you go further later.</p>
+                <p>One warehouse or utility boundary and one production / dispatch context if you go further later.</p>
               </article>
             </div>
           </div>
@@ -3331,7 +3330,7 @@
         <div class="offer-bottom reveal" style="margin-top:1.15rem;">
           <div class="ask-box">
             <strong>Suggested next step</strong>
-            <p>A 30-45 minute working session with utilities / building services and warehouse or Maggi contacts. We walk the brief, answer questions, and leave with a clear yes / no / later on whether a scoped pilot is worth discussing.</p>
+            <p>A 30-45 minute working session with utilities / building services and warehouse or production contacts. We walk the brief, answer questions, and leave with a clear yes / no / later on whether a scoped pilot is worth discussing.</p>
           </div>
           <div class="offer-aside">
             <div class="commercial">
@@ -3379,15 +3378,15 @@
         "statusStep": 0
       },
       {
-        "title": "Hold warehouse cooling and packer air for UPCL demand window",
-        "rule": "RX-ENE-031 · md_tod_stagger@v2.1",
-        "why": "Warehouse cooling, process heat-up, and packer air stack on the same demand interval on three of five weekday starts",
-        "impact": "35-55k rupees/mo on demand / ToD line [illustrative]",
-        "owner": "Utilities lead + production supervisor + warehouse stores",
-        "effort": "Schedule change only · production + warehouse sign-off",
-        "verify": "Compare demand / ToD bands for two weeks post-change; first production release unchanged",
+        "title": "Inspect Compressor 2 inlet filter and unload valve",
+        "rule": "RX-UTL-024 · sp_drift@v1.6",
+        "why": "Specific power 14% above eight-week baseline for matched header pressure and shift load; persisted nine days",
+        "impact": "45-70k rupees/mo if curve returns to baseline [illustrative]",
+        "owner": "Utilities lead + mechanical maintenance",
+        "effort": "~2 hrs · subject to isolation and permit",
+        "verify": "Compare post-service kW/Air with locked baseline for 72 operating hours",
         "priority": "Med",
-        "due": "Next day-shift start",
+        "due": "Next approved low-load maintenance window",
         "statusStep": 1
       }
     ];
