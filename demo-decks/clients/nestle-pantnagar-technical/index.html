@@ -693,8 +693,7 @@
     }
     .rx-flip {
       position: relative;
-      /* ponytail: Nestlé Rx copy is denser; taller card so Owner/Impact/Due stay visible */
-      min-height: 560px;
+      min-height: 420px;
       border: none; background: transparent; padding: 0;
       cursor: pointer; text-align: left; color: inherit;
       font: inherit; width: 100%;
@@ -706,7 +705,7 @@
       border-radius: var(--radius-lg);
     }
     .rx-flip__inner {
-      position: relative; width: 100%; height: 100%; min-height: 560px;
+      position: relative; width: 100%; height: 100%; min-height: 420px;
       transition: transform 0.55s var(--ease);
       transform-style: preserve-3d;
     }
@@ -756,7 +755,7 @@
     }
     .rx-action {
       font-family: var(--font-display); font-weight: 750;
-      font-size: clamp(0.88rem, 1.25vw, 1.02rem); line-height: 1.35; margin-bottom: 0.65rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.15rem); line-height: 1.35; margin-bottom: 0.75rem;
     }
     .rx-fields { display: grid; gap: 0.4rem; flex: 1; }
     .rx-row {
@@ -2941,7 +2940,7 @@
         <h2 class="reveal">A prescription tied to what is happening on the floor</h2>
         <span class="illustrative-badge reveal">Illustrative examples · not Pantnagar measurements</span>
         <div class="rx-layout reveal">
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Hold warehouse AHU at approved setback. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Turn warehouse cooling down after dispatch. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -2949,13 +2948,13 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Hold WH-AHU-02 (finished-goods / packaging-materials warehouse serving Pantnagar Maggi) at the approved unoccupied / low-dispatch setback during the next confirmed low-throughput window. Confirm with warehouse / quality that stored-SKU temperature and humidity stay inside spec (noodle cakes, tastemaker, packaging film). Do not change occupied Maggi halls or hygiene-room setpoints. Restore the occupied recipe before first inbound or dispatch wave. BAS write stays with Nestlé utilities / building services; Stamped only flags the window.</p>
+                  <p class="rx-action">Turn the finished-goods warehouse cooling down to the approved idle setting after the last dispatch for the night. Keep Maggi hall setpoints unchanged. Your utilities team makes the change; Stamped only flags the window.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Fan kW and supply airflow on the warehouse AHU stay at occupied duty for long stretches after dispatch closes, while occupancy and door-cycle counts are already low. The pattern has held on four of the last six weekday nights against an eight-week baseline of matched outdoor wet-bulb, filter ΔP, and stored-SKU temp/RH.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>Utilities / HVAC (building services) + warehouse / stores supervisor (quality sign-off)</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>The warehouse air system keeps running full after trucks leave on four of the last six weekday nights, even when the building is quiet.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Utilities / HVAC + warehouse stores (quality sign-off)</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong>45,000-70,000 rupees / month [illustrative]</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>~45 minutes · BAS recipe already exists · quality must sign the storage-spec window</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>Next approved low-dispatch / night window on that warehouse</dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>~45 minutes · idle setting already exists · quality must clear humidity</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Next quiet night after dispatch closes</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2963,21 +2962,21 @@
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
                   <span class="rx-badge">Evidence · sample</span>
-                  <span class="rx-priority">AHU kW vs occupancy</span>
+                  <span class="rx-priority">Fan power vs quiet hours</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">Warehouse AHU fan kW · last 8 weeks (example tags)</p>
+                  <p class="rx-ev-title">Warehouse fan power · last 8 weeks (example tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
                     <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 48,40 88,38 128,36 168,28 208,24 248,26 288,30"/>
                     <line x1="168" y1="8" x2="168" y2="56" stroke="#00666b" stroke-dasharray="4 3"/>
-                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">occupied after close</text>
+                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">full after close</text>
                   </svg>
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>WHAHU02.FAN_KW</code></td><td>occupied duty</td><td>post-dispatch</td></tr>
+                      <tr><td><code>WH.FAN_KW</code></td><td>full duty</td><td>after dispatch</td></tr>
                       <tr><td><code>WH.OCCUPANCY</code></td><td>low</td><td>4 / 6 nights</td></tr>
-                      <tr><td><code>WH.RH</code></td><td>in spec</td><td>baseline window</td></tr>
+                      <tr><td><code>WH.RH</code></td><td>in range</td><td>baseline window</td></tr>
                     </tbody>
                   </table>
                   <p class="rx-cite">wh_ahu_setback@v1.4 · example only · confirm on live plant data</p>
@@ -2988,7 +2987,7 @@
             </div>
           </button>
 
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger warehouse HVAC and Maggi heat-up for ToD MD. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger warehouse cooling and Maggi heat-up. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -2996,13 +2995,13 @@
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Stagger warehouse HVAC pull-up, Maggi fryer / steam-tunnel heat-up, and packer compressed-air start so they do not sit on the same 15-minute UPCL MD interval or the peak ToD band. Keep first Maggi / pasta release time and first dispatch wave unchanged. Move warehouse pull-up 20-25 minutes earlier into the lower-demand shoulder, or delay packer air until fryer current has dropped off the spike, whichever production and warehouse sign. No VFD retrofit. No PLC write from Stamped.</p>
+                  <p class="rx-action">Do not start warehouse cooling pull-up, Maggi fryer heat-up, and packer air in the same window. Keep Maggi release time the same. Move warehouse pull-up 20-25 minutes earlier, or wait on packer air until the fryer spike passes.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Warehouse HVAC pull-up, fryer heat-up, and packer air coincide on the billed MD interval on three of five weekday day-shift starts, even when Maggi volume and dispatch tonnes are stable. The overlap, not the Maggi recipe or the warehouse storage spec, is what lifts the kVA / peak-ToD line.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + Maggi shift supervisor + warehouse / stores</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Those three loads stack on the same UPCL demand window on three of five weekday starts, which lifts the bill even when Maggi volume is stable.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + Maggi shift supervisor + warehouse stores</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong>35,000-55,000 rupees / month [illustrative] on the demand / ToD line</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production + warehouse + food-safety sign-off</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>Next Maggi day-shift heat-up cycle</dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production + warehouse sign-off</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Next Maggi day-shift start</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -3010,10 +3009,10 @@
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
                   <span class="rx-badge">Evidence · sample</span>
-                  <span class="rx-priority rx-priority--med">MD / ToD overlap</span>
+                  <span class="rx-priority rx-priority--med">Demand overlap</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">kVA vs UPCL MD / ToD window · weekday start (example tags)</p>
+                  <p class="rx-ev-title">Site demand vs UPCL peak window · weekday start (example tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
                     <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA</text>
                     <rect x="104" y="18" width="56" height="34" fill="rgba(247,84,64,0.18)" stroke="none"/>
@@ -3024,7 +3023,7 @@
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>WHAHU.PULLUP</code></td><td>ON</td><td>MD interval</td></tr>
+                      <tr><td><code>WH.PULLUP</code></td><td>ON</td><td>MD interval</td></tr>
                       <tr><td><code>FRYER.HEATUP</code></td><td>ON</td><td>3 / 5 starts</td></tr>
                       <tr><td><code>UPCL.MD_INTERVAL</code></td><td>peak stack</td><td>day shift</td></tr>
                     </tbody>
@@ -3090,7 +3089,7 @@
           </article>
         </div>
         <p class="meta reveal" style="margin-top:0.75rem;">Grounded in plant data and approved operating knowledge. Not a generic chatbot, and no autonomous setpoint writes.</p>
-        <p class="agent-callout reveal">Warehouse AHU setback was suggested for Tuesday night, but stored-SKU RH was already at the top of spec. Stamped flags that and proposes Thursday 2-4 am instead, after the next inbound wave clears and RH has headroom.</p>
+        <p class="agent-callout reveal">Warehouse cooling idle was suggested for Tuesday night, but humidity was already at the top of the allowed range. Stamped flags that and proposes Thursday 2-4 am instead, after the next inbound clears and humidity has headroom.</p>
       </div>
     </section>
 
@@ -3113,7 +3112,7 @@
             <article class="routing-card routing-card--stamped">
               <strong>How we route it</strong>
               <ul class="routing-steps">
-                <li data-n="1">Map the asset to the owner (e.g. warehouse AHU → utilities + stores).</li>
+                <li data-n="1">Map the asset to the owner (e.g. warehouse cooling → utilities + stores).</li>
                 <li data-n="2">Check the dispatch / Maggi / ToD window so the ask is feasible this shift.</li>
                 <li data-n="3">Pack why, impact, and evidence on one card.</li>
                 <li data-n="4">Send that card on WhatsApp (or the dashboard queue) to that owner.</li>
@@ -3156,14 +3155,14 @@
                       <div class="wa-msg" id="floorMsg">
                         <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
                           <span class="tag" id="floorTag">Rx · High</span>
-                          <h4 id="floorTitle">Hold WH-AHU-02 at approved low-dispatch setback</h4>
+                          <h4 id="floorTitle">Turn warehouse cooling down after last dispatch</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
-                          <p class="wa-line" id="floorWhy"><b>Why:</b> Fan kW stays at occupied duty after dispatch closes on 4 of 6 weekday nights</p>
-                          <p class="wa-line" id="floorImpact"><b>Impact:</b> 45-70k rupees/mo if setback holds [illustrative]</p>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> Warehouse air keeps running full after trucks leave on 4 of 6 weekday nights</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> 45-70k rupees/mo if idle setting holds [illustrative]</p>
                           <p class="wa-line" id="floorOwner"><b>Owner:</b> Utilities / HVAC + warehouse stores</p>
-                          <p class="wa-line" id="floorEffort"><b>Effort:</b> ~45 min · BAS recipe exists · quality sign-off</p>
-                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Compare post-setback fan kW vs locked baseline for 72 operating hours</p>
-                          <p class="wa-line" id="floorDue"><b>Due:</b> Next approved low-dispatch / night window</p>
+                          <p class="wa-line" id="floorEffort"><b>Effort:</b> ~45 min · idle setting exists · quality clears humidity</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Compare fan power to locked baseline for 72 operating hours</p>
+                          <p class="wa-line" id="floorDue"><b>Due:</b> Next quiet night after dispatch closes</p>
                           <div class="wa-bubble__foot">
                             <span class="wa-tick" aria-hidden="true">10:42</span>
                           </div>
@@ -3226,7 +3225,7 @@
             <thead><tr><th>Prescription</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
             <tbody>
               <tr>
-                <td>Warehouse AHU setback</td>
+                <td>Warehouse cooling idle</td>
                 <td>Realised</td>
                 <td>52k rupees/mo</td>
                 <td>Verified · completed</td>
@@ -3238,10 +3237,10 @@
                 <td>Verified · completed</td>
               </tr>
               <tr>
-                <td>Chiller night setback</td>
+                <td>Chiller night idle</td>
                 <td>Potential</td>
                 <td>28k rupees/mo</td>
-                <td>Blocked · RH at top of storage spec</td>
+                <td>Blocked · humidity at top of allowed range</td>
               </tr>
             </tbody>
           </table>
@@ -3366,29 +3365,29 @@
 
 
   <script>
-        window.__FLOOR_RX__ = [
+    window.__FLOOR_RX__ = [
       {
-        "title": "Hold WH-AHU-02 at approved low-dispatch setback",
+        "title": "Turn warehouse cooling down after last dispatch",
         "rule": "RX-WHV-014 · wh_ahu_setback@v1.4",
-        "why": "Fan kW stays at occupied duty after dispatch closes on four of six weekday nights against matched wet-bulb and RH baseline",
-        "impact": "45-70k rupees/mo if setback holds [illustrative]",
-        "owner": "Utilities / HVAC (building services) + warehouse / stores (quality sign-off)",
-        "effort": "~45 min · BAS recipe exists · quality must sign storage-spec window",
-        "verify": "Compare post-setback fan kW vs locked baseline for 72 operating hours; confirm RH stays in spec",
+        "why": "Warehouse air keeps running full after trucks leave on four of six weekday nights, even when the building is quiet",
+        "impact": "45-70k rupees/mo if idle setting holds [illustrative]",
+        "owner": "Utilities / HVAC + warehouse stores (quality sign-off)",
+        "effort": "~45 min · idle setting exists · quality clears humidity",
+        "verify": "Compare fan power to locked baseline for 72 operating hours; confirm humidity stays in range",
         "priority": "High",
-        "due": "Next approved low-dispatch / night window",
+        "due": "Next quiet night after dispatch closes",
         "statusStep": 0
       },
       {
-        "title": "Stagger warehouse HVAC pull-up vs Maggi heat-up for UPCL MD / ToD",
+        "title": "Stagger warehouse cooling and Maggi heat-up for UPCL demand",
         "rule": "RX-ENE-031 · md_tod_stagger@v2.1",
-        "why": "Warehouse HVAC pull-up, fryer heat-up, and packer air stack on the same MD interval on three of five weekday starts",
+        "why": "Warehouse cooling, fryer heat-up, and packer air stack on the same UPCL demand window on three of five weekday starts",
         "impact": "35-55k rupees/mo on demand / ToD line [illustrative]",
-        "owner": "Utilities lead + Maggi shift supervisor + warehouse / stores",
-        "effort": "Schedule change only · production + warehouse + food-safety sign-off",
-        "verify": "Compare MD / ToD kVA bands for two weeks post-change; Maggi release time unchanged",
+        "owner": "Utilities lead + Maggi shift supervisor + warehouse stores",
+        "effort": "Schedule change only · production + warehouse sign-off",
+        "verify": "Compare demand / ToD bands for two weeks post-change; Maggi release time unchanged",
         "priority": "Med",
-        "due": "Next Maggi day-shift heat-up cycle",
+        "due": "Next Maggi day-shift start",
         "statusStep": 1
       }
     ];
