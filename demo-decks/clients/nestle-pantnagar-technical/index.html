@@ -2044,8 +2044,10 @@
       #scene-floor .phone:hover,
       #scene-floor.slide.active .phone,
       .slide.active#scene-floor .phone {
+        /* ponytail: kill 3D phoneIn without leaving .reveal stuck at opacity 0 */
         transform: none !important;
         animation: none !important;
+        opacity: 1 !important;
         margin: 0 auto;
       }
       #scene-floor .wa-line {
@@ -2445,9 +2447,17 @@
         width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
         max-width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
         margin: 0 auto;
-        transform: none;
+        transform: none !important;
+        animation: none !important;
+        opacity: 1 !important;
       }
-      #scene-floor .phone:hover { transform: none; }
+      #scene-floor .phone:hover,
+      #scene-floor.slide.active .phone,
+      .slide.active#scene-floor .phone {
+        transform: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+      }
       #scene-floor .phone__screen {
         width: var(--phone-screen-w);
         height: auto;
