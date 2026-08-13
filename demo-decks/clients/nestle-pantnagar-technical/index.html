@@ -1950,13 +1950,15 @@
 
     @media (max-width: 1100px) and (min-width: 721px) {
       #scene-floor .floor-layout {
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
       }
       #scene-floor .floor-status {
-        grid-column: 1 / -1;
-        max-width: 28rem;
+        grid-column: 1;
+        max-width: none;
       }
+      #scene-floor .phone-col { justify-content: center; }
+      #scene-prescription .meta.hide-mobile { display: block !important; }
     }
 
     @media (max-width: 1100px) {
@@ -1969,8 +1971,6 @@
     @media (max-width: 980px) {
       .hero-shell, .two-col, .rx-layout, .floor-layout, .loop-grid, .ba-grid, .bound-grid, .audit-grid, .gap-outcomes { grid-template-columns: 1fr; }
       .rx-flip, .rx-flip__inner { min-height: 360px; }
-      #scene-prescription .rx-flip,
-      #scene-prescription .rx-flip__inner { min-height: 0; height: auto; }
       .tech-card, .waste-card, .do-step, .silo-card { min-height: 0; }
       .silo-board, .stat-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .phone {
@@ -1981,6 +1981,91 @@
       .phone__screen { min-height: unset; }
       .dash-shell { height: clamp(380px, 66vh, 600px); }
       #scene-title .hero-shell { gap: var(--space-6); }
+
+      /* ponytail: absolute Rx faces + height:auto collapse cards on tablet; flow faces instead */
+      #scene-prescription.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 4.75rem));
+      }
+      #scene-prescription .slide__inner { transform: none; }
+      #scene-prescription .rx-layout {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0.85rem;
+        gap: 1rem;
+      }
+      #scene-prescription .rx-flip {
+        width: 100%;
+        min-height: 0;
+        height: auto;
+      }
+      #scene-prescription .rx-flip__inner {
+        min-height: 0;
+        height: auto;
+        transform: none !important;
+      }
+      #scene-prescription .rx-face {
+        position: relative;
+        inset: auto;
+        transform: none !important;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
+      #scene-prescription .rx-face--back { display: none; }
+      #scene-prescription .rx-flip.is-flipped .rx-face--front { display: none; }
+      #scene-prescription .rx-flip.is-flipped .rx-face--back { display: flex; }
+
+      #scene-floor.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 4.75rem));
+      }
+      #scene-floor .slide__inner { transform: none; }
+      #scene-floor .floor-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+      #scene-floor .floor-copy { order: 1; }
+      #scene-floor .phone-col { order: 2; justify-content: center; width: 100%; }
+      #scene-floor .floor-routing { order: 3; width: 100%; max-width: 100%; }
+      #scene-floor .lede.hide-mobile,
+      #scene-floor .meta.hide-mobile,
+      #scene-floor .footnote { display: none !important; }
+      #scene-floor .lede.show-mobile { display: block !important; }
+      #scene-floor .phone {
+        --phone-screen-w: 300px;
+      }
+      #scene-floor .phone,
+      #scene-floor .phone:hover,
+      #scene-floor.slide.active .phone,
+      .slide.active#scene-floor .phone {
+        transform: none !important;
+        animation: none !important;
+        margin: 0 auto;
+      }
+      #scene-floor .wa-line {
+        font-size: 0.75rem;
+        line-height: 1.35;
+        margin: 0 0 0.28rem;
+      }
+      #scene-floor .wa-meta { font-size: 0.72rem; }
+      #scene-offer.slide,
+      #scene-agentic.slide,
+      #scene-load.slide,
+      #scene-equipment.slide,
+      #scene-integration.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 4.75rem));
+      }
+      .eyebrow { font-size: 0.75rem; }
+      .chip { font-size: 0.75rem; }
     }
 
     @media (max-width: 720px) {
@@ -1995,7 +2080,7 @@
         padding:
           calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.75rem)
           max(1.1rem, var(--safe-r))
-          max(4.5rem, calc(var(--safe-b) + 4.25rem));
+          max(5.5rem, calc(var(--safe-b) + 4.75rem));
       }
       .slide__inner,
       .slide__inner--media {
@@ -2194,8 +2279,8 @@
         margin-bottom: 0.35rem;
       }
       #scene-title .flow-tags.show-mobile .chip {
-        font-size: 0.68rem;
-        padding: 0.28rem 0.5rem;
+        font-size: 0.75rem;
+        padding: 0.32rem 0.55rem;
       }
       #scene-title .hero-photo {
         flex: 0 1 auto;
@@ -2313,7 +2398,7 @@
       #scene-prescription .rx-flip-cue {
         margin-top: 0.55rem;
         font-weight: 650;
-        font-size: 0.72rem;
+        font-size: 0.75rem;
       }
       #scene-prescription h2 {
         font-size: clamp(1.2rem, 5.2vw, 1.45rem);
@@ -2381,11 +2466,8 @@
         justify-content: flex-start;
       }
       #scene-floor .wa-msg { max-width: 94%; }
-      /* Full action card on phone: keep Effort + Verify (was hidden for density) */
-      #scene-floor #floorEffort,
-      #scene-floor #floorVerify { display: block; }
       #scene-floor .wa-line {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
         line-height: 1.35;
         margin: 0 0 0.28rem;
       }
@@ -2398,7 +2480,7 @@
         padding: 0.4rem 0.45rem 0.55rem;
       }
       #scene-floor .wa-actions button {
-        min-height: 0;
+        min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
@@ -2488,8 +2570,9 @@
       .phase-table th, .phase-table td { padding: 0.65rem 0.75rem; }
       .ask-box { max-width: none; }
       .commercial { gap: 0.4rem; }
-      .chip { font-size: 0.7rem; }
+      .chip { font-size: 0.75rem; }
       .btn { min-height: 44px; }
+      .rx-flip-cue { font-size: 0.75rem; }
     }
 
     @media (max-width: 420px) {
