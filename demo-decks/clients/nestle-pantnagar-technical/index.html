@@ -1969,6 +1969,8 @@
     @media (max-width: 980px) {
       .hero-shell, .two-col, .rx-layout, .floor-layout, .loop-grid, .ba-grid, .bound-grid, .audit-grid, .gap-outcomes { grid-template-columns: 1fr; }
       .rx-flip, .rx-flip__inner { min-height: 360px; }
+      #scene-prescription .rx-flip,
+      #scene-prescription .rx-flip__inner { min-height: 0; height: auto; }
       .tech-card, .waste-card, .do-step, .silo-card { min-height: 0; }
       .silo-board, .stat-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .phone {
@@ -2218,32 +2220,41 @@
 
       #scene-load .waste-grid { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
       #scene-load .waste-card { min-height: 0; padding: 0.9rem 0.95rem; }
-      #scene-load .footnote { font-size: 0.8rem; margin-top: 0.55rem; }
+      #scene-load .footnote,
+      #scene-equipment .footnote { display: none; }
 
       #scene-equipment .waste-grid { grid-template-columns: 1fr 1fr; }
       #scene-equipment .bound-col--ot { margin-top: 0.65rem !important; }
-      #scene-equipment .footnote { font-size: 0.8rem; }
 
       #scene-agentic .agent-step p { font-size: 0.82rem; }
       #scene-agentic .agent-callout { font-size: 0.8rem; padding: 0.65rem 0.85rem; margin-top: 0.65rem; }
 
-      /* Prescriptions: breathing room + readable action titles */
+      /* Prescriptions: full cards, auto height, no clipped fields */
       #scene-prescription.slide {
-        padding-left: max(1.55rem, calc(var(--safe-l) + 0.35rem));
-        padding-right: max(1.55rem, calc(var(--safe-r) + 0.35rem));
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-left: max(1.15rem, calc(var(--safe-l) + 0.2rem));
+        padding-right: max(1.15rem, calc(var(--safe-r) + 0.2rem));
+        padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
       }
+      #scene-prescription .slide__inner { transform: none; }
       #scene-prescription .eyebrow {
         color: var(--primary);
         opacity: 1;
       }
       #scene-prescription .lede {
-        margin-bottom: 0.85rem;
+        margin-bottom: 0.55rem;
+      }
+      #scene-prescription .illustrative-badge {
+        margin-bottom: 0.65rem;
       }
       #scene-prescription .rx-layout {
         width: 100%;
         max-width: 100%;
         margin: 0;
         padding: 0;
+        gap: 0.9rem;
         box-sizing: border-box;
       }
       #scene-prescription .rx-flip {
@@ -2251,37 +2262,62 @@
         max-width: 100%;
         margin: 0;
         box-sizing: border-box;
+        min-height: 0;
+        height: auto;
       }
-      #scene-prescription .rx-flip__inner,
-      #scene-prescription .rx-face {
+      #scene-prescription .rx-flip__inner {
         box-sizing: border-box;
         max-width: 100%;
+        min-height: 0;
+        height: auto;
+        transform: none !important;
+      }
+      /* ponytail: absolute flip faces clip long Rx on phone; swap faces with display instead */
+      #scene-prescription .rx-face {
+        position: relative;
+        inset: auto;
+        transform: none !important;
+        box-sizing: border-box;
+        max-width: 100%;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
+      #scene-prescription .rx-face--back {
+        display: none;
+      }
+      #scene-prescription .rx-flip.is-flipped .rx-face--front {
+        display: none;
+      }
+      #scene-prescription .rx-flip.is-flipped .rx-face--back {
+        display: flex;
       }
       #scene-prescription .rx-hero__head {
-        padding: 0.75rem 1.1rem;
+        padding: 0.7rem 0.95rem;
       }
       #scene-prescription .rx-hero__body {
-        padding: 1rem 1.15rem 1.15rem;
+        padding: 0.9rem 0.95rem 1rem;
       }
       #scene-prescription .rx-action {
-        font-size: 1.08rem;
+        font-size: 0.92rem;
         line-height: 1.32;
-        margin: 0 0 0.85rem;
+        margin: 0 0 0.55rem;
         padding: 0;
       }
       #scene-prescription .rx-row {
-        grid-template-columns: 72px 1fr;
-        gap: 0.5rem;
-        font-size: 0.82rem;
+        grid-template-columns: 68px 1fr;
+        gap: 0.35rem 0.4rem;
+        font-size: 0.76rem;
+        margin: 0 0 0.28rem;
       }
-      #scene-prescription .rx-row:nth-child(n+5) { display: none; }
       #scene-prescription .rx-flip-cue {
-        margin-top: 0.85rem;
+        margin-top: 0.55rem;
         font-weight: 650;
+        font-size: 0.72rem;
       }
       #scene-prescription h2 {
-        font-size: clamp(1.25rem, 5.5vw, 1.55rem);
-        max-width: 14em;
+        font-size: clamp(1.2rem, 5.2vw, 1.45rem);
+        max-width: 16em;
       }
 
       /* Floor: phone first on small screens; workflow in fold */
@@ -2345,8 +2381,22 @@
         justify-content: flex-start;
       }
       #scene-floor .wa-msg { max-width: 94%; }
+      /* Full action card on phone: keep Effort + Verify (was hidden for density) */
       #scene-floor #floorEffort,
-      #scene-floor #floorVerify { display: none; }
+      #scene-floor #floorVerify { display: block; }
+      #scene-floor .wa-line {
+        font-size: 0.72rem;
+        line-height: 1.35;
+        margin: 0 0 0.28rem;
+      }
+      #scene-floor .wa-bubble h4 {
+        font-size: 0.88rem;
+        line-height: 1.25;
+        margin-bottom: 0.35rem;
+      }
+      #scene-floor .wa-body {
+        padding: 0.4rem 0.45rem 0.55rem;
+      }
       #scene-floor .wa-actions button {
         min-height: 0;
         padding: 0.55rem 0.65rem;
@@ -2425,7 +2475,9 @@
       .tech-card ul { display: none; }
       .tech-card > p { margin-bottom: 0; }
       .rx-layout { gap: 0.85rem; }
-      .rx-flip, .rx-flip__inner { min-height: min(58vh, 380px); }
+      .rx-flip, .rx-flip__inner { min-height: 0; }
+      #scene-prescription .rx-flip,
+      #scene-prescription .rx-flip__inner { min-height: 0; height: auto; }
       .floor-layout { gap: 0.75rem; }
       .video-frame {
         width: 100%;
@@ -2449,7 +2501,9 @@
       #scene-title h1 { max-width: 100%; }
       .tl-item { grid-template-columns: 56px 1fr; gap: 0.55rem; }
       .tl-time { font-size: 0.8rem; }
-      .rx-flip, .rx-flip__inner { min-height: 320px; }
+      .rx-flip, .rx-flip__inner { min-height: 0; }
+      #scene-prescription .rx-flip,
+      #scene-prescription .rx-flip__inner { min-height: 0; height: auto; }
       .rx-row { grid-template-columns: 68px 1fr; font-size: 0.76rem; }
       .waste-card, .tech-card, .silo-card, .audit-col { padding: 0.85rem; }
     }
