@@ -10,5 +10,7 @@ Linked from the main demo hub via **Clients** → [`index.html`](./index.html).
 | [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |
 | [auto-forge-ht.html](./auto-forge-ht.html) | Forge / HT / die-cast value walkthrough (two pillars) |
 | [assets/](./assets/) | Co-located images (open HTML from this folder) |
+| [itc-nadiad-technical/](./itc-nadiad-technical/) | ITC Nadiad technical brief (deploy folder) |
+| [nestle-pantnagar-technical/](./nestle-pantnagar-technical/) | Nestlé Pantnagar Maggi leave-behind (warehouse HVAC · ToD / MD) |
 
 Rebuild: `python scripts/decks/build/build-client-decks.py`
