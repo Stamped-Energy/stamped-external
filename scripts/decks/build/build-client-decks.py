@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
-"""Build private client / OEM demo decks (not on the public industry hub).
+"""Client-deck asset sync (OEM / Lohia / forge HTML is hand-authored).
 
-Outputs:
-  demo-decks/clients/machinery-oem.html          anonymous full Proof Run
-  demo-decks/clients/machinery-oem/index.html    optional deploy root
-  demo-decks/clients/lohia-corp-brief.html       short named walkthrough
-  demo-decks/clients/auto-forge-ht.html          forge / HT / die-cast value walkthrough
+Meeting decks under demo-decks/clients/ are 11-scene technical briefs.
+Do not regenerate machinery-oem.html, machinery-oem/index.html,
+lohia-corp-brief.html, auto-forge-ht.html, or clients/index.html from this
+script: those writes would clobber the briefs and the live hub (CLIENT_HUB
+below is stale vs ITC / Nestlé / explainer).
 
-Assets are co-located under demo-decks/clients/assets/ so relative paths work
-when the HTML is opened from the clients/ folder (file:// or HTTP).
+This entrypoint only syncs co-located assets under demo-decks/clients/assets/.
 """
 from __future__ import annotations
 
 import importlib.util
 import re
 import shutil
-import sys
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent  # scripts/decks/build
@@ -551,92 +549,14 @@ def assert_anonymous(html: str, path: Path) -> None:
 
 
 def main() -> None:
-    sys.path.insert(0, str(DECKS_PKG))
-    mod = load_industry_builder()
-    snapshot = DECKS / "_base.snapshot.html"
-    if not snapshot.exists():
-        raise SystemExit("missing demo-decks/_base.snapshot.html")
-    base = snapshot.read_text(encoding="utf-8")
-
+    # ponytail: HTML is hand-authored 11-scene briefs. Keep pack helpers in this
+    # file unused until someone deletes them; never write those paths again.
     CLIENTS.mkdir(parents=True, exist_ok=True)
     sync_client_assets()
-
-    full = build_full(mod, base)
-    full_path = CLIENTS / "machinery-oem.html"
-    full_path.write_text(full, encoding="utf-8")
-    assert_anonymous(full, full_path)
-    print(f"wrote {full_path} ({len(full)} bytes)")
-
-    deploy_dir = CLIENTS / "machinery-oem"
-    deploy_dir.mkdir(parents=True, exist_ok=True)
-    deploy_path = deploy_dir / "index.html"
-    from deck_packs.machinery_oem import (
-        HERO,
-        HERO_ALT,
-        OEM_HEADING_PATCHES,
-        PACK,
-        SLUG,
-    )
-
-    mod.PACKS[SLUG] = PACK
-    mod.HERO_BY_INDUSTRY[SLUG] = HERO
-    mod.HERO_ALT[SLUG] = HERO_ALT
-    raw = mod.build_one(base, SLUG)
-    raw = patch_offer_one_works(raw, PACK["offerLedeD"])
-    for old, new in OEM_HEADING_PATCHES:
-        if old not in raw:
-            raise SystemExit(f"OEM deploy heading patch missed:\n{old[:80]}...")
-        raw = raw.replace(old, new, 1)
-    raw = patch_sample_workspace(raw)
-    deploy_html = rewrite_client_paths(
-        raw, asset_prefix="../assets/", tech_prefix="../../"
-    )
-    assert_anonymous(deploy_html, deploy_path)
-    deploy_path.write_text(normalize_dashes(deploy_html), encoding="utf-8")
-    print(f"wrote {deploy_path} ({len(deploy_html)} bytes)")
-
-    brief = build_brief(mod, base)
-    brief_path = CLIENTS / "lohia-corp-brief.html"
-    brief_path.write_text(brief, encoding="utf-8")
-    if not FORBIDDEN_FULL.search(brief):
-        raise SystemExit("brief should contain Lohia naming")
-    if 'id="scene-vs-audit"' not in brief:
-        raise SystemExit("brief missing vs-audit scene")
-    if 'id="scene-lohia-lines"' not in brief:
-        raise SystemExit("brief missing lohia-lines scene")
-    print(f"wrote {brief_path} ({len(brief)} bytes)")
-
-    forge = build_forge_ht(mod, base)
-    forge_path = CLIENTS / "auto-forge-ht.html"
-    forge_path.write_text(forge, encoding="utf-8")
-    if 'id="scene-two-pillars"' not in forge:
-        raise SystemExit("forge-HT missing scene-two-pillars")
-    if "Improve" not in forge:
-        raise SystemExit("forge-HT missing Improve loop step")
-    if FORBIDDEN_LNM.search(forge):
-        raise SystemExit("forge-HT must not name LNM / Faridabad / Mall")
-    print(f"wrote {forge_path} ({len(forge)} bytes)")
-
-    write_clients_hub()
-    note = CLIENTS / "README.md"
-    note.write_text(
-        "# Client decks\n\n"
-        "Linked from the main demo hub via **Clients** → [`index.html`](./index.html).\n\n"
-        "| File | Use |\n"
-        "|------|-----|\n"
-        "| [index.html](./index.html) | Client deck picker |\n"
-        "| [machinery-oem.html](./machinery-oem.html) | Anonymous full Proof Run (packaging-machinery OEM) |\n"
-        "| [machinery-oem/](./machinery-oem/) | Optional standalone deploy root |\n"
-        "| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |\n"
-        "| [auto-forge-ht.html](./auto-forge-ht.html) | Forge / HT / die-cast value walkthrough (two pillars) |\n"
-        "| [technical-explainer.html](./technical-explainer.html) | Generic Stamped Intelligence technical explainer |\n"
-        "| [itc-nadiad-technical/](./itc-nadiad-technical/) | ITC Nadiad packaging and printing technical brief |\n"
-        "| [nestle-pantnagar-technical/](./nestle-pantnagar-technical/) | Nestlé Pantnagar warehouse HVAC and tariff brief |\n"
-        "| [assets/](./assets/) | Co-located images (open HTML from this folder) |\n\n"
-        "Rebuild: `python scripts/decks/build/build-client-decks.py`\n",
-        encoding="utf-8",
-    )
-    print("wrote clients/README.md")
+    print("synced demo-decks/clients/assets/")
+    print("skipped HTML writes (hand-authored 11-scene briefs):")
+    print("  machinery-oem.html, machinery-oem/index.html,")
+    print("  lohia-corp-brief.html, auto-forge-ht.html, clients/index.html")
 
 
 CLIENT_HUB = """<!DOCTYPE html>
@@ -684,9 +604,6 @@ CLIENT_HUB = """<!DOCTYPE html>
       padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
     }
     a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
-    a.card:focus-visible {
-      outline: 2px solid var(--primary); outline-offset: 3px;
-    }
     a.card strong {
       display: block; font-family: var(--font-d); font-size: 1.2rem;
       margin-bottom: 0.35rem; color: var(--secondary);
@@ -698,9 +615,6 @@ CLIENT_HUB = """<!DOCTYPE html>
     }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
-    @media (prefers-reduced-motion: reduce) {
-      a.card { transition: none; }
-    }
   </style>
 </head>
 <body>
@@ -725,20 +639,10 @@ CLIENT_HUB = """<!DOCTYPE html>
         <span>Full anonymous Proof Run. Real-time decisions, line-tied early warnings, 60-day pilot as needed.</span>
         <em>Open OEM demo →</em>
       </a>
-      <a class="card" href="./technical-explainer.html">
-        <strong>Stamped Intelligence · technical explainer</strong>
-        <span>How Stamped reads plant data, assigns feasible actions, and verifies outcomes.</span>
-        <em>Open technical explainer →</em>
-      </a>
-      <a class="card" href="./itc-nadiad-technical/">
-        <strong>ITC Nadiad · technical brief</strong>
-        <span>Packaging and printing walkthrough for the Nadiad plant.</span>
-        <em>Open ITC brief →</em>
-      </a>
-      <a class="card" href="./nestle-pantnagar-technical/">
-        <strong>Nestlé Pantnagar · technical brief</strong>
-        <span>Warehouse HVAC, UPCL tariff windows, and assigned floor actions.</span>
-        <em>Open Nestlé brief →</em>
+      <a class="card" href="./machinery-oem/">
+        <strong>OEM demo · deploy root</strong>
+        <span>Same machinery OEM deck as a folder index for standalone hosting.</span>
+        <em>Open deploy root →</em>
       </a>
     </div>
     <footer>
@@ -753,9 +657,9 @@ CLIENT_HUB = """<!DOCTYPE html>
 
 
 def write_clients_hub() -> None:
-    path = CLIENTS / "index.html"
-    path.write_text(CLIENT_HUB, encoding="utf-8")
-    print(f"wrote {path} ({len(CLIENT_HUB)} bytes)")
+    # ponytail: live clients/index.html lists ITC / Nestlé / explainer.
+    # CLIENT_HUB above is stale. Do not write it until that string matches.
+    print("skipped clients/index.html write (hand-authored hub)")
 
 
 if __name__ == "__main__":

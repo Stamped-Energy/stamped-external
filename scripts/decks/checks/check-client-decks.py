@@ -24,39 +24,22 @@ FULL = "demo-decks/clients/machinery-oem.html"
 BRIEF = "demo-decks/clients/lohia-corp-brief.html"
 FORGE = "demo-decks/clients/auto-forge-ht.html"
 
-FULL_PREFIX = [
+TECH_BRIEF_PREFIX = [
     "scene-title",
-    "scene-hook",
-    "scene-math",
-    "scene-what",
+    "scene-gap",
+    "scene-fit",
+    "scene-load",
+    "scene-equipment",
     "scene-prescription",
+    "scene-agentic",
     "scene-floor",
     "scene-verify",
-    "scene-tech",
-]
-BRIEF_PREFIX = [
-    "scene-title",
-    "scene-hook",
-    "scene-lohia-lines",
-    "scene-math",
-    "scene-what",
-    "scene-prescription",
-    "scene-floor",
-    "scene-verify",
-    "scene-vs-audit",
+    "scene-integration",
     "scene-offer",
 ]
-FORGE_PREFIX = [
-    "scene-title",
-    "scene-hook",
-    "scene-two-pillars",
-    "scene-math",
-    "scene-what",
-    "scene-prescription",
-    "scene-floor",
-    "scene-verify",
-    "scene-offer",
-]
+FULL_PREFIX = TECH_BRIEF_PREFIX
+BRIEF_PREFIX = TECH_BRIEF_PREFIX
+FORGE_PREFIX = TECH_BRIEF_PREFIX
 
 
 def start_server() -> tuple[socketserver.TCPServer, str]:
@@ -145,10 +128,11 @@ def file_gate() -> list[str]:
         issues.append("brief missing early-warnings framing")
     if "90-day" in brief.lower() or "Day 90" in brief:
         issues.append("brief still mentions 90-day pilot")
-    if 'id="scene-vs-audit"' not in brief:
-        issues.append("brief missing scene-vs-audit")
-    if 'id="scene-lohia-lines"' not in brief:
-        issues.append("brief missing scene-lohia-lines")
+    for sid in TECH_BRIEF_PREFIX:
+        if f'id="{sid}"' not in brief:
+            issues.append(f"brief missing {sid}")
+    if 'id="scene-vs-audit"' in brief or 'id="scene-lohia-lines"' in brief:
+        issues.append("brief still has Proof Run-only scenes (vs-audit / lohia-lines)")
     for needle in (
         "Woven raffia",
         "Multifilament",
@@ -180,10 +164,9 @@ def file_gate() -> list[str]:
         issues.append("full still has AI-ish title phrasing: priced onto the bill")
     if "90-day" in full.lower() or "Day 90" in full:
         issues.append("full OEM deck still mentions 90-day pilot (should be 60-day)")
-    if "trying.stamped.work" not in full:
-        issues.append("full missing trying.stamped.work sample workspace")
-    if 'id="openSampleWorkspace"' not in full:
-        issues.append("full missing Open workspace button")
+    for sid in TECH_BRIEF_PREFIX:
+        if f'id="{sid}"' not in full:
+            issues.append(f"full missing {sid}")
     if "hypothesis chip" in full.lower() or "Hypothesis chips" in full:
         issues.append("full still uses AI-ish 'hypothesis chip' language")
     if "hands you a report" in full.lower() or "hands you a report" in brief.lower():
@@ -194,16 +177,15 @@ def file_gate() -> list[str]:
         lnm_hits = sorted(set(FORBIDDEN_LNM.findall(forge)))
         if lnm_hits:
             issues.append(f"forge-HT naming gate failed: {lnm_hits}")
-        if 'id="scene-two-pillars"' not in forge:
-            issues.append("forge-HT missing scene-two-pillars")
-        if "Improve" not in forge:
-            issues.append("forge-HT missing Improve loop step")
+        for sid in TECH_BRIEF_PREFIX:
+            if f'id="{sid}"' not in forge:
+                issues.append(f"forge-HT missing {sid}")
         if "Verified with evidence" not in forge:
             issues.append("forge-HT missing verified-with-evidence framing")
-        if "Load and energy" not in forge and "energy efficiency" not in forge.lower():
-            issues.append("forge-HT missing energy pillar framing")
-        if "equipment" not in forge.lower():
-            issues.append("forge-HT missing equipment pillar framing")
+        if "Industry Energy Management" not in forge:
+            issues.append("forge-HT missing Industry Energy Management pillar")
+        if "Asset Health Intelligence" not in forge:
+            issues.append("forge-HT missing Asset Health Intelligence pillar")
         if "Signals become work orders" in forge or "On the supervisor's phone." in forge:
             issues.append("forge-HT still has punchy shared-base headings")
         if 'src="assets/auto-forge-ht/steel-hero.jpg"' not in forge:
@@ -303,31 +285,35 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
             if "trying.stamped.work" not in frame_src:
                 issues.append(f"{label}: dashFrame src={frame_src!r}")
 
-    if deck.endswith("lohia-corp-brief.html") and "scene-vs-audit" in slides:
-        go_to(page, "scene-vs-audit")
-        body = page.locator("#scene-vs-audit").inner_text()
+    if deck.endswith("lohia-corp-brief.html") and "scene-offer" in slides:
+        go_to(page, "scene-offer")
+        body = page.locator("#scene-offer").inner_text()
         if re.search(r"\bIIT\b|IITK|Roorkee", body, re.I):
-            issues.append(f"{label}: vs-audit slide must not mention IIT / Roorkee")
-        if "Generic energy audit" not in body and "energy audit" not in body.lower():
-            issues.append(f"{label}: vs-audit slide missing audit contrast")
+            issues.append(f"{label}: offer slide must not mention IIT / Roorkee")
+        if "energy audit" not in body.lower():
+            issues.append(f"{label}: offer slide missing audit contrast")
         if "Stamped" not in body:
-            issues.append(f"{label}: vs-audit slide missing Stamped side")
+            issues.append(f"{label}: offer slide missing Stamped side")
+        if "Chaubepur" not in body and "visit" not in body.lower():
+            issues.append(f"{label}: offer slide missing Chaubepur visit ask")
 
-    if deck.endswith("auto-forge-ht.html") and "scene-two-pillars" in slides:
-        go_to(page, "scene-two-pillars")
-        body = page.locator("#scene-two-pillars").inner_text()
-        if "energy" not in body.lower():
-            issues.append(f"{label}: two-pillars slide missing energy framing")
-        if "equipment" not in body.lower():
-            issues.append(f"{label}: two-pillars slide missing equipment framing")
+    if deck.endswith("auto-forge-ht.html") and "scene-fit" in slides:
+        go_to(page, "scene-fit")
+        body = page.locator("#scene-fit").inner_text()
         if FORBIDDEN_LNM.search(body):
-            issues.append(f"{label}: two-pillars slide must stay anonymous")
+            issues.append(f"{label}: fit slide must stay anonymous")
 
-    if deck.endswith("auto-forge-ht.html") and "scene-what" in slides:
-        go_to(page, "scene-what")
-        body = page.locator("#scene-what").inner_text()
-        if "Improve" not in body:
-            issues.append(f"{label}: what slide missing Improve step")
+    if deck.endswith("auto-forge-ht.html") and "scene-load" in slides:
+        go_to(page, "scene-load")
+        body = page.locator("#scene-load").inner_text()
+        if "energy" not in body.lower():
+            issues.append(f"{label}: load slide missing energy framing")
+
+    if deck.endswith("auto-forge-ht.html") and "scene-equipment" in slides:
+        go_to(page, "scene-equipment")
+        body = page.locator("#scene-equipment").inner_text()
+        if "equipment" not in body.lower() and "asset" not in body.lower():
+            issues.append(f"{label}: equipment slide missing asset-health framing")
 
     return issues
 
