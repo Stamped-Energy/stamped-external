@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-industry="machinery oem">
+<html lang="en" data-deck="machinery-oem" data-client-brief="machinery-oem">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Stamped Energy · Packaging machinery OEM demo</title>
+  <title>Stamped Energy · Packaging machinery OEM brief</title>
   <link rel="preload" as="image" href="assets/machinery-oem/tape-line.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -321,12 +321,6 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
-    .nav-btn:focus-visible,
-    .btn:focus-visible,
-    .dots__dot:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 3px;
-    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -485,13 +479,25 @@
       padding: 0.28rem 0.55rem; border-radius: 999px;
       margin-bottom: var(--space-3);
     }
+    .client-mark {
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      background: color-mix(in srgb, var(--primary) 10%, var(--white));
+      border-color: color-mix(in srgb, var(--primary) 32%, transparent);
+    }
+    #scene-title .client-mark {
+      font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+      padding: 0.42rem 0.9rem;
+      margin-bottom: 0.55rem;
+    }
     #chromeIndustry {
       font-size: 0.72rem; font-weight: 650; letter-spacing: 0.04em;
       color: var(--on-surface-variant); margin-left: 0.55rem;
       padding-left: 0.55rem; border-left: 1px solid var(--outline-variant);
       text-transform: uppercase;
     }
-
 
     .flow-tags {
       display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem;
@@ -913,9 +919,9 @@
     }
     .floor-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) auto;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr) auto;
       gap: clamp(1.35rem, 2.4vw, 2.1rem);
-      align-items: start;
+      align-items: center;
       justify-content: stretch;
       margin-top: 0.15rem;
       width: 100%;
@@ -925,7 +931,8 @@
       flex-direction: column;
       align-items: stretch;
       min-width: 0;
-      max-width: 26rem;
+      max-width: 24rem;
+      align-self: center;
     }
     .floor-copy .eyebrow { margin-bottom: 0.55rem; }
     .floor-copy h2 { margin-bottom: 0.35rem; }
@@ -938,6 +945,86 @@
     .floor-copy .status-rail {
       margin-top: 1.25rem;
       gap: 1.15rem;
+    }
+    .floor-routing {
+      display: grid;
+      gap: 0.65rem;
+      align-content: center;
+      min-width: 0;
+      max-width: 24rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .routing-card {
+      padding: 0.75rem 0.85rem;
+      background: #fff;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-btn);
+    }
+    .routing-card strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 0.35rem;
+    }
+    .routing-card p {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.42;
+      color: var(--on-surface-variant);
+    }
+    .routing-card--stamped {
+      border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
+      background: color-mix(in srgb, var(--primary) 4%, var(--white));
+    }
+    .routing-card--stamped strong { color: var(--primary); }
+    .routing-steps {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+      margin: 0.35rem 0 0;
+      padding: 0;
+    }
+    .routing-steps li {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--on-surface-variant);
+      padding-left: 1.35rem;
+      position: relative;
+    }
+    .routing-steps li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: color-mix(in srgb, var(--primary) 12%, var(--white));
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
+    }
+    .floor-status .status-rail {
+      margin-top: 0;
+      gap: 0.95rem;
+    }
+    .floor-status .status-item {
+      padding: 0.55rem 0.65rem;
+      border-radius: var(--radius-btn);
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .floor-status .status-item.is-active {
+      border-color: color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+      background: color-mix(in srgb, var(--tertiary) 5%, var(--white));
     }
     .floor-route {
       display: grid;
@@ -1493,6 +1580,22 @@
       display: grid; grid-template-columns: repeat(5, minmax(0,1fr));
       gap: 0.65rem; margin-top: 1.15rem;
     }
+    #scene-load .waste-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem;
+      width: 100%;
+    }
+    #scene-load .waste-card {
+      min-height: 168px;
+      padding: 1.15rem 1.25rem;
+    }
+    #scene-load .waste-card h3 { font-size: 1.05rem; margin-bottom: 0.55rem; }
+    #scene-load .waste-card p {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
     .waste-card {
       background: var(--white); border: 1px solid var(--outline-variant);
       border-radius: var(--radius-card); padding: 0.95rem 0.9rem;       min-height: 200px;
@@ -1710,9 +1813,6 @@
     .founders a:hover { text-decoration: underline; }
     .cred-quiet { margin-top: 0.7rem; font-size: 0.72rem; color: var(--outline); }
 
-
-
-
     @media (min-width: 721px) {
       #scene-hook .silo-board {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1735,14 +1835,13 @@
       #scene-tech .tech-card ul { font-size: 0.78rem; }
       #scene-floor h2 { margin-bottom: 0.35rem; }
       #scene-floor .floor-copy .lede { margin-bottom: 0; max-width: 34em; font-size: 0.95rem; }
-      #scene-floor .floor-copy .status-rail { margin-top: 1.25rem; gap: 1.15rem; }
+      #scene-floor .floor-status .status-rail { gap: 0.85rem; }
       #scene-floor .status-item p { font-size: 0.78rem; }
       #scene-floor .floor-route { margin-top: 2.65rem; }
       #scene-floor .floor-route-card p { font-size: 0.78rem; }
       #scene-floor .phone-col { justify-content: flex-end; }
       #scene-verify .meta { font-size: 0.78rem; }
     }
-
 
     .show-mobile { display: none !important; }
     .hide-mobile { display: revert; }
@@ -1751,23 +1850,115 @@
     .floor-route.hide-mobile { display: grid; }
     .floor-route-grid { display: grid; }
 
+    /* Mobile progressive disclosure: desktop always expanded */
+    .mobile-fold {
+      border: none;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+    .mobile-fold > summary {
+      display: none;
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-fold > summary::-webkit-details-marker { display: none; }
+    .mobile-fold__body { display: contents; }
+    @media (min-width: 721px) {
+      .mobile-fold:not([open]) > .mobile-fold__body > * {
+        display: revert;
+      }
+      .do-chain-fold {
+        display: contents;
+      }
+      .do-chain-fold > summary { display: none !important; }
+      .do-chain-fold > .mobile-fold__body {
+        display: contents;
+        padding: 0;
+        border: none;
+      }
+      .waste-fold {
+        display: contents;
+      }
+      .waste-fold > summary { display: none !important; }
+      .waste-fold > .mobile-fold__body {
+        display: contents;
+        padding: 0;
+        border: none;
+      }
+      .rx-fold,
+      .agent-fold,
+      .floor-fold {
+        display: contents;
+      }
+      .rx-fold > summary,
+      .agent-fold > summary,
+      .floor-fold > summary { display: none !important; }
+      .rx-fold > .mobile-fold__body,
+      .agent-fold > .mobile-fold__body,
+      .floor-fold > .mobile-fold__body,
+      .bound-fold > .mobile-fold__body {
+        display: contents;
+        padding: 0;
+        border: none;
+      }
+      .bound-fold,
+      .offer-fold,
+      .offer-success-fold {
+        display: contents;
+      }
+      .bound-fold > summary,
+      .offer-fold > summary,
+      .offer-success-fold > summary { display: none !important; }
+      .bound-fold .bound-grid {
+        display: contents;
+      }
+      #scene-gap .mobile-fold,
+      #scene-equipment .mobile-fold:not(.agent-fold),
+      #scene-agentic .mobile-fold:not(.agent-fold),
+      #scene-verify .mobile-fold,
+      #scene-integration .mobile-fold,
+      #scene-offer .mobile-fold {
+        border: none;
+        background: transparent;
+        margin-top: 0;
+      }
+      #scene-gap .mobile-fold > summary,
+      #scene-equipment .mobile-fold > summary,
+      #scene-agentic .mobile-fold:not(.agent-fold) > summary,
+      #scene-verify .mobile-fold > summary,
+      #scene-integration .mobile-fold > summary,
+      #scene-offer .mobile-fold > summary { display: none !important; }
+      #scene-gap .mobile-fold .mobile-fold__body,
+      #scene-equipment .mobile-fold .mobile-fold__body,
+      #scene-agentic .mobile-fold:not(.agent-fold) .mobile-fold__body,
+      #scene-verify .mobile-fold .mobile-fold__body,
+      #scene-integration .mobile-fold .mobile-fold__body,
+      #scene-offer .mobile-fold .mobile-fold__body {
+        display: block;
+        padding: 0;
+        border: none;
+      }
+      #scene-equipment .mobile-fold { margin-top: 0.85rem; }
+      #scene-agentic .mobile-fold:not(.agent-fold) { margin-top: 0.85rem; }
+    }
+
     .bill-table-wrap, .ledger-wrap, .phase-table { max-width: 100%; }
     .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
     @media (max-width: 1100px) and (min-width: 721px) {
       #scene-floor .floor-layout {
-        grid-template-columns: minmax(0, 1.1fr) auto;
-        gap: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
       }
-      #scene-floor .floor-route {
-        grid-column: 1 / -1;
+      #scene-floor .floor-status {
+        grid-column: 1;
         max-width: none;
-        margin-top: 0.35rem;
       }
-      #scene-floor .floor-route-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.75rem;
-      }
+      #scene-floor .phone-col { justify-content: center; }
+      #scene-prescription .meta.hide-mobile { display: block !important; }
     }
 
     @media (max-width: 1100px) {
@@ -1790,6 +1981,93 @@
       .phone__screen { min-height: unset; }
       .dash-shell { height: clamp(380px, 66vh, 600px); }
       #scene-title .hero-shell { gap: var(--space-6); }
+
+      /* ponytail: absolute Rx faces + height:auto collapse cards on tablet; flow faces instead */
+      #scene-prescription.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 4.75rem));
+      }
+      #scene-prescription .slide__inner { transform: none; }
+      #scene-prescription .rx-layout {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0.85rem;
+        gap: 1rem;
+      }
+      #scene-prescription .rx-flip {
+        width: 100%;
+        min-height: 0;
+        height: auto;
+      }
+      #scene-prescription .rx-flip__inner {
+        min-height: 0;
+        height: auto;
+        transform: none !important;
+      }
+      #scene-prescription .rx-face {
+        position: relative;
+        inset: auto;
+        transform: none !important;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
+      #scene-prescription .rx-face--back { display: none; }
+      #scene-prescription .rx-flip.is-flipped .rx-face--front { display: none; }
+      #scene-prescription .rx-flip.is-flipped .rx-face--back { display: flex; }
+
+      #scene-floor.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 4.75rem));
+      }
+      #scene-floor .slide__inner { transform: none; }
+      #scene-floor .floor-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+      #scene-floor .floor-copy { order: 1; }
+      #scene-floor .phone-col { order: 2; justify-content: center; width: 100%; }
+      #scene-floor .floor-routing { order: 3; width: 100%; max-width: 100%; }
+      #scene-floor .lede.hide-mobile,
+      #scene-floor .meta.hide-mobile,
+      #scene-floor .footnote { display: none !important; }
+      #scene-floor .lede.show-mobile { display: block !important; }
+      #scene-floor .phone {
+        --phone-screen-w: 300px;
+      }
+      #scene-floor .phone,
+      #scene-floor .phone:hover,
+      #scene-floor.slide.active .phone,
+      .slide.active#scene-floor .phone {
+        /* ponytail: kill 3D phoneIn without leaving .reveal stuck at opacity 0 */
+        transform: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+        margin: 0 auto;
+      }
+      #scene-floor .wa-line {
+        font-size: 0.75rem;
+        line-height: 1.35;
+        margin: 0 0 0.28rem;
+      }
+      #scene-floor .wa-meta { font-size: 0.72rem; }
+      #scene-offer.slide,
+      #scene-agentic.slide,
+      #scene-load.slide,
+      #scene-equipment.slide,
+      #scene-integration.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(5.5rem, calc(var(--safe-b) + 4.75rem));
+      }
+      .eyebrow { font-size: 0.75rem; }
+      .chip { font-size: 0.75rem; }
     }
 
     @media (max-width: 720px) {
@@ -1804,7 +2082,7 @@
         padding:
           calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.75rem)
           max(1.1rem, var(--safe-r))
-          max(4.5rem, calc(var(--safe-b) + 4.25rem));
+          max(5.5rem, calc(var(--safe-b) + 4.75rem));
       }
       .slide__inner,
       .slide__inner--media {
@@ -1827,20 +2105,65 @@
       .show-mobile.btn-row,
       .show-mobile.flow-tags { display: flex !important; }
 
+      .mobile-fold {
+        margin-top: 0.65rem;
+        border: 1px solid var(--outline-variant);
+        border-radius: var(--radius-btn);
+        background: #fff;
+        overflow: hidden;
+      }
+      .mobile-fold > summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.65rem;
+        padding: 0.7rem 0.85rem;
+        font-family: var(--font-display);
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--secondary);
+        line-height: 1.3;
+      }
+      .mobile-fold > summary::after {
+        content: "";
+        flex-shrink: 0;
+        width: 0.45rem;
+        height: 0.45rem;
+        border-right: 2px solid var(--primary);
+        border-bottom: 2px solid var(--primary);
+        transform: rotate(45deg);
+        margin-top: -0.2rem;
+        transition: transform 0.2s var(--ease);
+      }
+      .mobile-fold[open] > summary::after {
+        transform: rotate(225deg);
+        margin-top: 0.15rem;
+      }
+      .mobile-fold__body {
+        display: block;
+        padding: 0 0.85rem 0.85rem;
+        border-top: 1px solid #ecefea;
+      }
+      .mobile-fold[open] > summary {
+        border-bottom: 1px solid #ecefea;
+        background: var(--surface-low);
+      }
+
+      .mobile-lede {
+        font-size: 0.9rem;
+        line-height: 1.45;
+        color: var(--on-surface-variant);
+        margin-bottom: 0.65rem;
+      }
+
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .wa-bubble, .tech-card, .waste-card,
+      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
-      }
-      /* Keep decisions readable: wrap at spaces, never through equipment names. */
-      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
-        overflow-wrap: normal;
-        word-break: normal;
-        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -1952,24 +2275,73 @@
         transform: none !important;
         animation: none !important;
       }
-
-      /* Prescriptions: breathing room + readable action titles */
-      #scene-prescription.slide {
-        padding-left: max(1.55rem, calc(var(--safe-l) + 0.35rem));
-        padding-right: max(1.55rem, calc(var(--safe-r) + 0.35rem));
+      #scene-title .flow-tags.show-mobile {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-bottom: 0.35rem;
       }
+      #scene-title .flow-tags.show-mobile .chip {
+        font-size: 0.75rem;
+        padding: 0.32rem 0.55rem;
+      }
+      #scene-title .hero-photo {
+        flex: 0 1 auto;
+        max-height: min(38vh, 220px);
+      }
+      #scene-title .hero-photo img {
+        max-height: min(38vh, 220px);
+        object-fit: cover;
+      }
+
+      #scene-gap .gap-compare { margin-top: 0; }
+      #scene-gap .gap-col { padding: 0.75rem 0.85rem; }
+      #scene-gap .gap-col ul { gap: 0.35rem; font-size: 0.84rem; }
+      #scene-gap .gap-col li:nth-child(n+4) { display: none; }
+      #scene-gap .gap-bridge { margin-top: 0.65rem; font-size: 0.75rem; }
+      #scene-gap .meta { font-size: 0.82rem; margin-top: 0.55rem !important; }
+
+      #scene-fit .do-step:nth-child(n+3) { display: none; }
+      #scene-fit .do-chain-fold { grid-column: 1 / -1; }
+      #scene-fit .do-chain-fold .do-step { display: grid !important; }
+      #scene-fit .meta { font-size: 0.82rem; }
+
+      #scene-load .waste-grid { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+      #scene-load .waste-card { min-height: 0; padding: 0.9rem 0.95rem; }
+      #scene-load .footnote,
+      #scene-equipment .footnote { display: none; }
+
+      #scene-equipment .waste-grid { grid-template-columns: 1fr 1fr; }
+      #scene-equipment .bound-col--ot { margin-top: 0.65rem !important; }
+
+      #scene-agentic .agent-step p { font-size: 0.82rem; }
+      #scene-agentic .agent-callout { font-size: 0.8rem; padding: 0.65rem 0.85rem; margin-top: 0.65rem; }
+
+      /* Prescriptions: full cards, auto height, no clipped fields */
+      #scene-prescription.slide {
+        justify-content: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-left: max(1.15rem, calc(var(--safe-l) + 0.2rem));
+        padding-right: max(1.15rem, calc(var(--safe-r) + 0.2rem));
+        padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
+      }
+      #scene-prescription .slide__inner { transform: none; }
       #scene-prescription .eyebrow {
         color: var(--primary);
         opacity: 1;
       }
       #scene-prescription .lede {
-        margin-bottom: 0.85rem;
+        margin-bottom: 0.55rem;
+      }
+      #scene-prescription .illustrative-badge {
+        margin-bottom: 0.65rem;
       }
       #scene-prescription .rx-layout {
         width: 100%;
         max-width: 100%;
         margin: 0;
         padding: 0;
+        gap: 0.9rem;
         box-sizing: border-box;
       }
       #scene-prescription .rx-flip {
@@ -1977,53 +2349,92 @@
         max-width: 100%;
         margin: 0;
         box-sizing: border-box;
+        min-height: 0;
+        height: auto;
       }
-      #scene-prescription .rx-flip__inner,
-      #scene-prescription .rx-face {
+      #scene-prescription .rx-flip__inner {
         box-sizing: border-box;
         max-width: 100%;
+        min-height: 0;
+        height: auto;
+        transform: none !important;
+      }
+      /* ponytail: absolute flip faces clip long Rx on phone; swap faces with display instead */
+      #scene-prescription .rx-face {
+        position: relative;
+        inset: auto;
+        transform: none !important;
+        box-sizing: border-box;
+        max-width: 100%;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
+      #scene-prescription .rx-face--back {
+        display: none;
+      }
+      #scene-prescription .rx-flip.is-flipped .rx-face--front {
+        display: none;
+      }
+      #scene-prescription .rx-flip.is-flipped .rx-face--back {
+        display: flex;
       }
       #scene-prescription .rx-hero__head {
-        padding: 0.75rem 1.1rem;
+        padding: 0.7rem 0.95rem;
       }
       #scene-prescription .rx-hero__body {
-        padding: 1rem 1.15rem 1.15rem;
+        padding: 0.9rem 0.95rem 1rem;
       }
       #scene-prescription .rx-action {
-        font-size: 1.08rem;
+        font-size: 0.92rem;
         line-height: 1.32;
-        margin: 0 0 0.85rem;
+        margin: 0 0 0.55rem;
         padding: 0;
       }
       #scene-prescription .rx-row {
-        grid-template-columns: 72px 1fr;
-        gap: 0.5rem;
-        font-size: 0.82rem;
+        grid-template-columns: 68px 1fr;
+        gap: 0.35rem 0.4rem;
+        font-size: 0.76rem;
+        margin: 0 0 0.28rem;
       }
-      #scene-prescription .rx-row:nth-child(n+6) { display: none; }
       #scene-prescription .rx-flip-cue {
-        margin-top: 0.85rem;
+        margin-top: 0.55rem;
         font-weight: 650;
+        font-size: 0.75rem;
       }
       #scene-prescription h2 {
-        font-size: clamp(1.25rem, 5.5vw, 1.55rem);
-        max-width: 14em;
+        font-size: clamp(1.2rem, 5.2vw, 1.45rem);
+        max-width: 16em;
       }
 
-      /* Floor: proper phone  ·  real iPhone aspect ratio, uniform scale only */
+      /* Floor: phone first on small screens; workflow in fold */
       #scene-floor.slide {
         justify-content: flex-start;
-        overflow: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         padding-top: calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.55rem);
         padding-bottom: max(4.75rem, calc(var(--safe-b) + 4.25rem));
       }
       #scene-floor .slide__inner { transform: none; }
       #scene-floor .floor-layout {
-        grid-template-columns: 1fr;
-        gap: 0.85rem;
-        justify-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        justify-items: stretch;
       }
+      #scene-floor .floor-copy { order: 1; }
+      #scene-floor .phone-col { order: 2; }
+      #scene-floor .floor-routing { order: 3; }
+      #scene-floor .floor-copy .footnote { display: none; }
+      #scene-floor .routing-card p,
+      #scene-floor .routing-steps li { font-size: 0.76rem; }
+      #scene-floor .routing-card { padding: 0.65rem 0.75rem; }
+      #scene-floor .routing-steps { gap: 0.32rem; }
       #scene-floor .floor-copy {
+        max-width: 100%;
+        width: 100%;
+      }
+      #scene-floor .floor-routing {
         max-width: 100%;
         width: 100%;
       }
@@ -2036,9 +2447,17 @@
         width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
         max-width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
         margin: 0 auto;
-        transform: none;
+        transform: none !important;
+        animation: none !important;
+        opacity: 1 !important;
       }
-      #scene-floor .phone:hover { transform: none; }
+      #scene-floor .phone:hover,
+      #scene-floor.slide.active .phone,
+      .slide.active#scene-floor .phone {
+        transform: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+      }
       #scene-floor .phone__screen {
         width: var(--phone-screen-w);
         height: auto;
@@ -2057,11 +2476,38 @@
         justify-content: flex-start;
       }
       #scene-floor .wa-msg { max-width: 94%; }
+      #scene-floor .wa-line {
+        font-size: 0.75rem;
+        line-height: 1.35;
+        margin: 0 0 0.28rem;
+      }
+      #scene-floor .wa-bubble h4 {
+        font-size: 0.88rem;
+        line-height: 1.25;
+        margin-bottom: 0.35rem;
+      }
+      #scene-floor .wa-body {
+        padding: 0.4rem 0.45rem 0.55rem;
+      }
       #scene-floor .wa-actions button {
         min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
+
+      #scene-verify .ledger-table th,
+      #scene-verify .ledger-table td {
+        padding: 0.45rem 0.4rem;
+        font-size: 0.62rem;
+      }
+      #scene-verify .footnote { font-size: 0.8rem; }
+
+      #scene-offer h2 { font-size: clamp(1.2rem, 5.2vw, 1.5rem); }
+      #scene-offer .offer-main { grid-template-columns: 1fr; margin-top: 0.55rem; gap: 0.75rem; }
+      #scene-offer .offer-bottom { grid-template-columns: 1fr; }
+      #scene-offer .success-grid { grid-template-columns: 1fr 1fr; }
+      #scene-offer .offer-phase { grid-template-columns: 6.5rem 1fr; }
+      #scene-offer .offer-success { margin-top: 0.75rem; padding: 0.85rem 0.95rem; }
 
       /* ponytail: desktop-only simulated workspace - unusable on phone */
       #scene-live { display: none !important; }
@@ -2107,13 +2553,11 @@
         padding-bottom: max(5.25rem, calc(var(--safe-b) + 4.5rem));
       }
       #scene-offer .slide__inner { transform: none; }
-      #scene-offer .phase-table { font-size: 0.78rem; margin-top: 0.7rem; }
-      #scene-offer .phase-table th, #scene-offer .phase-table td {
-        padding: 0.55rem 0.6rem;
-        word-break: normal;
-        overflow-wrap: normal;
-      }
-      #scene-offer .ask-box { margin-top: 0.85rem; padding: 0.85rem 1rem; }
+      #scene-offer .offer-panel { padding: 0.85rem 0.95rem; }
+      #scene-offer .success-grid { gap: 0.45rem; }
+      #scene-offer .offer-bottom { gap: 0.65rem; margin-top: 0.75rem; }
+      #scene-offer .ask-box { padding: 0.85rem 1rem; }
+      #scene-offer .offer-aside { padding: 0.85rem 0.95rem; }
       #scene-verify.slide {
         justify-content: flex-start;
         overflow-y: auto;
@@ -2123,7 +2567,9 @@
       .tech-card ul { display: none; }
       .tech-card > p { margin-bottom: 0; }
       .rx-layout { gap: 0.85rem; }
-      .rx-flip, .rx-flip__inner { min-height: min(58vh, 380px); }
+      .rx-flip, .rx-flip__inner { min-height: 0; }
+      #scene-prescription .rx-flip,
+      #scene-prescription .rx-flip__inner { min-height: 0; height: auto; }
       .floor-layout { gap: 0.75rem; }
       .video-frame {
         width: 100%;
@@ -2134,8 +2580,9 @@
       .phase-table th, .phase-table td { padding: 0.65rem 0.75rem; }
       .ask-box { max-width: none; }
       .commercial { gap: 0.4rem; }
-      .chip { font-size: 0.7rem; }
+      .chip { font-size: 0.75rem; }
       .btn { min-height: 44px; }
+      .rx-flip-cue { font-size: 0.75rem; }
     }
 
     @media (max-width: 420px) {
@@ -2147,7 +2594,9 @@
       #scene-title h1 { max-width: 100%; }
       .tl-item { grid-template-columns: 56px 1fr; gap: 0.55rem; }
       .tl-time { font-size: 0.8rem; }
-      .rx-flip, .rx-flip__inner { min-height: 320px; }
+      .rx-flip, .rx-flip__inner { min-height: 0; }
+      #scene-prescription .rx-flip,
+      #scene-prescription .rx-flip__inner { min-height: 0; height: auto; }
       .rx-row { grid-template-columns: 68px 1fr; font-size: 0.76rem; }
       .waste-card, .tech-card, .silo-card, .audit-col { padding: 0.85rem; }
     }
@@ -2172,19 +2621,272 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      /* Progress and the counter preserve position without tiny touch targets. */
-      .dots { display: none; }
+      .dots__dot { width: 10px; height: 10px; }
+      .dots__dot.active { width: 24px; }
       .btn { min-height: 48px; }
     }
-  
-    .dash-title-row--actions {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
+
+    .gap-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;
     }
-    .dash-title-row--actions .btn { flex: 0 0 auto; text-decoration: none; }
+    .gap-col {
+      background: #fff; border: 1px solid var(--outline-variant); border-radius: var(--radius-card);
+      padding: 1rem 1.1rem;
+    }
+    .gap-col h3 {
+      font-family: var(--font-display); font-size: 0.95rem; margin-bottom: 0.65rem; color: var(--secondary);
+    }
+    .gap-col ul { list-style: none; display: grid; gap: 0.45rem; font-size: 0.88rem; line-height: 1.4; }
+    .gap-col li::before { content: "·"; color: var(--primary); font-weight: 700; margin-right: 0.4rem; }
+    .gap-bridge {
+      margin-top: 1rem; text-align: center; font-size: 0.82rem; font-weight: 650;
+      color: var(--tertiary); letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .topology-tree {
+      margin-top: 0.85rem; padding: 0.75rem 1rem; background: rgba(0,102,107,0.06);
+      border: 1px dashed rgba(0,102,107,0.25); border-radius: var(--radius-btn);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.72rem;
+      line-height: 1.45; white-space: pre; color: var(--on-surface-variant);
+    }
+    .illustrative-badge {
+      display: inline-block; margin-bottom: 0.65rem; padding: 0.25rem 0.55rem;
+      border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em;
+      text-transform: uppercase; background: rgba(247,84,64,0.12); color: var(--primary);
+    }
+    .rx-single { max-width: 720px; margin: 0 auto; }
+    .agent-stack {
+      display: grid; gap: 0.55rem; margin-top: 1rem;
+    }
+    .agent-step {
+      display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; align-items: start;
+      padding: 0.65rem 0.85rem; background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-btn);
+    }
+    .agent-step__num {
+      width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
+      font-size: 0.72rem; font-weight: 800; background: rgba(247,84,64,0.12); color: var(--primary);
+    }
+    .agent-step strong { display: block; font-size: 0.88rem; margin-bottom: 0.2rem; }
+    .agent-step p { font-size: 0.82rem; line-height: 1.4; color: var(--on-surface-variant); margin: 0; }
+    .agent-callout {
+      margin-top: 0.85rem; padding: 0.75rem 1rem; border-left: 3px solid var(--tertiary);
+      background: rgba(0,102,107,0.06); border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
+      font-size: 0.84rem; font-style: italic; line-height: 1.45;
+    }
+    .agent-pipe {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      flex-wrap: wrap; margin: 0.85rem 0; font-size: 0.78rem; font-weight: 650; color: var(--tertiary);
+    }
+    .agent-pipe span { opacity: 0.55; }
+    .verify-steps {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.55rem; margin-top: 0.85rem;
+    }
+    .verify-step {
+      padding: 0.55rem 0.65rem; background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-btn); font-size: 0.75rem; line-height: 1.35;
+    }
+    .verify-step strong { display: block; font-size: 0.78rem; margin-bottom: 0.25rem; color: var(--secondary); }
+    .scope-list {
+      list-style: none; display: grid; gap: 0.4rem; margin: 0.65rem 0 0; font-size: 0.86rem;
+    }
+    .scope-list li::before { content: "✓"; color: var(--tertiary); font-weight: 700; margin-right: 0.45rem; }
+
+    /* Offer slide (11) */
+    #scene-offer .slide__inner--wide {
+      max-width: min(1220px, 100%);
+    }
+    #scene-offer .offer-lede {
+      max-width: 46em;
+      margin: 0.15rem 0 0;
+      font-size: clamp(0.9rem, 1.3vw, 0.98rem);
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+    #scene-offer .offer-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 1rem;
+      margin-top: 1.05rem;
+      align-items: stretch;
+    }
+    #scene-offer .offer-panel {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: 1.05rem 1.15rem 1.15rem;
+      min-height: 100%;
+      box-shadow: 0 12px 30px -26px rgba(5, 31, 19, 0.18);
+    }
+    #scene-offer .offer-panel h3 {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin: 0 0 0.75rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid #e8ebe7;
+    }
+    #scene-offer .scope-list {
+      margin: 0;
+      gap: 0.55rem;
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+    #scene-offer .scope-list li {
+      padding: 0.45rem 0.55rem 0.45rem 0.35rem;
+      border-radius: 8px;
+      background: var(--surface-low);
+    }
+    #scene-offer .scope-list li::before {
+      content: "";
+      display: inline-block;
+      width: 0.45rem;
+      height: 0.45rem;
+      margin-right: 0.55rem;
+      border-radius: 1px;
+      background: var(--primary);
+      vertical-align: 0.15rem;
+    }
+    #scene-offer .offer-timeline {
+      display: grid;
+      gap: 0.55rem;
+    }
+    #scene-offer .offer-phase {
+      display: grid;
+      grid-template-columns: 8.5rem minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.7rem 0.8rem;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--outline-variant);
+      background: var(--surface-low);
+    }
+    #scene-offer .offer-phase__when {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--primary);
+      line-height: 1.35;
+    }
+    #scene-offer .offer-phase p {
+      font-size: 0.84rem;
+      line-height: 1.42;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    #scene-offer .offer-success {
+      margin-top: 1rem;
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem 1.1rem;
+      box-shadow: 0 12px 30px -26px rgba(5, 31, 19, 0.18);
+    }
+    #scene-offer .offer-success h3 {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin: 0 0 0.75rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid #e8ebe7;
+    }
+    #scene-offer .success-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+    #scene-offer .success-card {
+      padding: 0.85rem 0.9rem;
+      background: var(--surface-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-btn);
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--on-surface-variant);
+      min-height: 100%;
+    }
+    #scene-offer .success-card strong {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 0.35rem;
+    }
+    #scene-offer .offer-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+      margin-top: 1rem;
+    }
+    #scene-offer .ask-box {
+      margin-top: 0;
+      max-width: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+      background: color-mix(in srgb, var(--primary) 5%, var(--white));
+    }
+    #scene-offer .ask-box strong {
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    #scene-offer .ask-box p {
+      margin-top: 0.35rem;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    #scene-offer .offer-aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.95rem 1.05rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--outline-variant);
+      background: var(--white);
+    }
+    #scene-offer .commercial {
+      margin-top: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    #scene-offer .contact-line {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    #scene-offer .contact-line a { margin-right: 0.15rem; }
+
+    @media (max-width: 980px) {
+      #scene-offer .offer-main,
+      #scene-offer .offer-bottom { grid-template-columns: 1fr; }
+      #scene-offer .success-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      #scene-offer .success-grid { grid-template-columns: 1fr 1fr; }
+      #scene-offer .offer-phase { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+
+  @media (max-width: 900px) {
+    .gap-compare, .verify-steps { grid-template-columns: 1fr; }
+  }
 
   </style>
 </head>
@@ -2197,12 +2899,11 @@
       <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
       <span class="wordmark">Stamped Energy</span>
     </a>
-    <div class="chrome-counter" id="sceneCounter" aria-live="polite">01 / 14</div>
+    <div class="chrome-counter" id="sceneCounter" aria-live="polite">01 / 11</div>
   </header>
 
-  <main class="stage" id="stage" aria-label="Stamped Energy demo presentation">
+  <main class="stage" id="stage" aria-label="Stamped Energy technical presentation">
 
-    <!-- 1 Title -->
     <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
       <div class="slide__inner slide__inner--wide">
         <div class="hero-shell">
@@ -2211,299 +2912,197 @@
               <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
-            <p class="industry-chip reveal" id="industryChip">Machinery OEM</p>
-            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Packaging-machinery OEM · after solar and VFDs</p>
-            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Machinery OEM · bill-verified operations</p>
-            <p class="brand-name reveal">Stamped Energy</p>
-            <h1 class="reveal hide-mobile" id="titleH1D">Operating decisions on tape lines and test bays, confirmed on the bill</h1>
-            <h1 class="reveal show-mobile" id="titleH1M">Floor decisions confirmed on the bill</h1>
-            <p class="lede reveal hide-mobile" id="titleLedeD">After solar, VFDs, and compressor upgrades, Stamped assigns live rupee actions and line-specific warnings, then checks completed work against the DISCOM bill.</p>
-            <p class="lede reveal show-mobile" id="titleLedeM">Live actions and early warnings after solar and VFDs. 60-day Proof Run when useful.</p>
+            <p class="industry-chip client-mark reveal" id="industryChip">Packaging machinery OEM</p>
+            <p class="eyebrow reveal">Tape lines, looms, and test bays · after solar and VFDs</p>
+            <p class="brand-name reveal">Stamped Intelligence</p>
+            <h1 class="reveal">Act on energy opportunities before the window closes</h1>
+            <p class="lede reveal hide-mobile">Stamped turns meters, SCADA, shift data, and DISCOM bills into ₹-scored prescriptions: what to do, who owns it, the rupee impact, and the evidence. Industry Energy Management and Asset Health Intelligence on the stack you already run.</p>
+            <p class="mobile-lede reveal show-mobile">₹-scored prescriptions with owners and evidence. Energy and asset health in one loop.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Load decisions</span>
-              <span class="chip">Equipment drift</span>
+              <span class="chip">Energy management</span>
+              <span class="chip">Asset health</span>
               <span class="chip">Assigned actions</span>
               <span class="chip">Verified outcomes</span>
             </div>
+            <div class="flow-tags reveal show-mobile">
+              <span class="chip">Energy management</span>
+              <span class="chip">Asset health</span>
+              <span class="chip">Verified outcomes</span>
+            </div>
+            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Read-only on meters and SCADA you already run. No PLC or setpoint writes. Operators stay in control.</p>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
             </div>
             <p class="meta reveal hide-mobile">stamped.work</p>
           </div>
-          
           <figure class="hero-photo reveal" id="heroPhoto">
-            <img
-              id="heroPhotoImg"
-              src="assets/machinery-oem/tape-line.jpg"
-              alt="Tape extrusion line on a packaging-machinery manufacturing floor"
-              width="1800"
-              height="1200"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-            />
+            <img id="heroPhotoImg" src="assets/machinery-oem/tape-line.jpg" alt="Tape line and plant floor (illustrative)" width="1024" height="475" loading="eager" decoding="async" />
           </figure>
-          <div class="hero-canvas reveal hide-mobile" aria-hidden="true" hidden>
-            <svg viewBox="0 0 420 280" fill="none">
-              <defs>
-                <pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M20 0H0V20" stroke="rgba(247,84,64,0.12)" stroke-width="1"/>
-                </pattern>
-              </defs>
-              <rect width="420" height="280" fill="url(#g)"/>
-              <rect x="28" y="36" width="92" height="42" rx="8" stroke="#e3beb8" fill="#fafcfa"/>
-              <text x="74" y="62" text-anchor="middle" fill="#8f706b" font-size="11" font-family="Inter">SCADA</text>
-              <rect x="28" y="96" width="92" height="42" rx="8" stroke="#e3beb8" fill="#fafcfa"/>
-              <text x="74" y="122" text-anchor="middle" fill="#8f706b" font-size="11" font-family="Inter">Meters</text>
-              <rect x="28" y="156" width="92" height="42" rx="8" stroke="#e3beb8" fill="#fafcfa"/>
-              <text x="74" y="182" text-anchor="middle" fill="#8f706b" font-size="11" font-family="Inter">Bills</text>
-              <path class="draw-on-active" d="M120 57H168 M120 117H168 M120 177H168" stroke="#F75440" stroke-opacity="0.55" stroke-dasharray="6 4" stroke-linecap="round"/>
-              <circle cx="196" cy="117" r="34" fill="rgba(247,84,64,0.12)" stroke="#F75440" stroke-width="2"/>
-              <text x="196" y="113" text-anchor="middle" fill="#051F13" font-size="12" font-family="Plus Jakarta Sans" font-weight="700">Stamped</text>
-              <text x="196" y="130" text-anchor="middle" fill="#8f706b" font-size="9" font-family="Inter">graph</text>
-              <path class="draw-on-active" d="M230 117H278" stroke="#F75440" stroke-opacity="0.55" stroke-dasharray="6 4"/>
-              <rect x="278" y="48" width="114" height="54" rx="8" stroke="#F75440" fill="rgba(247,84,64,0.08)"/>
-              <text x="335" y="70" text-anchor="middle" fill="#051F13" font-size="11" font-family="Inter" font-weight="700">₹ prescription</text>
-              <text x="335" y="88" text-anchor="middle" fill="#8f706b" font-size="10" font-family="Inter">Owner + due</text>
-              <rect x="278" y="122" width="114" height="54" rx="8" stroke="#e3beb8" fill="#fafcfa"/>
-              <text x="335" y="144" text-anchor="middle" fill="#051F13" font-size="11" font-family="Inter" font-weight="700">Floor handoff</text>
-              <text x="335" y="162" text-anchor="middle" fill="#8f706b" font-size="10" font-family="Inter">WhatsApp</text>
-              <rect x="278" y="196" width="114" height="42" rx="8" stroke="#00666b" fill="rgba(0,102,107,0.1)"/>
-              <text x="335" y="222" text-anchor="middle" fill="#051F13" font-size="11" font-family="Inter" font-weight="700">Verified on bill</text>
-              <style>
-                .slide.active .draw-on-active { stroke-dasharray: 120; animation: drawLine 1.1s ease forwards; }
-              </style>
-            </svg>
-          </div>
         </div>
       </div>
     </section>
 
-        <!-- 2 Problem: incident + why savings get missed -->
-    <section class="slide slide--light grid-bg" id="scene-hook" data-theme="light" aria-label="Why savings get missed">
+    <section class="slide slide--light grid-bg" id="scene-gap" data-theme="light" aria-label="Decision gap">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal" id="hookEyebrow">Monday 06:50 · Machine acceptance / utilities handover</p>
-        <h2 class="reveal" id="hookH2">The plant recorded the overlap. No one was assigned to fix it.</h2>
-        <p class="lede reveal hide-mobile" id="hookLedeD">Test bay and utility banks overlapped. EMS logged it. No work order went out.</p>
-        <p class="lede reveal show-mobile" id="hookLedeM">Test bay and utilities overlapped. No work order went out.</p>
-        <div class="two-col problem-top">
-          <div class="timeline reveal">
-            <div class="tl-item">
-              <div class="tl-time">07:12</div>
-              <div class="tl-card">
-                <strong id="hookT1s">Machine trial and compressor bank start together</strong>
-                <p class="hide-mobile" id="hookT1p">Shift B brings test bay load and plant air online in the same window.</p>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-time">07:15</div>
-              <div class="tl-card tl-card--break">
-                <strong id="hookT2s">MD spike hits the incomer</strong>
-                <p class="hide-mobile" id="hookT2p">EMS threshold crossed. Alert created. Still no assigned owner.</p>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-time">07:40</div>
-              <div class="tl-card">
-                <strong id="hookT3s">Trials and fab continue as usual</strong>
-                <p class="hide-mobile" id="hookT3p">The bill will price this later. The floor never saw the fix.</p>
-              </div>
-            </div>
+        <p class="eyebrow reveal">The question after monitoring</p>
+        <h2 class="reveal">You already see the plant. Who should act, and on what?</h2>
+        <p class="lede reveal hide-mobile">After solar, VFDs, and compressor upgrades, the works already have meters, EMS, tape-line and test-bay states, and bills. We are not rebuilding that. This brief shows how a signal becomes a ranked next step someone can run: energy cost and asset health, before any commitment.</p>
+        <p class="mobile-lede reveal show-mobile">Not more dashboards. A ranked next step someone can actually run.</p>
+        <div class="gap-compare reveal">
+          <div class="gap-col">
+            <h3>What the works already have</h3>
+            <ul>
+              <li>Incomer meters and EMS / SCADA</li>
+              <li>Tape line, loom, and test-bay run states</li>
+              <li>Shift calendar and machine-acceptance trials</li>
+              <li>TPM and maintenance work orders</li>
+              <li>DISCOM bill lines (MD, energy, PF)</li>
+            </ul>
           </div>
-          <div class="incident-meter reveal">
-            <div class="meter-label">Sample demand window</div>
-            <div class="meter-value">1,180 <span style="font-size:0.45em;color:var(--on-surface-variant)">kVA</span></div>
-            <div class="meter-bar"><i class="grow-on-active"></i></div>
-            <div class="stat-row" style="grid-template-columns:1fr 1fr;margin-top:1rem;">
-              <div class="stat-card">
-                <strong id="hookStatImpact">₹45k</strong>
-                <span id="hookStatImpactLabel">Monthly demand impact (sample)</span>
-              </div>
-              <div class="stat-card">
-                <strong>0</strong>
-                <span>Work orders issued</span>
-              </div>
-            </div>
+          <div class="gap-col">
+            <h3>What Stamped adds</h3>
+            <ul>
+              <li>Industry Energy Management: MD, idle loads, HVAC, ToD / tariff windows</li>
+              <li>Asset Health Intelligence: early drift on compressors, chillers, and tape-line drives</li>
+              <li>Rupee-scored prescription with owner, effort, and due window</li>
+              <li>WhatsApp to the floor · alternative when quality blocks the first option</li>
+              <li>At month end, what ran, what did not, and why</li>
+            </ul>
           </div>
         </div>
-        <div class="silo-board reveal" aria-label="Fragmented plant systems">
-          <article class="silo-card">
-            <h3>SCADA</h3>
-            <div class="silo-meta">
-              <div class="has" id="gapScadaHas">Has: tape line, loom, test-bay run states</div>
-              <div class="miss">Missing: owner, due date, ₹ impact</div>
-            </div>
-          </article>
-          <article class="silo-card">
-            <h3>EMS</h3>
-            <div class="silo-meta">
-              <div class="has" id="gapEmsHas">Has: spike logged at 06:50</div>
-              <div class="miss">Missing: who acts before next shift</div>
-            </div>
-          </article>
-          <article class="silo-card">
-            <h3>Meters</h3>
-            <div class="silo-meta">
-              <div class="has" id="gapMetersHas">Has: MD window and trial / utility load profile</div>
-              <div class="miss">Missing: link to a floor sequence change</div>
-            </div>
-          </article>
-          <article class="silo-card">
-            <h3>DISCOM bill</h3>
-            <div class="silo-meta">
-              <div class="has" id="gapBillHas">Has: MD, energy, PF line items</div>
-              <div class="miss">Missing: ops trail that explains the ₹</div>
-            </div>
-          </article>
-        </div>
-        <div class="gap-break reveal">No owner <span>→</span> no floor change <span>→</span> bill unchanged</div>
+        <p class="gap-bridge reveal">Decision and closure</p>
+        <p class="meta reveal" style="margin-top:0.85rem;max-width:52em;">Less time debating what the chart means. More time running the action and checking the curve or the DISCOM bill.</p>
       </div>
     </section>
 
-
-
-    
-
-    <!-- 3 Savings map (early) -->
-    <section class="slide slide--light" id="scene-math" data-theme="light" aria-label="Savings map">
+    <section class="slide slide--light" id="scene-fit" data-theme="light" aria-label="Where Stamped fits">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal" id="mathEyebrow">Priority checks on packaging-machinery floors</p>
-        <h2 class="reveal" id="mathH2">What we check first on your lines</h2>
-        <p class="lede reveal" id="mathLede">Live rupee actions and early warnings on your lines.</p>
-        <div class="waste-grid reveal">
-          <article class="waste-card">
-            <h3>MD / demand</h3>
-            <ul>
-              <li>Machine trials + utility coincidence</li>
-              <li>Tape-line and chiller overlap</li>
-              <li>Contract demand headroom</li>
-            </ul>
-            <div class="waste-bill">Bill line · MD (kVA)</div>
-            <p class="waste-sample hide-mobile">Example: acceptance bay and compressor bank in the same MD window</p>
-          </article>
-          <article class="waste-card">
-            <h3>Compressed air</h3>
-            <ul>
-              <li>Night unload baseload</li>
-              <li>Leak / load residual after upgrades</li>
-              <li>Simultaneous bank starts</li>
-            </ul>
-            <div class="waste-bill">Bill line · Energy + MD</div>
-            <p class="waste-sample hide-mobile">Example: Bank B unload with no fab or trial tags</p>
-          </article>
-          <article class="waste-card">
-            <h3>Idle CNC / aux</h3>
-            <ul>
-              <li>Empty bay chillers</li>
-              <li>Test-bay holding loads</li>
-              <li>Aux run-on across dark shifts</li>
-            </ul>
-            <div class="waste-bill">Bill line · Energy (kWh)</div>
-            <p class="waste-sample hide-mobile">Example: CNC aux left online when the bay is empty</p>
-          </article>
-          <article class="waste-card">
-            <h3>Early warnings</h3>
-            <ul>
-              <li>Line-tied drift before a trip</li>
-              <li>Motor / utility stress on tape or loom islands</li>
-              <li>Not a generic plant alarm dump</li>
-            </ul>
-            <div class="waste-bill">Ops + bill risk</div>
-            <p class="waste-sample hide-mobile">Example: flag trial-bay or air drift earlier than fixed alarms</p>
-          </article>
-          <article class="waste-card">
-            <h3>Live decisions</h3>
-            <ul>
-              <li>Ranked rupee actions during the shift</li>
-              <li>Owner and due time on WhatsApp</li>
-              <li>60-day Proof Run when a scoped pilot is useful</li>
-            </ul>
-            <div class="waste-bill">Bill line · MD + energy</div>
-            <p class="waste-sample hide-mobile">Example: close the loop in the week, not after the next audit cycle</p>
-          </article>
-        </div>
-        <div class="bill-table-wrap reveal">
-          <table class="bill-table">
-            <thead>
-              <tr>
-                <th>Monthly HT bill</th>
-                <th>5% scenario</th>
-                <th>10% scenario</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>₹30L</td><td>₹1.5L / month</td><td>₹3L / month</td></tr>
-              <tr><td>₹60L</td><td>₹3L / month</td><td>₹6L / month</td></tr>
-              <tr><td>₹1Cr</td><td>₹5L / month</td><td>₹10L / month</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="footnote reveal hide-mobile">Scenario arithmetic, not a savings claim. Your baseline, operating constraints, and verified actions determine actual value.</p>
-      </div>
-    </section>
-
-<!-- 4 What Stamped does -->
-    <section class="slide slide--light" id="scene-what" data-theme="light" aria-label="What Stamped does">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">How Stamped works</p>
-        <h2 class="reveal">From plant data to assigned work</h2>
+        <p class="eyebrow reveal">Read-only on the existing plant stack</p>
+        <h2 class="reveal">We sit on what you already have: meters, BAS, bills, shifts</h2>
         <div class="do-chain reveal">
           <article class="do-step">
             <div class="do-step__num">01</div>
-            <h3>Read existing signals</h3>
-            <p id="whatStep1">Incomer, sub-meters, SCADA and PLC states for tape lines, looms, test bays, CNC, compressors, and chillers. Read-only. Real-time decisions and line-tied early warnings. No control writes to the plant.</p>
+            <h3>Connect</h3>
+            <p>Incomer and feeder meters · BAS / SCADA export · tape line / loom / test-bay state · shift calendar · DISCOM bill (MD + ToD)</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">02</div>
-            <h3>Rank fixes in ₹</h3>
-            <p>Rules, models, and agents turn findings into prescriptions with why, owner, effort, and expected bill impact.</p>
+            <h3>Build plant context</h3>
+            <p>Line up signals in time: consumer → feeder → tape line / test bay → utility → asset.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">03</div>
-            <h3>Reach the floor</h3>
-            <p>The shift supervisor gets the task where they already work, with a due time and a clear action.</p>
+            <h3>Decide</h3>
+            <p>Energy models flag MD, idle, and ToD windows. Asset-health models flag drift against each machine&apos;s own baseline.</p>
             <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
           <article class="do-step">
             <div class="do-step__num">04</div>
-            <h3>Verify with evidence</h3>
-            <p>Potential and realised savings are checked against Stamped’s evidence pack  ·  telemetry clearance and tariff math finance can audit.</p>
+            <h3>Assign</h3>
+            <p>Each finding becomes a prescription: what to do, why, who owns it, effort, expected impact, and timing.</p>
+            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          </article>
+          <article class="do-step">
+            <div class="do-step__num">05</div>
+            <h3>Verify and improve</h3>
+            <p>Compare the post-action signal to the locked baseline. Track completed vs skipped vs blocked, and what actually landed.</p>
+            <span class="do-arrow" aria-hidden="true">&rarr;</span>
           </article>
         </div>
-        <div class="flow-tags reveal hide-mobile" style="margin-top:1.25rem;">
-          <span class="chip">Software-only</span>
-          <span class="chip">Read-only OT</span>
-          <span class="chip">Pilot first</span>
-          <span class="chip">Pay-as-you-save</span>
-        </div>
+        <p class="meta reveal" style="margin-top:0.85rem;">Read-only OT · Existing systems remain systems of record · No automatic setpoint changes</p>
       </div>
     </section>
 
-    <!-- 5 Prescription flip cards -->
-    <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Prescription">
+    <section class="slide slide--light grid-bg" id="scene-load" data-theme="light" aria-label="Load and energy management">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Example prescriptions</p>
-        <h2 class="reveal">Each action has a bill line and an owner</h2>
-        <div class="rx-layout">
-          <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Stagger machine trials and utility starts. Show evidence.">
+        <p class="eyebrow reveal">Pillar 1 · Industry Energy Management</p>
+        <h2 class="reveal">Work the full load picture, not only the MD spike</h2>
+        <p class="lede reveal hide-mobile">Most plants react when the bill lands. We watch demand, idle holding, compressed air, and tariff ToD through the month, and call out moves that are realistic for production and storage specs.</p>
+        <p class="mobile-lede reveal show-mobile">MD, idle, HVAC, and ToD moves tied to the shift plan, not only end-of-month firefighting.</p>
+        <div class="waste-grid reveal">
+          <article class="waste-card">
+            <h3>Sequence</h3>
+            <p>When the schedule allows, stagger machine-acceptance trials versus compressor and chiller start so they do not stack demand in one window.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Reduce</h3>
+            <p>Call out test-bay load overlapping plant air, looms dark with compressors unloading, and chillers holding off-shift.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Shift</h3>
+            <p>Move flexible trial and utility work into cheaper ToD windows when lines can still deliver.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Correct</h3>
+            <p>Catch PF drift, wide pressure or temperature bands, and repeat MD hits before they show up on the DISCOM bill.</p>
+          </article>
+        </div>
+        <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Examples on tape and trial floors: test-bay vs utility overlap · night unload · loom idle air · chiller staging · ToD / MD windows [illustrative]</p>
+        <p class="footnote reveal">Production, quality, storage specs, and safety stay first. If a lower-energy option breaks a trial window or line output, we do not push it.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-equipment" data-theme="light" aria-label="Equipment intelligence">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Pillar 2 · Asset Health Intelligence</p>
+        <h2 class="reveal">Catch energy-linked equipment drift early, with an owner attached</h2>
+        <p class="lede reveal hide-mobile">The same stack that finds bill waste also flags equipment issues early. Compressors, chillers, fans, and pumps are judged against their own normal, not a plant-wide average, so drift shows up before trips and waste compound.</p>
+        <p class="mobile-lede reveal show-mobile">Per-asset baselines. Early warnings with owners, not another ignored alert.</p>
+        <div class="waste-grid reveal">
+          <article class="waste-card">
+            <h3>Expected behaviour</h3>
+            <p>Learns the operating band by time, shift, occupancy / dispatch state, and comparable load.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Energy-linked drift</h3>
+            <p>Flags sustained changes in fan duty, filter load, specific power, startup shape, or chiller approach.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Root cause with rupee impact</h3>
+            <p>Separates production- or weather-driven change from a likely equipment or operating issue, ranked by cost.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Assigned inspect / tune</h3>
+            <p>Routes inspect, clean, or tune to utilities or maintenance, then checks whether the curve recovered.</p>
+          </article>
+        </div>
+        <div class="bound-col bound-col--ot reveal" style="margin-top:0.85rem;padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
+          <h3 style="font-size:0.88rem;margin-bottom:0.45rem;">Typical signals on tape and trial floors</h3>
+          <ul class="bound-list">
+              <li>Test-bay load overlapping compressor and chiller start</li>
+              <li>Chiller efficiency drifting versus matched load and ambient</li>
+              <li>Compressor specific-power drift at comparable header demand</li>
+              <li>Cooling-water pump recirculation or stuck bypass</li>
+          </ul>
+        </div>
+        <p class="footnote reveal">Earlier than a fixed alarm threshold. Not a CMMS or full vibration PdM claim. We do not claim bearing life or RUL without the right condition-monitoring data.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescriptions">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Example prescriptions · Both pillars</p>
+        <h2 class="reveal">A prescription tied to what is happening on the floor</h2>
+        <span class="illustrative-badge reveal">Illustrative examples · not customer measurements</span>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 is Industry Energy Management (trial vs utility MD). Card 2 is Asset Health Intelligence (compressor drift). The same loop also covers night unload, loom idle air, and chiller staging.</p>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger machine-acceptance trials versus compressor and chiller start. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge" id="rx1Badge">Rx · MD coincidence</span>
+                  <span class="rx-badge">Rx · Energy · MD</span>
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action" id="rx1Action">Stagger machine-acceptance trials vs compressor / chiller start by 10 minutes</p>
+                  <p class="rx-action">Stagger machine-acceptance trials versus compressor and chiller start by 10 minutes at handover. Hold the second start until the first load settles.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd id="rx1Why">They started together and pushed MD over the limit</dd></div>
-                    <div class="rx-row"><dt>Bill line</dt><dd id="rx1Bill">MD (kVA)</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd id="rx1Owner">Electrical shift supervisor · Shift B</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹2-3.5L / month [illustrative]</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd id="rx1Effort">Sequence change · no new equipment</dd></div>
-                    <div class="rx-row"><dt>Rule</dt><dd id="rx1Rule">md_overlap@v2.4 · High</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd id="rx1Due">This week</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Test-bay load and plant air stacked in the same MD window. The incomer saw the peak; the floor never got a named stagger with a rupee figure.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Electrical shift supervisor + utilities</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹45k-70k / month [illustrative]</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>Sequence change · no new equipment</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>This week · before next peak</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2514,25 +3113,21 @@
                   <span class="rx-priority">MD window</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title" id="rx1EvTitle">Signal window · Mon 06:45-07:00</p>
+                  <p class="rx-ev-title">Signal window · Mon 06:45-07:05 (example tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
-                    <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kVA</text>
-                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,48 40,46 72,44 104,40 136,22 168,18 200,28 232,42 264,44 304,46"/>
-                    <rect x="128" y="8" width="48" height="48" fill="rgba(247,84,64,0.12)" stroke="none"/>
-                    <text x="152" y="58" text-anchor="middle" fill="#F75440" font-size="7" font-family="Inter" font-weight="700">overlap</text>
-                    <line x1="8" y1="8" x2="8" y2="56" stroke="#e0e3df"/>
-                    <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 48,40 88,38 128,36 168,28 208,24 248,26 288,30"/>
+                    <line x1="168" y1="8" x2="168" y2="56" stroke="#00666b" stroke-dasharray="4 3"/>
+                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">overlap</text>
                   </svg>
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>HT_INCOMER.MD</code></td><td>1,050 kVA</td><td>06:52-06:56</td></tr>
-                      <tr><td><code>TEST_BAY.TRIAL</code></td><td>TRUE</td><td>06:48</td></tr>
-                      <tr><td><code>COMP_BANK.A</code></td><td>ON</td><td>06:50+</td></tr>
-                      <tr><td><code>CHILLER.START</code></td><td>ON</td><td>06:51+</td></tr>
+                      <tr><td><code>HT_INCOMER.MD</code></td><td>peak window</td><td>06:48-06:56</td></tr>
+                      <tr><td><code>TEST_BAY.TRIAL</code></td><td>TRUE</td><td>06:47</td></tr>
+                      <tr><td><code>CHILLER.START</code></td><td>ON</td><td>06:49+</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · illustrative · tariff MD slab · baseline sample peak week</p>
+                  <p class="rx-cite">md_overlap@v2.4 · example only · confirm on live plant data</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2540,23 +3135,21 @@
             </div>
           </button>
 
-          <button type="button" class="rx-flip reveal hide-mobile" data-rx-flip aria-pressed="false" aria-label="Cut night unload baseload on plant air. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Inspect compressor inlet filter and unload valve. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge" id="rx2Badge">Rx · Compressed air</span>
+                  <span class="rx-badge">Rx · Asset health</span>
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action" id="rx2Action">Stage Compressor Bank B offline in the planned night unload window</p>
+                  <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd id="rx2Why">Unload kWh with no trial or fab tag on 3 of last 5 nights</dd></div>
-                    <div class="rx-row"><dt>Bill line</dt><dd id="rx2Bill">Energy (kWh) · night</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd id="rx2Owner">Utilities supervisor · Plant air</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹70k-1.2L / month [illustrative]</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd id="rx2Effort">Staging SOP · no new equipment</dd></div>
-                    <div class="rx-row"><dt>Rule</dt><dd id="rx2Rule">idle_hold@v1.8 · High</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd id="rx2Due">Next night unload</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure and shift load. The drift has persisted for nine days.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + mechanical maintenance</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹45k-70k / month [illustrative]</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -2564,30 +3157,24 @@
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
                   <span class="rx-badge">Evidence · sample</span>
-                  <span class="rx-priority rx-priority--med">Idle kWh</span>
+                  <span class="rx-priority rx-priority--med">Specific power</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title" id="rx2EvTitle">Night unload windows · last 5 events</p>
+                  <p class="rx-ev-title">Specific-power trend · last 8 weeks (example tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
-                    <text x="8" y="12" fill="#8f706b" font-size="8" font-family="Inter">kWh unload</text>
-                    <rect x="24" y="28" width="36" height="28" fill="rgba(0,102,107,0.55)"/>
-                    <rect x="76" y="36" width="36" height="20" fill="rgba(0,102,107,0.35)"/>
-                    <rect x="128" y="22" width="36" height="34" fill="rgba(0,102,107,0.7)"/>
-                    <rect x="180" y="40" width="36" height="16" fill="rgba(0,102,107,0.3)"/>
-                    <rect x="232" y="20" width="36" height="36" fill="rgba(0,102,107,0.75)"/>
-                    <text x="160" y="14" text-anchor="middle" fill="#00666b" font-size="7" font-family="Inter" font-weight="700">3 / 5 waste events</text>
-                    <line x1="8" y1="56" x2="304" y2="56" stroke="#e0e3df"/>
+                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 48,40 88,38 128,36 168,28 208,24 248,26 288,30"/>
+                    <line x1="168" y1="8" x2="168" y2="56" stroke="#00666b" stroke-dasharray="4 3"/>
+                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">drift +14%</text>
                   </svg>
                   <table class="rx-ev-table">
                     <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>BANK_B.RUN</code></td><td>ON · unload</td><td>95 min avg</td></tr>
-                      <tr><td><code>FAB.PROD</code></td><td>0 tags</td><td>same window</td></tr>
-                      <tr><td><code>BANK_B.kWh</code></td><td>185 kWh</td><td>per event</td></tr>
-                      <tr><td><code>NIGHT.UNLOAD</code></td><td>TRUE</td><td>planned</td></tr>
+                      <tr><td><code>COMP2.kW_PER_AIR</code></td><td>+14% vs base</td><td>9 days</td></tr>
+                      <tr><td><code>COMP2.RUN_H</code></td><td>aligned</td><td>baseline window</td></tr>
+                      <tr><td><code>PROD.SHIFT</code></td><td>matched</td><td>not volume-driven</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx2Cite">physics/idle_hold@v1.8 · illustrative · energy line · baseline sample nights</p>
+                  <p class="rx-cite">sp_drift@v1.6 · example only · confirm on live plant data</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2598,435 +3185,372 @@
       </div>
     </section>
 
-    <!-- 7 Floor -->
-    <section class="slide slide--light" id="scene-floor" data-theme="light" aria-label="Floor delivery">
+    <section class="slide slide--light grid-bg" id="scene-agentic" data-theme="light" aria-label="How a finding becomes an action">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">How a finding becomes the next-best plant decision</p>
+        <h2 class="reveal">A finding becomes a doable action, with an owner and a window</h2>
+        <p class="lede reveal hide-mobile">We flag energy windows (MD, idle, ToD) and asset drift, then add shift state, storage-spec, and production constraints, and draft an action the right person can run. Operators review every prescription and stay in control.</p>
+        <p class="mobile-lede reveal show-mobile">Findings get context and a feasible owner, not a raw alert.</p>
+        <div class="agent-pipe reveal hide-mobile">
+          <span>Finding + evidence</span><span>↓</span>
+          <span>Plant + production + tariff context</span><span>↓</span>
+          <span>Decision layer</span><span>↓</span>
+          <span>Best feasible prescription + alternative</span>
+        </div>
+        <div class="agent-stack reveal">
+          <article class="agent-step">
+            <div class="agent-step__num">1</div>
+            <div>
+              <strong>Detect</strong>
+              <p>Baseline, drift, attribution, and tariff logic produce a structured finding with evidence and confidence.</p>
+            </div>
+          </article>
+          <article class="agent-step">
+            <div class="agent-step__num">2</div>
+            <div>
+              <strong>Add context</strong>
+              <p>Read tape-line and test-bay state, trial calendar, DISCOM ToD, asset relationships, and approved operating knowledge.</p>
+            </div>
+          </article>
+          <article class="agent-step">
+            <div class="agent-step__num">3</div>
+            <div>
+              <strong>Propose</strong>
+              <p>Draft what to change or inspect, expected impact, owner, effort, and how you will verify it.</p>
+            </div>
+          </article>
+          <article class="agent-step">
+            <div class="agent-step__num">4</div>
+            <div>
+              <strong>Adapt</strong>
+              <p>If the first option clashes with storage-spec or production release, suggest the next feasible window instead of sending something unusable.</p>
+            </div>
+          </article>
+          <article class="agent-step">
+            <div class="agent-step__num">5</div>
+            <div>
+              <strong>Learn</strong>
+              <p>Followed, deferred, and blocked actions improve ranking and plant preferences with human review.</p>
+            </div>
+          </article>
+        </div>
+        <p class="meta reveal" style="margin-top:0.75rem;">Grounded in plant data and approved operating knowledge. Not a generic chatbot, and no autonomous setpoint writes.</p>
+        <p class="agent-callout reveal">Trial stagger was suggested for Tuesday 06:50, but acceptance Job 447 is still on the bay. Stamped flags that and proposes Thursday 14:00 instead, after the job closes.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-floor" data-theme="light" aria-label="Floor execution">
       <div class="slide__inner slide__inner--wide">
         <div class="floor-layout">
           <div class="floor-copy">
-            <p class="eyebrow reveal hide-mobile">Floor delivery</p>
-            <p class="eyebrow reveal show-mobile">On the floor</p>
-            <h2 class="reveal">Reached on the supervisor's phone</h2>
-            <p class="lede reveal hide-mobile">Alarms and prescriptions do not dump straight onto every phone. Routes are set in admin, urgent fixes get a quick confirm, and larger work is assigned before it notifies the owner.</p>
-            <p class="lede reveal show-mobile">Tap Snooze or Acknowledge. Each message is an alarm plus the fix to run.</p>
-            <div class="status-rail hide-mobile reveal">
-              <div class="status-item">
-                <span class="status-dot done"></span>
-                <div>
-                  <strong>Open</strong>
-                  <p>Alarm fired. Fix, owner, due time, and ₹ impact attached.</p>
-                </div>
-              </div>
-              <div class="status-item">
-                <span class="status-dot active pulse-on-active"></span>
-                <div>
-                  <strong>In progress</strong>
-                  <p>Supervisor acknowledges and runs the fix on shift.</p>
-                </div>
-              </div>
-              <div class="status-item">
-                <span class="status-dot"></span>
-                <div>
-                  <strong>Done, ready to verify</strong>
-                  <p>Checked on the next MD / energy bill lines.</p>
-                </div>
-              </div>
-            </div>
+            <p class="eyebrow reveal">Getting the action to the right person</p>
+            <h2 class="reveal">The right action reaches the right owner, with evidence attached</h2>
+            <p class="lede reveal hide-mobile">On a tape and trial floor, one energy or asset-health finding often crosses electrical, utilities, and the test bay before anyone acts. Stamped routes the prescription to whoever can actually run it.</p>
+            <p class="lede reveal show-mobile">One action card to the right owner (electrical, utilities, or test bay), with evidence attached.</p>
+            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">WhatsApp for assigned actions · dashboard for queue and evidence · export for management review</p>
+            <p class="footnote reveal">Workers see a short card. Leadership sees queue, constraints, expected value, and what actually landed.</p>
           </div>
-          <div class="floor-route hide-mobile reveal">
-            <p class="floor-route__title">Before it hits the phone</p>
-            <div class="floor-route-grid">
-              <article class="floor-route-card">
-                <strong>Alarm routes</strong>
-                <p>Pick which role gets which alarm. Re-map recipients when the org chart moves, without rewriting the floor SOP.</p>
-              </article>
-              <article class="floor-route-card">
-                <strong>Urgent prescriptions</strong>
-                <p>Admin confirms first, then the recommended fix goes out as an authenticated handoff to the assigned phone.</p>
-              </article>
-              <article class="floor-route-card">
-                <strong>Larger prescriptions</strong>
-                <p>Stay in the admin dashboard until someone assigns an owner. Only then does that person get the notification.</p>
-              </article>
-            </div>
+          <div class="floor-routing reveal">
+            <article class="routing-card">
+              <strong>Without Stamped</strong>
+              <p>A finding becomes a meeting chain: electrical → utilities → test bay → shift supervisor. Four handoffs before anyone on the floor gets a clear ask.</p>
+            </article>
+            <article class="routing-card routing-card--stamped">
+              <strong>How we route it</strong>
+              <ul class="routing-steps">
+                <li data-n="1">Map the asset to the owner (e.g. test bay vs compressor bank → electrical + utilities).</li>
+                <li data-n="2">Check the dispatch / production / ToD window so the ask is feasible this shift.</li>
+                <li data-n="3">Pack why, impact, and evidence on one card.</li>
+                <li data-n="4">Send that card on WhatsApp (or the dashboard queue) to that owner.</li>
+              </ul>
+            </article>
+            <article class="routing-card">
+              <strong>What changes for you</strong>
+              <p>Owners still decide. We remove the chase: no round-robin emails, no “who owns this?” thread. Leadership still sees the full queue and outcomes.</p>
+            </article>
           </div>
           <div class="phone-col">
-            <div class="phone reveal" id="floorPhone" role="region" aria-label="Plant prescription phone">
-            <div class="phone-btn phone-btn--silent" aria-hidden="true"></div>
-            <div class="phone-btn phone-btn--vol-up" aria-hidden="true"></div>
-            <div class="phone-btn phone-btn--vol-down" aria-hidden="true"></div>
-            <div class="phone-btn phone-btn--power" aria-hidden="true"></div>
-            <div class="phone__bezel">
-              <div class="phone__screen">
-                <div class="phone-island" aria-hidden="true"></div>
-                <div class="phone-statusbar" aria-hidden="true">
-                  <span class="phone-time">07:18</span>
-                  <span class="phone-status-right">
-                    <svg class="phone-sig" viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
-                    <span>5G</span>
-                    <svg class="phone-bat" viewBox="0 0 28 14" aria-hidden="true"><rect x="1" y="2" width="22" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="16" height="6" rx="1"/><rect x="24" y="5" width="2.5" height="4" rx="0.5"/></svg>
-                  </span>
-                </div>
-                <div class="wa-app">
-                  <div class="wa-header">
-                    <div class="wa-back" aria-hidden="true">‹</div>
-                    <div class="wa-avatar">SE</div>
-                    <div class="wa-head-text">
-                      <strong>Stamped Energy</strong>
-                      <span>online</span>
-                    </div>
-                    <div class="wa-head-icons" aria-hidden="true"><span>⌕</span><span>⋮</span></div>
+            <div class="phone reveal" id="floorPhone" role="region" aria-label="Prescription phone preview">
+              <div class="phone-btn phone-btn--silent" aria-hidden="true"></div>
+              <div class="phone-btn phone-btn--vol-up" aria-hidden="true"></div>
+              <div class="phone-btn phone-btn--vol-down" aria-hidden="true"></div>
+              <div class="phone-btn phone-btn--power" aria-hidden="true"></div>
+              <div class="phone__bezel">
+                <div class="phone__screen">
+                  <div class="phone-island" aria-hidden="true"></div>
+                  <div class="phone-statusbar" aria-hidden="true">
+                    <span class="phone-time">10:42</span>
+                    <span class="phone-status-right">
+                      <svg class="phone-sig" viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
+                      <span>5G</span>
+                      <svg class="phone-bat" viewBox="0 0 28 14" aria-hidden="true"><rect x="1" y="2" width="22" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="16" height="6" rx="1"/><rect x="24" y="5" width="2.5" height="4" rx="0.5"/></svg>
+                    </span>
                   </div>
-                  <div class="wa-body" id="floorWaBody">
-                    <p class="wa-meta" id="floorMeta">Today · Shift B · 07:18</p>
-                    <div class="wa-msg" id="floorMsg">
-                      <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge alarm and fix">
-                        <span class="tag" id="floorTag">Alarm · High</span>
-                        <h4 id="floorTitle">Stagger trials vs utility starts by 10 min</h4>
-                        <div class="wa-bubble__divider" aria-hidden="true"></div>
-                        <p class="wa-line" id="floorWhy"><b>Alarm:</b> MD peak from Monday trial / air overlap</p>
-                        <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹2-3.5L/mo on MD line [illustrative]</p>
-                        <p class="wa-line" id="floorOwner"><b>Owner:</b> Electrical supervisor · B</p>
-                        <p class="wa-line" id="floorDue"><b>Due:</b> This week · before next peak</p>
-                        <div class="wa-bubble__foot">
-                          <span class="wa-tick" aria-hidden="true">07:18</span>
+                  <div class="wa-app">
+                    <div class="wa-header">
+                      <div class="wa-back" aria-hidden="true">‹</div>
+                      <div class="wa-avatar">SE</div>
+                      <div class="wa-head-text">
+                        <strong>Stamped Energy</strong>
+                        <span>online</span>
+                      </div>
+                      <div class="wa-head-icons" aria-hidden="true"><span>⌕</span><span>⋮</span></div>
+                    </div>
+                    <div class="wa-body" id="floorWaBody">
+                      <p class="wa-meta" id="floorMeta">Today · assigned action · 1/2</p>
+                      <div class="wa-msg" id="floorMsg">
+                        <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
+                          <span class="tag" id="floorTag">Rx · High</span>
+                          <h4 id="floorTitle">Stagger machine trials versus compressor / chiller start by 10 min</h4>
+                          <div class="wa-bubble__divider" aria-hidden="true"></div>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> Test bay and plant air overlapped in the same MD window</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹0.8-1.2L/mo on MD line [illustrative]</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> Electrical shift supervisor + utilities</p>
+                          <p class="wa-line" id="floorEffort"><b>Effort:</b> Sequence change · no new equipment</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Compare MD window with both start times against a quiet baseline week</p>
+                          <p class="wa-line" id="floorDue"><b>Due:</b> This week · before next peak</p>
+                          <div class="wa-bubble__foot">
+                            <span class="wa-tick" aria-hidden="true">10:42</span>
+                          </div>
+                        </div>
+                        <div class="wa-actions" id="floorActions">
+                          <button type="button" id="floorSnooze" aria-label="Snooze prescription">Snooze</button>
+                          <button type="button" class="primary" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
                         </div>
                       </div>
-                      <div class="wa-actions" id="floorActions">
-                        <button type="button" id="floorSnooze" aria-label="Snooze prescription">Snooze</button>
-                        <button type="button" class="primary" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
+                      <div class="wa-end" id="floorEnd" hidden>
+                        <strong>Stamped Energy</strong>
+                        <span>Inbox clear for this shift</span>
                       </div>
                     </div>
-                    <div class="wa-end" id="floorEnd" hidden>
-                      <strong>Stamped Energy</strong>
-                      <span>Inbox clear for this shift</span>
+                    <div class="wa-compose" aria-hidden="true">
+                      <span class="wa-compose__icon">+</span>
+                      <div class="wa-compose__field">Message</div>
+                      <span class="wa-compose__mic">◉</span>
                     </div>
                   </div>
-                  <div class="wa-compose" aria-hidden="true">
-                    <span class="wa-compose__icon">+</span>
-                    <div class="wa-compose__field">Message</div>
-                    <span class="wa-compose__mic">◉</span>
-                  </div>
+                  <div class="phone-home" aria-hidden="true"></div>
                 </div>
-                <div class="phone-home" aria-hidden="true"></div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 8 Verify -->
-    <section class="slide slide--light" id="scene-verify" data-theme="light" aria-label="Evidence verification">
+    <section class="slide slide--light" id="scene-verify" data-theme="light" aria-label="Verification">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Measurement and verification</p>
-        <h2 class="reveal">Verified with evidence</h2>
-        <p class="lede reveal show-mobile">Savings count when evidence clears  ·  telemetry held; bill can confirm later.</p>
-        <div class="kpi-pair reveal">
-          <div class="kpi">
-            <div class="kpi__label">Potential</div>
-            <div class="kpi__value">₹4.0L</div>
+        <p class="eyebrow reveal">Evidence before credit</p>
+        <h2 class="reveal">Savings count only after the signal actually moves</h2>
+        <p class="lede reveal hide-mobile">Issuing a prescription or marking it done is not a saving. We lock the baseline before action, watch the post-action period, and record value only when the agreed evidence clears. At month-end you see which actions completed, which did not, and why (ops, worker, or storage-spec constraints).</p>
+        <p class="mobile-lede reveal show-mobile">Baseline locked first. Credit only when the evidence clears. At month end you see what ran and what did not.</p>
+        <div class="verify-steps reveal hide-mobile">
+          <div class="verify-step">
+            <strong>Baseline</strong>
+            <span>Expected performance under comparable production, trial mix, and operating conditions.</span>
           </div>
-          <div class="kpi kpi--hot">
-            <div class="kpi__label">Realised</div>
-            <div class="kpi__value">₹3.4L</div>
+          <div class="verify-step">
+            <strong>Action</strong>
+            <span>What changed, who approved it, when it was executed, and which assets were affected.</span>
+          </div>
+          <div class="verify-step">
+            <strong>Outcome</strong>
+            <span>Actual energy, demand, or equipment-performance change after adjustment for relevant context.</span>
+          </div>
+          <div class="verify-step">
+            <strong>Ledger</strong>
+            <span>Potential versus realised ₹ and kWh, plus whether the action ran, sat, or got blocked.</span>
+          </div>
+          <div class="verify-step">
+            <strong>Confirmation</strong>
+            <span>DISCOM bill lines can provide secondary confirmation when the billing period closes.</span>
           </div>
         </div>
         <div class="ledger-wrap reveal">
           <table class="ledger-table">
-            <thead>
-              <tr>
-                <th>Ledger line</th>
-                <th>Baseline</th>
-                <th>Action</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Prescription</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
             <tbody>
               <tr>
-                <td>MD stagger · trial/utility</td>
-                <td>Sample MD peak</td>
-                <td>10-min trial lag</td>
-                <td>VERIFIED</td>
+                <td>Trial vs utility stagger</td>
+                <td>Realised</td>
+                <td>₹52k/mo</td>
+                <td>Verified · completed</td>
               </tr>
               <tr>
-                <td>Night air unload cut</td>
-                <td>Night unload kWh</td>
-                <td>Bank B staging</td>
-                <td>PENDING</td>
+                <td>Compressor 2 filter inspect</td>
+                <td>Realised</td>
+                <td>₹48k/mo</td>
+                <td>Verified · completed</td>
               </tr>
               <tr>
-                <td>Early warning · line stress</td>
-                <td>Pre-trip drift window</td>
-                <td>Same-shift action</td>
-                <td>IN REVIEW</td>
+                <td>Night compressor unload</td>
+                <td>Potential</td>
+                <td>₹28k/mo</td>
+                <td>Blocked · trial still on the bay</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="meta reveal hide-mobile">Sample ledger for walkthrough · labelled · not a customer guarantee</p>
+        <p class="meta reveal hide-mobile">Prescription history · calculation method · source tags · baseline version · post-action curve · exceptions · EnMS / utility review support</p>
+        <p class="footnote reveal">Models propose. Plant execution and measured evidence determine what counts.</p>
       </div>
     </section>
 
-    <!-- Tech stack -->
-    <section class="slide slide--light grid-bg" id="scene-tech" data-theme="light" aria-label="Technology stack">
+    <section class="slide slide--light grid-bg" id="scene-integration" data-theme="light" aria-label="Integration and boundaries">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Technology</p>
-        <h2 class="reveal">What sits behind each prescription</h2>
-        <div class="tech-grid reveal">
-          <a class="tech-card" href="../tech/physics.html?from=machinery-oem" aria-label="Physics and rules engines. Open deep dive.">
-            <div class="tech-card__num">01 · Physics</div>
-            <h3>Versioned industrial physics &amp; rulepacks</h3>
-            <p>Semver rule packs for affinity laws, holding floors, and tariff arithmetic. Every finding cites a pack a plant EE can open.</p>
-            <ul class="tech-card__detail">
-              <li id="techPhysicsBullet">Live MD and idle actions, line-level early warnings, compressed-air residual, 60-day Proof Run when useful</li>
-              <li>PF and tariff arithmetic tied to utility line items</li>
-              <li>Physics-informed hybrids. PINN research lineage, not black-box PDEs</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-          <a class="tech-card" href="../tech/models.html?from=machinery-oem" aria-label="Industrial energy models. Open deep dive.">
-            <div class="tech-card__num">02 · Models</div>
-            <h3>Plant-calibrated industrial ML</h3>
-            <p>Baselines and ranking models fitted on your plant’s telemetry. Production-normalised residuals. Not a chatbot on meter dumps.</p>
-            <ul class="tech-card__detail">
-              <li>TOW-P baselines · EWMA / CUSUM residual SPC</li>
-              <li>LightGBM quantile MD exceedance ranking</li>
-              <li>TimesFM-class foundation models in shadow only</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-          <a class="tech-card" href="../tech/agents.html?from=machinery-oem" aria-label="Prescription agents. Open deep dive.">
-            <div class="tech-card__num">03 · Agents</div>
-            <h3>Bounded prescription agents</h3>
-            <p>Agents draft floor actions with tools and vetoes (what, why, who, effort, ₹, due). The calculation engine owns the money path.</p>
-            <ul class="tech-card__detail">
-              <li>Ranks by ₹ × confidence / effort</li>
-              <li>Physics and tariff vetoes are non-overridable</li>
-              <li>LLM for prose only. It does not invent ₹</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-          <a class="tech-card" href="../tech/evidence.html?from=machinery-oem" aria-label="Verified with evidence. Open deep dive.">
-            <div class="tech-card__num">04 · Evidence</div>
-            <h3>Verified with evidence</h3>
-            <p>In-house calculation engine recomputes ₹ from telemetry deltas and tariff lines, then checks whether the action moved the needle.</p>
-            <ul class="tech-card__detail">
-              <li>Potential vs realised vs remaining opportunity</li>
-              <li>M&amp;V plan and baseline locked at issue time</li>
-              <li>Evidence trail for plant, finance, and assurance</li>
-            </ul>
-            <span class="tech-card__cta">Open deep dive →</span>
-          </a>
-        </div>
-        <div class="flow-tags reveal hide-mobile" style="margin-top:1rem;">
-          <span class="chip">Read-only OT</span>
-          <span class="chip">No PLC writes</span>
-          <span class="chip">Multi-plant ready</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Audit trail -->
-    <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Audit trail and reporting">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Audit trail and reporting</p>
-        <h2 class="reveal">Each action leaves evidence finance can check.</h2>
-        <div class="audit-grid">
-          <div class="audit-col reveal">
-            <h3>Auditability</h3>
-            <ul class="audit-list">
-              <li><span class="mark mark-ok">1</span><span>Immutable trail: issued → viewed → acted → verified</span></li>
-              <li><span class="mark mark-ok">2</span><span>Potential vs realised ledger from Stamped evidence (bill optional)</span></li>
-              <li><span class="mark mark-ok">3</span><span>IPMVP-style M&amp;V plan locked when each prescription is issued</span></li>
-              <li><span class="mark mark-ok">4</span><span>Exportable workpapers for plant EE, finance, and assurance partners</span></li>
-            </ul>
-          </div>
-          <div class="audit-col audit-col--sus reveal">
-            <h3>Energy and emissions records</h3>
-            <ul class="audit-list">
-              <li><span class="mark mark-te">1</span><span>Verified kWh, intensity, and tCO₂e with factor disclosure from the same actions</span></li>
-              <li><span class="mark mark-te">2</span><span>Evidence adjuncts for ISO 50001 opportunity closure</span></li>
-              <li><span class="mark mark-te">3</span><span>BRSR / PAT workpaper inputs. We do not file ESG returns for you</span></li>
-              <li><span class="mark mark-te">4</span><span>We do not replace EnMS or certify the plant. We close ops into proof those systems need</span></li>
-            </ul>
-          </div>
-        </div>
-        <p class="audit-note reveal hide-mobile">For teams that already run EnMS, renewables, and intensity programmes, and still need day-to-day actions that show up on the invoice.</p>
-      </div>
-    </section>
-
-    
-
-    <!-- 11 Boundaries -->
-    <section class="slide slide--light" id="scene-boundaries" data-theme="light" aria-label="Boundaries">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">How we engage OT</p>
-        <h2 class="reveal">Read-only on OT, with clear limits</h2>
-        <div class="bound-grid">
-          <div class="bound-col bound-col--not reveal hide-mobile">
-            <h3>What we are not</h3>
+        <p class="eyebrow reveal">Designed for brownfield plants</p>
+        <h2 class="reveal">Fits a brownfield works: read-only, no control writes</h2>
+        <div class="bound-grid reveal">
+          <div class="bound-col bound-col--ot">
+            <h3>Integration</h3>
             <ul class="bound-list">
-              <li>EMS / SCADA replacement</li>
-              <li>ESG-first carbon platform</li>
-              <li>Hardware or metering vendor</li>
-              <li>PLC / DCS control writes</li>
-              <li>Another monitoring dashboard</li>
+              <li>OPC-UA, Modbus, MQTT, API, or scheduled file export, depending on existing access</li>
+              <li>Optional edge-buffered path when direct cloud connectivity is not permitted</li>
+              <li>Start with meter + DISCOM bill; add tape-line, test-bay, and compressor feeders only where useful</li>
             </ul>
           </div>
-          <div class="bound-col bound-col--ot reveal">
-            <h3>How we engage OT</h3>
+          <div class="bound-col ">
+            <h3>Operating boundaries</h3>
             <ul class="bound-list">
-              <li>Read-only data access only</li>
-              <li>No new hardware in Phase 1</li>
-              <li>NDA before plant data leaves the site</li>
-              <li>Data returned on exit, with no lock-in</li>
-              <li>Single-site proof before multi-plant rollout</li>
+              <li>Read-only on OT in the Proof Run</li>
+              <li>No PLC, line, or utility setpoint writes from Stamped</li>
+              <li>Existing EMS, MES, production, and maintenance systems remain systems of record</li>
+              <li>Human approval for trial windows, production, maintenance, or high-impact actions</li>
             </ul>
-            <div class="protocol-row">
-              <span class="chip">Modbus · OPC-UA · MQTT</span>
-              <span class="chip">Incomer + bills first</span>
-              <span class="chip">Group-ready after proof</span>
+          </div>
+          <div class="bound-col bound-col--ot">
+            <h3>Data governance</h3>
+            <ul class="bound-list">
+              <li>Minimum data scope agreed before connection</li>
+              <li>Role-based access and action audit trail</li>
+              <li>Retention, hosting, and plant-network design agreed with plant IT/security before deployment</li>
+              <li>Source lineage retained for every prescription</li>
+            </ul>
+          </div>
+        </div>
+        <p class="meta reveal" style="margin-top:0.85rem;">Stamped is not an EMS replacement, MES, CMMS, vibration-monitoring system, solar/EPC service, or autonomous plant-control system. We do not replace EMS, MES, or CMMS.</p>
+        <p class="footnote reveal">Any first engagement should stay small enough to review technically and useful enough to produce one decision worth verifying.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Next conversation">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">A conversation, not a commitment</p>
+        <h2 class="reveal">Happy to walk your team through how this would work on tape lines and test bays</h2>
+        <p class="offer-lede reveal hide-mobile">This brief is so electrical and utilities can see the approach across Industry Energy Management and Asset Health Intelligence. After solar and VFDs, the remaining value is live floor decisions. If it looks useful, we map one works and a 60-day Proof Run only if the numbers justify it.</p>
+        <p class="mobile-lede reveal show-mobile">See the approach first. Then a short working session if useful.</p>
+
+        <div class="offer-main reveal">
+          <div class="offer-panel offer-panel--scope">
+            <h3>What we&#x27;d cover in a working session</h3>
+            <ul class="scope-list">
+              <li>One works or tape-line island that would be a fair first look</li>
+              <li>Which meter, SCADA, or DISCOM bill data you already trust</li>
+              <li>Who would own a trial-stagger or compressor-inspect action if one landed</li>
+              <li>How demand / ToD stagger and asset-health warnings would be scoped</li>
+              <li>Two recent HT bills (MD, ToD, PF) if available</li>
+            </ul>
+          </div>
+          <div class="offer-panel offer-panel--timeline">
+            <h3>What we would not ask for first</h3>
+            <div class="offer-timeline">
+              <article class="offer-phase">
+                <div class="offer-phase__when">No PLC writes</div>
+                <p>Read-only on OT. Your control stack stays as-is.</p>
+              </article>
+              <article class="offer-phase">
+                <div class="offer-phase__when">No enterprise RFP first</div>
+                <p>Plant-scoped conversation first. Not a corporate transformation ask.</p>
+              </article>
+              <article class="offer-phase">
+                <div class="offer-phase__when">No AI workshop</div>
+                <p>We walk energy and asset-health actions, not a models pitch.</p>
+              </article>
+              <article class="offer-phase">
+                <div class="offer-phase__when">Keep it practical</div>
+                <p>One consumer, one utility system, and one production feed if you go further later.</p>
+              </article>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 12 Video -->
-    <section class="slide slide--light" id="scene-video" data-theme="light" aria-label="How it works video">
-      <div class="slide__inner slide__inner--media">
-        <p class="eyebrow reveal">Short product walkthrough</p>
-        <h2 class="reveal">How Stamped works in practice</h2>
-        <div class="video-frame reveal">
-          <video
-            controls
-            playsinline
-            preload="metadata"
-            poster="https://stamped.work/video/how-it-works-poster.png"
-            aria-label="How Stamped Energy works video"
-          >
-            <source src="https://stamped.work/video/how-it-works-cinematic.webm" type="video/webm" />
-          </video>
-        </div>
-        <p class="video-caption reveal hide-mobile">The video follows the same sequence shown here. Pause whenever a point needs discussion.</p>
-      </div>
-    </section>
-
-    <!-- 13 Dashboard -->
-    <section class="slide slide--light" id="scene-live" data-theme="light" aria-label="Simulated dashboard">
-      <div class="slide__inner slide__inner--wide">
-        <div class="dash-title-row reveal dash-title-row--actions">
-          <div>
-            <h2>Sample workspace</h2>
-            <p>Live demo · trying.stamped.work · sample plant, not your site</p>
+        <div class="offer-bottom reveal" style="margin-top:1.15rem;">
+          <div class="ask-box">
+            <strong>Suggested next step</strong>
+            <p>A 30-45 minute working session with electrical and utilities. We walk the brief, and leave with a clear yes / no / later on a scoped 60-day Proof Run.</p>
           </div>
-          <a class="btn btn--primary" id="openSampleWorkspace" href="https://trying.stamped.work/" target="_blank" rel="noopener noreferrer">Open workspace</a>
-        </div>
-        <div class="dash-shell reveal">
-          <div class="dash-badge hide-mobile">trying.stamped.work</div>
-          <iframe
-            id="dashFrame"
-            data-src="https://trying.stamped.work/"
-            title="Stamped Energy sample workspace"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+          <div class="offer-aside">
+            <div class="commercial">
+              <span class="chip">Read-only OT</span>
+              <span class="chip">Working session first</span>
+              <span class="chip">No commitment required</span>
+            </div>
+            <p class="contact-line">
+              <a href="mailto:contact@stamped.work">contact@stamped.work</a>
+              ·
+              <a href="https://stamped.work" target="_blank" rel="noopener noreferrer">stamped.work</a>
+              ·
+              <a href="https://in.linkedin.com/in/vinayak-rz" target="_blank" rel="noopener noreferrer">Vinayak</a>
+              ·
+              <a href="https://in.linkedin.com/in/utso" target="_blank" rel="noopener noreferrer">Utso</a>
+            </p>
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- 14 Offer -->
-    <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Offer and ask">
-      <div class="slide__inner">
-        <p class="eyebrow reveal">Optional 60-day Proof Run</p>
-        <h2 class="reveal">Start with one works</h2>
-        <p class="lede reveal show-mobile" id="offerLedeM">One works. Live decisions and early warnings. 60-day Proof Run when useful.</p>
-        <table class="phase-table reveal">
-          <thead>
-            <tr>
-              <th>Phase</th>
-              <th>What happens</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Connect</td>
-              <td>Read-only on meters / EMS · map tape, loom, test-bay, and utility islands</td>
-            </tr>
-            <tr>
-              <td>Live</td>
-              <td>Real-time prescriptions and line-tied early warnings · floor owns each ₹ action</td>
-            </tr>
-            <tr>
-              <td>Day 60</td>
-              <td>Optional scoped Proof Run: go / no-go on verified ₹ and plant fit</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="commercial reveal">
-          <span class="chip">Live decisions</span>
-          <span class="chip">Line-level early warnings</span>
-          <span class="chip">60-day Proof Run when useful</span>
-          <span class="chip">Read-only OT</span>
-        </div>
-        <div class="ask-box reveal">
-          <strong>Next step</strong>
-          <p>Start with one works. Live prescriptions and line-level early warnings from your meters. Use a 60-day Proof Run when you want a clear go / no-go on verified rupees and plant fit.</p>
-          <p class="ask-cal"><a href="https://calendly.com/stamped-energy/stamped-energy" target="_blank" rel="noopener noreferrer">Book a meet</a></p>
-        </div>
-        <p class="contact-line reveal">
-          <a href="mailto:contact@stamped.work">contact@stamped.work</a>
-          ·
-          <a href="https://stamped.work" target="_blank" rel="noopener noreferrer">stamped.work</a>
-        </p>
-        <p class="founders reveal">
-          Founders:
-          <a href="https://in.linkedin.com/in/vinayak-rz" target="_blank" rel="noopener noreferrer">Vinayak</a>
-          ·
-          <a href="https://in.linkedin.com/in/utso" target="_blank" rel="noopener noreferrer">Utso</a>
-        </p>
-        <p class="cred-quiet reveal hide-mobile">Built on energy systems research at IIT Roorkee.</p>
-      </div>
-    </section>
-
   </main>
 
   <button type="button" class="nav-btn nav-btn--prev" id="btnPrev" aria-label="Previous slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
   <button type="button" class="nav-btn nav-btn--next" id="btnNext" aria-label="Next slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
 
   <nav class="dots" id="dots" aria-label="Slide navigation"></nav>
 
-  
+
   <script>
-    /* Industry chrome + floor prescriptions + resolve hero against this HTML file's URL */
-    window.__FLOOR_RX__ = [{"title": "Stagger trials vs utility starts by 10 min", "why": "MD peak from Monday trial / air overlap", "impact": "₹2-3.5L/mo on MD line [illustrative]", "owner": "Electrical supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Stage Bank B offline in night unload", "why": "Unload kWh with no fab or trial tag", "impact": "₹0.7-1.2L/mo on energy [illustrative]", "owner": "Utilities supervisor · A", "priority": "High", "due": "Next night unload"}, {"title": "Act on early warning · tape-line motor stress", "why": "Line-tied drift signal before a trial bay trip", "impact": "Avoid unplanned downtime + MD risk", "owner": "Electrical supervisor · B", "priority": "Med", "due": "Same shift · before next trial"}];
+    window.__FLOOR_RX__ = [
+      {
+        "title": "Stagger machine trials versus compressor / chiller start by 10 min",
+        "rule": "RX-MD-011 · md_overlap@v2.4",
+        "why": "Test bay and plant air overlapped in the same MD window",
+        "impact": "₹0.8-1.2L/mo on MD line [illustrative]",
+        "owner": "Electrical shift supervisor + utilities",
+        "effort": "Sequence change · no new equipment",
+        "verify": "Compare the demand peak window with both start times against a quiet baseline week",
+        "priority": "High",
+        "due": "This week · before next peak",
+        "statusStep": 0
+      },
+      {
+        "title": "Inspect Compressor 2 inlet filter and unload valve",
+        "rule": "RX-UTL-024 · sp_drift@v1.6",
+        "why": "Specific power 14% above eight-week baseline for matched header pressure and shift load; persisted nine days",
+        "impact": "₹45k-70k/mo if curve returns to baseline [illustrative]",
+        "owner": "Utilities lead + mechanical maintenance",
+        "effort": "~2 hrs · subject to isolation and permit",
+        "verify": "Compare post-service kW/Air with locked baseline for 72 operating hours",
+        "priority": "Med",
+        "due": "Next approved low-load maintenance window",
+        "statusStep": 1
+      }
+    ];
+
     (function () {
-      var el = document.getElementById("chromeIndustry");
-      if (el) el.textContent = "Machinery OEM";
       var img = document.getElementById("heroPhotoImg");
       if (!img) return;
-      var rel = "assets/machinery-oem/tape-line.jpg";
-      var resolved = new URL(rel, window.location.href).href;
-      if (img.src !== resolved) img.src = resolved;
-      img.addEventListener("error", function onHeroErr() {
-        img.removeEventListener("error", onHeroErr);
-        // one retry with cache-bust - still the local industry photo, never the cement poster
-        img.src = new URL(rel + "?t=" + Date.now(), window.location.href).href;
-      });
+      var rel = 'assets/machinery-oem/tape-line.jpg';
+      img.src = new URL(rel, window.location.href).href;
     })();
+
   </script>
 <script>
     (function () {
       const isMobileDeck = window.matchMedia("(max-width: 720px)").matches;
       // ponytail: skip simulated dashboard on phone - desktop iframe only
-      const slides = Array.from(document.querySelectorAll(".slide")).filter(function (s) {
-        return !(isMobileDeck && s.id === "scene-live");
-      });
+      const slides = Array.from(document.querySelectorAll(".slide"));
       const total = slides.length;
       const progressFill = document.getElementById("progressFill");
       const counter = document.getElementById("sceneCounter");
@@ -3098,10 +3622,14 @@
       var floorWhy = document.getElementById("floorWhy");
       var floorImpact = document.getElementById("floorImpact");
       var floorOwner = document.getElementById("floorOwner");
+      var floorEffort = document.getElementById("floorEffort");
+      var floorVerify = document.getElementById("floorVerify");
       var floorDue = document.getElementById("floorDue");
       var floorMsg = document.getElementById("floorMsg");
       var floorSnooze = document.getElementById("floorSnooze");
       var floorAck = document.getElementById("floorAck");
+
+      function setFloorStatus(step) { /* routing slide: no status rail */ }
 
       function setFloorControlsEnabled(on) {
         if (floorSnooze) floorSnooze.disabled = !on;
@@ -3113,13 +3641,16 @@
         var rx = floorRx[i];
         if (!rx || !floorBubble) return;
         floorIdx = i;
-        if (floorTag) floorTag.textContent = "Alarm · " + (rx.priority || "High");
+        if (floorTag) floorTag.textContent = "Rx · " + (rx.priority || "High");
         if (floorTitle) floorTitle.textContent = rx.title || "";
-        if (floorWhy) floorWhy.innerHTML = "<b>Alarm:</b> " + (rx.why || "");
+        if (floorWhy) floorWhy.innerHTML = "<b>Why:</b> " + (rx.why || "");
         if (floorImpact) floorImpact.innerHTML = "<b>Impact:</b> " + (rx.impact || "");
         if (floorOwner) floorOwner.innerHTML = "<b>Owner:</b> " + (rx.owner || "");
+        if (floorEffort) floorEffort.innerHTML = "<b>Effort:</b> " + (rx.effort || "");
+        if (floorVerify) floorVerify.innerHTML = "<b>Verify:</b> " + (rx.verify || "");
         if (floorDue) floorDue.innerHTML = "<b>Due:</b> " + (rx.due || "This week · before next peak");
-        if (floorMeta) floorMeta.textContent = "Today · Shift B · 07:18 · " + (i + 1) + "/" + floorRx.length;
+        if (floorMeta) floorMeta.textContent = "Today · assigned action · " + (i + 1) + "/" + floorRx.length;
+        setFloorStatus(typeof rx.statusStep === "number" ? rx.statusStep : i);
         if (floorMsg) floorMsg.hidden = false;
         floorBubble.hidden = false;
         if (floorActions) floorActions.hidden = false;
@@ -3137,6 +3668,7 @@
         if (floorMsg) floorMsg.hidden = true;
         if (floorMeta) floorMeta.hidden = true;
         if (floorEnd) floorEnd.hidden = false;
+        setFloorStatus(4);
         floorBusy = false;
         setFloorControlsEnabled(false);
       }
@@ -3167,6 +3699,7 @@
             showFloorEnd();
             return;
           }
+          setFloorStatus(Math.min((floorRx[floorIdx] && floorRx[floorIdx].statusStep || floorIdx) + 1, 4));
           renderFloorRx(next, true);
           floorBusy = false;
         }, 340);
