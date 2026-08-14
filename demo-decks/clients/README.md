@@ -2,16 +2,19 @@
 
 Linked from the main demo hub via **Clients** → [`index.html`](./index.html).
 
+These are **11-scene technical briefs** (Nestlé / ITC shell), not industry Proof Runs. Copy follows the live website pillars: Industry Energy Management and Asset Health Intelligence. HTML is hand-authored. `python scripts/decks/build/build-client-decks.py` only syncs `assets/`.
+
 | File | Use |
 |------|-----|
 | [index.html](./index.html) | Client deck picker |
-| [machinery-oem.html](./machinery-oem.html) | Anonymous full Proof Run (packaging-machinery OEM) |
+| [nestle-pantnagar-technical/](./nestle-pantnagar-technical/) | Nestlé Pantnagar Maggi leave-behind (warehouse HVAC, ToD / MD). Quality bar. Uses "rupee(s)", not ₹. |
+| [itc-nadiad-technical/](./itc-nadiad-technical/) | ITC Nadiad technical brief (deploy folder) |
+| [itc-nadiad-technical.html](./itc-nadiad-technical.html) | Flat twin of the ITC folder index |
+| [lohia-corp-brief.html](./lohia-corp-brief.html) | Named Lohia brief (DIC, not a second audit, Chaubepur visit) |
+| [auto-forge-ht.html](./auto-forge-ht.html) | Anonymous forge / HT / die-cast brief |
+| [machinery-oem.html](./machinery-oem.html) | Anonymous packaging-machinery OEM brief (60-day Proof Run if justified) |
 | [machinery-oem/](./machinery-oem/) | Optional standalone deploy root |
-| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |
-| [auto-forge-ht.html](./auto-forge-ht.html) | Forge / HT / die-cast value walkthrough (two pillars) |
-| [technical-explainer.html](./technical-explainer.html) | Generic Stamped Intelligence technical explainer |
-| [itc-nadiad-technical/](./itc-nadiad-technical/) | ITC Nadiad packaging and printing technical brief |
-| [nestle-pantnagar-technical/](./nestle-pantnagar-technical/) | Nestlé Pantnagar warehouse HVAC and tariff brief |
+| [technical-explainer.html](./technical-explainer.html) | Generic sales collateral (60-day close) |
 | [assets/](./assets/) | Co-located images (open HTML from this folder) |
 
-Rebuild: `python scripts/decks/build/build-client-decks.py`
+**Gate:** `python scripts/decks/checks/check-client-decks.py`

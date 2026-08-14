@@ -43,9 +43,6 @@
       padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
     }
     a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
-    a.card:focus-visible {
-      outline: 2px solid var(--primary); outline-offset: 3px;
-    }
     a.card strong {
       display: block; font-family: var(--font-d); font-size: 1.2rem;
       margin-bottom: 0.35rem; color: var(--secondary);
@@ -55,11 +52,20 @@
       display: inline-block; margin-top: 0.75rem; font-style: normal;
       font-size: 0.8rem; font-weight: 700; color: var(--primary);
     }
+    a.card--visual {
+      padding: 0;
+      overflow: hidden;
+    }
+    a.card--visual .card__thumb {
+      display: block;
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+    a.card--visual .card__body { display: block; padding: 1.15rem 1.25rem; }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
-    @media (prefers-reduced-motion: reduce) {
-      a.card { transition: none; }
-    }
   </style>
 </head>
 <body>
@@ -67,37 +73,48 @@
     <a class="back" href="../index.html">← Back to industry decks</a>
     <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
     <h1>Client decks</h1>
-    <p class="lede">Meeting walkthroughs for named accounts and anonymous process demos. Same Stamped Proof Run design as the industry decks.</p>
+    <p class="lede">11-scene technical briefs for named accounts and anonymous process demos. Same two pillars as the website: Industry Energy Management and Asset Health Intelligence. ₹-scored prescriptions on the stack you already run.</p>
     <div class="grid">
-      <a class="card" href="./auto-forge-ht.html">
-        <strong>Forge · HT · Die cast</strong>
-        <span>Value walkthrough: two pillars (energy + equipment), evidence, Improve loop. Process-focused, not a named-account brochure.</span>
-        <em>Open forge / HT demo →</em>
+      <a class="card card--visual" href="./nestle-pantnagar-technical/">
+        <img class="card__thumb" src="./nestle-pantnagar-technical/assets/nestle-pantnagar-technical/plant-hero.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>Nestlé Pantnagar · technical brief</strong>
+          <span>Leave-behind for Pantnagar Maggi: warehouse HVAC, UPCL ToD / MD, prescriptions on WhatsApp. Quality bar for the other briefs.</span>
+          <em>Open Nestlé brief →</em>
+        </span>
+      </a>
+      <a class="card card--visual" href="./itc-nadiad-technical/">
+        <img class="card__thumb" src="./itc-nadiad-technical/assets/itc-nadiad-technical/nadiad-plant.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>ITC Nadiad · technical brief</strong>
+          <span>Named account brief for Marut Shukla / ITC Packaging &amp; Printing, Nadiad.</span>
+          <em>Open ITC brief →</em>
+        </span>
       </a>
       <a class="card" href="./lohia-corp-brief.html">
         <strong>Lohia Corp · brief</strong>
-        <span>Named walkthrough: woven raffia lines, real-time decisions vs audit, early warnings, on-site Chaubepur ask.</span>
+        <span>Named 11-scene brief: woven raffia lines, sits beside DIC, not a second audit, on-site Chaubepur ask.</span>
         <em>Open Lohia brief →</em>
+      </a>
+      <a class="card" href="./auto-forge-ht.html">
+        <strong>Forge · HT · Die cast</strong>
+        <span>Anonymous 11-scene brief: press vs furnace MD, compressor drift, working session close.</span>
+        <em>Open forge / HT demo →</em>
       </a>
       <a class="card" href="./machinery-oem.html">
         <strong>Packaging machinery OEM</strong>
-        <span>Full anonymous Proof Run. Real-time decisions, line-tied early warnings, 60-day pilot as needed.</span>
+        <span>Anonymous 11-scene brief for tape lines and test bays after solar and VFDs. 60-day Proof Run if the numbers justify it.</span>
         <em>Open OEM demo →</em>
+      </a>
+      <a class="card" href="./machinery-oem/">
+        <strong>OEM demo · deploy root</strong>
+        <span>Same machinery OEM brief as a folder index for standalone hosting.</span>
+        <em>Open deploy root →</em>
       </a>
       <a class="card" href="./technical-explainer.html">
         <strong>Stamped Intelligence · technical explainer</strong>
-        <span>How Stamped reads plant data, assigns feasible actions, and verifies outcomes.</span>
+        <span>Generic 11-scene sales collateral: two pillars, prescription loop, evidence, 60-day close.</span>
         <em>Open technical explainer →</em>
-      </a>
-      <a class="card" href="./itc-nadiad-technical/">
-        <strong>ITC Nadiad · technical brief</strong>
-        <span>Packaging and printing walkthrough for the Nadiad plant.</span>
-        <em>Open ITC brief →</em>
-      </a>
-      <a class="card" href="./nestle-pantnagar-technical/">
-        <strong>Nestlé Pantnagar · technical brief</strong>
-        <span>Warehouse HVAC, UPCL tariff windows, and assigned floor actions.</span>
-        <em>Open Nestlé brief →</em>
       </a>
     </div>
     <footer>

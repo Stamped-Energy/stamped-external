@@ -13,7 +13,7 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [prescriptions-examples.md](./prescriptions-examples.md) | Markdown twin — talk tracks, plain-language cards, evidence on flip |
 | [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) | Canonical client narrative (WhatsApp, decks, I4.0) |
 | [pharma/](./pharma/) | Pharma Vercel deploy root (`index.html`; `vercel --prod`) |
-| [clients/](./clients/) | Client deck picker + OEM / Lohia walkthroughs (linked from hub) |
+| [clients/](./clients/) | Client deck picker: 11-scene technical briefs (Nestlé, ITC, Lohia, OEM, forge-HT, explainer) |
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
 | [assets/](./assets/) | Industry and client hero photos |
 
@@ -21,21 +21,23 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 
 ### Client decks
 
-From the industry hub, open **Clients** → [`clients/index.html`](./clients/index.html). Rebuild with `python3 scripts/build-client-decks.py`.
+From the industry hub, open **Clients** → [`clients/index.html`](./clients/index.html). HTML is hand-authored 11-scene briefs. `python scripts/decks/build/build-client-decks.py` only syncs `clients/assets/`.
 
 | Path | Use |
 |------|-----|
 | [clients/index.html](./clients/index.html) | Client deck picker |
-| [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous full Proof Run for a packaging-machinery OEM (real-time decisions, early warnings, 60-day as needed) |
-| [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root for the OEM demo |
-| [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Short Lohia Corp meeting walkthrough (named; on-site Chaubepur ask) |
-| [clients/technical-explainer.html](./clients/technical-explainer.html) | Generic Stamped Intelligence technical explainer (11 slides; sales collateral) |
-| [clients/itc-nadiad-technical.html](./clients/itc-nadiad-technical.html) | ITC Nadiad account technical brief (named; packaging &amp; printing) |
-| [clients/itc-nadiad-technical/](./clients/itc-nadiad-technical/) | GitHub Pages deploy root for ITC brief (hero `nadiad-plant.jpg`) |
+| [clients/nestle-pantnagar-technical/](./clients/nestle-pantnagar-technical/) | Nestlé Pantnagar Maggi leave-behind (quality bar; uses "rupee(s)") |
+| [clients/itc-nadiad-technical/](./clients/itc-nadiad-technical/) | ITC Nadiad technical brief (deploy folder) |
+| [clients/itc-nadiad-technical.html](./clients/itc-nadiad-technical.html) | Flat twin of the ITC folder index |
+| [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Named Lohia brief (DIC, not a second audit, Chaubepur visit) |
+| [clients/auto-forge-ht.html](./clients/auto-forge-ht.html) | Anonymous forge / HT / die-cast brief |
+| [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous packaging-machinery OEM brief (60-day if justified) |
+| [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root |
+| [clients/technical-explainer.html](./clients/technical-explainer.html) | Generic technical explainer (11 scenes; 60-day close) |
 
-Meeting default: open the Lohia brief. Keep the anonymous OEM demo ready if the room wants a full product walkthrough without account research on-screen.
+Named-account default: Nestlé or ITC. Keep OEM / forge-HT ready when the room should stay anonymous.
 
-**Technical explainers** (also linked from the root hub): generic product explainer plus named-account briefs. Source HTML is authored in `Stamped-Energy` and copied here for GitHub Pages.
+**Technical explainers** (also linked from the root hub): generic product explainer plus named-account briefs.
 
 **Tech deep-dives** (shared across industries; open from `#scene-tech` cards):
 
@@ -57,20 +59,17 @@ Each industry deck keeps the same Proof Run structure. What changes:
 
 Open an industry file in a browser. Arrow keys, space, or on-screen controls navigate. On phones, the title slide is **text → Begin → plant photo**; the simulated Sample workspace slide is skipped. On the **floor** slide, Snooze / Acknowledge cycle three prescriptions on the phone, then show **Stamped Energy**.
 
-**Rebuild from base:** edit `demo-decks/_base.snapshot.html` (generic template) and/or `scripts/build-industry-decks.py`, then:
+**Rebuild industry decks from base:** edit `demo-decks/_base.snapshot.html` and/or `scripts/decks/build/build-industry-decks.py`, then:
 
 ```bash
-python3 scripts/build-industry-decks.py
-python3 scripts/build-client-decks.py   # private OEM + Lohia brief
+python scripts/decks/build/build-industry-decks.py
+python scripts/decks/build/build-client-decks.py   # assets only; does not rewrite briefs
 ```
 
-**Deck gates** (Playwright required in the validation environment):
+**Client deck gate:**
 
 ```bash
-python3 scripts/decks/checks/check-client-decks.py
-python3 scripts/decks/checks/check-pharma-deck.py
-python3 scripts/decks/checks/check-floor-phone.py
-python3 scripts/decks/checks/check-standalone-decks.py
+python scripts/decks/checks/check-client-decks.py
 ```
 
 **GitHub Pages** (`Stamped-Energy/stamped-external`, branch `main`, path `/`):
@@ -89,4 +88,8 @@ Static HTML under `demo-decks/` and `project/` deploys automatically when merged
 cd demo-decks/pharma && vercel --prod
 ```
 
-**Floor / verify check:** included in the deck gates above (`check-floor-phone.py`).
+**Floor / verify check:**
+
+```bash
+python scripts/decks/checks/check-floor-phone.py
+```

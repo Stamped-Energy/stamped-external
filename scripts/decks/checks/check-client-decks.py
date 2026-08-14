@@ -96,6 +96,14 @@ def file_gate() -> list[str]:
             issues.append("clients hub missing deck links")
         if "auto-forge-ht.html" not in ch:
             issues.append("clients hub missing auto-forge-ht.html link")
+        if "technical-explainer.html" not in ch:
+            issues.append("clients hub missing technical-explainer.html link")
+        if "itc-nadiad-technical" not in ch:
+            issues.append("clients hub missing ITC brief link")
+        if "nestle-pantnagar-technical" not in ch:
+            issues.append("clients hub missing Nestlé brief link")
+        if "Industry Energy Management" not in ch or "Asset Health Intelligence" not in ch:
+            issues.append("clients hub missing website pillar names")
     if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
         issues.append("demo-decks hub missing Clients link")
     if "demo-decks/clients/" not in root_hub:
@@ -211,6 +219,51 @@ def file_gate() -> list[str]:
         body = re.sub(r"<script[\s\S]*?</script>", "", body)
         if re.search(r"[—–]", body):
             issues.append(f"{label}: em/en dash in visible HTML")
+
+    nestle_path = ROOT / "demo-decks/clients/nestle-pantnagar-technical/index.html"
+    if not nestle_path.is_file():
+        issues.append("missing Nestlé Pantnagar technical brief")
+    else:
+        nestle = nestle_path.read_text(encoding="utf-8")
+        if "rupee" not in nestle.lower():
+            issues.append("nestle missing rupee(s) spelling")
+        nestle_body = re.sub(r"<style[\s\S]*?</style>", "", nestle)
+        nestle_body = re.sub(r"<script[\s\S]*?</script>", "", nestle_body)
+        if "₹" in nestle_body:
+            issues.append("nestle visible copy should keep rupee(s), not ₹")
+        if "Industry Energy Management" not in nestle or "Asset Health Intelligence" not in nestle:
+            issues.append("nestle missing website pillar names")
+        if re.search(r"[—–]", nestle_body):
+            issues.append("nestle: em/en dash in visible HTML")
+
+    banned = (
+        "pay-as-you-save",
+        "Signals become work orders",
+        "Load & Energy Efficiency",
+        "Prescriptive Equipment Intelligence",
+        "priced onto the bill",
+    )
+    meeting_decks = (
+        "demo-decks/cement.html",
+        "demo-decks/steel.html",
+        "demo-decks/pharma.html",
+        "demo-decks/clients/technical-explainer.html",
+        "demo-decks/clients/itc-nadiad-technical/index.html",
+        "demo-decks/clients/itc-nadiad-technical.html",
+        "demo-decks/clients/nestle-pantnagar-technical/index.html",
+        FULL,
+        BRIEF,
+        FORGE,
+    )
+    for rel in meeting_decks:
+        path = ROOT / rel
+        if not path.is_file():
+            issues.append(f"missing meeting deck: {rel}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        for needle in banned:
+            if needle in text:
+                issues.append(f"{rel}: banned phrase {needle!r}")
     return issues
 
 

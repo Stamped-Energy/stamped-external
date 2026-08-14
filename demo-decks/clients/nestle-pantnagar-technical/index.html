@@ -321,12 +321,6 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
-    .nav-btn:focus-visible,
-    .btn:focus-visible,
-    .dots__dot:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 3px;
-    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -2164,17 +2158,12 @@
 
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .wa-bubble, .tech-card, .waste-card,
+      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
-      }
-      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
-        overflow-wrap: normal;
-        word-break: normal;
-        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -2632,7 +2621,8 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      .dots { display: none; }
+      .dots__dot { width: 10px; height: 10px; }
+      .dots__dot.active { width: 24px; }
       .btn { min-height: 48px; }
     }
 
@@ -2925,19 +2915,19 @@
             <p class="industry-chip client-mark reveal" id="industryChip">Nestlé Pantnagar</p>
             <p class="eyebrow reveal">Culinary plant · warehouses · SIDCUL · Technical brief</p>
             <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">Warehouse HVAC and tariff actions, assigned with evidence</h1>
-            <p class="lede reveal hide-mobile">Stamped turns meters, BAS, shift data, and UPCL bills into assigned actions: what to do, who owns it, the expected rupee impact, and the evidence needed to verify it.</p>
-            <p class="mobile-lede reveal show-mobile">Load, tariff, and equipment actions with owners and evidence.</p>
+            <h1 class="reveal">Act on energy opportunities before the window closes</h1>
+            <p class="lede reveal hide-mobile">Stamped turns meters, BAS, shift data, and UPCL bills into rupee-scored prescriptions: what to do, who owns it, the rupee benefit, and the evidence. Industry Energy Management and Asset Health Intelligence on the stack you already run.</p>
+            <p class="mobile-lede reveal show-mobile">Rupee-scored prescriptions with owners and evidence. Energy and asset health in one loop.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Load decisions</span>
-              <span class="chip">Equipment drift</span>
+              <span class="chip">Energy management</span>
+              <span class="chip">Asset health</span>
               <span class="chip">Assigned actions</span>
-              <span class="chip">Verified outcomes</span>
+              <span class="chip">Verified with evidence</span>
             </div>
             <div class="flow-tags reveal show-mobile">
-              <span class="chip">Load decisions</span>
-              <span class="chip">Equipment drift</span>
-              <span class="chip">Verified outcomes</span>
+              <span class="chip">Energy management</span>
+              <span class="chip">Asset health</span>
+              <span class="chip">Verified with evidence</span>
             </div>
             <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Works alongside NEE / E&amp;AMES. Read-only. No PLC or setpoint writes. Operators stay in control.</p>
             <div class="btn-row reveal">
@@ -2972,8 +2962,8 @@
           <div class="gap-col">
             <h3>What Stamped adds</h3>
             <ul>
-              <li>Load and energy decisions: MD, idle loads, HVAC, ToD, and tariff windows</li>
-              <li>Equipment intelligence: drift on compressors, chillers, fans, and pumps</li>
+              <li>Industry Energy Management: MD, idle loads, HVAC, ToD / tariff windows</li>
+              <li>Asset Health Intelligence: early drift on compressors, chillers, fans, pumps</li>
               <li>Rupee-scored prescription with owner, effort, and due window</li>
               <li>WhatsApp to the floor · alternative when quality blocks the first option</li>
               <li>At month end, what ran, what did not, and why</li>
@@ -3027,7 +3017,7 @@
 
     <section class="slide slide--light grid-bg" id="scene-load" data-theme="light" aria-label="Load and energy management">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Pillar 1 · Load and energy efficiency intelligence</p>
+        <p class="eyebrow reveal">Pillar 1 · Industry Energy Management</p>
         <h2 class="reveal">Work the full load picture, not only the MD spike</h2>
         <p class="lede reveal hide-mobile">Most plants react when the bill lands. We watch demand, idle loads, HVAC, and UPCL ToD through the month, and call out moves that are realistic for production and storage specs.</p>
         <p class="mobile-lede reveal show-mobile">MD, idle, HVAC, and ToD moves tied to the shift plan, not only end-of-month firefighting.</p>
@@ -3056,9 +3046,9 @@
 
     <section class="slide slide--light" id="scene-equipment" data-theme="light" aria-label="Equipment intelligence">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Pillar 2 · Prescriptive equipment intelligence</p>
+        <p class="eyebrow reveal">Pillar 2 · Asset Health Intelligence</p>
         <h2 class="reveal">Catch energy-linked equipment drift early, with an owner attached</h2>
-        <p class="lede reveal hide-mobile">The same stack that finds bill waste also tracks equipment drift. Compressors, chillers, fans, and pumps are judged against their own normal, so changes surface earlier than fixed alarms.</p>
+        <p class="lede reveal hide-mobile">The same stack that finds bill waste also flags equipment issues early. Compressors, chillers, fans, and pumps are judged against their own normal, not a plant-wide average, so drift shows up before trips and waste compound.</p>
         <p class="mobile-lede reveal show-mobile">Per-asset baselines. Early warnings with owners, not another ignored alert.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
@@ -3096,7 +3086,7 @@
         <p class="eyebrow reveal">Example prescriptions · Both pillars</p>
         <h2 class="reveal">A prescription tied to what is happening on the floor</h2>
         <span class="illustrative-badge reveal">Illustrative examples · not Pantnagar measurements</span>
-        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 covers idle HVAC. Card 2 covers compressor drift. The same loop also covers MD / ToD stagger, chiller approach, and pump recirculation.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 is Industry Energy Management (idle HVAC). Card 2 is Asset Health Intelligence (compressor drift). The same loop also covers MD / ToD stagger, chiller approach, and pump recirculation.</p>
         <div class="rx-layout reveal">
           <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Switch warehouse cooling to idle after dispatch. Show evidence.">
             <div class="rx-flip__inner">
@@ -3447,7 +3437,7 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">A conversation, not a commitment</p>
         <h2 class="reveal">Happy to walk your team through how this would work at Pantnagar</h2>
-        <p class="offer-lede reveal hide-mobile">This brief shows engineering, warehouse, and utilities how the two pillars work together. If it looks useful, we map one warehouse or utility boundary and scope demand, ToD, and equipment-drift actions. No rollout decision is needed in that meeting.</p>
+        <p class="offer-lede reveal hide-mobile">This brief is so engineering, warehouse, and utilities can see the approach across Industry Energy Management and Asset Health Intelligence. If it looks useful, we map one realistic starting point: one warehouse or utility boundary, plus how demand / ToD and early equipment warnings would be scoped. No rollout ask in that meeting.</p>
         <p class="mobile-lede reveal show-mobile">See the approach first. Then a short working session if useful.</p>
 
         <div class="offer-main reveal">
@@ -3457,8 +3447,8 @@
               <li>One warehouse or utility boundary that would be a fair first look</li>
               <li>Which BAS, meter, or UPCL bill data you already trust</li>
               <li>Who would own an idle-warehouse or compressor-inspect action if one landed</li>
-              <li>How demand / ToD stagger and equipment-drift warnings would be scoped</li>
-              <li>Recent UPCL HT bills, if readily available; not required for the first conversation</li>
+              <li>How demand / ToD stagger and asset-health warnings would be scoped</li>
+              <li>Two recent UPCL HT bills (MD, ToD, PF) if available</li>
             </ul>
           </div>
           <div class="offer-panel offer-panel--timeline">
@@ -3469,8 +3459,8 @@
                 <p>Read-only on OT. Your control stack stays as-is.</p>
               </article>
               <article class="offer-phase">
-                <div class="offer-phase__when">Plant scope first</div>
-                <p>Start with one operating boundary, not a corporate rollout.</p>
+                <div class="offer-phase__when">No Gurugram RFP</div>
+                <p>Plant-scoped conversation first. Not a corporate transformation ask.</p>
               </article>
               <article class="offer-phase">
                 <div class="offer-phase__when">No AI workshop</div>
