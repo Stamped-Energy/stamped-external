@@ -10,7 +10,7 @@ import re
 import shutil
 from pathlib import Path
 
-ROOT = Path("/workspace")
+ROOT = Path(__file__).resolve().parents[3]
 BASE = ROOT / "demo-decks" / "index.html"
 DECKS_DIR = ROOT / "demo-decks"
 
@@ -31,24 +31,24 @@ PACKS = {
         "docTitle": "Stamped Energy · Cement demo",
         "chromeHint": "Cement",
         "title": {
-            "eyebrowD": "Cement · kiln, mills, and WHR decisions verified on the bill",
-            "eyebrowM": "Cement · bill-verified decisions",
-            "h1D": "Kiln and mill data, priced onto the bill.",
-            "h1M": "Kiln & mill ₹ actions on the bill.",
-            "ledeD": "You already run kiln, mill, WHR, and EMS data. Stamped ranks floor work in rupees, then checks it on the next DISCOM bill.",
-            "ledeM": "Ranked kiln, mill, and WHR actions. Verified on the DISCOM bill.",
+            "eyebrowD": "Cement · kiln, mills, and WHR",
+            "eyebrowM": "Cement · kiln, mills, WHR",
+            "h1D": "Act on kiln, mill, and WHR opportunities before the billing window closes.",
+            "h1M": "Act on kiln and mill opportunities in time.",
+            "ledeD": "Stamped turns kiln, mill, WHR, and bill data into ₹-scored prescriptions: what to change, who owns it, rupee impact, and evidence. Industry Energy Management on the EMS you already run.",
+            "ledeM": "₹-scored kiln, mill, and WHR prescriptions. Verified with evidence.",
         },
         "hook": {
             "eyebrow": "Monday 06:40 · Kiln / mill handover",
-            "h2": "Your plant already logs this. Nobody owns the fix.",
-            "ledeD": "Mill and kiln fans overlapped. EMS logged it. No work order went out.",
-            "ledeM": "Mill and kiln fans overlapped. No work order went out.",
+            "h2": "You already see the plant. Who should act, and on what?",
+            "ledeD": "Mill and kiln fans overlapped. EMS logged it. No assigned owner, no ₹ figure, no close on the bill.",
+            "ledeM": "Mill and kiln fans overlapped. Nobody owned the next start sequence.",
             "t1s": "Mill start and kiln fans overlap",
             "t1p": "Shift B brings mill and kiln auxiliaries online together.",
             "t2s": "MD spike hits the incomer",
             "t2p": "EMS threshold crossed. Alert created. Still no assigned owner.",
             "t3s": "Clinker and grinding continue as usual",
-            "t3p": "The bill will price this later. The floor never saw the fix.",
+            "t3p": "The bill prices the spike later. The floor never saw a ranked next step.",
             "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next mill start sequence.",
             "statImpact": "₹55k",
             "statImpactLabel": "Illustrative monthly demand impact",
@@ -59,13 +59,13 @@ PACKS = {
             "meters": "Has: MD window and mill/kiln load profile",
             "bill": "Has: MD, energy, PF line items",
         },
-        "whatLede": "Stamped sits on top of the EMS and EnMS you already run. It reads kiln, mill, WHR, and incomer data, issues a ranked action in rupees, sends it to the floor, and closes the result on the next bill.",
+        "whatLede": "Stamped sits on the EMS and EnMS you already run. Kiln, mill, WHR, and incomer data become ₹-scored prescriptions. Operators accept, reject, or adjust. Outcomes are verified with evidence.",
         "whatStep1": "Kiln / mill / WHR meters, SCADA and PLC states, and utility line items. Read-only. No control writes to the plant.",
         "rx1": {
             "badge": "Rx · MD coincidence",
             "aria": "Stagger mill and kiln fans. Show evidence.",
             "action": "Stagger mill start and kiln fans by 10 minutes",
-            "why": "They started together and pushed MD over the limit",
+            "why": "Two heavy starts in the same demand window stacked on the incomer. The bill shows the MD peak later, not which mill and kiln fans overlapped while the window was still open.",
             "bill": "MD (kVA)",
             "owner": "Grinding supervisor · Shift B",
             "impact": "₹3-5L / month [illustrative]",
@@ -85,7 +85,7 @@ PACKS = {
             "badge": "Rx · WHR / tariff",
             "aria": "Use more WHR in the evening peak. Show evidence.",
             "action": "Use more WHR in the evening peak; cut grid import",
-            "why": "WHR was available while the plant still bought peak power",
+            "why": "WHR output was available in the evening peak while the plant still bought grid power. Shift load to the cheaper source before the MD window closes.",
             "bill": "Energy (kWh) · peak",
             "owner": "Power desk · evening block",
             "impact": "₹2-4L / month [illustrative]",
@@ -171,33 +171,33 @@ PACKS = {
             ],
         },
         "techBullet": "MD coincidence, mill/kiln idle, WHR vs peak grid, fan staging",
-        "offerLedeD": "Start with one cement line or grinding circuit. Audit the data, run prescriptions on the floor, then go or no-go at Day 60: on ₹ savings and plant fit.",
-        "offerLedeM": "One cement circuit. Audit → floor → go / no-go at Day 60.",
+        "offerLedeD": "Start with one cement line or grinding circuit. First prescriptions in about two weeks. No rip-and-replace.",
+        "offerLedeM": "One cement circuit. First prescriptions in about two weeks. No rip-and-replace.",
     },
     "steel": {
         "label": "Steel",
         "docTitle": "Stamped Energy · Steel demo",
         "chromeHint": "Steel",
         "title": {
-            "eyebrowD": "Steel · furnace and mill decisions verified on the bill",
-            "eyebrowM": "Steel · bill-verified decisions",
-            "h1D": "Furnace and mill data, priced onto the bill.",
-            "h1M": "Furnace & mill ₹ actions on the bill.",
-            "ledeD": "You already run furnace, rolling, and EMS data. Stamped ranks floor work in rupees, then checks it on the next DISCOM bill.",
-            "ledeM": "Ranked furnace and mill actions. Verified on the DISCOM bill.",
+            "eyebrowD": "Steel · furnace, rolling, and holding loads",
+            "eyebrowM": "Steel · furnace and mill",
+            "h1D": "Act on furnace and rolling opportunities before the window closes.",
+            "h1M": "Act on furnace and mill opportunities in time.",
+            "ledeD": "Stamped turns furnace, mill, and bill data into ₹-scored prescriptions: holding setbacks, MD stagger, and SEC drift with an owner. Verified with evidence.",
+            "ledeM": "₹-scored furnace and mill prescriptions. Verified with evidence.",
         },
         "hook": {
             "eyebrow": "Monday 07:15 · Melt / roll handover",
-            "h2": "Your plant already logs this. Nobody owns the fix.",
-            "ledeD": "Furnace and mill overlapped. EMS logged it. No work order went out.",
-            "ledeM": "Furnace and mill overlapped. No work order went out.",
+            "h2": "You already see the plant. Who should act, and on what?",
+            "ledeD": "Furnace and mill overlapped. EMS logged it. No assigned owner, no ₹ figure, no close on the bill.",
+            "ledeM": "Furnace and mill overlapped. Nobody owned the next start sequence.",
             "t1s": "Furnace restart and mill start overlap",
             "t1p": "Shift B brings melt and roll online together.",
             "t2s": "MD spike hits the incomer",
             "t2p": "EMS threshold crossed. Alert created. Still no assigned owner.",
             "t3s": "Rolling continues as usual",
-            "t3p": "The bill will price this later. The floor never saw the fix.",
-            "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next furnace–mill sequence.",
+            "t3p": "The bill prices the spike later. The floor never saw a ranked next step.",
+            "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next furnace and mill sequence.",
             "statImpact": "₹48k",
             "statImpactLabel": "Illustrative monthly demand impact",
         },
@@ -207,13 +207,13 @@ PACKS = {
             "meters": "Has: MD window and melt/roll load profile",
             "bill": "Has: MD, energy, PF line items",
         },
-        "whatLede": "Stamped sits on top of the EMS and EnMS you already run. It reads furnace, mill, and incomer data, issues a ranked action in rupees, sends it to the floor, and closes the result on the next bill.",
+        "whatLede": "Stamped sits on the EMS you already run. Furnace, mill, and incomer data become ₹-scored prescriptions. Operators accept, reject, or adjust. Outcomes are verified with evidence.",
         "whatStep1": "Furnace / mill / utility meters, SCADA and PLC states, and utility line items. Read-only. No control writes to the plant.",
         "rx1": {
             "badge": "Rx · MD coincidence",
             "aria": "Stagger furnace and mill start. Show evidence.",
             "action": "Stagger furnace and mill start by 8 minutes",
-            "why": "They started together and pushed MD over the limit",
+            "why": "Furnace restart and mill bite stacked in the same demand window. The incomer saw the peak; the floor never got a named stagger with a rupee figure.",
             "bill": "MD (kVA)",
             "owner": "Melt-shop supervisor · Shift B",
             "impact": "₹2.5-4.5L / month [illustrative]",
@@ -233,7 +233,7 @@ PACKS = {
             "badge": "Rx · Idle / holding",
             "aria": "Cut furnace holding on long delays. Show evidence.",
             "action": "Cut furnace holding on delays longer than 30 minutes",
-            "why": "Holding power with no cast or roll on 3 of last 5 delays",
+            "why": "Furnace held at full power through delays with no cast or roll scheduled. Cut holding when the delay passes the agreed window.",
             "bill": "Energy (kWh)",
             "owner": "Melt-shop supervisor · Furnace 2",
             "impact": "₹1-1.8L / month [illustrative]",
@@ -319,32 +319,32 @@ PACKS = {
             ],
         },
         "techBullet": "MD coincidence, furnace holding, mill idle, compressed air, tariff dispatch",
-        "offerLedeD": "Start with one melt shop or rolling line. Audit the data, run prescriptions on the floor, then go or no-go at Day 60: on ₹ savings and plant fit.",
-        "offerLedeM": "One melt or roll line. Audit → floor → go / no-go at Day 60.",
+        "offerLedeD": "Start with one melt shop or rolling line. First prescriptions in about two weeks. No rip-and-replace.",
+        "offerLedeM": "One melt or roll line. First prescriptions in about two weeks. No rip-and-replace.",
     },
     "pharma": {
         "label": "Pharma",
         "docTitle": "Stamped Energy · Pharma demo",
         "chromeHint": "Pharma",
         "title": {
-            "eyebrowD": "Pharma · load management and HVAC decisions verified on the bill",
-            "eyebrowM": "Pharma · load management, verified",
-            "h1D": "Chiller and HVAC load, priced onto the bill.",
-            "h1M": "Load management ₹ actions on the bill.",
-            "ledeD": "Pharma sites run chillers, HVAC, and batch utilities around the clock. Stamped ranks the fix in rupees and checks it on the next DISCOM bill.",
-            "ledeM": "Load management for chillers, HVAC, and batch utilities. Verified on the DISCOM bill.",
+            "eyebrowD": "Pharma · HVAC, chillers, and batch utilities",
+            "eyebrowM": "Pharma · HVAC and utilities",
+            "h1D": "Act on HVAC and utility opportunities before the window closes.",
+            "h1M": "Act on HVAC opportunities in time.",
+            "ledeD": "GMP-safe utility levers: chiller staging, AHU hours, compressed-air pressure. ₹-scored prescriptions with owners, verified with evidence. Not room reclassification.",
+            "ledeM": "GMP-safe HVAC and utility prescriptions. Verified with evidence.",
         },
         "hook": {
             "eyebrow": "Monday 07:05 · Utilities handover",
-            "h2": "Your plant already logs this. Nobody owns the fix.",
-            "ledeD": "Chillers and autoclave overlapped. EMS logged it. No work order went out.",
-            "ledeM": "Chillers and autoclave overlapped. No work order went out.",
+            "h2": "You already see the plant. Who should act, and on what?",
+            "ledeD": "Chillers and autoclave overlapped. EMS logged it. No assigned owner, no ₹ figure, no close on the bill.",
+            "ledeM": "Chillers and autoclave overlapped. Nobody owned the next utility sequence.",
             "t1s": "Chillers and autoclave start together",
             "t1p": "Shift B brings heavy utilities online in the same window.",
             "t2s": "MD spike hits the incomer",
             "t2p": "EMS threshold crossed. Alert created. Still no assigned owner.",
             "t3s": "Batch schedule continues as usual",
-            "t3p": "The bill will price this later. The floor never saw the fix.",
+            "t3p": "The bill prices the spike later. The floor never saw a ranked next step.",
             "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next utility sequence.",
             "statImpact": "₹36k",
             "statImpactLabel": "Illustrative monthly demand impact",
@@ -355,13 +355,13 @@ PACKS = {
             "meters": "Has: MD window and HVAC load profile",
             "bill": "Has: MD, energy, PF line items",
         },
-        "whatLede": "Stamped sits on top of the EMS and EnMS you already run. It reads HVAC, chiller, and batch utility data, finds load-management and idle-waste opportunities, issues a ranked action in rupees, and closes the result on the next bill.",
+        "whatLede": "Stamped sits on the BMS and meters you already run. HVAC, chiller, and batch utility data become ₹-scored prescriptions. Operators accept, reject, or adjust. Quality stays first.",
         "whatStep1": "HVAC, chiller, and batch utility meters, BMS and PLC states, and utility line items. Read-only. No control writes to the plant.",
         "rx1": {
             "badge": "Rx · Load management",
             "aria": "Stagger chillers and autoclave. Show evidence.",
             "action": "Stagger chillers and autoclave by 10 minutes",
-            "why": "They started together and pushed MD over the limit",
+            "why": "Three chillers and autoclave heat started in the same window and pushed the incomer past the demand peak. Hold the second start a few minutes. No classified-zone setpoint change.",
             "bill": "MD (kVA)",
             "owner": "Utilities supervisor · Shift B",
             "impact": "₹1.8-3.2L / month [illustrative]",
@@ -381,7 +381,7 @@ PACKS = {
             "badge": "Rx · HVAC idle",
             "aria": "Turn down idle suite HVAC. Show evidence.",
             "action": "Turn down Suite 3 HVAC when no batch is running",
-            "why": "Full HVAC with no batch on 4 of last 6 idle windows",
+            "why": "AHUs at full flow with no batch occupancy. Schedule adjustment only. No setpoint change in classified zones.",
             "bill": "Energy (kWh)",
             "owner": "HVAC / engineering · Suite 3",
             "impact": "₹70k-1.1L / month [illustrative]",
@@ -467,8 +467,8 @@ PACKS = {
             ],
         },
         "techBullet": "Load management, HVAC & chillers, idle utilities, tariff intensity, early fault warnings",
-        "offerLedeD": "Start with one HVAC / utilities island or production block. Audit the data, run prescriptions on the floor, then go or no-go at Day 60: on ₹ savings and plant fit.",
-        "offerLedeM": "One utilities island. Audit → floor → go / no-go at Day 60.",
+        "offerLedeD": "Start with one HVAC or utilities island. First prescriptions in about two weeks. No rip-and-replace. GMP-safe utility levers first.",
+        "offerLedeM": "One utilities island. First prescriptions in about two weeks. No rip-and-replace.",
     },
 }
 
@@ -733,21 +733,21 @@ def inject_hero_photo(html: str, industry: str) -> str:
     # Add industry chip + photo; keep SVG for desktop as secondary (hide via CSS preference: show photo instead)
     # Replace hero-copy opening content to add chip after brand area
     html = html.replace(
-        '<p class="eyebrow reveal hide-mobile">Operational energy decisions, verified with evidence</p>\n'
-        '            <p class="eyebrow reveal show-mobile">Verified with evidence</p>\n'
+        '<p class="eyebrow reveal hide-mobile">For industrial plants</p>\n'
+        '            <p class="eyebrow reveal show-mobile">For industrial plants</p>\n'
         '            <p class="brand-name reveal">Stamped Energy</p>\n'
-        '            <h1 class="reveal hide-mobile">From plant meters to bill-line actions.</h1>\n'
-        '            <h1 class="reveal show-mobile">Owned ₹ actions on the bill.</h1>\n'
-        '            <p class="lede reveal hide-mobile">You already have meters and EMS. Stamped ranks floor work in rupees, then checks the result on the next DISCOM bill.</p>\n'
-        '            <p class="lede reveal show-mobile">Ranked floor actions from your meters and EMS. Verified with evidence.</p>',
+        '            <h1 class="reveal hide-mobile">Act on energy opportunities in real time.</h1>\n'
+        '            <h1 class="reveal show-mobile">Act before the window closes.</h1>\n'
+        '            <p class="lede reveal hide-mobile">Stamped turns meters, SCADA, and bills into ₹-scored prescriptions: what to do, who owns it, rupee impact, and evidence. No rip-and-replace.</p>\n'
+        '            <p class="lede reveal show-mobile">₹-scored prescriptions from meters you already have. Verified with evidence.</p>',
         '<p class="industry-chip reveal" id="industryChip">Industry</p>\n'
-        '            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Operational energy decisions, verified with evidence</p>\n'
-        '            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Verified with evidence</p>\n'
+        '            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">For industrial plants</p>\n'
+        '            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">For industrial plants</p>\n'
         '            <p class="brand-name reveal">Stamped Energy</p>\n'
-        '            <h1 class="reveal hide-mobile" id="titleH1D">From plant meters to bill-line actions.</h1>\n'
-        '            <h1 class="reveal show-mobile" id="titleH1M">Owned ₹ actions on the bill.</h1>\n'
-        '            <p class="lede reveal hide-mobile" id="titleLedeD">You already have meters and EMS. Stamped ranks floor work in rupees, then checks the result on the next DISCOM bill.</p>\n'
-        '            <p class="lede reveal show-mobile" id="titleLedeM">Ranked floor actions from your meters and EMS. Verified with evidence.</p>',
+        '            <h1 class="reveal hide-mobile" id="titleH1D">Act on energy opportunities in real time.</h1>\n'
+        '            <h1 class="reveal show-mobile" id="titleH1M">Act before the window closes.</h1>\n'
+        '            <p class="lede reveal hide-mobile" id="titleLedeD">Stamped turns meters, SCADA, and bills into ₹-scored prescriptions: what to do, who owns it, rupee impact, and evidence. No rip-and-replace.</p>\n'
+        '            <p class="lede reveal show-mobile" id="titleLedeM">₹-scored prescriptions from meters you already have. Verified with evidence.</p>',
         1,
     )
 
@@ -841,8 +841,8 @@ def inject_ids_and_hooks(html: str) -> str:
             '<p id="whatStep1">Incomer, sub-meters, SCADA and PLC states, and utility line items. Read-only. No control writes to the plant.</p>',
         ),
         (
-            '<p class="lede reveal show-mobile">Audit → floor execution → go / no-go at Day 60.</p>',
-            '<p class="lede reveal show-mobile" id="offerLedeM">Audit → floor execution → go / no-go at Day 60.</p>',
+            '<p class="lede reveal">First prescriptions in about two weeks. No rip-and-replace. Evidence trail from day one.</p>',
+            '<p class="lede reveal" id="offerLedeM">First prescriptions in about two weeks. No rip-and-replace. Evidence trail from day one.</p>',
         ),
     ]
     for old, new in replacements:
@@ -1269,21 +1269,22 @@ HUB = """<!DOCTYPE html>
   <main>
     <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
     <h1>Pick your industry deck</h1>
-    <p class="lede">Proof Run walkthroughs with prescriptions, data sources, and optimization targets for each plant type.</p>
+    <p class="lede">₹-scored prescriptions for cement, steel, and pharma. Same stack: meters you already have, owners on the floor, outcomes verified with evidence.</p>
+    <p class="section-label"><a href="../index.html" style="color:inherit;text-decoration:none">← Demo hub</a></p>
     <div class="grid">
       <a class="card" href="./cement.html">
         <strong>Cement</strong>
-        <span>Kiln, mills, WHR dispatch, and kWh/ton: MD and peak-grid actions.</span>
+        <span>Kiln, mills, WHR, and kWh/ton: MD stagger and peak-grid dispatch.</span>
         <em>Open cement deck →</em>
       </a>
       <a class="card" href="./steel.html">
         <strong>Steel</strong>
-        <span>Furnace holding, rolling-mill coincidence, and melt-shop utilities.</span>
+        <span>Furnace holding, rolling-mill MD, and PAT-aligned SEC drift.</span>
         <em>Open steel deck →</em>
       </a>
       <a class="card" href="./pharma.html">
         <strong>Pharma</strong>
-        <span>Load management, chillers, HVAC setbacks, and batch-utility peaks.</span>
+        <span>GMP-safe HVAC, chiller staging, and batch-utility levers.</span>
         <em>Open pharma deck →</em>
       </a>
     </div>
@@ -1291,15 +1292,15 @@ HUB = """<!DOCTYPE html>
     <div class="grid">
       <a class="card card--clients" href="./prescriptions-examples.html">
         <strong>10 sample prescriptions</strong>
-        <span>Practical plant and equipment actions. Flip each card to inspect the evidence.</span>
+        <span>Agnostic + plant/equipment examples with flip-for-evidence cards. Markdown twin alongside.</span>
         <em>Open prescriptions →</em>
       </a>
     </div>
     <p class="section-label">Client decks</p>
     <div class="grid">
-      <a class="card card--clients" href="./clients/">
+      <a class="card" href="./clients/">
         <strong>Clients</strong>
-        <span>Named and anonymous client walkthroughs for live meetings. Pick a deck from the list.</span>
+        <span>Named and anonymous technical briefs for live meetings.</span>
         <em>Browse client decks →</em>
       </a>
     </div>
@@ -1346,7 +1347,7 @@ HUB = """<!DOCTYPE html>
     </div>
     <footer>
       <a href="https://stamped.work">stamped.work</a>
-      · Demo decks for first meetings / Proof Run
+      · Industry decks for first meetings
     </footer>
   </main>
 </body>
@@ -1392,10 +1393,8 @@ def main() -> None:
 
     hub = HUB
     (DECKS_DIR / "index.html").write_text(hub, encoding="utf-8")
-    (ROOT / "index.html").write_text(
-        hub.replace('href="./', 'href="./demo-decks/'),
-        encoding="utf-8",
-    )
+    # ponytail: root index.html is a richer hand-authored hub (tech, ITC, Nestlé).
+    # Do not overwrite it from this industry picker template.
     print("wrote hubs")
 
 
