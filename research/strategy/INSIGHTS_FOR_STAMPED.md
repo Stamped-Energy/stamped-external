@@ -821,6 +821,7 @@ The immediate job remains practical: produce trusted prescriptions, get them clo
 - [World-models primer](../concepts/00-world-models-primer.md)
 - [Agents with world models](../concepts/04-agents-with-world-models.md)
 - [Physical AI for industry](../concepts/05-physical-ai-for-industry.md)
+- [Plant camera perception](../concepts/06-plant-camera-perception.md) — dense sensing / CCTV as structured occupancy, not a world-model product; not in L1 P0
 - [Stamped stack hooks](../maps/stamped-stack-hooks.md)
 - [Stamped ↔ YC fit](../maps/stamped-yc-fit.md)
 - [Product architecture](../../technical/STAMPED_ARCHITECTURE.md)
