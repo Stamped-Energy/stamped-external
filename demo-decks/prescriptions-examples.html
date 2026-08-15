@@ -234,6 +234,11 @@
   .nav-btn:hover {
    background: var(--white); border-color: var(--primary); color: var(--primary);
   }
+  .nav-btn:focus-visible,
+  .dots__dot:focus-visible {
+   outline: 2px solid var(--primary);
+   outline-offset: 3px;
+  }
   .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
   .dots {
@@ -349,8 +354,8 @@
   }
   .rx-row dd {
    min-width: 0;
-   overflow-wrap: anywhere;
-   word-break: break-word;
+   overflow-wrap: break-word;
+   word-break: normal;
   }
   .rx-row dd strong { color: var(--on-surface); font-weight: 700; }
   .rx-flip-cue {
@@ -489,13 +494,15 @@
     font-size: clamp(1.5rem, 7vw, 1.95rem);
     margin-bottom: 0.55rem;
     max-width: 100%;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
    }
    h2 {
     font-size: clamp(1.2rem, 5.5vw, 1.45rem);
     margin-bottom: 0.35rem;
     max-width: 100%;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
    }
    .lede {
     font-size: 0.92rem;
@@ -526,7 +533,7 @@
    .chrome-counter { font-size: 0.68rem; }
 
    .nav-btn {
-    width: 42px; height: 42px;
+    width: 44px; height: 44px;
     top: auto;
     bottom: calc(var(--safe-b) + 3.35rem);
     transform: none;
@@ -559,7 +566,9 @@
     font-size: 1.02rem;
     line-height: 1.38;
     margin-bottom: 0.85rem;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
    }
    .rx-fields { gap: 0.48rem; }
    .rx-row {
@@ -590,13 +599,23 @@
     padding: 0.75rem 0.85rem 0.75rem 1rem;
    }
 
-   .slide, .slide__inner, h1, h2, .lede, .hint, .rx-action,
-   .rx-row dd, .rx-cite, .chip, .close-list li, .meta {
+   .slide, .slide__inner, .lede, .hint,
+   .rx-cite, .chip, .close-list li, .meta {
     max-width: 100%;
     overflow-wrap: anywhere;
    }
+   h1, h2, .rx-action, .rx-row dd {
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+   }
    img, svg { max-width: 100%; height: auto; }
    .rx-spark { height: 52px; }
+  }
+
+  @media (pointer: coarse) {
+   .dots { display: none; }
   }
 
   @media (max-width: 380px) {
@@ -606,7 +625,7 @@
    }
    .rx-row { grid-template-columns: 58px 1fr; font-size: 0.74rem; }
    .rx-action { font-size: 0.95rem; }
-   .nav-btn { width: 38px; height: 38px; }
+   .nav-btn { width: 44px; height: 44px; }
    .dots { max-width: 64vw; }
   }
 
@@ -648,8 +667,8 @@
   <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
    <div class="slide__inner">
     <p class="eyebrow reveal">Client pack · sample numbers</p>
-    <h1 class="reveal">Practical prescriptions for client conversations.</h1>
-    <p class="lede reveal">Plain-language floor actions your team can own — with evidence on the flip. Monitoring becomes an assigned action you can verify, not another dashboard alarm.</p>
+    <h1 class="reveal">Practical prescriptions your plant team can run.</h1>
+    <p class="lede reveal">Each example names the action, owner, due window, and evidence needed to verify the result.</p>
     <div class="flow-tags reveal">
      <span class="chip">5 agnostic</span>
      <span class="chip">4 vertical / equipment</span>
@@ -851,7 +870,7 @@
         <div class="rx-hero__body">
          <p class="rx-action">When packaging line output is zero for <strong>20 minutes</strong>, switch off tagged auxiliaries (conveyors, idle fans, non-critical pumps). Restart when production pulse returns or supervisor overrides.</p>
          <dl class="rx-fields">
-          <div class="rx-row"><dt>Why</dt><dd>Auxiliaries stay on during idle because production count and machine power are not watched together in time — month-end energy looks high but the floor never gets a timed cut with an owner.</dd></div>
+          <div class="rx-row"><dt>Why</dt><dd>Auxiliaries stay on during idle because production count and machine power are not watched together in time.</dd></div>
           <div class="rx-row"><dt>Owner</dt><dd>Area supervisor · packaging line + utilities lead</dd></div>
           <div class="rx-row"><dt>Impact</dt><dd><strong>₹50,000–₹90,000 / month [illustrative]</strong></dd></div>
           <div class="rx-row"><dt>Effort</dt><dd>Idle SOP · safety loads on protect list</dd></div>
