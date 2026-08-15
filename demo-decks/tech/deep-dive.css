@@ -60,6 +60,7 @@ a:hover { color: var(--primary); }
 }
 .topbar__brand {
   display: flex; align-items: center; gap: 0.55rem;
+  min-height: 44px;
   text-decoration: none; color: inherit;
   font-family: var(--font-display); font-weight: 800; font-size: 0.9rem;
   letter-spacing: -0.02em;

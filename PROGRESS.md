@@ -19,5 +19,5 @@ Updated: 2026-08-15
 | 1 | completed | Shared Proof Run credibility, mobile, accessibility, and hub-source fixes |
 | 2 | completed | Generic, ITC, and Nestlé copy, mobile controls, wrapping, and focus treatment |
 | 3 | completed | Prescription readability and deep-dive interaction/accessibility polish |
-| 4 | pending | Validation coverage and visual QA |
-| 5 | pending | Final consistency review and delivery |
+| 4 | completed | Playwright roots fixed; standalone QA added; 44px brand link |
+| 5 | completed | Explainer pipeline aligned; leftover theater scan clean |
