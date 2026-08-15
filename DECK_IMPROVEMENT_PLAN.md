@@ -26,7 +26,7 @@ Improve the credibility, clarity, visual hierarchy, accessibility, and mobile pr
 | Phase | Objective | Status |
 | --- | --- | --- |
 | 1 | Correct shared Proof Run copy, credibility, mobile, and accessibility issues | Complete |
-| 2 | Polish standalone technical and account decks | Pending |
+| 2 | Polish standalone technical and account decks | Complete |
 | 3 | Polish prescriptions, hubs, and technical deep-dives | Pending |
 | 4 | Extend validation and complete visual QA | Pending |
 | 5 | Final consistency review and delivery | Pending |
