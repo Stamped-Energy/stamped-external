@@ -8,5 +8,6 @@
 | 3 | completed | L4 AD-5 templates (`1f27941`); L5 gate+console (`ce5e0d2`, `c7a2f98`, `354d72d`) |
 | 4 | completed | L6 live Rx flip cards (`42cb105`) |
 | 5 | completed | Tradeoff TOD/preheat (`303dfc4`); L5 Improve tests (`00a9841`); L1–L6 Wave B verified |
+| research | exploration | Plant camera perception note — cameras as occupancy covariate, not L1 P0 / not a WM product |
 
-Updated: 2026-08-05
+Updated: 2026-08-15
