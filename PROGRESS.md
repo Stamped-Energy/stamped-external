@@ -11,3 +11,13 @@
 | research | exploration | Plant camera perception note — cameras as occupancy covariate, not L1 P0 / not a WM product |
 
 Updated: 2026-08-15
+
+## Deck copy and design improvements
+
+| Phase | Status | Notes |
+| --- | --- | --- |
+| 1 | completed | Shared Proof Run credibility, mobile, accessibility, and hub-source fixes |
+| 2 | pending | Generic, ITC, and Nestlé technical decks |
+| 3 | pending | Prescriptions, hubs, and technical deep-dives |
+| 4 | pending | Validation coverage and visual QA |
+| 5 | pending | Final consistency review and delivery |

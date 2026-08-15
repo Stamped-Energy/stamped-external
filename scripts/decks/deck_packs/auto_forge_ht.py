@@ -127,7 +127,7 @@ PACK = {
     "math": {
         "eyebrow": "Where value usually shows up on integrated forge floors",
         "h2": "What we check first",
-        "ledeD": "Two pillars on the same meters. Energy actions move MD, idle heat, air, and PF. Equipment actions catch drift and trips on presses, furnaces, CNC cells, and utilities before a stoppage. Sample only until live data confirms.",
+        "ledeD": "Two pillars on the same meters. Energy actions move MD, idle heat, air, and PF. Equipment actions surface drift and trip patterns earlier than fixed alarms. Sample only until live data confirms.",
         "ledeM": "Energy and equipment checks on forge, HT, CNC, and surface floors.",
         "cards": [
             (
@@ -194,7 +194,7 @@ SLUG = "auto-forge-ht"
 TWO_PILLARS = {
     "eyebrow": "One product · two pillars",
     "h2": "How Stamped helps on these floors",
-    "lede": "Same meters. Same loop. Two kinds of assigned work: cut avoidable electricity cost, and flag equipment issues early so maintenance can act before a stoppage.",
+    "lede": "Same meters. Same loop. Two kinds of assigned work: cut avoidable electricity cost and surface equipment drift earlier than fixed alarms.",
     "left_title": "01 · Load and energy efficiency",
     "left": [
         "Maximum demand and shift-start overlap",
@@ -247,7 +247,7 @@ OFFER_PATCH = {
 HEADING_PATCHES = [
     (
         '<p class="eyebrow reveal">What Stamped does</p>\n'
-        '        <h2 class="reveal">Signals become work orders.</h2>',
+        '        <h2 class="reveal">Signals become assigned actions.</h2>',
         '<p class="eyebrow reveal">How Stamped works</p>\n'
         '        <h2 class="reveal">Connect to Improve</h2>',
     ),

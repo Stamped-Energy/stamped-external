@@ -629,6 +629,9 @@ def main() -> None:
         "| [machinery-oem/](./machinery-oem/) | Optional standalone deploy root |\n"
         "| [lohia-corp-brief.html](./lohia-corp-brief.html) | Short Lohia-branded meeting walkthrough |\n"
         "| [auto-forge-ht.html](./auto-forge-ht.html) | Forge / HT / die-cast value walkthrough (two pillars) |\n"
+        "| [technical-explainer.html](./technical-explainer.html) | Generic Stamped Intelligence technical explainer |\n"
+        "| [itc-nadiad-technical/](./itc-nadiad-technical/) | ITC Nadiad packaging and printing technical brief |\n"
+        "| [nestle-pantnagar-technical/](./nestle-pantnagar-technical/) | Nestlé Pantnagar warehouse HVAC and tariff brief |\n"
         "| [assets/](./assets/) | Co-located images (open HTML from this folder) |\n\n"
         "Rebuild: `python scripts/decks/build/build-client-decks.py`\n",
         encoding="utf-8",
@@ -681,6 +684,9 @@ CLIENT_HUB = """<!DOCTYPE html>
       padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
     }
     a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
+    a.card:focus-visible {
+      outline: 2px solid var(--primary); outline-offset: 3px;
+    }
     a.card strong {
       display: block; font-family: var(--font-d); font-size: 1.2rem;
       margin-bottom: 0.35rem; color: var(--secondary);
@@ -692,6 +698,9 @@ CLIENT_HUB = """<!DOCTYPE html>
     }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
+    @media (prefers-reduced-motion: reduce) {
+      a.card { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -716,10 +725,20 @@ CLIENT_HUB = """<!DOCTYPE html>
         <span>Full anonymous Proof Run. Real-time decisions, line-tied early warnings, 60-day pilot as needed.</span>
         <em>Open OEM demo →</em>
       </a>
-      <a class="card" href="./machinery-oem/">
-        <strong>OEM demo · deploy root</strong>
-        <span>Same machinery OEM deck as a folder index for standalone hosting.</span>
-        <em>Open deploy root →</em>
+      <a class="card" href="./technical-explainer.html">
+        <strong>Stamped Intelligence · technical explainer</strong>
+        <span>How Stamped reads plant data, assigns feasible actions, and verifies outcomes.</span>
+        <em>Open technical explainer →</em>
+      </a>
+      <a class="card" href="./itc-nadiad-technical/">
+        <strong>ITC Nadiad · technical brief</strong>
+        <span>Packaging and printing walkthrough for the Nadiad plant.</span>
+        <em>Open ITC brief →</em>
+      </a>
+      <a class="card" href="./nestle-pantnagar-technical/">
+        <strong>Nestlé Pantnagar · technical brief</strong>
+        <span>Warehouse HVAC, UPCL tariff windows, and assigned floor actions.</span>
+        <em>Open Nestlé brief →</em>
       </a>
     </div>
     <footer>
