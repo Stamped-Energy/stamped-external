@@ -38,6 +38,9 @@
       padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
     }
     a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
+    a.card:focus-visible {
+      outline: 2px solid var(--primary); outline-offset: 3px;
+    }
     a.card strong {
       display: block; font-family: var(--font-d); font-size: 1.2rem;
       margin-bottom: 0.35rem; color: var(--secondary);
@@ -57,14 +60,16 @@
     }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
+    @media (prefers-reduced-motion: reduce) {
+      a.card { transition: none; }
+    }
   </style>
 </head>
 <body>
   <main>
     <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
     <h1>Pick your industry deck</h1>
-    <p class="lede">Same Proof Run walkthrough: prescriptions, data sources, and optimisation targets tuned for each plant type.</p>
-    <p class="section-label"><a href="../index.html" style="color:inherit;text-decoration:none">← Demo hub</a></p>
+    <p class="lede">Proof Run walkthroughs with prescriptions, data sources, and optimization targets for each plant type.</p>
     <div class="grid">
       <a class="card" href="./cement.html">
         <strong>Cement</strong>
@@ -86,16 +91,57 @@
     <div class="grid">
       <a class="card card--clients" href="./prescriptions-examples.html">
         <strong>10 sample prescriptions</strong>
-        <span>Agnostic + plant/equipment examples with flip-for-evidence cards. Markdown twin alongside.</span>
+        <span>Practical plant and equipment actions. Flip each card to inspect the evidence.</span>
         <em>Open prescriptions →</em>
       </a>
     </div>
     <p class="section-label">Client decks</p>
     <div class="grid">
-      <a class="card" href="./clients/">
+      <a class="card card--clients" href="./clients/">
         <strong>Clients</strong>
         <span>Named and anonymous client walkthroughs for live meetings. Pick a deck from the list.</span>
         <em>Browse client decks →</em>
+      </a>
+    </div>
+    <p class="section-label">Technical explainers</p>
+    <div class="grid">
+      <a class="card" href="./clients/technical-explainer.html">
+        <strong>Stamped Intelligence · technical explainer</strong>
+        <span>How Stamped reads plant data, assigns feasible actions, and verifies outcomes.</span>
+        <em>Open technical explainer →</em>
+      </a>
+      <a class="card" href="./clients/itc-nadiad-technical/">
+        <strong>ITC Nadiad · technical brief</strong>
+        <span>Packaging and printing walkthrough for the Nadiad plant.</span>
+        <em>Open ITC brief →</em>
+      </a>
+      <a class="card" href="./clients/nestle-pantnagar-technical/">
+        <strong>Nestlé Pantnagar · technical brief</strong>
+        <span>Warehouse HVAC, UPCL tariff windows, and assigned floor actions.</span>
+        <em>Open Nestlé brief →</em>
+      </a>
+    </div>
+    <p class="section-label">Technical deep-dives</p>
+    <div class="grid">
+      <a class="card" href="./tech/physics.html">
+        <strong>Physics and rulepacks</strong>
+        <span>Versioned industrial rules behind each prescription.</span>
+        <em>Open deep-dive →</em>
+      </a>
+      <a class="card" href="./tech/models.html">
+        <strong>Models</strong>
+        <span>Plant-calibrated models for baselines, drift, and forecasting.</span>
+        <em>Open deep-dive →</em>
+      </a>
+      <a class="card" href="./tech/agents.html">
+        <strong>Agents</strong>
+        <span>Bounded action drafting with tools, checks, and vetoes.</span>
+        <em>Open deep-dive →</em>
+      </a>
+      <a class="card" href="./tech/evidence.html">
+        <strong>Evidence</strong>
+        <span>The calculation and verification path behind each outcome.</span>
+        <em>Open deep-dive →</em>
       </a>
     </div>
     <footer>

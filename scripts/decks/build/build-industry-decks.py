@@ -51,7 +51,7 @@ PACKS = {
             "t3p": "The bill will price this later. The floor never saw the fix.",
             "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next mill start sequence.",
             "statImpact": "₹55k",
-            "statImpactLabel": "Monthly demand impact",
+            "statImpactLabel": "Illustrative monthly demand impact",
         },
         "gapHas": {
             "scada": "Has: kiln, mill, WHR run states",
@@ -68,7 +68,7 @@ PACKS = {
             "why": "They started together and pushed MD over the limit",
             "bill": "MD (kVA)",
             "owner": "Grinding supervisor · Shift B",
-            "impact": "₹3-5L / month",
+            "impact": "₹3-5L / month [illustrative]",
             "effort": "Sequence change · no new equipment",
             "rule": "md_overlap@v2.4 · High",
             "due": "This week",
@@ -79,7 +79,7 @@ PACKS = {
                 ("KILN_IDFAN.RAMP", "ON", "06:40+"),
                 ("RAW_MILL.RUN", "ON", "06:41+"),
             ],
-            "cite": "physics/md_overlap@v2.4 · model conf 0.91 · tariff MD slab · baseline Apr peak week",
+            "cite": "physics/md_overlap@v2.4 · illustrative · tariff MD slab · baseline sample peak week",
         },
         "rx2": {
             "badge": "Rx · WHR / tariff",
@@ -88,7 +88,7 @@ PACKS = {
             "why": "WHR was available while the plant still bought peak power",
             "bill": "Energy (kWh) · peak",
             "owner": "Power desk · evening block",
-            "impact": "₹2-4L / month",
+            "impact": "₹2-4L / month [illustrative]",
             "effort": "Dispatch schedule · no new equipment",
             "rule": "whr_peak@v1.3 · High",
             "due": "Next peak block",
@@ -99,13 +99,13 @@ PACKS = {
                 ("CEMENT_MILL.kWh", "Peak draw", "ToD peak"),
                 ("TOD.PEAK_FLAG", "TRUE", "scheduled"),
             ],
-            "cite": "physics/whr_peak@v1.3 · model conf 0.88 · ToD peak line · baseline last 5 evenings",
+            "cite": "physics/whr_peak@v1.3 · illustrative · ToD peak line · baseline sample evenings",
         },
         "floor": [
             {
                 "title": "Stagger mill start and kiln fans by 10 min",
                 "why": "MD peak from Monday overlap",
-                "impact": "₹3-5L/mo on MD line",
+                "impact": "₹3-5L/mo on MD line [illustrative]",
                 "owner": "Grinding supervisor · B",
                 "priority": "High",
                 "due": "This week · before next peak",
@@ -113,7 +113,7 @@ PACKS = {
             {
                 "title": "Raise WHR draw in the ToD peak window",
                 "why": "Peak grid import while WHR capacity sits idle",
-                "impact": "₹1.2-2.4L/mo on ToD line",
+                "impact": "₹1.2-2.4L/mo on ToD line [illustrative]",
                 "owner": "Power plant lead · A",
                 "priority": "High",
                 "due": "Next ToD peak",
@@ -121,7 +121,7 @@ PACKS = {
             {
                 "title": "Stage idle mill offline on kiln stop",
                 "why": "Mill left online across kiln stop with no clinker pull",
-                "impact": "₹0.8-1.5L/mo on energy",
+                "impact": "₹0.8-1.5L/mo on energy [illustrative]",
                 "owner": "Grinding supervisor · B",
                 "priority": "Med",
                 "due": "Next kiln stop",
@@ -199,7 +199,7 @@ PACKS = {
             "t3p": "The bill will price this later. The floor never saw the fix.",
             "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next furnace–mill sequence.",
             "statImpact": "₹48k",
-            "statImpactLabel": "Monthly demand impact",
+            "statImpactLabel": "Illustrative monthly demand impact",
         },
         "gapHas": {
             "scada": "Has: furnace, mill, utility run states",
@@ -216,7 +216,7 @@ PACKS = {
             "why": "They started together and pushed MD over the limit",
             "bill": "MD (kVA)",
             "owner": "Melt-shop supervisor · Shift B",
-            "impact": "₹2.5-4.5L / month",
+            "impact": "₹2.5-4.5L / month [illustrative]",
             "effort": "Sequence change · no new equipment",
             "rule": "md_overlap@v2.4 · High",
             "due": "This week",
@@ -227,7 +227,7 @@ PACKS = {
                 ("MILL.BITE", "ON", "07:14+"),
                 ("COMP_BANK.RUN", "ON", "07:13+"),
             ],
-            "cite": "physics/md_overlap@v2.4 · model conf 0.91 · tariff MD slab · baseline Apr peak week",
+            "cite": "physics/md_overlap@v2.4 · illustrative · tariff MD slab · baseline sample peak week",
         },
         "rx2": {
             "badge": "Rx · Idle / holding",
@@ -236,7 +236,7 @@ PACKS = {
             "why": "Holding power with no cast or roll on 3 of last 5 delays",
             "bill": "Energy (kWh)",
             "owner": "Melt-shop supervisor · Furnace 2",
-            "impact": "₹1-1.8L / month",
+            "impact": "₹1-1.8L / month [illustrative]",
             "effort": "Holding SOP · no new equipment",
             "rule": "idle_hold@v1.8 · High",
             "due": "Next delay window",
@@ -247,13 +247,13 @@ PACKS = {
                 ("FURNACE2.kWh", "180 kWh", "per event"),
                 ("DELAY.FLAG", "TRUE", "planned"),
             ],
-            "cite": "physics/idle_hold@v1.8 · model conf 0.87 · ToD energy line · baseline last 5 delays",
+            "cite": "physics/idle_hold@v1.8 · illustrative · ToD energy line · baseline sample delays",
         },
         "floor": [
             {
                 "title": "Stagger furnace and mill start by 8 min",
                 "why": "MD peak from Monday overlap",
-                "impact": "₹2.5-4.5L/mo on MD line",
+                "impact": "₹2.5-4.5L/mo on MD line [illustrative]",
                 "owner": "Melt-shop supervisor · B",
                 "priority": "High",
                 "due": "This week · before next peak",
@@ -261,7 +261,7 @@ PACKS = {
             {
                 "title": "Cut furnace holding on planned delay",
                 "why": "Holding power during cast delay with no production",
-                "impact": "₹1.5-2.8L/mo on energy",
+                "impact": "₹1.5-2.8L/mo on energy [illustrative]",
                 "owner": "Melt-shop supervisor · B",
                 "priority": "High",
                 "due": "Next delay window",
@@ -269,7 +269,7 @@ PACKS = {
             {
                 "title": "Shift non-critical load off peak tariff",
                 "why": "Peak grid draw that can move to shoulder",
-                "impact": "₹0.9-1.8L/mo on ToD",
+                "impact": "₹0.9-1.8L/mo on ToD [illustrative]",
                 "owner": "Electrical lead · A",
                 "priority": "Med",
                 "due": "Next tariff window",
@@ -347,7 +347,7 @@ PACKS = {
             "t3p": "The bill will price this later. The floor never saw the fix.",
             "meterNote": "The EMS recorded the spike, but nobody was assigned to change the next utility sequence.",
             "statImpact": "₹36k",
-            "statImpactLabel": "Monthly demand impact",
+            "statImpactLabel": "Illustrative monthly demand impact",
         },
         "gapHas": {
             "scada": "Has: AHU, chiller, batch utility states",
@@ -364,7 +364,7 @@ PACKS = {
             "why": "They started together and pushed MD over the limit",
             "bill": "MD (kVA)",
             "owner": "Utilities supervisor · Shift B",
-            "impact": "₹1.8-3.2L / month",
+            "impact": "₹1.8-3.2L / month [illustrative]",
             "effort": "Sequence change · no new equipment",
             "rule": "md_overlap@v2.4 · High",
             "due": "This week",
@@ -375,7 +375,7 @@ PACKS = {
                 ("AUTOCLAVE.HEAT", "ON", "07:05+"),
                 ("AHU_SUITE3.RUN", "ON", "07:04+"),
             ],
-            "cite": "physics/md_overlap@v2.4 · model conf 0.90 · tariff MD slab · baseline Apr peak week",
+            "cite": "physics/md_overlap@v2.4 · illustrative · tariff MD slab · baseline sample peak week",
         },
         "rx2": {
             "badge": "Rx · HVAC idle",
@@ -384,7 +384,7 @@ PACKS = {
             "why": "Full HVAC with no batch on 4 of last 6 idle windows",
             "bill": "Energy (kWh)",
             "owner": "HVAC / engineering · Suite 3",
-            "impact": "₹70k-1.1L / month",
+            "impact": "₹70k-1.1L / month [illustrative]",
             "effort": "Validated setback · no new equipment",
             "rule": "hvac_idle@v1.5 · High",
             "due": "Next idle window",
@@ -395,13 +395,13 @@ PACKS = {
                 ("AHU_S3.kWh", "95 kWh", "per event"),
                 ("IDLE_WINDOW.FLAG", "TRUE", "validated"),
             ],
-            "cite": "physics/hvac_idle@v1.5 · model conf 0.86 · ToD energy line · baseline last 6 idle windows",
+            "cite": "physics/hvac_idle@v1.5 · illustrative · ToD energy line · baseline sample idle windows",
         },
         "floor": [
             {
                 "title": "Stagger chillers and autoclave by 10 min",
                 "why": "MD peak from Monday load overlap",
-                "impact": "₹1.8-3.2L/mo on MD line",
+                "impact": "₹1.8-3.2L/mo on MD line [illustrative]",
                 "owner": "Utilities supervisor · B",
                 "priority": "High",
                 "due": "This week · before next peak",
@@ -409,7 +409,7 @@ PACKS = {
             {
                 "title": "Set back AHU Suite 3 in idle window",
                 "why": "Full duty HVAC with no batch occupancy",
-                "impact": "₹0.7-1.4L/mo on energy",
+                "impact": "₹0.7-1.4L/mo on energy [illustrative]",
                 "owner": "HVAC lead · A",
                 "priority": "High",
                 "due": "Next idle window",
@@ -417,7 +417,7 @@ PACKS = {
             {
                 "title": "Stage utility island off across changeover",
                 "why": "Non-critical loads left on between batches",
-                "impact": "₹0.5-1.1L/mo on energy",
+                "impact": "₹0.5-1.1L/mo on energy [illustrative]",
                 "owner": "Utilities supervisor · B",
                 "priority": "Med",
                 "due": "Next changeover",
@@ -1238,6 +1238,9 @@ HUB = """<!DOCTYPE html>
       padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
     }
     a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
+    a.card:focus-visible {
+      outline: 2px solid var(--primary); outline-offset: 3px;
+    }
     a.card strong {
       display: block; font-family: var(--font-d); font-size: 1.2rem;
       margin-bottom: 0.35rem; color: var(--secondary);
@@ -1257,13 +1260,16 @@ HUB = """<!DOCTYPE html>
     }
     footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
     footer a { color: var(--secondary); }
+    @media (prefers-reduced-motion: reduce) {
+      a.card { transition: none; }
+    }
   </style>
 </head>
 <body>
   <main>
     <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
     <h1>Pick your industry deck</h1>
-    <p class="lede">Same Proof Run walkthrough: prescriptions, data sources, and optimisation targets tuned for each plant type.</p>
+    <p class="lede">Proof Run walkthroughs with prescriptions, data sources, and optimization targets for each plant type.</p>
     <div class="grid">
       <a class="card" href="./cement.html">
         <strong>Cement</strong>
@@ -1281,12 +1287,61 @@ HUB = """<!DOCTYPE html>
         <em>Open pharma deck →</em>
       </a>
     </div>
+    <p class="section-label">Prescriptions</p>
+    <div class="grid">
+      <a class="card card--clients" href="./prescriptions-examples.html">
+        <strong>10 sample prescriptions</strong>
+        <span>Practical plant and equipment actions. Flip each card to inspect the evidence.</span>
+        <em>Open prescriptions →</em>
+      </a>
+    </div>
     <p class="section-label">Client decks</p>
     <div class="grid">
       <a class="card card--clients" href="./clients/">
         <strong>Clients</strong>
         <span>Named and anonymous client walkthroughs for live meetings. Pick a deck from the list.</span>
         <em>Browse client decks →</em>
+      </a>
+    </div>
+    <p class="section-label">Technical explainers</p>
+    <div class="grid">
+      <a class="card" href="./clients/technical-explainer.html">
+        <strong>Stamped Intelligence · technical explainer</strong>
+        <span>How Stamped reads plant data, assigns feasible actions, and verifies outcomes.</span>
+        <em>Open technical explainer →</em>
+      </a>
+      <a class="card" href="./clients/itc-nadiad-technical/">
+        <strong>ITC Nadiad · technical brief</strong>
+        <span>Packaging and printing walkthrough for the Nadiad plant.</span>
+        <em>Open ITC brief →</em>
+      </a>
+      <a class="card" href="./clients/nestle-pantnagar-technical/">
+        <strong>Nestlé Pantnagar · technical brief</strong>
+        <span>Warehouse HVAC, UPCL tariff windows, and assigned floor actions.</span>
+        <em>Open Nestlé brief →</em>
+      </a>
+    </div>
+    <p class="section-label">Technical deep-dives</p>
+    <div class="grid">
+      <a class="card" href="./tech/physics.html">
+        <strong>Physics and rulepacks</strong>
+        <span>Versioned industrial rules behind each prescription.</span>
+        <em>Open deep-dive →</em>
+      </a>
+      <a class="card" href="./tech/models.html">
+        <strong>Models</strong>
+        <span>Plant-calibrated models for baselines, drift, and forecasting.</span>
+        <em>Open deep-dive →</em>
+      </a>
+      <a class="card" href="./tech/agents.html">
+        <strong>Agents</strong>
+        <span>Bounded action drafting with tools, checks, and vetoes.</span>
+        <em>Open deep-dive →</em>
+      </a>
+      <a class="card" href="./tech/evidence.html">
+        <strong>Evidence</strong>
+        <span>The calculation and verification path behind each outcome.</span>
+        <em>Open deep-dive →</em>
       </a>
     </div>
     <footer>
@@ -1338,10 +1393,7 @@ def main() -> None:
     hub = HUB
     (DECKS_DIR / "index.html").write_text(hub, encoding="utf-8")
     (ROOT / "index.html").write_text(
-        hub.replace('href="./cement.html"', 'href="./demo-decks/cement.html"')
-        .replace('href="./steel.html"', 'href="./demo-decks/steel.html"')
-        .replace('href="./pharma.html"', 'href="./demo-decks/pharma.html"')
-        .replace('href="./clients/"', 'href="./demo-decks/clients/"'),
+        hub.replace('href="./', 'href="./demo-decks/'),
         encoding="utf-8",
     )
     print("wrote hubs")

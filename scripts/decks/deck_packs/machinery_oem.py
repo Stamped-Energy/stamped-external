@@ -15,7 +15,7 @@ PACK = {
         "eyebrowM": "Machinery OEM · bill-verified operations",
         "h1D": "Operating decisions on tape lines and test bays, confirmed on the bill",
         "h1M": "Floor decisions confirmed on the bill",
-        "ledeD": "After solar, VFDs, and compressor upgrades, the remaining value is live floor decisions in rupees, early warnings on those lines, and confirmation on the next DISCOM bill. A 60-day Proof Run is available when you want a scoped pilot.",
+        "ledeD": "After solar, VFDs, and compressor upgrades, Stamped assigns live rupee actions and line-specific warnings, then checks completed work against the DISCOM bill.",
         "ledeM": "Live actions and early warnings after solar and VFDs. 60-day Proof Run when useful.",
     },
     "hook": {
@@ -48,7 +48,7 @@ PACK = {
         "why": "They started together and pushed MD over the limit",
         "bill": "MD (kVA)",
         "owner": "Electrical shift supervisor · Shift B",
-        "impact": "₹2-3.5L / month",
+        "impact": "₹2-3.5L / month [illustrative]",
         "effort": "Sequence change · no new equipment",
         "rule": "md_overlap@v2.4 · High",
         "due": "This week",
@@ -59,7 +59,7 @@ PACK = {
             ("COMP_BANK.A", "ON", "06:50+"),
             ("CHILLER.START", "ON", "06:51+"),
         ],
-        "cite": "physics/md_overlap@v2.4 · model conf 0.90 · tariff MD slab · baseline sample peak week",
+        "cite": "physics/md_overlap@v2.4 · illustrative · tariff MD slab · baseline sample peak week",
     },
     "rx2": {
         "badge": "Rx · Compressed air",
@@ -68,7 +68,7 @@ PACK = {
         "why": "Unload kWh with no trial or fab tag on 3 of last 5 nights",
         "bill": "Energy (kWh) · night",
         "owner": "Utilities supervisor · Plant air",
-        "impact": "₹70k-1.2L / month",
+        "impact": "₹70k-1.2L / month [illustrative]",
         "effort": "Staging SOP · no new equipment",
         "rule": "idle_hold@v1.8 · High",
         "due": "Next night unload",
@@ -79,13 +79,13 @@ PACK = {
             ("BANK_B.kWh", "185 kWh", "per event"),
             ("NIGHT.UNLOAD", "TRUE", "planned"),
         ],
-        "cite": "physics/idle_hold@v1.8 · model conf 0.86 · energy line · baseline last 5 nights",
+        "cite": "physics/idle_hold@v1.8 · illustrative · energy line · baseline sample nights",
     },
     "floor": [
         {
             "title": "Stagger trials vs utility starts by 10 min",
             "why": "MD peak from Monday trial / air overlap",
-            "impact": "₹2-3.5L/mo on MD line",
+            "impact": "₹2-3.5L/mo on MD line [illustrative]",
             "owner": "Electrical supervisor · B",
             "priority": "High",
             "due": "This week · before next peak",
@@ -93,7 +93,7 @@ PACK = {
         {
             "title": "Stage Bank B offline in night unload",
             "why": "Unload kWh with no fab or trial tag",
-            "impact": "₹0.7-1.2L/mo on energy",
+            "impact": "₹0.7-1.2L/mo on energy [illustrative]",
             "owner": "Utilities supervisor · A",
             "priority": "High",
             "due": "Next night unload",
@@ -156,7 +156,7 @@ PACK = {
                     "Not a generic plant alarm dump",
                 ],
                 "Ops + bill risk",
-                "Example: flag trial-bay or air trouble before a breakdown or MD event",
+                "Example: flag trial-bay or air drift earlier than fixed alarms",
             ),
             (
                 "Live decisions",
@@ -183,7 +183,7 @@ SLUG = "machinery-oem"
 OEM_HEADING_PATCHES = [
     (
         '<p class="eyebrow reveal">What Stamped does</p>\n'
-        '        <h2 class="reveal">Signals become work orders.</h2>',
+        '        <h2 class="reveal">Signals become assigned actions.</h2>',
         '<p class="eyebrow reveal">How Stamped works</p>\n'
         '        <h2 class="reveal">From plant data to assigned work</h2>',
     ),
@@ -212,12 +212,6 @@ OEM_HEADING_PATCHES = [
         '        <h2 class="reveal">The stack behind each prescription</h2>',
         '<p class="eyebrow reveal">Technology</p>\n'
         '        <h2 class="reveal">What sits behind each prescription</h2>',
-    ),
-    (
-        '<p class="eyebrow reveal">Auditability and sustainability</p>\n'
-        '        <h2 class="reveal">Action, evidence, optional bill line.</h2>',
-        '<p class="eyebrow reveal">Auditability and sustainability</p>\n'
-        '        <h2 class="reveal">Action, evidence, and optional bill line</h2>',
     ),
     (
         '<p class="eyebrow reveal">How we engage OT</p>\n'

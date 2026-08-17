@@ -321,6 +321,12 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
+    .nav-btn:focus-visible,
+    .btn:focus-visible,
+    .dots__dot:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -1818,12 +1824,18 @@
 
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
+      .wa-bubble, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
+      }
+      /* Keep decisions readable: wrap at spaces, never through equipment names. */
+      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -2041,7 +2053,7 @@
       }
       #scene-floor .wa-msg { max-width: 94%; }
       #scene-floor .wa-actions button {
-        min-height: 0;
+        min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
@@ -2155,8 +2167,8 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      .dots__dot { width: 10px; height: 10px; }
-      .dots__dot.active { width: 24px; }
+      /* Progress and the counter preserve position without tiny touch targets. */
+      .dots { display: none; }
       .btn { min-height: 48px; }
     }
   </style>
@@ -2191,13 +2203,13 @@
             <p class="brand-name reveal">Stamped Energy</p>
             <h1 class="reveal hide-mobile" id="titleH1D">Operating ownership for the bill after solar and VFDs</h1>
             <h1 class="reveal show-mobile" id="titleH1M">Ownership for the remaining bill</h1>
-            <p class="lede reveal hide-mobile" id="titleLedeD">Lohia builds extrusion, winding, weaving, coating, and printing equipment for woven raffia, multifilament, monofilament, and recycling. Stamped turns live plant data into assigned rupee actions on those floors, with early warnings on the same lines, and checks results on the HT bill. It sits beside Lohia DIC; it does not replace it.</p>
+            <p class="lede reveal hide-mobile" id="titleLedeD">Stamped turns live data from extrusion, winding, weaving, coating, and printing into assigned rupee actions and line-specific warnings. It works beside Lohia DIC and checks completed actions against the HT bill.</p>
             <p class="lede reveal show-mobile" id="titleLedeM">Assigned rupee actions on your tape, loom, and coating floors, confirmed on the HT bill.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Physics &amp; rules</span>
-              <span class="chip">Foundation models</span>
-              <span class="chip">Agentic prescriptions</span>
-              <span class="chip">Verified with evidence</span>
+              <span class="chip">Load decisions</span>
+              <span class="chip">Equipment drift</span>
+              <span class="chip">Assigned actions</span>
+              <span class="chip">Verified outcomes</span>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
@@ -2258,7 +2270,7 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal" id="hookEyebrow">Work already completed</p>
         <h2 class="reveal" id="hookH2">Major efficiency projects are done. Day-to-day follow-through is still open.</h2>
-        <p class="lede reveal hide-mobile" id="hookLedeD">About 2.775 MWp solar and a reported ~17% grid reduction at your works. Compressors, VFDs, chillers, and load alarms are already running. What still matters each month is who owns the next change on extrusion, loom, and coating days.</p>
+        <p class="lede reveal hide-mobile" id="hookLedeD">Solar, compressor upgrades, VFDs, chillers, and load alarms are already in place. What remains is assigning the next operating change on extrusion, loom, and coating days.</p>
         <p class="lede reveal show-mobile" id="hookLedeM">Solar and VFDs are in place. Who owns the next bill line?</p>
         <div class="two-col problem-top">
           <div class="timeline reveal">
@@ -2361,7 +2373,7 @@
               <li><strong>Weaving</strong> · Circular loom coincidence with chillers and compressors</li>
               <li><strong>Coating</strong> · Extrusion-coating heat and idle hold between jobs</li>
               <li><strong>Printing</strong> · Press and dryer hold when the substrate line is down</li>
-              <li><strong>Early warnings</strong> · Signals on your lines that flag machine or utility trouble before a breakdown</li>
+              <li><strong>Early warnings</strong> · Signals on your lines that surface machine or utility drift earlier than fixed alarms</li>
             </ul>
           </div>
         </div>
@@ -2423,7 +2435,7 @@
               <li>Tied to your equipment, not a generic alarm list</li>
             </ul>
             <div class="waste-bill">Operations and bill risk</div>
-            <p class="waste-sample hide-mobile">Example: flag loom, coater, or air trouble before a breakdown or MD event</p>
+            <p class="waste-sample hide-mobile">Example: flag loom, coater, or air drift earlier than fixed alarms</p>
           </article>
         </div>
         <div class="bill-table-wrap reveal">
@@ -2431,18 +2443,18 @@
             <thead>
               <tr>
                 <th>Monthly HT bill</th>
-                <th>About 15% often addressable</th>
-                <th>Cost of waiting 60 days</th>
+                <th>5% scenario</th>
+                <th>10% scenario</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>₹30L</td><td>₹4.5L / month</td><td>₹9L</td></tr>
-              <tr><td>₹60L</td><td>₹9L / month</td><td>₹18L</td></tr>
-              <tr><td>₹1Cr</td><td>₹15L / month</td><td>₹30L</td></tr>
+              <tr><td>₹30L</td><td>₹1.5L / month</td><td>₹3L / month</td></tr>
+              <tr><td>₹60L</td><td>₹3L / month</td><td>₹6L / month</td></tr>
+              <tr><td>₹1Cr</td><td>₹5L / month</td><td>₹10L / month</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="footnote reveal hide-mobile">Indicative ranges from comparable plants. A 60-day proof run replaces estimates with figures from your plant and DISCOM bills.</p>
+        <p class="footnote reveal hide-mobile">Scenario arithmetic, not a savings claim. Your baseline, operating constraints, and verified actions determine actual value.</p>
       </div>
     </section>
 
@@ -2775,7 +2787,7 @@
     <!-- Tech stack -->
     
 
-    <!-- Auditability & sustainability -->
+    <!-- Audit trail -->
     
 
     

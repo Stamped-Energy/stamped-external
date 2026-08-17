@@ -320,6 +320,12 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
+    .nav-btn:focus-visible,
+    .btn:focus-visible,
+    .dots__dot:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -1767,12 +1773,18 @@
 
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
+      .wa-bubble, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
+      }
+      /* Keep decisions readable: wrap at spaces, never through equipment names. */
+      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -1926,7 +1938,7 @@
       }
       #scene-floor .wa-msg { max-width: 94%; }
       #scene-floor .wa-actions button {
-        min-height: 0;
+        min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
@@ -2040,8 +2052,8 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      .dots__dot { width: 10px; height: 10px; }
-      .dots__dot.active { width: 24px; }
+      /* Progress and the counter preserve position without tiny touch targets. */
+      .dots { display: none; }
       .btn { min-height: 48px; }
     }
   </style>
@@ -2077,10 +2089,10 @@
             <p class="lede reveal hide-mobile">You already have meters and EMS. Stamped ranks floor work in rupees, then checks the result on the next DISCOM bill.</p>
             <p class="lede reveal show-mobile">Ranked floor actions from your meters and EMS. Verified with evidence.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Physics &amp; rules</span>
-              <span class="chip">Foundation models</span>
-              <span class="chip">Agentic prescriptions</span>
-              <span class="chip">Verified with evidence</span>
+              <span class="chip">Load decisions</span>
+              <span class="chip">Equipment drift</span>
+              <span class="chip">Assigned actions</span>
+              <span class="chip">Verified outcomes</span>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
@@ -2271,18 +2283,18 @@
             <thead>
               <tr>
                 <th>Monthly HT bill</th>
-                <th>About 15% often addressable</th>
-                <th>Cost of waiting 60 days</th>
+                <th>5% scenario</th>
+                <th>10% scenario</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>₹30L</td><td>₹4.5L / month</td><td>₹9L</td></tr>
-              <tr><td>₹60L</td><td>₹9L / month</td><td>₹18L</td></tr>
-              <tr><td>₹1Cr</td><td>₹15L / month</td><td>₹30L</td></tr>
+              <tr><td>₹30L</td><td>₹1.5L / month</td><td>₹3L / month</td></tr>
+              <tr><td>₹60L</td><td>₹3L / month</td><td>₹6L / month</td></tr>
+              <tr><td>₹1Cr</td><td>₹5L / month</td><td>₹10L / month</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="footnote reveal hide-mobile">Indicative ranges from comparable plants. A 60-day proof run replaces estimates with figures from your plant and DISCOM bills.</p>
+        <p class="footnote reveal hide-mobile">Scenario arithmetic, not a savings claim. Your baseline, operating constraints, and verified actions determine actual value.</p>
       </div>
     </section>
 
@@ -2290,7 +2302,7 @@
     <section class="slide slide--light" id="scene-what" data-theme="light" aria-label="What Stamped does">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">What Stamped does</p>
-        <h2 class="reveal">Signals become work orders.</h2>
+        <h2 class="reveal">Signals become assigned actions.</h2>
         <div class="do-chain reveal">
           <article class="do-step">
             <div class="do-step__num">01</div>
@@ -2671,11 +2683,11 @@
       </div>
     </section>
 
-    <!-- Auditability & sustainability -->
-    <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Auditability and sustainability">
+    <!-- Audit trail -->
+    <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Audit trail and reporting">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Auditability and sustainability</p>
-        <h2 class="reveal">Action, evidence, optional bill line.</h2>
+        <p class="eyebrow reveal">Audit trail and reporting</p>
+        <h2 class="reveal">Each action leaves evidence finance can check.</h2>
         <div class="audit-grid">
           <div class="audit-col reveal">
             <h3>Auditability</h3>
@@ -2687,7 +2699,7 @@
             </ul>
           </div>
           <div class="audit-col audit-col--sus reveal">
-            <h3>Sustainability</h3>
+            <h3>Energy and emissions records</h3>
             <ul class="audit-list">
               <li><span class="mark mark-te">1</span><span>Verified kWh, intensity, and tCO₂e with factor disclosure from the same actions</span></li>
               <li><span class="mark mark-te">2</span><span>Evidence adjuncts for ISO 50001 opportunity closure</span></li>

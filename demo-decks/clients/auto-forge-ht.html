@@ -321,6 +321,12 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
+    .nav-btn:focus-visible,
+    .btn:focus-visible,
+    .dots__dot:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -1818,12 +1824,18 @@
 
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
+      .wa-bubble, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
+      }
+      /* Keep decisions readable: wrap at spaces, never through equipment names. */
+      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -2041,7 +2053,7 @@
       }
       #scene-floor .wa-msg { max-width: 94%; }
       #scene-floor .wa-actions button {
-        min-height: 0;
+        min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
@@ -2155,8 +2167,8 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      .dots__dot { width: 10px; height: 10px; }
-      .dots__dot.active { width: 24px; }
+      /* Progress and the counter preserve position without tiny touch targets. */
+      .dots { display: none; }
       .btn { min-height: 48px; }
     }
   </style>
@@ -2193,10 +2205,10 @@
             <p class="lede reveal hide-mobile" id="titleLedeD">On floors that run presses, furnaces, and die-casting cells together, Stamped ranks energy and equipment work in rupees, assigns an owner, and checks the outcome with evidence. DISCOM bill confirmation can follow.</p>
             <p class="lede reveal show-mobile" id="titleLedeM">Energy and equipment prescriptions on forge and HT floors. Verified with evidence.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Physics &amp; rules</span>
-              <span class="chip">Foundation models</span>
-              <span class="chip">Agentic prescriptions</span>
-              <span class="chip">Verified with evidence</span>
+              <span class="chip">Load decisions</span>
+              <span class="chip">Equipment drift</span>
+              <span class="chip">Assigned actions</span>
+              <span class="chip">Verified outcomes</span>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
@@ -2341,7 +2353,7 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">One product · two pillars</p>
         <h2 class="reveal">How Stamped helps on these floors</h2>
-        <p class="lede reveal">Same meters. Same loop. Two kinds of assigned work: cut avoidable electricity cost, and flag equipment issues early so maintenance can act before a stoppage.</p>
+        <p class="lede reveal">Same meters. Same loop. Two kinds of assigned work: cut avoidable electricity cost and surface equipment drift earlier than fixed alarms.</p>
         <div class="bound-grid reveal" style="margin-top:1rem;">
           <div class="bound-col bound-col--ot">
             <h3>01 · Load and energy efficiency</h3>
@@ -2428,18 +2440,18 @@
             <thead>
               <tr>
                 <th>Monthly HT bill</th>
-                <th>About 15% often addressable</th>
-                <th>Cost of waiting 60 days</th>
+                <th>5% scenario</th>
+                <th>10% scenario</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>₹30L</td><td>₹4.5L / month</td><td>₹9L</td></tr>
-              <tr><td>₹60L</td><td>₹9L / month</td><td>₹18L</td></tr>
-              <tr><td>₹1Cr</td><td>₹15L / month</td><td>₹30L</td></tr>
+              <tr><td>₹30L</td><td>₹1.5L / month</td><td>₹3L / month</td></tr>
+              <tr><td>₹60L</td><td>₹3L / month</td><td>₹6L / month</td></tr>
+              <tr><td>₹1Cr</td><td>₹5L / month</td><td>₹10L / month</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="footnote reveal hide-mobile">Indicative ranges from comparable plants. A 60-day proof run replaces estimates with figures from your plant and DISCOM bills.</p>
+        <p class="footnote reveal hide-mobile">Scenario arithmetic, not a savings claim. Your baseline, operating constraints, and verified actions determine actual value.</p>
       </div>
     </section>
 
@@ -2783,7 +2795,7 @@
     <!-- Tech stack -->
     
 
-    <!-- Auditability & sustainability -->
+    <!-- Audit trail -->
     
 
     

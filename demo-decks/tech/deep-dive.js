@@ -71,11 +71,17 @@
       var detail = document.querySelector(detailSel);
       if (!root || !detail) return;
       var chips = root.querySelectorAll("[data-chip]");
+      var panelId = detail.id || "chipDetail";
+      detail.id = panelId;
+      detail.setAttribute("role", "tabpanel");
       function show(key) {
         var item = data[key];
         if (!item) return;
         chips.forEach(function (c) {
-          c.classList.toggle("is-active", c.getAttribute("data-chip") === key);
+          var isActive = c.getAttribute("data-chip") === key;
+          c.classList.toggle("is-active", isActive);
+          c.setAttribute("aria-selected", isActive ? "true" : "false");
+          c.setAttribute("tabindex", isActive ? "0" : "-1");
         });
         detail.innerHTML =
           "<h3>" +
@@ -87,8 +93,18 @@
           "</span>";
       }
       chips.forEach(function (chip) {
+        chip.setAttribute("aria-controls", panelId);
         chip.addEventListener("click", function () {
           show(chip.getAttribute("data-chip"));
+        });
+        chip.addEventListener("keydown", function (event) {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          var current = Array.prototype.indexOf.call(chips, chip);
+          var step = event.key === "ArrowRight" ? 1 : -1;
+          var next = chips[(current + step + chips.length) % chips.length];
+          show(next.getAttribute("data-chip"));
+          next.focus();
         });
       });
       var first = chips[0] && chips[0].getAttribute("data-chip");

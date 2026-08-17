@@ -321,6 +321,12 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
+    .nav-btn:focus-visible,
+    .btn:focus-visible,
+    .dots__dot:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -2069,12 +2075,17 @@
 
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
+      .wa-bubble, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
+      }
+      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -2348,7 +2359,7 @@
       #scene-floor #floorEffort,
       #scene-floor #floorVerify { display: none; }
       #scene-floor .wa-actions button {
-        min-height: 0;
+        min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
@@ -2474,8 +2485,7 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      .dots__dot { width: 10px; height: 10px; }
-      .dots__dot.active { width: 24px; }
+      .dots { display: none; }
       .btn { min-height: 48px; }
     }
 
@@ -3042,13 +3052,13 @@
     <section class="slide slide--light grid-bg" id="scene-agentic" data-theme="light" aria-label="ML and agentic intelligence">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">How a finding becomes the next-best plant decision</p>
-        <h2 class="reveal">ML spots the issue. Then we turn it into something people can act on.</h2>
-        <p class="lede reveal hide-mobile">Models flag drift or tariff overlap. The agentic layer adds job window, shift state, and maintenance constraints, then drafts an action the right person can run.</p>
+        <h2 class="reveal">A finding becomes a feasible action with an owner.</h2>
+        <p class="lede reveal hide-mobile">Models flag drift or tariff overlap. Stamped adds the job window, shift state, and maintenance constraints, then drafts an action the right person can run.</p>
         <p class="mobile-lede reveal show-mobile">Findings get context and a feasible owner, not a raw alert.</p>
         <div class="agent-pipe reveal hide-mobile">
           <span>ML finding</span><span>↓</span>
           <span>Plant + production + tariff context</span><span>↓</span>
-          <span>Agentic decision layer</span><span>↓</span>
+          <span>Feasibility and ownership checks</span><span>↓</span>
           <span>Best feasible prescription + alternative</span>
         </div>
         <div class="agent-stack reveal">

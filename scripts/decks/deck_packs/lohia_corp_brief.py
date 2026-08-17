@@ -29,13 +29,13 @@ PACK = {
         "eyebrowM": "Lohia Corp · Chaubepur",
         "h1D": "Operating ownership for the bill after solar and VFDs",
         "h1M": "Ownership for the remaining bill",
-        "ledeD": "Lohia builds extrusion, winding, weaving, coating, and printing equipment for woven raffia, multifilament, monofilament, and recycling. Stamped turns live plant data into assigned rupee actions on those floors, with early warnings on the same lines, and checks results on the HT bill. It sits beside Lohia DIC; it does not replace it.",
+        "ledeD": "Stamped turns live data from extrusion, winding, weaving, coating, and printing into assigned rupee actions and line-specific warnings. It works beside Lohia DIC and checks completed actions against the HT bill.",
         "ledeM": "Assigned rupee actions on your tape, loom, and coating floors, confirmed on the HT bill.",
     },
     "hook": {
         "eyebrow": "Work already completed",
         "h2": "Major efficiency projects are done. Day-to-day follow-through is still open.",
-        "ledeD": "About 2.775 MWp solar and a reported ~17% grid reduction at your works. Compressors, VFDs, chillers, and load alarms are already running. What still matters each month is who owns the next change on extrusion, loom, and coating days.",
+        "ledeD": "Solar, compressor upgrades, VFDs, chillers, and load alarms are already in place. What remains is assigning the next operating change on extrusion, loom, and coating days.",
         "ledeM": "Solar and VFDs are in place. Who owns the next bill line?",
         "t1s": "Solar and efficiency projects completed",
         "t1p": "Rooftop solar plus compressor, VFD, and chiller work is on record.",
@@ -180,7 +180,7 @@ PACK = {
                     "Tied to your equipment, not a generic alarm list",
                 ],
                 "Operations and bill risk",
-                "Example: flag loom, coater, or air trouble before a breakdown or MD event",
+                "Example: flag loom, coater, or air drift earlier than fixed alarms",
             ),
         ],
     },
@@ -246,7 +246,7 @@ LOHIA_LINES = {
         ("Printing", "Press and dryer hold when the substrate line is down"),
         (
             "Early warnings",
-            "Signals on your lines that flag machine or utility trouble before a breakdown",
+            "Signals on your lines that surface machine or utility drift earlier than fixed alarms",
         ),
     ],
     "note": "We do not redesign your machines. We help your team act on energy and early-warning signals while those machines are running, then check the result on the HT bill.",
@@ -280,7 +280,7 @@ VS_AUDIT = {
 BRIEF_HEADING_PATCHES = [
     (
         '<p class="eyebrow reveal">What Stamped does</p>\n'
-        '        <h2 class="reveal">Signals become work orders.</h2>',
+        '        <h2 class="reveal">Signals become assigned actions.</h2>',
         '<p class="eyebrow reveal">How Stamped works</p>\n'
         '        <h2 class="reveal">From plant data to assigned work</h2>',
     ),

@@ -321,6 +321,12 @@
     .nav-btn:hover {
       background: var(--white); border-color: var(--primary); color: var(--primary);
     }
+    .nav-btn:focus-visible,
+    .btn:focus-visible,
+    .dots__dot:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -1823,12 +1829,18 @@
 
       /* Overflow safety */
       .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
-      .rx-action, .wa-bubble, .wa-bubble h4, .tech-card, .waste-card,
+      .wa-bubble, .tech-card, .waste-card,
       .silo-card, .audit-col, .bound-list li, .chip, .ask-box, .contact-line,
       .tl-item, .commercial, .cred-quiet, .video-caption, p {
         max-width: 100%;
         overflow-wrap: anywhere;
         word-break: break-word;
+      }
+      /* Keep decisions readable: wrap at spaces, never through equipment names. */
+      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
       }
       /* ponytail: ledger cells wrap at spaces only - never mid-word */
       #scene-verify .ledger-table th,
@@ -2046,7 +2058,7 @@
       }
       #scene-floor .wa-msg { max-width: 94%; }
       #scene-floor .wa-actions button {
-        min-height: 0;
+        min-height: 44px;
         padding: 0.55rem 0.65rem;
         font-size: 0.78rem;
       }
@@ -2160,8 +2172,8 @@
 
     @media (pointer: coarse) {
       .nav-btn { width: 48px; height: 48px; }
-      .dots__dot { width: 10px; height: 10px; }
-      .dots__dot.active { width: 24px; }
+      /* Progress and the counter preserve position without tiny touch targets. */
+      .dots { display: none; }
       .btn { min-height: 48px; }
     }
   </style>
@@ -2190,18 +2202,18 @@
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
             <p class="industry-chip reveal" id="industryChip">Cement</p>
-            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Cement · kiln, mills, and WHR decisions verified with evidence</p>
-            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Cement · verified-with-evidence decisions</p>
+            <p class="eyebrow reveal hide-mobile" id="titleEyebrowD">Cement · kiln, mills, and WHR decisions verified on the bill</p>
+            <p class="eyebrow reveal show-mobile" id="titleEyebrowM">Cement · bill-verified decisions</p>
             <p class="brand-name reveal">Stamped Energy</p>
             <h1 class="reveal hide-mobile" id="titleH1D">Kiln and mill data, priced onto the bill.</h1>
             <h1 class="reveal show-mobile" id="titleH1M">Kiln & mill ₹ actions on the bill.</h1>
-            <p class="lede reveal hide-mobile" id="titleLedeD">You already run kiln, mill, WHR, and EMS data. Stamped ranks floor work in rupees, then verifies it with evidence from the same meters.</p>
-            <p class="lede reveal show-mobile" id="titleLedeM">Ranked kiln, mill, and WHR actions. Verified with evidence.</p>
+            <p class="lede reveal hide-mobile" id="titleLedeD">You already run kiln, mill, WHR, and EMS data. Stamped ranks floor work in rupees, then checks it on the next DISCOM bill.</p>
+            <p class="lede reveal show-mobile" id="titleLedeM">Ranked kiln, mill, and WHR actions. Verified on the DISCOM bill.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Physics &amp; rules</span>
-              <span class="chip">Foundation models</span>
-              <span class="chip">Agentic prescriptions</span>
-              <span class="chip">Verified with evidence</span>
+              <span class="chip">Load decisions</span>
+              <span class="chip">Equipment drift</span>
+              <span class="chip">Assigned actions</span>
+              <span class="chip">Verified outcomes</span>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
@@ -2295,7 +2307,7 @@
             <div class="stat-row" style="grid-template-columns:1fr 1fr;margin-top:1rem;">
               <div class="stat-card">
                 <strong id="hookStatImpact">₹55k</strong>
-                <span id="hookStatImpactLabel">Monthly demand impact</span>
+                <span id="hookStatImpactLabel">Illustrative monthly demand impact</span>
               </div>
               <div class="stat-card">
                 <strong>0</strong>
@@ -2405,18 +2417,18 @@
             <thead>
               <tr>
                 <th>Monthly HT bill</th>
-                <th>About 15% often addressable</th>
-                <th>Cost of waiting 60 days</th>
+                <th>5% scenario</th>
+                <th>10% scenario</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>₹30L</td><td>₹4.5L / month</td><td>₹9L</td></tr>
-              <tr><td>₹60L</td><td>₹9L / month</td><td>₹18L</td></tr>
-              <tr><td>₹1Cr</td><td>₹15L / month</td><td>₹30L</td></tr>
+              <tr><td>₹30L</td><td>₹1.5L / month</td><td>₹3L / month</td></tr>
+              <tr><td>₹60L</td><td>₹3L / month</td><td>₹6L / month</td></tr>
+              <tr><td>₹1Cr</td><td>₹5L / month</td><td>₹10L / month</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="footnote reveal hide-mobile">Indicative ranges from comparable plants. A 60-day proof run replaces estimates with figures from your plant and DISCOM bills.</p>
+        <p class="footnote reveal hide-mobile">Scenario arithmetic, not a savings claim. Your baseline, operating constraints, and verified actions determine actual value.</p>
       </div>
     </section>
 
@@ -2424,7 +2436,7 @@
     <section class="slide slide--light" id="scene-what" data-theme="light" aria-label="What Stamped does">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">What Stamped does</p>
-        <h2 class="reveal">Signals become work orders.</h2>
+        <h2 class="reveal">Signals become assigned actions.</h2>
         <div class="do-chain reveal">
           <article class="do-step">
             <div class="do-step__num">01</div>
@@ -2478,7 +2490,7 @@
                     <div class="rx-row"><dt>Why</dt><dd id="rx1Why">They started together and pushed MD over the limit</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx1Bill">MD (kVA)</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx1Owner">Grinding supervisor · Shift B</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹3-5L / month</strong></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx1Impact">₹3-5L / month [illustrative]</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd id="rx1Effort">Sequence change · no new equipment</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd id="rx1Rule">md_overlap@v2.4 · High</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd id="rx1Due">This week</dd></div>
@@ -2510,7 +2522,7 @@
                       <tr><td><code>RAW_MILL.RUN</code></td><td>ON</td><td>06:41+</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · model conf 0.91 · tariff MD slab · baseline Apr peak week</p>
+                  <p class="rx-cite" id="rx1Cite">physics/md_overlap@v2.4 · illustrative · tariff MD slab · baseline sample peak week</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2531,7 +2543,7 @@
                     <div class="rx-row"><dt>Why</dt><dd id="rx2Why">WHR was available while the plant still bought peak power</dd></div>
                     <div class="rx-row"><dt>Bill line</dt><dd id="rx2Bill">Energy (kWh) · peak</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd id="rx2Owner">Power desk · evening block</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹2-4L / month</strong></dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong id="rx2Impact">₹2-4L / month [illustrative]</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd id="rx2Effort">Dispatch schedule · no new equipment</dd></div>
                     <div class="rx-row"><dt>Rule</dt><dd id="rx2Rule">whr_peak@v1.3 · High</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd id="rx2Due">Next peak block</dd></div>
@@ -2565,7 +2577,7 @@
                       <tr><td><code>TOD.PEAK_FLAG</code></td><td>TRUE</td><td>scheduled</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite" id="rx2Cite">physics/whr_peak@v1.3 · model conf 0.88 · ToD peak line · baseline last 5 evenings</p>
+                  <p class="rx-cite" id="rx2Cite">physics/whr_peak@v1.3 · illustrative · ToD peak line · baseline sample evenings</p>
                   <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -2662,7 +2674,7 @@
                         <h4 id="floorTitle">Stagger mill start and kiln fans by 10 min</h4>
                         <div class="wa-bubble__divider" aria-hidden="true"></div>
                         <p class="wa-line" id="floorWhy"><b>Alarm:</b> MD peak from Monday overlap</p>
-                        <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹3-5L/mo on MD line</p>
+                        <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹3-5L/mo on MD line [illustrative]</p>
                         <p class="wa-line" id="floorOwner"><b>Owner:</b> Grinding supervisor · B</p>
                         <p class="wa-line" id="floorDue"><b>Due:</b> This week · before next peak</p>
                         <div class="wa-bubble__foot">
@@ -2805,11 +2817,11 @@
       </div>
     </section>
 
-    <!-- Auditability & sustainability -->
-    <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Auditability and sustainability">
+    <!-- Audit trail -->
+    <section class="slide slide--light" id="scene-audit" data-theme="light" aria-label="Audit trail and reporting">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Auditability and sustainability</p>
-        <h2 class="reveal">Action, evidence, optional bill line.</h2>
+        <p class="eyebrow reveal">Audit trail and reporting</p>
+        <h2 class="reveal">Each action leaves evidence finance can check.</h2>
         <div class="audit-grid">
           <div class="audit-col reveal">
             <h3>Auditability</h3>
@@ -2821,7 +2833,7 @@
             </ul>
           </div>
           <div class="audit-col audit-col--sus reveal">
-            <h3>Sustainability</h3>
+            <h3>Energy and emissions records</h3>
             <ul class="audit-list">
               <li><span class="mark mark-te">1</span><span>Verified kWh, intensity, and tCO₂e with factor disclosure from the same actions</span></li>
               <li><span class="mark mark-te">2</span><span>Evidence adjuncts for ISO 50001 opportunity closure</span></li>
@@ -2977,7 +2989,7 @@
   
   <script>
     /* Industry chrome + floor prescriptions + resolve hero against this HTML file's URL */
-    window.__FLOOR_RX__ = [{"title": "Stagger mill start and kiln fans by 10 min", "why": "MD peak from Monday overlap", "impact": "₹3-5L/mo on MD line", "owner": "Grinding supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Raise WHR draw in the ToD peak window", "why": "Peak grid import while WHR capacity sits idle", "impact": "₹1.2-2.4L/mo on ToD line", "owner": "Power plant lead · A", "priority": "High", "due": "Next ToD peak"}, {"title": "Stage idle mill offline on kiln stop", "why": "Mill left online across kiln stop with no clinker pull", "impact": "₹0.8-1.5L/mo on energy", "owner": "Grinding supervisor · B", "priority": "Med", "due": "Next kiln stop"}];
+    window.__FLOOR_RX__ = [{"title": "Stagger mill start and kiln fans by 10 min", "why": "MD peak from Monday overlap", "impact": "₹3-5L/mo on MD line [illustrative]", "owner": "Grinding supervisor · B", "priority": "High", "due": "This week · before next peak"}, {"title": "Raise WHR draw in the ToD peak window", "why": "Peak grid import while WHR capacity sits idle", "impact": "₹1.2-2.4L/mo on ToD line [illustrative]", "owner": "Power plant lead · A", "priority": "High", "due": "Next ToD peak"}, {"title": "Stage idle mill offline on kiln stop", "why": "Mill left online across kiln stop with no clinker pull", "impact": "₹0.8-1.5L/mo on energy [illustrative]", "owner": "Grinding supervisor · B", "priority": "Med", "due": "Next kiln stop"}];
     (function () {
       var el = document.getElementById("chromeIndustry");
       if (el) el.textContent = "Cement";

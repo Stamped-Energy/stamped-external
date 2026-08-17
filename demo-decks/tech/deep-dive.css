@@ -60,6 +60,7 @@ a:hover { color: var(--primary); }
 }
 .topbar__brand {
   display: flex; align-items: center; gap: 0.55rem;
+  min-height: 44px;
   text-decoration: none; color: inherit;
   font-family: var(--font-display); font-weight: 800; font-size: 0.9rem;
   letter-spacing: -0.02em;
@@ -67,6 +68,7 @@ a:hover { color: var(--primary); }
 .topbar__brand img { height: 24px; width: auto; }
 .topbar__back {
   display: inline-flex; align-items: center; gap: 0.35rem;
+  min-height: 44px;
   font-size: 0.78rem; font-weight: 650; letter-spacing: 0.03em;
   text-decoration: none; color: var(--on-surface);
   padding: 0.45rem 0.75rem; border-radius: 8px;
@@ -74,6 +76,13 @@ a:hover { color: var(--primary); }
   transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
 }
 .topbar__back:hover { border-color: var(--primary); color: var(--primary); }
+.topbar__brand:focus-visible,
+.topbar__back:focus-visible,
+.nav-pills a:focus-visible,
+.action-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
 
 .page {
   width: min(1080px, 100%);
@@ -127,6 +136,7 @@ h1 {
 .chip-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.85rem 0 1rem; }
 .chip {
   display: inline-flex; align-items: center;
+  min-height: 44px;
   font-size: 0.72rem; font-weight: 650; letter-spacing: 0.02em;
   padding: 0.35rem 0.65rem; border-radius: 999px;
   border: 1px solid var(--outline-variant);
@@ -189,9 +199,9 @@ h1 {
 }
 .footnote {
   margin-top: 1.5rem; padding: 0.95rem 1.05rem;
-  border-left: 3px solid var(--tertiary);
+  border: 1px solid color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
   background: color-mix(in srgb, var(--tertiary) 6%, var(--white));
-  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  border-radius: var(--radius-card);
   font-size: 0.84rem; color: var(--on-surface-variant);
 }
 .nav-pills {
@@ -200,6 +210,7 @@ h1 {
   border-top: 1px solid var(--outline-variant);
 }
 .nav-pills a {
+  display: inline-flex; align-items: center; min-height: 44px;
   text-decoration: none; font-size: 0.78rem; font-weight: 650;
   padding: 0.45rem 0.7rem; border-radius: 8px;
   border: 1px solid var(--outline-variant); background: var(--white);
@@ -315,6 +326,7 @@ h1 {
 .action-pick { display: grid; gap: 0.5rem; }
 .action-btn {
   text-align: left; font: inherit; cursor: pointer;
+  min-height: 44px;
   padding: 0.8rem 0.9rem; border-radius: var(--radius-card);
   border: 1px solid var(--outline-variant); background: var(--white);
   transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);

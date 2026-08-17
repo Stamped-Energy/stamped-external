@@ -64,10 +64,13 @@ python3 scripts/build-industry-decks.py
 python3 scripts/build-client-decks.py   # private OEM + Lohia brief
 ```
 
-**Client deck gate:**
+**Deck gates** (Playwright required in the validation environment):
 
 ```bash
-python3 scripts/check-client-decks.py
+python3 scripts/decks/checks/check-client-decks.py
+python3 scripts/decks/checks/check-pharma-deck.py
+python3 scripts/decks/checks/check-floor-phone.py
+python3 scripts/decks/checks/check-standalone-decks.py
 ```
 
 **GitHub Pages** (`Stamped-Energy/stamped-external`, branch `main`, path `/`):
@@ -86,8 +89,4 @@ Static HTML under `demo-decks/` and `project/` deploys automatically when merged
 cd demo-decks/pharma && vercel --prod
 ```
 
-**Floor / verify check:**
-
-```bash
-python3 scripts/check-floor-phone.py
-```
+**Floor / verify check:** included in the deck gates above (`check-floor-phone.py`).
