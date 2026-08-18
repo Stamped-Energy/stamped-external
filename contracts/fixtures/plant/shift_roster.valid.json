@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "shift_id": "shift_b",
+  "window": {
+    "start_utc": "2026-08-18T02:30:00Z",
+    "end_utc": "2026-08-18T11:00:00Z"
+  },
+  "assignments": [
+    {
+      "role": "utilities_lead",
+      "department_id": "utilities",
+      "asset_ids": ["COMP1", "COMP2"]
+    }
+  ]
+}

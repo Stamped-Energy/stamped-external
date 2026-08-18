@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/l4-compile-trace.v1.json",
+  "title": "L4CompileTrace",
+  "description": "Per-Rx compile snapshot L4 emits and L5 stores for internal-console tabs (ADR-028). Do not stuff this into prescription.provenance. Never send to L6.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "compile_trace_id",
+    "prescription_id",
+    "org_id",
+    "plant_id",
+    "lane",
+    "generation_calls",
+    "delta_facts",
+    "retrieval_run"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "compile_trace_id": { "type": "string", "minLength": 1 },
+    "prescription_id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "lane": {
+      "type": "string",
+      "enum": ["quality", "template_fast_path"]
+    },
+    "otel_trace_id": { "type": "string" },
+    "phoenix_url": { "type": "string" },
+    "generation_calls": { "type": "integer", "minimum": 0 },
+    "owner_resolution": {
+      "type": "string",
+      "enum": ["named", "role_only"]
+    },
+    "neighborhood": {
+      "type": "object",
+      "description": "Graph A edges + Graph B stamps used for this Rx only",
+      "properties": {
+        "node_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from", "type", "to"],
+            "properties": {
+              "from": { "type": "string" },
+              "type": { "type": "string" },
+              "to": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "live_stamps": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "delta_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "text"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["need", "blocker", "feasible", "who", "not"]
+          },
+          "text": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "retrieval_run": {
+      "type": "object",
+      "required": ["path_h_chunk_ids"],
+      "properties": {
+        "path_h_chunk_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "path_g_hops": { "type": "integer", "minimum": 0 },
+        "filters": { "type": "object" },
+        "trust_tiers": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["T1", "T2", "T3", "T4"] }
+        }
+      },
+      "additionalProperties": false
+    },
+    "compile_loop": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "status"],
+        "properties": {
+          "step": {
+            "type": "string",
+            "enum": ["draft", "verify", "veto", "judge", "repair"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ok", "fail", "skipped"]
+          },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "judge": {
+      "type": "object",
+      "properties": {
+        "passed": { "type": "boolean" },
+        "scores": {
+          "type": "object",
+          "properties": {
+            "concrete_action": { "type": "number" },
+            "feasible_window": { "type": "number" },
+            "owner": { "type": "number" },
+            "industry_specificity": { "type": "number" }
+          },
+          "additionalProperties": false
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

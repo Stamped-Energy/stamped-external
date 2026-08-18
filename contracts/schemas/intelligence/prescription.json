@@ -138,9 +138,20 @@
       "properties": {
         "agent_version": { "type": "string" },
         "prompt_version": { "type": "string" },
-        "lane": { "type": "string", "enum": ["template_fast_path", "langgraph"] },
+        "lane": {
+          "type": "string",
+          "enum": ["template_fast_path", "langgraph", "quality"]
+        },
         "rule_versions": { "type": "array", "items": { "type": "string" } },
-        "model_versions": { "type": "array", "items": { "type": "string" } }
+        "model_versions": { "type": "array", "items": { "type": "string" } },
+        "compile_trace_id": {
+          "type": "string",
+          "description": "ADR-028 — id of l4-compile-trace snapshot stored at L5"
+        },
+        "otel_trace_id": {
+          "type": "string",
+          "description": "Optional Phoenix / OTel deep link"
+        }
       },
       "additionalProperties": false
     },

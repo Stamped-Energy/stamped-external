@@ -1,6 +1,13 @@
 # Changelog — stamped-l1-contracts
 
-## 0.11.2 — 2026-08-05
+## [Unreleased]
+
+### Added
+
+- Contracts **0.12.0** (ADR-028): `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`
+- `prescription.provenance`: optional `compile_trace_id`, `otel_trace_id`; `lane` enum adds `quality`
+
+## [0.11.2] — 2026-08-05
 
 - `plant-admin-settings.json` **1.1.0**: add practicality gate profile — `practicality_gate_mode` (`strict`|`balanced`|`lenient`), `require_named_owner`, `require_evidence_refs`, `require_mv_plan`, `min_impact_confidence`, `allow_illustrative_impact`, `auto_withhold_on_gate_fail` (AD-5 / AD-7 L5 Internal Console)
 - Expand [stamped-l5-internal-console-handoff.md](../handoff/holistic/improve/stamped-l5-internal-console-handoff.md) — all-Rx inbox, gate diagnostics, force-send, plant gate profile

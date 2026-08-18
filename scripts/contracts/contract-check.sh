@@ -34,20 +34,31 @@ def _prefer_nested(paths):
             by_name[path.name] = path
     return by_name
 
-schema_files = sorted(schemas.rglob("*.json"))
+def _is_git_symlink_stub(path: Path) -> bool:
+    """Windows checkouts of git symlinks are one-line relative targets, not JSON."""
+    text = path.read_text(encoding="utf-8").strip()
+    if not text or text[:1] in "{[":
+        return False
+    return "/" in text and "\n" not in text and not text.startswith("{")
+
+def _load_json_files(paths):
+    real = []
+    for path in paths:
+        if _is_git_symlink_stub(path):
+            continue
+        with open(path, encoding="utf-8") as f:
+            json.load(f)
+        real.append(path)
+    return real
+
+schema_files = _load_json_files(sorted(schemas.rglob("*.json")))
 if not schema_files:
     print("contract-check: no schemas found", file=sys.stderr)
     sys.exit(1)
 
-for sf in schema_files:
-    with open(sf) as f:
-        json.load(f)
 schema_by_name = _prefer_nested(schema_files)
 
-fixture_files = sorted(fixtures.rglob("*.json"))
-for ff in fixture_files:
-    with open(ff) as f:
-        json.load(f)
+fixture_files = _load_json_files(sorted(fixtures.rglob("*.json")))
 fixture_by_name = _prefer_nested(fixture_files)
 
 pairs = {
@@ -69,6 +80,10 @@ pairs = {
     "calibration_patch.valid.json": "calibration-patch.json",
     "model_run.valid.json": "model-run.json",
     "plant_admin_settings.valid.json": "plant-admin-settings.json",
+    "plant_knowledge_graph.valid.json": "plant-knowledge-graph.json",
+    "plant_live_index.valid.json": "plant-live-index.json",
+    "shift_roster.valid.json": "shift-roster.json",
+    "l4_compile_trace.valid.json": "l4-compile-trace.json",
 }
 for fixture, schema_name in pairs.items():
     fp, sp = fixture_by_name.get(fixture), schema_by_name.get(schema_name)

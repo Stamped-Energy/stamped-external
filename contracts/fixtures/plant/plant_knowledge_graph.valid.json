@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "vertical": "generic",
+  "updated_at": "2026-08-18T06:00:00Z",
+  "nodes": [
+    { "id": "plant_ghaziabad_1", "type": "Plant", "label": "Ghaziabad HT Plant" },
+    { "id": "utilities", "type": "Department", "label": "Utilities" },
+    { "id": "comp_house", "type": "Line", "label": "Compressor house" },
+    { "id": "COMP2", "type": "Asset", "label": "Air Compressor 2" },
+    { "id": "COMP1", "type": "Asset", "label": "Air Compressor 1" },
+    { "id": "screw_compressor", "type": "AssetClass" },
+    { "id": "utilities_lead", "type": "Role" },
+    { "id": "min_header_bar", "type": "Constraint", "label": "Isolation min header" }
+  ],
+  "edges": [
+    { "from": "plant_ghaziabad_1", "type": "CONTAINS", "to": "utilities" },
+    { "from": "utilities", "type": "CONTAINS", "to": "comp_house" },
+    { "from": "comp_house", "type": "CONTAINS", "to": "COMP2" },
+    { "from": "comp_house", "type": "CONTAINS", "to": "COMP1" },
+    { "from": "COMP2", "type": "INSTANCE_OF", "to": "screw_compressor" },
+    { "from": "COMP2", "type": "OWNED_BY", "to": "utilities_lead" },
+    { "from": "COMP1", "type": "STANDBY_FOR", "to": "COMP2" },
+    { "from": "COMP2", "type": "CONSTRAINED_BY", "to": "min_header_bar" }
+  ]
+}

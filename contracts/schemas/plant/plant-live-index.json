@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/plant-live-index.v1.json",
+  "title": "PlantLiveIndex",
+  "description": "Graph B live projection for a compile window (ADR-028). Same node IDs as Graph A. L2 is source of truth; no LLM. Not a second telemetry store.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "as_of",
+    "assets"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "as_of": { "type": "string", "format": "date-time" },
+    "tod_block": { "type": "string" },
+    "md_window_remaining": { "type": "string" },
+    "shift_id": { "type": "string" },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset_id"],
+        "properties": {
+          "asset_id": { "type": "string", "minLength": 1 },
+          "running": { "type": "boolean" },
+          "kw": { "type": "number" },
+          "vs_typical_pct": { "type": "number" },
+          "header_bar": { "type": "number" },
+          "available_as_standby": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["line_id"],
+        "properties": {
+          "line_id": { "type": "string", "minLength": 1 },
+          "output_zero_for_min": { "type": "number", "minimum": 0 },
+          "occupancy": { "type": "number", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "open_order_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References ProductionOrder.order_id"
+    },
+    "pending_rx_asset_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

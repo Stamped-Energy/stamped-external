@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "as_of": "2026-08-18T09:15:00Z",
+  "tod_block": "PEAK",
+  "md_window_remaining": "00:08",
+  "shift_id": "shift_b",
+  "assets": [
+    {
+      "asset_id": "COMP2",
+      "running": true,
+      "kw": 92.4,
+      "vs_typical_pct": 14,
+      "header_bar": 7.1,
+      "available_as_standby": false
+    },
+    {
+      "asset_id": "COMP1",
+      "running": true,
+      "kw": 88.0,
+      "vs_typical_pct": 2,
+      "available_as_standby": false
+    }
+  ],
+  "lines": [
+    { "line_id": "pkg_1", "output_zero_for_min": 0, "occupancy": 1 }
+  ],
+  "open_order_ids": ["447"],
+  "pending_rx_asset_ids": []
+}
