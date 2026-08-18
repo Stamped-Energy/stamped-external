@@ -85,7 +85,7 @@ L6  Experience & integration     → dashboard, BFF, exports, APIs
 | L4 | [L4](layers/l4-l6/L4-knowledge-and-reasoning.md) | Dual-lane agent, RAG, Rx draft |
 | L5 | [L5](layers/l4-l6/L5-closure-and-verification.md) | Workflow, notify, M&V, ledger append |
 | L6 | [L6](layers/l4-l6/L6-experience-and-integration.md) | EMS console, Rx queue, analyst, APIs |
-| Cross | [Production](cross-cutting/03-production-engineering.md) · [Eval](cross-cutting/04-evaluation-and-quality.md) | Reliability, quality gates |
+| Cross | [Production](cross-cutting/03-production-engineering.md) · [Eval](cross-cutting/04-evaluation-and-quality.md) · [Rx practicality](cross-cutting/05-prescription-practicality-eval.md) | Reliability, quality gates, demo-card gold |
 
 **Layer-per-repo** communicates only through versioned contracts in this pack ([ADR-008](../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)).
 

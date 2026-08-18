@@ -13,6 +13,8 @@ This folder is the portable technical pack (submodule path `external/technical/`
 | 3 | [`layers/`](layers/) | Per-layer deep dives |
 | 4 | [`cross-cutting/`](cross-cutting/) | Production engineering + evaluation |
 | 5 | [research/stamped-research-and-ml-citations.md](research/stamped-research-and-ml-citations.md) | CORE vs FRONTIER bibliography |
+| 6 | [research/stamped-context-graphs-and-practical-prescriptions.md](research/stamped-context-graphs-and-practical-prescriptions.md) | Dual graphs / Path D research (ADR-028) |
+| 7 | [cross-cutting/05-prescription-practicality-eval.md](cross-cutting/05-prescription-practicality-eval.md) | Rx practicality rubric + 10 demo-card gold cases |
 | — | [`pointers/`](pointers/) | Legacy filenames → redirect to SSOT |
 
 ## Layer specs

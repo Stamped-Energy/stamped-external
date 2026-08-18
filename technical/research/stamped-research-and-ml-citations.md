@@ -8,7 +8,7 @@ timestamp: "2026-07-24T19:30:00Z"
 
 # Research Papers & ML Approaches Behind Industrial Energy Intelligence
 
-*Companion to [L3 — Intelligence Core](layers/l3/L3-intelligence-core.md), [L3 — Decision defense brief](layers/l3/L3-decision-defense-brief.md), and [Technical architecture](02-technical-architecture.md). This is the **narrative + bibliography** layer for client-facing technical conversations; L3 remains the engineering SSOT for what is wired.*
+*Companion to [L3 — Intelligence Core](../layers/l3/L3-intelligence-core.md), [L3 — Decision defense brief](../layers/l3/L3-decision-defense-brief.md), and [Technical architecture](../STAMPED_ARCHITECTURE.md). This is the **narrative + bibliography** layer for client-facing technical conversations; L3 remains the engineering SSOT for what is wired. Agents/compile: [context graphs survey](stamped-context-graphs-and-practical-prescriptions.md) · [practicality eval](../cross-cutting/05-prescription-practicality-eval.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md).*
 
 > **Purpose of this document.** Give founders and sellers a *technically advanced, citation-honest* language for client conversations — Physics · Models · Agents · Closure — without inventing papers or pretending every frontier model is already the system of record.
 >
@@ -306,7 +306,7 @@ Use sparingly; one or two per meeting beats a buzzword dump.
 |---|---|
 | **Client / technical discovery** | Sections 0, 1, 3, 5 (TimesFM + Chronos/Moirai names), 8 |
 | **Founder prep** | Whole doc; rehearse the CORE vs FRONTIER distinction |
-| **Engineering** | Prefer [L3 intelligence core](layers/l3/L3-intelligence-core.md) + ADRs for what is actually wired; this doc is the *narrative + bibliography* layer |
+| **Engineering** | Prefer [L3 intelligence core](../layers/l3/L3-intelligence-core.md) + ADRs for what is actually wired; this doc is the *narrative + bibliography* layer. For L4 compile: [context graphs survey](stamped-context-graphs-and-practical-prescriptions.md) + [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md) |
 | **Website / deck** | Pull 4–6 names max (EWMA/CUSUM, LightGBM, TimesFM, PatchTST or Moirai, IPMVP). Link “research underlying each prescription” to Physics→Models→Agents→Closure |
 
 ---

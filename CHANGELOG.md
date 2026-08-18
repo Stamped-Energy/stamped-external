@@ -9,6 +9,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 ### Added
 
 - [`brand/`](brand/) — portable public copy canon (`COPY_CANON.md`, `WEBSITE_COPY.md`) so copy-writing agents use live homepage / solutions / About voice; rupee compounds spelled out (`rupee-scored`, not `₹-scored`)
+- **ADR-028 dual plant graphs** — canonical Graph A + live index Graph B + Path D; quality-default Rx compile; Lane A retained as opt-in; L5 stores `l4-compile-trace` ([ADR-028](decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md), [plant context graphs](technical/layers/l4-l6/L4-plant-context-graphs.md))
+- Research survey: [context graphs and practical prescriptions](technical/research/stamped-context-graphs-and-practical-prescriptions.md)
+- Contracts **0.12.0**: `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`; prescription `provenance.lane` adds `quality` ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
+- Practicality eval: [05-prescription-practicality-eval.md](technical/cross-cutting/05-prescription-practicality-eval.md) — gold bar is [demo prescriptions](demo-decks/prescriptions-examples.md) (shape/feasibility, not illustrative ₹)
 
 ## [2026.08.05.1] - 2026-08-05
 
