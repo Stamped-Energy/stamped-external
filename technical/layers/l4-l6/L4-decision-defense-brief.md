@@ -87,17 +87,18 @@ Ask in order and stop at the first “yes”:
 | # | Question | Use |
 | --- | --- | --- |
 | 1 | Must this be exact, auditable, or permission-enforcing? | Deterministic code |
-| 2 | Does an approved template fully express the action? | Lane A, zero LLM |
-| 3 | Is all evidence known and only English composition varies? | One structured call |
-| 4 | Does the question require at most two evidence lookups? | Bounded two-hop synthesis |
-| 5 | Is evidence insufficient, conflicting, risky, or novel? | Human review / abstain |
-| 6 | Is someone asking the model to write OT or own ₹? | Reject |
+| 2 | Is this CI, `force_lane=a`, or model-down degrade? | Lane A, zero LLM |
+| 3 | Is this a production Prescription? | Quality path (graphs + Path D + draft/judge). Template family still bounds What |
+| 4 | Is all evidence known and only English composition varies? | Structured calls inside the quality path |
+| 5 | Does the question require playbook + plant relations? | Path H + Path G + Path D (not Microsoft GraphRAG) |
+| 6 | Is evidence insufficient, conflicting, risky, or novel? | Human review / abstain |
+| 7 | Is someone asking the model to write OT or own ₹? | Reject |
 
 ### 2.3 Surface-specific autonomy
 
 | Surface | Maximum autonomy | Why |
 | --- | --- | --- |
-| Prescription | Fixed workflow; 0–2 generation calls | Trust and repeatability |
+| Prescription | Quality path default; ≥10 calls allowed; Lane A opt-in | Practical Due/Who beats cheap-first ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)) |
 | Analyst | Four model turns, six tools, two retrieval hops | Variable questions, read-only |
 | Narrative | Template + optional one composition call | Ledger is structured |
 | Web research | One allowlisted search pass | Freshness without open browsing |
@@ -127,19 +128,19 @@ Ask in order and stop at the first “yes”:
 **Attack:** “If L4 is agentic, why remove the agent framework?”
 **Answer:** Agentic capability is not measured by framework choice. The analyst still performs bounded tool use and synthesis. The money-bearing Prescription path is intentionally less autonomous.
 
-### 3.2 Dual lane: templates before generation
+### 3.2 Dual lane: quality default; Lane A retained
 
 | | |
 | --- | --- |
-| **Decision** | Lane A is an approved zero-call template path; Lane B is one structured synthesis call with one repair maximum. |
-| **Why** | Known finding categories recur. A model call adds cost and variance without adding information. |
-| **Rejected** | One frontier call for every Rx; one “smart” prompt covering every category; LLM-selected free-form actions. |
-| **Failure feared** | A polished but unsupported maintenance instruction. |
-| **Pilot cut** | Start with the categories L3 can produce and validate; unknown categories go to review. |
-| **Upgrade trigger** | Real pilot findings repeatedly require evidence synthesis that templates cannot express. |
+| **Decision** | Quality path (graphs + Path D + draft/judge) is the **default** for all categories. Lane A remains a **zero-call** graph for CI, `force_lane=a`, and model-down degrade. Templates still bound the action family on the quality path. |
+| **Why** | Demo gold needs plant-now context. A robotic 0-LLM card that nobody executes is worthless next to ₹5–10k per practical Rx. |
+| **Rejected** | Delete Lane A; keep Lane A as production default; free-form What rewrite; poverty-cap of 2 calls on Rx. |
+| **Failure feared** | Polished but unsupported maintenance instruction — still blocked by verifier + veto + judge-after-gates. |
+| **Pilot cut** | Consumer implementation after platform pin; this brief is spec. |
+| **Upgrade trigger** | None for the default — ADR-028 pulled it. Lane A deletion is never an upgrade. |
 
 **Attack:** “Templates will sound robotic.”
-**Answer:** Clear, accurate, repeated structure is a benefit on a plant floor. Language polish is not worth introducing uncertainty into a card whose purpose is action.
+**Answer:** Templates stay as the *family*. The finished Who/When come from Path D. Language without live orders is the actual problem.
 
 ### 3.3 Hybrid sparse + dense retrieval
 
@@ -156,20 +157,17 @@ Ask in order and stop at the first “yes”:
 **Attack:** “Modern embeddings make keyword search obsolete.”
 **Answer:** Industrial documents contain exact identifiers, tariff names, standard clauses, units, and model numbers. Embeddings complement exact retrieval; they do not replace it.
 
-### 3.4 Bounded two-hop synthesis without GraphRAG
+### 3.4 Path G + Path D (not Microsoft GraphRAG)
 
 | | |
 | --- | --- |
-| **Decision** | Permit at most two retrieval hops. Hop 1 finds the remedy/standard; hop 2 resolves one referenced OEM/standard/SOP section or L2 relationship. |
-| **Why** | This captures the important compound cases without paying graph-extraction and entity-resolution costs. |
-| **Rejected** | Single-hop only; unrestricted multi-hop agent; full Microsoft GraphRAG; recursive tree summaries. |
-| **Failure feared** | Retrieval loops that accumulate loosely related context and cost. |
-| **Control** | Validated entity/reference expansion and a hard hop ceiling. |
-| **Pilot cut** | No separate knowledge-graph database; reuse L2 asset graph and corpus metadata. |
-| **Upgrade trigger** | >20% of important queries need 3+ relationship traversals and the bounded approach fails a labelled slice. |
-
-**Why this is better than plain single-hop:**
-A compressor remedy may need both generic specific-power guidance and the exact OEM service limit. The second hop is valuable. A general-purpose agent planning five speculative searches is not.
+| **Decision** | Path H for playbooks; Path G for canonical relations; Path D for live vs typical. Hop ceilings still exist per path. Microsoft GraphRAG community summaries are not the default index. |
+| **Why** | Document hop-2 cannot encode standby × order × owner. Demo Example 6 is a delta. |
+| **Rejected** | Unrestricted multi-hop agent; Graphiti/Neo4j as a first dependency; GraphRAG over static corpora as the live index. |
+| **Failure feared** | Retrieval loops that accumulate loosely related context. |
+| **Control** | Entity bind first; Path D is a structured diff, not another semantic search. |
+| **Pilot cut** | L2 projection for live facts; L4 Postgres property graph later. |
+| **Upgrade trigger** | **Pulled (ADR-028).** Further store upgrade only if Postgres hops fail a labelled slice. |
 
 ### 3.5 Reranking is feature-flagged, not foundational
 
@@ -251,12 +249,12 @@ A compressor remedy may need both generic specific-power guidance and the exact 
 
 | | |
 | --- | --- |
-| **Decision** | Hard checks run on 100% of outputs; calibrated judges sample residual language quality. |
-| **Why** | Numeric equality, citation resolution, isolation, and step budgets are facts—do not ask another model. |
-| **Rejected** | One “quality score” from an LLM judge; judge every production response. |
-| **Failure feared** | Judge bias masks deterministic violations while adding cost. |
-| **Control** | Claim-level human-labelled calibration; high-risk cases always human. |
-| **Upgrade trigger** | Higher sample rate only after calibrated judge reliability and operational need. |
+| **Decision** | Hard checks run on **100%** of outputs (₹, citations, veto, isolation). On the quality path, a **practicality judge** then scores language (owner, window, industry specificity) and may request repair. Judge never owns ₹. |
+| **Why** | Facts are not a vibe. Practical Due/Who *are* language — that is what the judge is for. |
+| **Rejected** | One “quality score” from an LLM as the only gate; skipping deterministic checks; poverty-cap that skips the judge. |
+| **Failure feared** | Judge bias masks invented rupees — still blocked by the calculator. |
+| **Control** | Order is verify → veto → judge. L5 compile tab shows both AD-5 gate and judge rubric. |
+| **Upgrade trigger** | Pulled for Rx practicality (ADR-028). Analyst remains sampled/cheap. |
 
 ### 3.12 Curated web research, never silent web RAG
 

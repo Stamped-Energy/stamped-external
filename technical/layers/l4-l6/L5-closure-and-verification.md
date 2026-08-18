@@ -463,7 +463,7 @@ L5 scores each L4 Prescription against the plant gate profile ([`plant-admin-set
 | `pending_stamped_review` | Gate pass + gate enabled, awaiting staff |
 | `withheld` | Gate fail (default) **or** staff force-stop |
 
-**Internal Console** (Stamped staff, port 8095): sees **all** Rx including impractical; gate diagnostics; approve / force-send / withhold; plant gate profile editor. Spec: [stamped-l5-internal-console-handoff.md](../../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md).
+**Internal Console** (Stamped staff, port 8095): sees **all** Rx including impractical; gate diagnostics; **graph overview, retrieval log, compile loop, eval** from L4 `l4-compile-trace` ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)); approve / force-send / withhold; plant gate profile editor. Spec: [stamped-l5-internal-console-handoff.md](../../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md). L5 **does not own** the plant graphs — it snapshots the pack. Phoenix remains the OTel waterfall (deep link). **Never** expose compile guts on L6.
 
 **Weekly Improve** (ADR-025): human-gated cycles in the same console — never auto-promote.
 

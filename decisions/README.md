@@ -33,6 +33,8 @@ ADRs live in number buckets (≤5 files each). Start with the index below.
 | [ADR-024](024-026/ADR-024-holistic-plant-decisions.md) | Holistic plant decisions | Accepted | `024-026/` |
 | [ADR-025](024-026/ADR-025-improve-loop-step-06.md) | Improve loop step 06 | Accepted | `024-026/` |
 | [ADR-026](024-026/ADR-026-two-pillars-shared-context.md) | Two pillars + shared context | Accepted | `024-026/` |
+| [ADR-027](024-026/ADR-027-plant-calibration-champion-promote.md) | Plant calibration + champion promote | Accepted | `024-026/` |
+| [ADR-028](028-032/ADR-028-dual-plant-graphs-and-path-d.md) | Dual plant graphs, Path D, quality-default Rx, L5 compile-trace | Accepted | `028-032/` |
 
 Also: [asset-id-migration.md](024-026/asset-id-migration.md)
 

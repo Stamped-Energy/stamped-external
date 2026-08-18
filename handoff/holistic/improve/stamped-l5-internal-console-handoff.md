@@ -1,7 +1,7 @@
 # L5 Internal Console — Stamped ops cockpit (AD-7)
 
 > Wave F sync · **Stamped staff only** · not customer Forge  
-> **Authority:** [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [ADR-027](../../../decisions/024-026/ADR-027-plant-calibration-champion-promote.md) · Positioning plan AD-5/AD-7  
+> **Authority:** [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [ADR-027](../../../decisions/024-026/ADR-027-plant-calibration-champion-promote.md) · [ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md) · Positioning plan AD-5/AD-7  
 > **Consumer:** `closure-verification/packages/internal-console` (port **8095**)
 
 ---
@@ -35,15 +35,20 @@
 
 ---
 
-## Screens (Phase 3 minimum)
+## Screens (Phase 3 minimum + ADR-028 compile visibility)
 
 | Screen | Purpose |
 | --- | --- |
 | **All prescriptions** | Default landing — every Rx; filters: plant, status, pillar, category, gate result |
 | **Review queue** | `stamped_rx_gate_enabled` plants with `pending_stamped_review` |
-| **Rx detail** | Card + evidence flip + AD-5 gate checklist + finding refs |
+| **Rx detail — Card** | Card + evidence flip + AD-5 gate checklist + finding refs (existing) |
+| **Rx detail — Graph** | Neighborhood used for this Rx: Graph A edges + Graph B live stamps ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)) |
+| **Rx detail — Retrieval** | Path H / G / D log: filters, ranked chunk IDs, trust tier, delta facts |
+| **Rx detail — Compile** | Lane (`quality` \| `template_fast_path`); draft → verify → judge → repair; call count; `otel_trace_id` deep link to Phoenix |
+| **Rx detail — Eval** | Practicality judge rubric **next to** AD-5 gate so staff can withhold |
 | **Actions** | Approve · Force send (reason required) · Withhold / force stop · Admin note |
 | **Plant settings** | Gate profile + `stamped_rx_gate_enabled` + Improve cadence |
+| **Plant graph snapshot (secondary)** | Graph A refresh time, node/edge counts, vertical — not required to verify one Rx |
 | **Improve / ML** | Weekly Improve cycles; champion promote / rollback (ADR-027) |
 
 ---
@@ -88,6 +93,7 @@ Delivered Rx can still Force stop / withhold.
 | --- | --- | --- |
 | GET | `/v1/internal/prescriptions` | All Rx for staff (includes withheld / blocked); query filters |
 | GET | `/v1/internal/prescriptions/{id}/gate-diagnostics` | Per AD-5 check pass/fail + score |
+| GET | `/v1/internal/prescriptions/{id}/compile-trace` | ADR-028 snapshot: subgraph, Path D delta, retrieval_run, generation_calls, judge scores, `otel_trace_id` |
 | POST | `/v1/internal/prescriptions/{id}/force-send` | Override gate block; body `{ reason, admin_note? }`; audit + `stamped_review_approved` |
 
 ---
@@ -142,3 +148,5 @@ Failed checks → `withheld` or `pending_stamped_review` per plant profile. Neve
 - Force send / withhold require actor + reason; emit workflow events
 - Plant notes are manual scratchpad (not Improve Track C)
 - No free-form rewrite of `what` in console — only delivery override
+- Compile-trace and graph overview are **staff-only**; L6 never lists or renders them
+- L5 **stores** the compile-trace L4 emitted; it does not own Graph A/B or replace Phoenix

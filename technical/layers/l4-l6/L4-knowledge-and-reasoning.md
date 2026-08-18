@@ -1,7 +1,7 @@
 ---
 type: Product Architecture
 title: "L4 — Knowledge & Reasoning"
-description: "Production architecture SSOT for Stamped L4: a cheap-first deterministic LangChain workflow, bounded two-hop industrial RAG, advisory agent surfaces, model portability, and evaluation."
+description: "Production architecture SSOT for Stamped L4: quality-default prescription compile (dual plant graphs + Path D), Lane A retained as opt-in, bounded industrial RAG, advisory analyst, model portability, and evaluation."
 tags: [stamped-energy, technical, layer-spec, agentic-rag]
 timestamp: "2026-07-18T00:00:00Z"
 status: Accepted pilot architecture — 1–2 plants, English only
@@ -9,8 +9,8 @@ status: Accepted pilot architecture — 1–2 plants, English only
 # L4 — Knowledge & Reasoning
 
 *Architecture SSOT · July 2026 · Pilot target: **1–2 plants***
-*Siblings: [L3 — Intelligence core](L3-intelligence-core.md) · [L4 decision defense](L4-decision-defense-brief.md) · [L5 — Closure & verification](L5-closure-and-verification.md) · [Technical architecture](../../STAMPED_ARCHITECTURE.md) · [Evaluation & quality](../../cross-cutting/04-evaluation-and-quality.md)*
-*Related decisions: [ADR-013 counterfactual ledger](../../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015 L3 dual lane](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-017 retrieval trust tiers](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018 pilot execution](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)*
+*Siblings: [L3 — Intelligence core](L3-intelligence-core.md) · [L4 decision defense](L4-decision-defense-brief.md) · [L4 plant context graphs](L4-plant-context-graphs.md) · [L5 — Closure & verification](L5-closure-and-verification.md) · [Technical architecture](../../STAMPED_ARCHITECTURE.md) · [Evaluation & quality](../../cross-cutting/04-evaluation-and-quality.md)*
+*Related decisions: [ADR-013](../../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)*
 
 > **Honesty convention:** `[~]` is an estimate or target; `[!]` must be validated on pilot data.
 >
@@ -22,23 +22,24 @@ status: Accepted pilot architecture — 1–2 plants, English only
 
 L4 is not a free-running “society of agents.” It is a **durable, mostly deterministic prescription compiler** with four bounded surfaces:
 
-1. **Finding → Prescription** — production-critical; zero or one normal LLM call.
+1. **Finding → Prescription** — production-critical; **quality path is default** (graphs + Path D + draft/judge; ≥10 calls allowed). Lane A (0 LLM) is retained as opt-in / degrade ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)).
 2. **Conversational energy analyst** — read-only, cited, budgeted ReAct (API-only; product UX is L6).
 3. **Sustainability narrative** — ledger-backed templates with optional one-call language composition (**P3** for the pilot consumer).
 4. **Curated web research** — explicit, allowlisted, separately labelled; never silent evidence.
 
 LangChain supplies model adapters, retrievers, structured output, and composable `Runnable` primitives. **LangGraph supplies the orchestration shell** for Lane A/B and the analyst (pilot early pull of the §17 LangGraph trigger — see [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)). **Application code owns routing, state transitions, budgets, retries, permissions, and final decisions.** The prescription path does not use `AgentExecutor`, an LLM-generated plan, or an unbounded ReAct loop; the analyst ReAct loop is hard-budgeted.
 
-The cheapest correct path always wins:
+The **practical** path is the default ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md), [plant context graphs](L4-plant-context-graphs.md)):
 
 ```text
-known Finding + approved action template
-  → deterministic evidence + impact + owner + M&V
-  → verified Prescription
-  → zero LLM calls
+Finding
+  → Graph A hop + Graph B live pull + Path D delta + Path H playbooks
+  → deterministic impact + next-best window + template family
+  → drafted / verified / judged Prescription
+  → compile-trace to L5
 ```
 
-An LLM is used only when language or synthesis adds measurable value.
+Lane A (known Finding + approved template → 0 LLM) remains for CI, `force_lane=a`, and model-down degrade — **not** the production default. Analyst and Path W stay cost-aware. Numbers still never come from the model.
 
 ---
 
@@ -249,9 +250,15 @@ Each transition is a plain function over Pydantic input/output models. The worke
 
 L4 annotates `approval_required` and its reason, then emits the candidate. **L5 owns `approval_pending`, approval decisions, execution, and closure.** L4 does not wait in an approval state.
 
-### 6.2 Lane A — template path
+### 6.2 Quality path — default compiler (ADR-028)
 
-Use when one high-confidence Finding maps to an approved action template.
+Default for **all** categories. Bind entities → Path G on Graph A → live pull Graph B → Path D delta → Path H (vertical + class) → deterministic next-best window → structured draft → verify/veto → practicality judge → repair. `template_id` still bounds the action family. Emit `l4-compile-trace` with the Rx. Details: [L4-plant-context-graphs.md](L4-plant-context-graphs.md).
+
+**LLM calls:** as many as practicality needs; **≥10 allowed**; not a ceiling. Fail-closed on veto and invented ₹.
+
+### 6.2b Lane A — template path (kept, not default)
+
+Use when `force_lane=a`, `L4_DEFAULT_LANE=template`, CI has no provider, or the structured model is down. Label `provenance.lane = template_fast_path`. Do not delete this graph.
 
 ```mermaid
 flowchart LR
@@ -268,9 +275,9 @@ flowchart LR
 
 **LLM calls: 0.** Templates must remain readable English without polishing.
 
-### 6.3 Lane B — evidence synthesis path
+### 6.3 Generation core (inside the quality path)
 
-Use for compound findings or when the template needs cited playbook synthesis.
+Historical name: Lane B. **Not a separate default route.** ADR-028 folds Path H synthesis into §6.2. The following remain true inside that loop: structured output, claim ledger, one-or-more repair passes (not a hard 1-repair cap when practicality fails the judge), final L3 veto, no unbounded ReAct on the Rx path.
 
 1. Select a fixed evidence recipe from finding category.
 2. Gather L2 evidence and run bounded retrieval.
@@ -363,14 +370,13 @@ md_overlap
 
 For prescriptions, second-hop expansion is deterministic from the evidence recipe and validated metadata (pilot: same-doc expand). For analyst questions, the ReAct loop may call Path H at most twice per user message; unresolved references cause abstention or human review, not a third hop.
 
-### 7.3 Why not GraphRAG or vectorless retrieval now
+### 7.3 Path G and Path D (ADR-028 — Path G trigger pulled)
 
-- The pilot corpus is document-centric, not an established relationship graph.
-- Full graph extraction adds indexing/model cost and entity-resolution failure modes.
-- Vectorless tree navigation adds LLM calls to ordinary lookups.
-- L2 already contains the authoritative plant asset graph.
-
-Upgrade triggers are in §17.
+- **Path H** remains hybrid sparse+dense over playbooks (vertical + equipment-class filters).
+- **Path G** is a light industrial graph hop over Graph A (asset ↔ class ↔ owner ↔ standby ↔ playbook) plus L2 topology — not Microsoft GraphRAG community summaries.
+- **Path D** is the delta between Graph B (live) and Graph A (typical/allowed). That delta is Why and Due.
+- Vectorless tree navigation (Path V) remains deferred (§17).
+- Graphiti / Neo4j are not a production dependency; Postgres property-graph tables later.
 
 ### 7.4 Corpus authority tiers
 
@@ -646,8 +652,8 @@ The analyst allocates its total deadline before execution. It refuses a new turn
 
 | Failure | Behavior |
 | --- | --- |
-| Model API/local model down | Lane A continues; Lane B queues human review |
-| Retrieval unavailable | Lane A without RAG continues; analyst abstains |
+| Model API/local model down | Lane A degrade (`template_fast_path`); quality-path jobs wait or human | 
+| Retrieval / live index unavailable | Abstain or Lane A degrade if `L4_DEFAULT_LANE=template`; analyst abstains |
 | L2 unavailable/stale | Queue; do not draft from stale hidden state |
 | Impact calculator fails | Block |
 | L3 veto unavailable | Fail closed |
@@ -797,8 +803,8 @@ Configurable pilot ceilings `[!]`:
 
 | Surface | Normal calls | Hard calls | Target variable AI cost |
 | --- | ---: | ---: | ---: |
-| Lane A Rx | 0 | 0 | ₹0 |
-| Lane B Rx | 1 | 2 | ≤₹2 / candidate |
+| Lane A Rx (opt-in / degrade) | 0 | 0 | ₹0 |
+| Quality-path Rx (default) | as needed | **no poverty cap** (≥10 allowed) | quality wins; still fail-closed on ₹ |
 | Internal analyst answer | 1–2 | 4 | ≤₹3 / answer |
 | Web research answer | 2 | 4 | ≤₹8 / answer |
 | Narrative block | 0–1 | 1 | ≤₹2 / block |
@@ -807,7 +813,7 @@ Target total variable AI + retrieval spend for two low-volume pilot plants: **�
 
 ### 14.2 Cost levers in order
 
-1. zero-call templates;
+1. quality-path compile for production Rx (Lane A is degrade, not the cost lever);
 2. deterministic routing and two-hop cap;
 3. smallest qualified model;
 4. bounded context and output;
@@ -854,7 +860,8 @@ No model, prompt, template, retrieval change, or corpus snapshot goes live witho
 
 | Capability | Pilot status | Production rule |
 | --- | --- | --- |
-| Lane A + impact + veto + verifier | **Required** | Production-critical |
+| Quality path + compile-trace + impact + veto + verifier | **Required** | Production-critical (ADR-028) |
+| Lane A (0 LLM) | **Required as degrade / opt-in** | Not the default route |
 | Small hybrid RAG corpus | **Required for Lane B/analyst** | Feature-flagged |
 | Bounded two-hop synthesis | **Included** | Maximum two hops |
 | Lane B one-call drafting | Shadow first | Category-gated |
@@ -875,7 +882,7 @@ No model, prompt, template, retrieval change, or corpus snapshot goes live witho
 | Upgrade | Trigger |
 | --- | --- |
 | Cross-encoder reranker | Hybrid retrieval misses top-5 but relevant docs appear top-20; reranker improves locked slice materially within budget |
-| GraphRAG/light KG index | >20% important queries require 3+ cross-document relationship traversals and L2 graph + two-hop retrieval fails |
+| GraphRAG/light KG index | **Pulled (ADR-028)** as Path G + Path D over Graph A/B — not Microsoft GraphRAG. Further store (Neo4j/Graphiti) only if Postgres hops fail a labelled slice |
 | Vectorless/tree retrieval | Repeated misses within long structured manuals despite section metadata/chunking |
 | Dedicated vector DB | Measured pgvector filtered-search p95 exceeds SLO at real corpus size |
 | LangGraph | **Pulled early for pilot** (ADR-018) when Lane B + analyst resume landed in the same delivery train; further graph complexity still justified by HITL/multi-branch evidence |

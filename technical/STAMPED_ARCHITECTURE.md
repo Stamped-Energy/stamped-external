@@ -100,6 +100,7 @@ These enable practical management Rx; they are **not** a MES product.
 | Production orders (ERP/MES/MES-lite read) | Schedule windows, order risk on stagger/shed Rx |
 | Department graph + incentives | Who owns the action; conflict visibility |
 | Trade-off block on management Rx | ₹ energy (hero) + effectiveness co-benefits + alternatives |
+| Dual plant graphs + Path D (L4) | Canonical + live index so management Rx are plant-now; staff verify on L5 console ([ADR-028](../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)) |
 | Prescription negotiation | Bounded parameter revise — not free-form rewrite |
 | Improve (step 06) | ML calibration + agent preferences + monthly UI report |
 

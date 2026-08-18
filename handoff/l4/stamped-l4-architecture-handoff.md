@@ -3,8 +3,8 @@
 > **Audience:** Engineers / agents building the L4 consumer.  
 > **Live consumer repo:** [Vinayak-RZ/knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning) (package `stamped_l4`)  
 > **Platform mirror README:** [`consumers/knowledge-reasoning/README.md`](../consumers/knowledge-reasoning/README.md)  
-> **Authority:** [L4 architecture SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md) · [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-013](../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md)  
-> **Contracts:** [`finding.json`](../../contracts/schemas/intelligence/finding.json) · [`prescription.json`](../../contracts/schemas/intelligence/prescription.json) · [`capex-proposal.json`](../../contracts/schemas/intelligence/capex-proposal.json) · [`stamped-record-envelope.json`](../../contracts/schemas/envelope/stamped-record-envelope.json)  
+> **Authority:** [L4 architecture SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md) · [L4 plant context graphs](../../technical/layers/l4-l6/L4-plant-context-graphs.md) · [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md) · [ADR-013](../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md)  
+> **Contracts:** [`finding.json`](../../contracts/schemas/intelligence/finding.json) · [`prescription.json`](../../contracts/schemas/intelligence/prescription.json) · [`l4-compile-trace.json`](../../contracts/schemas/intelligence/l4-compile-trace.json) · [`capex-proposal.json`](../../contracts/schemas/intelligence/capex-proposal.json) · [`stamped-record-envelope.json`](../../contracts/schemas/envelope/stamped-record-envelope.json)  
 > **Platform pack:** mount this repo as git submodule at `external/` ([SUBMODULE.md](../SUBMODULE.md))
 
 **Canonical L4 handoff** (former `stamped-l4-build-order.md` redirect stub removed).
@@ -18,8 +18,8 @@
 | Is | Is not |
 | --- | --- |
 | Language, ranking, evidence binding | Numeric intelligence (L3) |
-| Adaptive RAG (Path H) + allowlisted Path W | Direct L2 DB access |
-| Bounded LangGraph graphs (Lane A/B + analyst ReAct) | OT / SCADA writes |
+| Adaptive RAG (Path H) + Path G/D (ADR-028) + allowlisted Path W | Direct L2 DB access |
+| Bounded LangGraph (quality path default; Lane A opt-in; analyst ReAct) | OT / SCADA writes |
 | Eval + optional Phoenix/OTel | Plant operator UI (**L6**) |
 | Durable jobs + checkpointer resume | Closure workflow owner (L5) |
 
@@ -32,7 +32,7 @@ flowchart LR
   Core[intelligence-core outbox] -->|delivery=l4 emitted| L4[knowledge-reasoning]
   L2[stamped-l2 query API] -->|HTTP tools later| L4
   Packs[stamped-l3-rulepacks] -->|via L3 veto API later| L4
-  L4 -->|Prescription| L5[stamped-l5]
+  L4 -->|Prescription + compile_trace| L5[stamped-l5]
   L6[L6_dashboard_chat] -->|chat + jobs APIs| L4
   L4 -->|traces optional| PX[Phoenix_OTel]
 ```
@@ -43,26 +43,28 @@ flowchart LR
 
 ---
 
-## 3. Dual lanes
+## 3. Compiler lanes (ADR-028)
 
 | Lane | Trigger | LLM budget |
 | --- | --- | --- |
-| **A — Template** | Known high-confidence categories | **0** calls |
-| **B — Evidence synthesis** | Compound / novel / non-template | Normal **1**; hard max **2** |
+| **Quality path (default)** | All categories | As needed; **≥10 allowed**; judge after gates |
+| **A — Template** | `force_lane=a`, `L4_DEFAULT_LANE=template`, CI, model-down | **0** calls; `lane=template_fast_path` |
 
-Foundation templates (generic-energy pilot): `md_overlap`, `pf_slab_breach`, `tod_exposure`, **`idle_load`**, **`compressor_sp_drift`**. Expand further taxonomy under **engineer approval** + golden cases.
+Do **not** delete Lane A. Do **not** default `CATEGORY_TEMPLATE_ID → Lane A`. `template_id` still bounds the action family on the quality path. Emit [`l4-compile-trace`](../../contracts/schemas/intelligence/l4-compile-trace.json) with every quality-path Rx.
+
+Foundation template *families* (generic-energy): `md_overlap`, `pf_slab_breach`, `tod_exposure`, **`idle_load`**, **`compressor_sp_drift`**. Expand under engineer approval + golden cases.
 
 ### Positioning alignment
 
 | Client step | L4 role |
 | --- | --- |
-| 3 Prescriptions | Compile What/Why/Who/Effort/Impact/When + evidence_refs + mv_plan |
+| 3 Prescriptions | Compile What/Why/Who/Effort/Impact/When + evidence_refs + mv_plan + compile-trace |
 | 4 Agentic | Rank/dedupe; emit gate diagnostics for L5; **no free-form What rewrite** |
-| Order-aware next-best | Negotiation API — **Phase 5** |
+| Order-aware next-best | **At compile** (Path D); negotiation API remains for human pushback |
 
 **Practicality (AD-5):** incomplete owner/window/evidence → L5 `withheld` / `pending_stamped_review`, not prose fill-in.
 
-Orchestration: **LangGraph StateGraph** for both lanes (ADR-018 early pull). Lane A has zero LLM nodes.
+Orchestration: **LangGraph StateGraph**. Lane A has zero LLM nodes. Quality path has draft/judge nodes with a practicality budget, not unbounded ReAct.
 
 ---
 
@@ -72,9 +74,10 @@ Per [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trus
 
 | Path | Pilot status |
 | --- | --- |
-| **Path H** | **Shipped** — filter → FTS + dense RRF → hop-2 same-doc neighbors |
+| **Path H** | **Shipped** — filter → FTS + dense RRF → hop-2 same-doc neighbors; add vertical + class filters |
 | **Path W** | **Shipped for analyst (P2)** — allowlist T4; fixture in CI / httpx live |
-| **Path G** | Deferred (GraphRAG trigger) |
+| **Path G** | **Specified (ADR-028)** — Graph A relational hop; implement after pin |
+| **Path D** | **Specified (ADR-028)** — live vs canonical delta; implement after pin |
 | **Path V** | Deferred |
 
 ### Analyst tool registry (read-only)
@@ -123,7 +126,8 @@ Eval assets live **in** `knowledge-reasoning` (not a separate eval repo).
 
 | Capability | Band |
 | --- | --- |
-| Lane A + verifier + fixture emit | **Shipped (P0)** |
+| Quality path + compile-trace | **Specified (ADR-028)** — implement after pin |
+| Lane A + verifier + fixture emit | **Shipped (P0)** — retained as degrade / opt-in |
 | Lane B + Path H + mock/openai_compat model | **Shipped (P1)** |
 | Durable jobs + analyst ReAct + Path W + Phoenix optional + eval/60 | **Shipped (P2)** |
 | Sustainability narrative | **P3** |
@@ -134,17 +138,17 @@ Eval assets live **in** `knowledge-reasoning` (not a separate eval repo).
 
 ## 8. Cost guidance (₹40L/mo plant `[~]`)
 
-Lean target **~₹600–1,600 / plant / month** (Lane A dominant, rare web, sampled judge). One verified save dwarfs model spend. Knobs: `PRIORITY=COST` (Lane A only) vs `PRIORITY=QUALITY`.
+Lean target no longer assumes Lane A dominant on production Rx. **Quality wins on prescriptions** (10+ calls allowed). Analyst / Path W remain cost-aware. Knobs: `L4_DEFAULT_LANE=template` (emergency) vs default quality path.
 
 ---
 
 ## 9. Bootstrap checklist
 
 1. Add platform submodule at `external/`; pin SHA; run `external/scripts/contracts/contract-check.sh`
-2. Read L4 SSOT + ADR-017 + **ADR-018** + this handoff
+2. Read L4 SSOT + [plant context graphs](../../technical/layers/l4-l6/L4-plant-context-graphs.md) + ADR-017 + **ADR-018** + **ADR-028** + this handoff
 3. Clone / work in [knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning); see mirrored README
-4. Lane A first, then Lane B + Path H, then durable jobs + analyst
-5. Instrument OTel; enable Phoenix profile when investigating traces
+4. Keep Lane A working; implement quality path + Path G/D after pin — do not delete Lane A
+5. Instrument OTel; enable Phoenix; emit compile-trace for L5 console
 6. Never take `L2_DATABASE_URL`; fixture L2 client until query API live
 
 Platform reference scaffold (Lane A only): [`consumers/stamped-l4/`](../consumers/stamped-l4/README.md).
