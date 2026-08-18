@@ -39,6 +39,7 @@ status: Accepted research companion — does not override L4 SSOT until ADR-028
 | Hybrid RAG | Find playbook text | Path H sparse+dense RRF over 5 seeds | Keep Path H; filter by vertical + class |
 | LLM-as-judge | Language quality after facts | Specified in defense brief §3.11; not on Rx path | Judge **practicality** after deterministic gates; 10+ calls allowed |
 | Staff debug UI | Human verifies the compile | L5 console: card + AD-5 gate | Console tabs: graph, retrieval, compile loop, eval. **Not L6.** |
+| Decision memory (why we chose) | Precedent + exceptions, not plant topology | Compile-trace emitted; L5 accept/reject exists | Keep traces as *byproduct*; do not merge into Graph A |
 
 ---
 
@@ -113,6 +114,29 @@ Industry pattern: draft → schema/claim verify → judge rubric → repair → 
 
 **Reject:** judge-as-sole-score; stopping at 2 calls because a 2026-07 SSOT said cheap.
 
+### 1.6 Organizational decision memory (Shah / Level Up Coding)
+
+**Kartik Shah, “Context Graphs: Building Organizational Memory That Scales Your AI Solutions” (Level Up Coding, Feb 2026).** *[VERIFIED]* [levelup.gitconnected.com/…/dcd26a93a1ba](https://levelup.gitconnected.com/context-graphs-building-organizational-memory-that-scales-your-ai-solutions-dcd26a93a1ba)
+
+Shah’s useful distinction: most “context graph” pitches are incomplete if they mean *a platform to adopt*. The durable problem is **decision memory** — outcomes get recorded (ticket closed, Rx sent) while the *reasoning* (inputs, constraints, options, override, who approved) dies in chat and tribal knowledge. Agents then guess; seniors become the bottleneck.
+
+His phased path: (1) pick decision-heavy workflows, (2) capture a **minimal decision trace** (type, triggering context, options, outcome, approver, time, refs), (3) emit that trace as a **byproduct of execution** or it will not be adopted, (4) query **precedent before autonomy**, (5) close the loop (inconsistent decisions, shadow policy, where humans still add value). Observability before autonomy. Frame capture as reducing re-debate, not surveillance.
+
+**Steal (already in ADR-028, name it clearly):**
+
+- Stamped’s *plant* graphs (A/B + Path D) answer “what is this plant, what is true now, what is the delta.” That is **not** Shah’s artifact.
+- `l4-compile-trace` **is** the decision trace: delta facts, neighborhood, retrieval, judge, lane, call count — emitted because L4 compiled, not because a human filled a form.
+- L5 internal console is Phase-4 observability. Non-tradeable: no auto-commit; never L6.
+
+**Adapt (later, after traces exist — do not reverse ADR-028):**
+
+- Attach **outcome** onto the same id: L5 accept / reject / force-send / verified ₹. Shah’s trace is incomplete without what happened after the card.
+- **Precedent query** at compile: “similar Finding + similar Path D → last Rx and result.” Today we have reason codes and Improve; we do not yet retrieve prior traces as Path D input.
+- `delta_facts` (`need` / `blocker` / `feasible` / `not`) already encode options. Do not add a second free-text “options considered” field unless eval shows staff cannot reconstruct the fork.
+- Override rate (reject + force-send) as a **staff** metric, not a floor-surveillance score. Aligns with L5 withhold / AD-5.
+
+**Reject:** buying a “context graph” product; merging decision history into Graph A; making capture extra floor work; treating compile-trace as operator surveillance (L6 stays the card).
+
 ---
 
 ## 2. Gap analysis — demo gold vs compiler
@@ -160,6 +184,9 @@ Gold: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md). C
 | Full ISA-95 / MES product | **Reject** | ADR-026 two pillars + shared context |
 | Judge as sole quality score | **Reject** | Defense brief §3.11 |
 | Poverty-pricing Rx (0–2 calls as goal) | **Reject** | Quality wins on this surface |
+| Decision traces as byproduct (`l4-compile-trace`) | **Adopt** | Shah: if capture is extra work, adoption dies |
+| Precedent + outcome on the same id | **Adapt later** | After traces exist; Improve / L5 already have labels |
+| Context graph as a product to buy | **Reject** | Shah: capability you earn; we agree |
 
 ---
 

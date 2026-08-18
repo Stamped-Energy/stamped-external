@@ -222,6 +222,8 @@ flowchart LR
 
 Keep `prescription.provenance` small: lane, versions, `compile_trace_id`, optional `otel_trace_id`. Do not stuff the subgraph into provenance (`additionalProperties: false` today).
 
+**Decision memory vs plant graphs.** Graph A/B + Path D are *plant-now*. The compile-trace is *why this Rx* — Shah’s “organizational memory” seed, emitted as a byproduct of compile ([research §1.6](../../research/stamped-context-graphs-and-practical-prescriptions.md)). Do not merge closed-loop history into Graph A. Precedent + L5 outcome on the same `compile_trace_id` is a later Improve/L5 step, after traces exist. Never show this on L6.
+
 ---
 
 ## 9. Ownership
