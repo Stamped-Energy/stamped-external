@@ -12,7 +12,7 @@ status: Accepted research companion — does not override L4 SSOT until ADR-028
 
 # Context graphs and practical prescriptions
 
-*Companion to [ML citations](stamped-research-and-ml-citations.md), [L4 SSOT](../layers/l4-l6/L4-knowledge-and-reasoning.md), [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md), [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md). Architecture that this research recommends: [L4 plant context graphs](../layers/l4-l6/L4-plant-context-graphs.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md).*
+*Companion to [ML citations](stamped-research-and-ml-citations.md), [L4 SSOT](../layers/l4-l6/L4-knowledge-and-reasoning.md), [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md), [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md). Architecture that this research recommends: [L4 plant context graphs](../layers/l4-l6/L4-plant-context-graphs.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md). Eval: [practicality rubric + demo gold](../cross-cutting/05-prescription-practicality-eval.md).*
 
 > **Purpose.** Explain how others produce *practical* plant advice, map that onto Stamped L4, and name the gaps that make our demo cards better than our compiler. This is CORE vs FRONTIER honesty — we do **not** run Graphiti, PlantGPT, or Neo4j today.
 >

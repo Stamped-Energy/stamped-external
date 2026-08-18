@@ -9,7 +9,7 @@ status: Accepted pilot architecture — 1–2 plants, English only
 # L4 — Knowledge & Reasoning
 
 *Architecture SSOT · July 2026 · Pilot target: **1–2 plants***
-*Siblings: [L3 — Intelligence core](L3-intelligence-core.md) · [L4 decision defense](L4-decision-defense-brief.md) · [L4 plant context graphs](L4-plant-context-graphs.md) · [L5 — Closure & verification](L5-closure-and-verification.md) · [Technical architecture](../../STAMPED_ARCHITECTURE.md) · [Evaluation & quality](../../cross-cutting/04-evaluation-and-quality.md)*
+*Siblings: [L3 — Intelligence core](L3-intelligence-core.md) · [L4 decision defense](L4-decision-defense-brief.md) · [L4 plant context graphs](L4-plant-context-graphs.md) · [L5 — Closure & verification](L5-closure-and-verification.md) · [Technical architecture](../../STAMPED_ARCHITECTURE.md) · [Evaluation & quality](../../cross-cutting/04-evaluation-and-quality.md) · [Prescription practicality eval](../../cross-cutting/05-prescription-practicality-eval.md)*
 *Related decisions: [ADR-013](../../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)*
 
 > **Honesty convention:** `[~]` is an estimate or target; `[!]` must be validated on pilot data.
@@ -733,6 +733,7 @@ Minimum before live prescriptions: **60 expert-reviewed cases** `[!]`.
 | Retrieval | 18 | Exact terms, semantic variants, source/version conflicts |
 | Multi-hop analyst | 8 | Two-hop synthesis and abstention |
 | Adversarial/failure | 10 | Injection, tenant isolation, missing evidence, provider failure |
+| Practicality gold (demo cards) | 10 | Shape/feasibility vs [prescriptions-examples.md](../../../demo-decks/prescriptions-examples.md); not illustrative ₹ — [rubric](../../cross-cutting/05-prescription-practicality-eval.md) |
 
 Store frozen findings, tool results, corpus snapshot, expected template, atomic claims, acceptable ranges, citations, expected route, and reviewer.
 
@@ -770,7 +771,7 @@ Report by query class and source tier. Aggregate averages must not hide a failed
 
 ### 13.5 Judge policy
 
-LLM judges are regression aids, not truth:
+LLM judges are regression aids, not truth. On the Rx quality path they score **practicality language** after Path D / calculator / veto gates — never ₹ ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)):
 
 - calibrate on 30–60 human-labelled cases;
 - use claim-level rubrics;

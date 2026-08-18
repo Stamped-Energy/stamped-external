@@ -12,7 +12,7 @@ timestamp: "2026-07-09T00:00:00Z"
 
 > **Honesty convention:** `[~]` approximate / benchmark-derived · `[!]` evolving — verify before relying on it.
 >
-> **Companions:** [technical architecture](../02-technical-architecture.md) · [L3 intelligence core](../layers/l3/L3-intelligence-core.md) · [L4 knowledge & reasoning](../layers/l4-l6/L4-knowledge-and-reasoning.md) (Langfuse + Phoenix + DeepEval) · [L4 handoff](../../handoff/l4/stamped-l4-architecture-handoff.md) · [production engineering](03-production-engineering.md)
+> **Companions:** [technical architecture](../02-technical-architecture.md) · [L3 intelligence core](../layers/l3/L3-intelligence-core.md) · [L4 knowledge & reasoning](../layers/l4-l6/L4-knowledge-and-reasoning.md) (Langfuse + Phoenix + DeepEval) · [L4 handoff](../../handoff/l4/stamped-l4-architecture-handoff.md) · [production engineering](03-production-engineering.md) · [prescription practicality eval](05-prescription-practicality-eval.md) (ADR-028 gold vs demo cards)
 
 ---
 
