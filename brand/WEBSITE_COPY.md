@@ -515,13 +515,13 @@ Pump power is high for the flow you are getting. Check the valve path before you
 
 **Headline:** Close the gap between the floor and the bill.
 
-Stamped Energy started with a simple conviction: industrial sites should make **real-time decisions** connected to their **economic impact**.
+Stamped Energy started with a simple conviction: industrial sites should make **real-time decisions connected to their economic impact**.
 
-Plant teams make just-in-time calls every shift, every day. **Run harder or hold back. Adjust a process. Delay maintenance. Switch production priorities.** Each one hits costs, revenue, and margins. Making those calls from data is hard. A lot gets missed.
+Plant teams make just-in-time calls every shift, every day. Run harder or hold back. Adjust a process. Delay maintenance. Switch production priorities. Each one hits costs, revenue, and margins. Making those calls from data is hard. A lot gets missed.
 
-Meters and **SCADA** already record the plant. **ERPs** and the people on the ground live elsewhere. Real-time decisions from all of that were, in practice, not possible. What was missing was a system that could bring these perspectives together, with **live data in real time**, for the people making decisions.
+Meters and SCADA already record the plant. ERPs and the people on the ground live elsewhere. Real-time decisions from all of that were, in practice, not possible. What was missing was a system that could bring these perspectives together, with live data in real time, for the people making decisions.
 
-For years, such a system was **impossible to build**. The data was messy, the models stayed with experts, and the context lived in people's heads. Now with **AI**, that changes. That is what Stamped Energy is building: an **intelligence layer for the industrial world**.
+For years, such a system was impossible to build. The data was messy, the models stayed with experts, and the context lived in people's heads. Now with AI, that changes. That is what Stamped Energy is building: an **intelligence layer for the industrial world**.
 
 ### Leadership
 
