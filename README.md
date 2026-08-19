@@ -1,6 +1,6 @@
 # Stamped Platform — shared architecture, contracts, and handoff
 
-> **What it is:** The single source of truth for Stamped Energy's cross-repo platform layer — JSON schemas, ADRs, technical specs, handoff playbooks, compliance register, and design tokens.  
+> **What it is:** The single source of truth for Stamped Energy's cross-repo platform layer — JSON schemas, ADRs, technical specs, handoff playbooks, compliance register, design tokens, and **public marketing voice** (`brand/`).  
 > **What it is not:** Application code, deploy compose files, or a runnable service. Consumer repos mount this pack as a git submodule and implement layers L1–L6.  
 > **Primary interface:** Git submodule at `external/` in each product repository.  
 > **GitHub:** [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external) · **Current release:** `v2026.07.30` ([VERSION](VERSION))
@@ -60,7 +60,7 @@ Full product context: [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_AR
 | Aspect | Description |
 |--------|-------------|
 | **Name** | `stamped-external` (platform pack; also referred to as `stamped-platform`) |
-| **Role** | Shared contracts, ADRs, specs, handoff docs, compliance, design tokens |
+| **Role** | Shared contracts, ADRs, specs, handoff docs, compliance, design tokens, public copy canon |
 | **Distribution** | Git submodule at `external/` in every consumer repo ([ADR-011](decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md)) |
 | **Change frequency** | Contracts and ADRs: **high** (CI-enforced). Technical specs: **low**. |
 
@@ -70,6 +70,7 @@ Full product context: [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_AR
 - Not deploy compose files (each consumer owns `deploy/`)
 - Not customer data, secrets, or `.env` with real values
 - Not a monitoring dashboard or ESG reporting platform (that is the product built from these specs)
+- Not the live website (that is Main_Website). Public **voice** for copy-writing agents lives in [`brand/`](brand/)
 
 ### 1.4 Who it is for
 
@@ -199,6 +200,7 @@ Quality spine: [`technical/cross-cutting/04-evaluation-and-quality.md`](technica
 | [`architecture/`](architecture/) | Layer interface contracts (implementation authority) | Medium | [`layer-interfaces-l2.md`](architecture/layer-interfaces-l2.md) |
 | [`compliance/`](compliance/) | India regulatory register | Low | [`india-compliance-register.md`](compliance/india-compliance-register.md) |
 | [`design/`](design/) | Forge Industrial design system tokens | Low | [`forge-industrial-design-system.md`](design/forge-industrial-design-system.md) |
+| [`brand/`](brand/) | Public origin, problem/solution, website copy snapshot | Medium | [`COPY_CANON.md`](brand/COPY_CANON.md), [`WEBSITE_COPY.md`](brand/WEBSITE_COPY.md) |
 | [`scripts/`](scripts/) | Shared CI helpers | Medium | [`contract-check.sh`](scripts/contracts/contract-check.sh) |
 | [`.cursor/`](.cursor/) | Cursor rules, skills, MCP config | Medium | 21 rules, 35 skills |
 | Root | Versioning, submodule guide, agent orchestration | Medium | [VERSION](VERSION), [SUBMODULE.md](SUBMODULE.md), [AGENTS.md](AGENTS.md) |
@@ -635,6 +637,8 @@ Authority: [ADR-004](decisions/001-005/ADR-004-compliance-driven-architecture.md
 | 4 | [`handoff/deployment/deployment-profiles.md`](handoff/deployment/deployment-profiles.md) | Three deployment modes |
 | 5 | [`handoff/README.md`](handoff/README.md) | Repo-specific bootstrap index |
 | 6 | Your repo's handoff doc | e.g. [`handoff/l2/core/stamped-l2-spec.md`](handoff/l2/core/stamped-l2-spec.md) |
+
+**Copy / marketing / pitch:** [`brand/README.md`](brand/README.md) → [`brand/COPY_CANON.md`](brand/COPY_CANON.md) → [`brand/WEBSITE_COPY.md`](brand/WEBSITE_COPY.md) before writing customer-facing prose.
 
 ### 14.2 Technical deep dive
 

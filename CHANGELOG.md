@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Added
+
+- [`brand/`](brand/) — portable public copy canon (`COPY_CANON.md`, `WEBSITE_COPY.md`) so copy-writing agents use live homepage / solutions / About voice; rupee compounds spelled out (`rupee-scored`, not `₹-scored`)
+
 ## [2026.08.05.1] - 2026-08-05
 
 ### Fixed

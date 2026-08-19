@@ -1,9 +1,15 @@
 # Stamped Platform — Agent Mode
 
-> **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs) — **not application code**.  
+> **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs, **public marketing voice**) — **not application code**.  
 > **Cursor config source:** [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding) (vendored under `.cursor/`).
 
 Engineering workflow: **ponytail → (spec-kit for features) → research → plan → approve → implement → validate → commit → learn**.
+
+## Public copy (customer-facing prose)
+
+If the task is **copy, marketing, website, narrative, pitch, or origin story**, read [`brand/README.md`](brand/README.md) **before** writing. Canon: [`brand/COPY_CANON.md`](brand/COPY_CANON.md) + [`brand/WEBSITE_COPY.md`](brand/WEBSITE_COPY.md). Rule: `stamped-copy.mdc`.
+
+Live SSOT when Main_Website is present: `lib/content/`. Do not invent a different origin. Write **rupee-scored** / **rupee-ranked**, never `₹-scored` / `₹-ranked`.
 
 ## Repo-specific guidance
 
@@ -12,10 +18,11 @@ Engineering workflow: **ponytail → (spec-kit for features) → research → pl
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
 | **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index |
 | **Handoff** (`handoff/`) | Cross-repo integration docs by topic folder; start at `handoff/README.md` |
+| **Brand / copy** (`brand/`) | Public origin, problem, solution; read before customer-facing prose |
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag `vYYYY.MM.DD`; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) |
 
-**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
+**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md). Copy tasks: [brand/README.md](brand/README.md) first. Client Positioning is decks/WhatsApp, not public homepage or About.
 
 ## Ponytail — mandatory gate for all coding
 
