@@ -6,14 +6,25 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+## [2026.08.21] - 2026-08-21
+
 ### Added
 
-- [`brand/`](brand/) — portable public copy canon (`COPY_CANON.md`, `WEBSITE_COPY.md`) so copy-writing agents use live homepage / solutions / About voice; rupee compounds spelled out (`rupee-scored`, not `₹-scored`)
+- [`copy/`](copy/) — agent-facing selling-copy pack: website canon, client narrative twin, prescription catalog, deck claim sheets; entry at [`copy/README.md`](copy/README.md)
+- [`copy/CONTROL_AND_ACTION.md`](copy/CONTROL_AND_ACTION.md) — human-in-control framing; optional human-approved desk execution (do not over-lead with “read-only”)
+- Public decks SSOT: [`Stamped-Energy/decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) · live hub https://stamped-energy.github.io/decks-stamped/
 - **ADR-028 dual plant graphs** — canonical Graph A + live index Graph B + Path D; quality-default Rx compile; Lane A retained as opt-in; L5 stores `l4-compile-trace` ([ADR-028](decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md), [plant context graphs](technical/layers/l4-l6/L4-plant-context-graphs.md))
 - Research survey: [context graphs and practical prescriptions](technical/research/stamped-context-graphs-and-practical-prescriptions.md)
 - Contracts **0.12.0**: `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`; prescription `provenance.lane` adds `quality` ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
 - Practicality eval: [05-prescription-practicality-eval.md](technical/cross-cutting/05-prescription-practicality-eval.md) — gold bar is [demo prescriptions](demo-decks/prescriptions-examples.md) (shape/feasibility, not illustrative ₹)
 - Audit close-out on [L4 plant context graphs](technical/layers/l4-l6/L4-plant-context-graphs.md): Graph B `orders[]` + freshness gates, typed Path D, bounded compile + replayable `l4-compile-trace`, full COMP2 Rx example
+
+### Changed
+
+- Website canon moved from `brand/` → [`copy/website/`](copy/website/) (`brand/` redirects)
+- Client positioning softens “read-only” lead; operators stay in control; no silent OT writes ([`technical/product/Stamped_Client_Positioning_and_Narrative_v1.md`](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md), [`copy/client/`](copy/client/))
+- [`AGENTS.md`](AGENTS.md) / `stamped-copy.mdc` / [REPOS.md](REPOS.md) point copy tasks at `copy/` and Pages at `decks-stamped`
+- Private-repo Pages workflow replaced with notice (Pages not available on Free + private)
 
 ## [2026.08.05.1] - 2026-08-05
 

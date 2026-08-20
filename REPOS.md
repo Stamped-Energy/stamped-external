@@ -17,8 +17,9 @@ Consumer repos mount this platform pack as a git submodule at `external/`.
 
 **README snapshots index:** [consumers/readmes/README.md](consumers/readmes/README.md)
 
-**Current platform:** tag [`v2026.08.05`](https://github.com/Stamped-Energy/stamped-external/releases/tag/v2026.08.05) · contracts **0.11.2** · Wave A = generic-energy (`idle_load` + `compressor_sp_drift` + practicality gates) · Wave B = order-aware tradeoff/negotiation
+**Current platform:** tag [`v2026.08.21`](https://github.com/Stamped-Energy/stamped-external/releases/tag/v2026.08.21) · contracts **0.11.2** · Wave A = generic-energy (`idle_load` + `compressor_sp_drift` + practicality gates) · Wave B = order-aware tradeoff/negotiation
 
+Consumer submodule pins in the table above may still show an older target until each consumer bumps.
 **L4 handoff:** [handoff/l4/stamped-l4-architecture-handoff.md](handoff/l4/stamped-l4-architecture-handoff.md) · [ADR-017](decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md)
 
 **L5 handoff:** [handoff/l5/stamped-l5-architecture-handoff.md](handoff/l5/stamped-l5-architecture-handoff.md) · [build plan](handoff/l5/stamped-l5-build-plan.md) · [ADR-019](decisions/016-020/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-021](decisions/020-023/ADR-021-l5-notification-and-evidence.md) · [internal console](handoff/holistic/improve/stamped-l5-internal-console-handoff.md)
