@@ -200,7 +200,8 @@ Quality spine: [`technical/cross-cutting/04-evaluation-and-quality.md`](technica
 | [`architecture/`](architecture/) | Layer interface contracts (implementation authority) | Medium | [`layer-interfaces-l2.md`](architecture/layer-interfaces-l2.md) |
 | [`compliance/`](compliance/) | India regulatory register | Low | [`india-compliance-register.md`](compliance/india-compliance-register.md) |
 | [`design/`](design/) | Forge Industrial design system tokens | Low | [`forge-industrial-design-system.md`](design/forge-industrial-design-system.md) |
-| [`brand/`](brand/) | Public origin, problem/solution, website copy snapshot | Medium | [`COPY_CANON.md`](brand/COPY_CANON.md), [`WEBSITE_COPY.md`](brand/WEBSITE_COPY.md) |
+| [`copy/`](copy/) | Agent-facing selling copy (website, client narrative, Rx catalog, deck claims) | High for copy tasks | [`README.md`](copy/README.md) |
+| [`brand/`](brand/) | Redirect to `copy/website/` | Low | [`README.md`](brand/README.md) |
 | [`scripts/`](scripts/) | Shared CI helpers | Medium | [`contract-check.sh`](scripts/contracts/contract-check.sh) |
 | [`.cursor/`](.cursor/) | Cursor rules, skills, MCP config | Medium | 21 rules, 35 skills |
 | Root | Versioning, submodule guide, agent orchestration | Medium | [VERSION](VERSION), [SUBMODULE.md](SUBMODULE.md), [AGENTS.md](AGENTS.md) |
@@ -638,7 +639,7 @@ Authority: [ADR-004](decisions/001-005/ADR-004-compliance-driven-architecture.md
 | 5 | [`handoff/README.md`](handoff/README.md) | Repo-specific bootstrap index |
 | 6 | Your repo's handoff doc | e.g. [`handoff/l2/core/stamped-l2-spec.md`](handoff/l2/core/stamped-l2-spec.md) |
 
-**Copy / marketing / pitch:** [`brand/README.md`](brand/README.md) → [`brand/COPY_CANON.md`](brand/COPY_CANON.md) → [`brand/WEBSITE_COPY.md`](brand/WEBSITE_COPY.md) before writing customer-facing prose.
+**Copy / marketing / pitch:** [`copy/README.md`](copy/README.md) → [`copy/website/COPY_CANON.md`](copy/website/COPY_CANON.md) → [`copy/website/WEBSITE_COPY.md`](copy/website/WEBSITE_COPY.md) before writing customer-facing prose.
 
 ### 14.2 Technical deep dive
 

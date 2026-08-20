@@ -7,7 +7,7 @@ Engineering workflow: **ponytail → (spec-kit for features) → research → pl
 
 ## Public copy (customer-facing prose)
 
-If the task is **copy, marketing, website, narrative, pitch, or origin story**, read [`brand/README.md`](brand/README.md) **before** writing. Canon: [`brand/COPY_CANON.md`](brand/COPY_CANON.md) + [`brand/WEBSITE_COPY.md`](brand/WEBSITE_COPY.md). Rule: `stamped-copy.mdc`.
+If the task is **copy, marketing, website, narrative, pitch, origin, decks, or prescriptions**, read [`copy/README.md`](copy/README.md) **before** writing. Website canon: [`copy/website/COPY_CANON.md`](copy/website/COPY_CANON.md) + [`copy/website/WEBSITE_COPY.md`](copy/website/WEBSITE_COPY.md). Rule: `stamped-copy.mdc`.
 
 Live SSOT when Main_Website is present: `lib/content/`. Do not invent a different origin. Write **rupee-scored** / **rupee-ranked**, never `₹-scored` / `₹-ranked`.
 
@@ -18,12 +18,12 @@ Live SSOT when Main_Website is present: `lib/content/`. Do not invent a differen
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
 | **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index |
 | **Handoff** (`handoff/`) | Cross-repo integration docs by topic folder; start at `handoff/README.md` |
-| **Brand / copy** (`brand/`) | Public origin, problem, solution; read before customer-facing prose. **Deck SSOT:** public [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) |
+| **Copy pack** (`copy/`) | Agent-facing selling copy: website, client narrative, prescriptions, deck claims. Start at [`copy/README.md`](copy/README.md). (`brand/` redirects here.) **Deck HTML SSOT:** public [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) |
 | **Demo decks** (`demo-decks/`) | Mirror only — edit in [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped); live https://stamped-energy.github.io/decks-stamped/ |
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag `vYYYY.MM.DD`; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) |
 
-**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md). Copy tasks: [brand/README.md](brand/README.md) first. Client Positioning is decks/WhatsApp, not public homepage or About.
+**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [copy/README.md](copy/README.md) (selling copy) → [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md). Client Positioning is decks/WhatsApp, not public homepage or About.
 
 ## Ponytail — mandatory gate for all coding
 

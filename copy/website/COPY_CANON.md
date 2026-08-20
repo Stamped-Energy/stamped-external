@@ -67,7 +67,7 @@ Company voice. **Do not name founders** in this narrative.
 
 Not MES, CMMS, or plant OS. Orders/department context can inform schedule-type actions.
 
-Exact page copy: [`WEBSITE_COPY.md`](WEBSITE_COPY.md).
+Exact page copy: [`WEBSITE_COPY.md`](./WEBSITE_COPY.md). Agent pack index: [`../README.md`](../README.md).
 
 ---
 

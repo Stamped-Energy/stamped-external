@@ -1,17 +1,23 @@
 ---
-description: Public Stamped copy, marketing, website, narrative, pitch, origin story, or customer-facing prose. Read brand canon before writing.
+description: Public Stamped copy, marketing, website, narrative, pitch, origin story, or customer-facing prose. Read the copy pack before writing.
 alwaysApply: false
 ---
 
 # Stamped public copy
 
-When the task is **copy, marketing, website, narrative, pitch, origin, or customer-facing prose**, read the brand pack **before** drafting.
+When the task is **copy, marketing, website, narrative, pitch, origin, decks, prescriptions, or customer-facing prose**, read the **copy pack** **before** drafting.
 
 ## Read order
 
-1. `brand/COPY_CANON.md`
-2. `brand/WEBSITE_COPY.md`
-3. If this checkout is **Main_Website**, live SSOT is `lib/content/` (`about.ts`, `landing.ts`, `solutions.ts`, `site.ts`). Prefer live strings over the snapshot when they differ.
+1. `copy/README.md` — what we sell, boundaries, folder map
+2. `copy/website/COPY_CANON.md`
+3. `copy/website/WEBSITE_COPY.md`
+4. For WhatsApp / decks / discovery (not homepage): `copy/client/POSITIONING_AND_NARRATIVE.md`
+5. For Rx examples: `copy/prescriptions/CONSTRAINTS.md` then `copy/prescriptions/CATALOG.md`
+6. For deck leave-behinds: `copy/decks/WHAT_WE_SHOW.md`
+7. If this checkout is **Main_Website**, live SSOT is `lib/content/` (`about.ts`, `landing.ts`, `solutions.ts`, `site.ts`). Prefer live strings over the snapshot when they differ.
+
+Legacy: `brand/` redirects to `copy/website/`.
 
 ## Must
 

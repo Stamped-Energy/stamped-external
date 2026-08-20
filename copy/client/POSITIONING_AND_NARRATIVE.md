@@ -6,13 +6,16 @@ tags: [stamped-energy, product, positioning, gtm, client-narrative, agentic]
 timestamp: "2026-08-04T18:00:00+05:30"
 ---
 
+> **Agent twin** of [`../../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md`](../../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md).  
+> Pack index: [`../README.md`](../README.md). **Do not** use this four-step narrative as homepage or About copy — that is [`../website/`](../website/).
+
 # Stamped Energy — Client Positioning & Narrative (v1)
 
 *Status: **Canonical client narrative** — use for WhatsApp follow-ups, technical decks, discovery calls, and enterprise accounts (e.g. ITC-scale I4.0 buyers).*  
 *Supersedes ad-hoc founder drafts when they conflict.*  
 *Honesty:* `[~]` approximate · `[!]` evolving — validate on pilots before customer guarantees.
 
-**Related (this repo):** [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md) · [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md) · **Agent copy pack:** [`../../copy/README.md`](../../copy/README.md) · Research canon: `Stamped-Energy` repo `core-product/`
+**Related:** [STAMPED_ARCHITECTURE.md](../../technical/STAMPED_ARCHITECTURE.md) · [prescriptions catalog](../prescriptions/CATALOG.md) · [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md)
 
 ---
 

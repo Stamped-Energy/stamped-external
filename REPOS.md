@@ -29,4 +29,5 @@ Consumer repos mount this platform pack as a git submodule at `external/`.
 
 **Decks / brand / design (public SSOT):** [`Stamped-Energy/decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) — live hub https://stamped-energy.github.io/decks-stamped/ . This repo may keep a mirror under `demo-decks/`, `brand/`, `design/`; edit in `decks-stamped` first.
 
+**Agent selling-copy pack (this repo):** [`copy/`](copy/README.md) — website canon, client narrative twin, prescription catalog, deck claim sheets.
 Update this table when a consumer bumps its pin or a README snapshot is re-synced.

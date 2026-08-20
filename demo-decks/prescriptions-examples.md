@@ -6,7 +6,7 @@ A **prescription** is a clear **floor action**: what to do, why the data says so
 
 **Plain language on the card.** Talk tracks and card fronts use plant-floor words. Technical proof (tags, baseline, tariff band) lives on **flip for evidence** — for the engineer who asks “how do you know?”
 
-HTML deck: [prescriptions-examples.html](./prescriptions-examples.html). Client narrative SSOT: [Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md).
+HTML deck: [prescriptions-examples.html](./prescriptions-examples.html). Client narrative: [Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md). **Compiled agent catalog:** [`../copy/prescriptions/CATALOG.md`](../copy/prescriptions/CATALOG.md).
 
 ---
 
