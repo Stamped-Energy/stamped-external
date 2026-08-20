@@ -18,7 +18,8 @@ Live SSOT when Main_Website is present: `lib/content/`. Do not invent a differen
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
 | **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index |
 | **Handoff** (`handoff/`) | Cross-repo integration docs by topic folder; start at `handoff/README.md` |
-| **Brand / copy** (`brand/`) | Public origin, problem, solution; read before customer-facing prose |
+| **Brand / copy** (`brand/`) | Public origin, problem, solution; read before customer-facing prose. **Deck SSOT:** public [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) |
+| **Demo decks** (`demo-decks/`) | Mirror only — edit in [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped); live https://stamped-energy.github.io/decks-stamped/ |
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag `vYYYY.MM.DD`; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) |
 

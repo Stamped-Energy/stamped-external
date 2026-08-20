@@ -17,7 +17,7 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
 | [assets/](./assets/) | Industry and client hero photos |
 
-**GitHub Pages:** workflow [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) deploys root `index.html` + `demo-decks/` from `main`. Enable Pages → Source: **GitHub Actions** once in repo Settings.
+**GitHub Pages:** public SSOT is [`Stamped-Energy/decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) → https://stamped-energy.github.io/decks-stamped/ . This private repo keeps a **mirror** of decks/brand/design for submodule consumers — **edit in `decks-stamped` first**, then sync here if needed.
 
 ### Client decks
 
@@ -73,15 +73,17 @@ python scripts/decks/build/build-client-decks.py   # assets only; does not rewri
 python scripts/decks/checks/check-client-decks.py
 ```
 
-**GitHub Pages** (`Stamped-Energy/stamped-external`, branch `main`, path `/`):
+**GitHub Pages** (**live SSOT:** `Stamped-Energy/decks-stamped`):
 
 | URL | Serves |
 |-----|--------|
-| https://stamped-energy.github.io/stamped-external/demo-decks/ | Industry hub (picker) |
-| https://stamped-energy.github.io/stamped-external/demo-decks/prescriptions-examples.html | Sample prescriptions deck |
-| https://stamped-energy.github.io/stamped-external/project/ | Same hub via `project/index.html` |
+| https://stamped-energy.github.io/decks-stamped/ | Demo hub |
+| https://stamped-energy.github.io/decks-stamped/demo-decks/ | Industry hub (picker) |
+| https://stamped-energy.github.io/decks-stamped/demo-decks/prescriptions-examples.html | Sample prescriptions deck |
+| https://stamped-energy.github.io/decks-stamped/demo-decks/clients/ | Client briefs |
+| https://stamped-energy.github.io/decks-stamped/project/ | Hub via `project/index.html` |
 
-Static HTML under `demo-decks/` and `project/` deploys automatically when merged to `main`. No extra workflow step.
+Edit decks in **`decks-stamped`**. Mirror under this repo is for private platform consumers only. Pages is **not** deployed from `stamped-external` (private + Free org).
 
 **Vercel (pharma only):** deploy the standalone folder:
 
