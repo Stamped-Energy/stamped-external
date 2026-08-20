@@ -15,7 +15,7 @@ Shared structure (what changes per vertical: prescriptions, data sources, optimi
 | Prescription | Every action has a bill line and an owner |
 | Floor | On the supervisor's phone (routed; not dump-all) |
 | Verify | Verified with evidence · telemetry held; bill can confirm later |
-| Tech / audit / boundaries | Stack · finance-checkable trail · read-only |
+| Tech / audit / boundaries | Stack · finance-checkable trail · humans approve · no autonomous plant control |
 | Offer | First prescriptions in about two weeks · no rip-and-replace |
 
 ## Cement (`cement.html`)

@@ -24,7 +24,9 @@ A clear **floor action**: what to do, why the data says so, who owns it, effort 
 
 - Vibration PdM / RUL %
 - “Fine-tuned for you” before plant connect
-- MES scheduling / plant OS / EMS / CMMS / PLC write replacement
+- MES scheduling / plant OS / EMS / CMMS replacement
+- Autonomous plant control or silent OT writes
+- Universal CNC/CAD writeback before a site connector exists
 - Guaranteed savings without locked M&V baseline
 - Fleet metrics we have not measured
 

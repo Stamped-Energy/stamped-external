@@ -6,10 +6,14 @@ Agent summary of **Proof Runs** (industry) and **11-scene client briefs**. Full 
 
 | Say | Do not say |
 |-----|------------|
-| Read-only overlay on meters / SCADA / BAS / bills | EMS / MES / CMMS / PLC write / plant OS replacement |
+| Operators stay in control · human-guided prescriptions | Autonomous plant control / silent OT writes |
+| Connect to meters / SCADA / BAS / bills without replacing plant OS | EMS / MES / CMMS / plant OS replacement |
 | **Industry Energy Management** + **Asset Health Intelligence** | Invent a third SKU or “agentic AI” as the lead |
 | Rupee-scored / ₹-scored prescriptions with owner + due | Guaranteed savings without locked M&V |
 | Verified with evidence (telemetry; bill can confirm later) | Vibration PdM, RUL %, “fine-tuned before connect” |
+| Optional human-approved desk execution where plant configures it | Universal CNC/CAD/PLC write on day one |
+
+Do **not** open every leave-behind with “read-only.” Prefer **humans approve** and **complements your stack**. Detail: [`../CONTROL_AND_ACTION.md`](../CONTROL_AND_ACTION.md).
 
 ## Two deck families
 

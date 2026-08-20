@@ -21,7 +21,7 @@ This file is the portable twin. Prefer live strings or close paraphrases. Do not
 
 **Site tagline:** AI-powered energy intelligence for industrial plants. rupee-scored prescriptions. Verified with evidence.
 
-**Product claims (unchanged):** read-only overlay; two pillars; verified with evidence; operators stay in control; not EMS / MES / CMMS / PLC write.
+**Product claims (unchanged core):** two pillars; verified with evidence; **operators stay in control**; not EMS / MES / CMMS / plant OS; **no silent OT writes**. Prefer **human-guided action** over leading with “read-only.” Optional human-approved desk execution where the plant configures it: [`../CONTROL_AND_ACTION.md`](../CONTROL_AND_ACTION.md).
 
 ---
 
@@ -84,9 +84,9 @@ Exact page copy: [`WEBSITE_COPY.md`](./WEBSITE_COPY.md). Agent pack index: [`../
 
 ## Voice (short)
 
-Direct, industrial, rupee-first. Short sentences. Periods and commas. **No em dashes** and no `--`. Prefer prescription, assigned action, rupee-scored, verified with evidence, read-only, live data in real time.
+Direct, industrial, rupee-first. Short sentences. Periods and commas. **No em dashes** and no `--`. Prefer prescription, assigned action, rupee-scored, verified with evidence, operators stay in control, live data in real time. Do not open every pitch with “read-only.”
 
-Do not claim EMS / SCADA / PLC replacement, MES / CMMS / plant OS, invented fleet metrics, or “AI is learning about you.”
+Do not claim EMS / SCADA / PLC replacement, MES / CMMS / plant OS, autonomous plant control, invented fleet metrics, or “AI is learning about you.” Do not promise CNC/CAD/machine writeback as a universal feature until a site connector exists.
 
 Origin-story sentences above are approved Stamped copy even if they resemble another site’s *shape*. Do not paste competitor metrics, brand, or “economic intelligence layer” as a category name.
 

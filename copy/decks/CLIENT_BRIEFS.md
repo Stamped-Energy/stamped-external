@@ -31,7 +31,7 @@ Common spine (Nestlé quality bar): **title → gap → fit → load → equipme
 | Site | Sector 59 · forge → CNC → HT → surface · DHBVN |
 | Load | Demand, HT hold, compressed air, CNC idle |
 | Sample Rx | Stagger Press Line 1 vs SQF furnace preheat 10–12 min · Inspect Compressor 2 |
-| Integration | Read-only beside ERP · no control writes |
+| Integration | Complements ERP · humans approve · no silent control writes |
 | Note | Named brief; keep people names off slides |
 
 ## Lohia (`lohia-corp-brief.html`)
@@ -77,7 +77,7 @@ Common spine (Nestlé quality bar): **title → gap → fit → load → equipme
 | Agentic | A finding becomes a doable action, with an owner and a window |
 | Floor | The right action reaches the right owner, with evidence attached |
 | Verify | Savings count only after the signal actually moves |
-| Integration | Fits a brownfield site: read-only, no control writes |
+| Integration | Fits a brownfield site: complements existing stack · humans approve · no silent writes |
 | Offer | Walk the team through how this would work here |
 
 Retarget plant nouns (warehouse / press / gravure / suite) per account; keep the job of each scene.

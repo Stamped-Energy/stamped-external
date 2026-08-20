@@ -12,17 +12,19 @@ timestamp: "2026-08-04T18:00:00+05:30"
 *Supersedes ad-hoc founder drafts when they conflict.*  
 *Honesty:* `[~]` approximate · `[!]` evolving — validate on pilots before customer guarantees.
 
-**Related (this repo):** [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md) · [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md) · **Agent copy pack:** [`../../copy/README.md`](../../copy/README.md) · Research canon: `Stamped-Energy` repo `core-product/`
+**Related (this repo):** [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md) · [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md) · **Agent copy pack:** [`../../copy/README.md`](../../copy/README.md) · [`CONTROL_AND_ACTION.md`](../../copy/CONTROL_AND_ACTION.md)
 
 ---
 
 ## 1. Who we are (client-facing)
 
-**Stamped Energy** is a **read-only operational decision layer** for energy-intensive Indian manufacturers. We connect to meters, SCADA/EMS, production context, and DISCOM bills — without replacing existing Industry 4.0 stacks, without PLC writes, and without becoming an EMS, MES, or CMMS.
+**Stamped Energy** is an **operational decision layer** for energy-intensive Indian manufacturers. We connect to meters, SCADA/EMS, production context, and DISCOM bills — without replacing existing Industry 4.0 stacks, and without becoming an EMS, MES, or CMMS.
+
+**Control:** **Operators stay in control.** We do not silently write the plant or run autonomous line control. By default we prescribe, assign, and verify. Where the customer opts in and systems allow, **human-approved** actions can execute from the desk (see [`../CONTROL_AND_ACTION.md`](../../copy/CONTROL_AND_ACTION.md)) — guided by people, not “AI runs the floor.”
 
 **What we do in one sentence:**
 
-> We help plants **manage load and equipment more efficiently in real time**, turn findings into **assigned prescriptions with ₹ impact**, and **verify outcomes with evidence** — moving from monitoring and alerts to context-aware decisions your team can act on.
+> We help plants **manage load and equipment more efficiently in real time**, turn findings into **assigned prescriptions with ₹ impact**, and **verify outcomes with evidence** — moving from monitoring and alerts to context-aware decisions your team can act on (and, when you enable it, approve from the desk).
 
 **Category:** Verified-with-evidence operational decision layer (product name: **Stamped Intelligence**).
 
@@ -108,7 +110,7 @@ Examples: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md
 
 > You already monitor. Stamped is the layer that helps decide **what to do next**, checks whether it is **operationally feasible**, **assigns it**, and **measures the result**.
 
-**Technical honesty (internal / deep technical only):** Bounded tool-using agent; physics and tariff guardrails; read-only on OT; human approval for high-risk/capex. Do **not** lead client conversations with “rules engine veto” — say **grounded in plant data and operational playbooks**.
+**Technical honesty (internal / deep technical only):** Bounded tool-using agent; physics and tariff guardrails; **no silent OT writes**; human approval for high-risk/capex and for any configured writeback. Do **not** lead client conversations with “rules engine veto” — say **grounded in plant data and operational playbooks**. Do **not** lead with “read-only” as the product identity.
 
 ---
 
@@ -142,11 +144,11 @@ The value above a typical Industry 4.0 stack is the move from monitoring and ale
 ### 4.2 Shorter variant
 
 ```text
-Stamped sits read-only on your meters, SCADA/EMS and bills.
+Stamped connects to your meters, SCADA/EMS and bills. Your team stays in control — we don’t silently write the plant.
 
 We help you manage load in real time (stagger, idle waste, utilities, ToD, MD) and flag equipment drift earlier via ML baselines on compressors, dryers and chillers.
 
-An agentic layer turns findings into assigned prescriptions (what/why/who/₹) and verifies outcomes — the step most I4.0 stacks stop short of.
+An agentic layer turns findings into assigned prescriptions (what/why/who/₹) and verifies outcomes — the step most I4.0 stacks stop short of. Where you opt in, human-approved desk actions can execute in systems you configure.
 
 Happy to share a short technical brief if useful.
 ```
@@ -156,7 +158,7 @@ Happy to share a short technical brief if useful.
 Add after paragraph 1:
 
 ```text
-We complement your existing I4.0 and line monitoring — we don’t replace sequencing or OT control.
+We complement your existing I4.0 and line monitoring — we don’t replace sequencing or autonomous OT control. Humans approve; optional desk execution only where you enable it.
 ```
 
 ---
@@ -167,7 +169,7 @@ For a **10-slide** technical brief, use this arc. Only **one slide** emphasises 
 
 | # | Slide | Focus |
 | --- | --- | --- |
-| 1 | Title | Stamped Intelligence · read-only decision layer |
+| 1 | Title | Stamped Intelligence · decision layer · humans in control |
 | 2 | The gap | Monitoring without decisions / closure |
 | 3 | Where we sit | On top of SCADA / EMS / I4.0 |
 | 4 | **Pillar 1** | Real-time load & energy management (broad levers) |
@@ -197,7 +199,7 @@ For a **10-slide** technical brief, use this arc. Only **one slide** emphasises 
 
 > Compressor duty drift + morning load ramp → ML flags drift → agent drafts inspect Rx **and** stagger option with ₹ on bill line → Utilities lead on WhatsApp → verified on ledger.
 
-**Footer:** Read-only on OT · complements Industry 4.0 · does not replace MES or line control
+**Footer:** Humans approve · complements Industry 4.0 · no autonomous plant control · desk execution only where you configure it
 
 ---
 
@@ -216,9 +218,9 @@ Shared plant context (orders, departments, trade-offs) is **not** a third produc
 
 ## 8. What we still are / are not
 
-**Is:** Load and energy decision layer · equipment drift intelligence · prescriptions · evidence verification · read-only integration
+**Is:** Load and energy decision layer · equipment drift intelligence · prescriptions · evidence verification · human-in-control integration · optional human-approved desk execution when configured
 
-**Is not:** EMS replacement · MES · CMMS · vibration PdM · solar/EPC · autonomous plant control · “fine-tuned for you” before plant connect
+**Is not:** EMS replacement · MES · CMMS · vibration PdM · solar/EPC · autonomous plant control · silent OT writes · “fine-tuned for you” before plant connect · universal CNC/CAD write on day one
 
 ---
 
@@ -228,6 +230,7 @@ Shared plant context (orders, departments, trade-offs) is **not** a third produc
 | --- | --- |
 | 2026-08-04 | v1 — canonical client narrative; four-step story; WhatsApp templates; single agentic deck slide |
 | 2026-08-04 | Mirrored to stamped-external `technical/product/`; practicality rules + floor-tied Rx examples cross-linked |
+| 2026-08-21 | Soften “read-only” lead; human control + optional approved desk execution (`copy/CONTROL_AND_ACTION.md`) |
 
 ---
 
