@@ -151,6 +151,102 @@
         "otel_trace_id": {
           "type": "string",
           "description": "Optional Phoenix / OTel deep link"
+        },
+        "pipeline_run_id": {
+          "type": "string",
+          "description": "ADR-029 — optional manual perception pipeline correlation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": ["execute", "monitor", "no_rx"],
+      "description": "ADR-029 / Finding 1.2.0 branch — L4 emit handoff field (L5 may gate)"
+    },
+    "inr_trust": {
+      "type": "string",
+      "enum": ["l2", "fallback", "untrusted"],
+      "description": "Bill-line trust for customer ₹ presentation; separate from credibility band"
+    },
+    "inr_label": {
+      "type": "string",
+      "description": "Optional human label when inr_trust=fallback"
+    },
+    "ops_clearance": {
+      "type": "object",
+      "description": "Pass-through from Finding ops_clearance for L5 verification (ADR-020)",
+      "required": [
+        "measurement_boundary",
+        "related_tag_ids",
+        "clearance_predicate",
+        "expected_post_fix_signal",
+        "stabilize_window",
+        "reopen_if_regresses"
+      ],
+      "properties": {
+        "measurement_boundary": { "type": "string", "minLength": 1 },
+        "related_tag_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "clearance_predicate": {
+          "type": "object",
+          "required": ["metric", "comparator"],
+          "properties": {
+            "metric": { "type": "string" },
+            "comparator": {
+              "type": "string",
+              "enum": ["lt", "lte", "gt", "gte", "eq", "in_band", "out_of_band"]
+            },
+            "threshold": { "type": "number" },
+            "band_ref": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "relative_to": {
+              "type": "string",
+              "enum": ["baseline", "actual_at_detect", "absolute"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "expected_post_fix_signal": { "type": "string", "minLength": 1 },
+        "stabilize_window": { "type": "string", "minLength": 1 },
+        "reopen_if_regresses": {
+          "type": "object",
+          "required": ["enabled"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "predicate": {
+              "type": "object",
+              "required": ["metric", "comparator"],
+              "properties": {
+                "metric": { "type": "string" },
+                "comparator": {
+                  "type": "string",
+                  "enum": ["lt", "lte", "gt", "gte", "eq", "in_band", "out_of_band"]
+                },
+                "threshold": { "type": "number" },
+                "band_ref": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "relative_to": {
+                  "type": "string",
+                  "enum": ["baseline", "actual_at_detect", "absolute"]
+                }
+              },
+              "additionalProperties": false
+            },
+            "grace_window": { "type": "string" }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false

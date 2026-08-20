@@ -4,10 +4,17 @@
 
 ### Added
 
+- Contracts **0.13.0** (ADR-029): `pipeline-run` schema + fixture; compile-trace withhold/abstain fixtures
+- `l4-compile-trace` **1.1.0**: nullable `prescription_id` (required only on `emit`); `pipeline_run_id`, `finding_id`, `credibility`, `generation_attempts`, `path_h_expansions`, typed judge `action`, prompt-cache usage fields
+- `prescription.json`: additive optional `execution_mode`, `inr_trust`, `inr_label`, `ops_clearance`, `provenance.pipeline_run_id` (align L4 emit / L5 handoff)
+- ADR-029 manual perception pipeline (staff L3→L4 trigger, all-attempt retention, credibility, prompt-cache hygiene)
+
+### Changed
+
 - Contracts **0.12.0** (ADR-028): `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`
 - `prescription.provenance`: optional `compile_trace_id`, `otel_trace_id`; `lane` enum adds `quality`
 
-### Changed
+### Changed (0.12.0)
 
 - `plant-live-index` **1.0.0**: required `freshness` watermarks; `orders[]` with `window_end_utc` / `uses_asset_ids` (Job 447–class Path D); optional `standby_evidence`; `open_order_ids` kept as deprecated alias
 - `l4-compile-trace` **1.0.0**: required `snapshots`, `max_generation_calls`, `terminal` (`emit`|`withhold`|`abstain`); optional `bind`, `template_id`; delta `evidence_refs`

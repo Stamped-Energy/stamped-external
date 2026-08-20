@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.1.0",
+  "compile_trace_id": "ctr-2026-08-20-comp2-stale",
+  "prescription_id": null,
+  "pipeline_run_id": "prun-2026-08-20-manual-01",
+  "finding_id": "f-2026-07-08-0042",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "lane": "quality",
+  "template_id": "tmpl_comp_filter_inspect_v1",
+  "generation_calls": 0,
+  "max_generation_calls": 12,
+  "path_h_expansions": 0,
+  "terminal": {
+    "status": "withhold",
+    "reason": "Graph B measurements stale (>5 min); Path D needs running/kW/standby"
+  },
+  "bind": { "asset_id": "COMP2", "status": "ok" },
+  "snapshots": {
+    "graph_a_updated_at": "2026-08-18T06:00:00Z",
+    "graph_b_as_of": "2026-08-18T08:00:00Z",
+    "order_ids": []
+  },
+  "delta_facts": [],
+  "retrieval_run": {
+    "path_h_chunk_ids": [],
+    "path_g_hops": 0,
+    "filters": {},
+    "trust_tiers": []
+  },
+  "compile_loop": [
+    { "step": "bind", "status": "ok" },
+    { "step": "freshness", "status": "fail", "note": "measurements_as_of older than 5 min" }
+  ],
+  "credibility": {
+    "band": "insufficient",
+    "score_0_100": 0,
+    "components": {
+      "finding_confidence": 0.91,
+      "bind_quality": 1.0,
+      "freshness": 0.0,
+      "evidence_coverage": 0.0,
+      "path_h_trust": 0.0,
+      "verify_veto": 0.0,
+      "practicality": 0.0
+    },
+    "forced_insufficient_reason": "stale_graph_b_measurements"
+  },
+  "generation_attempts": []
+}

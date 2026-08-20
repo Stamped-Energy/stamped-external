@@ -1,7 +1,9 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "compile_trace_id": "ctr-2026-08-18-comp2-01",
   "prescription_id": "rx-2026-08-18-comp2",
+  "pipeline_run_id": "prun-2026-08-20-manual-01",
+  "finding_id": "f-2026-07-08-0042",
   "org_id": "org_acme",
   "plant_id": "plant_ghaziabad_1",
   "lane": "quality",
@@ -9,6 +11,7 @@
   "otel_trace_id": "00-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-bbbbbbbbbbbbbbbb-01",
   "generation_calls": 4,
   "max_generation_calls": 12,
+  "path_h_expansions": 0,
   "terminal": { "status": "emit" },
   "owner_resolution": "role_only",
   "bind": { "asset_id": "COMP2", "status": "ok" },
@@ -59,11 +62,15 @@
     "path_h_chunk_ids": ["playbook-comp-sp-drift-v1#s3"],
     "path_g_hops": 2,
     "filters": { "vertical": "generic", "asset_class": "screw_compressor", "waste_category": 3 },
-    "trust_tiers": ["T1"]
+    "trust_tiers": ["T1"],
+    "expansions": []
   },
   "compile_loop": [
     { "step": "bind", "status": "ok" },
     { "step": "freshness", "status": "ok" },
+    { "step": "path_g", "status": "ok" },
+    { "step": "path_d", "status": "ok" },
+    { "step": "path_h", "status": "ok" },
     { "step": "draft", "status": "ok" },
     { "step": "verify", "status": "ok" },
     { "step": "veto", "status": "ok" },
@@ -71,11 +78,58 @@
   ],
   "judge": {
     "passed": true,
+    "action": "pass",
     "scores": {
       "concrete_action": 0.95,
       "feasible_window": 0.92,
       "owner": 0.8,
       "industry_specificity": 0.7
     }
+  },
+  "credibility": {
+    "band": "high",
+    "score_0_100": 86,
+    "components": {
+      "finding_confidence": 0.91,
+      "bind_quality": 1.0,
+      "freshness": 1.0,
+      "evidence_coverage": 0.9,
+      "path_h_trust": 1.0,
+      "verify_veto": 1.0,
+      "practicality": 0.84
+    }
+  },
+  "generation_attempts": [
+    {
+      "call_index": 0,
+      "task_class": "draft",
+      "prompt_version": "quality-draft-1.0.0",
+      "prompt_prefix_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "tool_schema_version": "language-schema-1.0.0",
+      "model_provider": "openai_compat",
+      "model_name": "gpt-4.1-mini",
+      "usage": {
+        "input_tokens": 2400,
+        "cached_input_tokens": 1800,
+        "uncached_input_tokens": 600,
+        "output_tokens": 180,
+        "cache_hit_ratio": 0.75,
+        "estimated_cost_usd": 0.0012
+      },
+      "draft_snapshot": {
+        "what": "Isolate COMP2; inspect suction filter + unload valve",
+        "why": "COMP2 specific power +14% vs 8-week matched band",
+        "who": "Utilities lead + mechanical maint · Shift B",
+        "when": "Thu 14:00–16:00 (after Job 447)",
+        "effort": "~2 h; LOTO + utilities permit"
+      }
+    }
+  ],
+  "draft": {
+    "what": "Isolate COMP2; inspect suction filter + unload valve; restore before header < 6.5 bar — stop if COMP1 cannot take load",
+    "why": "COMP2 specific power +14% vs 8-week matched band for 9 days; header matched",
+    "who": "Utilities lead + mechanical maint · Shift B · compressor house",
+    "when": "Thu 14:00–16:00 (after Job 447 ends noon)",
+    "effort": "~2 h; LOTO + utilities permit; production sign-off on pkg_1"
   }
 }
