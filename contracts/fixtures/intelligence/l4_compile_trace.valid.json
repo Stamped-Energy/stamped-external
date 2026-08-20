@@ -5,34 +5,65 @@
   "org_id": "org_acme",
   "plant_id": "plant_ghaziabad_1",
   "lane": "quality",
+  "template_id": "tmpl_comp_filter_inspect_v1",
   "otel_trace_id": "00-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-bbbbbbbbbbbbbbbb-01",
   "generation_calls": 4,
+  "max_generation_calls": 12,
+  "terminal": { "status": "emit" },
   "owner_resolution": "role_only",
+  "bind": { "asset_id": "COMP2", "status": "ok" },
+  "snapshots": {
+    "graph_a_updated_at": "2026-08-18T06:00:00Z",
+    "graph_b_as_of": "2026-08-18T09:15:00Z",
+    "order_ids": ["447"]
+  },
   "neighborhood": {
-    "node_ids": ["COMP2", "COMP1", "utilities_lead", "min_header_bar"],
+    "node_ids": ["COMP2", "COMP1", "utilities_lead", "mechanical_maint", "min_header_bar", "pb_comp_sp_inspect"],
     "edges": [
       { "from": "COMP1", "type": "STANDBY_FOR", "to": "COMP2" },
-      { "from": "COMP2", "type": "OWNED_BY", "to": "utilities_lead" }
+      { "from": "COMP2", "type": "OWNED_BY", "to": "utilities_lead" },
+      { "from": "screw_compressor", "type": "REMEDY_IN", "to": "pb_comp_sp_inspect" }
     ],
     "live_stamps": {
       "COMP2.vs_typical_pct": 14,
-      "COMP1.available_as_standby": false
+      "COMP1.available_as_standby": false,
+      "order.447.window_end_utc": "2026-08-20T12:00:00Z"
     }
   },
   "delta_facts": [
-    { "kind": "need", "text": "Inspect COMP2 filter / unload valve" },
-    { "kind": "blocker", "text": "Tuesday 09:00–11:00 infeasible: COMP1 at 90% and Job 447 open" },
-    { "kind": "feasible", "text": "Thursday 14:00–16:00 after Job 447; COMP1 spare confirmed" },
-    { "kind": "who", "text": "Utilities lead + mechanical maint · Shift B · compressor house" },
-    { "kind": "not", "text": "Do not emit Tuesday 9am or 'improve compressor efficiency'" }
+    {
+      "kind": "need",
+      "text": "Inspect COMP2 filter / unload valve",
+      "evidence_refs": ["meas:COMP2:sp:2026-08-18"]
+    },
+    {
+      "kind": "blocker",
+      "text": "Tuesday 09:00–11:00 infeasible: COMP1 at 90% and Job 447 open",
+      "evidence_refs": ["order:447", "standby:COMP1"]
+    },
+    {
+      "kind": "feasible",
+      "text": "Thursday 14:00–16:00 after Job 447; COMP1 spare confirmed",
+      "evidence_refs": ["order:447:window_end"]
+    },
+    {
+      "kind": "who",
+      "text": "Utilities lead + mechanical maint · Shift B · compressor house"
+    },
+    {
+      "kind": "not",
+      "text": "Do not emit Tuesday 9am or 'improve compressor efficiency'"
+    }
   ],
   "retrieval_run": {
     "path_h_chunk_ids": ["playbook-comp-sp-drift-v1#s3"],
     "path_g_hops": 2,
-    "filters": { "vertical": "generic", "asset_class": "screw_compressor" },
+    "filters": { "vertical": "generic", "asset_class": "screw_compressor", "waste_category": 3 },
     "trust_tiers": ["T1"]
   },
   "compile_loop": [
+    { "step": "bind", "status": "ok" },
+    { "step": "freshness", "status": "ok" },
     { "step": "draft", "status": "ok" },
     { "step": "verify", "status": "ok" },
     { "step": "veto", "status": "ok" },

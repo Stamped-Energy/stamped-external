@@ -6,6 +6,18 @@
   "tod_block": "PEAK",
   "md_window_remaining": "00:08",
   "shift_id": "shift_b",
+  "freshness": {
+    "measurements_as_of": "2026-08-18T09:14:30Z",
+    "orders_as_of": "2026-08-18T09:10:00Z",
+    "tariff_as_of": "2026-08-18T00:00:00Z",
+    "roster_as_of": null,
+    "max_age_seconds": {
+      "measurements": 300,
+      "orders": 3600,
+      "tariff": 86400,
+      "roster": 43200
+    }
+  },
   "assets": [
     {
       "asset_id": "COMP2",
@@ -20,12 +32,28 @@
       "running": true,
       "kw": 88.0,
       "vs_typical_pct": 2,
-      "available_as_standby": false
+      "available_as_standby": false,
+      "standby_evidence": {
+        "rule_id": "standby_sibling_load_v1",
+        "sibling_load_pct": 90,
+        "header_bar": 7.1,
+        "as_of": "2026-08-18T09:14:30Z"
+      }
     }
   ],
   "lines": [
     { "line_id": "pkg_1", "output_zero_for_min": 0, "occupancy": 1 }
   ],
-  "open_order_ids": ["447"],
+  "orders": [
+    {
+      "order_id": "447",
+      "status": "in_progress",
+      "line_id": "pkg_1",
+      "due_at_utc": "2026-08-20T12:00:00Z",
+      "window_end_utc": "2026-08-20T12:00:00Z",
+      "hot": true,
+      "uses_asset_ids": ["COMP1", "COMP2"]
+    }
+  ],
   "pending_rx_asset_ids": []
 }

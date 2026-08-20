@@ -7,6 +7,12 @@
 - Contracts **0.12.0** (ADR-028): `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`
 - `prescription.provenance`: optional `compile_trace_id`, `otel_trace_id`; `lane` enum adds `quality`
 
+### Changed
+
+- `plant-live-index` **1.0.0**: required `freshness` watermarks; `orders[]` with `window_end_utc` / `uses_asset_ids` (Job 447–class Path D); optional `standby_evidence`; `open_order_ids` kept as deprecated alias
+- `l4-compile-trace` **1.0.0**: required `snapshots`, `max_generation_calls`, `terminal` (`emit`|`withhold`|`abstain`); optional `bind`, `template_id`; delta `evidence_refs`
+- `plant-knowledge-graph`: document `REMEDY_IN` as AssetClass→Playbook; waste_category / template_id on Playbook node properties
+
 ## [0.11.2] — 2026-08-05
 
 - `plant-admin-settings.json` **1.1.0**: add practicality gate profile — `practicality_gate_mode` (`strict`|`balanced`|`lenient`), `require_named_owner`, `require_evidence_refs`, `require_mv_plan`, `min_impact_confidence`, `allow_illustrative_impact`, `auto_withhold_on_gate_fail` (AD-5 / AD-7 L5 Internal Console)

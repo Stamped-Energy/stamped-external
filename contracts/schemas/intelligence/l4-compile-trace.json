@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/l4-compile-trace.v1.json",
   "title": "L4CompileTrace",
-  "description": "Per-Rx compile snapshot L4 emits and L5 stores for internal-console tabs (ADR-028). Do not stuff this into prescription.provenance. Never send to L6.",
+  "description": "Per-Rx compile snapshot L4 emits and L5 stores for internal-console tabs (ADR-028). Replayable: includes Graph A/B snapshot stamps. Do not stuff into prescription.provenance. Never send to L6.",
   "type": "object",
   "required": [
     "schema_version",
@@ -12,8 +12,11 @@
     "plant_id",
     "lane",
     "generation_calls",
+    "max_generation_calls",
+    "terminal",
     "delta_facts",
-    "retrieval_run"
+    "retrieval_run",
+    "snapshots"
   ],
   "properties": {
     "schema_version": {
@@ -29,12 +32,59 @@
       "type": "string",
       "enum": ["quality", "template_fast_path"]
     },
+    "template_id": { "type": "string" },
     "otel_trace_id": { "type": "string" },
     "phoenix_url": { "type": "string" },
     "generation_calls": { "type": "integer", "minimum": 0 },
+    "max_generation_calls": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Hard stop for draft/repair loop. ≥10 allowed; not unbounded."
+    },
+    "terminal": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["emit", "withhold", "abstain"]
+        },
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
     "owner_resolution": {
       "type": "string",
       "enum": ["named", "role_only"]
+    },
+    "bind": {
+      "type": "object",
+      "description": "Tenant-scoped entity bind result",
+      "properties": {
+        "asset_id": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["ok", "ambiguous", "missing"]
+        },
+        "candidates": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "snapshots": {
+      "type": "object",
+      "required": ["graph_a_updated_at", "graph_b_as_of"],
+      "properties": {
+        "graph_a_updated_at": { "type": "string", "format": "date-time" },
+        "graph_b_as_of": { "type": "string", "format": "date-time" },
+        "order_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
     },
     "neighborhood": {
       "type": "object",
@@ -71,7 +121,11 @@
             "type": "string",
             "enum": ["need", "blocker", "feasible", "who", "not"]
           },
-          "text": { "type": "string", "minLength": 1 }
+          "text": { "type": "string", "minLength": 1 },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
         },
         "additionalProperties": false
       }
@@ -101,7 +155,7 @@
         "properties": {
           "step": {
             "type": "string",
-            "enum": ["draft", "verify", "veto", "judge", "repair"]
+            "enum": ["bind", "freshness", "draft", "verify", "veto", "judge", "repair"]
           },
           "status": {
             "type": "string",

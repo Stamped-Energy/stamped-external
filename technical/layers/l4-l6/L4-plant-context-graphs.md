@@ -6,7 +6,7 @@ description: >-
   live operational index (no LLM), Path D delta pack, quality-default compiler,
   Lane A retained as opt-in, L5 compile-trace display.
 tags: [stamped-energy, technical, layer-spec, l4, context-graph, path-d]
-timestamp: "2026-08-18T00:00:00Z"
+timestamp: "2026-08-20T00:00:00Z"
 status: Accepted with ADR-028 — companion to L4-knowledge-and-reasoning.md
 ---
 
@@ -38,46 +38,38 @@ The **quality path** is the default compiler for all categories. **Lane A (0 LLM
 
 ```mermaid
 flowchart TB
-  subgraph canonical [GraphA_canonical_slow]
-    Topology[Plant dept line asset]
-    Constraints[Isolation SOP standby owners]
-    Playbooks[Industry playbooks T1 to T3]
-    Typical[Typical envelopes baselines]
-  end
-  subgraph live [GraphB_live_index_no_LLM]
-    Running[Machines running kW]
-    Orders[Open production orders]
-    People[Shift roster or role]
-    TariffNow[ToD MD window remaining]
-  end
   Finding[L3 Finding] --> Bind[Entity bind]
-  Bind --> PathH[Path H playbooks]
-  Bind --> PathG[Path G canonical hop]
-  Bind --> LivePull[L2 live projection]
-  PathG --> Delta[Path D delta subgraph]
-  LivePull --> Delta
-  PathH --> Pack[Context pack]
-  Delta --> Pack
-  Pack --> Draft[Structured draft]
-  Draft --> Verify[Deterministic verify veto claims]
+  Bind -->|ambiguous or missing| Abstain1[Abstain]
+  Bind --> Fresh[Freshness gate]
+  Fresh -->|stale or incomplete| Withhold1[Withhold]
+  Fresh --> PathG[Path G canonical hop]
+  PathG --> LivePull[Graph B projection]
+  LivePull --> PathD[Path D delta]
+  PathD --> PathH[Path H playbooks]
+  PathH --> Draft[Structured draft]
+  Draft --> Verify[Verify veto claims]
   Verify --> Judge[Practicality judge]
-  Judge -->|not practical yet| Draft
-  Judge -->|practical| L5[Emit to L5 plus compile_trace]
+  Judge -->|repair under max_calls| Draft
+  Judge -->|practical| Emit[Emit Rx + compile_trace]
+  Judge -->|exhausted| Abstain2[Abstain]
 ```
 
 Default steps:
 
-1. Bind Finding → asset / class / vertical / waste.
-2. Path G hop on Graph A (owners, standby, SOP, typical).
-3. Live pull Graph B for those IDs (L2 projection — L4 never `L2_DATABASE_URL`).
-4. Path D: emit delta facts (need / blocker / next-best window).
-5. Path H: playbook chunks filtered by vertical + equipment class. Trust tiers T1–T4 unchanged ([ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md)).
-6. Deterministic next-best window ([ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) feasibility **at compile**).
-7. Draft What/Why/Who/When from the pack. `template_id` still bounds the **action family** (no free-form What rewrite).
-8. Verify ₹ / citations / veto (non-tradeable).
-9. Practicality judge (language only). Repair if weak. **≥10 generation calls allowed** when quality needs it; not a ceiling. If still not practical: abstain / human — never emit a generic card to look busy.
+1. **Bind** Finding → asset / class / vertical / waste. Tenant-scoped (`org_id` + `plant_id` + asset id). Ambiguous or missing → **abstain** (record candidates on compile-trace). Never guess across plants.
+2. **Freshness gate** on Graph B (see §4.1). Fail → **withhold**, not a generic card.
+3. Path G hop on Graph A (owners, standby edges, SOP, typical, playbook via `REMEDY_IN`).
+4. Live pull Graph B for those IDs (L2 projection — L4 never `L2_DATABASE_URL`).
+5. Path D: emit typed delta facts (need / blocker / feasible / who / not) — §5.
+6. Path H: playbook chunks filtered by vertical + equipment class + Playbook.`waste_category`. Trust tiers T1–T4 unchanged ([ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md)).
+7. Deterministic next-best window ([ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) feasibility **at compile**).
+8. Draft What/Why/Who/When/Effort from the pack. `template_id` still bounds the **action family**.
+9. Verify ₹ / citations / veto (non-tradeable).
+10. Practicality judge (language only). Repair while `generation_calls < max_generation_calls` (default **12**; ≥10 allowed, not unbounded). Exhausted → **abstain** with reason. Never emit a generic card to look busy.
 
-Lane A (zero-call template graph) remains for CI without a provider, `force_lane=a`, `L4_DEFAULT_LANE=template` (ops/emergency), and automatic degrade when the structured model is down. Label those cards `provenance.lane = template_fast_path`.
+**Lane A** (`force_lane=a`, `L4_DEFAULT_LANE=template`, or structured model down): label `provenance.lane = template_fast_path`. Emit **only** when Path D practicality fields are already complete (feasible When + role Who + named What from template). Otherwise **withhold** — model-down is not a license for an infeasible Due.
+
+Terminal statuses for every compile: `emit` | `withhold` | `abstain` (on `l4-compile-trace.terminal`).
 
 ---
 
@@ -96,9 +88,9 @@ Keep this small. ISA-95-shaped, not a MES product ([ADR-026](../../../decisions/
 | AssetClass | screw_compressor, holding_furnace, raw_mill, chiller, CW_pump | Playbook join key |
 | Role | utilities_lead, area_supervisor, electrical_lead, mechanical_maint | |
 | Person | optional named human | Only if roster exists |
-| Constraint | isolation_requires_standby, min_header_bar, validated_setback_band, hold_safe_SOP | |
-| Playbook | T1/T2/T3 doc chunk | Industry + class |
-| TypicalEnvelope | baseline SP, idle-aux kW, ramp coincidence | |
+| Constraint | isolation_requires_standby, min_header_bar, validated_setback_band, hold_safe_SOP | Prefer `properties.metric/unit/band_*` |
+| Playbook | T1/T2/T3 doc chunk | `properties.waste_category`, `template_id`, `trust_tier` |
+| TypicalEnvelope | baseline SP, idle-aux kW | `properties.metric`, `unit`, `band_low`, `band_high`, `window` |
 | Vertical | generic \| steel \| cement \| pharma \| packaging | Path H filter |
 
 ### 3.2 Edge types
@@ -111,7 +103,7 @@ Keep this small. ISA-95-shaped, not a MES product ([ADR-026](../../../decisions/
 | `STANDBY_FOR` | Asset → Asset (COMP1 standby for COMP2) |
 | `FEEDS` / `SERVED_BY` | e.g. WHR → mill, chiller → hall |
 | `CONSTRAINED_BY` | Asset → Constraint |
-| `REMEDY_IN` | AssetClass + waste_category → Playbook |
+| `REMEDY_IN` | **AssetClass → Playbook** (binary). Filter by Playbook.`waste_category` — do **not** invent a ternary edge |
 | `IN_VERTICAL` | Plant → Vertical |
 | `CRITICAL_NO_STAGGER` | Department → Asset (already on department graph) |
 
@@ -121,63 +113,111 @@ Refresh: clock (e.g. 72 h) or SOP / asset / tariff-structure change. Store later
 
 ## 4. Graph B — live index (same IDs, no LLM)
 
-Graph B does not add a parallel universe of nodes. It stamps **now** on Graph A IDs. **L2 is source of truth.** L4 reads a projection for the compile window.
+Graph B stamps **now** on Graph A IDs. **L2 is source of truth.** L4 reads a projection for the compile window. Contract: [`plant-live-index.json`](../../../contracts/schemas/plant/plant-live-index.json).
 
 | Subject | Properties |
 | --- | --- |
-| Asset | `running`, `kw`, `vs_typical_pct`, `header_bar`, `available_as_standby` |
+| Asset | `running`, `kw`, `vs_typical_pct`, `header_bar`, `available_as_standby`, optional `standby_evidence` |
 | Line | `output_zero_for_min`, `occupancy` |
-| Order | `order_id`, `status`, `due_at`, `hot`, `line_id` from [`production-order.json`](../../../contracts/schemas/plant/production-order.json) |
+| Order | **`orders[]`**: `order_id`, `status`, `line_id`, `due_at_utc`, `window_end_utc`, `hot`, `uses_asset_ids` — enough to derive Job 447 windows. IDs alone are not enough |
 | Tariff | `tod_block`, `md_window_remaining` |
-| Shift | `shift_id`, `role_on_duty`; `person_id` only if roster |
-| PendingRx | other open Rx on the same asset (avoid stacking) |
+| Shift | `shift_id`; names only via optional [`shift-roster`](../../../contracts/schemas/plant/shift-roster.json) |
+| PendingRx | `pending_rx_asset_ids` |
 
-Updates: measurement ticks, order status, shift clock. **Zero model calls.**
+### 4.1 Freshness / completeness (fail closed)
 
-**Have today:** running/kW (L2 measurements), production orders, department graph, ToD/MD.
+Required on every projection: `freshness.measurements_as_of`, `freshness.orders_as_of`, plus `as_of`.
 
-**Gap:** named crew — optional [`shift-roster`](../../../contracts/schemas/plant/shift-roster.json). Degrade to `role + department + shift`. Never invent a name (`owner_resolution: role_only`).
+| Source | Default max age | If stale / missing |
+| --- | --- | --- |
+| measurements | 5 min | withhold if Path D needs running/kW/standby |
+| orders | 60 min | withhold if Path D needs order windows |
+| tariff | 24 h | withhold only if ToD/MD is in the delta |
+| roster | 12 h | degrade to `owner_resolution=role_only` — never invent a name |
 
-Standby *now* is derivable from sibling load + header, not a separate product.
+Standby *now*: keep `available_as_standby` boolean; attach `standby_evidence` (`rule_id`, sibling load, header, `as_of`) so Path D is replayable.
 
 ---
 
-## 5. Worked example — COMP2 inspect (demo cards 3 + 6)
+## 5. Path D — typed delta (deterministic)
+
+Same inputs → same `delta_facts`. No LLM in Path D.
+
+**Inputs**
+
+| Input | Source |
+| --- | --- |
+| TypicalEnvelope / Constraint bands | Graph A node `properties` |
+| Live metric stamps | Graph B assets/lines |
+| Order windows | Graph B `orders[]` |
+| Standby | `available_as_standby` + `standby_evidence` |
+| Owners / shift | Graph A `OWNED_BY` + Graph B `shift_id` (+ roster if present) |
+| Action family | Playbook via `REMEDY_IN` + `template_id` |
+
+**Comparators (minimal)**
+
+1. `vs_typical_pct` (or named metric) outside `[band_low, band_high]` → **need**.
+2. Isolation blocked when any `STANDBY_FOR` sibling has `available_as_standby=false` **or** an open order lists the asset in `uses_asset_ids` with `window_end_utc` still ahead → **blocker**.
+3. Next-best window = first interval after max(`window_end_utc` of blockers) where standby is true (or planned) and ToD rules allow → **feasible**.
+4. Who = roles from `OWNED_BY` + shift; name only if roster → **who**.
+5. Template / playbook slogans that fail P-1 → **not**.
+
+Each fact may carry `evidence_refs` (measurement / order / standby ids).
+
+---
+
+## 6. Worked example — COMP2 inspect (demo cards 3 + 6)
+
+Fixtures: [`plant_knowledge_graph.valid.json`](../../../contracts/fixtures/plant/plant_knowledge_graph.valid.json), [`plant_live_index.valid.json`](../../../contracts/fixtures/plant/plant_live_index.valid.json), [`l4_compile_trace.valid.json`](../../../contracts/fixtures/intelligence/l4_compile_trace.valid.json).
 
 **Canonical**
 
 - `COMP2` INSTANCE_OF screw_compressor · OWNED_BY utilities_lead + mechanical_maint
-- `COMP1` STANDBY_FOR `COMP2` · isolation CONSTRAINED_BY min_header_bar
-- TypicalEnvelope: SP within 8-week matched band
-- Playbook: inspect filter / unload valve in next low-load window
+- `COMP1` STANDBY_FOR `COMP2` · CONSTRAINED_BY min_header_bar
+- TypicalEnvelope `comp2_typical_sp`: vs_typical_pct band −5…+8 over 8w_matched
+- `screw_compressor` REMEDY_IN `pb_comp_sp_inspect` (`waste_category=3`, `template_id=tmpl_comp_filter_inspect_v1`)
 
-**Live**
+**Live** (`as_of` Tuesday 09:15)
 
-- `COMP2.vs_typical_pct = +14%` for 9 days, header matched
-- `COMP1.load = 90%` → `available_as_standby = false` Tuesday 09:00–11:00
-- `Job 447` in_progress on an air-using line, completes Thursday noon
-- Shift B: utilities_lead on duty (name unknown → role only)
+- COMP2 `vs_typical_pct=+14` (need)
+- COMP1 `available_as_standby=false`, sibling_load_pct=90 (blocker)
+- Order `447` in_progress on `pkg_1`, `window_end_utc=Thursday 12:00Z`, `uses_asset_ids=[COMP1,COMP2]` (blocker)
+- Freshness OK; roster absent → role_only
 
-**Path D delta (what the model sees)**
+**Path D**
 
-| Fact | Value |
+| Kind | Text |
 | --- | --- |
-| Need | Inspect COMP2 (canonical remedy still valid) |
-| Blocker | Tuesday window infeasible (standby + Job 447) |
-| Feasible | Thursday 14:00–16:00 after Job 447 · COMP1 confirmed spare |
-| Who | Utilities lead + mechanical maint · Shift B · compressor house |
-| Not | “Improve compressor efficiency” · not “Tuesday 9am” |
+| need | Inspect COMP2 filter / unload valve |
+| blocker | Tue 09:00–11:00 infeasible (standby + Job 447) |
+| feasible | Thu 14:00–16:00 after Job 447; COMP1 spare |
+| who | Utilities lead + mechanical maint · Shift B · compressor house |
+| not | “Improve compressor efficiency” · “Tuesday 9am” |
 
-Hybrid RAG fetches the inspect playbook. It does **not** discover Job 447.
+**Emitted Rx (shape — calculator owns ₹; demo numbers `[illustrative]`)**
+
+| Field | Value |
+| --- | --- |
+| What | Isolate COMP2; inspect suction filter + unload valve; restore before header < 6.5 bar — stop if COMP1 cannot take load |
+| Why | COMP2 specific power +14% vs 8-week matched band for 9 days; header matched |
+| Who | Utilities lead + mechanical maint · Shift B · compressor house (`role_only`) |
+| When | Thu 14:00–16:00 (after Job 447 ends noon) |
+| Effort | ~2 h; LOTO + utilities permit; production sign-off on pkg_1 |
+| Impact | from calculator only |
+| Evidence | `meas:COMP2:sp`, `order:447`, `standby:COMP1` |
+| template_id | `tmpl_comp_filter_inspect_v1` |
+| lane | `quality` |
+
+Hybrid RAG fetches the inspect playbook. It does **not** discover Job 447 — that came from Graph B `orders[]`.
 
 ---
 
-## 6. Router
+## 7. Router
 
-| Mode | When | `provenance.lane` |
-| --- | --- | --- |
-| **Quality (default)** | All categories, including the 16 that used to auto-route to Lane A | `quality` |
-| Lane A | `force_lane=a`, `L4_DEFAULT_LANE=template`, or structured model unavailable | `template_fast_path` |
+| Mode | When | `provenance.lane` | Emit? |
+| --- | --- | --- | --- |
+| **Quality (default)** | All categories | `quality` | After Path D + judge pass |
+| Lane A | `force_lane=a`, `L4_DEFAULT_LANE=template`, or model down | `template_fast_path` | Only if Path D When/Who/What already complete; else withhold |
 
 Today’s `CATEGORY_TEMPLATE_ID → Lane A` default is **revoked** by ADR-028. Templates remain the action-family guard on the quality path.
 
@@ -185,7 +225,7 @@ Analyst and Path W budgets are unchanged (still cheap / allowlisted).
 
 ---
 
-## 7. Non-tradeables
+## 8. Non-tradeables
 
 - No OT write
 - Calculator-owned ₹ / kWh / tCO₂e
@@ -196,9 +236,9 @@ Analyst and Path W budgets are unchanged (still cheap / allowlisted).
 
 ---
 
-## 8. L5 visibility (staff verify)
+## 9. L5 visibility (staff verify)
 
-L5 **does not own the graphs.** It stores [`l4-compile-trace`](../../../contracts/schemas/intelligence/l4-compile-trace.json) with the Rx. Internal console (`:8095`) renders it. Phoenix (`:6006`) remains the OTel/LangGraph waterfall; console shows a summary plus `otel_trace_id` deep link.
+L5 **does not own the graphs.** It stores [`l4-compile-trace`](../../../contracts/schemas/intelligence/l4-compile-trace.json) with the Rx. Required for replay: `snapshots.graph_a_updated_at`, `snapshots.graph_b_as_of`, `max_generation_calls`, `terminal`, `bind`. Internal console (`:8095`) renders it. Phoenix (`:6006`) remains the OTel/LangGraph waterfall; console shows a summary plus `otel_trace_id` deep link.
 
 ```mermaid
 flowchart LR
@@ -215,18 +255,16 @@ flowchart LR
 1. Card — What/Why/Who + AD-5 gate (existing)
 2. Graph overview — neighborhood for *this* Rx (canonical edges + live stamps)
 3. Retrieval log — Path H / G / D, filters, ranked chunk IDs, trust tier
-4. Compile loop — draft → verify → judge → repair; call count; lane
+4. Compile loop — bind → freshness → draft → verify → judge → repair; call count; lane; terminal
 5. Eval / practicality — judge rubric next to AD-5 so staff can withhold
 
-**Plant-level (secondary):** Graph A snapshot age, node/edge counts, vertical — not required to verify one Rx.
+Keep `prescription.provenance` small: lane, versions, `compile_trace_id`, optional `otel_trace_id`.
 
-Keep `prescription.provenance` small: lane, versions, `compile_trace_id`, optional `otel_trace_id`. Do not stuff the subgraph into provenance (`additionalProperties: false` today).
-
-**Decision memory vs plant graphs.** Graph A/B + Path D are *plant-now*. The compile-trace is *why this Rx* — Shah’s “organizational memory” seed, emitted as a byproduct of compile ([research §1.6](../../research/stamped-context-graphs-and-practical-prescriptions.md)). Do not merge closed-loop history into Graph A. Precedent + L5 outcome on the same `compile_trace_id` is a later Improve/L5 step, after traces exist. Never show this on L6.
+**Decision memory vs plant graphs.** Graph A/B + Path D are *plant-now*. The compile-trace is *why this Rx*. Do not merge closed-loop history into Graph A. Precedent + L5 outcome on the same `compile_trace_id` is a later Improve/L5 step. Never show this on L6.
 
 ---
 
-## 9. Ownership
+## 10. Ownership
 
 | Concern | Owner |
 | --- | --- |
@@ -238,6 +276,8 @@ Keep `prescription.provenance` small: lane, versions, `compile_trace_id`, option
 
 ---
 
-## 10. Consumer implementation (later)
+## 11. Consumer implementation (later)
 
 This document is platform spec. `knowledge-reasoning` implements Path G/D after a platform pin. `closure-verification` internal console renders the compile-trace. Neither is in the ADR-028 docs pass.
+
+*ponytail: no Neo4j, no decision-history graph, no extra ontology — close declared-data gaps first.*

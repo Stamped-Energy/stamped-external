@@ -51,7 +51,11 @@
             ]
           },
           "label": { "type": "string" },
-          "properties": { "type": "object" }
+          "properties": {
+            "type": "object",
+            "description": "Typed bags by node type. Playbook: waste_category (1–6), template_id, trust_tier. TypicalEnvelope: metric, unit, band_low, band_high, window.",
+            "additionalProperties": true
+          }
         },
         "additionalProperties": false
       }
@@ -76,7 +80,8 @@
               "REMEDY_IN",
               "IN_VERTICAL",
               "CRITICAL_NO_STAGGER"
-            ]
+            ],
+            "description": "REMEDY_IN is binary: AssetClass → Playbook. waste_category + template_id live on the Playbook node properties — not a ternary edge."
           },
           "to": { "type": "string", "minLength": 1 }
         },

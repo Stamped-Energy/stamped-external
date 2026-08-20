@@ -13,6 +13,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 - Research survey: [context graphs and practical prescriptions](technical/research/stamped-context-graphs-and-practical-prescriptions.md)
 - Contracts **0.12.0**: `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`; prescription `provenance.lane` adds `quality` ([contracts/CHANGELOG.md](contracts/CHANGELOG.md))
 - Practicality eval: [05-prescription-practicality-eval.md](technical/cross-cutting/05-prescription-practicality-eval.md) — gold bar is [demo prescriptions](demo-decks/prescriptions-examples.md) (shape/feasibility, not illustrative ₹)
+- Audit close-out on [L4 plant context graphs](technical/layers/l4-l6/L4-plant-context-graphs.md): Graph B `orders[]` + freshness gates, typed Path D, bounded compile + replayable `l4-compile-trace`, full COMP2 Rx example
 
 ## [2026.08.05.1] - 2026-08-05
 

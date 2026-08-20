@@ -2,14 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/plant-live-index.v1.json",
   "title": "PlantLiveIndex",
-  "description": "Graph B live projection for a compile window (ADR-028). Same node IDs as Graph A. L2 is source of truth; no LLM. Not a second telemetry store.",
+  "description": "Graph B live projection for a compile window (ADR-028). Same node IDs as Graph A. L2 is source of truth; no LLM. Orders carry enough fields to derive next-best windows (Job 447). Not a second telemetry store.",
   "type": "object",
   "required": [
     "schema_version",
     "org_id",
     "plant_id",
     "as_of",
-    "assets"
+    "assets",
+    "freshness"
   ],
   "properties": {
     "schema_version": {
@@ -19,10 +20,36 @@
     },
     "org_id": { "type": "string", "minLength": 1 },
     "plant_id": { "type": "string", "minLength": 1 },
-    "as_of": { "type": "string", "format": "date-time" },
+    "as_of": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Compile-window snapshot time for this projection"
+    },
     "tod_block": { "type": "string" },
     "md_window_remaining": { "type": "string" },
     "shift_id": { "type": "string" },
+    "freshness": {
+      "type": "object",
+      "description": "Per-source watermarks. Path D fails closed when a required source is stale or missing.",
+      "required": ["measurements_as_of", "orders_as_of"],
+      "properties": {
+        "measurements_as_of": { "type": "string", "format": "date-time" },
+        "orders_as_of": { "type": "string", "format": "date-time" },
+        "tariff_as_of": { "type": ["string", "null"], "format": "date-time" },
+        "roster_as_of": { "type": ["string", "null"], "format": "date-time" },
+        "max_age_seconds": {
+          "type": "object",
+          "properties": {
+            "measurements": { "type": "integer", "minimum": 1 },
+            "orders": { "type": "integer", "minimum": 1 },
+            "tariff": { "type": "integer", "minimum": 1 },
+            "roster": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "assets": {
       "type": "array",
       "items": {
@@ -34,7 +61,18 @@
           "kw": { "type": "number" },
           "vs_typical_pct": { "type": "number" },
           "header_bar": { "type": "number" },
-          "available_as_standby": { "type": "boolean" }
+          "available_as_standby": { "type": "boolean" },
+          "standby_evidence": {
+            "type": "object",
+            "description": "Derivation for available_as_standby — keep the boolean, attach why",
+            "properties": {
+              "rule_id": { "type": "string" },
+              "sibling_load_pct": { "type": "number" },
+              "header_bar": { "type": "number" },
+              "as_of": { "type": "string", "format": "date-time" }
+            },
+            "additionalProperties": false
+          }
         },
         "additionalProperties": false
       }
@@ -52,10 +90,39 @@
         "additionalProperties": false
       }
     },
+    "orders": {
+      "type": "array",
+      "description": "Open / relevant ProductionOrder fields needed for Path D. Prefer this over open_order_ids alone.",
+      "items": {
+        "type": "object",
+        "required": ["order_id", "status", "line_id"],
+        "properties": {
+          "order_id": { "type": "string", "minLength": 1 },
+          "status": {
+            "type": "string",
+            "enum": ["planned", "released", "in_progress", "held", "complete", "cancelled"]
+          },
+          "line_id": { "type": "string", "minLength": 1 },
+          "due_at_utc": { "type": "string", "format": "date-time" },
+          "window_end_utc": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the order stops blocking isolation / air (e.g. Job 447 completes Thursday noon)"
+          },
+          "hot": { "type": "boolean" },
+          "uses_asset_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Assets whose isolation would hit this order"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "open_order_ids": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "References ProductionOrder.order_id"
+      "description": "Deprecated alias — prefer orders[].order_id. Kept for older fixtures."
     },
     "pending_rx_asset_ids": {
       "type": "array",

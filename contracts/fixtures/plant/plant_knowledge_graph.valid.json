@@ -12,7 +12,35 @@
     { "id": "COMP1", "type": "Asset", "label": "Air Compressor 1" },
     { "id": "screw_compressor", "type": "AssetClass" },
     { "id": "utilities_lead", "type": "Role" },
-    { "id": "min_header_bar", "type": "Constraint", "label": "Isolation min header" }
+    { "id": "mechanical_maint", "type": "Role" },
+    {
+      "id": "min_header_bar",
+      "type": "Constraint",
+      "label": "Isolation min header",
+      "properties": { "metric": "header_bar", "unit": "bar", "band_low": 6.5 }
+    },
+    {
+      "id": "comp2_typical_sp",
+      "type": "TypicalEnvelope",
+      "label": "COMP2 specific power band",
+      "properties": {
+        "metric": "vs_typical_pct",
+        "unit": "pct",
+        "band_low": -5,
+        "band_high": 8,
+        "window": "8w_matched"
+      }
+    },
+    {
+      "id": "pb_comp_sp_inspect",
+      "type": "Playbook",
+      "label": "Screw compressor SP drift inspect",
+      "properties": {
+        "waste_category": 3,
+        "template_id": "tmpl_comp_filter_inspect_v1",
+        "trust_tier": "T1"
+      }
+    }
   ],
   "edges": [
     { "from": "plant_ghaziabad_1", "type": "CONTAINS", "to": "utilities" },
@@ -21,7 +49,9 @@
     { "from": "comp_house", "type": "CONTAINS", "to": "COMP1" },
     { "from": "COMP2", "type": "INSTANCE_OF", "to": "screw_compressor" },
     { "from": "COMP2", "type": "OWNED_BY", "to": "utilities_lead" },
+    { "from": "COMP2", "type": "OWNED_BY", "to": "mechanical_maint" },
     { "from": "COMP1", "type": "STANDBY_FOR", "to": "COMP2" },
-    { "from": "COMP2", "type": "CONSTRAINED_BY", "to": "min_header_bar" }
+    { "from": "COMP2", "type": "CONSTRAINED_BY", "to": "min_header_bar" },
+    { "from": "screw_compressor", "type": "REMEDY_IN", "to": "pb_comp_sp_inspect" }
   ]
 }
