@@ -23,6 +23,7 @@ FORBIDDEN_LNM = re.compile(
 FULL = "demo-decks/clients/machinery-oem.html"
 BRIEF = "demo-decks/clients/lohia-corp-brief.html"
 FORGE = "demo-decks/clients/auto-forge-ht.html"
+LNM = "demo-decks/clients/lnm-auto-faridabad-technical/index.html"
 
 TECH_BRIEF_PREFIX = [
     "scene-title",
@@ -102,6 +103,8 @@ def file_gate() -> list[str]:
             issues.append("clients hub missing ITC brief link")
         if "nestle-pantnagar-technical" not in ch:
             issues.append("clients hub missing Nestlé brief link")
+        if "lnm-auto-faridabad-technical" not in ch:
+            issues.append("clients hub missing LNM Faridabad brief link")
         if "Industry Energy Management" not in ch or "Asset Health Intelligence" not in ch:
             issues.append("clients hub missing website pillar names")
     if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
@@ -198,6 +201,37 @@ def file_gate() -> list[str]:
             issues.append("forge-HT still has punchy shared-base headings")
         if 'src="assets/auto-forge-ht/steel-hero.jpg"' not in forge:
             issues.append("forge-HT hero src should be clients-local assets/auto-forge-ht/...")
+
+    lnm_path = ROOT / LNM
+    if not lnm_path.is_file():
+        issues.append(f"missing {LNM}")
+        lnm = ""
+    else:
+        lnm = lnm_path.read_text(encoding="utf-8")
+        for sid in TECH_BRIEF_PREFIX:
+            if f'id="{sid}"' not in lnm:
+                issues.append(f"lnm missing {sid}")
+        if "Industry Energy Management" not in lnm or "Asset Health Intelligence" not in lnm:
+            issues.append("lnm missing website pillar names")
+        if "₹" not in lnm:
+            issues.append("lnm missing ₹ currency")
+        if "LNM" not in lnm or "Faridabad" not in lnm or "Sector 59" not in lnm:
+            issues.append("lnm missing LNM / Faridabad / Sector 59 naming")
+        for needle in ("forge", "machine", "heat treatment", "DHBVN", "precision"):
+            if needle.lower() not in lnm.lower():
+                issues.append(f"lnm missing precision term: {needle}")
+        if 'src="assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg"' not in lnm:
+            issues.append("lnm hero src should be cnc-shop-hero.jpg")
+        if re.search(r"\bIIT\b|IITK|Roorkee", lnm, re.I):
+            issues.append("lnm must not mention IIT / Roorkee")
+        if "divyansh" in lnm.lower() or "sandeep mall" in lnm.lower():
+            issues.append("lnm must not name Divyansh / Sandeep on slides")
+        lnm_body = re.sub(r"<style[\s\S]*?</style>", "", lnm)
+        lnm_body = re.sub(r"<script[\s\S]*?</script>", "", lnm_body)
+        if re.search(r"[—–]", lnm_body):
+            issues.append("lnm: em/en dash in visible HTML")
+        if not (ROOT / "demo-decks/clients/lnm-auto-faridabad-technical/assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg").is_file():
+            issues.append("missing LNM cnc-shop-hero.jpg asset")
     # Co-located assets must resolve next to the HTML
     for rel in (
         "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
@@ -251,6 +285,7 @@ def file_gate() -> list[str]:
         "demo-decks/clients/itc-nadiad-technical/index.html",
         "demo-decks/clients/itc-nadiad-technical.html",
         "demo-decks/clients/nestle-pantnagar-technical/index.html",
+        LNM,
         FULL,
         BRIEF,
         FORGE,

@@ -13,7 +13,7 @@ Client-facing HTML presentation decks for Stamped Energy: one walkthrough per in
 | [prescriptions-examples.md](./prescriptions-examples.md) | Markdown twin — talk tracks, plain-language cards, evidence on flip |
 | [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](../technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) | Canonical client narrative (WhatsApp, decks, I4.0) |
 | [pharma/](./pharma/) | Pharma Vercel deploy root (`index.html`; `vercel --prod`) |
-| [clients/](./clients/) | Client deck picker: 11-scene technical briefs (Nestlé, ITC, Lohia, OEM, forge-HT, explainer) |
+| [clients/](./clients/) | Client deck picker: 11-scene technical briefs (Nestlé, ITC, LNM, Lohia, OEM, forge-HT, explainer) |
 | [tech/](./tech/) | Tech deep-dives linked from the Technology slide |
 | [assets/](./assets/) | Industry and client hero photos |
 
@@ -29,6 +29,7 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | [clients/nestle-pantnagar-technical/](./clients/nestle-pantnagar-technical/) | Nestlé Pantnagar Maggi leave-behind (quality bar; uses "rupee(s)") |
 | [clients/itc-nadiad-technical/](./clients/itc-nadiad-technical/) | ITC Nadiad technical brief (deploy folder) |
 | [clients/itc-nadiad-technical.html](./clients/itc-nadiad-technical.html) | Flat twin of the ITC folder index |
+| [clients/lnm-auto-faridabad-technical/](./clients/lnm-auto-faridabad-technical/) | LNM Auto Faridabad Sector 59 leave-behind (precision forge / machine / HT / surface) |
 | [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Named Lohia brief (DIC, not a second audit, Chaubepur visit) |
 | [clients/auto-forge-ht.html](./clients/auto-forge-ht.html) | Anonymous forge / HT / die-cast brief |
 | [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous packaging-machinery OEM brief (60-day if justified) |
