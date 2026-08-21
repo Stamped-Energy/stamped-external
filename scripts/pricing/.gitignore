@@ -1,0 +1,2 @@
+# Ignore cached AWS offer JSON (large)
+.offer-cache/

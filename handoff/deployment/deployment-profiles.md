@@ -1,7 +1,8 @@
 # Stamped deployment profiles — cross-repo reference
 
 > **Authority:** [ADR-010](../../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)  
-> **Research:** `docs/research/enterprise-air-gap-ai-deployment.md` (consumer repos)
+> **Research:** `docs/research/enterprise-air-gap-ai-deployment.md` (consumer repos)  
+> **Cost-first cloud + plant-PC edge:** [cost-effective-aws-pilot.md](./cost-effective-aws-pilot.md)
 
 ---
 
