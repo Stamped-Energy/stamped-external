@@ -59,6 +59,8 @@ The renewal conversation is: "Stamped saved us ₹X that we actually closed this
 
 The architecture rule from the [technical architecture](../../STAMPED_ARCHITECTURE.md) applies hardest here: *layers that only add charts are rejected*. L6 is not a BI tool, not an ESG platform, not a SCADA HMI replacement. Every screen must serve detection→prescription→closure→verification→evidence, or it is cut.
 
+**OT boundary ([ADR-029](../../../decisions/028-032/ADR-029-human-guided-ot-command-path.md)):** L6 may offer **Approve / Execute** on a prescription card when plant `machine-capability.writeback_enabled` is true. The BFF calls **L5 ActionIntent APIs only** — never edge write URLs, never OPC/Modbus. If writeback is off or the asset has no capability, show **Assign** only (no dead Execute button).
+
 ---
 
 ## 2. Requirements from the architecture
@@ -108,7 +110,8 @@ The demo at [stamped-energy.vercel.app](https://stamped-energy.vercel.app/) is t
 - **RBAC:** operator / supervisor / plant head / sustainability / admin — role determines both module visibility and action rights (e.g. only supervisors+ can mark Rx done).
 - **Audit:** every prescription view/acknowledge from the dashboard writes to the immutable L5 audit log.
 - **Data residency:** India region default for enterprise — constrains hosting choices (see §4.1).
-- **Read-only principle:** L6 never writes to plant systems. The only "writes" are workflow state, comments, and configuration.
+- **Plant OT boundary:** L6 never talks to SCADA/PLC/CNC. Customer writes are workflow state, comments, configuration, and — when writeback is enabled — **ActionIntent approve/execute via L5 only** ([ADR-029](../../../decisions/028-032/ADR-029-human-guided-ot-command-path.md)). Assign-only is the default.
+- **Approve / Execute UX (Wave C):** On the Rx card, if `machine-capability.writeback_enabled` and command allowed: primary **Execute** with status chips (`queued` → `dispatched` → `acked` → `verified` / `failed`). Always keep **Assign**. Hide/disable Execute when writeback is off — no dead button. Never imply e-stop.
 
 ### 2.4 Sustainability export pack requirements (from §10.2, §11)
 

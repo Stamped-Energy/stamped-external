@@ -5,7 +5,7 @@
 | **Status** | Accepted |
 | **Date** | 2026-07-21 |
 | **Deciders** | Engineering (L6 architecture + UI handoff) |
-| **Related** | [ADR-008](../006-010/ADR-008-layer-repo-topology-and-interfaces.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-019](../016-020/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](ADR-020-l5-mv-claim-governance.md) · [L6 SSOT](../../technical/layers/l4-l6/L6-experience-and-integration.md) · [L2 query API](../../handoff/l2/core/stamped-l2-query-api-sketch.md) |
+| **Related** | [ADR-008](../006-010/ADR-008-layer-repo-topology-and-interfaces.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-019](../016-020/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](ADR-020-l5-mv-claim-governance.md) · [ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md) · [L6 SSOT](../../technical/layers/l4-l6/L6-experience-and-integration.md) · [L2 query API](../../handoff/l2/core/stamped-l2-query-api-sketch.md) |
 
 ---
 
@@ -27,10 +27,10 @@ Accepted product defaults (2026-07-21 plan): **ops-first control room**, **Next.
 | --- | --- | --- |
 | 1 | Repo | **One repo `stamped-l6`** (planned GitHub: `Vinayak-RZ/stamped-l6`) |
 | 2 | Topology | **Modular monolith**: `packages/web` (Next.js) + `packages/api` (BFF) + `packages/worker` (PDF/exports/webhooks) |
-| 3 | Upstream access | **HTTP only** to L2 query, L4 analyst/prescription APIs, L5 workflow/alarms/events — **no** `L2_DATABASE_URL` / OT writes |
+| 3 | Upstream access | **HTTP only** to L2 query, L4 analyst/prescription APIs, L5 workflow/alarms/events/**ActionIntent** — **no** `L2_DATABASE_URL` / **no direct OT or edge write** ([ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md)) |
 | 4 | Composition | Browser → L6 BFF → L2/L4/L5; browser never holds service keys |
 | 5 | Public API | L6 public `/v1` is a **dogfooded thin surface over the same BFF** (P2); P0 dashboard uses session-auth BFF routes |
-| 6 | Writes | Workflow ack/defer/reject/alarm actions and config only; audit via L5 |
+| 6 | Writes | Workflow ack/defer/reject/alarm actions, config, and **ActionIntent approve/execute proxied to L5** when plant writeback enabled; never OPC/Modbus from BFF; audit via L5 |
 | 7 | Realtime | **SSE** with `Last-Event-ID` resume (Redis pub/sub fan-out when multi-instance) |
 | 8 | Claims | Render `ops_confirmed` and future bill `verified` as **separate badges**; never imply DISCOM verification from ops alone ([ADR-020](ADR-020-l5-mv-claim-governance.md)) |
 | 9 | Ledger reads | L2 `GET /v1/ledger/entries…` only — never L5 append |
@@ -61,7 +61,7 @@ stamped-l6/
 | Browser → BFF | Session cookie / OIDC; org→plant RBAC on every route |
 | BFF → L2/L4/L5 | Service credentials; inject `X-Org-Id` / `X-Plant-Id`; strip cross-tenant params |
 | Public `/v1` | Scoped API keys (`read:ledger`, `read:prescriptions`, `write:acknowledgements`, …) |
-| OT / plant systems | **Read-only forever** — L6 never writes SCADA/EMS OT |
+| OT / plant systems | **No direct OT from L6** — ActionIntent approve/execute only via L5 when plant writeback enabled ([ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md)); never OPC/Modbus/edge write from BFF |
 | Analyst context | Explicit envelope only ([ADR-023](ADR-023-l6-ems-and-analyst-context.md)) |
 
 ---
