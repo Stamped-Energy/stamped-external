@@ -5,7 +5,7 @@
 | **Status** | Accepted |
 | **Date** | 2026-07-30 |
 | **Deciders** | Product + Engineering |
-| **Related** | [ADR-013](../011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](../020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-023](../020-023/ADR-023-l6-ems-and-analyst-context.md) · [ADR-025](ADR-025-improve-loop-step-06.md) · [ADR-026](ADR-026-two-pillars-shared-context.md) · [03-two-pillar-technical-bridge](../../technical/STAMPED_ARCHITECTURE.md) · [`production-order.json`](../../contracts/schemas/plant/production-order.json) · [`prescription-revision.json`](../../contracts/schemas/intelligence/prescription-revision.json) |
+| **Related** | [ADR-013](../011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](../020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-023](../020-023/ADR-023-l6-ems-and-analyst-context.md) · [ADR-025](ADR-025-improve-loop-step-06.md) · [ADR-026](ADR-026-two-pillars-shared-context.md) · [ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md) · [03-two-pillar-technical-bridge](../../technical/STAMPED_ARCHITECTURE.md) · [`production-order.json`](../../contracts/schemas/plant/production-order.json) · [`prescription-revision.json`](../../contracts/schemas/intelligence/prescription-revision.json) |
 
 ---
 
@@ -87,7 +87,7 @@ Distinct from read-only Analyst ([ADR-023](../020-023/ADR-023-l6-ems-and-analyst
 
 - MES scheduling / dispatch / WIP ownership
 - Full CMMS / quality SPC
-- OT write-back
+- **Silent or autonomous OT write** — opt-in human-approved `ActionIntent` only ([ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md)); not a plant OS
 - Auto-accept of negotiated revisions
 - Cross-plant preference sharing (see ADR-025)
 

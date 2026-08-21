@@ -35,6 +35,7 @@ ADRs live in number buckets (≤5 files each). Start with the index below.
 | [ADR-026](024-026/ADR-026-two-pillars-shared-context.md) | Two pillars + shared context | Accepted | `024-026/` |
 | [ADR-027](024-026/ADR-027-plant-calibration-champion-promote.md) | Plant calibration + champion promote | Accepted | `024-026/` |
 | [ADR-028](028-032/ADR-028-dual-plant-graphs-and-path-d.md) | Dual plant graphs, Path D, quality-default Rx, L5 compile-trace | Accepted | `028-032/` |
+| [ADR-029](028-032/ADR-029-human-guided-ot-command-path.md) | Human-guided OT command path (opt-in ActionIntent) | Accepted | `028-032/` |
 
 Also: [asset-id-migration.md](024-026/asset-id-migration.md)
 

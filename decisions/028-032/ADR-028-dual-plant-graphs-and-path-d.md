@@ -37,7 +37,7 @@ ADR-017 already reserved Path G. ADR-024 already required order/department feasi
 
 8. **Store.** Postgres property-graph tables later. No Neo4j / Graphiti dependency in this ADR. Roster is optional; degrade to role + shift; never invent names.
 
-9. **Non-tradeables unchanged:** no OT write; calculator-owned money; T4 never sole ₹; L5 owns approval; negotiation never auto-commits.
+9. **Non-tradeables:** **no silent or autonomous OT write** (opt-in human-approved `ActionIntent` only — [ADR-029](ADR-029-human-guided-ot-command-path.md)); calculator-owned money; T4 never sole ₹; L5 owns approval; negotiation never auto-commits.
 
 ## Consequences
 
