@@ -1,7 +1,7 @@
 # Holistic pilot stack — L1–L6 deployment checklist
 
-> **Authority:** [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [REPOS.md](../../REPOS.md)  
-> **Goal:** Integrated pilot — **generic-energy first**, then order-aware (Phase 5)
+> **Authority:** [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-029](../../decisions/028-032/ADR-029-human-guided-ot-command-path.md) · [REPOS.md](../../REPOS.md)  
+> **Goal:** Integrated pilot — **generic-energy first**, then order-aware, then opt-in desk writeback
 
 ---
 
@@ -10,9 +10,10 @@
 | Wave | Scope |
 | --- | --- |
 | **A — Generic energy** | MD/PF/ToD + `idle_load` + `compressor_sp_drift` → practical Rx → L5 gate/console → L6 live |
-| **B — Holistic** | ProductionOrder + TradeoffEngine + negotiation + Discuss + weekly Improve full |
+| **B — Holistic + desk assign** | ProductionOrder + TradeoffEngine + negotiation + Discuss + weekly Improve; **desk assign/confirm** hardening (no OT write required) |
+| **C — Opt-in writeback** | Human-guided ActionIntent → L1 command tags — only after [ot-write-site-checklist.md](./ot-write-site-checklist.md) passes |
 
-Do not block Wave A on Wave B.
+Do not block Wave A on Wave B. Do not enable Wave C without the site checklist.
 
 ---
 
@@ -27,7 +28,7 @@ Do not block Wave A on Wave B.
 | L5 | closure-verification | Gate scoring; internal console all-Rx; WhatsApp shadow |
 | L6 | stamped-l6 / experience-integration | BFF → L5 live; approved-only lists |
 
-Platform pin: `external/VERSION` ≥ **2026.08.01** and contracts ≥ **0.11.2**.
+Platform pin: `external/VERSION` ≥ **2026.08.01** and contracts ≥ **0.11.2**. Wave C needs contracts ≥ **0.13.0** (`action-intent`, `machine-capability`).
 
 ---
 
@@ -38,6 +39,7 @@ Platform pin: `external/VERSION` ≥ **2026.08.01** and contracts ≥ **0.11.2**
 - [ ] Deployment profile: `local-dashboard` or `cloud`
 - [ ] Plant gate profile loaded (`practicality_gate_mode`, optionally `stamped_rx_gate_enabled=true`)
 - [ ] (Wave B only) Department graph + open ProductionOrder with `due_at_utc`
+- [ ] (Wave C only) [OT write site checklist](./ot-write-site-checklist.md) signed; `writeback_enabled` only then
 
 ---
 
@@ -60,6 +62,7 @@ Platform pin: `external/VERSION` ≥ **2026.08.01** and contracts ≥ **0.11.2**
 | Fixtures as sole data | `L5_BASE_URL` + live |
 | No staff visibility into bad Rx | L5 Internal Console all-Rx + diagnostics |
 | Improve N/A | Weekly ImproveCycle dry-run |
+| Execute button for all plants | Execute only when Wave C + capability; else Assign |
 
 Keep fixtures as offline / CI when `USE_FIXTURES=1`.
 
@@ -75,6 +78,8 @@ Keep fixtures as offline / CI when `USE_FIXTURES=1`.
 | Internal console shows all Rx | Yes |
 | Force send/stop audited | 100% |
 | Order-aware stagger | Wave B |
+| Desk assign/confirm used for high-₹ Rx | Wave B |
+| ActionIntent verified on beachhead command | Wave C (opt-in site) |
 
 ---
 
@@ -83,4 +88,6 @@ Keep fixtures as offline / CI when `USE_FIXTURES=1`.
 - Named SAP PM write-back  
 - TradeoffEngine / Discuss / ProductionOrder dependency  
 - Cross-plant Improve fleet learning  
-- OT control writes  
+- **OT / SCADA write enablement** (deferred to Wave C + site checklist — [ADR-029](../../decisions/028-032/ADR-029-human-guided-ot-command-path.md))  
+- Autonomous execute-within-limits  
+- Direct VFD/servo / e-stop via Stamped  
