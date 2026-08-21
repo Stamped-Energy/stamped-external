@@ -95,3 +95,13 @@
 | L3 decision defense brief | Synthesis doc for arguing rules/ML/LLM/FM placement — [`technical/layers/l3/L3-decision-defense-brief.md`](technical/layers/l3/L3-decision-defense-brief.md) |
 | Dual-lane Lab retention | All structured candidates → RunArtifact; only `delivery=l4` / `emitted` → L4 outbox — [ADR-015](decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) |
 | Attribution explainability | Graph co-start of-record; shadows = ablations + STUMPY — [`L3-attribution-explainability.md`](technical/layers/l3/L3-attribution-explainability.md) · [ADR-016](decisions/016-020/ADR-016-attribution-shadow-challengers.md) |
+
+## Human-guided OT command path (2026-08-21)
+
+| Topic | Choice |
+|-------|--------|
+| Product | Opt-in ActionIntent — not plant OS / not autonomous OT ([ADR-029](../decisions/028-032/ADR-029-human-guided-ot-command-path.md)) |
+| Non-tradeable | No silent or autonomous OT write (amends ADR-024 / ADR-028) |
+| Ownership | L5 policy + audit; L1 edge command tags; L6 Approve/Execute via BFF→L5 only |
+| Staging | Spec now; Wave C code after [site checklist](../handoff/holistic/ot-write-site-checklist.md) |
+| Contracts | 0.13.0 — `action-intent.json`, `machine-capability.json` |

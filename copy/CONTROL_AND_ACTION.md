@@ -38,6 +38,7 @@ Treat specific write targets as **site-scoped product work**, not a blanket home
 
 ## Related
 
+- Architecture: [`../decisions/028-032/ADR-029-human-guided-ot-command-path.md`](../decisions/028-032/ADR-029-human-guided-ot-command-path.md) (opt-in ActionIntent; Wave C site checklist)  
 - Client narrative: [`../client/POSITIONING_AND_NARRATIVE.md`](../client/POSITIONING_AND_NARRATIVE.md)  
 - Website canon: [`../website/COPY_CANON.md`](../website/COPY_CANON.md)  
 - Deck claim sheets: [`../decks/WHAT_WE_SHOW.md`](../decks/WHAT_WE_SHOW.md)
