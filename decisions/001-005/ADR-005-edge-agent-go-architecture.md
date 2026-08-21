@@ -4,7 +4,7 @@
 | --- | --- |
 | **Status** | Accepted |
 | **Date** | 2026-07-09 |
-| **Related** | [ADR-001](ADR-001-l1-repo-split-and-boundaries.md) · [ADR-002](ADR-002-build-all-aws-networking.md) · [ADR-003](ADR-003-connectors-edge-monorepo.md) · [ADR-004](ADR-004-compliance-driven-architecture.md) |
+| **Related** | [ADR-001](ADR-001-l1-repo-split-and-boundaries.md) · [ADR-002](ADR-002-build-all-aws-networking.md) · [ADR-003](ADR-003-connectors-edge-monorepo.md) · [ADR-004](ADR-004-compliance-driven-architecture.md) · [ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md) |
 
 ---
 
@@ -38,6 +38,8 @@ Single Go process: `connectors` → `mapping` → `pipeline` (normaliser + quali
 
 Image flavours: `stamped-edge:p0` (modbus, mqtt, sparkplug, filewatch), `:p1` (+opcua, dlms), `:full`.
 
+**Write flavour (future, ADR-029):** optional command-tag writer behind allowlist OTA + feature flag / `:p1-write` — not part of P0. Mapping for writes is a separate signed allowlist snapshot (not the read-only `MappingConfig` used for ingest). Cloud never opens inbound PLC ports; edge pulls signed ActionIntent dispatches.
+
 ---
 
 ## Consequences
@@ -45,6 +47,7 @@ Image flavours: `stamped-edge:p0` (modbus, mqtt, sparkplug, filewatch), `:p1` (+
 - JSON Schemas in `external/contracts/schemas/` are source of truth for Go types.
 - tag-mapping-api publishes mapping snapshots; edge never runs LLM/template match.
 - Cloud ingest repo subscribes to same MQTT topics (deferred).
+- ActionIntent / capability schemas bind L5↔edge when writeback is enabled ([ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md)).
 
 ---
 

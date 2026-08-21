@@ -276,11 +276,13 @@ Edge stores **only the active `MappingConfig` snapshot** locally; cloud holds hi
 - L2 ingest consumers **must** treat MQTT payloads as at-least-once; dedupe keys `(plant_id, source_tag, ts_utc, granularity)` per L1 spec.
 - L2 should expose **asset graph API** for tag-mapping UI to pick canonical `asset_id`s when live. Until then: `stamped.local/*` per [ADR-003](ADR-003-connectors-edge-monorepo.md).
 - Bill `BillLine` with `validated=false` must be quarantined in L2 — never feed M&V.
+- **Opt-in write path ([ADR-029](../028-032/ADR-029-human-guided-ot-command-path.md)):** edge may gain a **write plugin flavour** (command-tag allowlist OTA, ACK uplink). L5 owns ActionIntent; L1 never accepts arbitrary register writes from cloud. Default images stay ingest-only until Wave C site enablement.
 
 ---
 
 ## References
 
-- [L1 — Connect & normalise](../../technical/layers/l1-l2/L1-connect-and-normalise.md) §4.1, §4.4–4.6
+- [L1 — Connect & normalise](../../technical/layers/l1-l2/L1-connect-and-normalise.md) §4.1, §4.4–4.6, §5.4
 - [Technical architecture](../../technical/STAMPED_ARCHITECTURE.md) §5, §7, §16.2
 - [Production engineering](../../technical/cross-cutting/03-production-engineering.md)
+- [ADR-029 — Human-guided OT command path](../028-032/ADR-029-human-guided-ot-command-path.md)

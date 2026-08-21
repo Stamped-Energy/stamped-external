@@ -362,7 +362,34 @@ Interpolation policy: L1 **never fills gaps**. Gap-filling is an L2/L3 concern w
 5. Lineage complete: every emitted record resolves to `connector_id` + profile version.
 6. Resource envelope: CPU/RAM/disk on reference edge hardware within budget.
 7. Runbook written: onboarding steps, failure modes, rollback.
-8. Security review: read-only credentials confirmed, no inbound listener, TLS pinned.
+8. Security review: read-only credentials confirmed **for ingest**; write flavour (if enabled) uses separate allowlisted command mapping, no inbound listener, TLS pinned.
+
+### 5.4 Opt-in command-tag write path (ADR-029) `[!]`
+
+**Default remains ingest-only.** Human-guided desk execution is **Wave C / site opt-in**. L1 does not expose cloud→PLC inbound sockets.
+
+#### Architecture (Approach A)
+
+```text
+L5 ActionIntent (signed) → edge command worker
+  → map command_id → OPC UA / Modbus command tags (allowlist OTA)
+  → plant PLC / vendor remote API validates remote mode + interlocks
+  → ACK (+ optional readback) → L5
+```
+
+| Rule | Detail |
+| --- | --- |
+| What we write | Semantic commands only (`STOP_IDLE_AUX`, `SET_TEMPERATURE`, …) |
+| What we never write | Arbitrary register addresses from cloud; safety / e-stop circuits; Approach B direct drive I/O in v1 |
+| Allowlist | Signed OTA snapshot: `plant_id`, `asset_id`, `command_id`, protocol node/coil, ranges, windows, `allowlist_version` |
+| Offline | Refuse **new** dispatches when uplink/allowlist invalid; do not invent local autonomous control |
+| ACK | Edge returns success/fail + timestamp; L5 owns verify-on-telemetry |
+| Flavour | Future image tag e.g. `stamped-edge:p1-write` or feature flag inside `:p1`/`:full` — **not** baked into P0 read path |
+| Drivers | Prefer OPC UA write to plant command IF; Modbus write only for sites that expose dedicated CMD coils; buy Kepware/Neuron for exotic southbound — never implement Profinet/EtherNet-IP wire protocols |
+
+Beachhead commands: idle aux stop, approved setpoint, schedule release. CNC cycle start / FANUC FOCAS write is **out** until a site exposes a safe vendor remote API and passes the [OT site checklist](../../../handoff/holistic/ot-write-site-checklist.md).
+
+See [ADR-029](../../../decisions/028-032/ADR-029-human-guided-ot-command-path.md) · [ADR-001](../../../decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) · [ADR-005](../../../decisions/001-005/ADR-005-edge-agent-go-architecture.md).
 
 ---
 
