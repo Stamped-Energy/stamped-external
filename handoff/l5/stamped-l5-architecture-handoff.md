@@ -21,9 +21,10 @@
 | **Ops-clearance verification** | Bill/IPMVP gate (deferred) |
 | Calculated potential + ops_confirmed realised ledger | Claiming “verified on DISCOM bill” |
 | WhatsApp-first notification | Plant dashboard UI (L6) |
-| Opportunity-cost job (`modeled`) | OT / SCADA writes |
+| Opportunity-cost job (`modeled`) | Silent / autonomous OT writes (opt-in ActionIntent only — [ADR-029](../../decisions/028-032/ADR-029-human-guided-ot-command-path.md)) |
 | **Internal Console** (all Rx + gate + force send/stop) | Customer-facing Forge |
 | Weekly Improve + ML promote (human-gated) | Auto-promote |
+| **ActionIntent** authz + dispatch + verify ([action-intent handoff](./stamped-l5-action-intent.md)) | Protocol adapters / direct OPC from L5 |
 
 ### Positioning alignment
 
@@ -110,5 +111,6 @@ stamped-l5/
 | Doc | Use |
 | --- | --- |
 | [stamped-l5-build-plan.md](./stamped-l5-build-plan.md) | Commit matrix |
+| [stamped-l5-action-intent.md](./stamped-l5-action-intent.md) | Human-guided OT command path |
 | [stamped-l3-ops-clearance-consumer-prompt.md](./stamped-l3-ops-clearance-consumer-prompt.md) | Paste into L3 agents |
 | [L5 SSOT](../../technical/layers/l4-l6/L5-closure-and-verification.md) | Full architecture |

@@ -339,7 +339,7 @@ IPMVP Option C/A/B, bill decomposition, G14 gates remain **future work**. They d
 | Webhook auth | Meta signature verification mandatory |
 | PII | Staff phones — DPIA; minimize in logs (hash/last-4) |
 | Injection | Button ID allowlist; free-text quarantine |
-| OT | No SCADA write path |
+| OT | **No silent or autonomous SCADA write.** Opt-in human-approved `ActionIntent` only ([ADR-029](../../../decisions/028-032/ADR-029-human-guided-ot-command-path.md)); L5 never opens OPC/Modbus — edge executes allowlisted command tags |
 
 ### 9.2 SLOs (L5-authoritative)
 
@@ -471,7 +471,49 @@ L5 scores each L4 Prescription against the plant gate profile ([`plant-admin-set
 
 ---
 
-## 16. Research appendix (condensed)
+## 16. Human-guided ActionIntent (ADR-029)
+
+L5 owns the **control policy** for desk-side execution when a plant opts in. Default remains assign-only (WhatsApp / L6 owner). Writeback is site-scoped Wave C.
+
+### 16.1 Lifecycle
+
+| Status | Meaning |
+| --- | --- |
+| `pending_approval` | Created from Rx; awaiting named role |
+| `queued` | Approved; waiting edge dispatch |
+| `dispatched` | Signed intent sent to edge |
+| `acked` | Edge/PLC ACK received |
+| `verified` | Ops-clearance / post-write telemetry matches intent |
+| `failed` | Edge/PLC reject or timeout |
+| `rejected` | Human or policy denied |
+
+Forbidden API shape: raw register write (`address` + `value`). Only semantic `command` + validated `params` against plant capability catalog.
+
+### 16.2 Authz and audit
+
+- Approver must match plant role policy (same class as high-urgency Rx ack, or stricter writeback role).
+- Every transition appends a workflow/audit event: who, when, command, asset, allowlist version, edge dispatch id.
+- WhatsApp may offer **Approve** for low-risk allowlisted commands; high-risk commands require L6 desk confirmation (plant policy).
+
+### 16.3 Dispatch and verify
+
+1. L5 validates capability + allowlist + remote-mode prerequisite flag from plant config.  
+2. Signs and queues dispatch to L1 edge (outbound path only).  
+3. On ACK → poll L2 measurements / ops_clearance predicates for the linked Finding.  
+4. On failure → leave Rx in acted/failed path; never silent retry that could double-actuate without human re-approve.
+
+### 16.4 What L5 does not own
+
+- Protocol adapters (L1 edge)  
+- Direct OT from L6 BFF  
+- E-stop / safety circuit authority  
+- Autonomous execute-within-limits (future ADR)
+
+Handoff: [stamped-l5-action-intent.md](../../../handoff/l5/stamped-l5-action-intent.md).
+
+---
+
+## 17. Research appendix (condensed)
 
 Prior WhatsApp / IPMVP / bill research remains background for the **deferred** bill path. Ops-first verification and EMS alarms supersede bill-as-gate language from earlier drafts.
 
