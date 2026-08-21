@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org-demo",
+  "plant_id": "plant-demo",
+  "asset_id": "asset.compressor.aux-1",
+  "writeback_enabled": true,
+  "requires_remote_mode": true,
+  "allowlist_version": "2026.08.21.1",
+  "commands": [
+    {
+      "command": "STOP_IDLE_AUX",
+      "enabled": true,
+      "protocol": "opcua",
+      "target_ref": "ns=2;s=CMD_STOP_IDLE_AUX"
+    },
+    {
+      "command": "SET_TEMPERATURE",
+      "enabled": false,
+      "protocol": "opcua",
+      "range": { "min": 700, "max": 950, "unit": "C" },
+      "target_ref": "ns=2;s=CMD_SET_TEMPERATURE"
+    }
+  ],
+  "notes": "Beachhead: idle aux only until furnace remote IF commissioned"
+}

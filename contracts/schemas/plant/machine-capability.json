@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/machine-capability.v1.json",
+  "title": "MachineCapability",
+  "description": "Plant opt-in writeback capability catalog + allowlist sketch (ADR-029). Declares which semantic commands an asset supports and mapping hints for L1 edge.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "asset_id",
+    "writeback_enabled",
+    "commands",
+    "allowlist_version"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "asset_id": { "type": "string", "minLength": 1 },
+    "writeback_enabled": {
+      "type": "boolean",
+      "description": "Master switch — false means L6 must hide Execute / fall back to assign-only"
+    },
+    "requires_remote_mode": {
+      "type": "boolean",
+      "default": true
+    },
+    "allowlist_version": { "type": "string", "minLength": 1 },
+    "commands": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "enabled"],
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "enabled": { "type": "boolean" },
+          "param_schema": {
+            "type": "object",
+            "description": "Optional JSON-schema-like constraints for params",
+            "additionalProperties": true
+          },
+          "range": {
+            "type": "object",
+            "properties": {
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "unit": { "type": "string" }
+            },
+            "additionalProperties": false
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["opcua", "modbus", "vendor_api", "other"]
+          },
+          "target_ref": {
+            "type": "string",
+            "description": "OPC node id, Modbus coil/register map key, or vendor API path — plant-local, never free cloud address"
+          },
+          "windows": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional allowed time windows / shift codes"
+          }
+        }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

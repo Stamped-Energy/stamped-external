@@ -4,6 +4,7 @@
 
 ### Added
 
+- Contracts **0.13.0** (ADR-029): `action-intent`, `machine-capability` — human-guided OT command path (Wave C opt-in)
 - Contracts **0.12.0** (ADR-028): `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`
 - `prescription.provenance`: optional `compile_trace_id`, `otel_trace_id`; `lane` enum adds `quality`
 

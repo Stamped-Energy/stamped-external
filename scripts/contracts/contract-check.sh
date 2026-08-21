@@ -84,6 +84,8 @@ pairs = {
     "plant_live_index.valid.json": "plant-live-index.json",
     "shift_roster.valid.json": "shift-roster.json",
     "l4_compile_trace.valid.json": "l4-compile-trace.json",
+    "action_intent.valid.json": "action-intent.json",
+    "machine_capability.valid.json": "machine-capability.json",
 }
 for fixture, schema_name in pairs.items():
     fp, sp = fixture_by_name.get(fixture), schema_by_name.get(schema_name)
