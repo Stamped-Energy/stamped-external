@@ -2,7 +2,7 @@
 
 Internal. Locked shape for the **LNM demo → one-factory pilot** (not the full 12-service compose farm).
 
-**Related:** [`lnm-runbook-24aug-7sep.md`](./lnm-runbook-24aug-7sep.md) · [`lnm-plant-ee-me-sw.md`](./lnm-plant-ee-me-sw.md) · reusable cost note [`../handoff/deployment/cost-effective-aws-pilot.md`](../handoff/deployment/cost-effective-aws-pilot.md)
+**Related:** [`lnm-runbook-26aug-9sep.md`](./lnm-runbook-26aug-9sep.md) · [`lnm-plant-ee-me-sw.md`](./lnm-plant-ee-me-sw.md) · reusable cost note [`../handoff/deployment/cost-effective-aws-pilot.md`](../handoff/deployment/cost-effective-aws-pilot.md)
 
 **Mode:** `STAMPED_DEPLOYMENT_MODE=cloud`  
 **Plant:** one Faridabad factory (pick on walk). Jaipur / other two sheds = later.
@@ -57,7 +57,7 @@ Do **not** stand up separate containers for Modbus, OPC UA, REST, filewatch, ing
 
 ## 2. Why this is enough for demo + pilot
 
-| Need by 25–26 | How this topology covers it |
+| Need by 27 / 29 | How this topology covers it |
 |---------------|------------------------------|
 | EMS-class monitoring | Edge → pilot-core → Vercel reads L2 query API |
 | 5–10 FANUC machines | Drivers inside edge; northbound only (no FOCAS) |

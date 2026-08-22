@@ -4,7 +4,7 @@ Internal study pack. Labels: **public** · **field** · **inferred** · **illust
 
 **Site:** 228-D, HSIIDC Industrial Estate, Sector 59, Ballabgarh, Faridabad 121004  
 **Leave-behind:** [`demo-decks/clients/lnm-auto-faridabad-technical/`](../demo-decks/clients/lnm-auto-faridabad-technical/)  
-**Runbook:** [`lnm-runbook-24aug-7sep.md`](./lnm-runbook-24aug-7sep.md)
+**Runbook:** [`lnm-runbook-26aug-9sep.md`](./lnm-runbook-26aug-9sep.md)
 
 ---
 
@@ -58,7 +58,7 @@ flowchart LR
 
 | Do | Do not |
 |----|--------|
-| Pick **one** factory as Factory 1 on 24 Aug | Assume equal kWh split across three sheds |
+| Pick **one** factory as Factory 1 on 26 Aug | Assume equal kWh split across three sheds |
 | Ask: one DHBVN consumer or three? One CD or three? Shared compressed air? | Roll all three in week 1 |
 | Treat Factory 1 as a full plant (incomer + process) | Start with a 2-machine toy cell and call it a pilot |
 
@@ -78,7 +78,7 @@ First Stamped line = **one factory**. The other two = expansion after this one w
 
 ## 4. Equipment map (public + walk priority)
 
-Nameplates on 24 Aug override this table.
+Nameplates on 26 Aug override this table.
 
 | Island | Published kit | How it uses power | What we can connect | What we must never prescribe |
 |--------|---------------|-------------------|---------------------|------------------------------|
@@ -100,7 +100,7 @@ Nameplates on 24 Aug override this table.
 
 ### Dual value (this account)
 
-1. **Energy monitoring they do not have** — live incomer, demand, PF, ToD, machine / feeder overlay. This is the **25–26 “it works”** moment.  
+1. **Energy monitoring they do not have** — live incomer, demand, PF, ToD, machine / feeder overlay. This is the **27 / 29 “it works”** moment.  
 2. **Prescriptions + history insights** — what to do now, what they missed last month, verified against the bill. This is why we are not a cheap logger.
 
 Do not sell (1) without (2) or they price us as an EMS. Do not sell (2) without (1) or electrical says they still cannot see the plant.
@@ -109,7 +109,7 @@ Do not sell (1) without (2) or they price us as an EMS. Do not sell (2) without 
 
 ### Buyer map
 
-| Who | Incentive | Want by 26 Aug | What wins a contract |
+| Who | Incentive | Want by 29 Aug | What wins a contract |
 |-----|-----------|----------------|----------------------|
 | MD / family | ₹22L/mo power; export quotes; professionalising ops | One screen: factory kW, month vs bill, idle money | Named ₹ movement they can defend, without OT risk |
 | Plant / production | Dispatch, OEE, IATF | Monitoring that does not fight FANUC or the schedule | Rx that respect heat / charge / export windows |
@@ -253,4 +253,4 @@ Edge on **their PC** + Stamped AWS `ap-south-1` (`cloud` profile). See [`handoff
 
 ---
 
-*Update after 24 Aug walk: factory 1 name, consumer IDs, collector type, incomer make/model, CD, ToD slots from bill.*
+*Update after 26 Aug walk: factory 1 name, consumer IDs, collector type, incomer make/model, CD, ToD slots from bill.*

@@ -1,11 +1,11 @@
 # Pilot research — LNM Auto Faridabad
 
-Internal war-room pack for the **24 Aug 2026** visit and the path to a one-factory pilot by **6–7 Sep**. Not customer-facing. Do not paste into decks or WhatsApp without rewriting through [`copy/`](../copy/).
+Internal war-room pack for the **26 Aug 2026** visit and the path to a one-factory pilot by **8–9 Sep**. Not customer-facing. Do not paste into decks or WhatsApp without rewriting through [`copy/`](../copy/).
 
 ## Reading order
 
 1. **[lnm-plant-ee-me-sw.md](./lnm-plant-ee-me-sw.md)** — how LNM works, equipment, incentives, EE / ME / SW cheat sheets  
-2. **[lnm-runbook-24aug-7sep.md](./lnm-runbook-24aug-7sep.md)** — day-by-day runbook, EMS-class demo on 25–26, history insights, go/no-go  
+2. **[lnm-runbook-26aug-9sep.md](./lnm-runbook-26aug-9sep.md)** — day-by-day runbook, EMS-class demo on 27 / 29, history insights, go/no-go  
 3. **[lnm-pilot-deployment.md](./lnm-pilot-deployment.md)** — **LNM locked runtime:** 2 containers + Lambda + Vercel  
 4. **[../handoff/deployment/cost-effective-aws-pilot.md](../handoff/deployment/cost-effective-aws-pilot.md)** — reusable cost envelope (not LNM-only)
 
@@ -24,7 +24,7 @@ Internal war-room pack for the **24 Aug 2026** visit and the path to a one-facto
 |------|--------|
 | Campus | Faridabad Sector 59 — three factories beside one another |
 | Bill scale | ~₹22 lakh/month **combined** (field) — confirm on DHBVN bills |
-| First line | **One** factory — pick on 24 Aug walk |
+| First line | **One** factory — pick on 26 Aug walk |
 | Out of scope | Jaipur; all three factories in week 1; direct FOCAS; second collector fighting theirs |
 
 ## Product tension (keep honest)
@@ -49,3 +49,4 @@ MD line: *You do not have a working energy picture today. We put that on the scr
 |------|--------|
 | 2026-08-21 | Initial pack for LNM Faridabad demo → pilot |
 | 2026-08-22 | Added `lnm-pilot-deployment.md` (2 containers + Lambda + Vercel) |
+| 2026-08-22 | Visit slipped to **Wed 26 Aug** (+2d); runbook renamed `lnm-runbook-26aug-9sep.md`; pilot live **8–9 Sep**. Raksha Bandhan stays 28. |

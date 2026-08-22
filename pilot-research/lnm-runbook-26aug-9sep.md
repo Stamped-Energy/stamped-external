@@ -1,8 +1,10 @@
-# LNM Faridabad — runbook 24 Aug → 7 Sep 2026
+# LNM Faridabad — runbook 26 Aug → 9 Sep 2026
 
 Internal. Pair with [`lnm-plant-ee-me-sw.md`](./lnm-plant-ee-me-sw.md) and [`../handoff/deployment/cost-effective-aws-pilot.md`](../handoff/deployment/cost-effective-aws-pilot.md).
 
-**Goal:** Win the demo (EMS-class monitoring + prescriptions + history path), soak, then land a **one-factory** pilot live by **6–7 Sep** and a commercial next step the same week.
+**Slip:** Call moved the site visit from Mon 24 to **Wed 26 Aug** (+2 calendar days). Raksha Bandhan stays **Fri 28** (holiday does not move), so demo days are **Thu 27 and Sat 29**, not 27–28.
+
+**Goal:** Win the demo (EMS-class monitoring + prescriptions + history path), soak, then land a **one-factory** pilot live by **8–9 Sep** and a commercial next step the same week.
 
 **Leave-behind URL (when published):** LNM technical brief under decks-stamped / local [`demo-decks/clients/lnm-auto-faridabad-technical/`](../demo-decks/clients/lnm-auto-faridabad-technical/).
 
@@ -16,33 +18,36 @@ gantt
   dateFormat YYYY-MM-DD
   axisFormat %d %b
   section Prep
-  War_room_docs               :2026-08-21, 2d
+  War_room_docs               :2026-08-22, 4d
   section Demo
-  MD_walk_pick_factory        :2026-08-24, 1d
-  EMS_plus_Rx_five_to_ten     :2026-08-25, 2d
+  MD_walk_pick_factory        :2026-08-26, 1d
+  EMS_plus_Rx_day1            :2026-08-27, 1d
   Raksha_Bandhan              :2026-08-28, 1d
-  Soak_and_history            :2026-08-29, 4d
+  EMS_plus_Rx_day2            :2026-08-29, 1d
+  Soak_no_expand              :2026-08-30, 1d
+  Soak_and_history            :2026-08-31, 4d
   section Pilot
-  Go_no_go                    :2026-09-02, 1d
-  One_factory_expand          :2026-09-02, 5d
-  Pilot_live_target           :2026-09-07, 1d
+  Go_no_go                    :2026-09-04, 1d
+  One_factory_expand          :2026-09-04, 5d
+  Pilot_live_target           :2026-09-09, 1d
 ```
 
 | Date | Job | Done when |
 |------|-----|-----------|
-| 22–23 Aug | Study plant doc + this runbook; pack kit | You can talk process, MD, FANUC, EMS gap without notes |
-| **Mon 24** | MD + walk all three sheds enough to **pick Factory 1**; start connect | Factory 1 named; incomer path; first tag or CSV; bills requested |
-| **25–26** | **Show energy monitoring** + ≥1 prescription | Electrical nods at EMS-class screen; MD sees a ₹-labelled action |
-| 27 | Soak; optional history batch | Overnight uplink healthy |
+| 22–25 Aug | Study plant doc + this runbook; pack kit | You can talk process, MD, FANUC, EMS gap without notes |
+| **Wed 26** | MD + walk all three sheds enough to **pick Factory 1**; start connect | Factory 1 named; incomer path; first tag or CSV; bills requested |
+| **27** | **Show energy monitoring** + ≥1 prescription (demo day 1) | Electrical nods at EMS-class screen; MD sees a ₹-labelled action |
 | **28** | Raksha Bandhan — remote only | Agent still up |
-| 29 Aug–1 Sep | Soak + history pack + gated Rx | Idle finding vs incomer; one-pager if history exists |
-| **2 Sep** | Go / no-go for rest of **that factory** | Written yes from MD or plant head |
-| 2–6 Sep | Expand Factory 1 (more DC machines, compressor, one HT/forge feeder) | Wave A smoke path |
-| **6–7 Sep** | Pilot live; commercial same week | Named next step. Other two factories = expansion |
+| **29** | **Show energy monitoring** + ≥1 prescription (demo day 2) | Same bar as 27; fold into soak if MD is not on site Saturday |
+| 30 | Soak; optional history batch | Overnight uplink healthy |
+| 31 Aug–3 Sep | Soak + history pack + gated Rx | Idle finding vs incomer; one-pager if history exists |
+| **4 Sep** | Go / no-go for rest of **that factory** | Written yes from MD or plant head |
+| 4–8 Sep | Expand Factory 1 (more DC machines, compressor, one HT/forge feeder) | Wave A smoke path |
+| **8–9 Sep** | Pilot live; commercial same week | Named next step. Other two factories = expansion |
 
 ---
 
-## 1. Prep (22–23 Aug)
+## 1. Prep (22–25 Aug)
 
 ### Study
 
@@ -70,7 +75,7 @@ gantt
 
 ---
 
-## 2. Monday 24 Aug — MD + walk + first connect
+## 2. Wednesday 26 Aug — MD + walk + first connect
 
 ### 2.1 MD room (30–45 min)
 
@@ -103,7 +108,7 @@ Walk with electrical + CNC / maintenance if possible.
 | One HT / forge | Feeder meter? Schedule board? |
 | Candidate PC | Always-on, LAN, outbound HTTPS |
 
-**Decision before you leave for install:** name **Factory 1**. Prefer the shed where (a) incomer is reachable and (b) 5–10 FANUC machines are already on the DC. If those conflict, favour incomer + bills first — monitoring is the 25–26 proof.
+**Decision before you leave for install:** name **Factory 1**. Prefer the shed where (a) incomer is reachable and (b) 5–10 FANUC machines are already on the DC. If those conflict, favour incomer + bills first — monitoring is the 27 / 29 proof.
 
 ### 2.3 First connect (same day)
 
@@ -134,9 +139,11 @@ Priority order if time is short:
 
 ---
 
-## 3. Tuesday–Wednesday 25–26 Aug — EMS-class demo + prescriptions
+## 3. Thursday 27 and Saturday 29 Aug — EMS-class demo + prescriptions
 
-This is the core demo window. **Show monitoring even if Rx is still staff-gated.**
+This is the core demo window. **Show monitoring even if Rx is still staff-gated.** Friday 28 is Raksha Bandhan — see §5; do not treat it as a demo day.
+
+**Thu 27 is the must-win day** (MD + electrical likely on site). Sat 29 is demo day 2 if the plant is running and decision-makers are in; otherwise fold 29 into soak and do not wait for a second MD showing.
 
 ### 3.A Generic EMS layer (must work)
 
@@ -176,7 +183,7 @@ What a generic EMS would show — they do not have this today:
 - If FANUC history: idle hours × conservative kW assumption — label **proxy**  
 - “If you had staggered X vs Y on these dates…” as **retrospective hypotheses**, not savings claims  
 
-If history is thin by 26th: show the **method** on one bill + one live idle day; finish the one-pager during 29 Aug–1 Sep.
+If history is thin by 29th: show the **method** on one bill + one live idle day; finish the one-pager during 31 Aug–3 Sep.
 
 ### 3.D Demo-day script (suggested)
 
@@ -184,11 +191,11 @@ If history is thin by 26th: show the **method** on one bill + one live idle day;
 2. Overlay 5–10 machines — “FANUC state on the same timeline as kW.”  
 3. Flip one idle Rx — “this is what we add: owner, window, rupees.”  
 4. If history: one slide “last quarter hypotheses.”  
-5. Close: soak through 1 Sep → go/no-go 2 Sep → Factory 1 pilot 6–7 Sep.
+5. Close: soak through 3 Sep → go/no-go 4 Sep → Factory 1 pilot 8–9 Sep.
 
 ---
 
-## 4. 27 Aug — soak, do not expand
+## 4. 30 Aug — soak, do not expand
 
 - Let Factory 1 run. Do **not** add islands.  
 - Confirm overnight SQLite buffer / MQTT uplink.  
@@ -200,11 +207,12 @@ If history is thin by 26th: show the **method** on one bill + one live idle day;
 
 - Holiday. **Do not** schedule IT or OT.  
 - Remote health check only.  
-- Soak calendar is **29 Aug–1 Sep**, not 26–1 Sep.
+- Falls **between** demo days 27 and 29. Agent installed on 26 must stay up through the holiday.  
+- Soak calendar is **31 Aug–3 Sep**, not 29–3 Sep.
 
 ---
 
-## 6. 29 Aug – 1 Sep — soak + history pack
+## 6. 31 Aug – 3 Sep — soak + history pack
 
 | Work | Done when |
 |------|-----------|
@@ -218,7 +226,7 @@ Align with Wave A checklist: [`handoff/holistic/stamped-holistic-pilot-stack.md`
 
 ---
 
-## 7. Tuesday 2 Sep — go / no-go
+## 7. Friday 4 Sep — go / no-go
 
 **Expand only the rest of Factory 1** (not Jaipur, not all three unless they insist in writing).
 
@@ -233,7 +241,7 @@ Align with Wave A checklist: [`handoff/holistic/stamped-holistic-pilot-stack.md`
 
 ---
 
-## 8. 2–6 Sep — Factory 1 expand (pilot)
+## 8. 4–8 Sep — Factory 1 expand (pilot)
 
 | Priority | Scope |
 |----------|--------|
@@ -248,7 +256,7 @@ Smoke path (Wave A): L1 envelopes → L2 → L3 idle / compressor or MD finding 
 
 ---
 
-## 9. 6–7 Sep — pilot live + commercial
+## 9. 8–9 Sep — pilot live + commercial
 
 | Outcome | Ask |
 |---------|-----|
@@ -265,7 +273,8 @@ Do not quote sample leave-behind ₹ as LNM’s money. Lock M&V language before 
 | Risk | Mitigation |
 |------|------------|
 | Entire-factory in 4–5 days only if CNCs already on DC | Dark machines = **their** networking job |
-| 28 Aug eats a day | Plan soak 29–1 Sep |
+| 28 Aug sits between demo days | Agent up from 26; no IT/OT on 28; Thu 27 is the must-win showing |
+| Sat 29 MD may not be on site | Do not bank the ₹ card on Saturday; win it on 27 |
 | No incomer = no contract-grade Verify | Never skip meter because CNC was easy |
 | They price us as EMS | Always pair monitoring with ≥1 Rx + bill story |
 | Second FOCAS offered by a helpful CNC guy | Refuse politely; consume their collector |
