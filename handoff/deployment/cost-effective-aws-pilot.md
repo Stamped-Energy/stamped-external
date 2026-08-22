@@ -103,7 +103,8 @@ Cellular 4G gateway remains Path B default when plant LAN is refused ([ADR-002](
 | FANUC DC partially populated | Edge reads northbound; no FOCAS |
 | Existing PCs on site | Default: agent on their PC + this AWS profile |
 
-Account-specific narrative: [`pilot-research/`](../../pilot-research/).
+Account-specific narrative: [`pilot-research/`](../../pilot-research/).  
+**LNM locked runtime (2 containers + Lambda + Vercel):** [`pilot-research/lnm-pilot-deployment.md`](../../pilot-research/lnm-pilot-deployment.md).
 
 ---
 

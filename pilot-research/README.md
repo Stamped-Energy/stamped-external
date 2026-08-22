@@ -6,7 +6,8 @@ Internal war-room pack for the **24 Aug 2026** visit and the path to a one-facto
 
 1. **[lnm-plant-ee-me-sw.md](./lnm-plant-ee-me-sw.md)** — how LNM works, equipment, incentives, EE / ME / SW cheat sheets  
 2. **[lnm-runbook-24aug-7sep.md](./lnm-runbook-24aug-7sep.md)** — day-by-day runbook, EMS-class demo on 25–26, history insights, go/no-go  
-3. **[../handoff/deployment/cost-effective-aws-pilot.md](../handoff/deployment/cost-effective-aws-pilot.md)** — plant-PC edge + cheap AWS (reusable; not LNM-only)
+3. **[lnm-pilot-deployment.md](./lnm-pilot-deployment.md)** — **LNM locked runtime:** 2 containers + Lambda + Vercel  
+4. **[../handoff/deployment/cost-effective-aws-pilot.md](../handoff/deployment/cost-effective-aws-pilot.md)** — reusable cost envelope (not LNM-only)
 
 ## Honesty labels
 
@@ -47,3 +48,4 @@ MD line: *You do not have a working energy picture today. We put that on the scr
 | Date | Change |
 |------|--------|
 | 2026-08-21 | Initial pack for LNM Faridabad demo → pilot |
+| 2026-08-22 | Added `lnm-pilot-deployment.md` (2 containers + Lambda + Vercel) |
