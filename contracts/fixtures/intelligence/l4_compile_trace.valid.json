@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "compile_trace_id": "ctr-2026-08-18-comp2-01",
   "prescription_id": "rx-2026-08-18-comp2",
   "org_id": "org_acme",
@@ -9,10 +9,14 @@
   "otel_trace_id": "00-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-bbbbbbbbbbbbbbbb-01",
   "generation_calls": 4,
   "max_generation_calls": 12,
+  "corpus_expansions": 0,
+  "path_h_expansions": 0,
   "terminal": { "status": "emit" },
   "owner_resolution": "role_only",
   "bind": { "asset_id": "COMP2", "status": "ok" },
   "snapshots": {
+    "plant_knowledge_graph_updated_at": "2026-08-18T06:00:00Z",
+    "plant_live_index_as_of": "2026-08-18T09:15:00Z",
     "graph_a_updated_at": "2026-08-18T06:00:00Z",
     "graph_b_as_of": "2026-08-18T09:15:00Z",
     "order_ids": ["447"]
@@ -56,7 +60,9 @@
     }
   ],
   "retrieval_run": {
+    "playbook_chunk_ids": ["playbook-comp-sp-drift-v1#s3"],
     "path_h_chunk_ids": ["playbook-comp-sp-drift-v1#s3"],
+    "neighborhood_hops": 2,
     "path_g_hops": 2,
     "filters": { "vertical": "generic", "asset_class": "screw_compressor", "waste_category": 3 },
     "trust_tiers": ["T1"]
@@ -64,6 +70,9 @@
   "compile_loop": [
     { "step": "bind", "status": "ok" },
     { "step": "freshness", "status": "ok" },
+    { "step": "neighborhood", "status": "ok" },
+    { "step": "delta_facts", "status": "ok" },
+    { "step": "playbook_corpus", "status": "ok" },
     { "step": "draft", "status": "ok" },
     { "step": "verify", "status": "ok" },
     { "step": "veto", "status": "ok" },
