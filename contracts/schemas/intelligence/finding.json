@@ -238,6 +238,20 @@
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$",
       "description": "Stable key from category + assets + window per L3 spec"
+    },
+    "md_episode_id": {
+      "type": "string",
+      "description": "Shared MD / demand-charge episode id (non-additive ₹)"
+    },
+    "md_episode": {
+      "type": "object",
+      "description": "Embedded MdEpisode summary for L4/L5/L6 (see md_episode.json)"
+    },
+    "allocation_share": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Share of episode_inr_cap owned by this finding (sum ≤ 1)"
     }
   },
   "additionalProperties": false

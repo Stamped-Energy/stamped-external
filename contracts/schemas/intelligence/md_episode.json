@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/md_episode.v1.json",
+  "title": "MdEpisode",
+  "description": "Non-additive MD / demand-charge episode. Plant rollup uses episode_inr_cap once; member Rx carry allocation shares that sum to ≤ 1.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "md_episode_id",
+    "org_id",
+    "plant_id",
+    "peak_kva",
+    "cmd_kva",
+    "md_rate_inr_per_kva",
+    "episode_inr_cap",
+    "period_start",
+    "period_end"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "md_episode_id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "incomer_asset_id": { "type": "string" },
+    "peak_kva": { "type": "number", "minimum": 0 },
+    "cmd_kva": { "type": "number", "minimum": 0 },
+    "md_rate_inr_per_kva": { "type": "number", "minimum": 0 },
+    "episode_inr_cap": {
+      "type": "number",
+      "minimum": 0,
+      "description": "max(0, peak_kva − cmd_kva) × md_rate — plant bill-line ceiling for this period"
+    },
+    "period_start": { "type": "string", "format": "date-time" },
+    "period_end": { "type": "string", "format": "date-time" },
+    "member_finding_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "weight"],
+        "properties": {
+          "finding_id": { "type": "string" },
+          "weight": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "clearance_status": {
+      "type": "string",
+      "enum": ["pending", "ops_confirmed", "failed", "incomplete_members"]
+    }
+  },
+  "additionalProperties": false
+}

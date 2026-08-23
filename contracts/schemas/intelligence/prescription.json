@@ -161,6 +161,19 @@
     "dedupe_key": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "md_episode_id": {
+      "type": "string",
+      "description": "Shared MD episode — plant rollup uses episode_inr_cap once"
+    },
+    "md_episode": {
+      "type": "object",
+      "description": "Embedded MdEpisode summary (see md_episode.json)"
+    },
+    "allocation_share": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
     }
   },
   "additionalProperties": false
