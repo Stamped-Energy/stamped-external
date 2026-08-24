@@ -29,6 +29,8 @@ status: Research brief — recommendation locked; ADR change requires separate a
 
 **Stamped expansion.** You *can* extend the stack toward production-efficiency prescriptions—but that is a **category change** (third hero outcome / near-MES), not an agent prompt. Current connect surface + contracts support **energy/equipment Rx with production co-benefits**, not cycle-time / scrap / OEE-loss-tree heroes. **Recommendation: do not add a third production pillar or `prod_*` decision class in this wave.** Deepen co-benefits + fix the EMS objection with clearer job-to-be-done language. Revisit only if pilots show energy buyers will not close unless production is the hero metric.
 
+**Founder lock (2026-08-24):** Keep this research on file. **Do not build production-efficiency Rx** unless a pilot explicitly demands it (kill criteria §6). Before chasing OEE/volume as an expansion, prefer studying **margin-scored operating decisions** (CVector-style) — see [Appendix D](#appendix-d--cvector-plant-margin-optimization).
+
 ---
 
 ## 2. India MES + AI penetration
@@ -321,12 +323,89 @@ Log answers against Level 0–2; do not promise Level 2.
 
 ## Appendix C — Decision gate (for founder)
 
-After reading this memo, choose one:
+| Choice | Meaning | Status |
+|--------|---------|--------|
+| **(a) Stop** | No product work; research stands | **Accepted 2026-08-24** — production Rx only if pilots demand |
+| **(b) Sales-only** | Update talk-tracks / battlecard into decks or WhatsApp scripts; no ADR | Optional later |
+| **(c) Later ADR** | Only if kill criteria in §6 are met | Deferred |
 
-| Choice | Meaning |
-|--------|---------|
-| **(a) Stop** | No product work; research stands |
-| **(b) Sales-only** | Update talk-tracks / battlecard into decks or WhatsApp scripts; no ADR |
-| **(c) Later ADR** | Only if kill criteria in §6 are met |
+**Author recommendation remains:** (a) now; (b) if sales needs the EMS landmines; (c) only after kill criteria. Prefer Appendix D (margin) over production-efficiency if expansion is revisited.
 
-**Author recommendation: (a) or (b).** Not (c) now.
+---
+
+## Appendix D — CVector Plant Margin Optimization
+
+*Primary: [Plant Margin Optimization](https://www.cvector.com/solutions/plant-margin-optimization) · [CVector home](https://www.cvector.com/) · [TechCrunch / $5M seed](https://techcrunch.com/2026/01/26/ai-startup-cvector-raises-5m-for-its-industrial-nervous-system/) · PR Newswire seed note. HQ NYC (not London) `[VERIFIED]` site/press; “London” may be a misremember — treat as US peer.*
+
+### What it is
+
+CVector’s **umbrella identity** is “AI-native **margin** optimization,” not OEE/MES. Product suite (public):
+
+| CVector solution | Rough Stamped analogue |
+|------------------|------------------------|
+| **Plant Margin Optimization** | Broader than any single Stamped pillar — **₹/$-scored ops decisions** using plant + **market** economics |
+| Industrial Energy Management | Pillar 1 (load / demand / ToU / storage) |
+| Asset Health Intelligence | Pillar 2 (dollar-ranked anomalies + operator feedback) |
+| Custom Model Integration | Bring-your-own techno-economic models |
+
+**PMO job (plain language):** Continuously combine plant telemetry, ERP/CMMS/inventory, and **external** signals (energy prices, feedstock/commodity prices, weather, demand) → run scenario/impact/risk → emit **dollar-ranked** recommendations (feed rate, dispatch, restart, storage charge, shift melt, pull maintenance forward) → human accept/reject/adjust with audit trail.
+
+Claimed outcome bands on their page `[~]` marketing: **3–7%** operating margin uplift, **10–15%** production cost savings, **3–8%** less off-spec, **12–15%** throughput, faster decision latency. Treat as brochure until independently verified.
+
+### Is this “production efficiency” / a third pillar?
+
+**No — different expansion axis.**
+
+| Axis | Production-efficiency Rx (this memo §§4–5) | CVector PMO |
+|------|--------------------------------------------|-------------|
+| Hero metric | Units, OEE, cycle/scrap | **Contribution margin $** |
+| Category risk | MES / plant OS fight | Overlaps **commercial ops + energy** — closer to Stamped’s decision layer |
+| Data needs | Cycle, downtime tree, yield | Feedstock/product prices, offtake, inventory, market/weather |
+| Example moves | Bottleneck, changeover, OEE loss | Reduce feed on price spike; shift EAF melt; charge storage; scrap-mix economics |
+
+PMO is closer to **expanding the scorecard from energy-₹ to margin-₹** (operational economics) than to building MES. CVector’s CEO framing: sit *between* plant operation and **how much money you make** ([TechCrunch](https://techcrunch.com/2026/01/26/ai-startup-cvector-raises-5m-for-its-industrial-nervous-system/)).
+
+For Stamped taxonomy:
+
+- **Not** ADR-026 “Pillar 3 = OEE/MES.”  
+- **Could** be framed as (i) hero-metric upgrade on Pillar 1 management Rx, or (ii) a future commercial SKU — still **one product**, richer economics — *if* India data exists.  
+- Overlaps ADR-024 trade-off block (`energy_benefit` + throughput risk) but CVector pushes **revenue/feedstock** into the same ranker Stamped keeps energy-first.
+
+### Fit for Indian ICP (LNM / JBM / ITC / Nestlé-class)
+
+| Factor | US/EU CVector beachhead | India Stamped beachhead |
+|--------|-------------------------|-------------------------|
+| Live power/gas markets | LMP, Henry Hub, DR/capacity stacks | Mostly **ToD / MD / HT bill** — weaker “spot margin” story |
+| Feedstock transparency | Commodity APIs + offtake | Often **opaque ERP costs**; spreads not live |
+| Best verticals they name | Chemicals/gases, dispatchable power, metals/foundries | Your wedge is energy-intensive manufacturing — **metals/foundries scrap+power** is the closest PMO fit |
+| What you already sell | Energy + asset health under margin brand | Energy + equipment under **verified ₹** brand |
+
+**Practical India read:** Full CVector-style PMO is a **heavier** lift than energy Rx (needs commercial/cost data plants often won’t share). A **thin** India version = rank some management Rx by **bill ₹ + avoided order penalty / scrap cost** when ERP gives unit economics — still not OEE-as-hero.
+
+### Should Stamped add PMO before production-efficiency?
+
+| Priority | Verdict |
+|----------|---------|
+| Build production-efficiency / OEE pillar now | **No** (locked) |
+| Build full Plant Margin Optimization now | **No** — market-price + feedstock stack not beachhead; dilutes India energy wedge |
+| Prefer PMO *direction* over OEE if expanding later | **Yes** — same category as “decision layer,” better peer (CVector), less MES collision |
+| Near-term learning only | Discovery: “Do you price shifts by **margin** (power + scrap + offtake) or by **units/OEE**?” If margin — note for later ADR; if OEE — still don’t build Level 2 without kill criteria |
+
+### Competitive note
+
+CVector’s public site structure (energy management + asset health + margin umbrella) is **very close** to Stamped’s two-pillar + economics story. Differentiation for India remains: **DISCOM/HT bill proof, WhatsApp closure, India tariff/MD**, human-guided execute — not “we also do margin.” Do not copy US commodity-first positioning onto LNM-class calls.
+
+### Extra discovery questions (margin track)
+
+6. “When power or scrap moved last quarter, who decided melt/feed timing — and did anyone show ₹ impact before the window closed?”  
+7. “Would you share feedstock or SKU contribution margins with a vendor, or only energy meters?”  
+8. “Is the pain ‘bill too high’ or ‘we made the wrong heat when prices moved’?”
+
+---
+
+## Appendix E — Sources (CVector addendum)
+
+18. CVector — Plant Margin Optimization — https://www.cvector.com/solutions/plant-margin-optimization  
+19. CVector — Home / solutions suite — https://www.cvector.com/  
+20. TechCrunch — CVector $5M seed / “operational economics” — https://techcrunch.com/2026/01/26/ai-startup-cvector-raises-5m-for-its-industrial-nervous-system/  
+21. PR Newswire — CVector $5M seed (Powerhouse) — via cvector / prnewswire

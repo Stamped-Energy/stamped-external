@@ -111,7 +111,8 @@
 | Topic | Choice |
 |-------|--------|
 | Research | [`technical/research/india-mes-ai-and-production-rx-opportunity.md`](../technical/research/india-mes-ai-and-production-rx-opportunity.md) |
-| Third production pillar / `prod_*` Rx | **Reject this wave** — ADR-026 stands |
+| Third production pillar / `prod_*` Rx | **Reject this wave** — ADR-026 stands; **build only if pilots demand** (memo §6) |
 | Capability ceiling | Level 0–1 only (co-benefits + availability from energy/equipment stack) |
 | EMS objection | Job split: monitor vs assigned ₹-verified decisions — not “we also do OEE” |
-| Reopen Level 2 when | Kill criteria in research memo §6 (pilots demand OEE hero + feeds + category OK) |
+| CVector PMO | Not OEE pillar — **margin-scored ops economics**; prefer that *direction* over production-efficiency if expanding later; **do not build PMO now** (India market/feedstock data gap). Memo Appendix D |
+| Reopen Level 2 when | Kill criteria in research memo §6 |
