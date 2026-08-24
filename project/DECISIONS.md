@@ -115,4 +115,5 @@
 | Capability ceiling | Level 0–1 only (co-benefits + availability from energy/equipment stack) |
 | EMS objection | Job split: monitor vs assigned ₹-verified decisions — not “we also do OEE” |
 | CVector PMO | Not OEE pillar — **margin-scored ops economics**; prefer that *direction* over production-efficiency if expanding later; **do not build PMO now** (India market/feedstock data gap). Memo Appendix D |
+| Parked tracks | [`future/`](../future/README.md) — near: margin; later: production efficiency. **Agents: do not implement unless founder explicitly asks** |
 | Reopen Level 2 when | Kill criteria in research memo §6 |

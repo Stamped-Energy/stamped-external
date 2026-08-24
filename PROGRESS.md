@@ -10,6 +10,7 @@
 | 5 | completed | Tradeoff TOD/preheat (`303dfc4`); L5 Improve tests (`00a9841`); L1–L6 Wave B verified |
 | research | exploration | Plant camera perception note — cameras as occupancy covariate, not L1 P0 / not a WM product |
 | research | completed | India MES/AI + production-Rx opportunity — no third pillar this wave; EMS battlecard in memo |
+| future/ | parked | Near: plant margin optimization; Later: production-efficiency Rx — **agents must not build unless founder explicitly asks** |
 | writeback-spec | completed | ADR-029 human-guided OT command path; L1/L5/L6 specs; contracts 0.13.0; Wave B/C pilot — **code Wave C later** |
 
 Updated: 2026-08-24

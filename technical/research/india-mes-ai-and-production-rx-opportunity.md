@@ -31,6 +31,8 @@ status: Research brief — recommendation locked; ADR change requires separate a
 
 **Founder lock (2026-08-24):** Keep this research on file. **Do not build production-efficiency Rx** unless a pilot explicitly demands it (kill criteria §6). Before chasing OEE/volume as an expansion, prefer studying **margin-scored operating decisions** (CVector-style) — see [Appendix D](#appendix-d--cvector-plant-margin-optimization).
 
+**Parked location:** [`future/`](../../future/README.md) — nearer: [`future/near-term/plant-margin-optimization.md`](../../future/near-term/plant-margin-optimization.md); later: [`future/later/production-efficiency-prescriptions.md`](../../future/later/production-efficiency-prescriptions.md). Agents must **not** implement either unless the founder explicitly asks.
+
 ---
 
 ## 2. India MES + AI penetration
