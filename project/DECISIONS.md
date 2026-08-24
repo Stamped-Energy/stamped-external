@@ -105,3 +105,13 @@
 | Ownership | L5 policy + audit; L1 edge command tags; L6 Approve/Execute via BFF→L5 only |
 | Staging | Spec now; Wave C code after [site checklist](../handoff/holistic/ot-write-site-checklist.md) |
 | Contracts | 0.13.0 — `action-intent.json`, `machine-capability.json` |
+
+## India MES / AI + production-Rx expansion (2026-08-24)
+
+| Topic | Choice |
+|-------|--------|
+| Research | [`technical/research/india-mes-ai-and-production-rx-opportunity.md`](../technical/research/india-mes-ai-and-production-rx-opportunity.md) |
+| Third production pillar / `prod_*` Rx | **Reject this wave** — ADR-026 stands |
+| Capability ceiling | Level 0–1 only (co-benefits + availability from energy/equipment stack) |
+| EMS objection | Job split: monitor vs assigned ₹-verified decisions — not “we also do OEE” |
+| Reopen Level 2 when | Kill criteria in research memo §6 (pilots demand OEE hero + feeds + category OK) |
