@@ -25,10 +25,10 @@ colors:
   primary-container: '#F75440'
   on-primary-container: '#fffbff'
   inverse-primary: '#ffb4a8'
-  secondary: '#051F13'
+  secondary: '#000a07'
   on-secondary: '#ffffff'
-  secondary-container: '#ccead6'
-  on-secondary-container: '#ccead6'
+  secondary-container: '#bdd9c8'
+  on-secondary-container: '#2a4034'
   tertiary: '#00666b'
   on-tertiary: '#ffffff'
   tertiary-container: '#008287'
@@ -41,10 +41,10 @@ colors:
   primary-fixed-dim: '#ffb4a8'
   on-primary-fixed: '#410000'
   on-primary-fixed-variant: '#920401'
-  secondary-fixed: '#051F13'
-  secondary-fixed-dim: '#b0cdba'
+  secondary-fixed: '#000a07'
+  secondary-fixed-dim: '#a3c0ad'
   on-secondary-fixed: '#ffffff'
-  on-secondary-fixed-variant: '#324c3e'
+  on-secondary-fixed-variant: '#2a4034'
   tertiary-fixed: '#81f4fb'
   tertiary-fixed-dim: '#63d7de'
   on-tertiary-fixed: '#002022'
@@ -55,24 +55,24 @@ colors:
 
 typography:
   display-lg:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Space Grotesk
     fontSize: 48px
-    fontWeight: '800'
+    fontWeight: '700'
     lineHeight: 56px
-    letterSpacing: -0.02em
+    letterSpacing: -0.025em
   display-lg-mobile:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Space Grotesk
     fontSize: 32px
-    fontWeight: '800'
+    fontWeight: '700'
     lineHeight: 40px
-    letterSpacing: -0.01em
+    letterSpacing: -0.02em
   headline-lg:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Space Grotesk
     fontSize: 32px
     fontWeight: '700'
     lineHeight: 40px
   headline-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Space Grotesk
     fontSize: 24px
     fontWeight: '700'
     lineHeight: 32px
@@ -93,10 +93,11 @@ typography:
     lineHeight: 20px
     letterSpacing: 0.01em
   label-sm:
-    fontFamily: Inter
+    fontFamily: IBM Plex Mono
     fontSize: 12px
-    fontWeight: '600'
+    fontWeight: '500'
     lineHeight: 16px
+    letterSpacing: 0.12em
 
 rounded:
   sm: 0.25rem

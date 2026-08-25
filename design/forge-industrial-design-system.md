@@ -30,7 +30,7 @@ High-contrast palette for legibility in office and plant-floor lighting.
 | Token | Hex | Role |
 |-------|-----|------|
 | **Primary** | `#F75440` | CTAs, critical actions, alerts, energy/urgency |
-| **Secondary** | `#051F13` | Nav, footers, anchor sections, stable states |
+| **Secondary** | `#000a07` | Nav, footers, anchor sections, stable states |
 | **Tertiary** | `#00666b` / `#008287` | Informational accents, links, data highlights |
 | **Surface** | `#f7faf5` | App background (warm grey — reduces eye strain) |
 | **Surface container** | `#ecefea` → `#ffffff` | Cards sit on white over warm surface |
@@ -58,36 +58,38 @@ Align with dashboard demo at [stamped-energy.vercel.app](https://stamped-energy.
 
 ## 3. Typography
 
-Two-font strategy: **executive headlines** vs **operational data**.
+Three-font strategy: **Space Grotesk** for page titles and KPI figures, **Inter** for body/UI/data, **IBM Plex Mono** for status chips and mono labels.
 
 | Role | Family | Usage |
 |------|--------|--------|
-| **Display / Headlines** | **Plus Jakarta Sans** 700–800 | Page titles, KPI hero numbers, section headers |
-| **Body / UI / Data** | **Inter** 400–600 | Paragraphs, forms, tables, labels |
+| **Display / Headlines / KPIs** | **Space Grotesk** 600–700 | Page titles, KPI figures, section headers |
+| **Body / UI / Data** | **Inter** 400–600 | Paragraphs, forms, tables, nav labels |
+| **Labels / chips** | **IBM Plex Mono** 500 | Status chips, eyebrows, LIVE-style labels |
 
 ### 3.1 Scale
 
 | Token | Font | Size / Weight | Use |
 |-------|------|---------------|-----|
-| `display-lg` | Plus Jakarta Sans | 48px / 800, LH 56 | Desktop hero KPI (e.g. bill total ₹) |
-| `display-lg-mobile` | Plus Jakarta Sans | 32px / 800, LH 40 | Mobile hero |
-| `headline-lg` | Plus Jakarta Sans | 32px / 700 | Page title |
-| `headline-md` | Plus Jakarta Sans | 24px / 700 | Card title |
+| `display-lg` | Space Grotesk | 48px / 700, LH 56 | Desktop hero KPI (e.g. bill total ₹) |
+| `display-lg-mobile` | Space Grotesk | 32px / 700, LH 40 | Mobile hero |
+| `headline-lg` | Space Grotesk | 32px / 700 | Page title |
+| `headline-md` | Space Grotesk | 24px / 700 | Card title |
 | `body-lg` | Inter | 18px / 400 | Intro copy |
 | `body-md` | Inter | 16px / 400 | Default body |
 | `data-tabular` | Inter | 14px / 500, tabular nums | **All ₹ amounts, kWh, line tables** |
-| `label-sm` | Inter | 12px / 600 | Field labels, chips |
+| `label-sm` | IBM Plex Mono | 12px / 500, tracking 0.12em | Field labels, chips |
 
 **Rules:**
 
 - Use `font-variant-numeric: tabular-nums` for bill line tables and totals.
-- Headlines: letter-spacing `-0.02em` (display) / `-0.01em` (mobile).
+- Headlines: letter-spacing `-0.025em` (display).
+- Do not use Space Grotesk on dense nav labels, buttons, or table cells.
 - Hindi labels: same scale; test line-height +2px if needed.
 
 ### 3.2 Google Fonts import
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 ```
 
 ---
@@ -145,15 +147,15 @@ Two-font strategy: **executive headlines** vs **operational data**.
 | Variant | Background | Text | Height |
 |---------|------------|------|--------|
 | Primary | `#F75440` | `#ffffff` | **48px** min (touch-friendly) |
-| Secondary | `#051F13` | `#ffffff` | 48px |
-| Ghost | transparent | `#051F13` | 48px, 1px border |
+| Secondary | `#000a07` | `#ffffff` | 48px |
+| Ghost | transparent | `#000a07` | 48px, 1px border |
 
 Mobile: full-width primary CTAs on upload/publish screens.
 
 ### 7.2 Inputs & upload
 
 - White background, 1px outline border.
-- Focus: 2px border `#051F13`.
+- Focus: 2px border `#000a07`.
 - Label above field (`label-sm`).
 - **Upload zone:** dashed border, coral on drag-over; camera + file icons 2px stroke.
 
@@ -235,13 +237,14 @@ theme: {
   extend: {
     colors: {
       primary: '#F75440',
-      secondary: '#051F13',
+      secondary: '#000a07',
       surface: '#f7faf5',
       // ... full set in tokens file
     },
     fontFamily: {
-      display: ['"Plus Jakarta Sans"', 'sans-serif'],
+      display: ['"Space Grotesk"', 'sans-serif'],
       sans: ['Inter', 'sans-serif'],
+      mono: ['"IBM Plex Mono"', 'monospace'],
     },
     borderRadius: {
       md: '0.5rem',
@@ -252,7 +255,7 @@ theme: {
 },
 ```
 
-**PWA meta:** `theme-color: #051F13`, `background-color: #f7faf5`.
+**PWA meta:** `theme-color: #000a07`, `background-color: #f7faf5`.
 
 ---
 
@@ -269,7 +272,7 @@ theme: {
 
 - Marketing site: [stamped.work](https://stamped.work/)
 - Request brand assets from product team if SVG logo not in repo `[!]`.
-- Favicon / app icon: use Secondary `#051F13` background + Primary accent mark.
+- Favicon / app icon: use Secondary `#000a07` background + Primary accent mark.
 
 ---
 
