@@ -1452,12 +1452,12 @@
       outline-offset: 2px;
     }
     .wa-bubble.is-dismiss-ack,
-    .wa-msg.is-dismiss-ack {
+    .wa-msg.is-dismiss-ack,
+    .wa-bubble.is-dismiss-done,
+    .wa-msg.is-dismiss-done,
+    .wa-bubble.is-dismiss-escalate,
+    .wa-msg.is-dismiss-escalate {
       animation: floorAckOut 0.34s var(--ease) forwards;
-    }
-    .wa-bubble.is-dismiss-snooze,
-    .wa-msg.is-dismiss-snooze {
-      animation: floorSnoozeOut 0.34s var(--ease) forwards;
     }
     .wa-bubble.is-enter,
     .wa-msg.is-enter {
@@ -2888,6 +2888,65 @@
     .gap-compare, .verify-steps { grid-template-columns: 1fr; }
   }
 
+    .title-rail {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem;
+      margin: 0.35rem 0 var(--space-3);
+      font-size: 0.78rem; font-weight: 650; color: var(--tertiary);
+    }
+    .title-rail span.sep { opacity: 0.45; font-weight: 400; }
+    .chain-strip {
+      margin-top: 0.85rem; padding: 0.7rem 0.95rem;
+      border: 1px dashed color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+      border-radius: var(--radius-card); background: color-mix(in srgb, var(--tertiary) 4%, var(--white));
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.72rem; line-height: 1.5; color: var(--on-surface-variant);
+    }
+    .readiness-head {
+      font-size: 0.72rem; font-weight: 750; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--tertiary); margin: 1rem 0 0.45rem;
+    }
+    .readiness-head--later { color: var(--on-surface-variant); }
+    .readiness-tag {
+      display: inline-block; margin-bottom: 0.45rem; padding: 0.18rem 0.45rem;
+      border-radius: 999px; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .readiness-tag--now {
+      background: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      color: var(--tertiary); border: 1px solid color-mix(in srgb, var(--tertiary) 25%, transparent);
+    }
+    .readiness-tag--next {
+      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 22%, transparent);
+    }
+    #scene-fit .evidence-board {
+      display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.65rem; margin-top: 1rem;
+    }
+    #scene-fit .evidence-card {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 0.85rem 0.95rem;
+    }
+    #scene-fit .evidence-card:nth-child(-n+3) { grid-column: span 2; }
+    #scene-fit .evidence-card:nth-child(n+4) { grid-column: span 3; }
+    #scene-fit .evidence-card strong {
+      display: block; font-family: var(--font-display); font-size: 0.92rem; margin-bottom: 0.3rem;
+    }
+    #scene-fit .evidence-card p { font-size: 0.78rem; line-height: 1.4; color: var(--on-surface-variant); margin: 0; }
+    @media (max-width: 900px) {
+      #scene-fit .evidence-board { grid-template-columns: 1fr 1fr; }
+      #scene-fit .evidence-card { grid-column: span 1 !important; }
+      #scene-fit .evidence-card:last-child { grid-column: 1 / -1 !important; }
+    }
+    .pair-state {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin-top: 0.55rem;
+    }
+    .pair-state div {
+      padding: 0.45rem 0.55rem; border-radius: var(--radius-btn);
+      font-size: 0.72rem; font-weight: 650; text-align: center;
+      border: 1px solid var(--outline-variant); background: var(--surface-low);
+    }
+    .pair-state div.is-run { background: color-mix(in srgb, var(--tertiary) 10%, var(--white)); color: var(--tertiary); }
+    .pair-state div.is-stop { background: color-mix(in srgb, var(--primary) 8%, var(--white)); color: var(--primary); }
+
   </style>
 </head>
 <body data-theme="light">
@@ -2913,30 +2972,30 @@
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
             <p class="industry-chip client-mark reveal" id="industryChip">LNM Auto · Faridabad</p>
-            <p class="eyebrow reveal">Precision manufacturing · forge · machine · HT · surface · Sector 59 · Technical brief</p>
+            <p class="eyebrow reveal">Built on your existing FANUC MT-LINKi data · Sector 59 · Technical brief</p>
             <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">Act on energy opportunities before the window closes</h1>
-            <p class="lede reveal hide-mobile">Stamped turns meters, SCADA, shift data, and DHBVN bills into ₹-scored prescriptions: what to do, who owns it, the rupee impact, and the evidence. Industry Energy Management and Asset Health Intelligence on the stack you already run.</p>
-            <p class="mobile-lede reveal show-mobile">₹-scored prescriptions with owners and evidence. Energy and asset health in one loop.</p>
+            <h1 class="reveal">Turn your FANUC data into action on the same shift.</h1>
+            <p class="title-rail reveal hide-mobile"><span>Data</span><span class="sep">→</span><span>Action</span><span class="sep">→</span><span>Evidence</span></p>
+            <p class="lede reveal hide-mobile">MT-LINKi already sees the machine. Stamped picks what matters, sends one clear action to the right owner, and closes it when the machine or meter confirms the result.</p>
+            <p class="mobile-lede reveal show-mobile">One ranked action to the right owner. Close on machine evidence.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Energy management</span>
-              <span class="chip">Asset health</span>
+              <span class="chip">Recover production minutes</span>
+              <span class="chip">Reduce response delay</span>
+              <span class="chip">Expose energy cost</span>
+              <span class="chip">Verify every outcome</span>
+            </div>
+            <div class="flow-tags reveal show-mobile">
               <span class="chip">Assigned actions</span>
               <span class="chip">Verified with evidence</span>
             </div>
-            <div class="flow-tags reveal show-mobile">
-              <span class="chip">Energy management</span>
-              <span class="chip">Asset health</span>
-              <span class="chip">Verified with evidence</span>
-            </div>
-            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Read-only on meters and SCADA you already run. No PLC or setpoint writes. Operators stay in control.</p>
+            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Complements FANUC and ForgeLink. Operators stay in control. No automatic CNC or furnace commands.</p>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
             </div>
             <p class="meta reveal hide-mobile">stamped.work</p>
           </div>
           <figure class="hero-photo reveal" id="heroPhoto">
-            <img id="heroPhotoImg" src="assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg" alt="Precision CNC machining floor (illustrative)" width="1024" height="475" loading="eager" decoding="async" />
+            <img id="heroPhotoImg" src="assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg" alt="Precision CNC machining floor at LNM Auto Faridabad" width="1024" height="475" loading="eager" decoding="async" />
           </figure>
         </div>
       </div>
@@ -2944,238 +3003,229 @@
 
     <section class="slide slide--light grid-bg" id="scene-gap" data-theme="light" aria-label="Decision gap">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">The question after monitoring</p>
-        <h2 class="reveal">You already see the plant. Who should act, and on what?</h2>
-        <p class="lede reveal hide-mobile">LNM Auto already runs precision manufacturing under one roof at Sector 59: forge, CNC machining, heat treatment, and surface. Meters, ERP, gantry / robot loaders, and DHBVN bills are in place. We are not rebuilding that. This brief shows how a signal becomes a ranked next step someone can run: energy cost and asset health, before export dispatch and the MD window close.</p>
-        <p class="mobile-lede reveal show-mobile">Not more dashboards. A ranked next step someone can actually run.</p>
+        <p class="eyebrow reveal">The gap after monitoring</p>
+        <h2 class="reveal">MT-LINKi sees the event. The action still travels by CSV and meeting.</h2>
+        <p class="lede reveal hide-mobile">LNM already runs precision forge, CNC machining, heat treatment, and surface at Sector 59. The collector is doing its job. The missing layer is the last mile from an abnormal event to the person who can recover it.</p>
+        <p class="mobile-lede reveal show-mobile">The data is there. The named action is not.</p>
         <div class="gap-compare reveal">
           <div class="gap-col">
-            <h3>What LNM already has</h3>
-            <ul>
-              <li>Incomer meters and EMS / SCADA</li>
-              <li>Forge, CNC, HT, and surface run states</li>
-              <li>In-house ERP and CNC gantry / robot loaders</li>
-              <li>TPM and maintenance work orders</li>
-              <li>DHBVN bill lines (MD, energy, PF)</li>
-            </ul>
+            <h3>Today</h3>
+            <p class="chain-strip">Machine → FANUC → CSV → IT → report → meeting → maybe a person</p>
           </div>
           <div class="gap-col">
-            <h3>What Stamped adds</h3>
-            <ul>
-              <li>Industry Energy Management: MD, idle loads, HT hold, ToD / tariff windows</li>
-              <li>Asset Health Intelligence: early drift on compressors, SQF / quench, and press startups</li>
-              <li>Rupee-scored prescription with owner, effort, and due window</li>
-              <li>WhatsApp to the floor · alternative when quality blocks the first option</li>
-              <li>At month end, what ran, what did not, and why</li>
-            </ul>
+            <h3>With Stamped</h3>
+            <p class="chain-strip">Machine → FANUC → one ranked action → named owner → action → machine confirms recovery</p>
           </div>
         </div>
-        <p class="gap-bridge reveal">Decision and closure</p>
-        <p class="meta reveal" style="margin-top:0.85rem;max-width:52em;">Less time debating what the chart means. More time running the action and checking the curve or the DHBVN bill.</p>
+        <p class="gap-bridge reveal">IT becomes the exception reviewer, not the daily CSV operator</p>
+        <p class="meta reveal" style="margin-top:0.85rem;max-width:52em;">Industry Energy Management and Asset Health Intelligence on the stack you already run. Not another screen.</p>
       </div>
     </section>
 
-    <section class="slide slide--light" id="scene-fit" data-theme="light" aria-label="Where Stamped fits">
+    <section class="slide slide--light" id="scene-fit" data-theme="light" aria-label="FANUC evidence already visible">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Read-only on the existing plant stack</p>
-        <h2 class="reveal">We sit on what you already have: meters, ERP, bills, shifts</h2>
-        <div class="do-chain reveal">
-          <article class="do-step">
-            <div class="do-step__num">01</div>
-            <h3>Connect</h3>
-            <p>Incomer and feeder meters · SCADA / HMI export · press / furnace / CNC state · ERP shift context · DHBVN bill (MD + ToD)</p>
-            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+        <p class="eyebrow reveal">What is already visible · 26 Aug sample</p>
+        <h2 class="reveal">31 machines. Product, state and timing are already enough to start.</h2>
+        <p class="lede reveal hide-mobile">This brief is built from your FANUC MT-LINKi samples, not a generic forge template. Snapshot evidence from CNC_14_S2 and the 31-machine fleet.</p>
+        <p class="mobile-lede reveal show-mobile">31 machines · product on the Gantt · cell split already visible.</p>
+        <div class="evidence-board reveal">
+          <article class="evidence-card">
+            <span class="readiness-tag readiness-tag--now">Available now</span>
+            <strong>31 machines</strong>
+            <p>Live OPERATE, STOP, ALARM, EMERGENCY, and DISCONNECT states on the collector.</p>
           </article>
-          <article class="do-step">
-            <div class="do-step__num">02</div>
-            <h3>Build plant context</h3>
-            <p>Line up signals in time: consumer → feeder → forge / HT / CNC → utility → asset.</p>
-            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <article class="evidence-card">
+            <span class="readiness-tag readiness-tag--now">Available now</span>
+            <strong>CNC_14 cell split</strong>
+            <p>CNC_14_S2 OPERATE while CNC_14_S1 STOP in the sampled snapshots.</p>
+            <div class="pair-state" aria-hidden="true">
+              <div class="is-stop">S1 STOP</div>
+              <div class="is-run">S2 OPERATE</div>
+            </div>
           </article>
-          <article class="do-step">
-            <div class="do-step__num">03</div>
-            <h3>Decide</h3>
-            <p>Energy models flag MD, idle, and ToD windows. Asset-health models flag drift against each machine&apos;s own baseline.</p>
-            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <article class="evidence-card">
+            <span class="readiness-tag readiness-tag--now">Available now</span>
+            <strong>1774*P/M on the Gantt</strong>
+            <p>Product already attached to CNC_14_S2 without ERP or ForgeLink.</p>
           </article>
-          <article class="do-step">
-            <div class="do-step__num">04</div>
-            <h3>Assign</h3>
-            <p>Each finding becomes a prescription: what to do, why, who owns it, effort, expected impact, and timing.</p>
-            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <article class="evidence-card">
+            <span class="readiness-tag readiness-tag--now">Available now</span>
+            <strong>~527 state cuts / 24 h</strong>
+            <p>One machine in the sample. Hundreds of events mean clustering, not more alerts.</p>
           </article>
-          <article class="do-step">
-            <div class="do-step__num">05</div>
-            <h3>Verify and improve</h3>
-            <p>Compare the post-action signal to the locked baseline. Track completed vs skipped vs blocked, and what actually landed.</p>
-            <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <article class="evidence-card">
+            <span class="readiness-tag readiness-tag--now">Available now</span>
+            <strong>INDUCTION_01 / 02</strong>
+            <p>Heat-treatment assets already on the same collector as CNC and VMC.</p>
           </article>
         </div>
-        <p class="meta reveal" style="margin-top:0.85rem;">Read-only OT · Existing systems remain systems of record · No automatic setpoint changes</p>
+        <p class="meta reveal" style="margin-top:0.85rem;">Snapshot evidence, not a live Andon. Alarm names, power values and plan quantity still need configuration or another plant system.</p>
       </div>
     </section>
 
     <section class="slide slide--light grid-bg" id="scene-load" data-theme="light" aria-label="Load and energy management">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Pillar 1 · Industry Energy Management</p>
-        <h2 class="reveal">Work the full load picture, not only the MD spike</h2>
-        <p class="lede reveal hide-mobile">Most plants react when the bill lands. We watch demand, HT hold, compressed air, CNC idle aux, and DHBVN ToD through the month, and call out moves that are realistic for forge / machine / HT release.</p>
-        <p class="mobile-lede reveal show-mobile">MD, HT hold, compressor, and ToD moves tied to the shift plan, not only end-of-month firefighting.</p>
+        <p class="eyebrow reveal">Industry Energy Management · honest starting point</p>
+        <h2 class="reveal">Energy value starts with timing. Rupees land when power data does.</h2>
+        <p class="lede reveal hide-mobile">DHBVN and plant energy matter at Sector 59. Today we can act on start overlap and idle duration from FANUC. Rupee quantum waits for the power module, incomer, or bill.</p>
+        <p class="mobile-lede reveal show-mobile">Timing actions now. ₹ on the card after power or bill data.</p>
+        <p class="readiness-head reveal">Ready now</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>Sequence</h3>
-            <p>When the schedule allows, stagger Press Line 1 versus SQF furnace preheat so they do not stack demand in one window.</p>
+            <h3>Induction × CNC overlap</h3>
+            <p>Flag when induction and machining enter OPERATE in the same window. Agree a feasible stagger when the schedule allows.</p>
           </article>
           <article class="waste-card">
-            <h3>Reduce</h3>
-            <p>Call out furnace holding with no pour, CNC cells left hot with aux on, and compressors unloading off-shift.</p>
+            <h3>Peak attribution</h3>
+            <p>Name which machine groups started together before the demand window closes.</p>
           </article>
           <article class="waste-card">
-            <h3>Shift</h3>
-            <p>Move flexible HT setback and utility work into cheaper ToD windows when forge and machine can still deliver.</p>
-          </article>
-          <article class="waste-card">
-            <h3>Correct</h3>
-            <p>Catch PF drift, wide pressure or temperature bands, and repeat MD hits before they show up on the DHBVN bill.</p>
+            <h3>Long STOP / cell split</h3>
+            <p>Flag idle duration that deserves a walk. Do not call it energy waste until kW is available.</p>
           </article>
         </div>
-        <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Examples at Sector 59: press vs SQF overlap · HT hold · CNC idle aux · compressor unload · DHBVN ToD / MD windows [illustrative]</p>
-        <p class="footnote reveal">Production, metallurgy, export dispatch, and safety stay first. If a lower-energy option breaks a heat or machine release, we do not push it.</p>
+        <p class="readiness-head readiness-head--later reveal">Unlock next</p>
+        <div class="waste-grid reveal">
+          <article class="waste-card">
+            <h3>MT-LINKi power-by-state</h3>
+            <p>The schema exists on the collector. Sampled kWh values were zero. Configuration ask A26.</p>
+          </article>
+          <article class="waste-card">
+            <h3>Incomer / DHBVN bill</h3>
+            <p>MD, ToD, PF and ₹ impact after electrical or bill data is connected.</p>
+          </article>
+          <article class="waste-card">
+            <h3>HT schedule join</h3>
+            <p>Keep every timing action safe for metallurgy and export dispatch on the precision floor.</p>
+          </article>
+        </div>
+        <p class="footnote reveal">We do not recommend turning the furnace off. Production, metallurgy and safety stay first.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-equipment" data-theme="light" aria-label="Equipment intelligence">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Pillar 2 · Asset Health Intelligence</p>
-        <h2 class="reveal">Catch energy-linked equipment drift early, with an owner attached</h2>
-        <p class="lede reveal hide-mobile">The same stack that finds bill waste also flags equipment issues early. Compressors, SQF / quench pumps, and press starts are judged against their own normal, not a plant-wide average, so drift shows up before trips stop export dispatch.</p>
-        <p class="mobile-lede reveal show-mobile">Per-asset baselines. Early warnings with owners, not another ignored alert.</p>
+        <p class="eyebrow reveal">Asset Health Intelligence · production co-benefit</p>
+        <h2 class="reveal">Compress hundreds of machine events into the few actions worth taking.</h2>
+        <p class="lede reveal hide-mobile">~527 Gantt state segments and ~336 alarm timestamps on one sampled machine in 24 hours. The value is compression into one issue with an owner, not another wall of rows.</p>
+        <p class="mobile-lede reveal show-mobile">One clustered issue. Not hundreds of raw events.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>Expected behaviour</h3>
-            <p>Learns the operating band by time, shift, occupancy / dispatch state, and comparable load.</p>
+            <h3>Cluster</h3>
+            <p>One micro-stop pattern on CNC_14_S2, not hundreds of separate notices.</p>
           </article>
           <article class="waste-card">
-            <h3>Energy-linked drift</h3>
-            <p>Flags sustained changes in filter load, specific power, press startup shape, or quench / circulation duty.</p>
+            <h3>Rank</h3>
+            <p>Still recoverable this shift before a weekly inspect list.</p>
           </article>
           <article class="waste-card">
-            <h3>Root cause with rupee impact</h3>
-            <p>Separates production- or weather-driven change from a likely equipment or operating issue, ranked by cost.</p>
+            <h3>Route</h3>
+            <p>Cell issue to supervisor today. Clamp vs lube routing after alarm columns land in the API.</p>
           </article>
           <article class="waste-card">
-            <h3>Assigned inspect / tune</h3>
-            <p>Routes inspect, clean, or tune to utilities or maintenance, then checks whether the curve recovered.</p>
+            <h3>Verify</h3>
+            <p>No new event in the stabilisation window and machine returns to OPERATE.</p>
           </article>
         </div>
-        <div class="bound-col bound-col--ot reveal" style="margin-top:0.85rem;padding:0.85rem 1rem;background:#fff;border:1px solid var(--outline-variant);border-radius:var(--radius-card);">
-          <h3 style="font-size:0.88rem;margin-bottom:0.45rem;">Typical signals on a precision forge / machine / HT floor</h3>
-          <ul class="bound-list">
-              <li>Press Line 1 overlapping SQF furnace preheat</li>
-              <li>HT hold energy through lunch or empty soak windows</li>
-              <li>Compressor specific-power drift at comparable header demand</li>
-              <li>SQF circulation / quench pump trip or retry clusters</li>
-          </ul>
-        </div>
-        <p class="footnote reveal">Earlier than a fixed alarm threshold. Not a CMMS or full vibration PdM claim. We do not claim bearing life or RUL without the right condition-monitoring data.</p>
+        <p class="footnote reveal">Inspect, trend and recover. Not vibration PdM, bearing life, or RUL %.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescriptions">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Example prescriptions · Both pillars</p>
-        <h2 class="reveal">A prescription tied to what is happening on the floor</h2>
-        <span class="illustrative-badge reveal">Illustrative examples · not LNM plant measurements</span>
-        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 is Industry Energy Management (press vs SQF MD). Card 2 is Asset Health Intelligence (compressor drift). The same loop also covers HT hold, CNC idle aux, and quench-pump trip clusters.</p>
+        <p class="eyebrow reveal">What the plant receives</p>
+        <h2 class="reveal">A floor action tied to the machine, product and shift.</h2>
+        <span class="illustrative-badge reveal">LNM sample-derived · 26 Aug FANUC snapshots</span>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 is ready from state data. Card 2 is energy timing without rupees until power or bill data lands.</p>
         <div class="rx-layout reveal">
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger Press Line 1 versus SQF furnace preheat. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="CNC_14 cell partner idle. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · Energy · MD</span>
+                  <span class="rx-badge">Rx · Production · Ready now</span>
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Stagger Press Line 1 start versus SQF furnace preheat by 10-12 minutes at day-shift start. Hold the second start until the first load settles.</p>
+                  <p class="rx-action">CNC_14_S1 has remained non-operating while cell partner S2 is producing. Check the S1 constraint or record the planned reason.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Press ramp and furnace preheat stacked in the same MD window. The incomer saw the peak; the floor never got a named stagger with a rupee figure.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>Electrical POC · Faridabad + furnace lead</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹45k-70k / month [illustrative]</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>Sequence change · no new equipment</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>This week · before next peak</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>A split cell can hide recoverable production minutes while the bay still appears active.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>CNC cell supervisor · named shift owner after roster setup</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>Recoverable production minutes; ₹ after contribution/hour is agreed</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>Walk the cell · no new equipment</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Within 10 minutes</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
               </div>
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Evidence · sample</span>
-                  <span class="rx-priority">MD window</span>
+                  <span class="rx-badge">Evidence · CNC_14</span>
+                  <span class="rx-priority">Cell split</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">Signal window · Mon 06:45-07:05 (example tags)</p>
-                  <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
-                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 48,40 88,38 128,36 168,28 208,24 248,26 288,30"/>
-                    <line x1="168" y1="8" x2="168" y2="56" stroke="#00666b" stroke-dasharray="4 3"/>
-                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">overlap</text>
-                  </svg>
+                  <p class="rx-ev-title">State comparison · sampled snapshots</p>
+                  <div class="pair-state" aria-hidden="true">
+                    <div class="is-stop">S1 STOP</div>
+                    <div class="is-run">S2 OPERATE</div>
+                  </div>
                   <table class="rx-ev-table">
-                    <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+                    <thead><tr><th>Field</th><th>Value</th><th>Context</th></tr></thead>
                     <tbody>
-                      <tr><td><code>HT_INCOMER.MD</code></td><td>peak window</td><td>06:48-06:56</td></tr>
-                      <tr><td><code>PRESS_L1.START</code></td><td>TRUE</td><td>06:47</td></tr>
-                      <tr><td><code>SQF1.PREHEAT</code></td><td>ON</td><td>06:49+</td></tr>
+                      <tr><td><code>CNC_14_S1.STATE</code></td><td>STOP</td><td>Non-operating</td></tr>
+                      <tr><td><code>CNC_14_S2.STATE</code></td><td>OPERATE</td><td>Producing</td></tr>
+                      <tr><td><code>PRODUCT</code></td><td>1774*P/M</td><td>Gantt on S2</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite">md_overlap@v2.4 · example only · confirm on live LNM plant data</p>
-                  <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+                  <p class="rx-cite">cell_split@v1 · LNM sample · not live Andon</p>
+                  <p class="rx-mv">M&amp;V · close on OPERATE or recorded reason</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
             </div>
           </button>
 
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Inspect compressor inlet filter and unload valve. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Induction and CNC co-start timing. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · Asset health</span>
+                  <span class="rx-badge">Rx · Energy timing</span>
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
+                  <p class="rx-action">Review the next induction and CNC co-start. If the machining start is non-critical, hold it by the agreed 8-minute window.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure and shift load. The drift has persisted for nine days.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>Utilities · Faridabad + mechanical maintenance</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>₹45k-70k / month [illustrative]</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Induction and CNC assets already share the collector; overlap timing is visible before incomer kVA is connected.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>HT supervisor + production supervisor</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>MD exposure to be calculated after incomer / bill connection</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>Sequence agreement · no furnace command</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Before next co-start window</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
               </div>
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Evidence · sample</span>
-                  <span class="rx-priority rx-priority--med">Specific power</span>
+                  <span class="rx-badge">Evidence · timing</span>
+                  <span class="rx-priority rx-priority--med">Start overlap</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">Specific-power trend · last 8 weeks (example tags)</p>
+                  <p class="rx-ev-title">OPERATE windows · INDUCTION + CNC (sample tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
-                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,42 48,40 88,38 128,36 168,28 208,24 248,26 288,30"/>
-                    <line x1="168" y1="8" x2="168" y2="56" stroke="#00666b" stroke-dasharray="4 3"/>
-                    <text x="172" y="20" fill="#00666b" font-size="7" font-family="Inter">drift +14%</text>
+                    <polyline fill="none" stroke="#00666b" stroke-width="2" points="8,48 88,48 88,28 168,28 168,48 248,48"/>
+                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,36 88,36 88,20 168,20 168,36 248,36"/>
+                    <text x="12" y="58" fill="#00666b" font-size="7" font-family="Inter">INDUCTION</text>
+                    <text x="12" y="14" fill="#F75440" font-size="7" font-family="Inter">CNC</text>
                   </svg>
                   <table class="rx-ev-table">
-                    <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+                    <thead><tr><th>Asset</th><th>Signal</th><th>Window</th></tr></thead>
                     <tbody>
-                      <tr><td><code>COMP2.kW_PER_AIR</code></td><td>+14% vs base</td><td>9 days</td></tr>
-                      <tr><td><code>COMP2.RUN_H</code></td><td>aligned</td><td>baseline window</td></tr>
-                      <tr><td><code>PROD.SHIFT</code></td><td>matched</td><td>not volume-driven</td></tr>
+                      <tr><td><code>INDUCTION_01</code></td><td>OPERATE</td><td>overlap start</td></tr>
+                      <tr><td><code>CNC_14_S2</code></td><td>OPERATE</td><td>+0 min</td></tr>
+                      <tr><td><code>TARGET</code></td><td>delta</td><td>&gt;= 8 min</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite">sp_drift@v1.6 · example only · confirm on live LNM plant data</p>
-                  <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+                  <p class="rx-cite">start_overlap@v1 · timing only · ₹ after power/bill</p>
+                  <p class="rx-mv">M&amp;V · verify start delta · production release unchanged</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
@@ -3187,55 +3237,56 @@
 
     <section class="slide slide--light grid-bg" id="scene-agentic" data-theme="light" aria-label="How a finding becomes an action">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">How a finding becomes the next-best plant decision</p>
-        <h2 class="reveal">A finding becomes a doable action, with an owner and a window</h2>
-        <p class="lede reveal hide-mobile">We flag energy windows (MD, idle, ToD) and asset drift, then add shift state, ERP / export urgency, and production constraints, and draft an action the right person can run. Operators review every prescription and stay in control.</p>
-        <p class="mobile-lede reveal show-mobile">Findings get context and a feasible owner, not a raw alert.</p>
-        <div class="agent-pipe reveal hide-mobile">
-          <span>Finding + evidence</span><span>↓</span>
-          <span>Plant + production + tariff context</span><span>↓</span>
-          <span>Decision layer</span><span>↓</span>
-          <span>Best feasible prescription + alternative</span>
-        </div>
+        <p class="eyebrow reveal">From event to executable decision · then improve</p>
+        <h2 class="reveal">Each verified outcome and operator correction changes what Stamped recommends next.</h2>
+        <p class="lede reveal hide-mobile">LNM's TPM instruction remains the playbook. Stamped decides when to act, who owns it and whether it worked, then uses the verified outcome and operator correction to improve the next recommendation.</p>
+        <p class="mobile-lede reveal show-mobile">Verified outcomes and operator corrections refine the next recommendation.</p>
         <div class="agent-stack reveal">
           <article class="agent-step">
             <div class="agent-step__num">1</div>
             <div>
-              <strong>Detect</strong>
-              <p>Baseline, drift, attribution, and tariff logic produce a structured finding with evidence and confidence.</p>
+              <strong>Observe</strong>
+              <p>Machine state, Gantt, product and program from MT-LINKi.</p>
             </div>
           </article>
           <article class="agent-step">
             <div class="agent-step__num">2</div>
             <div>
-              <strong>Add context</strong>
-              <p>Read press / furnace / CNC state, ERP shift context, DHBVN ToD, asset relationships, and approved operating knowledge.</p>
+              <strong>Compress</strong>
+              <p>Cluster repeated cuts into one issue, not hundreds of rows.</p>
             </div>
           </article>
           <article class="agent-step">
             <div class="agent-step__num">3</div>
             <div>
-              <strong>Propose</strong>
-              <p>Draft what to change or inspect, expected impact, owner, effort, and how you will verify it.</p>
+              <strong>Add context</strong>
+              <p>Cell, product, owner, shift; later due date and power when available.</p>
             </div>
           </article>
           <article class="agent-step">
             <div class="agent-step__num">4</div>
             <div>
-              <strong>Adapt</strong>
-              <p>If the first option clashes with metallurgy, export urgency, or production release, suggest the next feasible window instead of sending something unusable.</p>
+              <strong>Assign</strong>
+              <p>Bounded action, deadline and escalation to the setter or supervisor.</p>
             </div>
           </article>
           <article class="agent-step">
             <div class="agent-step__num">5</div>
             <div>
-              <strong>Learn</strong>
-              <p>Followed, deferred, and blocked actions improve ranking and plant preferences with human review.</p>
+              <strong>Verify</strong>
+              <p>Machine or meter evidence confirms what worked, what did not, and why.</p>
+            </div>
+          </article>
+          <article class="agent-step">
+            <div class="agent-step__num">6</div>
+            <div>
+              <strong>Improve</strong>
+              <p>Accepted, rejected and corrected actions refine thresholds, owner mapping and ranking for the next shift.</p>
             </div>
           </article>
         </div>
-        <p class="meta reveal" style="margin-top:0.75rem;">Grounded in plant data and approved operating knowledge. Not a generic chatbot, and no autonomous setpoint writes.</p>
-        <p class="agent-callout reveal">Press Line 1 stagger was suggested for Tuesday 06:45, but Heat 14 is still in soak. Stamped flags that and proposes Thursday 06:50 instead, after the furnace window clears.</p>
+        <p class="agent-callout reveal">If LNM tells us "this STOP was planned," "this owner is wrong," or "this stagger conflicts with a hot order," that input is captured with the outcome and used to make the next decision more practical.</p>
+        <p class="meta reveal" style="margin-top:0.75rem;">Improvement stays plant-scoped and passes human review. One comment cannot retrain the system, change a TPM procedure or promote new action logic.</p>
       </div>
     </section>
 
@@ -3243,30 +3294,30 @@
       <div class="slide__inner slide__inner--wide">
         <div class="floor-layout">
           <div class="floor-copy">
-            <p class="eyebrow reveal">Getting the action to the right person</p>
-            <h2 class="reveal">The right action reaches the right owner, with evidence attached</h2>
-            <p class="lede reveal hide-mobile">On a precision forge / machine / HT floor, one energy or asset-health finding often crosses electrical, furnace, press, CNC, and maintenance before anyone acts. Stamped routes the prescription to whoever can actually run it.</p>
-            <p class="lede reveal show-mobile">One action card to the right owner (electrical, HT, press, CNC, or maintenance), with evidence attached.</p>
+            <p class="eyebrow reveal">The last mile to the setter</p>
+            <h2 class="reveal">The setter gets one action chosen from hundreds of events.</h2>
+            <p class="lede reveal hide-mobile">On a precision forge and CNC floor, one machine event often crosses supervisor, setter and HT before anyone acts. Stamped routes one clustered action to whoever can recover it this shift.</p>
+            <p class="lede reveal show-mobile">One action card to the setter or supervisor, with machine evidence attached.</p>
             <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">WhatsApp for assigned actions · dashboard for queue and evidence · export for management review</p>
-            <p class="footnote reveal">Workers see a short card. Leadership sees queue, constraints, expected value, and what actually landed.</p>
+            <p class="footnote reveal">Workers see one short action. Leadership sees response time, open constraints and measured outcomes.</p>
           </div>
           <div class="floor-routing reveal">
             <article class="routing-card">
               <strong>Without Stamped</strong>
-              <p>A finding becomes a meeting chain: electrical → HT → press → shift supervisor. Four handoffs before anyone on the floor gets a clear ask.</p>
+              <p>CSV → IT → HTML → meeting → follow-up. The setter hears about it late, if at all.</p>
             </article>
             <article class="routing-card routing-card--stamped">
-              <strong>How we route it</strong>
+              <strong>With Stamped</strong>
               <ul class="routing-steps">
-                <li data-n="1">Map the asset to the owner (e.g. Press Line 1 vs SQF preheat → electrical + furnace).</li>
-                <li data-n="2">Check the dispatch / production / ToD window so the ask is feasible this shift.</li>
-                <li data-n="3">Pack why, impact, and evidence on one card.</li>
-                <li data-n="4">Send that card on WhatsApp (or the dashboard queue) to that owner.</li>
+                <li data-n="1">One clustered action from FANUC state and Gantt.</li>
+                <li data-n="2">Acknowledge · Done · Escalate on one card.</li>
+                <li data-n="3">Close when OPERATE returns or the reason is recorded.</li>
+                <li data-n="4">FANUC verifies recovery; leadership sees the ledger.</li>
               </ul>
             </article>
             <article class="routing-card">
-              <strong>What changes for you</strong>
-              <p>Owners still decide. We remove the chase: no round-robin emails, no “who owns this?” thread. Leadership still sees the full queue and outcomes.</p>
+              <strong>Three cards in this demo</strong>
+              <p>CNC_14 cell partner idle · CNC_14_S2 micro-stop cluster · Induction × CNC overlap timing.</p>
             </article>
           </div>
           <div class="phone-col">
@@ -3297,25 +3348,26 @@
                       <div class="wa-head-icons" aria-hidden="true"><span>⌕</span><span>⋮</span></div>
                     </div>
                     <div class="wa-body" id="floorWaBody">
-                      <p class="wa-meta" id="floorMeta">Today · assigned action · 1/2</p>
+                      <p class="wa-meta" id="floorMeta">Today · assigned action · 1/3</p>
                       <div class="wa-msg" id="floorMsg">
                         <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
                           <span class="tag" id="floorTag">Rx · High</span>
-                          <h4 id="floorTitle">Stagger Press Line 1 start versus SQF furnace preheat by 10-12 min</h4>
+                          <h4 id="floorTitle">Check CNC_14_S1 while S2 is producing 1774*P/M</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
-                          <p class="wa-line" id="floorWhy"><b>Why:</b> Press and furnace overlapped in the same MD window</p>
-                          <p class="wa-line" id="floorImpact"><b>Impact:</b> ₹0.8-1.2L/mo on MD line [illustrative]</p>
-                          <p class="wa-line" id="floorOwner"><b>Owner:</b> Electrical POC · Faridabad + furnace lead</p>
-                          <p class="wa-line" id="floorEffort"><b>Effort:</b> Sequence change · no new equipment</p>
-                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Compare MD window with both start times against a quiet baseline week</p>
-                          <p class="wa-line" id="floorDue"><b>Due:</b> This week · before next peak</p>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> S1 STOP while cell partner S2 is in OPERATE</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Recoverable production minutes; ₹ after contribution/hour agreed</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> CNC cell supervisor · shift owner after roster</p>
+                          <p class="wa-line" id="floorEffort"><b>Effort:</b> Walk the cell · record reason if planned</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> S1 returns to OPERATE or valid reason recorded</p>
+                          <p class="wa-line" id="floorDue"><b>Due:</b> Within 10 minutes</p>
                           <div class="wa-bubble__foot">
                             <span class="wa-tick" aria-hidden="true">10:42</span>
                           </div>
                         </div>
                         <div class="wa-actions" id="floorActions">
-                          <button type="button" id="floorSnooze" aria-label="Snooze prescription">Snooze</button>
-                          <button type="button" class="primary" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
+                          <button type="button" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
+                          <button type="button" class="primary" id="floorDone" aria-label="Mark prescription done">Done</button>
+                          <button type="button" id="floorEscalate" aria-label="Escalate prescription">Escalate</button>
                         </div>
                       </div>
                       <div class="wa-end" id="floorEnd" hidden>
@@ -3341,134 +3393,132 @@
     <section class="slide slide--light" id="scene-verify" data-theme="light" aria-label="Verification">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Evidence before credit</p>
-        <h2 class="reveal">Savings count only after the signal actually moves</h2>
-        <p class="lede reveal hide-mobile">Issuing a prescription or marking it done is not a saving. We lock the baseline before action, watch the post-action period, and record value only when the agreed evidence clears. At month-end you see which actions completed, which did not, and why (ops, worker, or metallurgy / dispatch constraints).</p>
-        <p class="mobile-lede reveal show-mobile">Baseline locked first. Credit only when the evidence clears. At month end you see what ran and what did not.</p>
+        <h2 class="reveal">Track ROI in a closure ledger, action by action.</h2>
+        <p class="lede reveal hide-mobile">A task marked Done is not value. Credit is recorded only when the agreed machine, production or energy signal moves. The verified outcome and genuine operator input then improve the next decision.</p>
+        <p class="mobile-lede reveal show-mobile">Done is not value. Credit only when the machine or meter signal moves.</p>
         <div class="verify-steps reveal hide-mobile">
           <div class="verify-step">
-            <strong>Baseline</strong>
-            <span>Expected performance under comparable production, heat/batch mix, and operating conditions.</span>
+            <strong>Response time</strong>
+            <span>Event → acknowledgement → intervention → OPERATE.</span>
           </div>
           <div class="verify-step">
-            <strong>Action</strong>
-            <span>What changed, who approved it, when it was executed, and which assets were affected.</span>
+            <strong>Production recovery</strong>
+            <span>Avoidable stopped minutes recovered by machine, cell and product.</span>
           </div>
           <div class="verify-step">
-            <strong>Outcome</strong>
-            <span>Actual energy, demand, or equipment-performance change after adjustment for relevant context.</span>
+            <strong>Repeat reduction</strong>
+            <span>Whether the same pattern returns after the action.</span>
           </div>
           <div class="verify-step">
-            <strong>Ledger</strong>
-            <span>Potential versus realised ₹ and kWh, plus whether the action ran, sat, or got blocked.</span>
+            <strong>Energy / MD</strong>
+            <span>kWh, kVA and ₹ only after power or bill data is active.</span>
           </div>
           <div class="verify-step">
-            <strong>Confirmation</strong>
-            <span>DHBVN bill lines can provide secondary confirmation when the billing period closes.</span>
+            <strong>Improve signal</strong>
+            <span>Accepted, rejected or corrected action plus operator reason feeds the next ranking.</span>
           </div>
         </div>
         <div class="ledger-wrap reveal">
           <table class="ledger-table">
-            <thead><tr><th>Prescription</th><th>Type</th><th>Value</th><th>Status</th></tr></thead>
+            <thead><tr><th>Prescription</th><th>Baseline</th><th>Evidence</th><th>Status</th></tr></thead>
             <tbody>
               <tr>
-                <td>Press vs SQF stagger</td>
-                <td>Realised</td>
-                <td>₹52k/mo</td>
-                <td>Verified · completed</td>
+                <td>CNC_14 cell split</td>
+                <td>Baseline required</td>
+                <td>Machine state</td>
+                <td>Ready to measure</td>
               </tr>
               <tr>
-                <td>Compressor 2 filter inspect</td>
-                <td>Realised</td>
-                <td>₹48k/mo</td>
-                <td>Verified · completed</td>
+                <td>Micro-stop cluster</td>
+                <td>Baseline required</td>
+                <td>Gantt segments</td>
+                <td>Ready to measure</td>
               </tr>
               <tr>
-                <td>Furnace weekend hold</td>
-                <td>Potential</td>
-                <td>₹28k/mo</td>
-                <td>Blocked · heat still in soak</td>
+                <td>Induction × CNC overlap</td>
+                <td>Timing visible; ₹ pending</td>
+                <td>Start timestamps + incomer later</td>
+                <td>Partially ready</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="meta reveal hide-mobile">Prescription history · calculation method · source tags · baseline version · post-action curve · exceptions · EnMS / utility review support</p>
+        <p class="meta reveal hide-mobile">Prescription history · source tags · baseline version · post-action state · operator corrections · EnMS review support</p>
         <p class="footnote reveal">Models propose. Plant execution and measured evidence determine what counts.</p>
       </div>
     </section>
 
     <section class="slide slide--light grid-bg" id="scene-integration" data-theme="light" aria-label="Integration and boundaries">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Designed for brownfield plants</p>
-        <h2 class="reveal">Fits Sector 59: read-only, sits beside ERP, no control writes</h2>
+        <p class="eyebrow reveal">Start with the stack already installed</p>
+        <h2 class="reveal">Three small inputs can produce the first closed actions.</h2>
         <div class="bound-grid reveal">
           <div class="bound-col bound-col--ot">
-            <h3>Integration</h3>
+            <h3>Already connected</h3>
             <ul class="bound-list">
-              <li>OPC-UA, Modbus, MQTT, API, or scheduled file export, depending on existing access</li>
-              <li>Optional edge-buffered path when direct cloud connectivity is not permitted</li>
-              <li>Start with meter + DHBVN bill; add press, SQF, CNC, and compressor feeders only where useful</li>
+              <li>FANUC MT-LINKi state, Gantt, product, program</li>
+              <li>31 machines including INDUCTION_01 / 02 on the collector</li>
+              <li>CNC_14 cell split and product context in sampled snapshots</li>
             </ul>
           </div>
           <div class="bound-col ">
-            <h3>Operating boundaries</h3>
+            <h3>Three starting asks</h3>
             <ul class="bound-list">
-              <li>Read-only on OT</li>
-              <li>No PLC, furnace, or utility setpoint writes from Stamped</li>
-              <li>Existing EMS, ERP, production, and maintenance systems remain systems of record</li>
-              <li>Human approval for heat quality, production, maintenance, or high-impact actions</li>
+              <li><strong>Ask 1:</strong> Enable alarm columns in the API so clamp and lube issues route to the correct role</li>
+              <li><strong>Ask 2:</strong> Enable MT-LINKi power-by-state, or provide incomer / DHBVN bill path, for ₹ on energy actions</li>
+              <li><strong>Ask 3:</strong> Paper owner map and shift clock for a 3-5 machine cell</li>
             </ul>
           </div>
           <div class="bound-col bound-col--ot">
-            <h3>Data governance</h3>
+            <h3>Later, only if useful</h3>
             <ul class="bound-list">
-              <li>Minimum data scope agreed before connection</li>
-              <li>Role-based access and action audit trail</li>
-              <li>Retention, hosting, and plant-network design agreed with LNM IT/security before deployment</li>
+              <li>Read-only ForgeLink / Frappe due date to change action priority</li>
+              <li>Does not replace dispatch or ERP as system of record</li>
               <li>Source lineage retained for every prescription</li>
             </ul>
           </div>
         </div>
-        <p class="meta reveal" style="margin-top:0.85rem;">Stamped is not an EMS replacement, MES, CMMS, vibration-monitoring system, solar/EPC service, or autonomous plant-control system. We do not replace EMS, ERP, MES, or CMMS.</p>
+        <p class="meta reveal" style="margin-top:0.85rem;">Complements FANUC + ForgeLink · Operators approve · No FOCAS/CNC writes · No MES rebuild</p>
         <p class="footnote reveal">Any first engagement should stay small enough to review technically and useful enough to produce one decision worth verifying.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Next conversation">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">A conversation, not a commitment</p>
-        <h2 class="reveal">Happy to walk your team through how this would work at LNM Faridabad</h2>
-        <p class="offer-lede reveal hide-mobile">This brief is so electrical, utilities, and maintenance can see Industry Energy Management and Asset Health Intelligence on the Sector 59 precision stack. If it looks useful, we map one realistic starting point: one forge / HT or compressor boundary, plus how MD / holding and early equipment warnings would be scoped. Faridabad only. No multi-site ask in that meeting.</p>
-        <p class="mobile-lede reveal show-mobile">See the approach first. Then a short working session if useful.</p>
+        <p class="eyebrow reveal">Start with one working session</p>
+        <h2 class="reveal">Let us prove one closed action on a 3-5 machine cell.</h2>
+        <p class="offer-lede reveal hide-mobile">In 30-45 minutes, choose the cell, agree the owner and thresholds, and confirm the two FANUC settings that enable routing and energy value. Start with the data LNM already owns. Add more only after one action closes.</p>
+        <p class="mobile-lede reveal show-mobile">One cell · one owner map · one closed action first.</p>
 
         <div class="offer-main reveal">
           <div class="offer-panel offer-panel--scope">
             <h3>What we&#x27;d cover in a working session</h3>
             <ul class="scope-list">
-              <li>Which forge / HT or CNC island would be a fair first look</li>
-              <li>Which meter, SCADA, or DHBVN bill data you already trust</li>
-              <li>Who would own a stagger or compressor-inspect action if one landed</li>
-              <li>How demand / ToD stagger and asset-health warnings would be scoped</li>
-              <li>Two recent DHBVN HT bills (MD, ToD, PF) if available</li>
+              <li>Select one cell, preferably CNC_14 or another operationally representative group</li>
+              <li>Confirm what STOP, HOLD and DISCONNECT mean for that machine family</li>
+              <li>Provide the shift clock and owner map</li>
+              <li>Confirm alarm-column and power-module access</li>
+              <li>Agree the ROI baseline: response time, recovered minutes, repeat reduction, and energy when available</li>
             </ul>
           </div>
           <div class="offer-panel offer-panel--timeline">
-            <h3>What we would not ask for first</h3>
+            <h3>Output from the session</h3>
             <div class="offer-timeline">
               <article class="offer-phase">
-                <div class="offer-phase__when">No PLC writes</div>
-                <p>Read-only on OT. Your control stack stays as-is.</p>
+                <div class="offer-phase__when">One Recover Now workflow</div>
+                <p>Cell split or micro-stop action with named owner and verify rule.</p>
               </article>
               <article class="offer-phase">
-                <div class="offer-phase__when">No multi-site ask first</div>
-                <p>Sector 59 only first. Not a Jaipur or multi-plant rollout ask.</p>
+                <div class="offer-phase__when">One energy-timing view</div>
+                <p>Induction × CNC overlap without fake ₹ until power lands.</p>
               </article>
               <article class="offer-phase">
-                <div class="offer-phase__when">No AI workshop</div>
-                <p>We walk energy and asset-health actions, not a models pitch.</p>
+                <div class="offer-phase__when">One evidence ledger</div>
+                <p>Baseline, signal source and ready-to-measure status per action.</p>
               </article>
               <article class="offer-phase">
-                <div class="offer-phase__when">Keep it practical</div>
-                <p>One Sector 59 consumer and one forge / HT island if you go further later.</p>
+                <div class="offer-phase__when">Clear yes / no / later</div>
+                <p>No multi-site ask. Sector 59 only. No PLC writes.</p>
               </article>
             </div>
           </div>
@@ -3477,7 +3527,7 @@
         <div class="offer-bottom reveal" style="margin-top:1.15rem;">
           <div class="ask-box">
             <strong>Suggested next step</strong>
-            <p>A 30-45 minute working session with electrical, utilities, and maintenance. We walk the brief, and leave with a clear yes / no / later on bills share, a short plant walk, and whether a scoped Faridabad pilot is worth discussing.</p>
+            <p>A 30-45 minute working session with production, HT and maintenance. We walk the brief and leave with a clear yes / no / later on owner map, alarm columns, power module and whether a scoped Faridabad pilot is worth discussing.</p>
           </div>
           <div class="offer-aside">
             <div class="commercial">
@@ -3513,28 +3563,40 @@
   <script>
     window.__FLOOR_RX__ = [
       {
-        "title": "Stagger Press Line 1 start versus SQF furnace preheat by 10-12 min",
-        "rule": "RX-MD-011 · md_overlap@v2.4",
-        "why": "Press and furnace overlapped in the same MD window",
-        "impact": "₹0.8-1.2L/mo on MD line [illustrative]",
-        "owner": "Electrical POC · Faridabad + furnace lead",
-        "effort": "Sequence change · no new equipment",
-        "verify": "Compare the demand peak window with both start times against a quiet baseline week",
+        "title": "Check CNC_14_S1 while S2 is producing 1774*P/M",
+        "rule": "RX-CELL-001 · cell_split@v1",
+        "why": "S1 STOP while cell partner S2 is in OPERATE",
+        "impact": "Recoverable production minutes; ₹ after contribution/hour agreed",
+        "owner": "CNC cell supervisor · shift owner after roster",
+        "effort": "Walk the cell · record reason if planned",
+        "verify": "S1 returns to OPERATE or valid reason recorded",
         "priority": "High",
-        "due": "This week · before next peak",
+        "due": "Within 10 minutes",
         "statusStep": 0
       },
       {
-        "title": "Inspect Compressor 2 inlet filter and unload valve",
-        "rule": "RX-UTL-024 · sp_drift@v1.6",
-        "why": "Specific power 14% above eight-week baseline for matched header pressure and shift load; persisted nine days",
-        "impact": "₹45k-70k/mo if curve returns to baseline [illustrative]",
-        "owner": "Utilities · Faridabad + mechanical maintenance",
-        "effort": "~2 hrs · subject to isolation and permit",
-        "verify": "Compare post-service kW/Air with locked baseline for 72 operating hours",
-        "priority": "Med",
-        "due": "Next approved low-load maintenance window",
+        "title": "Review CNC_14_S2 micro-stop cluster before shift handover",
+        "rule": "RX-GANTT-014 · micro_stop@v1",
+        "why": "~527 state cuts in 24 h on one machine; cluster points to one recoverable pattern",
+        "impact": "Production minutes recoverable this shift; ₹ after baseline agreed",
+        "owner": "CNC cell supervisor · setter on escalation",
+        "effort": "Inspect cell · no CNC command",
+        "verify": "No repeat cluster in stabilisation window; S2 stays in OPERATE",
+        "priority": "High",
+        "due": "This shift",
         "statusStep": 1
+      },
+      {
+        "title": "Hold non-critical CNC start 8 min after next induction OPERATE",
+        "rule": "RX-ENG-003 · start_overlap@v1",
+        "why": "Induction and CNC co-start visible on collector; overlap timing before incomer kVA",
+        "impact": "MD exposure after incomer / bill connection; no ₹ until then",
+        "owner": "HT supervisor + production supervisor",
+        "effort": "Sequence agreement · no furnace command",
+        "verify": "Next approved start delta >= 8 min; production release unchanged",
+        "priority": "Med",
+        "due": "Before next co-start window",
+        "statusStep": 2
       }
     ];
 
@@ -3626,14 +3688,16 @@
       var floorVerify = document.getElementById("floorVerify");
       var floorDue = document.getElementById("floorDue");
       var floorMsg = document.getElementById("floorMsg");
-      var floorSnooze = document.getElementById("floorSnooze");
       var floorAck = document.getElementById("floorAck");
+      var floorDone = document.getElementById("floorDone");
+      var floorEscalate = document.getElementById("floorEscalate");
 
       function setFloorStatus(step) { /* routing slide: no status rail */ }
 
       function setFloorControlsEnabled(on) {
-        if (floorSnooze) floorSnooze.disabled = !on;
         if (floorAck) floorAck.disabled = !on;
+        if (floorDone) floorDone.disabled = !on;
+        if (floorEscalate) floorEscalate.disabled = !on;
         if (floorBubble) floorBubble.setAttribute("aria-disabled", on ? "false" : "true");
       }
 
@@ -3655,8 +3719,8 @@
         floorBubble.hidden = false;
         if (floorActions) floorActions.hidden = false;
         if (floorEnd) floorEnd.hidden = true;
-        if (floorMsg) floorMsg.classList.remove("is-dismiss-ack", "is-dismiss-snooze", "is-enter");
-        floorBubble.classList.remove("is-dismiss-ack", "is-dismiss-snooze", "is-enter");
+        if (floorMsg) floorMsg.classList.remove("is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate", "is-enter");
+        floorBubble.classList.remove("is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate", "is-enter");
         if (animateIn) {
           void floorMsg.offsetWidth;
           floorMsg.classList.add("is-enter");
@@ -3690,9 +3754,10 @@
           void phoneEl.offsetWidth;
           phoneEl.classList.add("is-pulse");
         }
-        floorMsg.classList.remove("is-enter", "is-dismiss-ack", "is-dismiss-snooze");
+        floorMsg.classList.remove("is-enter", "is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate");
         void floorMsg.offsetWidth;
-        floorMsg.classList.add(mode === "snooze" ? "is-dismiss-snooze" : "is-dismiss-ack");
+        var dismissClass = mode === "done" ? "is-dismiss-done" : (mode === "escalate" ? "is-dismiss-escalate" : "is-dismiss-ack");
+        floorMsg.classList.add(dismissClass);
         window.setTimeout(function () {
           var next = floorIdx + 1;
           if (next >= floorRx.length) {
@@ -3705,16 +3770,22 @@
         }, 340);
       }
 
-      if (floorSnooze) {
-        floorSnooze.addEventListener("click", function (e) {
-          e.stopPropagation();
-          dismissFloor("snooze");
-        });
-      }
       if (floorAck) {
         floorAck.addEventListener("click", function (e) {
           e.stopPropagation();
           dismissFloor("ack");
+        });
+      }
+      if (floorDone) {
+        floorDone.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dismissFloor("done");
+        });
+      }
+      if (floorEscalate) {
+        floorEscalate.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dismissFloor("escalate");
         });
       }
       if (floorBubble) {
