@@ -156,20 +156,20 @@ Plant teams review prescriptions through an easy-to-use interface, decide which 
 
 **Badge:** Impact
 
-**Headline:** Measurable impact on plant performance and energy cost.
+**Headline:** Measurable impact across cost, reliability, and shift execution.
 
-**Body:** Stamped identifies and rupee-scores high-impact prescriptions as plant and market conditions change.
+**Body:** Stamped rupee-scores prescriptions for energy, equipment, and production moves as plant and market conditions change.
 
 **Disclaimer:** Indicative ranges from comparable plants. Your pilot replaces these with figures verified with evidence.
 
 | Figure | Label | Detail |
 | --- | --- | --- |
-| 15-20% | Reduction in monthly energy cost | Across energy-intensive manufacturing plants in India |
-| 8-15% | Gain in operating efficiency | Energy use aligned to production by shift, batch, or line |
-| 15-25% | Reduction in maximum demand charges | Often from incomer meter and bill data alone, no capex |
-| 10-20% | Non-production energy flagged | Idle loads, holding, HVAC staging, and batch gaps |
-| 10-20% | Unplanned downtime prevented | Early equipment warnings from the same energy stack |
-| 8-12% | Energy waste identified | Across assets within the first weeks via per-equipment baselines |
+| 15-20% | Monthly energy cost recovery | Stagger, ToD, idle, and demand prescriptions when assigned actions close |
+| 10-20% | Unplanned downtime prevented | Early drift and equipment prescriptions acted on before a trip |
+| Same shift | Production issues routed | Micro-stops, holdbacks, and line drift with an owner and evidence on the card |
+| 15-25% | Emergency maintenance cost reduction | Fewer rush repairs when drift surfaces on plant signals first |
+| rupee-ranked | Every prescription scored | What to do, who owns it, effort, and ₹ impact before anyone acts |
+| 2 weeks | First prescriptions live | Read-only on meters, SCADA, and systems you already run |
 
 ### Solutions
 
