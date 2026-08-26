@@ -6,6 +6,8 @@ Internal study pack. Labels: **public** · **field** · **inferred** · **illust
 **Leave-behind:** [`demo-decks/clients/lnm-auto-faridabad-technical/`](../demo-decks/clients/lnm-auto-faridabad-technical/)  
 **Runbook:** [`lnm-runbook-26aug-9sep.md`](./lnm-runbook-26aug-9sep.md)
 
+**26 Aug walk (field):** MT-LINKi is live (~31 machines, e.g. `CNC_14_S2`). Shop-floor people are **not** using it as a live tool; IT daily Report Output is the human interface; production Plans in FANUC are **0**. Do not pitch “you already know who is idle.” Longer field note lives in the L6 repo: `experience-integration/docs/field/2026-08-26-aluminum-plant-fanuc-production-efficiency.md`.
+
 ---
 
 ## 1. What LNM is commercially
@@ -124,13 +126,14 @@ Do not sell (1) without (2) or they price us as an EMS. Do not sell (2) without 
 
 | Stack | Job | Gap vs Stamped |
 |-------|-----|----------------|
-| FANUC + gantry / robots | Uptime and cycle | No DISCOM bill, no incomer kWh, no PF, no rupees |
+| FANUC + gantry / robots | **Collector records** uptime, alarms, counts. **Shop barely uses the UI** (26 Aug walk: MT-LINKi live, people not in it; IT daily Report Output is the human interface; `Plans = 0`) | No last mile to setter; no DISCOM bill, no incomer kWh, no PF, no rupees |
 | In-house ERP (deck) + Frappe (HR) | Orders / people | Not energy |
 | TPM / work orders | Maintenance closure | No ₹-scored energy Rx |
 | Meters (if any) | Local readouts | No plant-wide EMS-class picture |
 
-**Pitch line (FANUC objection):**  
-*You already know which machines are idle. We tell you what that idle costs against the actual DHBVN bill.*
+**Pitch line (FANUC objection) — updated 26 Aug walk:**  
+*Your FANUC collector already knows which machines are idle and why. The setter is not in that screen. We put that in their hand, and we tell you what the idle costs against the actual DHBVN bill. We do not replace FANUC.*  
+~~Do not use the old line “you already know which machines are idle.” Walk evidence: they do not.~~
 
 **Pitch line (EMS gap):**  
 *You do not have a working energy picture. We put kW, MD, PF, and the bill on one screen in two days — then tell you what to do about it.*
@@ -234,7 +237,7 @@ Edge on **their PC** + Stamped AWS `ap-south-1` (`cloud` profile). See [`handoff
 
 ## 9. Win lines (short)
 
-- *You do not have a working energy picture. FANUC tells you who is idle. We put kW, MD, PF, and the DHBVN bill on one screen, then tell you what that idle costs.*  
+- *You do not have a working energy picture. The FANUC collector already knows who is idle — people are not living in that screen. We put it in the setter’s hand, with kW, MD, PF, and the DHBVN bill on one action.*  
 - *Two days: monitoring. A few more days: what you should have done last month, and what to do this week. Factory 1 only. The other two sheds after this one works.*  
 - Humans approve. No second FOCAS client. No silent writes. Sample ₹ is illustrative until M&V is locked.
 

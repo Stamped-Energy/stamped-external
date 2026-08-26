@@ -84,7 +84,7 @@ gantt
 **Lines:**
 
 1. *You do not have a working energy picture. We put kW, MD, PF, and the bill on one screen in two days — then tell you what to do about it in rupees.*  
-2. *FANUC tells you who is idle. We tell you what that idle costs against the actual DHBVN bill.*  
+2. *Your FANUC collector already knows who is idle. People are not living in that screen — we put it in the setter’s hand and score it against the DHBVN bill. We do not replace FANUC.*  
 3. *Factory 1 only for the demo soak. The other two sheds after this one works.*  
 
 **Ask for a yes/no/later on:**
@@ -284,7 +284,7 @@ Do not quote sample leave-behind ₹ as LNM’s money. Lock M&V language before 
 
 ## 11. Win lines (repeat)
 
-- *You do not have a working energy picture. FANUC tells you who is idle. We put kW, MD, PF, and the DHBVN bill on one screen, then tell you what that idle costs.*  
+- *You do not have a working energy picture. The FANUC collector already knows who is idle — people are not living in that screen. We put it in the setter’s hand, with kW, MD, PF, and the DHBVN bill on one action.*  
 - *Two days: monitoring. A few more days: what you should have done last month, and what to do this week. Factory 1 only.*  
 - Humans approve. No second FOCAS client. No silent writes.
 
