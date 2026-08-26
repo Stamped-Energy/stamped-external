@@ -13,7 +13,7 @@
 | future/ | parked | Near: plant margin optimization; Later: production-efficiency Rx — **agents must not build unless founder explicitly asks** |
 | writeback-spec | completed | ADR-029 human-guided OT command path; L1/L5/L6 specs; contracts 0.13.0; Wave B/C pilot — **code Wave C later** |
 
-Updated: 2026-08-24
+Updated: 2026-08-27
 
 ## Deck copy and design improvements
 
@@ -24,3 +24,4 @@ Updated: 2026-08-24
 | 3 | completed | Prescription readability and deep-dive interaction/accessibility polish |
 | 4 | completed | Playwright roots fixed; standalone QA added; 44px brand link |
 | 5 | completed | Explainer pipeline aligned; leftover theater scan clean |
+| LNM deck | completed | Execution-first FANUC retarget for Faridabad technical brief (`demo-decks/clients/lnm-auto-faridabad-technical/`); validated 2026-08-27 |
