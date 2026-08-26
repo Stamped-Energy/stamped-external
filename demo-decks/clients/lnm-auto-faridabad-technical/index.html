@@ -1290,6 +1290,14 @@
       min-height: 0;
       position: relative;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .wa-body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
     }
     .wa-meta {
       font-size: 0.62rem; color: #54656f; text-align: center;
@@ -1581,7 +1589,7 @@
       gap: 0.65rem; margin-top: 1.15rem;
     }
     #scene-load .waste-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.85rem;
       width: 100%;
     }
@@ -1591,6 +1599,22 @@
     }
     #scene-load .waste-card h3 { font-size: 1.05rem; margin-bottom: 0.55rem; }
     #scene-load .waste-card p {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    #scene-equipment .waste-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem;
+      width: 100%;
+    }
+    #scene-equipment .waste-card {
+      min-height: 148px;
+      padding: 1.15rem 1.25rem;
+    }
+    #scene-equipment .waste-card h3 { font-size: 1.05rem; margin-bottom: 0.55rem; }
+    #scene-equipment .waste-card p {
       font-size: 0.9rem;
       line-height: 1.45;
       color: var(--on-surface-variant);
@@ -2972,11 +2996,11 @@
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
             <p class="industry-chip client-mark reveal" id="industryChip">LNM Auto · Faridabad</p>
-            <p class="eyebrow reveal">Built on your existing FANUC MT-LINKi data · Sector 59 · Technical brief</p>
+            <p class="eyebrow reveal">Machine data · ERP · ForgeLink · Sector 59 · Technical brief</p>
             <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">Turn your FANUC data into action on the same shift.</h1>
+            <h1 class="reveal">Turn your data into action this shift.</h1>
             <p class="title-rail reveal hide-mobile"><span>Data</span><span class="sep">→</span><span>Action</span><span class="sep">→</span><span>Evidence</span></p>
-            <p class="lede reveal hide-mobile">MT-LINKi already sees the machine. Stamped picks what matters, sends one clear action to the right owner, and closes it when the machine or meter confirms the result.</p>
+            <p class="lede reveal hide-mobile">Your machines already report state. Stamped picks what matters, sends one clear action to the right owner, and closes it when the machine or meter confirms the result.</p>
             <p class="mobile-lede reveal show-mobile">One ranked action to the right owner. Close on machine evidence.</p>
             <div class="flow-tags reveal hide-mobile">
               <span class="chip">Recover production minutes</span>
@@ -2988,7 +3012,7 @@
               <span class="chip">Assigned actions</span>
               <span class="chip">Verified with evidence</span>
             </div>
-            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Complements FANUC and ForgeLink. Operators stay in control. No automatic CNC or furnace commands.</p>
+            <p class="meta reveal hide-mobile" style="margin-top:0.85rem;">Complements FANUC, ForgeLink and in-house ERP. Operators stay in control. No automatic CNC or furnace commands.</p>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
             </div>
@@ -3004,17 +3028,17 @@
     <section class="slide slide--light grid-bg" id="scene-gap" data-theme="light" aria-label="Decision gap">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">The gap after monitoring</p>
-        <h2 class="reveal">MT-LINKi sees the event. The action still travels by CSV and meeting.</h2>
-        <p class="lede reveal hide-mobile">LNM already runs precision forge, CNC machining, heat treatment, and surface at Sector 59. The collector is doing its job. The missing layer is the last mile from an abnormal event to the person who can recover it.</p>
+        <h2 class="reveal">Monitoring sees the event. The action still travels by CSV and meeting.</h2>
+        <p class="lede reveal hide-mobile">LNM already runs precision forge, CNC machining, heat treatment, and surface at Sector 59. Machine data is already flowing from collectors, ERP and ForgeLink. The missing layer is the last mile from an abnormal event to the person who can recover it.</p>
         <p class="mobile-lede reveal show-mobile">The data is there. The named action is not.</p>
         <div class="gap-compare reveal">
           <div class="gap-col">
             <h3>Today</h3>
-            <p class="chain-strip">Machine → FANUC → CSV → IT → report → meeting → maybe a person</p>
+            <p class="chain-strip">Machine → plant data → CSV → IT → report → meeting → maybe a person</p>
           </div>
           <div class="gap-col">
             <h3>With Stamped</h3>
-            <p class="chain-strip">Machine → FANUC → one ranked action → named owner → action → machine confirms recovery</p>
+            <p class="chain-strip">Machine → one ranked action → named owner → action → machine confirms recovery</p>
           </div>
         </div>
         <p class="gap-bridge reveal">IT becomes the exception reviewer, not the daily CSV operator</p>
@@ -3022,11 +3046,11 @@
       </div>
     </section>
 
-    <section class="slide slide--light" id="scene-fit" data-theme="light" aria-label="FANUC evidence already visible">
+    <section class="slide slide--light" id="scene-fit" data-theme="light" aria-label="Plant evidence already visible">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">What is already visible · 26 Aug sample</p>
         <h2 class="reveal">31 machines. Product, state and timing are already enough to start.</h2>
-        <p class="lede reveal hide-mobile">This brief is built from your FANUC MT-LINKi samples, not a generic forge template. Snapshot evidence from CNC_14_S2 and the 31-machine fleet.</p>
+        <p class="lede reveal hide-mobile">This brief is built from your machine data samples, including MT-LINKi, not a generic forge template. Snapshot evidence from CNC_14_S2 and the 31-machine fleet.</p>
         <p class="mobile-lede reveal show-mobile">31 machines · product on the Gantt · cell split already visible.</p>
         <div class="evidence-board reveal">
           <article class="evidence-card">
@@ -3046,7 +3070,7 @@
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
             <strong>1774*P/M on the Gantt</strong>
-            <p>Product already attached to CNC_14_S2 without ERP or ForgeLink.</p>
+            <p>Product on the Gantt today; richer dispatch context when ERP or ForgeLink joins.</p>
           </article>
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
@@ -3067,7 +3091,7 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Industry Energy Management · honest starting point</p>
         <h2 class="reveal">Energy value starts with timing. Rupees land when power data does.</h2>
-        <p class="lede reveal hide-mobile">DHBVN and plant energy matter at Sector 59. Today we can act on start overlap and idle duration from FANUC. Rupee quantum waits for the power module, incomer, or bill.</p>
+        <p class="lede reveal hide-mobile">DHBVN and plant energy matter at Sector 59. Today we can act on start overlap and idle duration from machine state. Rupee quantum waits for the power module, incomer, or bill.</p>
         <p class="mobile-lede reveal show-mobile">Timing actions now. ₹ on the card after power or bill data.</p>
         <p class="readiness-head reveal">Ready now</p>
         <div class="waste-grid reveal">
@@ -3107,52 +3131,53 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">Asset Health Intelligence · production co-benefit</p>
         <h2 class="reveal">Compress hundreds of machine events into the few actions worth taking.</h2>
-        <p class="lede reveal hide-mobile">~527 Gantt state segments and ~336 alarm timestamps on one sampled machine in 24 hours. The value is compression into one issue with an owner, not another wall of rows.</p>
-        <p class="mobile-lede reveal show-mobile">One clustered issue. Not hundreds of raw events.</p>
+        <p class="lede reveal hide-mobile">One machine can send hundreds of signals in a day. Stamped turns that noise into one clear action with an owner, not another wall of alerts.</p>
+        <p class="mobile-lede reveal show-mobile">One clear action. Not hundreds of raw events.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
             <h3>Cluster</h3>
-            <p>One micro-stop pattern on CNC_14_S2, not hundreds of separate notices.</p>
+            <p>Group repeated stops into one pattern, not hundreds of separate alerts.</p>
           </article>
           <article class="waste-card">
             <h3>Rank</h3>
-            <p>Still recoverable this shift before a weekly inspect list.</p>
+            <p>Show what is still recoverable this shift, before it lands on a weekly list.</p>
           </article>
           <article class="waste-card">
             <h3>Route</h3>
-            <p>Cell issue to supervisor today. Clamp vs lube routing after alarm columns land in the API.</p>
+            <p>Send the action to the supervisor or setter who can actually fix it today.</p>
           </article>
           <article class="waste-card">
             <h3>Verify</h3>
-            <p>No new event in the stabilisation window and machine returns to OPERATE.</p>
+            <p>Close when the machine is running again or the reason is recorded on the floor.</p>
           </article>
         </div>
-        <p class="footnote reveal">Inspect, trend and recover. Not vibration PdM, bearing life, or RUL %.</p>
+        <p class="footnote reveal">Find issues early and recover production. Not a vibration or bearing-life promise.</p>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-prescription" data-theme="light" aria-label="Example prescriptions">
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">What the plant receives</p>
-        <h2 class="reveal">A floor action tied to the machine, product and shift.</h2>
-        <span class="illustrative-badge reveal">LNM sample-derived · 26 Aug FANUC snapshots</span>
-        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Card 1 is ready from state data. Card 2 is energy timing without rupees until power or bill data lands.</p>
+        <h2 class="reveal">One clear job on the floor: do it now, close it on evidence.</h2>
+        <span class="illustrative-badge reveal">LNM sample-derived · 26 Aug machine snapshots</span>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Each card is one job someone on the floor can run this shift: what to do, who owns it, when it is due, and how the machine confirms it worked.</p>
         <div class="rx-layout reveal">
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="CNC_14 cell partner idle. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="CNC_14 bay walk. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · Production · Ready now</span>
+                  <span class="rx-badge">Rx · Recover now · Ready today</span>
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">CNC_14_S1 has remained non-operating while cell partner S2 is producing. Check the S1 constraint or record the planned reason.</p>
+                  <p class="rx-action">Walk to CNC_14 now. S1 is stopped while S2 is still cutting 1774*P/M. Ask the setter: tool, fixture, program hold, or planned gap? If planned, log the reason. If not, get S1 running or escalate.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>A split cell can hide recoverable production minutes while the bay still appears active.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>CNC cell supervisor · named shift owner after roster setup</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>Recoverable production minutes; ₹ after contribution/hour is agreed</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>Walk the cell · no new equipment</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>The bay looks busy because S2 is running. Idle time on S1 is production you can still win back this shift.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>CNC cell supervisor · setter on duty</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>Minutes back on S1 today; ₹ once shift rate is agreed</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>5-min walk · talk to setter · no IT ticket</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd>Within 10 minutes</dd></div>
+                    <div class="rx-row"><dt>Verify</dt><dd>S1 running again, or planned stop logged on the card</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -3177,28 +3202,29 @@
                     </tbody>
                   </table>
                   <p class="rx-cite">cell_split@v1 · LNM sample · not live Andon</p>
-                  <p class="rx-mv">M&amp;V · close on OPERATE or recorded reason</p>
+                  <p class="rx-mv">Close when S1 runs again or the setter logs a valid planned stop</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
             </div>
           </button>
 
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Induction and CNC co-start timing. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger induction and CNC start. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · Energy timing</span>
+                  <span class="rx-badge">Rx · Energy timing · Before next start</span>
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Review the next induction and CNC co-start. If the machining start is non-critical, hold it by the agreed 8-minute window.</p>
+                  <p class="rx-action">Before the next batch, meet HT and production at the line. If the CNC start can wait without hurting dispatch, begin machining at least 8 minutes after induction comes on. Do not delay a confirmed hot job.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Induction and CNC assets already share the collector; overlap timing is visible before incomer kVA is connected.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>HT supervisor + production supervisor</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>MD exposure to be calculated after incomer / bill connection</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>Sequence agreement · no furnace command</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>Before next co-start window</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Induction and CNC often start in the same minute. A short gap trims peak load. No furnace change, no setpoint write.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>HT supervisor + production supervisor · agree together</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>Less overlap on the next start; ₹ after power or bill data</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>Short conversation · reorder starts only</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Before the next shared start window</dd></div>
+                    <div class="rx-row"><dt>Verify</dt><dd>Starts are 8+ minutes apart, or export reason noted on the card</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
@@ -3225,7 +3251,7 @@
                     </tbody>
                   </table>
                   <p class="rx-cite">start_overlap@v1 · timing only · ₹ after power/bill</p>
-                  <p class="rx-mv">M&amp;V · verify start delta · production release unchanged</p>
+                  <p class="rx-mv">Close when the next start gap is logged or a hot-job reason is recorded</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
@@ -3246,7 +3272,7 @@
             <div class="agent-step__num">1</div>
             <div>
               <strong>Observe</strong>
-              <p>Machine state, Gantt, product and program from MT-LINKi.</p>
+              <p>Machine state, Gantt, product and program from collectors, ERP and ForgeLink where connected.</p>
             </div>
           </article>
           <article class="agent-step">
@@ -3260,7 +3286,7 @@
             <div class="agent-step__num">3</div>
             <div>
               <strong>Add context</strong>
-              <p>Cell, product, owner, shift; later due date and power when available.</p>
+              <p>Cell, product, owner, shift; later due date from ForgeLink/ERP and power when available.</p>
             </div>
           </article>
           <article class="agent-step">
@@ -3309,15 +3335,15 @@
             <article class="routing-card routing-card--stamped">
               <strong>With Stamped</strong>
               <ul class="routing-steps">
-                <li data-n="1">One clustered action from FANUC state and Gantt.</li>
+                <li data-n="1">One clustered action from machine state and Gantt.</li>
                 <li data-n="2">Acknowledge · Done · Escalate on one card.</li>
                 <li data-n="3">Close when OPERATE returns or the reason is recorded.</li>
-                <li data-n="4">FANUC verifies recovery; leadership sees the ledger.</li>
+                <li data-n="4">Machine evidence verifies recovery; leadership sees the ledger.</li>
               </ul>
             </article>
             <article class="routing-card">
               <strong>Three cards in this demo</strong>
-              <p>CNC_14 cell partner idle · CNC_14_S2 micro-stop cluster · Induction × CNC overlap timing.</p>
+              <p>CNC_14 bay walk · repeated short stops on S2 · stagger next induction/CNC start.</p>
             </article>
           </div>
           <div class="phone-col">
@@ -3352,13 +3378,13 @@
                       <div class="wa-msg" id="floorMsg">
                         <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
                           <span class="tag" id="floorTag">Rx · High</span>
-                          <h4 id="floorTitle">Check CNC_14_S1 while S2 is producing 1774*P/M</h4>
+                          <h4 id="floorTitle">Walk CNC_14: S1 stopped, S2 still on 1774*P/M</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
-                          <p class="wa-line" id="floorWhy"><b>Why:</b> S1 STOP while cell partner S2 is in OPERATE</p>
-                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Recoverable production minutes; ₹ after contribution/hour agreed</p>
-                          <p class="wa-line" id="floorOwner"><b>Owner:</b> CNC cell supervisor · shift owner after roster</p>
-                          <p class="wa-line" id="floorEffort"><b>Effort:</b> Walk the cell · record reason if planned</p>
-                          <p class="wa-line" id="floorVerify"><b>Verify:</b> S1 returns to OPERATE or valid reason recorded</p>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> S1 is down while S2 is cutting. Bay looks busy but S1 minutes are still recoverable.</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Minutes back on S1 this shift; ₹ once shift rate is agreed</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> CNC cell supervisor · setter on duty</p>
+                          <p class="wa-line" id="floorEffort"><b>Do:</b> Walk the bay · ask the setter · log reason if planned</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> S1 running again, or planned stop noted on the card</p>
                           <p class="wa-line" id="floorDue"><b>Due:</b> Within 10 minutes</p>
                           <div class="wa-bubble__foot">
                             <span class="wa-tick" aria-hidden="true">10:42</span>
@@ -3448,77 +3474,37 @@
       </div>
     </section>
 
-    <section class="slide slide--light grid-bg" id="scene-integration" data-theme="light" aria-label="Integration and boundaries">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Start with the stack already installed</p>
-        <h2 class="reveal">Three small inputs can produce the first closed actions.</h2>
-        <div class="bound-grid reveal">
-          <div class="bound-col bound-col--ot">
-            <h3>Already connected</h3>
-            <ul class="bound-list">
-              <li>FANUC MT-LINKi state, Gantt, product, program</li>
-              <li>31 machines including INDUCTION_01 / 02 on the collector</li>
-              <li>CNC_14 cell split and product context in sampled snapshots</li>
-            </ul>
-          </div>
-          <div class="bound-col ">
-            <h3>Three starting asks</h3>
-            <ul class="bound-list">
-              <li><strong>Ask 1:</strong> Enable alarm columns in the API so clamp and lube issues route to the correct role</li>
-              <li><strong>Ask 2:</strong> Enable MT-LINKi power-by-state, or provide incomer / DHBVN bill path, for ₹ on energy actions</li>
-              <li><strong>Ask 3:</strong> Paper owner map and shift clock for a 3-5 machine cell</li>
-            </ul>
-          </div>
-          <div class="bound-col bound-col--ot">
-            <h3>Later, only if useful</h3>
-            <ul class="bound-list">
-              <li>Read-only ForgeLink / Frappe due date to change action priority</li>
-              <li>Does not replace dispatch or ERP as system of record</li>
-              <li>Source lineage retained for every prescription</li>
-            </ul>
-          </div>
-        </div>
-        <p class="meta reveal" style="margin-top:0.85rem;">Complements FANUC + ForgeLink · Operators approve · No FOCAS/CNC writes · No MES rebuild</p>
-        <p class="footnote reveal">Any first engagement should stay small enough to review technically and useful enough to produce one decision worth verifying.</p>
-      </div>
-    </section>
-
     <section class="slide slide--light" id="scene-offer" data-theme="light" aria-label="Next conversation">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Start with one working session</p>
-        <h2 class="reveal">Let us prove one closed action on a 3-5 machine cell.</h2>
-        <p class="offer-lede reveal hide-mobile">In 30-45 minutes, choose the cell, agree the owner and thresholds, and confirm the two FANUC settings that enable routing and energy value. Start with the data LNM already owns. Add more only after one action closes.</p>
-        <p class="mobile-lede reveal show-mobile">One cell · one owner map · one closed action first.</p>
+        <p class="eyebrow reveal">A conversation, not a commitment</p>
+        <h2 class="reveal">Access first. Demos on your data. Pilot when it proves out.</h2>
+        <p class="offer-lede reveal hide-mobile">No big rollout ask today. Give us read-only access to one cell, we run practical demos on your machines, and after a few sessions where actions close on real evidence, we scope an official Sector 59 pilot together.</p>
+        <p class="mobile-lede reveal show-mobile">Access · demos on your data · pilot after it proves out.</p>
 
         <div class="offer-main reveal">
           <div class="offer-panel offer-panel--scope">
-            <h3>What we&#x27;d cover in a working session</h3>
+            <h3>What we need to start</h3>
             <ul class="scope-list">
-              <li>Select one cell, preferably CNC_14 or another operationally representative group</li>
-              <li>Confirm what STOP, HOLD and DISCONNECT mean for that machine family</li>
-              <li>Provide the shift clock and owner map</li>
-              <li>Confirm alarm-column and power-module access</li>
-              <li>Agree the ROI baseline: response time, recovered minutes, repeat reduction, and energy when available</li>
+              <li>Read-only access to one cell, preferably CNC_14 or a similar group</li>
+              <li>Machine data you already collect, plus a paper owner map and shift clock</li>
+              <li>30 minutes with production, HT and maintenance to agree scope</li>
+              <li>No PLC writes, no furnace commands, no multi-site ask</li>
             </ul>
           </div>
           <div class="offer-panel offer-panel--timeline">
-            <h3>Output from the session</h3>
+            <h3>How it progresses</h3>
             <div class="offer-timeline">
               <article class="offer-phase">
-                <div class="offer-phase__when">One Recover Now workflow</div>
-                <p>Cell split or micro-stop action with named owner and verify rule.</p>
+                <div class="offer-phase__when">Step 1 · Access</div>
+                <p>Read-only connection to one cell. We align on owners, thresholds and what counts as a closed action.</p>
               </article>
               <article class="offer-phase">
-                <div class="offer-phase__when">One energy-timing view</div>
-                <p>Induction × CNC overlap without fake ₹ until power lands.</p>
+                <div class="offer-phase__when">Step 2 · Practical demos</div>
+                <p>We run the workflow on your data: ranked actions, floor cards, verify on machine evidence. You judge if it matches how the floor actually works.</p>
               </article>
               <article class="offer-phase">
-                <div class="offer-phase__when">One evidence ledger</div>
-                <p>Baseline, signal source and ready-to-measure status per action.</p>
-              </article>
-              <article class="offer-phase">
-                <div class="offer-phase__when">Clear yes / no / later</div>
-                <p>No multi-site ask. Sector 59 only. No PLC writes.</p>
+                <div class="offer-phase__when">Step 3 · Official pilot</div>
+                <p>After a few demos with closed actions and an agreed ROI baseline, we put a scoped Sector 59 pilot in writing.</p>
               </article>
             </div>
           </div>
@@ -3527,13 +3513,13 @@
         <div class="offer-bottom reveal" style="margin-top:1.15rem;">
           <div class="ask-box">
             <strong>Suggested next step</strong>
-            <p>A 30-45 minute working session with production, HT and maintenance. We walk the brief and leave with a clear yes / no / later on owner map, alarm columns, power module and whether a scoped Faridabad pilot is worth discussing.</p>
+            <p>A 30-minute working session to agree access scope and a demo schedule. If the demos land, we talk pilot. If not, no hard feelings.</p>
           </div>
           <div class="offer-aside">
             <div class="commercial">
               <span class="chip">Read-only OT</span>
-              <span class="chip">Working session first</span>
-              <span class="chip">No commitment required</span>
+              <span class="chip">Your data first</span>
+              <span class="chip">Pilot after proof</span>
             </div>
             <p class="contact-line">
               <a href="mailto:contact@stamped.work">contact@stamped.work</a>
@@ -3563,39 +3549,39 @@
   <script>
     window.__FLOOR_RX__ = [
       {
-        "title": "Check CNC_14_S1 while S2 is producing 1774*P/M",
+        "title": "Walk CNC_14: S1 stopped, S2 still on 1774*P/M",
         "rule": "RX-CELL-001 · cell_split@v1",
-        "why": "S1 STOP while cell partner S2 is in OPERATE",
-        "impact": "Recoverable production minutes; ₹ after contribution/hour agreed",
-        "owner": "CNC cell supervisor · shift owner after roster",
-        "effort": "Walk the cell · record reason if planned",
-        "verify": "S1 returns to OPERATE or valid reason recorded",
+        "why": "S1 is down while S2 is cutting. Bay looks busy but S1 minutes are still recoverable.",
+        "impact": "Minutes back on S1 this shift; ₹ once shift rate is agreed",
+        "owner": "CNC cell supervisor · setter on duty",
+        "effort": "Walk the bay · ask the setter · log reason if planned",
+        "verify": "S1 running again, or planned stop noted on the card",
         "priority": "High",
         "due": "Within 10 minutes",
         "statusStep": 0
       },
       {
-        "title": "Review CNC_14_S2 micro-stop cluster before shift handover",
+        "title": "CNC_14_S2: repeated short stops this shift",
         "rule": "RX-GANTT-014 · micro_stop@v1",
-        "why": "~527 state cuts in 24 h on one machine; cluster points to one recoverable pattern",
-        "impact": "Production minutes recoverable this shift; ₹ after baseline agreed",
-        "owner": "CNC cell supervisor · setter on escalation",
-        "effort": "Inspect cell · no CNC command",
-        "verify": "No repeat cluster in stabilisation window; S2 stays in OPERATE",
+        "why": "Same machine stopped and restarted many times today. One pattern to fix, not random alerts.",
+        "impact": "Production minutes recoverable before handover; ₹ after baseline agreed",
+        "owner": "CNC cell supervisor · setter first, maintenance if it repeats",
+        "effort": "Check tool, fixture, coolant and chip load with the setter",
+        "verify": "Stops settle for 30 min, or escalate to maintenance",
         "priority": "High",
-        "due": "This shift",
+        "due": "This shift · before handover",
         "statusStep": 1
       },
       {
-        "title": "Hold non-critical CNC start 8 min after next induction OPERATE",
+        "title": "Next start: keep CNC 8 min after induction",
         "rule": "RX-ENG-003 · start_overlap@v1",
-        "why": "Induction and CNC co-start visible on collector; overlap timing before incomer kVA",
-        "impact": "MD exposure after incomer / bill connection; no ₹ until then",
+        "why": "Induction and CNC often start together. A short gap trims peak load without touching the furnace.",
+        "impact": "Less overlap on the next start; ₹ after power or bill data",
         "owner": "HT supervisor + production supervisor",
-        "effort": "Sequence agreement · no furnace command",
-        "verify": "Next approved start delta >= 8 min; production release unchanged",
+        "effort": "Short talk at the line · reorder starts only",
+        "verify": "Starts 8+ min apart, or hot-job reason logged",
         "priority": "Med",
-        "due": "Before next co-start window",
+        "due": "Before the next shared start",
         "statusStep": 2
       }
     ];
@@ -3710,7 +3696,7 @@
         if (floorWhy) floorWhy.innerHTML = "<b>Why:</b> " + (rx.why || "");
         if (floorImpact) floorImpact.innerHTML = "<b>Impact:</b> " + (rx.impact || "");
         if (floorOwner) floorOwner.innerHTML = "<b>Owner:</b> " + (rx.owner || "");
-        if (floorEffort) floorEffort.innerHTML = "<b>Effort:</b> " + (rx.effort || "");
+        if (floorEffort) floorEffort.innerHTML = "<b>Do:</b> " + (rx.effort || "");
         if (floorVerify) floorVerify.innerHTML = "<b>Verify:</b> " + (rx.verify || "");
         if (floorDue) floorDue.innerHTML = "<b>Due:</b> " + (rx.due || "This week · before next peak");
         if (floorMeta) floorMeta.textContent = "Today · assigned action · " + (i + 1) + "/" + floorRx.length;

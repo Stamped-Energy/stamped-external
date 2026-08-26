@@ -24,6 +24,18 @@ FULL = "demo-decks/clients/machinery-oem.html"
 BRIEF = "demo-decks/clients/lohia-corp-brief.html"
 FORGE = "demo-decks/clients/auto-forge-ht.html"
 LNM = "demo-decks/clients/lnm-auto-faridabad-technical/index.html"
+LNM_PREFIX = [
+    "scene-title",
+    "scene-gap",
+    "scene-fit",
+    "scene-load",
+    "scene-equipment",
+    "scene-prescription",
+    "scene-agentic",
+    "scene-floor",
+    "scene-verify",
+    "scene-offer",
+]
 
 TECH_BRIEF_PREFIX = [
     "scene-title",
@@ -208,9 +220,11 @@ def file_gate() -> list[str]:
         lnm = ""
     else:
         lnm = lnm_path.read_text(encoding="utf-8")
-        for sid in TECH_BRIEF_PREFIX:
+        for sid in LNM_PREFIX:
             if f'id="{sid}"' not in lnm:
                 issues.append(f"lnm missing {sid}")
+        if 'id="scene-integration"' in lnm:
+            issues.append("lnm: scene-integration removed; deck should be 10 slides")
         if "Industry Energy Management" not in lnm or "Asset Health Intelligence" not in lnm:
             issues.append("lnm missing website pillar names")
         if "₹" not in lnm:
