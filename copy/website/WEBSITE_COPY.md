@@ -81,7 +81,7 @@ Not included: platform, industries, contact, case studies. Those are not the ori
 
 **Badge:** For industrial plants
 
-**Headline:** Act on energy opportunities in real time.
+**Headline:** Turn plant data into action.
 
 **Supporting:** Stamped analyzes plant, application, and live market data to create rupee-scored prescriptions so operators can act before opportunities are missed. We tell you exactly what to do, who owns it, the rupee benefit, and the evidence behind each prescription.
 
@@ -353,47 +353,34 @@ Prefer the platform view first? **See how Connect to Improve works**.
 
 ### Examples
 
-**Eyebrow:** Examples
+**Eyebrow:** Example prescriptions
 
-**Headline:** Practical prescriptions your floor can run
+**Headline:** What operators receive
 
-**Intro:** Sample situations only. Numbers are illustrative until they are checked on your plant.
+**Intro:** Illustrative actions from comparable plants. Your pilot writes these from your meters and bill.
 
-#### 01 — Demand peak — Hold the second feeder start about 10 minutes
+**Footnote:** Impact ranges are samples until they are checked on your plant. Verified figures come with evidence.
 
-Two heavy machines start in the same short window and stack on the main supply. The bill shows the peak later. On the floor you can ask the second owner to wait a few minutes.
+#### Demand peak — Hold the second feeder start about 10 minutes
 
-**Impact:** Roughly ₹80k to ₹1.2L per month on demand charges [illustrative]
+Two heavy feeders ramped in the same window. Stagger the second start 8-12 minutes until the first load settles.
 
-- **What:** Hold the second large feeder start until the first load settles. Typical stagger is about 8 to 12 minutes inside the open demand window.
-- **Why:** Two heavy feeders started together and pushed the plant past the demand peak. The monthly bill shows the spike, not which machines overlapped while the window was still open.
-- **Who:** Electrical lead and area supervisor on the active shift
-- **Effort:** Sequence change. No new equipment.
-- **How you check:** Compare the demand peak window with both feeder start times against a quiet baseline week.
+**Impact:** ₹80k-1.2L/month  
+**Assigned:** Electrical lead / area supervisor
 
-#### 02 — Idle load — Switch off packaging auxiliaries when nothing runs for 20 minutes
+#### Idle load — Cut packaging auxiliaries after 20 minutes idle
 
-Conveyors and fans stay on when the line is empty. After twenty minutes with no output, switch the auxiliaries off per SOP and bring them back when production returns.
+Conveyors and fans stay on with no output. Switch tagged auxiliaries off per SOP; restart when production returns.
 
-**Impact:** Roughly ₹50k to ₹90k per month on energy [illustrative]
+**Impact:** ₹50k-90k/month  
+**Assigned:** Packaging supervisor / utilities lead
 
-- **What:** When packaging line output stays at zero for 20 minutes, switch off tagged auxiliaries such as conveyors, idle fans, and non-critical pumps. Restart when production returns or a supervisor overrides.
-- **Why:** Auxiliaries keep running during idle because nobody is watching output and machine power together in real time.
-- **Who:** Area supervisor on packaging and utilities lead
-- **Effort:** Idle SOP. Keep safety loads on the protect list.
-- **How you check:** Match line output against auxiliary power over the last few idle windows.
+#### Tariff timing — Move dryer warm-up into the cheaper window
 
-#### 03 — Tariff timing — Move dryer warm-up into the cheaper window
+Warm-up sits in the peak tariff band. Start about 25 minutes earlier; job release stays the same.
 
-Warm-up is burning peak-rate power even when output is the same. Shift warm-up earlier into the cheaper window. Jobs still release on time.
-
-**Impact:** Roughly ₹35k to ₹55k per month on timed energy [illustrative]
-
-- **What:** Start dryer warm-up about 25 minutes earlier into the lower tariff window before day-shift release, without changing job start time.
-- **Why:** Warm-up load overlaps the peak tariff band on most weekday runs, even when production volume is stable.
-- **Who:** Utilities lead and shift supervisor
-- **Effort:** Schedule change only. Production sign-off.
-- **How you check:** Compare warm-up power against the tariff window and the unchanged job release time.
+**Impact:** ₹35k-55k/month  
+**Assigned:** Utilities lead / shift supervisor
 
 ---
 
@@ -456,47 +443,34 @@ Warm-up is burning peak-rate power even when output is the same. Shift warm-up e
 
 ### Examples
 
-**Eyebrow:** Examples
+**Eyebrow:** Example prescriptions
 
-**Headline:** Practical prescriptions your floor can run
+**Headline:** What operators receive
 
-**Intro:** Sample situations only. Numbers are illustrative until they are checked on your plant.
+**Intro:** Illustrative actions from comparable plants. Your pilot writes these from your meters and signals.
 
-#### 01 — Equipment drift — Inspect Compressor 2 filter and unload valve
+**Footnote:** Impact ranges are samples until they are checked on your plant. Verified figures come with evidence.
 
-Compressor 2 is using more power than usual for the same air pressure, day after day. Inspect before it becomes extra bill and a breakdown.
+#### Equipment drift — Inspect Compressor 2 filter and unload valve
 
-**Impact:** Roughly ₹45k to ₹70k per month [illustrative]
+Power is up for the same pressure, nine days running. Inspect in the next approved low-load window.
 
-- **What:** Inspect Compressor 2 inlet filter and unload valve in the next approved low-load window. Use Compressor 1 as standby only if capacity is confirmed.
-- **Why:** The compressor is drawing more power for the same pressure and run pattern than it did over the last several weeks. The drift has held for about nine days.
-- **Who:** Utilities lead and mechanical maintenance
-- **Effort:** About two hours. Subject to isolation and permit.
-- **How you check:** Compare compressor power against pressure and run hours for a quiet baseline period.
+**Impact:** ₹45k-70k/month  
+**Assigned:** Utilities lead / mechanical maintenance
 
-#### 02 — Idle holding — Reduce furnace holding when the downstream line is delayed
+#### Micro-stop — Check fixture clamping on the repeating micro-stop
 
-The furnace is holding heat for a line that is already late. Cut holding when the delay passes the agreed window. Restart when production clears.
+Eight short stops in 35 minutes on the same machine. Setter checks clamping in the next 10 minutes.
 
-**Impact:** Cuts idle holding cost and energy waste. Plant-specific [illustrative]
+**Impact:** Minutes recovered  
+**Assigned:** Setter on this shift
 
-- **What:** Reduce furnace holding when the downstream line is delayed 45 minutes or more. Confirm setback or shutdown with production before the next peak tariff block.
-- **Why:** Holding power continues with zero throughput while the delay sits outside the agreed production window.
-- **Who:** Heat treatment and production
-- **Effort:** Setback SOP. Production sign-off.
-- **How you check:** Match holding power against the production delay window before and after the action.
+#### Weekly watchlist — Inspect the machine losing the most minutes this week
 
-#### 03 — Pumps — Check cooling-water pump for stuck recirculation
+Ranked by lost minutes, not alarm count. One bounded inspect with an owner before the week closes.
 
-Pump power is high for the flow you are getting. Check the valve path before you burn another week of recirculation losses.
-
-**Impact:** Recovers wasted power and hidden wear. Plant-specific [illustrative]
-
-- **What:** Inspect the cooling-water pump and related valves for stuck recirculation during the next approved isolation window.
-- **Why:** Pump electrical draw is high against delivered flow, which usually means recirculation rather than useful cooling.
-- **Who:** Utilities and mechanical maintenance
-- **Effort:** Inspect and tune. Isolation permit.
-- **How you check:** Compare pump power against delivered flow for a normal operating period.
+**Impact:** Downtime risk cut  
+**Assigned:** Maintenance lead / utilities
 
 
 ## 13. About `/about`
