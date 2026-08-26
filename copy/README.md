@@ -22,8 +22,9 @@ Live website SSOT when Main_Website is present: `lib/content/`. Architecture sta
 2. [`website/WEBSITE_COPY.md`](website/WEBSITE_COPY.md) — full homepage / solutions / About snapshot  
 3. [`CONTROL_AND_ACTION.md`](CONTROL_AND_ACTION.md) — how far we go on writes / desk action (do not over-lead with “read-only”)  
 4. [`client/POSITIONING_AND_NARRATIVE.md`](client/POSITIONING_AND_NARRATIVE.md) — four-step client story (WhatsApp, decks, discovery) — **not** homepage/About  
-5. [`prescriptions/CONSTRAINTS.md`](prescriptions/CONSTRAINTS.md) then [`prescriptions/CATALOG.md`](prescriptions/CATALOG.md)  
-6. [`decks/WHAT_WE_SHOW.md`](decks/WHAT_WE_SHOW.md) → industry / client brief sheets as needed  
+5. Named LNM room: [`client/LNM_FARIDABAD.md`](client/LNM_FARIDABAD.md) (FANUC pack pointer; not homepage)  
+6. [`prescriptions/CONSTRAINTS.md`](prescriptions/CONSTRAINTS.md) then [`prescriptions/CATALOG.md`](prescriptions/CATALOG.md)  
+7. [`decks/WHAT_WE_SHOW.md`](decks/WHAT_WE_SHOW.md) → industry / client brief sheets as needed  
 
 ## Folder map
 
@@ -31,7 +32,7 @@ Live website SSOT when Main_Website is present: `lib/content/`. Architecture sta
 |------|----------|
 | [`website/`](website/) | Public site canon (moved from `brand/`) |
 | [`CONTROL_AND_ACTION.md`](CONTROL_AND_ACTION.md) | Human control + optional approved writeback |
-| [`client/`](client/) | Client positioning & narrative twin |
+| [`client/`](client/) | Client positioning & narrative twin; LNM site brief |
 | [`prescriptions/`](prescriptions/) | Rx constraints + catalog (examples + deck floor Rx) |
 | [`decks/`](decks/) | What we show in Proof Runs and client briefs |
 

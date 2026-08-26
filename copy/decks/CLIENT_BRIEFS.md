@@ -29,10 +29,14 @@ Common spine (Nestlé quality bar): **title → gap → fit → load → equipme
 | Field | Claim |
 |-------|-------|
 | Site | Sector 59 · forge → CNC → HT → surface · DHBVN |
-| Load | Demand, HT hold, compressed air, CNC idle |
-| Sample Rx | Stagger Press Line 1 vs SQF furnace preheat 10–12 min · Inspect Compressor 2 |
-| Integration | Complements ERP · humans approve · no silent control writes |
-| Note | Named brief; keep people names off slides |
+| Collector | FANUC MT-LINKi already paid for; 31 machines in the 26 Aug sample |
+| Gap | Collector → CSV → IT → meeting. Last mile to the setter is missing |
+| Load (honest now) | Coincidence / induction × CNC **timing**. ₹ after power module, incomer, or bill (kWh currently 0) |
+| Equipment (honest now) | Gantt micro-stops, cell-partner idle (`CNC_14`), alarm *shape*. Named `2019`/`2029` blocked until API columns |
+| Sample Rx (leave-behind still) | Stagger Press Line 1 vs SQF furnace preheat · Inspect Compressor 2 — **generic forge-HT; retarget before the next LNM room** |
+| Sample Rx (site pack) | `CNC_14_S2` · `1774*P/M` · micro-stop / clamp cluster · setter · 10 min · close on OPERATE |
+| Integration | Complements FANUC + ForgeLink / ERP · humans approve · no FOCAS writes |
+| Note | Named brief; keep people names off slides. Site narrative: [`../client/LNM_FARIDABAD.md`](../client/LNM_FARIDABAD.md) |
 
 ## Lohia (`lohia-corp-brief.html`)
 
