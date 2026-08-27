@@ -29,6 +29,7 @@ LNM_PREFIX = [
     "scene-gap",
     "scene-fit",
     "scene-load",
+    "scene-production",
     "scene-equipment",
     "scene-prescription",
     "scene-agentic",
@@ -224,9 +225,11 @@ def file_gate() -> list[str]:
             if f'id="{sid}"' not in lnm:
                 issues.append(f"lnm missing {sid}")
         if 'id="scene-integration"' in lnm:
-            issues.append("lnm: scene-integration removed; deck should be 10 slides")
+            issues.append("lnm: scene-integration removed; deck should be 11 slides")
         if "Industry Energy Management" not in lnm or "Asset Health Intelligence" not in lnm:
             issues.append("lnm missing website pillar names")
+        if "Production Efficiency" not in lnm:
+            issues.append("lnm missing Production Efficiency pillar")
         if "₹" not in lnm:
             issues.append("lnm missing ₹ currency")
         if "LNM" not in lnm or "Faridabad" not in lnm or "Sector 59" not in lnm:
