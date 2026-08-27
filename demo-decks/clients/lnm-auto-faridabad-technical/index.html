@@ -3075,8 +3075,8 @@
       <div class="slide__inner slide__inner--wide">
         <p class="eyebrow reveal">What is already visible · 26 Aug sample</p>
         <h2 class="reveal">31 machines. Product, state and timing are already enough to start.</h2>
-        <p class="lede reveal hide-mobile">This brief is built from your machine data samples, including MT-LINKi, not a generic forge template. Snapshot evidence from CNC_14_S2 and the 31-machine fleet.</p>
-        <p class="mobile-lede reveal show-mobile">31 machines · product on the Gantt · cell split already visible.</p>
+        <p class="lede reveal hide-mobile">This brief is built from your machine data samples, including MT-LINKi, not a generic forge template. Snapshot evidence across CNC, VMC and induction on the 31-machine fleet.</p>
+        <p class="mobile-lede reveal show-mobile">31 machines · product on the Gantt · induction already on the collector.</p>
         <div class="evidence-board reveal">
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
@@ -3085,22 +3085,18 @@
           </article>
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
-            <strong>CNC_14 cell split</strong>
-            <p>CNC_14_S2 OPERATE while CNC_14_S1 STOP in the sampled snapshots.</p>
-            <div class="pair-state" aria-hidden="true">
-              <div class="is-stop">S1 STOP</div>
-              <div class="is-run">S2 OPERATE</div>
-            </div>
+            <strong>DISCONNECT and ALARM</strong>
+            <p>Lost collector and alarm states already sit next to run and stop. That is enough to send a walk today.</p>
           </article>
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
             <strong>1774*P/M on the Gantt</strong>
-            <p>Product on the Gantt today; richer dispatch context when ERP or ForgeLink joins.</p>
+            <p>One sample job is already on the Gantt; richer dispatch context when ERP or ForgeLink joins.</p>
           </article>
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
             <strong>~527 state cuts / 24 h</strong>
-            <p>One machine in the sample. Hundreds of events mean clustering, not more alerts.</p>
+            <p>One machining asset in the sample. Hundreds of events mean clustering, not more alerts.</p>
           </article>
           <article class="evidence-card">
             <span class="readiness-tag readiness-tag--now">Available now</span>
@@ -3121,7 +3117,7 @@
         <p class="readiness-head reveal">Ready now</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>Induction × CNC overlap</h3>
+            <h3>Induction × machining overlap</h3>
             <p>Flag when induction and machining enter OPERATE in the same window. Agree a feasible stagger when the schedule allows.</p>
           </article>
           <article class="waste-card">
@@ -3129,8 +3125,8 @@
             <p>Name which machine groups started together before the demand window closes.</p>
           </article>
           <article class="waste-card">
-            <h3>Long STOP / cell split</h3>
-            <p>Flag idle duration that deserves a walk. Do not call it energy waste until kW is available.</p>
+            <h3>Idle past the agreed window</h3>
+            <p>Flag STOP duration that deserves a walk. Do not call it energy waste until kW is available.</p>
           </article>
         </div>
         <p class="readiness-head readiness-head--later reveal">Unlock next</p>
@@ -3160,20 +3156,20 @@
         <p class="mobile-lede reveal show-mobile">One clear action. Not hundreds of raw events.</p>
         <div class="waste-grid reveal">
           <article class="waste-card">
-            <h3>Cluster</h3>
-            <p>Group repeated stops into one pattern, not hundreds of separate alerts.</p>
+            <h3>Repeating short stops</h3>
+            <p>Group chatter on one machine into one setter check, not a stack of alerts.</p>
           </article>
           <article class="waste-card">
-            <h3>Rank</h3>
-            <p>Show what is still recoverable this shift, before it lands on a weekly list.</p>
+            <h3>Lost collector</h3>
+            <p>When a machine goes DISCONNECT, send a walk: cable, planned stop, or true downtime.</p>
           </article>
           <article class="waste-card">
-            <h3>Route</h3>
-            <p>Send the action to the supervisor or setter who can actually fix it today.</p>
+            <h3>Idle minutes</h3>
+            <p>A long STOP while other machines keep running is production you can still win back this shift.</p>
           </article>
           <article class="waste-card">
-            <h3>Verify</h3>
-            <p>Close when the machine is running again or the reason is recorded on the floor.</p>
+            <h3>Start overlap</h3>
+            <p>Induction and machining entering OPERATE together is a timing action, not a furnace change.</p>
           </article>
         </div>
         <p class="footnote reveal">Find issues early and recover production. Not a vibration or bearing-life promise.</p>
@@ -3185,56 +3181,56 @@
         <p class="eyebrow reveal">What the plant receives</p>
         <h2 class="reveal">One clear job on the floor: do it now, close it on evidence.</h2>
         <span class="illustrative-badge reveal">LNM sample-derived · 26 Aug machine snapshots</span>
-        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Each card is one job someone on the floor can run this shift: what to do, who owns it, when it is due, and how the machine confirms it worked.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Two sample jobs here: repeating short stops, and induction versus machining timing. The phone slide shows three more: lost collector, long idle, and a live Gantt job.</p>
         <div class="rx-layout reveal">
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="CNC_14 bay walk. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Repeating short-stop cluster. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Rx · Recover now · Ready today</span>
+                  <span class="rx-badge">Rx · Asset health · Ready today</span>
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Walk to CNC_14 now. S1 is stopped while S2 is still cutting 1774*P/M. Ask the setter: tool, fixture, program hold, or planned gap? If planned, log the reason. If not, get S1 running or escalate.</p>
+                  <p class="rx-action">Walk the machining asset with the repeating short-stop cluster this shift. Setter checks fixture, clamp and chip load. If planned, log the reason. If not, recover OPERATE or escalate.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>The bay looks busy because S2 is running. Idle time on S1 is production you can still win back this shift.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>CNC cell supervisor · setter on duty</dd></div>
-                    <div class="rx-row"><dt>Impact</dt><dd><strong>Minutes back on S1 today; ₹ once shift rate is agreed</strong></dd></div>
-                    <div class="rx-row"><dt>Effort</dt><dd>5-min walk · talk to setter · no IT ticket</dd></div>
-                    <div class="rx-row"><dt>Due</dt><dd>Within 10 minutes</dd></div>
-                    <div class="rx-row"><dt>Verify</dt><dd>S1 running again, or planned stop logged on the card</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>One sampled machine cut state hundreds of times in a day. That is one pattern for the setter, not a pile of alerts.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>CNC / VMC setter on duty · supervisor if it repeats</dd></div>
+                    <div class="rx-row"><dt>Impact</dt><dd><strong>Minutes back this shift; ₹ once shift rate is agreed</strong></dd></div>
+                    <div class="rx-row"><dt>Effort</dt><dd>10-min setter check · no IT ticket</dd></div>
+                    <div class="rx-row"><dt>Due</dt><dd>Within 15 minutes</dd></div>
+                    <div class="rx-row"><dt>Verify</dt><dd>Stops settle for 30 min, or maintenance takes the card</dd></div>
                   </dl>
                   <p class="rx-flip-cue">Flip for evidence →</p>
                 </div>
               </div>
               <div class="rx-face rx-face--back">
                 <div class="rx-hero__head">
-                  <span class="rx-badge">Evidence · CNC_14</span>
-                  <span class="rx-priority">Cell split</span>
+                  <span class="rx-badge">Evidence · micro-stop</span>
+                  <span class="rx-priority">Gantt chatter</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">State comparison · sampled snapshots</p>
-                  <div class="pair-state" aria-hidden="true">
-                    <div class="is-stop">S1 STOP</div>
-                    <div class="is-run">S2 OPERATE</div>
-                  </div>
+                  <p class="rx-ev-title">State cuts · one machining asset (sample)</p>
+                  <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
+                    <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,40 28,18 40,42 58,16 72,44 90,20 108,42 124,18 142,44 160,20 178,40 198,18 214,42 232,20 250,40 268,18 286,42 312,22"/>
+                    <text x="12" y="58" fill="#F75440" font-size="7" font-family="Inter">SHORT STOP CLUSTER</text>
+                  </svg>
                   <table class="rx-ev-table">
                     <thead><tr><th>Field</th><th>Value</th><th>Context</th></tr></thead>
                     <tbody>
-                      <tr><td><code>CNC_14_S1.STATE</code></td><td>STOP</td><td>Non-operating</td></tr>
-                      <tr><td><code>CNC_14_S2.STATE</code></td><td>OPERATE</td><td>Producing</td></tr>
-                      <tr><td><code>PRODUCT</code></td><td>1774*P/M</td><td>Gantt on S2</td></tr>
+                      <tr><td><code>GANTT.CUTS</code></td><td>~527 / 24 h</td><td>One sampled asset</td></tr>
+                      <tr><td><code>PATTERN</code></td><td>STOP → OPERATE</td><td>Repeating chatter</td></tr>
+                      <tr><td><code>CLOSE</code></td><td>OPERATE holds 30 min</td><td>Or reason logged</td></tr>
                     </tbody>
                   </table>
-                  <p class="rx-cite">cell_split@v1 · LNM sample · not live Andon</p>
-                  <p class="rx-mv">Close when S1 runs again or the setter logs a valid planned stop</p>
+                  <p class="rx-cite">micro_stop@v1 · LNM sample · cluster shape, not alarm-code routing</p>
+                  <p class="rx-mv">Close when stops settle or maintenance owns the card</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
             </div>
           </button>
 
-          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger induction and CNC start. Show evidence.">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Stagger induction and machining start. Show evidence.">
             <div class="rx-flip__inner">
               <div class="rx-face rx-face--front">
                 <div class="rx-hero__head">
@@ -3242,9 +3238,9 @@
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Before the next batch, meet HT and production at the line. If the CNC start can wait without hurting dispatch, begin machining at least 8 minutes after induction comes on. Do not delay a confirmed hot job.</p>
+                  <p class="rx-action">Before the next batch, meet HT and production at the line. If machining can wait without hurting dispatch, begin it at least 8 minutes after induction comes on. Do not delay a confirmed hot job.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Why</dt><dd>Induction and CNC often start in the same minute. A short gap trims peak load. No furnace change, no setpoint write.</dd></div>
+                    <div class="rx-row"><dt>Why</dt><dd>Induction and machining often start in the same minute. A short gap trims peak load. No furnace change, no setpoint write.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>HT supervisor + production supervisor · agree together</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong>Less overlap on the next start; ₹ after power or bill data</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd>Short conversation · reorder starts only</dd></div>
@@ -3260,18 +3256,18 @@
                   <span class="rx-priority rx-priority--med">Start overlap</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-ev-title">OPERATE windows · INDUCTION + CNC (sample tags)</p>
+                  <p class="rx-ev-title">OPERATE windows · INDUCTION + machining (sample tags)</p>
                   <svg class="rx-spark" viewBox="0 0 320 64" aria-hidden="true">
                     <polyline fill="none" stroke="#00666b" stroke-width="2" points="8,48 88,48 88,28 168,28 168,48 248,48"/>
                     <polyline fill="none" stroke="#F75440" stroke-width="2" points="8,36 88,36 88,20 168,20 168,36 248,36"/>
                     <text x="12" y="58" fill="#00666b" font-size="7" font-family="Inter">INDUCTION</text>
-                    <text x="12" y="14" fill="#F75440" font-size="7" font-family="Inter">CNC</text>
+                    <text x="12" y="14" fill="#F75440" font-size="7" font-family="Inter">MACHINING</text>
                   </svg>
                   <table class="rx-ev-table">
                     <thead><tr><th>Asset</th><th>Signal</th><th>Window</th></tr></thead>
                     <tbody>
                       <tr><td><code>INDUCTION_01</code></td><td>OPERATE</td><td>overlap start</td></tr>
-                      <tr><td><code>CNC_14_S2</code></td><td>OPERATE</td><td>+0 min</td></tr>
+                      <tr><td><code>MACHINING_BAY</code></td><td>OPERATE</td><td>+0 min</td></tr>
                       <tr><td><code>TARGET</code></td><td>delta</td><td>&gt;= 8 min</td></tr>
                     </tbody>
                   </table>
@@ -3368,7 +3364,7 @@
             </article>
             <article class="routing-card">
               <strong>Three cards in this demo</strong>
-              <p>CNC_14 bay walk · repeated short stops on S2 · stagger next induction/CNC start.</p>
+              <p>Lost collector · long idle · live Gantt job. Different jobs from the flip cards.</p>
             </article>
           </div>
           <div class="phone-col">
@@ -3403,13 +3399,13 @@
                       <div class="wa-msg" id="floorMsg">
                         <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
                           <span class="tag" id="floorTag">Rx · High</span>
-                          <h4 id="floorTitle">Walk CNC_14: S1 stopped, S2 still on 1774*P/M</h4>
+                          <h4 id="floorTitle">Collector lost a machine. Walk it now.</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
-                          <p class="wa-line" id="floorWhy"><b>Why:</b> S1 is down while S2 is cutting. Bay looks busy but S1 minutes are still recoverable.</p>
-                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Minutes back on S1 this shift; ₹ once shift rate is agreed</p>
-                          <p class="wa-line" id="floorOwner"><b>Owner:</b> CNC cell supervisor · setter on duty</p>
-                          <p class="wa-line" id="floorEffort"><b>Do:</b> Walk the bay · ask the setter · log reason if planned</p>
-                          <p class="wa-line" id="floorVerify"><b>Verify:</b> S1 running again, or planned stop noted on the card</p>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> DISCONNECT is already on the feed. It may be a cable, a planned stop, or real downtime.</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Minutes recovered if it is recoverable; clean log if planned</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> Cell supervisor · setter on duty</p>
+                          <p class="wa-line" id="floorEffort"><b>Do:</b> Walk the machine · confirm planned vs lost signal</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> State returns to STOP or OPERATE, or planned reason on the card</p>
                           <p class="wa-line" id="floorDue"><b>Due:</b> Within 10 minutes</p>
                           <div class="wa-bubble__foot">
                             <span class="wa-tick" aria-hidden="true">10:42</span>
@@ -3474,19 +3470,19 @@
             <thead><tr><th>Prescription</th><th>Baseline</th><th>Evidence</th><th>Status</th></tr></thead>
             <tbody>
               <tr>
-                <td>CNC_14 cell split</td>
-                <td>Baseline required</td>
-                <td>Machine state</td>
-                <td>Ready to measure</td>
-              </tr>
-              <tr>
-                <td>Micro-stop cluster</td>
+                <td>Repeating short-stop cluster</td>
                 <td>Baseline required</td>
                 <td>Gantt segments</td>
                 <td>Ready to measure</td>
               </tr>
               <tr>
-                <td>Induction × CNC overlap</td>
+                <td>DISCONNECT recovery</td>
+                <td>Baseline required</td>
+                <td>Machine state</td>
+                <td>Ready to measure</td>
+              </tr>
+              <tr>
+                <td>Induction × machining overlap</td>
                 <td>Timing visible; ₹ pending</td>
                 <td>Start timestamps + incomer later</td>
                 <td>Partially ready</td>
@@ -3510,7 +3506,7 @@
           <div class="offer-panel offer-panel--scope">
             <h3>What we need to start</h3>
             <ul class="scope-list">
-              <li>Read-only access to one cell, preferably CNC_14 or a similar group</li>
+              <li>Read-only access to one 3-5 machine cell (machining plus one HT asset if available)</li>
               <li>Machine data you already collect, plus a paper owner map and shift clock</li>
               <li>30 minutes with production, HT and maintenance to agree scope</li>
               <li>No PLC writes, no furnace commands, no multi-site ask</li>
@@ -3574,37 +3570,37 @@
   <script>
     window.__FLOOR_RX__ = [
       {
-        "title": "Walk CNC_14: S1 stopped, S2 still on 1774*P/M",
-        "rule": "RX-CELL-001 · cell_split@v1",
-        "why": "S1 is down while S2 is cutting. Bay looks busy but S1 minutes are still recoverable.",
-        "impact": "Minutes back on S1 this shift; ₹ once shift rate is agreed",
-        "owner": "CNC cell supervisor · setter on duty",
-        "effort": "Walk the bay · ask the setter · log reason if planned",
-        "verify": "S1 running again, or planned stop noted on the card",
+        "title": "Collector lost a machine. Walk it now.",
+        "rule": "RX-DISC-001 · disconnect@v1",
+        "why": "DISCONNECT is already on the feed. It may be a cable, a planned stop, or real downtime.",
+        "impact": "Minutes recovered if it is recoverable; clean log if planned",
+        "owner": "Cell supervisor · setter on duty",
+        "effort": "Walk the machine · confirm planned vs lost signal",
+        "verify": "State returns to STOP or OPERATE, or planned reason on the card",
         "priority": "High",
         "due": "Within 10 minutes",
         "statusStep": 0
       },
       {
-        "title": "CNC_14_S2: repeated short stops this shift",
-        "rule": "RX-GANTT-014 · micro_stop@v1",
-        "why": "Same machine stopped and restarted many times today. One pattern to fix, not random alerts.",
-        "impact": "Production minutes recoverable before handover; ₹ after baseline agreed",
-        "owner": "CNC cell supervisor · setter first, maintenance if it repeats",
-        "effort": "Check tool, fixture, coolant and chip load with the setter",
-        "verify": "Stops settle for 30 min, or escalate to maintenance",
+        "title": "Long STOP on one machining asset. Walk it.",
+        "rule": "RX-IDLE-012 · idle_duration@v1",
+        "why": "Duration past the agreed idle window needs a person this shift, not another report tomorrow.",
+        "impact": "Recoverable minutes this shift; ₹ after baseline agreed",
+        "owner": "Production supervisor · setter",
+        "effort": "Confirm HT wait, tool, or program hold · restart or escalate",
+        "verify": "OPERATE returns, or planned stop logged",
         "priority": "High",
         "due": "This shift · before handover",
         "statusStep": 1
       },
       {
-        "title": "Next start: keep CNC 8 min after induction",
-        "rule": "RX-ENG-003 · start_overlap@v1",
-        "why": "Induction and CNC often start together. A short gap trims peak load without touching the furnace.",
-        "impact": "Less overlap on the next start; ₹ after power or bill data",
-        "owner": "HT supervisor + production supervisor",
-        "effort": "Short talk at the line · reorder starts only",
-        "verify": "Starts 8+ min apart, or hot-job reason logged",
+        "title": "Live Gantt job 1774*P/M. Do not disturb.",
+        "rule": "RX-CTX-004 · gantt_job@v1",
+        "why": "Product is already on the Gantt. An energy stagger that hits this job waits for a safer window.",
+        "impact": "Dispatch stays first; energy timing on the next eligible start",
+        "owner": "Production supervisor + HT supervisor",
+        "effort": "Confirm the live job · defer stagger if it is hot",
+        "verify": "Job identity on the card; stagger skipped or next window booked",
         "priority": "Med",
         "due": "Before the next shared start",
         "statusStep": 2

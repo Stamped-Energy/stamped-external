@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Changed
+
+- LNM Faridabad technical brief: several sample jobs instead of CNC_14 S1/S2 as the through-line; flip cards and phone cards are different sets ([`demo-decks/clients/lnm-auto-faridabad-technical/`](demo-decks/clients/lnm-auto-faridabad-technical/))
+
 ## [2026.08.21] - 2026-08-21
 
 ### Added
