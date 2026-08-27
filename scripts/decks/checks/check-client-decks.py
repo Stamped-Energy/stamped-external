@@ -265,6 +265,7 @@ def file_gate() -> list[str]:
             ("short-stop", "micro-stop / short-stop"),
             ("INDUCTION", "induction timing"),
             ("1774", "Gantt product context"),
+            ("soak", "HT hold / soak"),
         ):
             if needle.lower() not in lnm.lower():
                 issues.append(f"lnm missing variety example: {label}")
@@ -458,6 +459,8 @@ def main() -> None:
                 ("brief-mobile", BRIEF, BRIEF_PREFIX, 390, 844),
                 ("forge-desktop", FORGE, FORGE_PREFIX, 1440, 900),
                 ("forge-mobile", FORGE, FORGE_PREFIX, 390, 844),
+                ("lnm-desktop", LNM, LNM_PREFIX, 1440, 900),
+                ("lnm-mobile", LNM, LNM_PREFIX, 390, 844),
             ]:
                 page = browser.new_page()
                 all_issues += audit(page, base, deck, label, w, h, prefix)

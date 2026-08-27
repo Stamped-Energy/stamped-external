@@ -33,7 +33,7 @@ Common spine (Nestlé quality bar): **title → gap → fit → load → equipme
 | Gap | Collector → CSV → IT → meeting. Last mile to the setter is missing |
 | Load (honest now) | Coincidence / induction × machining **timing**. ₹ after power module, incomer, or bill (kWh currently 0) |
 | Equipment (honest now) | Gantt micro-stops, DISCONNECT walks, idle duration, alarm *shape*. Named `2019`/`2029` blocked until API columns |
-| Sample Rx (leave-behind) | Flip: repeating short-stop cluster · induction vs machining stagger. Phone: DISCONNECT walk · long idle · live Gantt job `1774*P/M` (do not disturb). Do not reuse CNC_14 S1/S2 as the only story. |
+| Sample Rx (leave-behind) | Flip: repeating short-stop cluster · induction vs machining stagger. Phone: DISCONNECT walk · HT hold / soak · live Gantt job `1774*P/M` (do not disturb). Flip and phone must not repeat the same job. |
 | Sample Rx (site pack) | Same five job types. Cell-partner idle remains ammunition, not the through-line. |
 | Integration | Complements FANUC + ForgeLink / ERP · humans approve · no FOCAS writes |
 | Note | Named brief; keep people names off slides. Site narrative: [`../client/LNM_FARIDABAD.md`](../client/LNM_FARIDABAD.md) |

@@ -7,9 +7,9 @@
 - Stopped using CNC_14 S1/S2 as the through-line across evidence, flip cards, phone, ledger and offer.
 - Evidence board now shows fleet state, DISCONNECT/ALARM, Gantt product, event volume, and induction.
 - Flip cards: repeating short-stop cluster (asset health) and induction vs machining stagger (energy timing).
-- Phone cards are a different set: DISCONNECT walk, long idle, live Gantt job `1774*P/M`.
+- Phone cards are a different set: DISCONNECT walk, HT hold / soak, live Gantt job `1774*P/M`.
 - Ledger and offer match that spread (3-5 machine mixed cell, not "preferably CNC_14").
-- `check-client-decks.py` gates: no CNC_14 S1/S2 centre, flip vs floor titles must not overlap, required example types present.
+- `check-client-decks.py` now Playwright-audits the LNM brief (desktop + mobile) and fails if flip jobs repeat phone jobs.
 
 ## Validation
 

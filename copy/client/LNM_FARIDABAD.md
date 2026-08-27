@@ -1,7 +1,7 @@
 # LNM Auto Faridabad — site value prop (internal)
 
 **Audience:** agents and founders before LNM rooms. **Not** homepage / About. **Not** a third SKU.  
-**Status:** Consumed 27 Aug 2026 from the live FANUC pack. Leave-behind HTML now uses several job types (micro-stop, DISCONNECT, idle duration, induction timing, Gantt job context). Cell-partner idle from `CNC_14` stays ammunition, not the through-line.  
+**Status:** Consumed 27 Aug 2026 from the live FANUC pack. Leave-behind HTML now uses several job types (micro-stop, DISCONNECT, HT hold, induction timing, Gantt job context). Cell-partner idle from `CNC_14` stays ammunition, not the through-line.  
 **SSOT for cards / fields / readiness:** `connectors-edge/packages/site-lnm-mtlinki/docs/prescriptions/` (`README.md`, `catalogue-client.md`, `catalogue.md`, `gaps-and-asks.md`, `rx-catalogue.json`). Do not fork the 100 cards here.
 
 Plant study: [`../../pilot-research/lnm-plant-ee-me-sw.md`](../../pilot-research/lnm-plant-ee-me-sw.md). Claim-sheet stub: [`../decks/CLIENT_BRIEFS.md`](../decks/CLIENT_BRIEFS.md). Control language: [`../CONTROL_AND_ACTION.md`](../CONTROL_AND_ACTION.md).
@@ -87,7 +87,7 @@ Live brief: [`../../demo-decks/clients/lnm-auto-faridabad-technical/`](../../dem
 |---|---|
 | Evidence board | 31 machines · DISCONNECT/ALARM · Gantt product · state-cut volume · induction on FANUC |
 | Flip cards | Repeating short-stop cluster · induction vs machining stagger |
-| Phone cards | DISCONNECT walk · long idle · live Gantt job `1774*P/M` (do not disturb) |
+| Phone cards | DISCONNECT walk · HT hold / soak · live Gantt job `1774*P/M` (do not disturb) |
 | Ledger | Short-stop · DISCONNECT recovery · induction overlap (₹ pending) |
 
 Do **not** make `CNC_14` S1/S2 the only example. Cell-partner idle remains a valid pattern in the pack; it is not the leave-behind through-line.

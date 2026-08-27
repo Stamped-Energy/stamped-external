@@ -3164,8 +3164,8 @@
             <p>When a machine goes DISCONNECT, send a walk: cable, planned stop, or true downtime.</p>
           </article>
           <article class="waste-card">
-            <h3>Idle minutes</h3>
-            <p>A long STOP while other machines keep running is production you can still win back this shift.</p>
+            <h3>HT hold with no follow-on</h3>
+            <p>If induction stays OPERATE while the next bay is STOP, confirm soak vs wasted hold. Never kill a live charge.</p>
           </article>
           <article class="waste-card">
             <h3>Start overlap</h3>
@@ -3181,7 +3181,7 @@
         <p class="eyebrow reveal">What the plant receives</p>
         <h2 class="reveal">One clear job on the floor: do it now, close it on evidence.</h2>
         <span class="illustrative-badge reveal">LNM sample-derived · 26 Aug machine snapshots</span>
-        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Two sample jobs here: repeating short stops, and induction versus machining timing. The phone slide shows three more: lost collector, long idle, and a live Gantt job.</p>
+        <p class="meta reveal hide-mobile" style="margin-top:0.35rem;margin-bottom:0;">Two sample jobs here: repeating short stops, and induction versus machining timing. The phone shows three others: lost collector, HT hold, and a live Gantt job.</p>
         <div class="rx-layout reveal">
           <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Repeating short-stop cluster. Show evidence.">
             <div class="rx-flip__inner">
@@ -3194,7 +3194,7 @@
                   <p class="rx-action">Walk the machining asset with the repeating short-stop cluster this shift. Setter checks fixture, clamp and chip load. If planned, log the reason. If not, recover OPERATE or escalate.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Why</dt><dd>One sampled machine cut state hundreds of times in a day. That is one pattern for the setter, not a pile of alerts.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>CNC / VMC setter on duty · supervisor if it repeats</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Setter on duty · supervisor if it repeats</dd></div>
                     <div class="rx-row"><dt>Impact</dt><dd><strong>Minutes back this shift; ₹ once shift rate is agreed</strong></dd></div>
                     <div class="rx-row"><dt>Effort</dt><dd>10-min setter check · no IT ticket</dd></div>
                     <div class="rx-row"><dt>Due</dt><dd>Within 15 minutes</dd></div>
@@ -3364,7 +3364,7 @@
             </article>
             <article class="routing-card">
               <strong>Three cards in this demo</strong>
-              <p>Lost collector · long idle · live Gantt job. Different jobs from the flip cards.</p>
+              <p>Lost collector · HT hold · live Gantt job. Different jobs from the flip cards.</p>
             </article>
           </div>
           <div class="phone-col">
@@ -3582,15 +3582,15 @@
         "statusStep": 0
       },
       {
-        "title": "Long STOP on one machining asset. Walk it.",
-        "rule": "RX-IDLE-012 · idle_duration@v1",
-        "why": "Duration past the agreed idle window needs a person this shift, not another report tomorrow.",
-        "impact": "Recoverable minutes this shift; ₹ after baseline agreed",
-        "owner": "Production supervisor · setter",
-        "effort": "Confirm HT wait, tool, or program hold · restart or escalate",
-        "verify": "OPERATE returns, or planned stop logged",
+        "title": "Induction still on. Confirm soak vs wasted hold.",
+        "rule": "RX-HT-008 · hold_no_followon@v1",
+        "why": "Induction can stay OPERATE after the next bay has gone STOP. HT should say if soak is still required. Do not kill a live charge.",
+        "impact": "Avoid holding with no follow-on; ₹ after power or bill data",
+        "owner": "HT supervisor · production confirms the next job",
+        "effort": "Call HT at the line · no setpoint write",
+        "verify": "Soak confirmed, or hold reduced per SOP",
         "priority": "High",
-        "due": "This shift · before handover",
+        "due": "This shift · before the next charge",
         "statusStep": 1
       },
       {
