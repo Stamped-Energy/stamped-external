@@ -244,6 +244,31 @@ def file_gate() -> list[str]:
         lnm_body = re.sub(r"<script[\s\S]*?</script>", "", lnm_body)
         if re.search(r"[—–]", lnm_body):
             issues.append("lnm: em/en dash in visible HTML")
+        if re.search(r"CNC_14_S[12]|Walk to CNC_14", lnm):
+            issues.append("lnm should not centre the leave-behind on CNC_14 S1/S2")
+        rx_actions = [
+            re.sub(r"<[^>]+>", "", a).strip()
+            for a in re.findall(r'<p class="rx-action">(.*?)</p>', lnm_body, re.S)
+        ]
+        floor_m = re.search(r"window\.__FLOOR_RX__\s*=\s*(\[[\s\S]*?\]);", lnm)
+        floor_titles = re.findall(r'"title":\s*"([^"]+)"', floor_m.group(1) if floor_m else "")
+        if len(rx_actions) < 2:
+            issues.append("lnm needs at least two flip-card prescriptions")
+        if len(floor_titles) < 3:
+            issues.append("lnm needs at least three floor-phone prescriptions")
+        joined_rx = " ".join(rx_actions).lower()
+        for title in floor_titles:
+            if title.lower() in joined_rx:
+                issues.append(f"lnm flip cards repeat floor example: {title}")
+        for needle, label in (
+            ("DISCONNECT", "DISCONNECT / lost collector"),
+            ("short-stop", "micro-stop / short-stop"),
+            ("INDUCTION", "induction timing"),
+            ("1774", "Gantt product context"),
+            ("soak", "HT hold / soak"),
+        ):
+            if needle.lower() not in lnm.lower():
+                issues.append(f"lnm missing variety example: {label}")
         if not (ROOT / "demo-decks/clients/lnm-auto-faridabad-technical/assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg").is_file():
             issues.append("missing LNM cnc-shop-hero.jpg asset")
     # Co-located assets must resolve next to the HTML
@@ -434,6 +459,8 @@ def main() -> None:
                 ("brief-mobile", BRIEF, BRIEF_PREFIX, 390, 844),
                 ("forge-desktop", FORGE, FORGE_PREFIX, 1440, 900),
                 ("forge-mobile", FORGE, FORGE_PREFIX, 390, 844),
+                ("lnm-desktop", LNM, LNM_PREFIX, 1440, 900),
+                ("lnm-mobile", LNM, LNM_PREFIX, 390, 844),
             ]:
                 page = browser.new_page()
                 all_issues += audit(page, base, deck, label, w, h, prefix)

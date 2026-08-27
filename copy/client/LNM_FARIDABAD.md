@@ -1,7 +1,7 @@
 # LNM Auto Faridabad — site value prop (internal)
 
 **Audience:** agents and founders before LNM rooms. **Not** homepage / About. **Not** a third SKU.  
-**Status:** Consumed 27 Aug 2026 from the live FANUC pack. Deck HTML is still the generic forge-HT brief until we retarget it.  
+**Status:** Consumed 27 Aug 2026 from the live FANUC pack. Leave-behind HTML now uses several job types (micro-stop, DISCONNECT, HT hold, induction timing, Gantt job context). Cell-partner idle from `CNC_14` stays ammunition, not the through-line.  
 **SSOT for cards / fields / readiness:** `connectors-edge/packages/site-lnm-mtlinki/docs/prescriptions/` (`README.md`, `catalogue-client.md`, `catalogue.md`, `gaps-and-asks.md`, `rx-catalogue.json`). Do not fork the 100 cards here.
 
 Plant study: [`../../pilot-research/lnm-plant-ee-me-sw.md`](../../pilot-research/lnm-plant-ee-me-sw.md). Claim-sheet stub: [`../decks/CLIENT_BRIEFS.md`](../decks/CLIENT_BRIEFS.md). Control language: [`../CONTROL_AND_ACTION.md`](../CONTROL_AND_ACTION.md).
@@ -81,18 +81,16 @@ Map to platform (ADR-026): A = Industry Energy Management. B = Asset Health Inte
 
 ## 4. Delta vs the current leave-behind
 
-Live brief: [`../../demo-decks/clients/lnm-auto-faridabad-technical/`](../../demo-decks/clients/lnm-auto-faridabad-technical/). It is still the **anonymous forge-HT** spine with LNM chrome.
+Live brief: [`../../demo-decks/clients/lnm-auto-faridabad-technical/`](../../demo-decks/clients/lnm-auto-faridabad-technical/). Execution-first FANUC spine. Sample jobs are split so the room sees more than one cell.
 
-| Current slide | Problem for this meeting |
+| Surface | What it shows |
 |---|---|
-| H1 *Act on energy opportunities before the window closes* | Energy-first. The client’s job is execution from data they already bought. |
-| Lead *meters, SCADA, DHBVN bills* | The evidence we have is **MT-LINKi**, not a locked incomer/bill. |
-| Sample Rx *Press Line 1 vs SQF preheat* · *Inspect Compressor 2* | Generic. We have `CNC_14_S2`, `1774*P/M`, cell split, induction on FANUC, micro-stop volume. |
-| Gap list *Incomer meters and EMS / SCADA* | Overclaims electrical digital. Field note was weak energy monitoring. |
-| Equipment *compressors, SQF / quench, press startups* | Wrong asset class for the collector we actually read. |
-| Footer *Read-only on meters and SCADA* | Fights the execution story. |
+| Evidence board | 31 machines · DISCONNECT/ALARM · Gantt product · state-cut volume · induction on FANUC |
+| Flip cards | Repeating short-stop cluster · induction vs machining stagger |
+| Phone cards | DISCONNECT walk · HT hold / soak · live Gantt job `1774*P/M` (do not disturb) |
+| Ledger | Short-stop · DISCONNECT recovery · induction overlap (₹ pending) |
 
-Retarget later (not this file): title and gap to last-mile action; load Rx to induction × CNC stagger (timing, no fake ₹); equipment Rx to Gantt micro-stop / cell-partner idle (clamp cluster as *shape* until G1); floor card to CNC_14_S2; integration names FANUC + ForgeLink, not a second screen.
+Do **not** make `CNC_14` S1/S2 the only example. Cell-partner idle remains a valid pattern in the pack; it is not the leave-behind through-line.
 
 **Do not demo:** vibration PdM, OEE%, plan-vs-actual, camera as brain, furnace off, guaranteed ₹, FOCAS write, 336 WhatsApps.
 
@@ -101,7 +99,7 @@ Retarget later (not this file): title and gap to last-mile action; load Rx to in
 ## 5. Room sequence (when the deck is retargeted)
 
 1. They already collect. The last mile to the setter is missing.
-2. Worked card (B + C + D). One cluster, one message, close on OPERATE.
+2. Worked cards, not one cell. Flip: cluster + energy timing. Phone: lost collector, long idle, live job.
 3. What is true **today** from their collector (demo shortlist 1–8 in `gaps-and-asks.md`).
 4. Energy: stagger / overlap **timing** now; ₹ after A26 or a bill.
 5. Two asks. Working session. No commitment required.
