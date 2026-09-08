@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/l4-compile-trace.v1.json",
   "title": "L4CompileTrace",
-  "description": "Per-Rx compile snapshot L4 emits and L5 stores for internal-console tabs (ADR-028). Replayable: includes Graph A/B snapshot stamps. Do not stuff into prescription.provenance. Never send to L6.",
+  "description": "Per-Rx compile snapshot L4 emits and L5 stores for internal-console tabs (ADR-028). Replayable: includes plant knowledge graph + live index snapshot stamps (legacy Graph A/B field aliases dual-written in 1.1.0). Do not stuff into prescription.provenance. Never send to L6.",
   "type": "object",
   "required": [
     "schema_version",
@@ -22,16 +22,22 @@
     "schema_version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "const": "1.0.0"
+      "enum": ["1.0.0", "1.1.0"],
+      "description": "1.1.0 adds descriptive field aliases alongside legacy path_*/graph_* keys"
     },
     "compile_trace_id": { "type": "string", "minLength": 1 },
-    "prescription_id": { "type": "string", "minLength": 1 },
+    "prescription_id": {
+      "type": ["string", "null"],
+      "description": "Set on emit; null on withhold/abstain"
+    },
     "org_id": { "type": "string", "minLength": 1 },
     "plant_id": { "type": "string", "minLength": 1 },
     "lane": {
       "type": "string",
       "enum": ["quality", "template_fast_path"]
     },
+    "finding_id": { "type": "string" },
+    "pipeline_run_id": { "type": "string" },
     "template_id": { "type": "string" },
     "otel_trace_id": { "type": "string" },
     "phoenix_url": { "type": "string" },
@@ -40,6 +46,18 @@
       "type": "integer",
       "minimum": 1,
       "description": "Hard stop for draft/repair loop. ≥10 allowed; not unbounded."
+    },
+    "corpus_expansions": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2,
+      "description": "Playbook corpus expansion count (descriptive)"
+    },
+    "path_h_expansions": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2,
+      "description": "Legacy alias for corpus_expansions"
     },
     "terminal": {
       "type": "object",
@@ -75,8 +93,11 @@
     },
     "snapshots": {
       "type": "object",
+      "description": "Descriptive stamps preferred; legacy graph_a_*/graph_b_* dual-written for one version",
       "required": ["graph_a_updated_at", "graph_b_as_of"],
       "properties": {
+        "plant_knowledge_graph_updated_at": { "type": "string", "format": "date-time" },
+        "plant_live_index_as_of": { "type": "string", "format": "date-time" },
         "graph_a_updated_at": { "type": "string", "format": "date-time" },
         "graph_b_as_of": { "type": "string", "format": "date-time" },
         "order_ids": {
@@ -88,7 +109,7 @@
     },
     "neighborhood": {
       "type": "object",
-      "description": "Graph A edges + Graph B stamps used for this Rx only",
+      "description": "Plant knowledge-graph edges + live-index stamps used for this Rx only",
       "properties": {
         "node_ids": {
           "type": "array",
@@ -132,17 +153,27 @@
     },
     "retrieval_run": {
       "type": "object",
+      "description": "Descriptive playbook_chunk_ids / neighborhood_hops preferred; path_h_* / path_g_* dual-written",
       "required": ["path_h_chunk_ids"],
       "properties": {
+        "playbook_chunk_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
         "path_h_chunk_ids": {
           "type": "array",
           "items": { "type": "string" }
         },
+        "neighborhood_hops": { "type": "integer", "minimum": 0 },
         "path_g_hops": { "type": "integer", "minimum": 0 },
         "filters": { "type": "object" },
         "trust_tiers": {
           "type": "array",
           "items": { "type": "string", "enum": ["T1", "T2", "T3", "T4"] }
+        },
+        "expansions": {
+          "type": "array",
+          "items": { "type": "object" }
         }
       },
       "additionalProperties": false
@@ -155,7 +186,19 @@
         "properties": {
           "step": {
             "type": "string",
-            "enum": ["bind", "freshness", "draft", "verify", "veto", "judge", "repair"]
+            "enum": [
+              "bind",
+              "freshness",
+              "neighborhood",
+              "delta_facts",
+              "playbook_corpus",
+              "retrieve_more",
+              "draft",
+              "verify",
+              "veto",
+              "judge",
+              "repair"
+            ]
           },
           "status": {
             "type": "string",
@@ -183,7 +226,13 @@
         "notes": { "type": "string" }
       },
       "additionalProperties": false
-    }
+    },
+    "credibility": { "type": "object" },
+    "generation_attempts": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "draft": { "type": "object" }
   },
   "additionalProperties": false
 }

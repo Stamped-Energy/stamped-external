@@ -12,6 +12,8 @@ status: Accepted with ADR-028 — companion to L4-knowledge-and-reasoning.md
 
 # L4 — Plant context graphs
 
+> **Naming (2026-08):** Code uses descriptive module names (`plant_context`, `neighborhood`, `delta_facts`, `playbook_corpus`). Letter Path/Graph codes below are historical; only L1–L6 remain as layer codes.
+
 *Companion SSOT · August 2026. Pulls the Path G trigger in [ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md). Decision: [ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md). Research: [context graphs note](../../research/stamped-context-graphs-and-practical-prescriptions.md). Parent: [L4 knowledge and reasoning](L4-knowledge-and-reasoning.md). Eval: [practicality rubric](../../cross-cutting/05-prescription-practicality-eval.md). Staff UI: [L5 internal console](../../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md).*
 
 > L4 still does not detect waste, own tariff arithmetic, write OT, or auto-approve. This document changes **how** a Finding becomes a practical Prescription — not those boundaries.

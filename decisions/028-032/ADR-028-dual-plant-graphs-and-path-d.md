@@ -1,5 +1,7 @@
 # ADR-028: Dual plant graphs, Path D, quality-default compile, L5 compile-trace
 
+> **Naming (2026-08):** Implementation code uses descriptive names — plant knowledge graph / plant live index / neighborhood / delta facts / playbook corpus / allowlisted web. Letter codes in this ADR are historical; only L1–L6 remain as layer codes.
+
 | Field | Value |
 | --- | --- |
 | **Status** | Accepted |

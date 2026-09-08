@@ -260,10 +260,10 @@ Source of truth for local secrets template: [`deploy/.env.example`](deploy/.env.
 | `L4_MODEL_API_KEY` | with real model | — | API key (secret) |
 | `L4_MODEL_NAME` | with real model | — | Model id |
 | `L4_MODEL_TIMEOUT_S` | no | `20` | Model HTTP timeout |
-| `L4_PATH_W_ENABLED` | no | `1` | Enable Path W tool |
-| `L4_PATH_W_TRANSPORT` | no | `fixture` | `fixture` \| `httpx` |
-| `L4_PATH_W_LIVE` | no | `0` | `1` selects httpx transport |
-| `L4_PATH_W_TIMEOUT_S` | no | `10` | Live fetch timeout |
+| `L4_ALLOWLISTED_WEB_ENABLED` | no | `1` | Enable allowlisted-web tool |
+| `L4_ALLOWLISTED_WEB_TRANSPORT` | no | `fixture` | `fixture` \| `httpx` |
+| `L4_ALLOWLISTED_WEB_LIVE` | no | `0` | `1` selects httpx transport |
+| `L4_ALLOWLISTED_WEB_TIMEOUT_S` | no | `10` | Live fetch timeout |
 | `L4_ANALYST_MAX_TURNS` | no | `6` (hard max 8) | ReAct model turns / cycle |
 | `L4_ANALYST_MAX_TOOL_CALLS` | no | `8` (hard max 12) | Tool calls / cycle |
 | `L4_ANALYST_WALL_CLOCK_S` | no | `45` (hard max 60) | Wall clock / cycle |
@@ -513,7 +513,7 @@ export L4_MODEL_NAME=gpt-4o-mini
 ### 11.5 Path W live fetch
 
 ```bash
-export L4_PATH_W_TRANSPORT=httpx   # or L4_PATH_W_LIVE=1
+export L4_ALLOWLISTED_WEB_TRANSPORT=httpx   # or L4_ALLOWLISTED_WEB_LIVE=1
 # Allowlist only: beeindia.gov.in, cea.nic.in, powermin.gov.in, DISCOM/OEM hosts, …
 ```
 
