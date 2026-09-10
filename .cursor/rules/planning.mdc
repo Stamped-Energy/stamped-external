@@ -1,79 +1,18 @@
 ---
-description: Planning and requirements gathering workflow
-alwaysApply: true
+description: Planning — load nawab-plans at the chosen profile (lite default in Cursor Plan)
+alwaysApply: false
 ---
 
-# Planning Rules
+# Planning
 
-## No Immediate Implementation
+Non-trivial work: read `.cursor/skills/nawab-plans/SKILL.md` and use the
+**chosen profile** (Cursor Plan → **lite** unless the user says full/project).
 
-- Never begin implementation immediately.
-- Never modify code before planning is completed.
-- Never assume requirements are complete.
+- Lite: §0 §1 §9 §16 §18 — [PLAN.template.lite.md](../skills/nawab-plans/PLAN.template.lite.md)
+- Standard / project: [PLAN.template.md](../skills/nawab-plans/PLAN.template.md)
+- Do not invent a thinner format inside the chosen profile
+- Ask commit budget before §9 if missing
+- Skip-plan / one-line hotfix: ponytail only
+- graph-engineering only if named; graphify is not §19
 
-## Requirement Analysis
-
-Before proposing implementation:
-
-- Analyze the request.
-- Identify objectives.
-- Identify scope.
-- Identify constraints.
-- Identify dependencies.
-- Identify risks.
-
-## Clarification Requirements
-
-- Never guess requirements.
-- Never infer missing business logic.
-- Never assume desired behavior.
-- Never assume architecture.
-- Never assume edge-case handling.
-
-If any ambiguity exists:
-
-- Stop.
-- Ask clarifying questions.
-- Wait for answers before planning.
-
-## Implementation Plans
-
-Every task requires an implementation plan.
-
-Plans must contain:
-
-- Goal
-- Scope
-- Non-goals
-- Dependencies
-- Risks
-- Deliverables
-- Phase breakdown
-
-## Phase Requirements
-
-Small tasks:
-
-- 2–3 phases
-
-Medium tasks:
-
-- 3–5 phases
-
-Large tasks:
-
-- 5–10 phases
-
-Each phase must contain:
-
-- Objective
-- Work items
-- Expected outcome
-
-## Approval Gate
-
-After creating the implementation plan:
-
-- Present the plan.
-- Request approval.
-- Do not begin implementation until approval is received.
+Present the plan and wait for approval before implementation.
