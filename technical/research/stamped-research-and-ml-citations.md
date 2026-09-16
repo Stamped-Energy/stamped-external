@@ -238,6 +238,7 @@ Auditability, data volume (one plant ≠ internet-scale), and plant-EE explainab
 | “Why not LSTM/Transformer as primary?” | “PatchTST/N-HiTS/TFT are real SOTA *in papers*. At one plant with months of history, LightGBM quantile + physics baselines win on ops cost and auditability — and the literature on AD benchmarks warns against exotic detectors.” | Nie ICLR 2023; Wu & Keogh; Ke et al. 2017 |
 | “Can you see every machine from one incomer?” | “That’s industrial NILM. Published reviews say it’s not reliable yet at plant scale. We meter feeders and attribute on the graph.” | 2024 RSER review |
 | “Prove the saving.” | “IPMVP-style options, ASHRAE acceptance stats, potential vs realised ledger tied to DISCOM line items.” | IPMVP, G14 |
+| “IBM says agentic AI will optimize energy and resources.” | “That use case is our hero pillar: TOD, idle, stagger, keep the order. We assign and verify; we do not silently shift the line. Industrial interviews (MIT INM / arXiv:2604.09633) say HITL and inspectable evidence beat autonomy.” | IBM Think manufacturing; Edwards et al. 2026; [agentic-ai-industrial-energy.md](agentic-ai-industrial-energy.md) |
 
 ---
 
@@ -298,6 +299,10 @@ Use sparingly; one or two per meeting beats a buzzword dump.
 ### Explicit non-claims
 26. Industrial NILM systematic review (2024), *Renewable & Sustainable Energy Reviews*.  
 
+### Industrial agents (market / adoption — not ML of record)
+27. Edwards, Bauer, Jacquillat, Hart & Ahmed (2026) — Agentic AI in Engineering and Manufacturing · arXiv:2604.09633. *[VERIFIED]* Interview study; HITL, data/API/verification constraints. Notes: [agentic-ai-industrial-energy.md](agentic-ai-industrial-energy.md).  
+28. Finio & Downie, IBM Think — Agentic AI in manufacturing; **energy and resource optimization** use case (off-peak shift, balance machines, keep output). *[VERIFIED]* Vendor explainer, not Stamped proof.  
+
 ---
 
 ## 11. Internal vs external use
@@ -306,7 +311,7 @@ Use sparingly; one or two per meeting beats a buzzword dump.
 |---|---|
 | **Client / technical discovery** | Sections 0, 1, 3, 5 (TimesFM + Chronos/Moirai names), 8 |
 | **Founder prep** | Whole doc; rehearse the CORE vs FRONTIER distinction |
-| **Engineering** | Prefer [L3 intelligence core](../layers/l3/L3-intelligence-core.md) + ADRs for what is actually wired; this doc is the *narrative + bibliography* layer. For L4 compile: [context graphs survey](stamped-context-graphs-and-practical-prescriptions.md) + [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md) |
+| **Engineering** | Prefer [L3 intelligence core](../layers/l3/L3-intelligence-core.md) + ADRs for what is actually wired; this doc is the *narrative + bibliography* layer. For L4 compile: [context graphs survey](stamped-context-graphs-and-practical-prescriptions.md) + [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md). For industrial-agent market language (IBM energy/resource): [agentic-ai-industrial-energy.md](agentic-ai-industrial-energy.md) |
 | **Website / deck** | Pull 4–6 names max (EWMA/CUSUM, LightGBM, TimesFM, PatchTST or Moirai, IPMVP). Link “research underlying each prescription” to Physics→Models→Agents→Closure |
 
 ---

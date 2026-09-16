@@ -15,6 +15,7 @@ This folder is the portable technical pack (submodule path `external/technical/`
 | 5 | [research/stamped-research-and-ml-citations.md](research/stamped-research-and-ml-citations.md) | CORE vs FRONTIER bibliography |
 | 6 | [research/stamped-context-graphs-and-practical-prescriptions.md](research/stamped-context-graphs-and-practical-prescriptions.md) | Dual graphs / Path D research (ADR-028) |
 | 7 | [cross-cutting/05-prescription-practicality-eval.md](cross-cutting/05-prescription-practicality-eval.md) | Rx practicality rubric + 10 demo-card gold cases |
+| 8 | [research/agentic-ai-industrial-energy.md](research/agentic-ai-industrial-energy.md) | arXiv industrial-agent interviews + IBM energy/resource optimization — NOW vs LATER claims |
 | — | [`pointers/`](pointers/) | Legacy filenames → redirect to SSOT |
 
 ## Layer specs

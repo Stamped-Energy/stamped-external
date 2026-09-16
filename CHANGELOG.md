@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ## [Unreleased]
 
+### Added
+
+- Research source notes: [agentic AI in industry + IBM energy/resource optimization](technical/research/agentic-ai-industrial-energy.md) (arXiv:2604.09633; IBM Think manufacturing). Docs-only; no ADR change.
+
 ### Changed
 
 - LNM Faridabad technical brief: several sample jobs instead of CNC_14 S1/S2 as the through-line; flip cards and phone cards are different sets ([`demo-decks/clients/lnm-auto-faridabad-technical/`](demo-decks/clients/lnm-auto-faridabad-technical/))
