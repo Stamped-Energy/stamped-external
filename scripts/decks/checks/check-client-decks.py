@@ -37,6 +37,19 @@ LNM_PREFIX = [
     "scene-verify",
     "scene-offer",
 ]
+BHATIA = "demo-decks/clients/bhatia-alloy-faridabad-technical/index.html"
+BHATIA_PREFIX = [
+    "scene-title",
+    "scene-value",
+    "scene-loop",
+    "scene-p12",
+    "scene-p34",
+    "scene-p56",
+    "scene-floor",
+    "scene-vision",
+    "scene-offer",
+    "scene-process",
+]
 
 TECH_BRIEF_PREFIX = [
     "scene-title",
@@ -118,6 +131,8 @@ def file_gate() -> list[str]:
             issues.append("clients hub missing Nestlé brief link")
         if "lnm-auto-faridabad-technical" not in ch:
             issues.append("clients hub missing LNM Faridabad brief link")
+        if "bhatia-alloy-faridabad-technical" not in ch:
+            issues.append("clients hub missing Bhatia Alloy Faridabad brief link")
         if "Industry Energy Management" not in ch or "Asset Health Intelligence" not in ch:
             issues.append("clients hub missing website pillar names")
     if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
@@ -274,6 +289,88 @@ def file_gate() -> list[str]:
                 issues.append(f"lnm missing variety example: {label}")
         if not (ROOT / "demo-decks/clients/lnm-auto-faridabad-technical/assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg").is_file():
             issues.append("missing LNM cnc-shop-hero.jpg asset")
+
+    bhatia_path = ROOT / BHATIA
+    if not bhatia_path.is_file():
+        issues.append(f"missing {BHATIA}")
+        bhatia = ""
+    else:
+        bhatia = bhatia_path.read_text(encoding="utf-8")
+        for sid in BHATIA_PREFIX:
+            if f'id="{sid}"' not in bhatia:
+                issues.append(f"bhatia missing {sid}")
+        if len(BHATIA_PREFIX) != 10:
+            issues.append("bhatia: expected 10-scene prefix")
+        for banned_sid in (
+            "scene-gap",
+            "scene-fit",
+            "scene-agentic",
+            "scene-load",
+            "scene-production",
+            "scene-equipment",
+            "scene-prescription",
+            "scene-verify",
+        ):
+            if f'id="{banned_sid}"' in bhatia:
+                issues.append(f"bhatia must not include product-tour scene {banned_sid}")
+        if "Bhatia" not in bhatia or "Faridabad" not in bhatia:
+            issues.append("bhatia missing Bhatia / Faridabad naming")
+        if "empty" not in bhatia.lower() or "handoff" not in bhatia.lower():
+            issues.append("bhatia missing empty-hold / handoff perception language")
+        if "compatible" not in bhatia.lower():
+            issues.append("bhatia missing consolidate / compatible-lot language")
+        if "sacred-load" not in bhatia.lower() or "Type III idle" not in bhatia:
+            issues.append("bhatia missing continuity / Type III prescriptions")
+        if "drift" not in bhatia.lower():
+            issues.append("bhatia missing matched-output drift language")
+        if "sacred-load" not in bhatia.lower() or "Type III" not in bhatia:
+            issues.append("bhatia missing continuity / Type III prescriptions")
+        if "coordination" not in bhatia.lower() and "coordinate" not in bhatia.lower():
+            issues.append("bhatia missing coordination vision language")
+        if "Stamped Process" not in bhatia or "tooling and manufacturing configuration" not in bhatia:
+            issues.append("bhatia missing Stamped Process direction slide")
+        if "Industry Energy Management" not in bhatia:
+            issues.append("bhatia missing Industry Energy Management pillar")
+        if "human feedback" not in bhatia.lower():
+            issues.append("bhatia missing human feedback language")
+        for step in (
+            "Observe",
+            "Understand",
+            "Add context",
+            "Decide",
+            "Human feedback",
+            "Verify and improve",
+        ):
+            if step.lower() not in bhatia.lower():
+                issues.append(f"bhatia missing six-loop step: {step}")
+        if 'id="langEn"' not in bhatia or 'id="langHi"' not in bhatia:
+            issues.append("bhatia missing English/Hindi language toggle")
+        if "__FLOOR_RX__" not in bhatia or '"hi":' not in bhatia:
+            issues.append("bhatia missing bilingual floor prescription pack")
+        if "historical" not in bhatia.lower() and "operational line" not in bhatia.lower():
+            issues.append("bhatia missing offline deployment / historical-data framing")
+        if re.search(r"\bLNM\b|Sector\s*59|31 machines|agentic|\bLLM\b", bhatia, re.I):
+            issues.append("bhatia must not carry LNM / agentic / LLM leftovers")
+        if re.search(r"\bunknown\b|\[minutes|₹\d|X kWh|Heat #", bhatia, re.I):
+            issues.append("bhatia must not show unknown / placeholder money or minute fields")
+        if 'src="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg"' not in bhatia:
+            issues.append("bhatia hero src should be forge-hero.jpg")
+        if not (
+            ROOT
+            / "demo-decks/clients/bhatia-alloy-faridabad-technical/assets/bhatia-alloy-faridabad-technical/forge-hero.jpg"
+        ).is_file():
+            issues.append("missing Bhatia forge-hero.jpg asset")
+        bhatia_body = re.sub(r"<style[\s\S]*?</style>", "", bhatia)
+        bhatia_body = re.sub(r"<script[\s\S]*?</script>", "", bhatia_body)
+        if re.search(r"[—–]", bhatia_body):
+            issues.append("bhatia: em/en dash in visible HTML")
+        if "guaranteed" in bhatia_body.lower() and "no guaranteed" not in bhatia_body.lower():
+            # allow refusal of guarantees; block soft guarantees
+            if re.search(r"guaranteed\s+\d", bhatia_body, re.I):
+                issues.append("bhatia must not promise guaranteed percent savings")
+        if bhatia.count('data-rx-flip') < 4:
+            issues.append("bhatia needs at least four flip-card prescriptions")
+
     # Co-located assets must resolve next to the HTML
     for rel in (
         "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
@@ -328,6 +425,7 @@ def file_gate() -> list[str]:
         "demo-decks/clients/itc-nadiad-technical.html",
         "demo-decks/clients/nestle-pantnagar-technical/index.html",
         LNM,
+        BHATIA,
         FULL,
         BRIEF,
         FORGE,
@@ -393,6 +491,22 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
         page.wait_for_timeout(350)
         if page.locator("#floorTitle").inner_text() == t0:
             issues.append(f"{label}: floor ack did not advance")
+
+    if "bhatia-alloy-faridabad-technical" in deck and "scene-floor" in slides:
+        go_to(page, "scene-floor")
+        if page.locator("#langEn").count() != 1 or page.locator("#langHi").count() != 1:
+            issues.append(f"{label}: missing English/Hindi language toggle")
+        else:
+            page.locator("#langHi").click()
+            page.wait_for_timeout(250)
+            hi_title = page.locator("#floorTitle").inner_text()
+            if "T6" not in hi_title and "खाली" not in hi_title and "हैंडऑफ" not in hi_title:
+                issues.append(f"{label}: Hindi toggle did not update prescription title")
+            page.locator("#langEn").click()
+            page.wait_for_timeout(250)
+            en_title = page.locator("#floorTitle").inner_text()
+            if "Empty" not in en_title and "Handoff" not in en_title and "empty" not in en_title.lower():
+                issues.append(f"{label}: English toggle did not restore prescription title")
 
     if deck.endswith("machinery-oem.html") and "scene-tech" in slides:
         go_to(page, "scene-tech")
@@ -464,6 +578,8 @@ def main() -> None:
                 ("forge-mobile", FORGE, FORGE_PREFIX, 390, 844),
                 ("lnm-desktop", LNM, LNM_PREFIX, 1440, 900),
                 ("lnm-mobile", LNM, LNM_PREFIX, 390, 844),
+                ("bhatia-desktop", BHATIA, BHATIA_PREFIX, 1440, 900),
+                ("bhatia-mobile", BHATIA, BHATIA_PREFIX, 390, 844),
             ]:
                 page = browser.new_page()
                 all_issues += audit(page, base, deck, label, w, h, prefix)
