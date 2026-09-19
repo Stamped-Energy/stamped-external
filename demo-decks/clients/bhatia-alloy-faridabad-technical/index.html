@@ -7,20 +7,21 @@
   <link rel="preload" as="image" href="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --primary: #F75440;
       --on-primary: #ffffff;
       --secondary: #051F13;
       --surface: #f7faf5;
+      --surface-low: #f1f4f0;
       --white: #ffffff;
       --on-surface: #191c1a;
       --on-surface-variant: #5a403c;
       --outline-variant: #e3beb8;
       --tertiary: #00666b;
       --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
-      --font-body: "Inter", system-ui, sans-serif;
+      --font-body: "Inter", "Noto Sans Devanagari", system-ui, sans-serif;
       --radius-btn: 8px;
       --radius-card: 12px;
       --radius-lg: 16px;
@@ -32,18 +33,20 @@
       --safe-b: env(safe-area-inset-bottom, 0px);
       --safe-l: env(safe-area-inset-left, 0px);
       --safe-r: env(safe-area-inset-right, 0px);
+      --phone-screen-w: 300px;
+      --phone-ratio: 393 / 852;
+      --phone-frame-pad: 11px;
+      --wa-teal: #075e54;
+      --wa-teal-light: #128c7e;
+      --wa-action: #008069;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      height: 100%;
-      height: 100dvh;
-      overflow: hidden;
-      background: var(--surface);
-      color: var(--on-surface);
-      font-family: var(--font-body);
-      -webkit-font-smoothing: antialiased;
+      height: 100%; height: 100dvh; overflow: hidden;
+      background: var(--surface); color: var(--on-surface);
+      font-family: var(--font-body); -webkit-font-smoothing: antialiased;
     }
 
     .progress {
@@ -80,11 +83,7 @@
       font-variant-numeric: tabular-nums; opacity: 0.72;
     }
 
-    .stage {
-      position: relative; width: 100%;
-      height: 100%; height: 100dvh;
-      overflow: hidden;
-    }
+    .stage { position: relative; width: 100%; height: 100%; height: 100dvh; overflow: hidden; }
 
     .slide {
       position: absolute; inset: 0;
@@ -97,9 +96,7 @@
       transition: opacity 0.28s var(--ease), visibility 0.28s;
       overflow: hidden;
     }
-    .slide.active {
-      opacity: 1; visibility: visible; pointer-events: auto; z-index: 1;
-    }
+    .slide.active { opacity: 1; visibility: visible; pointer-events: auto; z-index: 1; }
 
     .slide--light {
       background:
@@ -113,16 +110,14 @@
       background-image:
         linear-gradient(var(--grid-line) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.45;
+      background-size: 40px 40px; opacity: 0.45;
       mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
     }
 
     .slide__inner {
       position: relative; z-index: 1;
       width: 100%; max-width: min(1280px, 100%);
-      margin: 0 auto;
-      transform: translateY(-2.6vh);
+      margin: 0 auto; transform: translateY(-2.2vh);
     }
     .slide__inner--wide { max-width: min(1400px, 100%); }
 
@@ -141,45 +136,65 @@
       to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
     @keyframes sceneIn {
-      from { opacity: 0; transform: translateY(calc(-2.6vh + 10px)) scale(0.996); }
-      to { opacity: 1; transform: translateY(-2.6vh) scale(1); }
+      from { opacity: 0; transform: translateY(calc(-2.2vh + 10px)) scale(0.996); }
+      to { opacity: 1; transform: translateY(-2.2vh) scale(1); }
     }
     @keyframes itemIn {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .slide.active > .slide__inner {
-      animation: sceneIn 0.52s var(--ease) both;
+    @keyframes lineSweep {
+      from { background-position: 180% 0; }
+      to { background-position: -80% 0; }
+    }
+    @keyframes phoneIn {
+      from { opacity: 0; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(18px); }
+      to { opacity: 1; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(0); }
+    }
+    @keyframes floorAckOut {
+      to { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    }
+    @keyframes floorEnter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .perc-card, .value-card, .vision-col, .offer-card {
-      opacity: 0;
-      transform: translateY(12px);
+    .slide.active > .slide__inner { animation: sceneIn 0.52s var(--ease) both; }
+
+    .value-card, .loop-step, .offer-card, .vision-col, .gap-col {
+      opacity: 0; transform: translateY(12px);
     }
-    .slide.active .perc-card,
     .slide.active .value-card,
+    .slide.active .loop-step,
+    .slide.active .offer-card,
     .slide.active .vision-col,
-    .slide.active .offer-card {
+    .slide.active .gap-col {
       animation: itemIn 0.46s var(--ease) forwards;
     }
-    .slide.active .perc-card:nth-child(1),
     .slide.active .value-card:nth-child(1),
+    .slide.active .loop-step:nth-child(1),
+    .slide.active .offer-card:nth-child(1),
     .slide.active .vision-col:nth-child(1),
-    .slide.active .offer-card:nth-child(1) { animation-delay: 0.16s; }
-    .slide.active .perc-card:nth-child(2),
+    .slide.active .gap-col:nth-child(1) { animation-delay: 0.16s; }
     .slide.active .value-card:nth-child(2),
+    .slide.active .loop-step:nth-child(2),
+    .slide.active .offer-card:nth-child(2),
     .slide.active .vision-col:nth-child(2),
-    .slide.active .offer-card:nth-child(2) { animation-delay: 0.26s; }
-    .slide.active .vision-col:nth-child(3),
-    .slide.active .offer-card:nth-child(3) { animation-delay: 0.36s; }
+    .slide.active .gap-col:nth-child(2) { animation-delay: 0.24s; }
+    .slide.active .value-card:nth-child(3),
+    .slide.active .loop-step:nth-child(3),
+    .slide.active .offer-card:nth-child(3),
+    .slide.active .vision-col:nth-child(3) { animation-delay: 0.32s; }
+    .slide.active .loop-step:nth-child(4) { animation-delay: 0.38s; }
+    .slide.active .loop-step:nth-child(5) { animation-delay: 0.44s; }
+    .slide.active .loop-step:nth-child(6) { animation-delay: 0.50s; }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; }
       .slide.active .reveal { animation: none; }
       .slide.active > .slide__inner { animation: none; }
-      .perc-card, .value-card, .vision-col, .offer-card {
-        opacity: 1; transform: none; animation: none !important;
+      .value-card, .loop-step, .offer-card, .vision-col, .gap-col, .rx-flip__inner, .phone {
+        opacity: 1; transform: none; animation: none !important; transition: none !important;
       }
       .progress__fill, .nav-btn, .dots__dot { transition: none; }
     }
@@ -193,17 +208,21 @@
       font-family: var(--font-display); font-weight: 800;
       letter-spacing: -0.025em; line-height: 1.12;
     }
-    h1 { font-size: clamp(1.85rem, 4.2vw, 3.1rem); margin-bottom: 0.7rem; max-width: 16em; }
-    h2 { font-size: clamp(1.4rem, 2.9vw, 2.2rem); margin-bottom: 0.55rem; max-width: 22em; }
+    h1 { font-size: clamp(1.75rem, 4vw, 2.9rem); margin-bottom: 0.7rem; max-width: 16em; }
+    h2 { font-size: clamp(1.35rem, 2.8vw, 2.1rem); margin-bottom: 0.55rem; max-width: 22em; }
     .lede {
-      font-size: clamp(0.92rem, 1.35vw, 1.06rem);
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
       line-height: 1.55; max-width: 44em;
       color: var(--on-surface-variant);
     }
     .meta { font-size: 0.78rem; opacity: 0.55; margin-top: 1rem; letter-spacing: 0.02em; }
+    .footnote {
+      margin-top: 0.9rem; font-size: 0.8rem; line-height: 1.4;
+      color: var(--on-surface-variant); max-width: 48em;
+    }
 
     .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      display: inline-flex; align-items: center; justify-content: center;
       height: 48px; padding: 0 1.35rem; border-radius: var(--radius-btn);
       font-size: 0.95rem; font-weight: 650; border: 1px solid transparent;
       cursor: pointer; text-decoration: none;
@@ -212,10 +231,10 @@
     .btn:active { transform: scale(0.98); }
     .btn--primary { background: var(--primary); color: var(--on-primary); }
     .btn--primary:hover { background: #e04634; }
-    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.4rem; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.35rem; }
 
     .chip {
-      display: inline-flex; align-items: center; gap: 0.35rem;
+      display: inline-flex; align-items: center;
       font-size: 0.72rem; font-weight: 650; letter-spacing: 0.03em;
       padding: 0.35rem 0.7rem; border-radius: 999px;
       border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
@@ -230,14 +249,11 @@
       border-radius: 50%; border: 1px solid var(--outline-variant);
       background: rgba(255,255,255,0.9); color: var(--on-surface);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
     }
     .nav-btn--prev { left: clamp(0.55rem, 1.4vw, 1.15rem); }
     .nav-btn--next { right: clamp(0.55rem, 1.4vw, 1.15rem); }
     .nav-btn svg { width: 18px; height: 18px; }
-    .nav-btn:hover {
-      background: var(--white); border-color: var(--primary); color: var(--primary);
-    }
+    .nav-btn:hover { border-color: var(--primary); color: var(--primary); }
     .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
 
     .dots {
@@ -258,35 +274,25 @@
     #scene-title .hero-shell {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: clamp(1.75rem, 4.5vw, 3.25rem);
+      gap: clamp(1.5rem, 4vw, 3rem);
       align-items: center;
     }
     #scene-title .hero-photo {
-      align-self: stretch;
-      min-height: 0;
-      height: 100%;
-      max-height: min(58vh, 480px);
-      margin: 0;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--outline-variant);
-      background: #0a1a12;
+      margin: 0; border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--outline-variant); background: #0a1a12;
+      max-height: min(56vh, 460px); height: 100%;
     }
     #scene-title .hero-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block;
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
     #scene-title .hero-logo { height: 28px; width: auto; margin-bottom: 0.85rem; }
     #scene-title .brand-name {
       font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(1.65rem, 3.4vw, 2.35rem);
-      letter-spacing: -0.03em; color: var(--secondary);
-      margin-bottom: 0.35rem;
+      font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+      letter-spacing: -0.03em; color: var(--secondary); margin-bottom: 0.35rem;
     }
     #scene-title .client-mark {
-      display: inline-block;
-      font-size: 0.78rem; font-weight: 650;
+      display: inline-block; font-size: 0.78rem; font-weight: 650;
       color: var(--tertiary); margin-bottom: 0.55rem;
     }
     #scene-title.logo-failed .hero-logo { display: none; }
@@ -303,160 +309,416 @@
     .title-rail .sep { opacity: 0.35; }
 
     /* Value */
+    .gap-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.15rem;
+    }
+    .gap-col {
+      background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1.05rem 1.1rem;
+    }
+    .gap-col h3 {
+      font-family: var(--font-display); font-size: 1rem;
+      margin-bottom: 0.55rem; color: var(--secondary);
+    }
+    .gap-col p, .gap-col li {
+      font-size: 0.88rem; line-height: 1.45; color: var(--on-surface-variant);
+    }
+    .gap-col ul { list-style: none; display: grid; gap: 0.4rem; }
+    .gap-col li::before {
+      content: ""; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--primary); margin-right: 0.45rem;
+      vertical-align: middle;
+    }
+    .gap-col--stamped {
+      border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
+      background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 5%, #fff) 100%);
+    }
     .value-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(0.75rem, 1.8vw, 1.15rem);
-      margin-top: 1.35rem;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1.1rem;
     }
     .value-card {
-      background: var(--white);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-card);
-      padding: 1.05rem 1.1rem;
-      min-height: 100%;
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
     }
     .value-card h3 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 1.02rem; letter-spacing: -0.02em;
-      color: var(--secondary); margin-bottom: 0.45rem;
+      font-family: var(--font-display); font-weight: 800; font-size: 0.98rem;
+      color: var(--secondary); margin-bottom: 0.4rem;
     }
-    .value-card p {
-      font-size: 0.88rem; line-height: 1.45;
-      color: var(--on-surface-variant);
-    }
-    .chain-strip {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem;
-      margin-top: 1.15rem; font-size: 0.84rem; font-weight: 650;
-      color: var(--secondary);
-    }
-    .chain-strip span.sep { color: var(--primary); opacity: 0.7; font-weight: 700; }
+    .value-card p { font-size: 0.86rem; line-height: 1.45; color: var(--on-surface-variant); }
 
-    /* Perception two-up */
-    .perc-pair {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(0.85rem, 2vw, 1.35rem);
-      margin-top: 1.15rem;
+    /* Loop */
+    .loop-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem; margin-top: 1.15rem;
     }
-    .perc-card {
-      background: var(--white);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-lg);
-      padding: clamp(1rem, 1.8vw, 1.35rem);
-      display: flex; flex-direction: column; gap: 0.7rem;
+    .loop-step {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 0.95rem 1rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 0.7rem;
       min-height: 100%;
     }
-    .perc-card__num {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    .loop-step__num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: color-mix(in srgb, var(--primary) 12%, #fff);
+      color: var(--primary); font-size: 0.75rem; font-weight: 800;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .loop-step strong {
+      display: block; font-family: var(--font-display); font-size: 0.95rem;
+      color: var(--secondary); margin-bottom: 0.25rem;
+    }
+    .loop-step p { font-size: 0.82rem; line-height: 1.4; color: var(--on-surface-variant); }
+    .loop-step--human {
+      border-color: color-mix(in srgb, var(--tertiary) 40%, var(--outline-variant));
+      background: color-mix(in srgb, var(--tertiary) 5%, #fff);
+    }
+    .loop-callout {
+      margin-top: 1rem; padding: 0.85rem 1rem;
+      border-left: 3px solid var(--tertiary);
+      background: color-mix(in srgb, var(--tertiary) 6%, #fff);
+      border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
+      font-size: 0.88rem; line-height: 1.45; color: var(--secondary);
+    }
+
+    /* Flip prescriptions */
+    .rx-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.05rem; margin-top: 1rem; align-items: stretch;
+      perspective: 1400px;
+    }
+    .rx-flip {
+      position: relative; min-height: 390px;
+      border: none; background: transparent; padding: 0;
+      cursor: pointer; text-align: left; color: inherit;
+      font: inherit; width: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .rx-flip:focus-visible {
+      outline: 2px solid var(--primary); outline-offset: 3px;
+      border-radius: var(--radius-lg);
+    }
+    .rx-flip__inner {
+      position: relative; width: 100%; height: 100%; min-height: 390px;
+      transition: transform 0.55s var(--ease); transform-style: preserve-3d;
+    }
+    .rx-flip.is-flipped .rx-flip__inner { transform: rotateY(180deg); }
+    .rx-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+      border-radius: var(--radius-lg); background: var(--white); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .rx-face--back {
+      transform: rotateY(180deg);
+      border-color: color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+      background: #f7faf8;
+    }
+    .rx-face::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--primary) 42%, #ffb4a8 55%, transparent 100%);
+      background-size: 220% 100%; opacity: 0; z-index: 2;
+    }
+    .slide.active .rx-flip:not(.is-flipped) .rx-face--front::before {
+      opacity: 1; animation: lineSweep 1.25s var(--ease) 0.35s both;
+    }
+    .rx-hero__head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.7rem 0.95rem; border-bottom: 1px solid #e0e3df; background: #fafcfa;
+      flex-shrink: 0;
+    }
+    .rx-badge {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--on-surface-variant); border: 1px solid var(--outline-variant);
+      background: var(--surface-low); padding: 0.2rem 0.45rem; border-radius: 6px;
+    }
+    .rx-priority {
+      font-size: 0.65rem; font-weight: 700; color: #fff; background: var(--primary);
+      padding: 0.2rem 0.45rem; border-radius: 6px;
+    }
+    .rx-priority--med { background: var(--tertiary); }
+    .rx-hero__body {
+      padding: 0.9rem 1rem 0.8rem;
+      display: flex; flex-direction: column; flex: 1; min-height: 0;
+    }
+    .rx-action {
+      font-family: var(--font-display); font-weight: 750;
+      font-size: clamp(0.92rem, 1.4vw, 1.08rem); line-height: 1.35; margin-bottom: 0.7rem;
+    }
+    .rx-fields { display: grid; gap: 0.38rem; flex: 1; }
+    .rx-row {
+      display: grid; grid-template-columns: 72px 1fr; gap: 0.4rem;
+      font-size: 0.78rem; line-height: 1.35;
+    }
+    .rx-row dt {
+      font-weight: 650; color: var(--on-surface-variant); font-size: 0.64rem;
+      text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.12rem;
+    }
+    .rx-flip-cue {
+      margin-top: 0.65rem; padding-top: 0.55rem;
+      border-top: 1px dashed var(--outline-variant);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
       text-transform: uppercase; color: var(--primary);
     }
-    .perc-card h3 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(1.05rem, 1.8vw, 1.28rem);
-      letter-spacing: -0.02em; line-height: 1.2;
-      color: var(--secondary);
-    }
-    .perc-block dt {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--tertiary);
-      margin-bottom: 0.2rem;
-    }
-    .perc-block dd {
-      font-size: 0.86rem; line-height: 1.42;
-      color: var(--on-surface-variant);
-    }
-    .perc-lock {
-      margin-top: auto;
-      padding: 0.65rem 0.75rem;
-      border-radius: var(--radius-btn);
-      background: color-mix(in srgb, var(--secondary) 6%, transparent);
+    .rx-lock {
+      margin-top: 0.55rem; padding: 0.55rem 0.65rem;
       border-left: 3px solid var(--primary);
-      font-size: 0.82rem; font-weight: 650; line-height: 1.35;
-      color: var(--secondary);
+      background: color-mix(in srgb, var(--secondary) 5%, #fff);
+      border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
+      font-size: 0.76rem; font-weight: 650; line-height: 1.35; color: var(--secondary);
+    }
+    .rx-cite {
+      font-size: 0.74rem; line-height: 1.4; color: var(--on-surface-variant);
+      background: var(--white); border: 1px solid #e0e3df;
+      border-radius: 8px; padding: 0.55rem 0.65rem; margin-bottom: 0.45rem;
+    }
+    .rx-mv {
+      font-size: 0.74rem; font-weight: 650; color: var(--tertiary); margin-top: auto;
+    }
+
+    /* Floor / phone */
+    .floor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: clamp(1.25rem, 3vw, 2.25rem);
+      align-items: center;
+    }
+    .floor-copy .lede { max-width: 38em; }
+    .floor-points {
+      display: grid; gap: 0.55rem; margin-top: 1rem;
+    }
+    .floor-points article {
+      background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 0.75rem 0.85rem;
+    }
+    .floor-points strong {
+      display: block; font-family: var(--font-display); font-size: 0.92rem;
+      color: var(--secondary); margin-bottom: 0.2rem;
+    }
+    .floor-points p { font-size: 0.82rem; line-height: 1.4; color: var(--on-surface-variant); }
+    .phone-col {
+      display: flex; justify-content: flex-end; align-items: flex-start; min-width: 0;
+    }
+    .phone {
+      width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+      max-width: 100%; flex-shrink: 0; position: relative;
+      padding: var(--phone-frame-pad) calc(var(--phone-frame-pad) - 1px) calc(var(--phone-frame-pad) + 2px);
+      border-radius: 48px;
+      background: linear-gradient(165deg, #636366 0%, #3a3a3c 16%, #1c1c1e 52%, #0a0a0b 100%);
+      border: 1.5px solid #48484a;
+      box-shadow:
+        0 42px 84px -34px rgba(5, 31, 19, 0.52),
+        0 18px 36px -22px rgba(0,0,0,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.24);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+      transform-origin: center right;
+    }
+    .slide.active .phone { animation: phoneIn 0.7s var(--ease) 0.08s both; }
+    .phone__bezel {
+      border-radius: 38px; overflow: hidden; background: #000; padding: 2px;
+    }
+    .phone__screen {
+      background: #000; border-radius: 36px; overflow: hidden;
+      aspect-ratio: var(--phone-ratio); width: var(--phone-screen-w);
+      display: flex; flex-direction: column; position: relative;
+    }
+    .phone-island {
+      position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+      width: 96px; height: 28px; background: #000; border-radius: 18px; z-index: 20;
+      pointer-events: none;
+    }
+    .phone-statusbar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 15;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 12px 18px 0; font-size: 0.66rem; font-weight: 600; color: #fff;
+      pointer-events: none;
+    }
+    .wa-app { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--wa-teal); }
+    .wa-header {
+      background: var(--wa-teal); color: #fff;
+      padding: 2.4rem 0.55rem 0.5rem;
+      display: grid; grid-template-columns: auto auto 1fr auto;
+      align-items: center; gap: 0.35rem; flex-shrink: 0;
+    }
+    .wa-back { font-size: 1.4rem; line-height: 1; opacity: 0.95; font-weight: 300; }
+    .wa-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--wa-teal-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem; font-weight: 750;
+    }
+    .wa-head-text strong { display: block; font-size: 0.82rem; font-weight: 600; }
+    .wa-head-text span { font-size: 0.58rem; opacity: 0.88; }
+    .lang-toggle {
+      display: inline-flex; border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px; overflow: hidden; background: rgba(0,0,0,0.18);
+    }
+    .lang-toggle button {
+      border: none; background: transparent; color: rgba(255,255,255,0.78);
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 0.28rem 0.45rem; cursor: pointer; min-height: 0; height: auto;
+    }
+    .lang-toggle button.is-active {
+      background: rgba(255,255,255,0.92); color: var(--wa-teal);
+    }
+    .lang-toggle button:focus-visible {
+      outline: 2px solid #fff; outline-offset: 1px;
+    }
+    .wa-body {
+      flex: 1; padding: 0.5rem 0.5rem 0.3rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23c8bdb2' stroke-width='0.85' opacity='0.32'%3E%3Cpath d='M10 30c8-6 16 6 24 0s16 6 24 0'/%3E%3Ccircle cx='28' cy='78' r='7'/%3E%3C/g%3E%3C/svg%3E"),
+        #e5ddd5;
+      background-size: 120px 120px, auto;
+      min-height: 0; overflow-y: auto; scrollbar-width: none;
+    }
+    .wa-body::-webkit-scrollbar { display: none; }
+    .wa-meta {
+      font-size: 0.6rem; color: #54656f; text-align: center;
+      background: rgba(255,255,255,0.78); align-self: center;
+      padding: 0.16rem 0.5rem; border-radius: 7px;
+    }
+    .wa-msg {
+      align-self: flex-start; max-width: 94%;
+      display: flex; flex-direction: column;
+      border-radius: 0 8px 8px 8px; overflow: hidden;
+      box-shadow: 0 1px 0.5px rgba(11,20,26,0.13);
+    }
+    .wa-msg.is-enter { animation: floorEnter 0.34s var(--ease) both; }
+    .wa-msg.is-dismiss-ack,
+    .wa-msg.is-dismiss-done,
+    .wa-msg.is-dismiss-escalate {
+      animation: floorAckOut 0.34s var(--ease) forwards;
+    }
+    .wa-bubble {
+      background: #fff; padding: 0.5rem 0.6rem 0.4rem;
+      font-size: 0.72rem; line-height: 1.4; color: #111b21;
+    }
+    .wa-bubble .tag {
+      display: inline-block; font-size: 0.54rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase; color: #c45a4a;
+      margin-bottom: 0.25rem; background: rgba(247,84,64,0.09);
+      padding: 0.08rem 0.35rem; border-radius: 3px;
+    }
+    .wa-bubble h4 {
+      font-size: 0.8rem; font-weight: 650; line-height: 1.3;
+      margin-bottom: 0.3rem; color: #111b21;
+    }
+    .wa-bubble__divider {
+      height: 1px; background: rgba(0,0,0,0.06); margin: 0.08rem 0 0.3rem;
+    }
+    .wa-line { margin-top: 0.16rem; font-size: 0.7rem; line-height: 1.35; color: #3b4a54; }
+    .wa-line b { font-weight: 600; color: #111b21; }
+    .wa-bubble__foot {
+      display: flex; justify-content: flex-end; margin-top: 0.25rem;
+    }
+    .wa-tick { font-size: 0.56rem; color: #667781; }
+    .wa-actions {
+      display: flex; flex-direction: column; background: #fff;
+    }
+    .wa-actions button {
+      border: none; border-top: 1px solid rgba(0,0,0,0.07);
+      background: #fff; padding: 0.45rem 0.6rem;
+      font-size: 0.72rem; font-weight: 600; color: var(--wa-action);
+      cursor: pointer; text-align: center; min-height: 0; height: auto;
+    }
+    .wa-actions button.primary { font-weight: 700; }
+    .wa-actions button:disabled { opacity: 0.5; cursor: wait; }
+    .wa-end {
+      align-self: center; text-align: center;
+      background: rgba(255,255,255,0.9); border-radius: 10px;
+      padding: 0.85rem 1rem; margin-top: 1.5rem;
+    }
+    .wa-end strong { display: block; font-size: 0.85rem; color: var(--wa-teal); margin-bottom: 0.25rem; }
+    .wa-end span { font-size: 0.72rem; color: #54656f; }
+    .wa-compose {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 0.3rem;
+      padding: 0.28rem 0.35rem 0.12rem; background: #f0f2f5; flex-shrink: 0;
+    }
+    .wa-compose__icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: grid; place-items: center; color: #54656f; font-weight: 600;
+    }
+    .wa-compose__field {
+      background: #fff; border-radius: 18px; padding: 0.32rem 0.65rem;
+      font-size: 0.66rem; color: #8696a0;
+    }
+    .wa-compose__mic {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--wa-teal); color: #fff;
+      display: grid; place-items: center; font-size: 0.65rem;
+    }
+    html[lang="hi"] .wa-bubble,
+    html[lang="hi"] .wa-actions button,
+    html[lang="hi"] .wa-meta,
+    html[lang="hi"] .wa-end {
+      font-family: "Noto Sans Devanagari", Inter, system-ui, sans-serif;
     }
 
     /* Vision */
     .vision-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 0.9fr);
-      gap: clamp(0.75rem, 1.8vw, 1.15rem);
-      margin-top: 1.2rem;
+      gap: 0.85rem; margin-top: 1.1rem;
     }
     .vision-col {
-      background: var(--white);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-card);
-      padding: 1.05rem 1.1rem;
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
     }
     .vision-col--lead {
       background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 6%, #fff) 100%);
       border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
     }
     .vision-col h3 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 1rem; color: var(--secondary); margin-bottom: 0.5rem;
+      font-family: var(--font-display); font-weight: 800; font-size: 0.98rem;
+      color: var(--secondary); margin-bottom: 0.45rem;
     }
     .vision-col p, .vision-col li {
-      font-size: 0.86rem; line-height: 1.45;
-      color: var(--on-surface-variant);
+      font-size: 0.84rem; line-height: 1.45; color: var(--on-surface-variant);
     }
-    .vision-col ul { list-style: none; display: grid; gap: 0.4rem; }
+    .vision-col ul { list-style: none; display: grid; gap: 0.35rem; }
     .vision-col li::before {
-      content: "";
-      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--primary); margin-right: 0.45rem;
+      content: ""; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--primary); margin-right: 0.4rem;
       vertical-align: middle;
     }
     .vision-badge {
-      display: inline-block;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--primary);
-      margin-bottom: 0.45rem;
+      display: inline-block; font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary);
+      margin-bottom: 0.4rem;
     }
 
     /* Offer */
     .offer-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(0.75rem, 1.8vw, 1.15rem);
-      margin-top: 1.2rem;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1.1rem;
     }
     .offer-card {
-      background: var(--white);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-card);
-      padding: 1.05rem 1.1rem;
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
     }
     .offer-card strong {
-      display: block;
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 1.02rem; color: var(--secondary);
-      margin-bottom: 0.4rem;
+      display: block; font-family: var(--font-display); font-weight: 800;
+      font-size: 1rem; color: var(--secondary); margin-bottom: 0.35rem;
     }
-    .offer-card p {
-      font-size: 0.88rem; line-height: 1.45;
-      color: var(--on-surface-variant);
-    }
-    .footnote {
-      margin-top: 1rem; font-size: 0.8rem; line-height: 1.4;
-      color: var(--on-surface-variant); max-width: 48em;
-    }
+    .offer-card p { font-size: 0.86rem; line-height: 1.45; color: var(--on-surface-variant); }
 
     .show-mobile { display: none !important; }
 
-    @media (max-width: 900px) {
-      .value-grid, .vision-grid, .offer-grid, .perc-pair {
+    @media (max-width: 980px) {
+      .value-grid, .loop-grid, .offer-grid, .vision-grid, .gap-compare, .rx-layout, .floor-layout {
         grid-template-columns: 1fr;
       }
-      #scene-title .hero-shell {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-      }
-      #scene-title .hero-photo {
-        max-height: 28vh;
-        order: -1;
-      }
+      #scene-title .hero-shell { grid-template-columns: 1fr; gap: 1.1rem; }
+      #scene-title .hero-photo { max-height: 26vh; order: -1; }
+      .phone-col { justify-content: center; }
+      .phone { transform: none; }
+      .slide.active .phone { animation: none; opacity: 1; }
+      .rx-flip, .rx-flip__inner { min-height: 360px; }
     }
 
     @media (max-width: 720px) {
@@ -469,23 +731,17 @@
         padding-bottom: max(4.5rem, calc(var(--safe-b) + 3.5rem));
         overflow-y: auto;
       }
-      .slide__inner { transform: none; max-width: 100%; }
+      .slide__inner { transform: none; }
       .slide.active > .slide__inner { animation: none; }
-      h1 { font-size: clamp(1.55rem, 7vw, 2rem); }
-      h2 { font-size: clamp(1.25rem, 5.5vw, 1.55rem); }
       .nav-btn {
         top: auto; bottom: max(0.85rem, calc(var(--safe-b) + 0.55rem));
         transform: none; width: 44px; height: 44px;
         background: rgba(255,255,255,0.95);
-        box-shadow: 0 8px 20px -12px rgba(5,31,19,0.35);
       }
       .nav-btn--prev { left: max(0.65rem, var(--safe-l)); }
       .nav-btn--next { right: max(0.65rem, var(--safe-r)); }
-      .dots {
-        bottom: max(0.95rem, calc(var(--safe-b) + 0.65rem));
-      }
-      #scene-title .brand-name { font-size: clamp(1.45rem, 7vw, 1.85rem); }
-      .perc-card { padding: 0.9rem 1rem; }
+      .phone { width: min(100%, 320px); }
+      .phone__screen { width: 100%; }
     }
   </style>
 </head>
@@ -497,7 +753,7 @@
       <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
       <span class="wordmark">Stamped Energy</span>
     </a>
-    <span class="chrome-counter" id="sceneCounter">01 / 06</span>
+    <span class="chrome-counter" id="sceneCounter">01 / 08</span>
   </header>
 
   <main class="stage" id="stage" aria-label="Stamped Energy Bhatia Alloy brief">
@@ -510,23 +766,23 @@
               <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
               <span class="wordmark-fallback">Stamped Energy</span>
             </div>
-            <p class="client-mark reveal">Bhatia Alloy · Sector 24 Faridabad</p>
-            <p class="eyebrow reveal">Assigned energy decisions · forge to finish</p>
+            <p class="client-mark reveal">Prepared for Bhatia Alloy · Sector 24 Faridabad</p>
+            <p class="eyebrow reveal">Industry Energy Management</p>
             <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">Protect metallurgy. Cut empty thermal waste. Keep JIT.</h1>
+            <h1 class="reveal">We turn plant data into safe, assigned manufacturing decisions.</h1>
             <p class="title-rail reveal hide-mobile">
-              <span>Readiness</span><span class="sep">→</span>
-              <span>Thermal state</span><span class="sep">→</span>
-              <span>Owned action</span><span class="sep">→</span>
+              <span>Signal</span><span class="sep">→</span>
+              <span>Decision</span><span class="sep">→</span>
+              <span>Owner</span><span class="sep">→</span>
               <span>Evidence</span>
             </p>
-            <p class="lede reveal hide-mobile">You already run one-roof forging, T6, machining, and finish for OEMs who punish a finish miss as hard as a dimensional miss. We do not take that roof. We turn empty-versus-charged clocks and station handoffs into five assigned decisions with an owner and a falsifier.</p>
-            <p class="lede reveal show-mobile">Five assigned decisions on your forge → T6 → finish chain. Recipes stay locked.</p>
+            <p class="lede reveal hide-mobile">Stamped reads the process state you already have, recommends one safe action, asks for human confirmation, and closes only when the plant clock or meter shows the result. Recipes stay locked. Operators stay in control.</p>
+            <p class="lede reveal show-mobile">One safe action. One owner. Proof on your clocks.</p>
             <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Empty vs charged</span>
-              <span class="chip">No lot mix</span>
-              <span class="chip">JIT / DOL first</span>
-              <span class="chip">Verified on your clocks</span>
+              <span class="chip">Assigned decisions</span>
+              <span class="chip">Human feedback</span>
+              <span class="chip">Recipe-safe</span>
+              <span class="chip">Verified outcomes</span>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
@@ -542,121 +798,348 @@
 
     <section class="slide slide--light grid-bg" id="scene-value" data-theme="light" aria-label="Value">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Why this is value for Bhatia</p>
-        <h2 class="reveal">Your brand is consistency, JIT, and responsible growth. Energy waste attacks all three.</h2>
-        <p class="lede reveal">Line stoppage, field failure, and losing the customer are already your public risks. Empty hot furnaces, skinny T6 loads, thermal drift, and ready-asset waits burn energy and threaten the same outcomes. We assign the manufacturing decision. We do not sell another dashboard.</p>
+        <p class="eyebrow reveal">Where Stamped creates value</p>
+        <h2 class="reveal">Your plant already has signals. What is missing is one safe decision with an owner and a proof point.</h2>
+        <p class="lede reveal">On a forge to T6 to finishing campus, energy waste often sits in hot waiting, under-loaded cycles, thermal drift, and station handoffs. Stamped turns those moments into manufacturing decisions that protect quality and delivery.</p>
+        <div class="gap-compare">
+          <article class="gap-col">
+            <h3>Without Stamped</h3>
+            <ul>
+              <li>Events stay in reports, meetings, or local knowledge</li>
+              <li>Action may arrive late, or not at all</li>
+              <li>Hard to prove whether the intervention worked</li>
+            </ul>
+          </article>
+          <article class="gap-col gap-col--stamped">
+            <h3>With Stamped</h3>
+            <ul>
+              <li>One recommended action, with a clear owner</li>
+              <li>Human feedback before the plant commits</li>
+              <li>Close only when the agreed signal moves</li>
+            </ul>
+          </article>
+        </div>
         <div class="value-grid">
           <article class="value-card">
-            <h3>Not another screen</h3>
-            <p>You already instrument the plant. The gap is closure: a named owner, a do-not-disturb lock, and a way to know the action worked.</p>
+            <h3>Fewer avoidable hot waits</h3>
+            <p>Empty furnaces and ready assets should not burn energy while the next station is not ready.</p>
           </article>
           <article class="value-card">
-            <h3>Recipes stay sacred</h3>
-            <p>We never cut T6 soak, quench, Type III dwell, or powder cure. Empty equipment and flexible starts are the only levers.</p>
+            <h3>Recipes stay protected</h3>
+            <p>We never recommend cutting soak, quench, Type III dwell, or powder cure. Live charges stay do-not-disturb.</p>
           </article>
           <article class="value-card">
-            <h3>Frontier at the interface</h3>
-            <p>Connecting production readiness to thermal state and closing on evidence is what makes assigned decisions practical on a multi-stage campus, not a monthly spreadsheet.</p>
-          </article>
-        </div>
-        <p class="chain-strip reveal" aria-label="Process chain">
-          Forge <span class="sep">→</span> T6 <span class="sep">→</span> CNC <span class="sep">→</span> Finish <span class="sep">→</span> JIT truck
-        </p>
-      </div>
-    </section>
-
-    <section class="slide slide--light" id="scene-p12" data-theme="light" aria-label="Perceptions one and two">
-      <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Perceptions 1 and 2 · heat treatment</p>
-        <h2 class="reveal">Do not buy hot idle. Do not start a skinny charge when a compatible lot can fill the basket.</h2>
-        <div class="perc-pair">
-          <article class="perc-card">
-            <span class="perc-card__num">01 · Empty furnace / hot idle</span>
-            <h3>Heat up when the charge is confirmed, not before</h3>
-            <dl class="perc-block">
-              <dt>Problem</dt>
-              <dd>An empty T6 (or powder oven) sits at operating temperature with no metallurgy in progress. You buy wall, storage, and radiation losses for zero kg treated.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Decision</dt>
-              <dd>Shift the empty-asset start so temperature arrives with confirmed load readiness, still inside the production window production owns.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Verify</dt>
-              <dd>Hot-idle minutes: setpoint reached to charge or load start. Empty and charged tags must agree with the floor.</dd>
-            </dl>
-            <p class="perc-lock">Lock: never furnace-off or setback with a charge. Never shorten soak. Never delay quench.</p>
-          </article>
-          <article class="perc-card">
-            <span class="perc-card__num">02 · Under-loaded HT</span>
-            <h3>Fill the basket or wait for a compatible charge</h3>
-            <dl class="perc-block">
-              <dt>Problem</dt>
-              <dd>A partially loaded cycle spreads fixed furnace losses over fewer kg. Intensity rises even when the recipe is correct.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Decision</dt>
-              <dd>Do not start the skinny cycle if a compatible lot exists in the same recipe window and delivery, JIT, and quench stay safe. Production and metallurgy own "compatible."</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Verify</dt>
-              <dd>Energy per kg versus matched historical batches (same recipe, furnace class, mass band). Quality gates and delivery unchanged.</dd>
-            </dl>
-            <p class="perc-lock">Lock: no lot mix. No soak cut. No quench delay. If the truck window dies, the card falsifies.</p>
+            <h3>Evidence for the owner</h3>
+            <p>Every action carries a verification method: state clock, matched baseline, or agreed production signal.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="slide slide--light grid-bg" id="scene-p34" data-theme="light" aria-label="Perceptions three and four">
+    <section class="slide slide--light" id="scene-loop" data-theme="light" aria-label="Technology loop">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Perceptions 3 and 4 · drift and handoffs</p>
+        <p class="eyebrow reveal">How the technology works</p>
+        <h2 class="reveal">Six steps from plant signal to verified decision, with human feedback in the loop.</h2>
+        <p class="lede reveal">Stamped does not replace production, quality, metallurgy, or electrical ownership. It recommends, waits for confirmation, and improves from what the plant tells it.</p>
+        <div class="loop-grid">
+          <article class="loop-step">
+            <div class="loop-step__num">1</div>
+            <div>
+              <strong>Observe</strong>
+              <p>Read the plant signal: furnace state, charge readiness, handoff time, or matched energy intensity.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">2</div>
+            <div>
+              <strong>Understand</strong>
+              <p>Compress the pattern into one issue worth acting on, not a wall of alerts.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">3</div>
+            <div>
+              <strong>Add context</strong>
+              <p>Bring in recipe, delivery window, lot compatibility, and live-job constraints.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">4</div>
+            <div>
+              <strong>Decide</strong>
+              <p>Recommend only what is safe: timing and loading moves, never recipe cuts.</p>
+            </div>
+          </article>
+          <article class="loop-step loop-step--human">
+            <div class="loop-step__num">5</div>
+            <div>
+              <strong>Human feedback + assign</strong>
+              <p>The plant confirms or corrects: planned stop, incompatible lot, wrong owner, or live-job conflict. Then the action is assigned.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">6</div>
+            <div>
+              <strong>Verify and improve</strong>
+              <p>Close on evidence. Accepted, rejected, and corrected actions refine the next recommendation.</p>
+            </div>
+          </article>
+        </div>
+        <p class="loop-callout reveal">Human feedback examples: “this stop was planned,” “these lots are not compatible,” “send this to HT, not the setter,” or “do not move this start; the truck window is locked.”</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-p12" data-theme="light" aria-label="Prescriptions one and two">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescriptions 1 and 2 · heat treatment</p>
+        <h2 class="reveal">Two decisions the plant can take without touching the recipe.</h2>
+        <p class="meta reveal hide-mobile" style="margin-top:0;margin-bottom:0.35rem;">Flip each card for what we notice, how we verify, and the hard constraints.</p>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Empty furnace hot idle. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 01 · Empty furnace / hot idle</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Do not start heat-up on an empty T6 furnace or powder oven until the next charge or load is confirmed ready.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>Empty equipment reaches operating temperature with no metallurgy in progress. The plant buys hot idle for zero kg treated.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>HT supervisor · production confirms charge readiness</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Shift the empty-asset start so temperature arrives with confirmed load readiness, inside the production window.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If every next lot is JIT-locked and the furnace must stay hot for readiness, say so. The recommendation stops.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never furnace-off or setback with a charge. Never shorten soak. Never delay quench.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · empty vs charged</span>
+                  <span class="rx-priority rx-priority--med">Timing first</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Furnace or oven state reaches operating temperature before material loading or the next confirmed charge window. That interval is hot idle: energy and wear for zero kg treated.</p>
+                  <p class="rx-cite"><strong>Gate:</strong> Empty assets may wait or set back. Charged or loaded assets stay locked for soak, quench, age, gel, or cure.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Hot-idle minutes from setpoint to charge or load start. Empty and charged tags must agree with the floor. Energy per cycle when a furnace meter exists.</p>
+                  <p class="rx-mv">If tags disagree with the floor, stop. Prefer a killed recommendation to a burned basket.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Under-loaded heat treatment. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 02 · Under-loaded HT</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Do not start an under-loaded heat-treatment cycle if a compatible lot exists in the same recipe window and delivery stays safe.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>A partially loaded cycle spreads fixed furnace losses over fewer kg. Intensity rises even when the recipe is correct.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Production + metallurgy decide what is compatible</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Fill the basket to a sensible load, or wait for the next compatible charge. Energy does not invent compatibility.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If the lot is do-not-disturb or the truck window dies, do not delay. Take the safer manufacturing path.</dd></div>
+                  </dl>
+                  <p class="rx-lock">No lot mix. No soak cut. No quench delay. Delivery still wins.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · load intensity</span>
+                  <span class="rx-priority rx-priority--med">Matched baseline</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Comparable runs show batch mass moving while furnace energy stays sticky, so intensity rises with skinny loads.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Delay start or fill the basket only inside the same recipe window already allowed by metallurgy and production.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg versus matched historical batches: same recipe, furnace class, and mass band. Quality gates and delivery unchanged.</p>
+                  <p class="rx-mv">If delivery or quality is threatened, do not take this action.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-p34" data-theme="light" aria-label="Prescriptions three and four">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescriptions 3 and 4 · drift and handoffs</p>
         <h2 class="reveal">Catch same-output energy drift. Stop ready assets from waiting hot on the next station.</h2>
-        <div class="perc-pair">
-          <article class="perc-card">
-            <span class="perc-card__num">03 · Matched-output drift</span>
-            <h3>Same heat, same output, more energy</h3>
-            <dl class="perc-block">
-              <dt>Problem</dt>
-              <dd>Against a matched baseline (grade, mass band, soak, output), intensity moves up. Something changed in the thermal machine or envelope, not in the production plan.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Decision</dt>
-              <dd>Flag drift. Point investigation before the next run: air/fuel, infiltration, seals, dampers, whatever your HT owner already trusts.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Verify</dt>
-              <dd>Energy per kg returns toward the matched baseline while temperature profile and quality gates hold.</dd>
-            </dl>
-            <p class="perc-lock">Lock: no recipe cut as the energy fix. We flag and point; we do not promise "we will find the leak" without meters.</p>
-          </article>
-          <article class="perc-card">
-            <span class="perc-card__num">04 · Handoff idle</span>
-            <h3>Ready upstream, next station not ready</h3>
-            <dl class="perc-block">
-              <dt>Problem</dt>
-              <dd>A hot asset stays ready while the next station cannot take work: forge heat waiting on press, empty T6 waiting on charge, rack waiting on hoist. Energy with no additional good parts.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Decision</dt>
-              <dd>Assign the handoff so press, charge, hoist, or quench path is ready when the upstream thermal clock clears. Pick one handoff class you recognise.</dd>
-            </dl>
-            <dl class="perc-block">
-              <dt>Verify</dt>
-              <dd>Ready-to-take minutes for that handoff class versus your own recent median. Timing first; energy when metered.</dd>
-            </dl>
-            <p class="perc-lock">Lock: not foundry melt language. Never cut soak or Type III dwell to free the hoist. Live recipes stay do-not-disturb.</p>
-          </article>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Matched output energy drift. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 03 · Matched-output drift</span>
+                  <span class="rx-priority rx-priority--med">Priority · Med</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Flag when the same heat and same output start using more energy than the plant’s own matched history, then point investigation before the next run.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>Something changed in the thermal machine or envelope, not in the production plan.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>HT / electrical · plant head gets the one-line capability</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Inspect air/fuel, infiltration, seals, dampers, or the checks your HT owner already trusts.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If the match is weak because of ambient, fixtures, or shift class, say so. Do not force a diagnosis.</dd></div>
+                  </dl>
+                  <p class="rx-lock">No recipe cut as the energy fix. No promise that we will find the leak without meters.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · matched baseline</span>
+                  <span class="rx-priority rx-priority--med">Investigate</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Against a matched baseline of grade, mass band, soak, output, and comparable ambient or shift class, energy intensity moves up.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Flag drift and point where to look. We do not change soak, quench, or age to “fix” energy.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg returns toward the matched baseline while temperature profile and quality gates hold.</p>
+                  <p class="rx-mv">If intensity stays high after seals and air/fuel are cleared, escalate with maintenance. Do not invent a second diagnosis in the room.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Plant handoff idle. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 04 · Handoff idle</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Coordinate downstream readiness so a ready thermal or finishing asset does not sit hot longer than the plant’s own normal window.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>Forge heat waiting on press, empty T6 waiting on charge, or rack waiting on hoist: energy with no additional good parts.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Production + the two station owners for the chosen handoff class</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Assign the handoff so press, charge, hoist, or quench path is ready when the upstream clock clears.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>Pick one handoff class the plant recognises. Do not invent foundry or melt language.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never cut soak or Type III dwell to free the hoist. Live recipes stay do-not-disturb.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · ready to take</span>
+                  <span class="rx-priority rx-priority--med">Interface waste</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> For a named handoff class, the gap between “asset ready” and “next station takes it” stretches beyond the plant’s own recent median.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Make the idle gap evidence-grade and assign the handoff. We do not replace the production manager.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Ready-to-take minutes for that handoff class. Energy during the idle gap when a meter exists. Output, quality, and JIT flags unchanged.</p>
+                  <p class="rx-mv">If the live job or quality gate is threatened, do not take this action.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-floor" data-theme="light" aria-label="Floor prescription phone">
+      <div class="slide__inner slide__inner--wide">
+        <div class="floor-layout">
+          <div class="floor-copy">
+            <p class="eyebrow reveal">How the plant receives the decision</p>
+            <h2 class="reveal">One action on the phone. Human feedback before it becomes work.</h2>
+            <p class="lede reveal hide-mobile">This is the proposed first engagement: deploy Stamped on one Bhatia operational line, or demonstrate first on historical process data if a live connection is not yet available. The card below is illustrative, grounded in the empty-versus-charged decision.</p>
+            <p class="lede reveal show-mobile">One operational line or historical data. One action card. English or Hindi.</p>
+            <div class="floor-points reveal">
+              <article>
+                <strong>Offline working deployment</strong>
+                <p>Start on one line or one historical dataset. Prove one safe decision before any broad rollout.</p>
+              </article>
+              <article>
+                <strong>Human feedback is required</strong>
+                <p>Acknowledge, Done, or Escalate. Corrections such as “charge not ready yet” or “JIT locked” refine the next recommendation.</p>
+              </article>
+              <article>
+                <strong>Language for the floor</strong>
+                <p>Use the English / Hindi control inside the phone to show how the same action reaches the owner.</p>
+              </article>
+            </div>
+            <p class="footnote reveal">Illustrative workflow. Not measured Bhatia telemetry. No automatic furnace commands.</p>
+          </div>
+          <div class="phone-col">
+            <div class="phone reveal" id="floorPhone" role="region" aria-label="Prescription phone preview">
+              <div class="phone__bezel">
+                <div class="phone__screen">
+                  <div class="phone-island" aria-hidden="true"></div>
+                  <div class="phone-statusbar" aria-hidden="true">
+                    <span class="phone-time">10:42</span>
+                    <span>5G</span>
+                  </div>
+                  <div class="wa-app">
+                    <div class="wa-header">
+                      <div class="wa-back" aria-hidden="true">‹</div>
+                      <div class="wa-avatar">SE</div>
+                      <div class="wa-head-text">
+                        <strong>Stamped Energy</strong>
+                        <span id="waOnlineLabel">online</span>
+                      </div>
+                      <div class="lang-toggle" role="group" aria-label="Prescription language">
+                        <button type="button" id="langEn" class="is-active" aria-pressed="true">EN</button>
+                        <button type="button" id="langHi" aria-pressed="false">HI</button>
+                      </div>
+                    </div>
+                    <div class="wa-body" id="floorWaBody">
+                      <p class="wa-meta" id="floorMeta">Today · assigned action · 1/2</p>
+                      <div class="wa-msg" id="floorMsg">
+                        <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
+                          <span class="tag" id="floorTag">Rx · High</span>
+                          <h4 id="floorTitle">Empty T6 is hot. Confirm charge before heat-up.</h4>
+                          <div class="wa-bubble__divider" aria-hidden="true"></div>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> Furnace reached setpoint before the next charge was confirmed. That is hot idle with no metallurgy in progress.</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Cut avoidable hot wait; rupees after furnace meter or bill attribution</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> HT supervisor · production confirms charge readiness</p>
+                          <p class="wa-line" id="floorEffort"><b>Do:</b> Delay empty heat-up until charge is confirmed ready</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Setpoint-to-charge minutes fall, or JIT reason is recorded</p>
+                          <p class="wa-line" id="floorDue"><b>Due:</b> Before the next empty heat-up</p>
+                          <div class="wa-bubble__foot">
+                            <span class="wa-tick" aria-hidden="true">10:42</span>
+                          </div>
+                        </div>
+                        <div class="wa-actions" id="floorActions">
+                          <button type="button" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
+                          <button type="button" class="primary" id="floorDone" aria-label="Mark prescription done">Done</button>
+                          <button type="button" id="floorEscalate" aria-label="Escalate prescription">Escalate</button>
+                        </div>
+                      </div>
+                      <div class="wa-end" id="floorEnd" hidden>
+                        <strong>Stamped Energy</strong>
+                        <span id="floorEndText">Inbox clear for this shift</span>
+                      </div>
+                    </div>
+                    <div class="wa-compose" aria-hidden="true">
+                      <span class="wa-compose__icon">+</span>
+                      <div class="wa-compose__field" id="waComposeHint">Message</div>
+                      <span class="wa-compose__mic">◉</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="slide slide--light" id="scene-vision" data-theme="light" aria-label="Coordination vision">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Perception 5 · vision after trust</p>
-        <h2 class="reveal">Coordinate flexible windows so efficiency and responsible growth pull the same direction.</h2>
-        <p class="lede reveal hide-mobile">After empty-versus-charged, drift, and handoff cards earn trust: help stagger flexible starts and empty recovery across forge → T6 → finish. Same tonnes. Same JIT locks. Same recipes. We do not become your scheduler.</p>
-        <p class="lede reveal show-mobile">Later: coordinate flexible starts and empty recovery. Same tonnes. Same JIT. Not APS.</p>
+        <p class="eyebrow reveal">Prescription 5 · vision after trust</p>
+        <h2 class="reveal">Later: coordinate flexible windows so efficiency and responsible growth pull the same direction.</h2>
+        <p class="lede reveal hide-mobile">After empty-versus-charged, drift, and handoff decisions earn trust, Stamped can help stagger flexible starts and empty recovery across forge, T6, finishing, and CNC. Same tonnes. Same JIT locks. Same recipes. We do not become your scheduler.</p>
+        <p class="lede reveal show-mobile">Later coordination of flexible starts. Same tonnes. Same JIT. Not a week-one promise.</p>
         <div class="vision-grid">
           <article class="vision-col vision-col--lead">
             <span class="vision-badge">North star</span>
@@ -674,30 +1157,30 @@
           </article>
           <article class="vision-col">
             <h3>Responsible growth</h3>
-            <p>Your U3 solar and hybrid power story cut diesel and support ESG. Solar does not empty-hold T6, stagger forming peaks, or close handoff lag. These decisions sit beside that investment, under the same "responsible" language OEMs already ask for.</p>
+            <p>Solar and hybrid power support ESG. They do not empty-hold T6, stagger forming peaks, or close handoff lag. These decisions sit beside that investment under the same responsible language OEMs already ask for.</p>
           </article>
         </div>
-        <p class="footnote reveal">Vision only after trust. Not a week-one card. No invented daily schedule rupees. Not MES or APS.</p>
+        <p class="footnote reveal">Vision only after trust. Not a week-one card. No invented daily schedule rupees.</p>
       </div>
     </section>
 
     <section class="slide slide--light grid-bg" id="scene-offer" data-theme="light" aria-label="Next step">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Next conversation</p>
-        <h2 class="reveal">A plant walk with HT and electrical. One closable shape on your asset.</h2>
-        <p class="lede reveal">We will not quote a savings percent. We will not transplant another plant's numbers. We start with decision shapes you can falsify, then verify on your bill line or state clock.</p>
+        <p class="eyebrow reveal">Practical next step</p>
+        <h2 class="reveal">An offline working deployment on one line, or a demonstration on historical data.</h2>
+        <p class="lede reveal">No broad rollout ask today. Choose one operational line or one historical process dataset, test one safe decision with human feedback, and verify the result on a clock, meter, or agreed production signal.</p>
         <div class="offer-grid">
           <article class="offer-card">
-            <strong>Walk</strong>
-            <p>HT + anodise or powder + EE on the floor. Name empty-versus-charged and one handoff class you already feel.</p>
+            <strong>What Bhatia provides</strong>
+            <p>Access to one line or historical state logs, a named HT and production owner, and clarity on which lots are flexible versus JIT-locked.</p>
           </article>
           <article class="offer-card">
-            <strong>Share when ready</strong>
-            <p>Last invoices per HT consumer number across the campus, and one state stream for a short Connect window: empty/charge log, hoist cycle, or CNC state.</p>
+            <strong>What Stamped returns</strong>
+            <p>One practical prescription, an owner-visible workflow with human feedback, and evidence of whether the action helped.</p>
           </article>
           <article class="offer-card">
-            <strong>Close on evidence</strong>
-            <p>One assigned action with an owner and a falsifier. Timing is real even before rupees land. Operators stay in control.</p>
+            <strong>Suggested session</strong>
+            <p>A working walk with HT and electrical. Agree the first asset class, the falsifier, and whether we start live or from historical data.</p>
           </article>
         </div>
         <p class="footnote reveal">Industry Energy Management on the stack you already run. Not another collector. Not automatic furnace commands.</p>
@@ -716,11 +1199,121 @@
   <nav class="dots" id="dots" aria-label="Slide navigation"></nav>
 
   <script>
+    window.__FLOOR_RX__ = {
+      "en": [
+        {
+          title: "Empty T6 is hot. Confirm charge before heat-up.",
+          why: "Furnace reached setpoint before the next charge was confirmed. That is hot idle with no metallurgy in progress.",
+          impact: "Cut avoidable hot wait; rupees after furnace meter or bill attribution",
+          owner: "HT supervisor · production confirms charge readiness",
+          effort: "Delay empty heat-up until charge is confirmed ready",
+          verify: "Setpoint-to-charge minutes fall, or JIT reason is recorded",
+          due: "Before the next empty heat-up",
+          priority: "High",
+          labels: {
+            why: "Why",
+            impact: "Impact",
+            owner: "Owner",
+            effort: "Do",
+            verify: "Verify",
+            due: "Due",
+            ack: "Acknowledge",
+            done: "Done",
+            escalate: "Escalate",
+            meta: "Today · assigned action",
+            online: "online",
+            compose: "Message",
+            end: "Inbox clear for this shift",
+            tagPrefix: "Rx"
+          }
+        },
+        {
+          title: "Handoff idle: ready asset waiting on next station.",
+          why: "Upstream is ready while press, charge, or hoist is not. Energy continues with no additional good parts.",
+          impact: "Recover ready-to-take minutes; energy when metered",
+          owner: "Production + both station owners",
+          effort: "Assign the handoff so the next station is ready on time",
+          verify: "Ready-to-take minutes return toward the plant median",
+          due: "This shift · before the next handoff window",
+          priority: "High",
+          labels: {
+            why: "Why",
+            impact: "Impact",
+            owner: "Owner",
+            effort: "Do",
+            verify: "Verify",
+            due: "Due",
+            ack: "Acknowledge",
+            done: "Done",
+            escalate: "Escalate",
+            meta: "Today · assigned action",
+            online: "online",
+            compose: "Message",
+            end: "Inbox clear for this shift",
+            tagPrefix: "Rx"
+          }
+        }
+      ],
+      "hi": [
+        {
+          title: "खाली T6 गर्म है। हीट-अप से पहले चार्ज की पुष्टि करें।",
+          why: "अगले चार्ज की पुष्टि से पहले फर्नेस सेटपॉइंट पर पहुँच गई। यह बिना मेटलर्जी के गर्म इडल है।",
+          impact: "अनावश्यक गर्म इंतजार घटाएँ; रुपये मीटर या बिल के बाद",
+          owner: "HT सुपरवाइजर · प्रोडक्शन चार्ज रेडीनेस की पुष्टि करे",
+          effort: "चार्ज कन्फर्म होने तक खाली हीट-अप रोकें",
+          verify: "सेटपॉइंट-से-चार्ज मिनट कम हों, या JIT कारण दर्ज हो",
+          due: "अगले खाली हीट-अप से पहले",
+          priority: "उच्च",
+          labels: {
+            why: "कारण",
+            impact: "प्रभाव",
+            owner: "जिम्मेदार",
+            effort: "करें",
+            verify: "जाँच",
+            due: "समय",
+            ack: "स्वीकारें",
+            done: "पूर्ण",
+            escalate: "एस्केलेट",
+            meta: "आज · निर्धारित कार्रवाई",
+            online: "ऑनलाइन",
+            compose: "संदेश",
+            end: "इस शिफ्ट का इनबॉक्स खाली",
+            tagPrefix: "Rx"
+          }
+        },
+        {
+          title: "हैंडऑफ इडल: तैयार एसेट अगले स्टेशन का इंतजार कर रहा है।",
+          why: "अपस्ट्रीम तैयार है, पर प्रेस, चार्ज या होइस्ट तैयार नहीं। बिना अतिरिक्त आउटपुट के ऊर्जा खर्च होती रहती है।",
+          impact: "रेडी-टू-टेक मिनट वापस लाएँ; ऊर्जा मीटर उपलब्ध हो तो",
+          owner: "प्रोडक्शन + दोनों स्टेशन ओनर",
+          effort: "हैंडऑफ असाइन करें ताकि अगला स्टेशन समय पर तैयार हो",
+          verify: "रेडी-टू-टेक मिनट प्लांट मीडियन के करीब आएँ",
+          due: "इस शिफ्ट · अगली हैंडऑफ विंडो से पहले",
+          priority: "उच्च",
+          labels: {
+            why: "कारण",
+            impact: "प्रभाव",
+            owner: "जिम्मेदार",
+            effort: "करें",
+            verify: "जाँच",
+            due: "समय",
+            ack: "स्वीकारें",
+            done: "पूर्ण",
+            escalate: "एस्केलेट",
+            meta: "आज · निर्धारित कार्रवाई",
+            online: "ऑनलाइन",
+            compose: "संदेश",
+            end: "इस शिफ्ट का इनबॉक्स खाली",
+            tagPrefix: "Rx"
+          }
+        }
+      ]
+    };
+
     (function () {
       var img = document.getElementById("heroPhotoImg");
       if (!img) return;
-      var rel = "assets/bhatia-alloy-faridabad-technical/forge-hero.jpg";
-      img.src = new URL(rel, window.location.href).href;
+      img.src = new URL("assets/bhatia-alloy-faridabad-technical/forge-hero.jpg", window.location.href).href;
     })();
   </script>
   <script>
@@ -739,6 +1332,7 @@
       let index = 0;
       let touchX = null;
       let touchY = null;
+      let lang = "en";
 
       function onLogoFail(imgEl) {
         chromeLogo.classList.add("fallback");
@@ -764,12 +1358,167 @@
 
       function pad(n) { return String(n).padStart(2, "0"); }
 
+      function resetRxFlips(root) {
+        if (!root) return;
+        root.querySelectorAll("[data-rx-flip].is-flipped").forEach(function (card) {
+          card.classList.remove("is-flipped");
+          card.setAttribute("aria-pressed", "false");
+          var label = card.getAttribute("aria-label") || "";
+          card.setAttribute("aria-label", label.replace("Hide evidence.", "Show evidence."));
+        });
+      }
+
+      var floorPack = window.__FLOOR_RX__ || { en: [], hi: [] };
+      var floorIdx = 0;
+      var floorBusy = false;
+      var floorBubble = document.getElementById("floorBubble");
+      var floorActions = document.getElementById("floorActions");
+      var floorEnd = document.getElementById("floorEnd");
+      var floorMeta = document.getElementById("floorMeta");
+      var floorTag = document.getElementById("floorTag");
+      var floorTitle = document.getElementById("floorTitle");
+      var floorWhy = document.getElementById("floorWhy");
+      var floorImpact = document.getElementById("floorImpact");
+      var floorOwner = document.getElementById("floorOwner");
+      var floorEffort = document.getElementById("floorEffort");
+      var floorVerify = document.getElementById("floorVerify");
+      var floorDue = document.getElementById("floorDue");
+      var floorMsg = document.getElementById("floorMsg");
+      var floorAck = document.getElementById("floorAck");
+      var floorDone = document.getElementById("floorDone");
+      var floorEscalate = document.getElementById("floorEscalate");
+      var floorEndText = document.getElementById("floorEndText");
+      var waOnlineLabel = document.getElementById("waOnlineLabel");
+      var waComposeHint = document.getElementById("waComposeHint");
+      var langEn = document.getElementById("langEn");
+      var langHi = document.getElementById("langHi");
+
+      function currentRxList() {
+        return floorPack[lang] || floorPack.en || [];
+      }
+
+      function setFloorControlsEnabled(on) {
+        if (floorAck) floorAck.disabled = !on;
+        if (floorDone) floorDone.disabled = !on;
+        if (floorEscalate) floorEscalate.disabled = !on;
+        if (floorBubble) floorBubble.setAttribute("aria-disabled", on ? "false" : "true");
+      }
+
+      function renderFloorRx(i, animateIn) {
+        var list = currentRxList();
+        var rx = list[i];
+        if (!rx || !floorBubble) return;
+        floorIdx = i;
+        var labels = rx.labels || {};
+        if (floorTag) floorTag.textContent = (labels.tagPrefix || "Rx") + " · " + (rx.priority || "High");
+        if (floorTitle) floorTitle.textContent = rx.title || "";
+        if (floorWhy) floorWhy.innerHTML = "<b>" + (labels.why || "Why") + ":</b> " + (rx.why || "");
+        if (floorImpact) floorImpact.innerHTML = "<b>" + (labels.impact || "Impact") + ":</b> " + (rx.impact || "");
+        if (floorOwner) floorOwner.innerHTML = "<b>" + (labels.owner || "Owner") + ":</b> " + (rx.owner || "");
+        if (floorEffort) floorEffort.innerHTML = "<b>" + (labels.effort || "Do") + ":</b> " + (rx.effort || "");
+        if (floorVerify) floorVerify.innerHTML = "<b>" + (labels.verify || "Verify") + ":</b> " + (rx.verify || "");
+        if (floorDue) floorDue.innerHTML = "<b>" + (labels.due || "Due") + ":</b> " + (rx.due || "");
+        if (floorAck) floorAck.textContent = labels.ack || "Acknowledge";
+        if (floorDone) floorDone.textContent = labels.done || "Done";
+        if (floorEscalate) floorEscalate.textContent = labels.escalate || "Escalate";
+        if (floorMeta) floorMeta.textContent = (labels.meta || "Today · assigned action") + " · " + (i + 1) + "/" + list.length;
+        if (waOnlineLabel) waOnlineLabel.textContent = labels.online || "online";
+        if (waComposeHint) waComposeHint.textContent = labels.compose || "Message";
+        if (floorEndText) floorEndText.textContent = labels.end || "Inbox clear for this shift";
+        if (floorMsg) floorMsg.hidden = false;
+        floorBubble.hidden = false;
+        if (floorActions) floorActions.hidden = false;
+        if (floorEnd) floorEnd.hidden = true;
+        if (floorMsg) floorMsg.classList.remove("is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate", "is-enter");
+        if (animateIn && floorMsg) {
+          void floorMsg.offsetWidth;
+          floorMsg.classList.add("is-enter");
+        }
+        setFloorControlsEnabled(true);
+      }
+
+      function showFloorEnd() {
+        if (floorMsg) floorMsg.hidden = true;
+        if (floorMeta) floorMeta.hidden = true;
+        if (floorEnd) floorEnd.hidden = false;
+        floorBusy = false;
+        setFloorControlsEnabled(false);
+      }
+
+      function resetFloorPhone() {
+        floorBusy = false;
+        if (floorMeta) floorMeta.hidden = false;
+        var list = currentRxList();
+        if (!list.length) return;
+        renderFloorRx(0, false);
+      }
+
+      function dismissFloor(mode) {
+        var list = currentRxList();
+        if (floorBusy || !floorBubble || !floorMsg || floorMsg.hidden || !list.length) return;
+        floorBusy = true;
+        setFloorControlsEnabled(false);
+        floorMsg.classList.remove("is-enter", "is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate");
+        void floorMsg.offsetWidth;
+        var dismissClass = mode === "done" ? "is-dismiss-done" : (mode === "escalate" ? "is-dismiss-escalate" : "is-dismiss-ack");
+        floorMsg.classList.add(dismissClass);
+        window.setTimeout(function () {
+          var next = floorIdx + 1;
+          if (next >= list.length) {
+            showFloorEnd();
+            return;
+          }
+          renderFloorRx(next, true);
+          floorBusy = false;
+        }, 340);
+      }
+
+      function setLanguage(nextLang) {
+        lang = nextLang === "hi" ? "hi" : "en";
+        document.documentElement.setAttribute("lang", lang);
+        if (langEn) {
+          langEn.classList.toggle("is-active", lang === "en");
+          langEn.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+        }
+        if (langHi) {
+          langHi.classList.toggle("is-active", lang === "hi");
+          langHi.setAttribute("aria-pressed", lang === "hi" ? "true" : "false");
+        }
+        resetFloorPhone();
+      }
+
+      if (langEn) langEn.addEventListener("click", function (e) { e.stopPropagation(); setLanguage("en"); });
+      if (langHi) langHi.addEventListener("click", function (e) { e.stopPropagation(); setLanguage("hi"); });
+      if (floorAck) floorAck.addEventListener("click", function (e) { e.stopPropagation(); dismissFloor("ack"); });
+      if (floorDone) floorDone.addEventListener("click", function (e) { e.stopPropagation(); dismissFloor("done"); });
+      if (floorEscalate) floorEscalate.addEventListener("click", function (e) { e.stopPropagation(); dismissFloor("escalate"); });
+      if (floorBubble) {
+        floorBubble.addEventListener("click", function () { dismissFloor("ack"); });
+        floorBubble.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            dismissFloor("ack");
+          }
+        });
+      }
+      resetFloorPhone();
+
+      document.querySelectorAll("[data-rx-flip]").forEach(function (card) {
+        card.addEventListener("click", function () {
+          var flipped = card.classList.toggle("is-flipped");
+          card.setAttribute("aria-pressed", flipped ? "true" : "false");
+          var base = (card.getAttribute("aria-label") || "").replace(/\s*(Show|Hide) evidence\./, "");
+          card.setAttribute("aria-label", base + (flipped ? " Hide evidence." : " Show evidence."));
+        });
+      });
+
       function goTo(i, force) {
         if (i < 0 || i >= total) return;
         if (i === index && !force) return;
 
         const prev = slides[index];
         if (prev !== slides[i]) {
+          resetRxFlips(prev);
           prev.classList.remove("active");
           prev.querySelectorAll(".reveal").forEach(function (el) {
             el.style.animation = "none";
@@ -783,6 +1532,7 @@
         slide.classList.add("active");
         slide.scrollTop = 0;
         document.body.setAttribute("data-theme", "light");
+        if (slide.id === "scene-floor") resetFloorPhone();
 
         progressFill.style.width = ((index + 1) / total * 100) + "%";
         counter.textContent = pad(index + 1) + " / " + pad(total);
@@ -807,6 +1557,7 @@
         const tag = (e.target && e.target.tagName) || "";
         if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON") return;
         if (e.target && e.target.isContentEditable) return;
+        if (e.target && e.target.closest && e.target.closest("#floorPhone")) return;
 
         switch (e.key) {
           case "ArrowRight":

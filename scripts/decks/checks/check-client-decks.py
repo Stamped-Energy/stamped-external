@@ -41,8 +41,10 @@ BHATIA = "demo-decks/clients/bhatia-alloy-faridabad-technical/index.html"
 BHATIA_PREFIX = [
     "scene-title",
     "scene-value",
+    "scene-loop",
     "scene-p12",
     "scene-p34",
+    "scene-floor",
     "scene-vision",
     "scene-offer",
 ]
@@ -295,13 +297,12 @@ def file_gate() -> list[str]:
         for sid in BHATIA_PREFIX:
             if f'id="{sid}"' not in bhatia:
                 issues.append(f"bhatia missing {sid}")
-        if len(BHATIA_PREFIX) != 6:
-            issues.append("bhatia: expected 6-scene prefix")
+        if len(BHATIA_PREFIX) != 8:
+            issues.append("bhatia: expected 8-scene prefix")
         for banned_sid in (
             "scene-gap",
             "scene-fit",
             "scene-agentic",
-            "scene-floor",
             "scene-load",
             "scene-production",
             "scene-equipment",
@@ -322,8 +323,26 @@ def file_gate() -> list[str]:
             issues.append("bhatia missing coordination vision language")
         if "Industry Energy Management" not in bhatia:
             issues.append("bhatia missing Industry Energy Management pillar")
-        if re.search(r"\bLNM\b|Sector\s*59|31 machines|agentic", bhatia, re.I):
-            issues.append("bhatia must not carry LNM / agentic product-tour leftovers")
+        if "human feedback" not in bhatia.lower():
+            issues.append("bhatia missing human feedback language")
+        for step in (
+            "Observe",
+            "Understand",
+            "Add context",
+            "Decide",
+            "Human feedback",
+            "Verify and improve",
+        ):
+            if step.lower() not in bhatia.lower():
+                issues.append(f"bhatia missing six-loop step: {step}")
+        if 'id="langEn"' not in bhatia or 'id="langHi"' not in bhatia:
+            issues.append("bhatia missing English/Hindi language toggle")
+        if "__FLOOR_RX__" not in bhatia or '"hi":' not in bhatia:
+            issues.append("bhatia missing bilingual floor prescription pack")
+        if "historical" not in bhatia.lower() and "operational line" not in bhatia.lower():
+            issues.append("bhatia missing offline deployment / historical-data framing")
+        if re.search(r"\bLNM\b|Sector\s*59|31 machines|agentic|\bLLM\b", bhatia, re.I):
+            issues.append("bhatia must not carry LNM / agentic / LLM leftovers")
         if re.search(r"\bunknown\b|\[minutes|₹\d|X kWh|Heat #", bhatia, re.I):
             issues.append("bhatia must not show unknown / placeholder money or minute fields")
         if 'src="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg"' not in bhatia:
@@ -341,6 +360,8 @@ def file_gate() -> list[str]:
             # allow refusal of guarantees; block soft guarantees
             if re.search(r"guaranteed\s+\d", bhatia_body, re.I):
                 issues.append("bhatia must not promise guaranteed percent savings")
+        if bhatia.count('data-rx-flip') < 4:
+            issues.append("bhatia needs at least four flip-card prescriptions")
 
     # Co-located assets must resolve next to the HTML
     for rel in (
@@ -462,6 +483,22 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
         page.wait_for_timeout(350)
         if page.locator("#floorTitle").inner_text() == t0:
             issues.append(f"{label}: floor ack did not advance")
+
+    if "bhatia-alloy-faridabad-technical" in deck and "scene-floor" in slides:
+        go_to(page, "scene-floor")
+        if page.locator("#langEn").count() != 1 or page.locator("#langHi").count() != 1:
+            issues.append(f"{label}: missing English/Hindi language toggle")
+        else:
+            page.locator("#langHi").click()
+            page.wait_for_timeout(250)
+            hi_title = page.locator("#floorTitle").inner_text()
+            if "T6" not in hi_title and "खाली" not in hi_title and "हैंडऑफ" not in hi_title:
+                issues.append(f"{label}: Hindi toggle did not update prescription title")
+            page.locator("#langEn").click()
+            page.wait_for_timeout(250)
+            en_title = page.locator("#floorTitle").inner_text()
+            if "Empty" not in en_title and "Handoff" not in en_title:
+                issues.append(f"{label}: English toggle did not restore prescription title")
 
     if deck.endswith("machinery-oem.html") and "scene-tech" in slides:
         go_to(page, "scene-tech")
