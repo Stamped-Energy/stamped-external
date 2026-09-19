@@ -937,7 +937,7 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Do not initiate heat-up on an empty furnace or oven until the next confirmed charge or load is ready.</p>
+                  <p class="rx-action">Align empty-furnace or oven heat-up with the next confirmed charge or load.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Problem</dt><dd>An empty T6 or other HT furnace reaches soak temperature before the next charge is confirmed ready. The plant is buying hot idle: wall, storage, and radiation losses with no metallurgy in progress. Same shape on an empty powder or cure oven held at temperature with no load.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>HT supervisor · production confirms charge readiness</dd></div>
@@ -972,7 +972,7 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Do not start this under-loaded cycle yet - if and only if a compatible lot exists inside the same recipe window and delivery, JIT, and quench are safe.</p>
+                  <p class="rx-action">Build a fuller compatible load before starting this heat-treatment cycle, when delivery, JIT, and quench remain safe.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Problem</dt><dd>A partially loaded heat-treatment cycle spreads fixed furnace losses over fewer kg. Energy intensity rises even when the recipe is correct.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Production + metallurgy own what is compatible</dd></div>
@@ -1015,7 +1015,7 @@
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Flag drift. Point investigation before the next production run.</p>
+                  <p class="rx-action">Investigate rising energy use when the recipe and production output have not changed.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Problem</dt><dd>Same heat, same output, but the furnace is consuming more energy than its own matched history. Something changed in the thermal machine or the envelope, not in the production plan.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>HT / electrical · plant head gets the one-line capability</dd></div>
@@ -1050,7 +1050,7 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Coordinate downstream readiness so the ready asset does not sit hot longer than the plant's own normal window.</p>
+                  <p class="rx-action">Synchronise the next station so a ready asset does not continue waiting hot.</p>
                   <dl class="rx-fields">
                     <div class="rx-row"><dt>Problem</dt><dd>A thermal or finishing asset is ready and keeps burning energy while the next station is not ready to take the work. Energy with no additional good parts. On a forge → T6 → finish campus: forge heat waiting on press, empty T6 waiting on charge, or rack waiting on hoist.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Production + the two station owners for the chosen handoff class</dd></div>
@@ -1131,7 +1131,7 @@
                       <div class="wa-msg" id="floorMsg">
                         <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
                           <span class="tag" id="floorTag">Rx · High</span>
-                          <h4 id="floorTitle">Empty furnace: do not heat until the next charge is confirmed ready.</h4>
+                          <h4 id="floorTitle">Align empty-furnace heat-up with the next confirmed charge.</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
                           <p class="wa-line" id="floorWhy"><b>Why:</b> Empty furnace reached soak temperature before the next charge was confirmed. That is hot idle with no metallurgy in progress.</p>
                           <p class="wa-line" id="floorImpact"><b>Impact:</b> Cut avoidable hot wait; rupees after furnace meter or bill attribution</p>
@@ -1236,7 +1236,7 @@
     window.__FLOOR_RX__ = {
       "en": [
         {
-          title: "Empty furnace: do not heat until the next charge is confirmed ready.",
+          title: "Align empty-furnace heat-up with the next confirmed charge.",
           why: "Empty furnace reached soak temperature before the next charge was confirmed. That is hot idle with no metallurgy in progress.",
           impact: "Cut avoidable hot wait; rupees after furnace meter or bill attribution",
           owner: "HT supervisor · production confirms charge readiness",
