@@ -497,7 +497,7 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
             page.locator("#langEn").click()
             page.wait_for_timeout(250)
             en_title = page.locator("#floorTitle").inner_text()
-            if "Empty" not in en_title and "Handoff" not in en_title:
+            if "Empty" not in en_title and "Handoff" not in en_title and "empty" not in en_title.lower():
                 issues.append(f"{label}: English toggle did not restore prescription title")
 
     if deck.endswith("machinery-oem.html") and "scene-tech" in slides:

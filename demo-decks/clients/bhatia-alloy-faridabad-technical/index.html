@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Stamped Intelligence × Bhatia Alloy · Owner brief</title>
+  <title>Stamped Energy × Bhatia Alloy · Owner brief</title>
   <link rel="preload" as="image" href="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -280,8 +280,13 @@
     #scene-title .hero-photo {
       margin: 0; border-radius: var(--radius-lg); overflow: hidden;
       border: 1px solid var(--outline-variant); background: #0a1a12;
-      max-height: min(56vh, 460px); height: 100%;
+      max-height: min(52vh, 420px); height: 100%;
     }
+    #scene-title h1 {
+      font-size: clamp(1.45rem, 3.1vw, 2.05rem);
+      line-height: 1.15;
+    }
+    #scene-title .lede { margin-top: 0.45rem; }
     #scene-title .hero-photo img {
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
@@ -307,6 +312,34 @@
       margin: 0.85rem 0 0.35rem;
     }
     .title-rail .sep { opacity: 0.35; }
+    .signal-flow {
+      display: grid; gap: 0.35rem; margin: 0.9rem 0 0.55rem;
+      font-size: 0.78rem; font-weight: 650; color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+    .signal-flow__src { color: var(--secondary); }
+    .signal-flow__arrow { opacity: 0.45; font-weight: 700; }
+    .outcome-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem; margin-top: 0.95rem;
+    }
+    .outcome-card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card);
+      padding: 0.7rem 0.75rem;
+    }
+    .outcome-card strong {
+      display: block; font-family: var(--font-display);
+      font-size: 0.92rem; color: var(--primary); margin-bottom: 0.25rem;
+    }
+    .outcome-card p {
+      font-size: 0.78rem; line-height: 1.4; color: var(--on-surface-variant); margin: 0;
+    }
+    .title-position {
+      margin-top: 0.85rem; font-size: 0.8rem; font-weight: 650;
+      color: var(--secondary); line-height: 1.4;
+    }
 
     /* Value */
     .gap-compare {
@@ -715,6 +748,7 @@
       }
       #scene-title .hero-shell { grid-template-columns: 1fr; gap: 1.1rem; }
       #scene-title .hero-photo { max-height: 26vh; order: -1; }
+      .outcome-grid { grid-template-columns: 1fr; }
       .phone-col { justify-content: center; }
       .phone { transform: none; }
       .slide.active .phone { animation: none; opacity: 1; }
@@ -768,25 +802,34 @@
             </div>
             <p class="client-mark reveal">Prepared for Bhatia Alloy · Sector 24 Faridabad</p>
             <p class="eyebrow reveal">Industry Energy Management</p>
-            <p class="brand-name reveal">Stamped Intelligence</p>
-            <h1 class="reveal">We turn plant data into safe, assigned manufacturing decisions.</h1>
-            <p class="title-rail reveal hide-mobile">
-              <span>Signal</span><span class="sep">→</span>
-              <span>Decision</span><span class="sep">→</span>
-              <span>Owner</span><span class="sep">→</span>
-              <span>Evidence</span>
-            </p>
-            <p class="lede reveal hide-mobile">Stamped reads the process state you already have, recommends one safe action, asks for human confirmation, and closes only when the plant clock or meter shows the result. Recipes stay locked. Operators stay in control.</p>
-            <p class="lede reveal show-mobile">One safe action. One owner. Proof on your clocks.</p>
-            <div class="flow-tags reveal hide-mobile">
-              <span class="chip">Assigned decisions</span>
-              <span class="chip">Human feedback</span>
-              <span class="chip">Recipe-safe</span>
-              <span class="chip">Verified outcomes</span>
+            <p class="brand-name reveal">Stamped Energy</p>
+            <h1 class="reveal">Applied AI for verified industrial energy efficiency</h1>
+            <p class="lede reveal hide-mobile">From plant data to actionable decisions, measured savings, and verified energy performance.</p>
+            <p class="lede reveal show-mobile">Plant data → decisions → verified energy performance.</p>
+            <div class="signal-flow reveal hide-mobile">
+              <p class="signal-flow__src">Meters · Bills · SCADA · Utility data · Operating context</p>
+              <p><span class="signal-flow__arrow">↓</span> AI-assisted energy and resource analysis</p>
+              <p><span class="signal-flow__arrow">↓</span> Prioritised actions for the plant team</p>
+              <p><span class="signal-flow__arrow">↓</span> Verified ₹ savings · Lower SEC / EnPI · Sustained performance</p>
+            </div>
+            <div class="outcome-grid reveal hide-mobile">
+              <article class="outcome-card">
+                <strong>Decide</strong>
+                <p>Find the highest-value energy and resource opportunities.</p>
+              </article>
+              <article class="outcome-card">
+                <strong>Act</strong>
+                <p>Support plant teams in implementing practical interventions.</p>
+              </article>
+              <article class="outcome-card">
+                <strong>Verify</strong>
+                <p>Measure whether savings and intensity improvements actually occurred.</p>
+              </article>
             </div>
             <div class="btn-row reveal">
               <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
             </div>
+            <p class="title-position reveal hide-mobile">Not another energy dashboard. A decision-and-verification system for industrial efficiency.</p>
             <p class="meta reveal hide-mobile">No guaranteed savings percent. Rupees only after your bill or meter.</p>
           </div>
           <figure class="hero-photo reveal" id="heroPhoto">
@@ -903,14 +946,14 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Do not start heat-up on an empty T6 furnace or powder oven until the next charge or load is confirmed ready.</p>
+                  <p class="rx-action">Do not initiate heat-up on an empty furnace or oven until the next confirmed charge or load is ready.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Problem</dt><dd>Empty equipment reaches operating temperature with no metallurgy in progress. The plant buys hot idle for zero kg treated.</dd></div>
+                    <div class="rx-row"><dt>Problem</dt><dd>An empty T6 or other HT furnace reaches soak temperature before the next charge is confirmed ready. The plant is buying hot idle: wall, storage, and radiation losses with no metallurgy in progress. Same shape on an empty powder or cure oven held at temperature with no load.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>HT supervisor · production confirms charge readiness</dd></div>
-                    <div class="rx-row"><dt>Do</dt><dd>Shift the empty-asset start so temperature arrives with confirmed load readiness, inside the production window.</dd></div>
-                    <div class="rx-row"><dt>Feedback</dt><dd>If every next lot is JIT-locked and the furnace must stay hot for readiness, say so. The recommendation stops.</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Shift the empty-asset start later so temperature arrival lines up with confirmed load readiness, still inside the production window production names.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If every next lot is JIT-locked and the furnace must stay hot for readiness they own, say so. The card shrinks or dies; that is a falsifier, not a failure.</dd></div>
                   </dl>
-                  <p class="rx-lock">Never furnace-off or setback with a charge. Never shorten soak. Never delay quench.</p>
+                  <p class="rx-lock">Never setback or furnace-off with a charge. Never shorten soak. Never delay quench.</p>
                   <p class="rx-flip-cue">Flip for notice + verify →</p>
                 </div>
               </div>
@@ -920,9 +963,9 @@
                   <span class="rx-priority rx-priority--med">Timing first</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-cite"><strong>What we notice:</strong> Furnace or oven state reaches operating temperature before material loading or the next confirmed charge window. That interval is hot idle: energy and wear for zero kg treated.</p>
-                  <p class="rx-cite"><strong>Gate:</strong> Empty assets may wait or set back. Charged or loaded assets stay locked for soak, quench, age, gel, or cure.</p>
-                  <p class="rx-cite"><strong>How we verify:</strong> Hot-idle minutes from setpoint to charge or load start. Empty and charged tags must agree with the floor. Energy per cycle when a furnace meter exists.</p>
+                  <p class="rx-cite"><strong>What we notice:</strong> Across recent cycles, furnace or oven state hits operating temperature before material loading or the next confirmed charge window. That interval is hot idle: energy and wear for zero kg treated.</p>
+                  <p class="rx-cite"><strong>Gate:</strong> Empty (no charge in the vessel) may delay heat-up or set back. Charged or loaded (basket, rack, or conveyor under recipe): soak, quench, age, gel, and cure stay locked.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Hot-idle minutes per cycle (temp-at-setpoint to charge or load start). Energy per cycle on their furnace meter or feeder when available. Empty vs charged tags must agree with the floor.</p>
                   <p class="rx-mv">If tags disagree with the floor, stop. Prefer a killed recommendation to a burned basket.</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -938,12 +981,12 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Do not start an under-loaded heat-treatment cycle if a compatible lot exists in the same recipe window and delivery stays safe.</p>
+                  <p class="rx-action">Do not start this under-loaded cycle yet - if and only if a compatible lot exists inside the same recipe window and delivery, JIT, and quench are safe.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Problem</dt><dd>A partially loaded cycle spreads fixed furnace losses over fewer kg. Intensity rises even when the recipe is correct.</dd></div>
-                    <div class="rx-row"><dt>Owner</dt><dd>Production + metallurgy decide what is compatible</dd></div>
-                    <div class="rx-row"><dt>Do</dt><dd>Fill the basket to a sensible load, or wait for the next compatible charge. Energy does not invent compatibility.</dd></div>
-                    <div class="rx-row"><dt>Feedback</dt><dd>If the lot is do-not-disturb or the truck window dies, do not delay. Take the safer manufacturing path.</dd></div>
+                    <div class="rx-row"><dt>Problem</dt><dd>A partially loaded heat-treatment cycle spreads fixed furnace losses over fewer kg. Energy intensity rises even when the recipe is correct.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Production + metallurgy own what is compatible</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Fill the basket to a sensible load, or delay start until the next compatible charge is ready. Energy does not invent compatibility.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If the lot is flagged do-not-disturb or the truck window dies, do not delay. Take the safer manufacturing path.</dd></div>
                   </dl>
                   <p class="rx-lock">No lot mix. No soak cut. No quench delay. Delivery still wins.</p>
                   <p class="rx-flip-cue">Flip for notice + verify →</p>
@@ -955,9 +998,9 @@
                   <span class="rx-priority rx-priority--med">Matched baseline</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-cite"><strong>What we notice:</strong> Comparable runs show batch mass moving while furnace energy stays sticky, so intensity rises with skinny loads.</p>
-                  <p class="rx-cite"><strong>What we do:</strong> Delay start or fill the basket only inside the same recipe window already allowed by metallurgy and production.</p>
-                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg versus matched historical batches: same recipe, furnace class, and mass band. Quality gates and delivery unchanged.</p>
+                  <p class="rx-cite"><strong>What we notice:</strong> Comparable runs (same recipe family, same furnace class) show batch mass varying while furnace energy stays sticky, so intensity moves with load, not only with recipe.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Do not start this batch yet. Wait for the next compatible charge, or fill the basket, without mixing lots. Same soak / quench / age window the metallurgist already allows.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg versus matched historical batches: same recipe, furnace class, comparable mass band. Cycle completion and quality gates unchanged. Delivery window still met.</p>
                   <p class="rx-mv">If delivery or quality is threatened, do not take this action.</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -981,14 +1024,14 @@
                   <span class="rx-priority rx-priority--med">Priority · Med</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Flag when the same heat and same output start using more energy than the plant’s own matched history, then point investigation before the next run.</p>
+                  <p class="rx-action">Flag drift. Point investigation before the next production run.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Problem</dt><dd>Something changed in the thermal machine or envelope, not in the production plan.</dd></div>
+                    <div class="rx-row"><dt>Problem</dt><dd>Same heat, same output, but the furnace is consuming more energy than its own matched history. Something changed in the thermal machine or the envelope, not in the production plan.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>HT / electrical · plant head gets the one-line capability</dd></div>
-                    <div class="rx-row"><dt>Do</dt><dd>Inspect air/fuel, infiltration, seals, dampers, or the checks your HT owner already trusts.</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Inspect typical process-heating suspects: burner air/fuel ratio, furnace pressure / cold-air infiltration, door and seal condition, damper or exhaust changes, whatever their HT owner already trusts.</dd></div>
                     <div class="rx-row"><dt>Feedback</dt><dd>If the match is weak because of ambient, fixtures, or shift class, say so. Do not force a diagnosis.</dd></div>
                   </dl>
-                  <p class="rx-lock">No recipe cut as the energy fix. No promise that we will find the leak without meters.</p>
+                  <p class="rx-lock">Do not change soak, quench, or age to "fix" energy. No promise that we will find the leak without meters.</p>
                   <p class="rx-flip-cue">Flip for notice + verify →</p>
                 </div>
               </div>
@@ -998,10 +1041,10 @@
                   <span class="rx-priority rx-priority--med">Investigate</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-cite"><strong>What we notice:</strong> Against a matched baseline of grade, mass band, soak, output, and comparable ambient or shift class, energy intensity moves up.</p>
-                  <p class="rx-cite"><strong>What we do:</strong> Flag drift and point where to look. We do not change soak, quench, or age to “fix” energy.</p>
-                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg returns toward the matched baseline while temperature profile and quality gates hold.</p>
-                  <p class="rx-mv">If intensity stays high after seals and air/fuel are cleared, escalate with maintenance. Do not invent a second diagnosis in the room.</p>
+                  <p class="rx-cite"><strong>What we notice:</strong> Against a matched baseline of grade or recipe family, mass band, target temperature and soak, production quantity, and comparable ambient or shift class when available, energy intensity has moved up versus the plant's own recent comparable runs.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Something changed → where to look → how we know it was fixed. We do not invent a filled percentage or furnace number.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg returns toward the matched baseline while temperature profile and production quality stay within existing gates.</p>
+                  <p class="rx-mv">If intensity stays high after seals and air/fuel are cleared, escalate with their maintenance. Do not invent a second diagnosis in the room.</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
               </div>
@@ -1016,14 +1059,14 @@
                   <span class="rx-priority">Priority · High</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-action">Coordinate downstream readiness so a ready thermal or finishing asset does not sit hot longer than the plant’s own normal window.</p>
+                  <p class="rx-action">Coordinate downstream readiness so the ready asset does not sit hot longer than the plant's own normal window.</p>
                   <dl class="rx-fields">
-                    <div class="rx-row"><dt>Problem</dt><dd>Forge heat waiting on press, empty T6 waiting on charge, or rack waiting on hoist: energy with no additional good parts.</dd></div>
+                    <div class="rx-row"><dt>Problem</dt><dd>A thermal or finishing asset is ready and keeps burning energy while the next station is not ready to take the work. Energy with no additional good parts. On a forge → T6 → finish campus: forge heat waiting on press, empty T6 waiting on charge, or rack waiting on hoist.</dd></div>
                     <div class="rx-row"><dt>Owner</dt><dd>Production + the two station owners for the chosen handoff class</dd></div>
-                    <div class="rx-row"><dt>Do</dt><dd>Assign the handoff so press, charge, hoist, or quench path is ready when the upstream clock clears.</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Assign the handoff so press, charge, hoist, or quench path is ready when the upstream thermal clock clears.</dd></div>
                     <div class="rx-row"><dt>Feedback</dt><dd>Pick one handoff class the plant recognises. Do not invent foundry or melt language.</dd></div>
                   </dl>
-                  <p class="rx-lock">Never cut soak or Type III dwell to free the hoist. Live recipes stay do-not-disturb.</p>
+                  <p class="rx-lock">Not an action: cutting soak, or "optimising" Type III dwell to free the hoist. Live recipes stay do-not-disturb.</p>
                   <p class="rx-flip-cue">Flip for notice + verify →</p>
                 </div>
               </div>
@@ -1033,9 +1076,9 @@
                   <span class="rx-priority rx-priority--med">Interface waste</span>
                 </div>
                 <div class="rx-hero__body">
-                  <p class="rx-cite"><strong>What we notice:</strong> For a named handoff class, the gap between “asset ready” and “next station takes it” stretches beyond the plant’s own recent median.</p>
-                  <p class="rx-cite"><strong>What we do:</strong> Make the idle gap evidence-grade and assign the handoff. We do not replace the production manager.</p>
-                  <p class="rx-cite"><strong>How we verify:</strong> Ready-to-take minutes for that handoff class. Energy during the idle gap when a meter exists. Output, quality, and JIT flags unchanged.</p>
+                  <p class="rx-cite"><strong>What we notice:</strong> For a named handoff class, the gap between "asset ready" and "next station takes it" stretches beyond the plant's own recent median for comparable jobs.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Your production system is creating unnecessary hot wait after the asset is ready. Make that gap evidence-grade and assign the handoff.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Ready-to-take minutes for that handoff class. Energy during the idle gap when a meter exists. Output and quality unchanged; JIT flags respected.</p>
                   <p class="rx-mv">If the live job or quality gate is threatened, do not take this action.</p>
                   <p class="rx-flip-cue">← Back to decision</p>
                 </div>
@@ -1052,16 +1095,16 @@
           <div class="floor-copy">
             <p class="eyebrow reveal">How the plant receives the decision</p>
             <h2 class="reveal">One action on the phone. Human feedback before it becomes work.</h2>
-            <p class="lede reveal hide-mobile">This is the proposed first engagement: deploy Stamped on one Bhatia operational line, or demonstrate first on historical process data if a live connection is not yet available. The card below is illustrative, grounded in the empty-versus-charged decision.</p>
-            <p class="lede reveal show-mobile">One operational line or historical data. One action card. English or Hindi.</p>
+            <p class="lede reveal hide-mobile">The same empty-versus-charged decision, assigned to the owner who can act. Acknowledge, correct, or escalate before it becomes plant work. The card below is illustrative.</p>
+            <p class="lede reveal show-mobile">One action card. Human feedback. English or Hindi.</p>
             <div class="floor-points reveal">
               <article>
-                <strong>Offline working deployment</strong>
-                <p>Start on one line or one historical dataset. Prove one safe decision before any broad rollout.</p>
+                <strong>Assigned to the right owner</strong>
+                <p>HT supervisor and production see one clear action: delay empty heat-up until the next charge is confirmed ready.</p>
               </article>
               <article>
                 <strong>Human feedback is required</strong>
-                <p>Acknowledge, Done, or Escalate. Corrections such as “charge not ready yet” or “JIT locked” refine the next recommendation.</p>
+                <p>Acknowledge, Done, or Escalate. Corrections such as "charge not ready yet" or "JIT locked" refine the next recommendation.</p>
               </article>
               <article>
                 <strong>Language for the floor</strong>
@@ -1097,12 +1140,12 @@
                       <div class="wa-msg" id="floorMsg">
                         <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
                           <span class="tag" id="floorTag">Rx · High</span>
-                          <h4 id="floorTitle">Empty T6 is hot. Confirm charge before heat-up.</h4>
+                          <h4 id="floorTitle">Empty furnace: do not heat until the next charge is confirmed ready.</h4>
                           <div class="wa-bubble__divider" aria-hidden="true"></div>
-                          <p class="wa-line" id="floorWhy"><b>Why:</b> Furnace reached setpoint before the next charge was confirmed. That is hot idle with no metallurgy in progress.</p>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> Empty furnace reached soak temperature before the next charge was confirmed. That is hot idle with no metallurgy in progress.</p>
                           <p class="wa-line" id="floorImpact"><b>Impact:</b> Cut avoidable hot wait; rupees after furnace meter or bill attribution</p>
                           <p class="wa-line" id="floorOwner"><b>Owner:</b> HT supervisor · production confirms charge readiness</p>
-                          <p class="wa-line" id="floorEffort"><b>Do:</b> Delay empty heat-up until charge is confirmed ready</p>
+                          <p class="wa-line" id="floorEffort"><b>Do:</b> Shift empty-asset start later so temperature arrives with confirmed load readiness</p>
                           <p class="wa-line" id="floorVerify"><b>Verify:</b> Setpoint-to-charge minutes fall, or JIT reason is recorded</p>
                           <p class="wa-line" id="floorDue"><b>Due:</b> Before the next empty heat-up</p>
                           <div class="wa-bubble__foot">
@@ -1134,20 +1177,20 @@
       </div>
     </section>
 
-    <section class="slide slide--light" id="scene-vision" data-theme="light" aria-label="Coordination vision">
+    <section class="slide slide--light" id="scene-vision" data-theme="light" aria-label="Energy-aware scheduling">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">Prescription 5 · vision after trust</p>
-        <h2 class="reveal">Later: coordinate flexible windows so efficiency and responsible growth pull the same direction.</h2>
-        <p class="lede reveal hide-mobile">After empty-versus-charged, drift, and handoff decisions earn trust, Stamped can help stagger flexible starts and empty recovery across forge, T6, finishing, and CNC. Same tonnes. Same JIT locks. Same recipes. We do not become your scheduler.</p>
-        <p class="lede reveal show-mobile">Later coordination of flexible starts. Same tonnes. Same JIT. Not a week-one promise.</p>
+        <p class="eyebrow reveal">Prescription 5 · energy-aware scheduling</p>
+        <h2 class="reveal">Schedule flexible work with energy in the room - same tonnes, better peaks, clearer sustainability path.</h2>
+        <p class="lede reveal hide-mobile">Stamped coordinates known flexible windows across forge, T6, finishing, and CNC so coincidence and empty hot time fall. Same delivery locks. Same recipes. Production still owns the plan. You gain a practical lever for intensity and sustainability goals OEMs already ask about.</p>
+        <p class="lede reveal show-mobile">Energy-aware scheduling of flexible starts. Same tonnes. Same JIT. Better peaks and intensity.</p>
         <div class="vision-grid">
           <article class="vision-col vision-col--lead">
-            <span class="vision-badge">North star</span>
-            <h3>Energy-aware coordination</h3>
-            <p>Flexible work should not stack peaks or buy empty hot time across forming, heat treatment, finish, and first-wave CNC. Sacred loads stay sacred: live soak, live hard coat, loaded powder cure, flagged JIT.</p>
+            <span class="vision-badge">Capability</span>
+            <h3>Energy-aware production coordination</h3>
+            <p>Flexible starts and empty thermal recovery should not stack peaks or buy empty hot time across forming, heat treatment, finish, and first-wave CNC. We help stagger the work the plant already knows is movable.</p>
           </article>
           <article class="vision-col">
-            <h3>May move</h3>
+            <h3>What can move</h3>
             <ul>
               <li>Empty furnace heat-up</li>
               <li>Empty oven recovery</li>
@@ -1156,11 +1199,11 @@
             </ul>
           </article>
           <article class="vision-col">
-            <h3>Responsible growth</h3>
-            <p>Solar and hybrid power support ESG. They do not empty-hold T6, stagger forming peaks, or close handoff lag. These decisions sit beside that investment under the same responsible language OEMs already ask for.</p>
+            <h3>Sustainability and intensity</h3>
+            <p>Help the campus schedule so SEC / EnPI and responsible-growth targets move with real operations, not only with solar or hybrid supply. Sacred loads stay sacred: live soak, live hard coat, loaded powder cure, flagged JIT.</p>
           </article>
         </div>
-        <p class="footnote reveal">Vision only after trust. Not a week-one card. No invented daily schedule rupees.</p>
+        <p class="footnote reveal">Same tonnes. Same recipes. Coordination of known windows, not a replacement scheduler. Rupees after your bill and clocks.</p>
       </div>
     </section>
 
@@ -1202,11 +1245,11 @@
     window.__FLOOR_RX__ = {
       "en": [
         {
-          title: "Empty T6 is hot. Confirm charge before heat-up.",
-          why: "Furnace reached setpoint before the next charge was confirmed. That is hot idle with no metallurgy in progress.",
+          title: "Empty furnace: do not heat until the next charge is confirmed ready.",
+          why: "Empty furnace reached soak temperature before the next charge was confirmed. That is hot idle with no metallurgy in progress.",
           impact: "Cut avoidable hot wait; rupees after furnace meter or bill attribution",
           owner: "HT supervisor · production confirms charge readiness",
-          effort: "Delay empty heat-up until charge is confirmed ready",
+          effort: "Shift empty-asset start later so temperature arrives with confirmed load readiness",
           verify: "Setpoint-to-charge minutes fall, or JIT reason is recorded",
           due: "Before the next empty heat-up",
           priority: "High",
@@ -1228,11 +1271,11 @@
           }
         },
         {
-          title: "Handoff idle: ready asset waiting on next station.",
+          title: "Handoff idle: coordinate so the ready asset does not wait hot.",
           why: "Upstream is ready while press, charge, or hoist is not. Energy continues with no additional good parts.",
           impact: "Recover ready-to-take minutes; energy when metered",
           owner: "Production + both station owners",
-          effort: "Assign the handoff so the next station is ready on time",
+          effort: "Assign the handoff so the next station is ready when the upstream clock clears",
           verify: "Ready-to-take minutes return toward the plant median",
           due: "This shift · before the next handoff window",
           priority: "High",
@@ -1256,12 +1299,12 @@
       ],
       "hi": [
         {
-          title: "खाली T6 गर्म है। हीट-अप से पहले चार्ज की पुष्टि करें।",
-          why: "अगले चार्ज की पुष्टि से पहले फर्नेस सेटपॉइंट पर पहुँच गई। यह बिना मेटलर्जी के गर्म इडल है।",
-          impact: "अनावश्यक गर्म इंतजार घटाएँ; रुपये मीटर या बिल के बाद",
-          owner: "HT सुपरवाइजर · प्रोडक्शन चार्ज रेडीनेस की पुष्टि करे",
-          effort: "चार्ज कन्फर्म होने तक खाली हीट-अप रोकें",
-          verify: "सेटपॉइंट-से-चार्ज मिनट कम हों, या JIT कारण दर्ज हो",
+          title: "अगला चार्ज तैयार होने तक खाली फर्नेस गर्म न करें।",
+          why: "अगले चार्ज की पुष्टि से पहले खाली फर्नेस सोख तापमान पर पहुँच गई। बिना धातुकर्म के गर्म इंतजार: यह हॉट आइडल है।",
+          impact: "अनावश्यक गर्म इंतजार घटाएँ; रुपये फर्नेस मीटर या बिल के बाद",
+          owner: "HT सुपरवाइज़र · प्रोडक्शन चार्ज रेडीनेस की पुष्टि करें",
+          effort: "खाली एसेट का स्टार्ट टालें ताकि तापमान पुष्टि किए लोड के साथ आए",
+          verify: "सेटपॉइंट से चार्ज तक के मिनट घटे, या JIT कारण दर्ज हो",
           due: "अगले खाली हीट-अप से पहले",
           priority: "उच्च",
           labels: {
@@ -1271,9 +1314,9 @@
             effort: "करें",
             verify: "जाँच",
             due: "समय",
-            ack: "स्वीकारें",
-            done: "पूर्ण",
-            escalate: "एस्केलेट",
+            ack: "स्वीकार करें",
+            done: "हो गया",
+            escalate: "ऊपर भेजें",
             meta: "आज · निर्धारित कार्रवाई",
             online: "ऑनलाइन",
             compose: "संदेश",
@@ -1282,12 +1325,12 @@
           }
         },
         {
-          title: "हैंडऑफ इडल: तैयार एसेट अगले स्टेशन का इंतजार कर रहा है।",
-          why: "अपस्ट्रीम तैयार है, पर प्रेस, चार्ज या होइस्ट तैयार नहीं। बिना अतिरिक्त आउटपुट के ऊर्जा खर्च होती रहती है।",
+          title: "हैंडऑफ समन्वय: तैयार एसेट अगले स्टेशन का इंतजार कर रहा है।",
+          why: "अपस्ट्रीम तैयार है, पर प्रेस, चार्ज या होइस्ट तैयार नहीं। बिना अतिरिक्त अच्छे पार्ट्स के ऊर्जा खर्च होती रहती है।",
           impact: "रेडी-टू-टेक मिनट वापस लाएँ; ऊर्जा मीटर उपलब्ध हो तो",
-          owner: "प्रोडक्शन + दोनों स्टेशन ओनर",
-          effort: "हैंडऑफ असाइन करें ताकि अगला स्टेशन समय पर तैयार हो",
-          verify: "रेडी-टू-टेक मिनट प्लांट मीडियन के करीब आएँ",
+          owner: "प्रोडक्शन + दोनों स्टेशन के जिम्मेदार",
+          effort: "हैंडऑफ असाइन करें ताकि अपस्ट्रीम क्लॉक क्लियर होते ही अगला स्टेशन तैयार हो",
+          verify: "रेडी-टू-टेक मिनट प्लांट के सामान्य औसत के करीब आएँ",
           due: "इस शिफ्ट · अगली हैंडऑफ विंडो से पहले",
           priority: "उच्च",
           labels: {
@@ -1297,9 +1340,9 @@
             effort: "करें",
             verify: "जाँच",
             due: "समय",
-            ack: "स्वीकारें",
-            done: "पूर्ण",
-            escalate: "एस्केलेट",
+            ack: "स्वीकार करें",
+            done: "हो गया",
+            escalate: "ऊपर भेजें",
             meta: "आज · निर्धारित कार्रवाई",
             online: "ऑनलाइन",
             compose: "संदेश",
