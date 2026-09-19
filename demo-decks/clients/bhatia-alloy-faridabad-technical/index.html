@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" data-deck="bhatia-alloy-faridabad-technical" data-client-brief="bhatia-alloy-faridabad">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stamped Intelligence × Bhatia Alloy · Owner brief</title>
+  <link rel="preload" as="image" href="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #F75440;
+      --on-primary: #ffffff;
+      --secondary: #051F13;
+      --surface: #f7faf5;
+      --white: #ffffff;
+      --on-surface: #191c1a;
+      --on-surface-variant: #5a403c;
+      --outline-variant: #e3beb8;
+      --tertiary: #00666b;
+      --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --radius-btn: 8px;
+      --radius-card: 12px;
+      --radius-lg: 16px;
+      --chrome-h: 52px;
+      --progress-h: 3px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --grid-line: color-mix(in srgb, var(--primary) 10%, transparent);
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left, 0px);
+      --safe-r: env(safe-area-inset-right, 0px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: var(--surface);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--progress-h); z-index: 100;
+      background: rgba(247, 84, 64, 0.15);
+    }
+    .progress__fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--primary), rgba(247, 84, 64, 0.55));
+      transition: width 0.45s var(--ease);
+    }
+
+    .chrome-top {
+      position: fixed; top: calc(var(--progress-h) + var(--safe-t)); left: 0; right: 0;
+      height: var(--chrome-h); z-index: 90;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-l)) 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-r));
+      pointer-events: none;
+    }
+    .chrome-logo {
+      display: flex; align-items: center; gap: 0.55rem;
+      pointer-events: auto; text-decoration: none; color: inherit;
+    }
+    .chrome-logo img { height: 26px; width: auto; display: block; }
+    .chrome-logo .wordmark {
+      display: none; font-family: var(--font-display); font-weight: 800;
+      font-size: 0.85rem; letter-spacing: -0.02em;
+    }
+    .chrome-logo.fallback img { display: none; }
+    .chrome-logo.fallback .wordmark { display: block; }
+    .chrome-counter {
+      font-size: 0.72rem; font-weight: 650; letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums; opacity: 0.72;
+    }
+
+    .stage {
+      position: relative; width: 100%;
+      height: 100%; height: 100dvh;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding:
+        calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + clamp(0.25rem, 0.8vh, 0.65rem))
+        max(clamp(4.25rem, 7.5vw, 6.5rem), var(--safe-r))
+        max(clamp(3.25rem, 6vh, 4.4rem), calc(var(--safe-b) + 2.5rem));
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.28s var(--ease), visibility 0.28s;
+      overflow: hidden;
+    }
+    .slide.active {
+      opacity: 1; visibility: visible; pointer-events: auto; z-index: 1;
+    }
+
+    .slide--light {
+      background:
+        linear-gradient(180deg, #ffffff 0%, var(--surface) 55%, #f3f6f2 100%),
+        radial-gradient(ellipse 42% 32% at 94% 6%, rgba(227,190,184,0.22), transparent 60%);
+      color: var(--on-surface);
+    }
+    .slide--light.grid-bg::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.45;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
+    }
+
+    .slide__inner {
+      position: relative; z-index: 1;
+      width: 100%; max-width: min(1280px, 100%);
+      margin: 0 auto;
+      transform: translateY(-2.6vh);
+    }
+    .slide__inner--wide { max-width: min(1400px, 100%); }
+
+    .reveal { opacity: 0; transform: translateY(14px); }
+    .slide.active .reveal { animation: fadeUp 0.48s var(--ease) forwards; }
+    .slide.active .reveal:nth-child(1) { animation-delay: 0.04s; }
+    .slide.active .reveal:nth-child(2) { animation-delay: 0.10s; }
+    .slide.active .reveal:nth-child(3) { animation-delay: 0.16s; }
+    .slide.active .reveal:nth-child(4) { animation-delay: 0.22s; }
+    .slide.active .reveal:nth-child(5) { animation-delay: 0.28s; }
+    .slide.active .reveal:nth-child(6) { animation-delay: 0.34s; }
+    .slide.active .reveal:nth-child(7) { animation-delay: 0.40s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes sceneIn {
+      from { opacity: 0; transform: translateY(calc(-2.6vh + 10px)) scale(0.996); }
+      to { opacity: 1; transform: translateY(-2.6vh) scale(1); }
+    }
+    @keyframes itemIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide.active > .slide__inner {
+      animation: sceneIn 0.52s var(--ease) both;
+    }
+
+    .perc-card, .value-card, .vision-col, .offer-card {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .slide.active .perc-card,
+    .slide.active .value-card,
+    .slide.active .vision-col,
+    .slide.active .offer-card {
+      animation: itemIn 0.46s var(--ease) forwards;
+    }
+    .slide.active .perc-card:nth-child(1),
+    .slide.active .value-card:nth-child(1),
+    .slide.active .vision-col:nth-child(1),
+    .slide.active .offer-card:nth-child(1) { animation-delay: 0.16s; }
+    .slide.active .perc-card:nth-child(2),
+    .slide.active .value-card:nth-child(2),
+    .slide.active .vision-col:nth-child(2),
+    .slide.active .offer-card:nth-child(2) { animation-delay: 0.26s; }
+    .slide.active .vision-col:nth-child(3),
+    .slide.active .offer-card:nth-child(3) { animation-delay: 0.36s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .slide.active .reveal { animation: none; }
+      .slide.active > .slide__inner { animation: none; }
+      .perc-card, .value-card, .vision-col, .offer-card {
+        opacity: 1; transform: none; animation: none !important;
+      }
+      .progress__fill, .nav-btn, .dots__dot { transition: none; }
+    }
+
+    .eyebrow {
+      font-size: clamp(0.68rem, 1vw, 0.78rem);
+      font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 0.55rem;
+    }
+    h1, h2 {
+      font-family: var(--font-display); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.12;
+    }
+    h1 { font-size: clamp(1.85rem, 4.2vw, 3.1rem); margin-bottom: 0.7rem; max-width: 16em; }
+    h2 { font-size: clamp(1.4rem, 2.9vw, 2.2rem); margin-bottom: 0.55rem; max-width: 22em; }
+    .lede {
+      font-size: clamp(0.92rem, 1.35vw, 1.06rem);
+      line-height: 1.55; max-width: 44em;
+      color: var(--on-surface-variant);
+    }
+    .meta { font-size: 0.78rem; opacity: 0.55; margin-top: 1rem; letter-spacing: 0.02em; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      height: 48px; padding: 0 1.35rem; border-radius: var(--radius-btn);
+      font-size: 0.95rem; font-weight: 650; border: 1px solid transparent;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn--primary { background: var(--primary); color: var(--on-primary); }
+    .btn--primary:hover { background: #e04634; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.4rem; }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.72rem; font-weight: 650; letter-spacing: 0.03em;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+      background: color-mix(in srgb, var(--primary) 8%, transparent);
+      color: var(--primary);
+    }
+    .flow-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+
+    .nav-btn {
+      position: fixed; top: 50%; transform: translateY(-50%); z-index: 95;
+      width: clamp(42px, 4.6vw, 52px); height: clamp(42px, 4.6vw, 52px);
+      border-radius: 50%; border: 1px solid var(--outline-variant);
+      background: rgba(255,255,255,0.9); color: var(--on-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+    .nav-btn--prev { left: clamp(0.55rem, 1.4vw, 1.15rem); }
+    .nav-btn--next { right: clamp(0.55rem, 1.4vw, 1.15rem); }
+    .nav-btn svg { width: 18px; height: 18px; }
+    .nav-btn:hover {
+      background: var(--white); border-color: var(--primary); color: var(--primary);
+    }
+    .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
+
+    .dots {
+      position: fixed; bottom: clamp(0.85rem, 2.2vh, 1.5rem);
+      left: 50%; transform: translateX(-50%); z-index: 95;
+      display: flex; align-items: center; gap: 0.35rem;
+      padding: 0.32rem 0.5rem; border-radius: 999px;
+      background: rgba(25,28,26,0.08); backdrop-filter: blur(6px);
+    }
+    .dots__dot {
+      width: 6px; height: 6px; border-radius: 999px; border: none; padding: 0;
+      background: rgba(25,28,26,0.28); cursor: pointer;
+      transition: width 0.3s var(--ease), background 0.25s;
+    }
+    .dots__dot.active { width: 20px; background: var(--primary); }
+
+    /* Title */
+    #scene-title .hero-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(1.75rem, 4.5vw, 3.25rem);
+      align-items: center;
+    }
+    #scene-title .hero-photo {
+      align-self: stretch;
+      min-height: 0;
+      height: 100%;
+      max-height: min(58vh, 480px);
+      margin: 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--outline-variant);
+      background: #0a1a12;
+    }
+    #scene-title .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    #scene-title .hero-logo { height: 28px; width: auto; margin-bottom: 0.85rem; }
+    #scene-title .brand-name {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.65rem, 3.4vw, 2.35rem);
+      letter-spacing: -0.03em; color: var(--secondary);
+      margin-bottom: 0.35rem;
+    }
+    #scene-title .client-mark {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 650;
+      color: var(--tertiary); margin-bottom: 0.55rem;
+    }
+    #scene-title.logo-failed .hero-logo { display: none; }
+    #scene-title .wordmark-fallback {
+      display: none; font-family: var(--font-display); font-weight: 800;
+      font-size: 1rem; margin-bottom: 0.85rem;
+    }
+    #scene-title.logo-failed .wordmark-fallback { display: block; }
+    .title-rail {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+      font-size: 0.82rem; font-weight: 650; color: var(--secondary);
+      margin: 0.85rem 0 0.35rem;
+    }
+    .title-rail .sep { opacity: 0.35; }
+
+    /* Value */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.75rem, 1.8vw, 1.15rem);
+      margin-top: 1.35rem;
+    }
+    .value-card {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card);
+      padding: 1.05rem 1.1rem;
+      min-height: 100%;
+    }
+    .value-card h3 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1.02rem; letter-spacing: -0.02em;
+      color: var(--secondary); margin-bottom: 0.45rem;
+    }
+    .value-card p {
+      font-size: 0.88rem; line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+    .chain-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem;
+      margin-top: 1.15rem; font-size: 0.84rem; font-weight: 650;
+      color: var(--secondary);
+    }
+    .chain-strip span.sep { color: var(--primary); opacity: 0.7; font-weight: 700; }
+
+    /* Perception two-up */
+    .perc-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.85rem, 2vw, 1.35rem);
+      margin-top: 1.15rem;
+    }
+    .perc-card {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: clamp(1rem, 1.8vw, 1.35rem);
+      display: flex; flex-direction: column; gap: 0.7rem;
+      min-height: 100%;
+    }
+    .perc-card__num {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--primary);
+    }
+    .perc-card h3 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+      letter-spacing: -0.02em; line-height: 1.2;
+      color: var(--secondary);
+    }
+    .perc-block dt {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--tertiary);
+      margin-bottom: 0.2rem;
+    }
+    .perc-block dd {
+      font-size: 0.86rem; line-height: 1.42;
+      color: var(--on-surface-variant);
+    }
+    .perc-lock {
+      margin-top: auto;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-btn);
+      background: color-mix(in srgb, var(--secondary) 6%, transparent);
+      border-left: 3px solid var(--primary);
+      font-size: 0.82rem; font-weight: 650; line-height: 1.35;
+      color: var(--secondary);
+    }
+
+    /* Vision */
+    .vision-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 0.9fr);
+      gap: clamp(0.75rem, 1.8vw, 1.15rem);
+      margin-top: 1.2rem;
+    }
+    .vision-col {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card);
+      padding: 1.05rem 1.1rem;
+    }
+    .vision-col--lead {
+      background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 6%, #fff) 100%);
+      border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
+    }
+    .vision-col h3 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1rem; color: var(--secondary); margin-bottom: 0.5rem;
+    }
+    .vision-col p, .vision-col li {
+      font-size: 0.86rem; line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+    .vision-col ul { list-style: none; display: grid; gap: 0.4rem; }
+    .vision-col li::before {
+      content: "";
+      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary); margin-right: 0.45rem;
+      vertical-align: middle;
+    }
+    .vision-badge {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--primary);
+      margin-bottom: 0.45rem;
+    }
+
+    /* Offer */
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.75rem, 1.8vw, 1.15rem);
+      margin-top: 1.2rem;
+    }
+    .offer-card {
+      background: var(--white);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card);
+      padding: 1.05rem 1.1rem;
+    }
+    .offer-card strong {
+      display: block;
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1.02rem; color: var(--secondary);
+      margin-bottom: 0.4rem;
+    }
+    .offer-card p {
+      font-size: 0.88rem; line-height: 1.45;
+      color: var(--on-surface-variant);
+    }
+    .footnote {
+      margin-top: 1rem; font-size: 0.8rem; line-height: 1.4;
+      color: var(--on-surface-variant); max-width: 48em;
+    }
+
+    .show-mobile { display: none !important; }
+
+    @media (max-width: 900px) {
+      .value-grid, .vision-grid, .offer-grid, .perc-pair {
+        grid-template-columns: 1fr;
+      }
+      #scene-title .hero-shell {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      #scene-title .hero-photo {
+        max-height: 28vh;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hide-mobile { display: none !important; }
+      .show-mobile { display: block !important; }
+      .slide {
+        justify-content: flex-start;
+        padding-left: max(1rem, var(--safe-l));
+        padding-right: max(1rem, var(--safe-r));
+        padding-bottom: max(4.5rem, calc(var(--safe-b) + 3.5rem));
+        overflow-y: auto;
+      }
+      .slide__inner { transform: none; max-width: 100%; }
+      .slide.active > .slide__inner { animation: none; }
+      h1 { font-size: clamp(1.55rem, 7vw, 2rem); }
+      h2 { font-size: clamp(1.25rem, 5.5vw, 1.55rem); }
+      .nav-btn {
+        top: auto; bottom: max(0.85rem, calc(var(--safe-b) + 0.55rem));
+        transform: none; width: 44px; height: 44px;
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 8px 20px -12px rgba(5,31,19,0.35);
+      }
+      .nav-btn--prev { left: max(0.65rem, var(--safe-l)); }
+      .nav-btn--next { right: max(0.65rem, var(--safe-r)); }
+      .dots {
+        bottom: max(0.95rem, calc(var(--safe-b) + 0.65rem));
+      }
+      #scene-title .brand-name { font-size: clamp(1.45rem, 7vw, 1.85rem); }
+      .perc-card { padding: 0.9rem 1rem; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="progress" aria-hidden="true"><div class="progress__fill" id="progressFill"></div></div>
+
+  <header class="chrome-top">
+    <a class="chrome-logo" id="chromeLogo" href="https://stamped.work" target="_blank" rel="noopener noreferrer" aria-label="Stamped Energy">
+      <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
+      <span class="wordmark">Stamped Energy</span>
+    </a>
+    <span class="chrome-counter" id="sceneCounter">01 / 06</span>
+  </header>
+
+  <main class="stage" id="stage" aria-label="Stamped Energy Bhatia Alloy brief">
+
+    <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
+      <div class="slide__inner slide__inner--wide">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <div class="reveal hide-mobile">
+              <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
+              <span class="wordmark-fallback">Stamped Energy</span>
+            </div>
+            <p class="client-mark reveal">Bhatia Alloy · Sector 24 Faridabad</p>
+            <p class="eyebrow reveal">Assigned energy decisions · forge to finish</p>
+            <p class="brand-name reveal">Stamped Intelligence</p>
+            <h1 class="reveal">Protect metallurgy. Cut empty thermal waste. Keep JIT.</h1>
+            <p class="title-rail reveal hide-mobile">
+              <span>Readiness</span><span class="sep">→</span>
+              <span>Thermal state</span><span class="sep">→</span>
+              <span>Owned action</span><span class="sep">→</span>
+              <span>Evidence</span>
+            </p>
+            <p class="lede reveal hide-mobile">You already run one-roof forging, T6, machining, and finish for OEMs who punish a finish miss as hard as a dimensional miss. We do not take that roof. We turn empty-versus-charged clocks and station handoffs into five assigned decisions with an owner and a falsifier.</p>
+            <p class="lede reveal show-mobile">Five assigned decisions on your forge → T6 → finish chain. Recipes stay locked.</p>
+            <div class="flow-tags reveal hide-mobile">
+              <span class="chip">Empty vs charged</span>
+              <span class="chip">No lot mix</span>
+              <span class="chip">JIT / DOL first</span>
+              <span class="chip">Verified on your clocks</span>
+            </div>
+            <div class="btn-row reveal">
+              <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
+            </div>
+            <p class="meta reveal hide-mobile">No guaranteed savings percent. Rupees only after your bill or meter.</p>
+          </div>
+          <figure class="hero-photo reveal" id="heroPhoto">
+            <img id="heroPhotoImg" src="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg" alt="Industrial forging and process heating environment" width="1024" height="575" loading="eager" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-value" data-theme="light" aria-label="Value">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Why this is value for Bhatia</p>
+        <h2 class="reveal">Your brand is consistency, JIT, and responsible growth. Energy waste attacks all three.</h2>
+        <p class="lede reveal">Line stoppage, field failure, and losing the customer are already your public risks. Empty hot furnaces, skinny T6 loads, thermal drift, and ready-asset waits burn energy and threaten the same outcomes. We assign the manufacturing decision. We do not sell another dashboard.</p>
+        <div class="value-grid">
+          <article class="value-card">
+            <h3>Not another screen</h3>
+            <p>You already instrument the plant. The gap is closure: a named owner, a do-not-disturb lock, and a way to know the action worked.</p>
+          </article>
+          <article class="value-card">
+            <h3>Recipes stay sacred</h3>
+            <p>We never cut T6 soak, quench, Type III dwell, or powder cure. Empty equipment and flexible starts are the only levers.</p>
+          </article>
+          <article class="value-card">
+            <h3>Frontier at the interface</h3>
+            <p>Connecting production readiness to thermal state and closing on evidence is what makes assigned decisions practical on a multi-stage campus, not a monthly spreadsheet.</p>
+          </article>
+        </div>
+        <p class="chain-strip reveal" aria-label="Process chain">
+          Forge <span class="sep">→</span> T6 <span class="sep">→</span> CNC <span class="sep">→</span> Finish <span class="sep">→</span> JIT truck
+        </p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-p12" data-theme="light" aria-label="Perceptions one and two">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Perceptions 1 and 2 · heat treatment</p>
+        <h2 class="reveal">Do not buy hot idle. Do not start a skinny charge when a compatible lot can fill the basket.</h2>
+        <div class="perc-pair">
+          <article class="perc-card">
+            <span class="perc-card__num">01 · Empty furnace / hot idle</span>
+            <h3>Heat up when the charge is confirmed, not before</h3>
+            <dl class="perc-block">
+              <dt>Problem</dt>
+              <dd>An empty T6 (or powder oven) sits at operating temperature with no metallurgy in progress. You buy wall, storage, and radiation losses for zero kg treated.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Decision</dt>
+              <dd>Shift the empty-asset start so temperature arrives with confirmed load readiness, still inside the production window production owns.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Verify</dt>
+              <dd>Hot-idle minutes: setpoint reached to charge or load start. Empty and charged tags must agree with the floor.</dd>
+            </dl>
+            <p class="perc-lock">Lock: never furnace-off or setback with a charge. Never shorten soak. Never delay quench.</p>
+          </article>
+          <article class="perc-card">
+            <span class="perc-card__num">02 · Under-loaded HT</span>
+            <h3>Fill the basket or wait for a compatible charge</h3>
+            <dl class="perc-block">
+              <dt>Problem</dt>
+              <dd>A partially loaded cycle spreads fixed furnace losses over fewer kg. Intensity rises even when the recipe is correct.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Decision</dt>
+              <dd>Do not start the skinny cycle if a compatible lot exists in the same recipe window and delivery, JIT, and quench stay safe. Production and metallurgy own "compatible."</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Verify</dt>
+              <dd>Energy per kg versus matched historical batches (same recipe, furnace class, mass band). Quality gates and delivery unchanged.</dd>
+            </dl>
+            <p class="perc-lock">Lock: no lot mix. No soak cut. No quench delay. If the truck window dies, the card falsifies.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-p34" data-theme="light" aria-label="Perceptions three and four">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Perceptions 3 and 4 · drift and handoffs</p>
+        <h2 class="reveal">Catch same-output energy drift. Stop ready assets from waiting hot on the next station.</h2>
+        <div class="perc-pair">
+          <article class="perc-card">
+            <span class="perc-card__num">03 · Matched-output drift</span>
+            <h3>Same heat, same output, more energy</h3>
+            <dl class="perc-block">
+              <dt>Problem</dt>
+              <dd>Against a matched baseline (grade, mass band, soak, output), intensity moves up. Something changed in the thermal machine or envelope, not in the production plan.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Decision</dt>
+              <dd>Flag drift. Point investigation before the next run: air/fuel, infiltration, seals, dampers, whatever your HT owner already trusts.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Verify</dt>
+              <dd>Energy per kg returns toward the matched baseline while temperature profile and quality gates hold.</dd>
+            </dl>
+            <p class="perc-lock">Lock: no recipe cut as the energy fix. We flag and point; we do not promise "we will find the leak" without meters.</p>
+          </article>
+          <article class="perc-card">
+            <span class="perc-card__num">04 · Handoff idle</span>
+            <h3>Ready upstream, next station not ready</h3>
+            <dl class="perc-block">
+              <dt>Problem</dt>
+              <dd>A hot asset stays ready while the next station cannot take work: forge heat waiting on press, empty T6 waiting on charge, rack waiting on hoist. Energy with no additional good parts.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Decision</dt>
+              <dd>Assign the handoff so press, charge, hoist, or quench path is ready when the upstream thermal clock clears. Pick one handoff class you recognise.</dd>
+            </dl>
+            <dl class="perc-block">
+              <dt>Verify</dt>
+              <dd>Ready-to-take minutes for that handoff class versus your own recent median. Timing first; energy when metered.</dd>
+            </dl>
+            <p class="perc-lock">Lock: not foundry melt language. Never cut soak or Type III dwell to free the hoist. Live recipes stay do-not-disturb.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-vision" data-theme="light" aria-label="Coordination vision">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Perception 5 · vision after trust</p>
+        <h2 class="reveal">Coordinate flexible windows so efficiency and responsible growth pull the same direction.</h2>
+        <p class="lede reveal hide-mobile">After empty-versus-charged, drift, and handoff cards earn trust: help stagger flexible starts and empty recovery across forge → T6 → finish. Same tonnes. Same JIT locks. Same recipes. We do not become your scheduler.</p>
+        <p class="lede reveal show-mobile">Later: coordinate flexible starts and empty recovery. Same tonnes. Same JIT. Not APS.</p>
+        <div class="vision-grid">
+          <article class="vision-col vision-col--lead">
+            <span class="vision-badge">North star</span>
+            <h3>Energy-aware coordination</h3>
+            <p>Flexible work should not stack peaks or buy empty hot time across forming, heat treatment, finish, and first-wave CNC. Sacred loads stay sacred: live soak, live hard coat, loaded powder cure, flagged JIT.</p>
+          </article>
+          <article class="vision-col">
+            <h3>May move</h3>
+            <ul>
+              <li>Empty furnace heat-up</li>
+              <li>Empty oven recovery</li>
+              <li>Flexible CNC first-wave</li>
+              <li>Empty-tank idle between proven empty cycles</li>
+            </ul>
+          </article>
+          <article class="vision-col">
+            <h3>Responsible growth</h3>
+            <p>Your U3 solar and hybrid power story cut diesel and support ESG. Solar does not empty-hold T6, stagger forming peaks, or close handoff lag. These decisions sit beside that investment, under the same "responsible" language OEMs already ask for.</p>
+          </article>
+        </div>
+        <p class="footnote reveal">Vision only after trust. Not a week-one card. No invented daily schedule rupees. Not MES or APS.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-offer" data-theme="light" aria-label="Next step">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Next conversation</p>
+        <h2 class="reveal">A plant walk with HT and electrical. One closable shape on your asset.</h2>
+        <p class="lede reveal">We will not quote a savings percent. We will not transplant another plant's numbers. We start with decision shapes you can falsify, then verify on your bill line or state clock.</p>
+        <div class="offer-grid">
+          <article class="offer-card">
+            <strong>Walk</strong>
+            <p>HT + anodise or powder + EE on the floor. Name empty-versus-charged and one handoff class you already feel.</p>
+          </article>
+          <article class="offer-card">
+            <strong>Share when ready</strong>
+            <p>Last invoices per HT consumer number across the campus, and one state stream for a short Connect window: empty/charge log, hoist cycle, or CNC state.</p>
+          </article>
+          <article class="offer-card">
+            <strong>Close on evidence</strong>
+            <p>One assigned action with an owner and a falsifier. Timing is real even before rupees land. Operators stay in control.</p>
+          </article>
+        </div>
+        <p class="footnote reveal">Industry Energy Management on the stack you already run. Not another collector. Not automatic furnace commands.</p>
+        <p class="meta reveal">stamped.work · Bhatia Alloy owner brief</p>
+      </div>
+    </section>
+  </main>
+
+  <button type="button" class="nav-btn nav-btn--prev" id="btnPrev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button type="button" class="nav-btn nav-btn--next" id="btnNext" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="dots" id="dots" aria-label="Slide navigation"></nav>
+
+  <script>
+    (function () {
+      var img = document.getElementById("heroPhotoImg");
+      if (!img) return;
+      var rel = "assets/bhatia-alloy-faridabad-technical/forge-hero.jpg";
+      img.src = new URL(rel, window.location.href).href;
+    })();
+  </script>
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const total = slides.length;
+      const progressFill = document.getElementById("progressFill");
+      const counter = document.getElementById("sceneCounter");
+      const btnPrev = document.getElementById("btnPrev");
+      const btnNext = document.getElementById("btnNext");
+      const btnBegin = document.getElementById("btnBegin");
+      const dotsNav = document.getElementById("dots");
+      const chromeLogo = document.getElementById("chromeLogo");
+      const titleSlide = document.getElementById("scene-title");
+
+      let index = 0;
+      let touchX = null;
+      let touchY = null;
+
+      function onLogoFail(imgEl) {
+        chromeLogo.classList.add("fallback");
+        if (titleSlide) titleSlide.classList.add("logo-failed");
+        if (imgEl) imgEl.style.display = "none";
+      }
+      ["chromeLogoImg", "heroLogo"].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener("error", function () { onLogoFail(el); });
+        if (el.complete && el.naturalWidth === 0) onLogoFail(el);
+      });
+
+      slides.forEach(function (_, i) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "dots__dot" + (i === 0 ? " active" : "");
+        b.setAttribute("aria-label", "Go to slide " + (i + 1));
+        b.addEventListener("click", function () { goTo(i); });
+        dotsNav.appendChild(b);
+      });
+      const dots = Array.from(dotsNav.querySelectorAll(".dots__dot"));
+
+      function pad(n) { return String(n).padStart(2, "0"); }
+
+      function goTo(i, force) {
+        if (i < 0 || i >= total) return;
+        if (i === index && !force) return;
+
+        const prev = slides[index];
+        if (prev !== slides[i]) {
+          prev.classList.remove("active");
+          prev.querySelectorAll(".reveal").forEach(function (el) {
+            el.style.animation = "none";
+            void el.offsetWidth;
+            el.style.animation = "";
+          });
+        }
+
+        index = i;
+        const slide = slides[index];
+        slide.classList.add("active");
+        slide.scrollTop = 0;
+        document.body.setAttribute("data-theme", "light");
+
+        progressFill.style.width = ((index + 1) / total * 100) + "%";
+        counter.textContent = pad(index + 1) + " / " + pad(total);
+
+        dots.forEach(function (d, di) {
+          d.classList.toggle("active", di === index);
+          d.setAttribute("aria-current", di === index ? "true" : "false");
+        });
+
+        btnPrev.disabled = index === 0;
+        btnNext.disabled = index === total - 1;
+      }
+
+      function next() { goTo(Math.min(index + 1, total - 1)); }
+      function prev() { goTo(Math.max(index - 1, 0)); }
+
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      if (btnBegin) btnBegin.addEventListener("click", next);
+
+      document.addEventListener("keydown", function (e) {
+        const tag = (e.target && e.target.tagName) || "";
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON") return;
+        if (e.target && e.target.isContentEditable) return;
+
+        switch (e.key) {
+          case "ArrowRight":
+          case " ":
+          case "PageDown":
+            e.preventDefault();
+            next();
+            break;
+          case "ArrowLeft":
+          case "PageUp":
+            e.preventDefault();
+            prev();
+            break;
+          case "Home":
+            e.preventDefault();
+            goTo(0);
+            break;
+          case "End":
+            e.preventDefault();
+            goTo(total - 1);
+            break;
+          default:
+            if (e.key >= "1" && e.key <= "9") {
+              const n = parseInt(e.key, 10) - 1;
+              if (n < total) { e.preventDefault(); goTo(n); }
+            }
+        }
+      });
+
+      const stage = document.getElementById("stage");
+      stage.addEventListener("touchstart", function (e) {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        touchX = e.changedTouches[0].clientX;
+        touchY = e.changedTouches[0].clientY;
+      }, { passive: true });
+      stage.addEventListener("touchend", function (e) {
+        if (touchX == null || touchY == null || !e.changedTouches || !e.changedTouches[0]) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        const dy = e.changedTouches[0].clientY - touchY;
+        touchX = null;
+        touchY = null;
+        if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) next(); else prev();
+      }, { passive: true });
+
+      function slideIndexFromHash() {
+        var id = (location.hash || "").replace(/^#/, "");
+        if (!id) return 0;
+        var idx = slides.findIndex(function (s) { return s.id === id; });
+        return idx >= 0 ? idx : 0;
+      }
+
+      goTo(slideIndexFromHash(), true);
+      window.addEventListener("hashchange", function () {
+        goTo(slideIndexFromHash(), true);
+      });
+    })();
+  </script>
+</body>
+</html>
