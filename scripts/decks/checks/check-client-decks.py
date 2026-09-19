@@ -37,6 +37,15 @@ LNM_PREFIX = [
     "scene-verify",
     "scene-offer",
 ]
+BHATIA = "demo-decks/clients/bhatia-alloy-faridabad-technical/index.html"
+BHATIA_PREFIX = [
+    "scene-title",
+    "scene-value",
+    "scene-p12",
+    "scene-p34",
+    "scene-vision",
+    "scene-offer",
+]
 
 TECH_BRIEF_PREFIX = [
     "scene-title",
@@ -118,6 +127,8 @@ def file_gate() -> list[str]:
             issues.append("clients hub missing Nestlé brief link")
         if "lnm-auto-faridabad-technical" not in ch:
             issues.append("clients hub missing LNM Faridabad brief link")
+        if "bhatia-alloy-faridabad-technical" not in ch:
+            issues.append("clients hub missing Bhatia Alloy Faridabad brief link")
         if "Industry Energy Management" not in ch or "Asset Health Intelligence" not in ch:
             issues.append("clients hub missing website pillar names")
     if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
@@ -274,6 +285,63 @@ def file_gate() -> list[str]:
                 issues.append(f"lnm missing variety example: {label}")
         if not (ROOT / "demo-decks/clients/lnm-auto-faridabad-technical/assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg").is_file():
             issues.append("missing LNM cnc-shop-hero.jpg asset")
+
+    bhatia_path = ROOT / BHATIA
+    if not bhatia_path.is_file():
+        issues.append(f"missing {BHATIA}")
+        bhatia = ""
+    else:
+        bhatia = bhatia_path.read_text(encoding="utf-8")
+        for sid in BHATIA_PREFIX:
+            if f'id="{sid}"' not in bhatia:
+                issues.append(f"bhatia missing {sid}")
+        if len(BHATIA_PREFIX) != 6:
+            issues.append("bhatia: expected 6-scene prefix")
+        for banned_sid in (
+            "scene-gap",
+            "scene-fit",
+            "scene-agentic",
+            "scene-floor",
+            "scene-load",
+            "scene-production",
+            "scene-equipment",
+            "scene-prescription",
+            "scene-verify",
+        ):
+            if f'id="{banned_sid}"' in bhatia:
+                issues.append(f"bhatia must not include product-tour scene {banned_sid}")
+        if "Bhatia" not in bhatia or "Faridabad" not in bhatia:
+            issues.append("bhatia missing Bhatia / Faridabad naming")
+        if "empty" not in bhatia.lower() or "handoff" not in bhatia.lower():
+            issues.append("bhatia missing empty-hold / handoff perception language")
+        if "compatible" not in bhatia.lower():
+            issues.append("bhatia missing consolidate / compatible-lot language")
+        if "drift" not in bhatia.lower():
+            issues.append("bhatia missing matched-output drift language")
+        if "coordination" not in bhatia.lower() and "coordinate" not in bhatia.lower():
+            issues.append("bhatia missing coordination vision language")
+        if "Industry Energy Management" not in bhatia:
+            issues.append("bhatia missing Industry Energy Management pillar")
+        if re.search(r"\bLNM\b|Sector\s*59|31 machines|agentic", bhatia, re.I):
+            issues.append("bhatia must not carry LNM / agentic product-tour leftovers")
+        if re.search(r"\bunknown\b|\[minutes|₹\d|X kWh|Heat #", bhatia, re.I):
+            issues.append("bhatia must not show unknown / placeholder money or minute fields")
+        if 'src="assets/bhatia-alloy-faridabad-technical/forge-hero.jpg"' not in bhatia:
+            issues.append("bhatia hero src should be forge-hero.jpg")
+        if not (
+            ROOT
+            / "demo-decks/clients/bhatia-alloy-faridabad-technical/assets/bhatia-alloy-faridabad-technical/forge-hero.jpg"
+        ).is_file():
+            issues.append("missing Bhatia forge-hero.jpg asset")
+        bhatia_body = re.sub(r"<style[\s\S]*?</style>", "", bhatia)
+        bhatia_body = re.sub(r"<script[\s\S]*?</script>", "", bhatia_body)
+        if re.search(r"[—–]", bhatia_body):
+            issues.append("bhatia: em/en dash in visible HTML")
+        if "guaranteed" in bhatia_body.lower() and "no guaranteed" not in bhatia_body.lower():
+            # allow refusal of guarantees; block soft guarantees
+            if re.search(r"guaranteed\s+\d", bhatia_body, re.I):
+                issues.append("bhatia must not promise guaranteed percent savings")
+
     # Co-located assets must resolve next to the HTML
     for rel in (
         "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
@@ -328,6 +396,7 @@ def file_gate() -> list[str]:
         "demo-decks/clients/itc-nadiad-technical.html",
         "demo-decks/clients/nestle-pantnagar-technical/index.html",
         LNM,
+        BHATIA,
         FULL,
         BRIEF,
         FORGE,
@@ -464,6 +533,8 @@ def main() -> None:
                 ("forge-mobile", FORGE, FORGE_PREFIX, 390, 844),
                 ("lnm-desktop", LNM, LNM_PREFIX, 1440, 900),
                 ("lnm-mobile", LNM, LNM_PREFIX, 390, 844),
+                ("bhatia-desktop", BHATIA, BHATIA_PREFIX, 1440, 900),
+                ("bhatia-mobile", BHATIA, BHATIA_PREFIX, 390, 844),
             ]:
                 page = browser.new_page()
                 all_issues += audit(page, base, deck, label, w, h, prefix)

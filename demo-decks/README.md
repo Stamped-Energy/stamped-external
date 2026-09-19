@@ -36,7 +36,7 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root |
 | [clients/technical-explainer.html](./clients/technical-explainer.html) | Generic technical explainer (11 scenes; 60-day close) |
 
-Named-account default: Nestlé or ITC. Keep OEM / forge-HT ready when the room should stay anonymous.
+Named-account default: Nestlé or ITC. Keep OEM / forge-HT ready when the room should stay anonymous. Bhatia Alloy is a lean 6-scene owner brief (refined perceptions), not the 11-scene technical shell.
 
 **Technical explainers** (also linked from the root hub): generic product explainer plus named-account briefs.
 
