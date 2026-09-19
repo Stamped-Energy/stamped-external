@@ -725,6 +725,51 @@
       margin-bottom: 0.4rem;
     }
 
+    /* Process direction */
+    .process-intro {
+      max-width: 68rem; margin: 0 auto 1.1rem; padding: 0.8rem 1rem;
+      border-left: 3px solid var(--primary); background: rgba(255,255,255,0.78);
+      color: var(--on-surface-variant); font-size: 0.88rem; line-height: 1.5;
+    }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1rem;
+    }
+    .process-col {
+      background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem;
+    }
+    .process-col--reasoning { border-color: var(--tertiary); }
+    .process-col h3 {
+      font-family: var(--font-display); font-size: 1.05rem;
+      color: var(--secondary); margin-bottom: 0.7rem;
+    }
+    .process-col--reasoning h3 { color: var(--tertiary); }
+    .process-col ul {
+      list-style: none; display: grid; gap: 0.42rem;
+      margin: 0; padding: 0;
+    }
+    .process-col li {
+      color: var(--on-surface-variant); font-size: 0.82rem; line-height: 1.35;
+    }
+    .process-col li::before {
+      content: "•"; color: var(--primary); font-weight: 800; margin-right: 0.45rem;
+    }
+    .process-arrow {
+      color: var(--primary); font-size: 1.15rem; font-weight: 800;
+      margin: 0.5rem 0 0.15rem;
+    }
+    .process-strip {
+      margin-top: 1rem; padding: 0.85rem 1rem; border-radius: var(--radius-card);
+      background: var(--secondary); color: #fff; font-size: 0.9rem;
+      line-height: 1.45; text-align: center;
+    }
+    .process-strip strong { color: #ffb0a4; }
+    .process-footer {
+      margin-top: 0.8rem; text-align: center; color: var(--on-surface-variant);
+      font-size: 0.72rem; font-style: italic;
+    }
+
     /* Offer */
     .offer-grid {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -743,9 +788,10 @@
     .show-mobile { display: none !important; }
 
     @media (max-width: 980px) {
-      .value-grid, .loop-grid, .offer-grid, .vision-grid, .gap-compare, .rx-layout, .floor-layout {
+      .value-grid, .loop-grid, .offer-grid, .vision-grid, .process-grid, .gap-compare, .rx-layout, .floor-layout {
         grid-template-columns: 1fr;
       }
+      .process-arrow { display: none; }
       #scene-title .hero-shell { grid-template-columns: 1fr; gap: 1.1rem; }
       #scene-title .hero-photo { max-height: 26vh; order: -1; }
       .outcome-grid { grid-template-columns: 1fr; }
@@ -787,7 +833,7 @@
       <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
       <span class="wordmark">Stamped Energy</span>
     </a>
-    <span class="chrome-counter" id="sceneCounter">01 / 08</span>
+    <span class="chrome-counter" id="sceneCounter">01 / 09</span>
   </header>
 
   <main class="stage" id="stage" aria-label="Stamped Energy Bhatia Alloy brief">
@@ -1219,6 +1265,52 @@
         </div>
         <p class="footnote reveal">Industry Energy Management on the stack you already run. Not another collector. Not automatic furnace commands.</p>
         <p class="meta reveal">stamped.work · Bhatia Alloy · Faridabad owner brief</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-process" data-theme="light" aria-label="Stamped Process product direction">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">A second applied-AI direction</p>
+        <h2 class="reveal">Stamped Process</h2>
+        <p class="lede reveal">AI-assisted manufacturing process engineering for better, faster, and more repeatable decisions about how parts are made.</p>
+        <p class="process-intro reveal">Stamped Energy improves energy and resource efficiency. We are also exploring the same applied-AI philosophy for the engineering decisions that determine how efficiently production itself runs.</p>
+        <div class="process-grid reveal">
+          <article class="process-col">
+            <h3>Engineering context</h3>
+            <ul>
+              <li>Drawings and process documents</li>
+              <li>Machine capability</li>
+              <li>Tooling and fixtures</li>
+              <li>Material and quality requirements</li>
+              <li>Production experience</li>
+            </ul>
+            <p class="process-arrow" aria-hidden="true">↓</p>
+          </article>
+          <article class="process-col process-col--reasoning">
+            <h3>AI-assisted reasoning</h3>
+            <ul>
+              <li>Understand the operation</li>
+              <li>Compare process alternatives</li>
+              <li>Identify missing information</li>
+              <li>Evaluate tooling configurations</li>
+              <li>Create an evidence-backed recommendation</li>
+            </ul>
+            <p class="process-arrow" aria-hidden="true">↓</p>
+          </article>
+          <article class="process-col">
+            <h3>Manufacturing outcomes</h3>
+            <ul>
+              <li>Lower cycle time</li>
+              <li>Lower cost per accepted part</li>
+              <li>Improved tool life</li>
+              <li>Less process-attributable scrap</li>
+              <li>Faster new-part industrialisation</li>
+              <li>More reusable engineering knowledge</li>
+            </ul>
+          </article>
+        </div>
+        <p class="process-strip reveal"><strong>Human engineers retain high-value decisions.</strong> AI improves the quality, speed, and repeatability of the engineering work.</p>
+        <p class="process-footer reveal">Early development direction · Initial wedge: tooling and manufacturing configuration decisions</p>
       </div>
     </section>
   </main>

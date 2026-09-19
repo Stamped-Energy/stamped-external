@@ -47,6 +47,7 @@ BHATIA_PREFIX = [
     "scene-floor",
     "scene-vision",
     "scene-offer",
+    "scene-process",
 ]
 
 TECH_BRIEF_PREFIX = [
@@ -297,8 +298,8 @@ def file_gate() -> list[str]:
         for sid in BHATIA_PREFIX:
             if f'id="{sid}"' not in bhatia:
                 issues.append(f"bhatia missing {sid}")
-        if len(BHATIA_PREFIX) != 8:
-            issues.append("bhatia: expected 8-scene prefix")
+        if len(BHATIA_PREFIX) != 9:
+            issues.append("bhatia: expected 9-scene prefix")
         for banned_sid in (
             "scene-gap",
             "scene-fit",
@@ -321,6 +322,8 @@ def file_gate() -> list[str]:
             issues.append("bhatia missing matched-output drift language")
         if "coordination" not in bhatia.lower() and "coordinate" not in bhatia.lower():
             issues.append("bhatia missing coordination vision language")
+        if "Stamped Process" not in bhatia or "tooling and manufacturing configuration" not in bhatia:
+            issues.append("bhatia missing Stamped Process direction slide")
         if "Industry Energy Management" not in bhatia:
             issues.append("bhatia missing Industry Energy Management pillar")
         if "human feedback" not in bhatia.lower():
