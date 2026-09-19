@@ -745,6 +745,15 @@
       color: var(--secondary); margin-bottom: 0.55rem;
     }
     .process-col--reasoning h3 { color: var(--tertiary); }
+    .process-col--outcomes {
+      background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 7%, #fff) 100%);
+    }
+    .process-col--outcomes li {
+      font-size: 0.9rem; line-height: 1.4;
+    }
+    .process-col--outcomes li strong {
+      color: var(--secondary); font-weight: 800;
+    }
     .process-col ul {
       list-style: none; display: grid; gap: 0.32rem;
       margin: 0; padding: 0;
@@ -765,6 +774,39 @@
       margin-top: 0.6rem; text-align: center; color: var(--on-surface-variant);
       font-size: 0.68rem; font-style: italic;
     }
+    .continuity-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1rem;
+    }
+    .continuity-card {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
+    }
+    .continuity-card--safety { border-color: var(--tertiary); }
+    .continuity-card h3 {
+      font-family: var(--font-display); font-size: 1rem;
+      color: var(--secondary); margin-bottom: 0.55rem;
+    }
+    .continuity-card--safety h3 { color: var(--tertiary); }
+    .continuity-card p {
+      color: var(--on-surface-variant); font-size: 0.8rem;
+      line-height: 1.4; margin: 0 0 0.6rem;
+    }
+    .continuity-card dl { display: grid; gap: 0.4rem; margin: 0; }
+    .continuity-card dt {
+      color: var(--primary); font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .continuity-card dd {
+      color: var(--on-surface-variant); font-size: 0.8rem;
+      line-height: 1.4; margin: 0;
+    }
+    .continuity-card strong { color: var(--secondary); }
+    .continuity-note {
+      margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-radius: var(--radius-card);
+      background: var(--secondary); color: #fff; font-size: 0.8rem;
+      line-height: 1.4; text-align: center;
+    }
 
     /* Offer */
     .offer-grid {
@@ -784,7 +826,7 @@
     .show-mobile { display: none !important; }
 
     @media (max-width: 980px) {
-      .value-grid, .loop-grid, .offer-grid, .vision-grid, .process-grid, .gap-compare, .rx-layout, .floor-layout {
+      .value-grid, .loop-grid, .offer-grid, .vision-grid, .process-grid, .continuity-grid, .gap-compare, .rx-layout, .floor-layout {
         grid-template-columns: 1fr;
       }
       #scene-title .hero-shell { grid-template-columns: 1fr; gap: 1.1rem; }
@@ -828,7 +870,7 @@
       <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
       <span class="wordmark">Stamped Energy</span>
     </a>
-    <span class="chrome-counter" id="sceneCounter">01 / 09</span>
+    <span class="chrome-counter" id="sceneCounter">01 / 10</span>
   </header>
 
   <main class="stage" id="stage" aria-label="Stamped Energy Bhatia Alloy brief">
@@ -1121,6 +1163,85 @@
       </div>
     </section>
 
+    <section class="slide slide--light grid-bg" id="scene-p56" data-theme="light" aria-label="Prescriptions five and six">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescriptions 5 and 6 · continuity and Type III</p>
+        <h2 class="reveal">Protect live work. Stop expensive finish power from running empty or under-loaded.</h2>
+        <p class="meta reveal hide-mobile" style="margin-top:0;margin-bottom:0.35rem;">Flip each card for the decision, owner feedback, and verification.</p>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Continuity and sacred-load protection. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 05 · Continuity / sacred load</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Protect live processes when grid, genset, or solar conditions turn hostile.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>The wrong load gets shed and a live T6, Type III, powder, or JIT job is hit: stoppage, scrap, or customer risk.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Electrical + HT + finishing write the plant rulebook together</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Name two lists: <strong>Never touch while live</strong> and <strong>Can wait / start later</strong>. At stress time, assign one action.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If a Never-shed load was cut during a drill or cut event, the playbook failed.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never shed live T6, cut soak, or treat a bill saving as more important than the process.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · power stress + asset state</span>
+                  <span class="rx-priority rx-priority--med">Protect first</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Power is unstable and asset state identifies a live charge, locked dwell, or JIT job versus an empty asset that can wait.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> "Grid unstable + T6 charge in soak: do not shed this. Cut from the May-stagger list first."</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> The right owner receives the action, the Never / May rule is followed, and no live process is interrupted.</p>
+                  <p class="rx-mv">Rupees are quantified only after their scrap, overtime, or diesel story is measured.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Type III idle and rack density. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 06 · Type III idle / rack density</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Stop full hard-coat power from running with no or thin work.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>The tank or rectifier is powered with no productive rack, or a sparse rack runs the full process.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Finishing + quality own the approved idle and density rules</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Use the approved idle state until the next rack is ready; fill or wait when a rack is below the allowed density.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If thickness, salt spray, or another quality check fails, stop. Quality wins.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never cut Type III dwell, ASF, bath temperature, or current-density rules to save energy.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · idle hours + rack fill</span>
+                  <span class="rx-priority rx-priority--med">Quality locked</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Rectifier or tank power continues without a productive rack, or metal area sits below the density limit quality already allows.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Assign an idle cut, fill, or sequence action. Do not change bath, current density, or dwell.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Empty-powered hours fall and rack fill improves against their own rules, while thickness and salt-spray checks hold.</p>
+                  <p class="rx-mv">Energy never wins over Type III quality. Rupees are quantified only after their meters and clocks say otherwise.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <section class="slide slide--light grid-bg" id="scene-floor" data-theme="light" aria-label="Floor prescription phone">
       <div class="slide__inner slide__inner--wide">
         <div class="floor-layout">
@@ -1265,7 +1386,7 @@
 
     <section class="slide slide--light" id="scene-process" data-theme="light" aria-label="Stamped Process product direction">
       <div class="slide__inner slide__inner--wide">
-        <p class="eyebrow reveal">A second applied-AI direction</p>
+        <p class="eyebrow reveal">An emerging frontier in industrial AI</p>
         <h2 class="reveal">Stamped Process</h2>
         <p class="lede reveal">AI-assisted process engineering for better, faster, repeatable manufacturing decisions.</p>
         <p class="process-intro reveal">A second application of the Stamped philosophy: turn engineering knowledge into evidence-backed process decisions.</p>
@@ -1290,15 +1411,13 @@
               <li>Recommend the next decision</li>
             </ul>
           </article>
-          <article class="process-col">
+          <article class="process-col process-col--outcomes">
             <h3>Manufacturing outcomes</h3>
             <ul>
-              <li>Lower cycle time</li>
-              <li>Lower cost per accepted part</li>
-              <li>Improved tool life</li>
-              <li>Less process scrap</li>
-              <li>Faster new-part industrialisation</li>
-              <li>Reusable engineering knowledge</li>
+              <li><strong>Lower cycle time</strong></li>
+              <li><strong>Lower cost per accepted part</strong></li>
+              <li><strong>Improved tool life</strong></li>
+              <li><strong>Reusable engineering knowledge</strong></li>
             </ul>
           </article>
         </div>

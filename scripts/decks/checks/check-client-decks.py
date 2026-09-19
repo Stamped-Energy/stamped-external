@@ -44,6 +44,7 @@ BHATIA_PREFIX = [
     "scene-loop",
     "scene-p12",
     "scene-p34",
+    "scene-p56",
     "scene-floor",
     "scene-vision",
     "scene-offer",
@@ -298,8 +299,8 @@ def file_gate() -> list[str]:
         for sid in BHATIA_PREFIX:
             if f'id="{sid}"' not in bhatia:
                 issues.append(f"bhatia missing {sid}")
-        if len(BHATIA_PREFIX) != 9:
-            issues.append("bhatia: expected 9-scene prefix")
+        if len(BHATIA_PREFIX) != 10:
+            issues.append("bhatia: expected 10-scene prefix")
         for banned_sid in (
             "scene-gap",
             "scene-fit",
@@ -318,8 +319,12 @@ def file_gate() -> list[str]:
             issues.append("bhatia missing empty-hold / handoff perception language")
         if "compatible" not in bhatia.lower():
             issues.append("bhatia missing consolidate / compatible-lot language")
+        if "sacred-load" not in bhatia.lower() or "Type III idle" not in bhatia:
+            issues.append("bhatia missing continuity / Type III prescriptions")
         if "drift" not in bhatia.lower():
             issues.append("bhatia missing matched-output drift language")
+        if "sacred-load" not in bhatia.lower() or "Type III" not in bhatia:
+            issues.append("bhatia missing continuity / Type III prescriptions")
         if "coordination" not in bhatia.lower() and "coordinate" not in bhatia.lower():
             issues.append("bhatia missing coordination vision language")
         if "Stamped Process" not in bhatia or "tooling and manufacturing configuration" not in bhatia:
