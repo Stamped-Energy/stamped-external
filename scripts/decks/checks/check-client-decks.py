@@ -50,6 +50,18 @@ BHATIA_PREFIX = [
     "scene-offer",
     "scene-process",
 ]
+FARIDABAD_RX = "demo-decks/clients/faridabad-plant-prescriptions/index.html"
+FARIDABAD_RX_PREFIX = [
+    "scene-title",
+    "scene-value",
+    "scene-loop",
+    "scene-p12",
+    "scene-p34",
+    "scene-p56",
+    "scene-floor",
+    "scene-vision",
+    "scene-offer",
+]
 
 TECH_BRIEF_PREFIX = [
     "scene-title",
@@ -133,6 +145,8 @@ def file_gate() -> list[str]:
             issues.append("clients hub missing LNM Faridabad brief link")
         if "bhatia-alloy-faridabad-technical" not in ch:
             issues.append("clients hub missing Bhatia Alloy Faridabad brief link")
+        if "faridabad-plant-prescriptions" not in ch:
+            issues.append("clients hub missing anonymous Faridabad prescription-types brief link")
         if "Industry Energy Management" not in ch or "Asset Health Intelligence" not in ch:
             issues.append("clients hub missing website pillar names")
     if 'href="./clients/"' not in hub and 'href="clients/"' not in hub:
@@ -371,6 +385,86 @@ def file_gate() -> list[str]:
         if bhatia.count('data-rx-flip') < 4:
             issues.append("bhatia needs at least four flip-card prescriptions")
 
+    faridabad_rx_path = ROOT / FARIDABAD_RX
+    if not faridabad_rx_path.is_file():
+        issues.append(f"missing {FARIDABAD_RX}")
+        faridabad_rx = ""
+    else:
+        faridabad_rx = faridabad_rx_path.read_text(encoding="utf-8")
+        for sid in FARIDABAD_RX_PREFIX:
+            if f'id="{sid}"' not in faridabad_rx:
+                issues.append(f"faridabad-rx missing {sid}")
+        if len(FARIDABAD_RX_PREFIX) != 9:
+            issues.append("faridabad-rx: expected 9-scene prefix")
+        if 'id="scene-process"' in faridabad_rx or "Stamped Process" in faridabad_rx:
+            issues.append("faridabad-rx must not include Stamped Process")
+        for banned_sid in (
+            "scene-gap",
+            "scene-fit",
+            "scene-agentic",
+            "scene-load",
+            "scene-production",
+            "scene-equipment",
+            "scene-prescription",
+            "scene-verify",
+        ):
+            if f'id="{banned_sid}"' in faridabad_rx:
+                issues.append(f"faridabad-rx must not include product-tour scene {banned_sid}")
+        if "a plant in Faridabad" not in faridabad_rx:
+            issues.append("faridabad-rx missing 'a plant in Faridabad' phrasing")
+        if re.search(r"\bBhatia\b|bhatia-alloy|Sector\s*24|Campus Fund", faridabad_rx, re.I):
+            issues.append("faridabad-rx must not name the plant, Sector 24, or the recipient")
+        if "empty" not in faridabad_rx.lower() or "handoff" not in faridabad_rx.lower():
+            issues.append("faridabad-rx missing empty-hold / handoff perception language")
+        if "compatible" not in faridabad_rx.lower():
+            issues.append("faridabad-rx missing consolidate / compatible-lot language")
+        if "sacred-load" not in faridabad_rx.lower() or "Type III idle" not in faridabad_rx:
+            issues.append("faridabad-rx missing continuity / Type III prescriptions")
+        if "drift" not in faridabad_rx.lower():
+            issues.append("faridabad-rx missing matched-output drift language")
+        if "coordination" not in faridabad_rx.lower() and "coordinate" not in faridabad_rx.lower():
+            issues.append("faridabad-rx missing coordination vision language")
+        if "Industry Energy Management" not in faridabad_rx:
+            issues.append("faridabad-rx missing Industry Energy Management pillar")
+        if "human feedback" not in faridabad_rx.lower():
+            issues.append("faridabad-rx missing human feedback language")
+        for step in (
+            "Observe",
+            "Understand",
+            "Add context",
+            "Decide",
+            "Human feedback",
+            "Verify and improve",
+        ):
+            if step.lower() not in faridabad_rx.lower():
+                issues.append(f"faridabad-rx missing six-loop step: {step}")
+        if 'id="langEn"' not in faridabad_rx or 'id="langHi"' not in faridabad_rx:
+            issues.append("faridabad-rx missing English/Hindi language toggle")
+        if "__FLOOR_RX__" not in faridabad_rx or '"hi":' not in faridabad_rx:
+            issues.append("faridabad-rx missing bilingual floor prescription pack")
+        if "historical" not in faridabad_rx.lower() and "operational line" not in faridabad_rx.lower():
+            issues.append("faridabad-rx missing offline deployment / historical-data framing")
+        if re.search(r"\bLNM\b|Sector\s*59|31 machines|agentic|\bLLM\b", faridabad_rx, re.I):
+            issues.append("faridabad-rx must not carry LNM / agentic / LLM leftovers")
+        if re.search(r"\bunknown\b|\[minutes|₹\d|X kWh|Heat #", faridabad_rx, re.I):
+            issues.append("faridabad-rx must not show unknown / placeholder money or minute fields")
+        if 'src="assets/faridabad-plant-prescriptions/forge-hero.jpg"' not in faridabad_rx:
+            issues.append("faridabad-rx hero src should be forge-hero.jpg")
+        if not (
+            ROOT
+            / "demo-decks/clients/faridabad-plant-prescriptions/assets/faridabad-plant-prescriptions/forge-hero.jpg"
+        ).is_file():
+            issues.append("missing faridabad-rx forge-hero.jpg asset")
+        faridabad_rx_body = re.sub(r"<style[\s\S]*?</style>", "", faridabad_rx)
+        faridabad_rx_body = re.sub(r"<script[\s\S]*?</script>", "", faridabad_rx_body)
+        if re.search(r"[—–]", faridabad_rx_body):
+            issues.append("faridabad-rx: em/en dash in visible HTML")
+        if "guaranteed" in faridabad_rx_body.lower() and "no guaranteed" not in faridabad_rx_body.lower():
+            if re.search(r"guaranteed\s+\d", faridabad_rx_body, re.I):
+                issues.append("faridabad-rx must not promise guaranteed percent savings")
+        if faridabad_rx.count("data-rx-flip") < 4:
+            issues.append("faridabad-rx needs at least four flip-card prescriptions")
+
     # Co-located assets must resolve next to the HTML
     for rel in (
         "demo-decks/clients/assets/machinery-oem/tape-line.jpg",
@@ -426,6 +520,7 @@ def file_gate() -> list[str]:
         "demo-decks/clients/nestle-pantnagar-technical/index.html",
         LNM,
         BHATIA,
+        FARIDABAD_RX,
         FULL,
         BRIEF,
         FORGE,
@@ -492,7 +587,10 @@ def audit(page, base: str, deck: str, label: str, width: int, height: int, prefi
         if page.locator("#floorTitle").inner_text() == t0:
             issues.append(f"{label}: floor ack did not advance")
 
-    if "bhatia-alloy-faridabad-technical" in deck and "scene-floor" in slides:
+    if (
+        ("bhatia-alloy-faridabad-technical" in deck or "faridabad-plant-prescriptions" in deck)
+        and "scene-floor" in slides
+    ):
         go_to(page, "scene-floor")
         if page.locator("#langEn").count() != 1 or page.locator("#langHi").count() != 1:
             issues.append(f"{label}: missing English/Hindi language toggle")
@@ -580,6 +678,8 @@ def main() -> None:
                 ("lnm-mobile", LNM, LNM_PREFIX, 390, 844),
                 ("bhatia-desktop", BHATIA, BHATIA_PREFIX, 1440, 900),
                 ("bhatia-mobile", BHATIA, BHATIA_PREFIX, 390, 844),
+                ("faridabad-rx-desktop", FARIDABAD_RX, FARIDABAD_RX_PREFIX, 1440, 900),
+                ("faridabad-rx-mobile", FARIDABAD_RX, FARIDABAD_RX_PREFIX, 390, 844),
             ]:
                 page = browser.new_page()
                 all_issues += audit(page, base, deck, label, w, h, prefix)

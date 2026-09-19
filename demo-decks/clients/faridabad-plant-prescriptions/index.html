@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en" data-deck="faridabad-plant-prescriptions" data-client-brief="faridabad-plant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stamped Energy · prescription types for a plant in Faridabad</title>
+  <link rel="preload" as="image" href="assets/faridabad-plant-prescriptions/forge-hero.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #F75440;
+      --on-primary: #ffffff;
+      --secondary: #051F13;
+      --surface: #f7faf5;
+      --surface-low: #f1f4f0;
+      --white: #ffffff;
+      --on-surface: #191c1a;
+      --on-surface-variant: #5a403c;
+      --outline-variant: #e3beb8;
+      --tertiary: #00666b;
+      --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+      --font-body: "Inter", "Noto Sans Devanagari", system-ui, sans-serif;
+      --radius-btn: 8px;
+      --radius-card: 12px;
+      --radius-lg: 16px;
+      --chrome-h: 52px;
+      --progress-h: 3px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --grid-line: color-mix(in srgb, var(--primary) 10%, transparent);
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left, 0px);
+      --safe-r: env(safe-area-inset-right, 0px);
+      --phone-screen-w: 300px;
+      --phone-ratio: 393 / 852;
+      --phone-frame-pad: 11px;
+      --wa-teal: #075e54;
+      --wa-teal-light: #128c7e;
+      --wa-action: #008069;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%; height: 100dvh; overflow: hidden;
+      background: var(--surface); color: var(--on-surface);
+      font-family: var(--font-body); -webkit-font-smoothing: antialiased;
+    }
+
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--progress-h); z-index: 100;
+      background: rgba(247, 84, 64, 0.15);
+    }
+    .progress__fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--primary), rgba(247, 84, 64, 0.55));
+      transition: width 0.45s var(--ease);
+    }
+
+    .chrome-top {
+      position: fixed; top: calc(var(--progress-h) + var(--safe-t)); left: 0; right: 0;
+      height: var(--chrome-h); z-index: 90;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-r)) 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-l));
+      pointer-events: none;
+    }
+    .chrome-logo {
+      display: flex; align-items: center; gap: 0.55rem;
+      pointer-events: auto; text-decoration: none; color: inherit;
+    }
+    .chrome-logo img { height: 26px; width: auto; display: block; }
+    .chrome-logo .wordmark {
+      display: none; font-family: var(--font-display); font-weight: 800;
+      font-size: 0.85rem; letter-spacing: -0.02em;
+    }
+    .chrome-logo.fallback img { display: none; }
+    .chrome-logo.fallback .wordmark { display: block; }
+    .chrome-counter {
+      font-size: 0.72rem; font-weight: 650; letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums; opacity: 0.72;
+    }
+
+    .stage { position: relative; width: 100%; height: 100%; height: 100dvh; overflow: hidden; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding:
+        calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + clamp(0.25rem, 0.8vh, 0.65rem))
+        max(clamp(4.25rem, 7.5vw, 6.5rem), var(--safe-r))
+        max(clamp(3.25rem, 6vh, 4.4rem), calc(var(--safe-b) + 2.5rem));
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.28s var(--ease), visibility 0.28s;
+      overflow: hidden;
+    }
+    .slide.active { opacity: 1; visibility: visible; pointer-events: auto; z-index: 1; }
+
+    .slide--light {
+      background:
+        linear-gradient(180deg, #ffffff 0%, var(--surface) 55%, #f3f6f2 100%),
+        radial-gradient(ellipse 42% 32% at 94% 6%, rgba(227,190,184,0.22), transparent 60%);
+      color: var(--on-surface);
+    }
+    .slide--light.grid-bg::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px; opacity: 0.45;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
+    }
+
+    .slide__inner {
+      position: relative; z-index: 1;
+      width: 100%; max-width: min(1280px, 100%);
+      margin: 0 auto; transform: translateY(-2.2vh);
+    }
+    .slide__inner--wide { max-width: min(1400px, 100%); }
+
+    .reveal { opacity: 0; transform: translateY(14px); }
+    .slide.active .reveal { animation: fadeUp 0.48s var(--ease) forwards; }
+    .slide.active .reveal:nth-child(1) { animation-delay: 0.04s; }
+    .slide.active .reveal:nth-child(2) { animation-delay: 0.10s; }
+    .slide.active .reveal:nth-child(3) { animation-delay: 0.16s; }
+    .slide.active .reveal:nth-child(4) { animation-delay: 0.22s; }
+    .slide.active .reveal:nth-child(5) { animation-delay: 0.28s; }
+    .slide.active .reveal:nth-child(6) { animation-delay: 0.34s; }
+    .slide.active .reveal:nth-child(7) { animation-delay: 0.40s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes sceneIn {
+      from { opacity: 0; transform: translateY(calc(-2.2vh + 10px)) scale(0.996); }
+      to { opacity: 1; transform: translateY(-2.2vh) scale(1); }
+    }
+    @keyframes itemIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes lineSweep {
+      from { background-position: 180% 0; }
+      to { background-position: -80% 0; }
+    }
+    @keyframes phoneIn {
+      from { opacity: 0; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(18px); }
+      to { opacity: 1; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(0); }
+    }
+    @keyframes floorAckOut {
+      to { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    }
+    @keyframes floorEnter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide.active > .slide__inner { animation: sceneIn 0.52s var(--ease) both; }
+
+    .value-card, .loop-step, .offer-card, .vision-col, .gap-col {
+      opacity: 0; transform: translateY(12px);
+    }
+    .slide.active .value-card,
+    .slide.active .loop-step,
+    .slide.active .offer-card,
+    .slide.active .vision-col,
+    .slide.active .gap-col {
+      animation: itemIn 0.46s var(--ease) forwards;
+    }
+    .slide.active .value-card:nth-child(1),
+    .slide.active .loop-step:nth-child(1),
+    .slide.active .offer-card:nth-child(1),
+    .slide.active .vision-col:nth-child(1),
+    .slide.active .gap-col:nth-child(1) { animation-delay: 0.16s; }
+    .slide.active .value-card:nth-child(2),
+    .slide.active .loop-step:nth-child(2),
+    .slide.active .offer-card:nth-child(2),
+    .slide.active .vision-col:nth-child(2),
+    .slide.active .gap-col:nth-child(2) { animation-delay: 0.24s; }
+    .slide.active .value-card:nth-child(3),
+    .slide.active .loop-step:nth-child(3),
+    .slide.active .offer-card:nth-child(3),
+    .slide.active .vision-col:nth-child(3) { animation-delay: 0.32s; }
+    .slide.active .loop-step:nth-child(4) { animation-delay: 0.38s; }
+    .slide.active .loop-step:nth-child(5) { animation-delay: 0.44s; }
+    .slide.active .loop-step:nth-child(6) { animation-delay: 0.50s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .slide.active .reveal { animation: none; }
+      .slide.active > .slide__inner { animation: none; }
+      .value-card, .loop-step, .offer-card, .vision-col, .gap-col, .rx-flip__inner, .phone {
+        opacity: 1; transform: none; animation: none !important; transition: none !important;
+      }
+      .progress__fill, .nav-btn, .dots__dot { transition: none; }
+    }
+
+    .eyebrow {
+      font-size: clamp(0.68rem, 1vw, 0.78rem);
+      font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 0.55rem;
+    }
+    h1, h2 {
+      font-family: var(--font-display); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.12;
+    }
+    h1 { font-size: clamp(1.75rem, 4vw, 2.9rem); margin-bottom: 0.7rem; max-width: 16em; }
+    h2 { font-size: clamp(1.35rem, 2.8vw, 2.1rem); margin-bottom: 0.55rem; max-width: 22em; }
+    .lede {
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+      line-height: 1.55; max-width: 44em;
+      color: var(--on-surface-variant);
+    }
+    .meta { font-size: 0.78rem; opacity: 0.55; margin-top: 1rem; letter-spacing: 0.02em; }
+    .footnote {
+      margin-top: 0.9rem; font-size: 0.8rem; line-height: 1.4;
+      color: var(--on-surface-variant); max-width: 48em;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 48px; padding: 0 1.35rem; border-radius: var(--radius-btn);
+      font-size: 0.95rem; font-weight: 650; border: 1px solid transparent;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn--primary { background: var(--primary); color: var(--on-primary); }
+    .btn--primary:hover { background: #e04634; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.35rem; }
+
+    .chip {
+      display: inline-flex; align-items: center;
+      font-size: 0.72rem; font-weight: 650; letter-spacing: 0.03em;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+      background: color-mix(in srgb, var(--primary) 8%, transparent);
+      color: var(--primary);
+    }
+    .flow-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+
+    .nav-btn {
+      position: fixed; top: 50%; transform: translateY(-50%); z-index: 95;
+      width: clamp(44px, 4.6vw, 52px); height: clamp(44px, 4.6vw, 52px);
+      border-radius: 50%; border: 1px solid var(--outline-variant);
+      background: rgba(255,255,255,0.9); color: var(--on-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-btn--prev { left: clamp(0.55rem, 1.4vw, 1.15rem); }
+    .nav-btn--next { right: clamp(0.55rem, 1.4vw, 1.15rem); }
+    .nav-btn svg { width: 18px; height: 18px; }
+    .nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
+
+    .dots {
+      position: fixed; bottom: clamp(0.85rem, 2.2vh, 1.5rem);
+      left: 50%; transform: translateX(-50%); z-index: 95;
+      display: flex; align-items: center; gap: 0.35rem;
+      padding: 0.32rem 0.5rem; border-radius: 999px;
+      background: rgba(25,28,26,0.08); backdrop-filter: blur(6px);
+    }
+    .dots__dot {
+      width: 6px; height: 6px; border-radius: 999px; border: none; padding: 0;
+      background: rgba(25,28,26,0.28); cursor: pointer;
+      transition: width 0.3s var(--ease), background 0.25s;
+    }
+    .dots__dot.active { width: 20px; background: var(--primary); }
+
+    /* Title */
+    #scene-title .hero-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: center;
+    }
+    #scene-title .hero-photo {
+      margin: 0; border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--outline-variant); background: #0a1a12;
+      max-height: min(52vh, 420px); height: 100%;
+    }
+    #scene-title h1 {
+      font-size: clamp(1.45rem, 3.1vw, 2.05rem);
+      line-height: 1.15;
+    }
+    #scene-title .lede { margin-top: 0.45rem; }
+    #scene-title .hero-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    #scene-title .hero-logo { height: 28px; width: auto; margin-bottom: 0.85rem; }
+    #scene-title .brand-name {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+      letter-spacing: -0.03em; color: var(--secondary); margin-bottom: 0.35rem;
+    }
+    #scene-title .client-mark {
+      display: inline-block; font-size: 0.78rem; font-weight: 650;
+      color: var(--tertiary); margin-bottom: 0.55rem;
+    }
+    #scene-title.logo-failed .hero-logo { display: none; }
+    #scene-title .wordmark-fallback {
+      display: none; font-family: var(--font-display); font-weight: 800;
+      font-size: 1rem; margin-bottom: 0.85rem;
+    }
+    #scene-title.logo-failed .wordmark-fallback { display: block; }
+    .title-rail {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+      font-size: 0.82rem; font-weight: 650; color: var(--secondary);
+      margin: 0.85rem 0 0.35rem;
+    }
+    .title-rail .sep { opacity: 0.35; }
+    .signal-flow {
+      display: grid; gap: 0.35rem; margin: 0.9rem 0 0.55rem;
+      font-size: 0.78rem; font-weight: 650; color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+    .signal-flow__src { color: var(--secondary); }
+    .signal-flow__arrow { opacity: 0.45; font-weight: 700; }
+    .outcome-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem; margin-top: 0.95rem;
+    }
+    .outcome-card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card);
+      padding: 0.7rem 0.75rem;
+    }
+    .outcome-card strong {
+      display: block; font-family: var(--font-display);
+      font-size: 0.92rem; color: var(--primary); margin-bottom: 0.25rem;
+    }
+    .outcome-card p {
+      font-size: 0.78rem; line-height: 1.4; color: var(--on-surface-variant); margin: 0;
+    }
+    .title-position {
+      margin-top: 0.85rem; font-size: 0.8rem; font-weight: 650;
+      color: var(--secondary); line-height: 1.4;
+    }
+
+    /* Value */
+    .gap-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.15rem;
+    }
+    .gap-col {
+      background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1.05rem 1.1rem;
+    }
+    .gap-col h3 {
+      font-family: var(--font-display); font-size: 1rem;
+      margin-bottom: 0.55rem; color: var(--secondary);
+    }
+    .gap-col p, .gap-col li {
+      font-size: 0.88rem; line-height: 1.45; color: var(--on-surface-variant);
+    }
+    .gap-col ul { list-style: none; display: grid; gap: 0.4rem; }
+    .gap-col li::before {
+      content: ""; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--primary); margin-right: 0.45rem;
+      vertical-align: middle;
+    }
+    .gap-col--stamped {
+      border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
+      background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 5%, #fff) 100%);
+    }
+    .value-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1.1rem;
+    }
+    .value-card {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
+    }
+    .value-card h3 {
+      font-family: var(--font-display); font-weight: 800; font-size: 0.98rem;
+      color: var(--secondary); margin-bottom: 0.4rem;
+    }
+    .value-card p { font-size: 0.86rem; line-height: 1.45; color: var(--on-surface-variant); }
+
+    /* Loop */
+    .loop-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem; margin-top: 1.15rem;
+    }
+    .loop-step {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 0.95rem 1rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 0.7rem;
+      min-height: 100%;
+    }
+    .loop-step__num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: color-mix(in srgb, var(--primary) 12%, #fff);
+      color: var(--primary); font-size: 0.75rem; font-weight: 800;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .loop-step strong {
+      display: block; font-family: var(--font-display); font-size: 0.95rem;
+      color: var(--secondary); margin-bottom: 0.25rem;
+    }
+    .loop-step p { font-size: 0.82rem; line-height: 1.4; color: var(--on-surface-variant); }
+    .loop-step--human {
+      border-color: color-mix(in srgb, var(--tertiary) 40%, var(--outline-variant));
+      background: color-mix(in srgb, var(--tertiary) 5%, #fff);
+    }
+    .loop-callout {
+      margin-top: 1rem; padding: 0.85rem 1rem;
+      border: 1px solid color-mix(in srgb, var(--tertiary) 40%, var(--outline-variant));
+      background: color-mix(in srgb, var(--tertiary) 6%, #fff);
+      border-radius: var(--radius-btn);
+      font-size: 0.88rem; line-height: 1.45; color: var(--secondary);
+    }
+
+    /* Flip prescriptions */
+    .rx-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.05rem; margin-top: 1rem; align-items: stretch;
+      perspective: 1400px;
+    }
+    .rx-flip {
+      position: relative; min-height: 390px;
+      border: none; background: transparent; padding: 0;
+      cursor: pointer; text-align: left; color: inherit;
+      font: inherit; width: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .rx-flip:focus-visible {
+      outline: 2px solid var(--primary); outline-offset: 3px;
+      border-radius: var(--radius-lg);
+    }
+    .rx-flip__inner {
+      position: relative; width: 100%; height: 100%; min-height: 390px;
+      transition: transform 0.55s var(--ease); transform-style: preserve-3d;
+    }
+    .rx-flip.is-flipped .rx-flip__inner { transform: rotateY(180deg); }
+    .rx-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+      border-radius: var(--radius-lg); background: var(--white); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .rx-face--back {
+      transform: rotateY(180deg);
+      border-color: color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+      background: #f7faf8;
+    }
+    .rx-face::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--primary) 42%, #ffb4a8 55%, transparent 100%);
+      background-size: 220% 100%; opacity: 0; z-index: 2;
+    }
+    .slide.active .rx-flip:not(.is-flipped) .rx-face--front::before {
+      opacity: 1; animation: lineSweep 1.25s var(--ease) 0.35s both;
+    }
+    .rx-hero__head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.7rem 0.95rem; border-bottom: 1px solid #e0e3df; background: #fafcfa;
+      flex-shrink: 0;
+    }
+    .rx-badge {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--on-surface-variant); border: 1px solid var(--outline-variant);
+      background: var(--surface-low); padding: 0.2rem 0.45rem; border-radius: 6px;
+    }
+    .rx-priority {
+      font-size: 0.65rem; font-weight: 700; color: #fff; background: var(--primary);
+      padding: 0.2rem 0.45rem; border-radius: 6px;
+    }
+    .rx-priority--med { background: var(--tertiary); }
+    .rx-hero__body {
+      padding: 0.9rem 1rem 0.8rem;
+      display: flex; flex-direction: column; flex: 1; min-height: 0;
+    }
+    .rx-action {
+      font-family: var(--font-display); font-weight: 750;
+      font-size: clamp(0.92rem, 1.4vw, 1.08rem); line-height: 1.35; margin-bottom: 0.7rem;
+    }
+    .rx-fields { display: grid; gap: 0.38rem; flex: 1; }
+    .rx-row {
+      display: grid; grid-template-columns: 72px 1fr; gap: 0.4rem;
+      font-size: 0.78rem; line-height: 1.35;
+    }
+    .rx-row dt {
+      font-weight: 650; color: var(--on-surface-variant); font-size: 0.64rem;
+      text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.12rem;
+    }
+    .rx-flip-cue {
+      margin-top: 0.65rem; padding-top: 0.55rem;
+      border-top: 1px dashed var(--outline-variant);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--primary);
+    }
+    .rx-lock {
+      margin-top: 0.55rem; padding: 0.55rem 0.65rem;
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+      background: color-mix(in srgb, var(--secondary) 5%, #fff);
+      border-radius: var(--radius-btn);
+      font-size: 0.76rem; font-weight: 650; line-height: 1.35; color: var(--secondary);
+    }
+    .rx-cite {
+      font-size: 0.74rem; line-height: 1.4; color: var(--on-surface-variant);
+      background: var(--white); border: 1px solid #e0e3df;
+      border-radius: 8px; padding: 0.55rem 0.65rem; margin-bottom: 0.45rem;
+    }
+    .rx-mv {
+      font-size: 0.74rem; font-weight: 650; color: var(--tertiary); margin-top: auto;
+    }
+
+    /* Floor / phone */
+    .floor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: clamp(1.25rem, 3vw, 2.25rem);
+      align-items: center;
+    }
+    .floor-copy .lede { max-width: 38em; }
+    .floor-points {
+      display: grid; gap: 0.55rem; margin-top: 1rem;
+    }
+    .floor-points article {
+      background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 0.75rem 0.85rem;
+    }
+    .floor-points strong {
+      display: block; font-family: var(--font-display); font-size: 0.92rem;
+      color: var(--secondary); margin-bottom: 0.2rem;
+    }
+    .floor-points p { font-size: 0.82rem; line-height: 1.4; color: var(--on-surface-variant); }
+    .phone-col {
+      display: flex; justify-content: flex-end; align-items: flex-start; min-width: 0;
+    }
+    .phone {
+      width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+      max-width: 100%; flex-shrink: 0; position: relative;
+      padding: var(--phone-frame-pad) calc(var(--phone-frame-pad) - 1px) calc(var(--phone-frame-pad) + 2px);
+      border-radius: 48px;
+      background: linear-gradient(165deg, #636366 0%, #3a3a3c 16%, #1c1c1e 52%, #0a0a0b 100%);
+      border: 1.5px solid #48484a;
+      box-shadow:
+        0 42px 84px -34px rgba(5, 31, 19, 0.52),
+        0 18px 36px -22px rgba(0,0,0,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.24);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+      transform-origin: center right;
+    }
+    .slide.active .phone { animation: phoneIn 0.7s var(--ease) 0.08s both; }
+    .phone__bezel {
+      border-radius: 38px; overflow: hidden; background: #000; padding: 2px;
+    }
+    .phone__screen {
+      background: #000; border-radius: 36px; overflow: hidden;
+      aspect-ratio: var(--phone-ratio); width: var(--phone-screen-w);
+      display: flex; flex-direction: column; position: relative;
+    }
+    .phone-island {
+      position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+      width: 96px; height: 28px; background: #000; border-radius: 18px; z-index: 20;
+      pointer-events: none;
+    }
+    .phone-statusbar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 15;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 12px 18px 0; font-size: 0.66rem; font-weight: 600; color: #fff;
+      pointer-events: none;
+    }
+    .wa-app { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--wa-teal); }
+    .wa-header {
+      background: var(--wa-teal); color: #fff;
+      padding: 2.4rem 0.55rem 0.5rem;
+      display: grid; grid-template-columns: auto auto 1fr auto;
+      align-items: center; gap: 0.35rem; flex-shrink: 0;
+    }
+    .wa-back { font-size: 1.4rem; line-height: 1; opacity: 0.95; font-weight: 300; }
+    .wa-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--wa-teal-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem; font-weight: 750;
+    }
+    .wa-head-text strong { display: block; font-size: 0.82rem; font-weight: 600; }
+    .wa-head-text span { font-size: 0.58rem; opacity: 0.88; }
+    .lang-toggle {
+      display: inline-flex; border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px; overflow: hidden; background: rgba(0,0,0,0.18);
+    }
+    .lang-toggle button {
+      border: none; background: transparent; color: rgba(255,255,255,0.78);
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 0.28rem 0.45rem; cursor: pointer; min-height: 0; height: auto;
+    }
+    .lang-toggle button.is-active {
+      background: rgba(255,255,255,0.92); color: var(--wa-teal);
+    }
+    .lang-toggle button:focus-visible {
+      outline: 2px solid #fff; outline-offset: 1px;
+    }
+    .wa-body {
+      flex: 1; padding: 0.5rem 0.5rem 0.3rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23c8bdb2' stroke-width='0.85' opacity='0.32'%3E%3Cpath d='M10 30c8-6 16 6 24 0s16 6 24 0'/%3E%3Ccircle cx='28' cy='78' r='7'/%3E%3C/g%3E%3C/svg%3E"),
+        #e5ddd5;
+      background-size: 120px 120px, auto;
+      min-height: 0; overflow-y: auto; scrollbar-width: none;
+    }
+    .wa-body::-webkit-scrollbar { display: none; }
+    .wa-meta {
+      font-size: 0.6rem; color: #54656f; text-align: center;
+      background: rgba(255,255,255,0.78); align-self: center;
+      padding: 0.16rem 0.5rem; border-radius: 7px;
+    }
+    .wa-msg {
+      align-self: flex-start; max-width: 94%;
+      display: flex; flex-direction: column;
+      border-radius: 0 8px 8px 8px; overflow: hidden;
+      box-shadow: 0 1px 0.5px rgba(11,20,26,0.13);
+    }
+    .wa-msg.is-enter { animation: floorEnter 0.34s var(--ease) both; }
+    .wa-msg.is-dismiss-ack,
+    .wa-msg.is-dismiss-done,
+    .wa-msg.is-dismiss-escalate {
+      animation: floorAckOut 0.34s var(--ease) forwards;
+    }
+    .wa-bubble {
+      background: #fff; padding: 0.5rem 0.6rem 0.4rem;
+      font-size: 0.72rem; line-height: 1.4; color: #111b21;
+    }
+    .wa-bubble .tag {
+      display: inline-block; font-size: 0.54rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase; color: #c45a4a;
+      margin-bottom: 0.25rem; background: rgba(247,84,64,0.09);
+      padding: 0.08rem 0.35rem; border-radius: 3px;
+    }
+    .wa-bubble h4 {
+      font-size: 0.8rem; font-weight: 650; line-height: 1.3;
+      margin-bottom: 0.3rem; color: #111b21;
+    }
+    .wa-bubble__divider {
+      height: 1px; background: rgba(0,0,0,0.06); margin: 0.08rem 0 0.3rem;
+    }
+    .wa-line { margin-top: 0.16rem; font-size: 0.7rem; line-height: 1.35; color: #3b4a54; }
+    .wa-line b { font-weight: 600; color: #111b21; }
+    .wa-bubble__foot {
+      display: flex; justify-content: flex-end; margin-top: 0.25rem;
+    }
+    .wa-tick { font-size: 0.56rem; color: #667781; }
+    .wa-actions {
+      display: flex; flex-direction: column; background: #fff;
+    }
+    .wa-actions button {
+      border: none; border-top: 1px solid rgba(0,0,0,0.07);
+      background: #fff; padding: 0.45rem 0.6rem;
+      font-size: 0.72rem; font-weight: 600; color: var(--wa-action);
+      cursor: pointer; text-align: center; min-height: 0; height: auto;
+    }
+    .wa-actions button.primary { font-weight: 700; }
+    .wa-actions button:disabled { opacity: 0.5; cursor: wait; }
+    .wa-end {
+      align-self: center; text-align: center;
+      background: rgba(255,255,255,0.9); border-radius: 10px;
+      padding: 0.85rem 1rem; margin-top: 1.5rem;
+    }
+    .wa-end strong { display: block; font-size: 0.85rem; color: var(--wa-teal); margin-bottom: 0.25rem; }
+    .wa-end span { font-size: 0.72rem; color: #54656f; }
+    .wa-compose {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 0.3rem;
+      padding: 0.28rem 0.35rem 0.12rem; background: #f0f2f5; flex-shrink: 0;
+    }
+    .wa-compose__icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: grid; place-items: center; color: #54656f; font-weight: 600;
+    }
+    .wa-compose__field {
+      background: #fff; border-radius: 18px; padding: 0.32rem 0.65rem;
+      font-size: 0.66rem; color: #8696a0;
+    }
+    .wa-compose__mic {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--wa-teal); color: #fff;
+      display: grid; place-items: center; font-size: 0.65rem;
+    }
+    html[lang="hi"] .wa-bubble,
+    html[lang="hi"] .wa-actions button,
+    html[lang="hi"] .wa-meta,
+    html[lang="hi"] .wa-end {
+      font-family: "Noto Sans Devanagari", Inter, system-ui, sans-serif;
+    }
+
+    /* Vision */
+    .vision-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 0.9fr);
+      gap: 0.85rem; margin-top: 1.1rem;
+    }
+    .vision-col {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
+    }
+    .vision-col--lead {
+      background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 6%, #fff) 100%);
+      border-color: color-mix(in srgb, var(--primary) 35%, var(--outline-variant));
+    }
+    .vision-col h3 {
+      font-family: var(--font-display); font-weight: 800; font-size: 0.98rem;
+      color: var(--secondary); margin-bottom: 0.45rem;
+    }
+    .vision-col p, .vision-col li {
+      font-size: 0.84rem; line-height: 1.45; color: var(--on-surface-variant);
+    }
+    .vision-col ul { list-style: none; display: grid; gap: 0.35rem; }
+    .vision-col li::before {
+      content: ""; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--primary); margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+    .vision-badge {
+      display: inline-block; font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+
+    /* Process direction */
+    .process-intro {
+      max-width: 68rem; margin: 0 auto 0.9rem; padding: 0.65rem 0.9rem;
+      border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+      background: rgba(255,255,255,0.78);
+      color: var(--on-surface-variant); font-size: 0.8rem; line-height: 1.4;
+      border-radius: var(--radius-btn);
+    }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem; margin-top: 0.8rem;
+    }
+    .process-col {
+      background: #fff; border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 0.85rem 0.9rem;
+    }
+    .process-col--reasoning { border-color: var(--tertiary); }
+    .process-col h3 {
+      font-family: var(--font-display); font-size: 0.98rem;
+      color: var(--secondary); margin-bottom: 0.55rem;
+    }
+    .process-col--reasoning h3 { color: var(--tertiary); }
+    .process-col--outcomes {
+      background: linear-gradient(160deg, #fff 0%, color-mix(in srgb, var(--primary) 7%, #fff) 100%);
+    }
+    .process-col--outcomes li {
+      font-size: 0.9rem; line-height: 1.4;
+    }
+    .process-col--outcomes li strong {
+      color: var(--secondary); font-weight: 800;
+    }
+    .process-col ul {
+      list-style: none; display: grid; gap: 0.32rem;
+      margin: 0; padding: 0;
+    }
+    .process-col li {
+      color: var(--on-surface-variant); font-size: 0.78rem; line-height: 1.3;
+    }
+    .process-col li::before {
+      content: "•"; color: var(--primary); font-weight: 800; margin-right: 0.45rem;
+    }
+    .process-strip {
+      margin-top: 0.75rem; padding: 0.7rem 0.9rem; border-radius: var(--radius-card);
+      background: var(--secondary); color: #fff; font-size: 0.82rem;
+      line-height: 1.45; text-align: center;
+    }
+    .process-strip strong { color: #ffb0a4; }
+    .process-footer {
+      margin-top: 0.6rem; text-align: center; color: var(--on-surface-variant);
+      font-size: 0.68rem; font-style: italic;
+    }
+    .continuity-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1rem;
+    }
+    .continuity-card {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
+    }
+    .continuity-card--safety { border-color: var(--tertiary); }
+    .continuity-card h3 {
+      font-family: var(--font-display); font-size: 1rem;
+      color: var(--secondary); margin-bottom: 0.55rem;
+    }
+    .continuity-card--safety h3 { color: var(--tertiary); }
+    .continuity-card p {
+      color: var(--on-surface-variant); font-size: 0.8rem;
+      line-height: 1.4; margin: 0 0 0.6rem;
+    }
+    .continuity-card dl { display: grid; gap: 0.4rem; margin: 0; }
+    .continuity-card dt {
+      color: var(--primary); font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .continuity-card dd {
+      color: var(--on-surface-variant); font-size: 0.8rem;
+      line-height: 1.4; margin: 0;
+    }
+    .continuity-card strong { color: var(--secondary); }
+    .continuity-note {
+      margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-radius: var(--radius-card);
+      background: var(--secondary); color: #fff; font-size: 0.8rem;
+      line-height: 1.4; text-align: center;
+    }
+
+    /* Offer */
+    .offer-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem; margin-top: 1.1rem;
+    }
+    .offer-card {
+      background: var(--white); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-card); padding: 1rem 1.05rem;
+    }
+    .offer-card strong {
+      display: block; font-family: var(--font-display); font-weight: 800;
+      font-size: 1rem; color: var(--secondary); margin-bottom: 0.35rem;
+    }
+    .offer-card p { font-size: 0.86rem; line-height: 1.45; color: var(--on-surface-variant); }
+
+    .show-mobile { display: none !important; }
+
+    @media (max-width: 980px) {
+      .slide {
+        justify-content: flex-start;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding:
+          calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.75rem)
+          max(1.25rem, var(--safe-r))
+          max(4.75rem, calc(var(--safe-b) + 4rem));
+      }
+      .slide__inner,
+      .slide__inner--wide {
+        transform: none;
+        max-width: 100%;
+        min-width: 0;
+      }
+      .slide.active > .slide__inner { animation: none; }
+      .slide.active .reveal,
+      .value-card, .loop-step, .offer-card, .vision-col, .gap-col {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+      .value-grid, .loop-grid, .offer-grid, .vision-grid, .process-grid, .continuity-grid, .gap-compare, .rx-layout, .floor-layout {
+        grid-template-columns: 1fr;
+      }
+      #scene-title .hero-shell { grid-template-columns: 1fr; gap: 1.1rem; }
+      #scene-title .hero-photo { max-height: min(32vh, 240px); }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .phone-col { justify-content: center; }
+      .phone { transform: none; }
+      .slide.active .phone { animation: none; opacity: 1; }
+      .rx-layout { overflow: visible; }
+      .rx-flip, .rx-flip__inner {
+        min-height: 0;
+        height: auto;
+        transform: none !important;
+        transform-style: flat;
+      }
+      .rx-face {
+        position: relative;
+        inset: auto;
+        height: auto;
+        transform: none !important;
+      }
+      .rx-face--back { display: none; }
+      .rx-flip.is-flipped .rx-face--front { display: none; }
+      .rx-flip.is-flipped .rx-face--back { display: flex; }
+      #scene-floor .floor-copy { display: contents; }
+      #scene-floor .floor-intro { order: 1; }
+      #scene-floor .phone-col { order: 2; }
+      #scene-floor .floor-points { order: 3; }
+      #scene-floor .footnote { order: 4; }
+    }
+
+    @media (max-width: 720px) {
+      :root { --chrome-h: 48px; }
+
+      .hide-mobile { display: none !important; }
+      .show-mobile { display: block !important; }
+      .show-mobile.btn-row,
+      .show-mobile.flow-tags { display: flex !important; }
+
+      .slide {
+        justify-content: flex-start;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding:
+          calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.7rem)
+          max(1rem, var(--safe-r))
+          max(5.25rem, calc(var(--safe-b) + 4.5rem));
+      }
+      .slide__inner,
+      .slide__inner--wide {
+        transform: none;
+        max-width: 100%;
+        min-width: 0;
+        padding-bottom: 0.35rem;
+      }
+      .slide.active > .slide__inner { animation: none; }
+      /* ponytail: nested .reveal / staggered itemIn leave later cards ghosted on phone */
+      .slide.active .reveal,
+      .value-card, .loop-step, .offer-card, .vision-col, .gap-col,
+      .rx-flip__inner, .phone {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+
+      h1 { font-size: clamp(1.45rem, 7vw, 1.95rem); margin-bottom: 0.5rem; max-width: none; }
+      h2 { font-size: clamp(1.2rem, 5.8vw, 1.55rem); margin-bottom: 0.4rem; max-width: none; }
+      .lede { font-size: 0.95rem; line-height: 1.5; max-width: none; }
+      .eyebrow { margin-bottom: 0.35rem; letter-spacing: 0.1em; }
+      .footnote, .meta { font-size: 0.78rem; }
+
+      .slide, .slide__inner, .hero-copy, .brand-name, h1, h2, .lede,
+      .value-card, .loop-step, .offer-card, .vision-col, .gap-col,
+      .process-col, .continuity-card, .chip, p, li, dd, dt {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: normal;
+        min-width: 0;
+      }
+      .rx-action, .rx-row dd, .wa-bubble h4, #floorTitle {
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: none;
+      }
+      img, svg { max-width: 100%; height: auto; }
+
+      .value-grid, .loop-grid, .offer-grid, .vision-grid, .process-grid,
+      .gap-compare, .rx-layout, .floor-layout, .outcome-grid {
+        margin-top: 0.85rem;
+        gap: 0.7rem;
+      }
+      .value-card, .loop-step, .offer-card, .vision-col, .gap-col, .process-col {
+        padding: 0.85rem 0.9rem;
+      }
+
+      /* Title: copy, Begin, then plant photo */
+      #scene-title.slide {
+        overflow: hidden;
+        padding-top: calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.85rem);
+        padding-bottom: max(4.75rem, calc(var(--safe-b) + 4.25rem));
+      }
+      #scene-title .slide__inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      #scene-title .hero-shell {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      #scene-title .hero-copy { flex: 0 0 auto; }
+      #scene-title .brand-name {
+        font-size: clamp(1.85rem, 9vw, 2.45rem);
+        line-height: 0.98;
+        margin-bottom: 0.35rem;
+      }
+      #scene-title h1 {
+        font-size: clamp(1.05rem, 4.6vw, 1.28rem);
+        font-weight: 650;
+        line-height: 1.3;
+        margin-bottom: 0.45rem;
+      }
+      #scene-title .lede {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin: 0 0 0.75rem;
+      }
+      #scene-title .btn-row {
+        margin-top: 0;
+        width: 100%;
+        max-width: 20rem;
+      }
+      #scene-title .btn {
+        width: 100%;
+        min-height: 48px;
+        height: 48px;
+        font-size: 1rem;
+      }
+      #scene-title .hero-photo {
+        flex: 1 1 auto;
+        min-height: 140px;
+        max-height: none;
+        order: 0;
+      }
+      #scene-title .hero-photo img {
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        max-height: none;
+        object-fit: cover;
+      }
+
+      /* Prescriptions: swap faces instead of 3D so long copy is not clipped */
+      .rx-layout { gap: 0.85rem; overflow: visible; }
+      .rx-flip, .rx-flip__inner {
+        min-height: 0;
+        height: auto;
+        transform: none !important;
+        transform-style: flat;
+      }
+      .rx-face {
+        position: relative;
+        inset: auto;
+        height: auto;
+        transform: none !important;
+      }
+      .rx-face--back { display: none; }
+      .rx-flip.is-flipped .rx-face--front { display: none; }
+      .rx-flip.is-flipped .rx-face--back { display: flex; }
+      .rx-hero__head { padding: 0.7rem 0.9rem; gap: 0.45rem; flex-wrap: wrap; }
+      .rx-hero__body { padding: 0.85rem 0.95rem 0.95rem; }
+      .rx-action { font-size: 1.02rem; line-height: 1.35; margin-bottom: 0.7rem; }
+      .rx-row {
+        grid-template-columns: 4.4rem 1fr;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+      }
+      .rx-row dt { font-size: 0.62rem; padding-top: 0.08rem; }
+
+      /* Floor: short copy, then the phone, then supporting points */
+      #scene-floor .floor-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      #scene-floor .floor-copy { display: contents; }
+      #scene-floor .floor-intro { order: 1; width: 100%; }
+      #scene-floor .phone-col { order: 2; width: 100%; justify-content: center; }
+      #scene-floor .floor-points { order: 3; width: 100%; }
+      #scene-floor .footnote { order: 4; width: 100%; }
+      #scene-floor .floor-points article { padding: 0.65rem 0.75rem; }
+      #scene-floor .floor-points p { font-size: 0.8rem; }
+      #scene-floor .phone {
+        --phone-screen-w: min(292px, calc(100vw - 2.25rem));
+        width: calc(var(--phone-screen-w) + var(--phone-frame-pad) * 2 + 2px);
+        max-width: 100%;
+        margin: 0 auto;
+        transform: none;
+      }
+      #scene-floor .phone__screen {
+        width: var(--phone-screen-w);
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: var(--phone-ratio);
+        flex: none;
+      }
+      #scene-floor .wa-actions button {
+        min-height: 44px;
+        padding: 0.55rem 0.65rem;
+        font-size: 0.78rem;
+      }
+      #scene-floor .lang-toggle button {
+        min-height: 32px;
+        padding: 0.3rem 0.5rem;
+      }
+      #scene-floor #floorEffort,
+      #scene-floor #floorVerify { display: none; }
+
+      .loop-step { align-items: start; }
+      .process-strip, .continuity-note { text-align: left; padding: 0.75rem 0.85rem; }
+      .process-intro { margin-left: 0; margin-right: 0; }
+
+      .nav-btn {
+        top: auto; bottom: max(0.85rem, calc(var(--safe-b) + 0.55rem));
+        transform: none; width: 44px; height: 44px;
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 8px 20px -12px rgba(5,31,19,0.35);
+      }
+      .nav-btn--prev { left: max(0.65rem, var(--safe-l)); }
+      .nav-btn--next { right: max(0.65rem, var(--safe-r)); }
+      .dots {
+        bottom: max(0.95rem, calc(var(--safe-b) + 0.65rem));
+        padding: 0.4rem 0.55rem;
+      }
+      .btn { min-height: 44px; }
+    }
+
+    @media (max-width: 420px) {
+      .slide {
+        padding-left: max(0.85rem, var(--safe-l));
+        padding-right: max(0.85rem, var(--safe-r));
+      }
+      #scene-title .brand-name { font-size: clamp(1.7rem, 9.5vw, 2.2rem); }
+      #scene-title h1 { max-width: 100%; }
+      .rx-row { grid-template-columns: 3.9rem 1fr; font-size: 0.76rem; }
+      .rx-badge, .rx-priority { font-size: 0.58rem; }
+      .loop-callout, .process-strip { font-size: 0.8rem; }
+    }
+
+    @media (max-width: 980px) and (max-height: 500px) {
+      #scene-title.slide { overflow-y: auto; overflow-x: hidden; }
+      #scene-title .hero-photo,
+      #scene-title .hero-photo img { max-height: min(28vh, 140px); min-height: 88px; }
+      #scene-floor .phone { --phone-screen-w: min(240px, calc(100vw - 2.25rem)); }
+    }
+
+    @media (pointer: coarse) {
+      .nav-btn { width: 48px; height: 48px; }
+      .dots { display: none; }
+      .btn { min-height: 48px; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="progress" aria-hidden="true"><div class="progress__fill" id="progressFill"></div></div>
+
+  <header class="chrome-top">
+    <a class="chrome-logo" id="chromeLogo" href="https://stamped.work" target="_blank" rel="noopener noreferrer" aria-label="Stamped Energy">
+      <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
+      <span class="wordmark">Stamped Energy</span>
+    </a>
+    <span class="chrome-counter" id="sceneCounter">01 / 09</span>
+  </header>
+
+  <main class="stage" id="stage" aria-label="Stamped Energy prescription types for a plant in Faridabad">
+
+    <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
+      <div class="slide__inner slide__inner--wide">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <div class="reveal hide-mobile">
+              <img class="hero-logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy logo" id="heroLogo" />
+              <span class="wordmark-fallback">Stamped Energy</span>
+            </div>
+            <p class="brand-name reveal">Stamped Energy</p>
+            <p class="meta reveal">Prescription types for a plant in Faridabad</p>
+            <h1 class="reveal">Applied AI for verified industrial energy efficiency</h1>
+            <p class="lede reveal hide-mobile">From plant data to actionable decisions, measured savings, and verified energy performance.</p>
+            <p class="lede reveal show-mobile">Plant data → decisions → verified energy performance.</p>
+            <div class="outcome-grid reveal hide-mobile">
+              <article class="outcome-card">
+                <strong>Decide</strong>
+                <p>Find the highest-value energy and resource opportunities.</p>
+              </article>
+              <article class="outcome-card">
+                <strong>Act</strong>
+                <p>Support plant teams in implementing practical interventions.</p>
+              </article>
+              <article class="outcome-card">
+                <strong>Verify</strong>
+                <p>Measure whether savings and intensity improvements actually occurred.</p>
+              </article>
+            </div>
+            <div class="btn-row reveal">
+              <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
+            </div>
+            <p class="title-position reveal hide-mobile">Example of the prescription types we can issue. Operators stay in control.</p>
+          </div>
+          <figure class="hero-photo reveal" id="heroPhoto">
+            <img id="heroPhotoImg" src="assets/faridabad-plant-prescriptions/forge-hero.jpg" alt="Industrial forging and process heating environment" width="1024" height="575" loading="eager" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-value" data-theme="light" aria-label="Value">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Where Stamped creates value</p>
+        <h2 class="reveal">Your plant already has signals. What is missing is one safe decision with an owner and a proof point.</h2>
+        <p class="lede reveal">On a plant in Faridabad, energy waste often sits in hot waiting, under-loaded cycles, thermal drift, and station handoffs. Stamped turns those moments into manufacturing decisions that protect quality and delivery.</p>
+        <div class="gap-compare">
+          <article class="gap-col">
+            <h3>Without Stamped</h3>
+            <ul>
+              <li>Events stay in reports, meetings, or local knowledge</li>
+              <li>Action may arrive late, or not at all</li>
+              <li>Hard to prove whether the intervention worked</li>
+            </ul>
+          </article>
+          <article class="gap-col gap-col--stamped">
+            <h3>With Stamped</h3>
+            <ul>
+              <li>One recommended action, with a clear owner</li>
+              <li>Human feedback before the plant commits</li>
+              <li>Close only when the agreed signal moves</li>
+            </ul>
+          </article>
+        </div>
+        <div class="value-grid">
+          <article class="value-card">
+            <h3>Fewer avoidable hot waits</h3>
+            <p>Empty furnaces and ready assets should not burn energy while the next station is not ready.</p>
+          </article>
+          <article class="value-card">
+            <h3>Recipes stay protected</h3>
+            <p>We never recommend cutting soak, quench, Type III dwell, or powder cure. Live charges stay do-not-disturb.</p>
+          </article>
+          <article class="value-card">
+            <h3>Evidence for the owner</h3>
+            <p>Every action carries a verification method: state clock, matched baseline, or agreed production signal.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-loop" data-theme="light" aria-label="Technology loop">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">How the technology works</p>
+        <h2 class="reveal">Six steps from plant signal to verified decision, with human feedback in the loop.</h2>
+        <p class="lede reveal">Stamped does not replace production, quality, metallurgy, or electrical ownership. It recommends, waits for confirmation, and improves from what the plant tells it.</p>
+        <div class="loop-grid">
+          <article class="loop-step">
+            <div class="loop-step__num">1</div>
+            <div>
+              <strong>Observe</strong>
+              <p>Read the plant signal: furnace state, charge readiness, handoff time, or matched energy intensity.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">2</div>
+            <div>
+              <strong>Understand</strong>
+              <p>Compress the pattern into one issue worth acting on, not a wall of alerts.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">3</div>
+            <div>
+              <strong>Add context</strong>
+              <p>Bring in recipe, delivery window, lot compatibility, and live-job constraints.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">4</div>
+            <div>
+              <strong>Decide</strong>
+              <p>Recommend only what is safe: timing and loading moves, never recipe cuts.</p>
+            </div>
+          </article>
+          <article class="loop-step loop-step--human">
+            <div class="loop-step__num">5</div>
+            <div>
+              <strong>Human feedback + assign</strong>
+              <p>The plant confirms or corrects: planned stop, incompatible lot, wrong owner, or live-job conflict. Then the action is assigned.</p>
+            </div>
+          </article>
+          <article class="loop-step">
+            <div class="loop-step__num">6</div>
+            <div>
+              <strong>Verify and improve</strong>
+              <p>Close on evidence. Accepted, rejected, and corrected actions refine the next recommendation.</p>
+            </div>
+          </article>
+        </div>
+        <p class="loop-callout reveal">Human feedback examples: “this stop was planned,” “these lots are not compatible,” “send this to HT, not the setter,” or “do not move this start; the truck window is locked.”</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-p12" data-theme="light" aria-label="Prescriptions one and two">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescriptions 1 and 2 · heat treatment</p>
+        <h2 class="reveal">Two decisions the plant can take without touching the recipe.</h2>
+        <p class="meta reveal hide-mobile" style="margin-top:0;margin-bottom:0.35rem;">Flip each card for what we notice, how we verify, and the hard constraints.</p>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Empty furnace hot idle. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 01 · Empty furnace / hot idle</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Align empty-furnace or oven heat-up with the next confirmed charge or load.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>An empty T6 or other HT furnace reaches soak temperature before the next charge is confirmed ready. The plant is buying hot idle: wall, storage, and radiation losses with no metallurgy in progress. Same shape on an empty powder or cure oven held at temperature with no load.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>HT supervisor · production confirms charge readiness</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Shift the empty-asset start later so temperature arrival lines up with confirmed load readiness, still inside the production window production names.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If every next lot is JIT-locked and the furnace must stay hot for readiness they own, say so. The card shrinks or dies; that is a falsifier, not a failure.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never setback or furnace-off with a charge. Never shorten soak. Never delay quench.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · empty vs charged</span>
+                  <span class="rx-priority rx-priority--med">Timing first</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Across recent cycles, furnace or oven state hits operating temperature before material loading or the next confirmed charge window. That interval is hot idle: energy and wear for zero kg treated.</p>
+                  <p class="rx-cite"><strong>Gate:</strong> Empty (no charge in the vessel) may delay heat-up or set back. Charged or loaded (basket, rack, or conveyor under recipe): soak, quench, age, gel, and cure stay locked.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Hot-idle minutes per cycle (temp-at-setpoint to charge or load start). Energy per cycle on their furnace meter or feeder when available. Empty vs charged tags must agree with the floor.</p>
+                  <p class="rx-mv">If tags disagree with the floor, stop. Prefer a killed recommendation to a burned basket.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Under-loaded heat treatment. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 02 · Under-loaded HT</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Build a fuller compatible load before starting this heat-treatment cycle, when delivery, JIT, and quench remain safe.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>A partially loaded heat-treatment cycle spreads fixed furnace losses over fewer kg. Energy intensity rises even when the recipe is correct.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Production + metallurgy own what is compatible</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Fill the basket to a sensible load, or delay start until the next compatible charge is ready. Energy does not invent compatibility.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If the lot is flagged do-not-disturb or the truck window dies, do not delay. Take the safer manufacturing path.</dd></div>
+                  </dl>
+                  <p class="rx-lock">No lot mix. No soak cut. No quench delay. Delivery still wins.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · load intensity</span>
+                  <span class="rx-priority rx-priority--med">Matched baseline</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Comparable runs (same recipe family, same furnace class) show batch mass varying while furnace energy stays sticky, so intensity moves with load, not only with recipe.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Do not start this batch yet. Wait for the next compatible charge, or fill the basket, without mixing lots. Same soak / quench / age window the metallurgist already allows.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg versus matched historical batches: same recipe, furnace class, comparable mass band. Cycle completion and quality gates unchanged. Delivery window still met.</p>
+                  <p class="rx-mv">If delivery or quality is threatened, do not take this action.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-p34" data-theme="light" aria-label="Prescriptions three and four">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescriptions 3 and 4 · drift and handoffs</p>
+        <h2 class="reveal">Catch same-output energy drift. Stop ready assets from waiting hot on the next station.</h2>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Matched output energy drift. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 03 · Matched-output drift</span>
+                  <span class="rx-priority rx-priority--med">Priority · Med</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Investigate rising energy use when the recipe and production output have not changed.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>Same heat, same output, but the furnace is consuming more energy than its own matched history. Something changed in the thermal machine or the envelope, not in the production plan.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>HT / electrical · plant head gets the one-line capability</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Inspect typical process-heating suspects: burner air/fuel ratio, furnace pressure / cold-air infiltration, door and seal condition, damper or exhaust changes, whatever their HT owner already trusts.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If the match is weak because of ambient, fixtures, or shift class, say so. Do not force a diagnosis.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Do not change soak, quench, or age to "fix" energy. No promise that we will find the leak without meters.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · matched baseline</span>
+                  <span class="rx-priority rx-priority--med">Investigate</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Against a matched baseline of grade or recipe family, mass band, target temperature and soak, production quantity, and comparable ambient or shift class when available, energy intensity has moved up versus the plant's own recent comparable runs.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Something changed → where to look → how we know it was fixed. We do not invent a filled percentage or furnace number.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Energy per kg returns toward the matched baseline while temperature profile and production quality stay within existing gates.</p>
+                  <p class="rx-mv">If intensity stays high after seals and air/fuel are cleared, escalate with their maintenance. Do not invent a second diagnosis in the room.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Plant handoff idle. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 04 · Handoff idle</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Synchronise the next station so a ready asset does not continue waiting hot.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>A thermal or finishing asset is ready and keeps burning energy while the next station is not ready to take the work. Energy with no additional good parts. On a forge → T6 → finish campus: forge heat waiting on press, empty T6 waiting on charge, or rack waiting on hoist.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Production + the two station owners for the chosen handoff class</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Assign the handoff so press, charge, hoist, or quench path is ready when the upstream thermal clock clears.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>Pick one handoff class the plant recognises. Do not invent foundry or melt language.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Not an action: cutting soak, or "optimising" Type III dwell to free the hoist. Live recipes stay do-not-disturb.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · ready to take</span>
+                  <span class="rx-priority rx-priority--med">Interface waste</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> For a named handoff class, the gap between "asset ready" and "next station takes it" stretches beyond the plant's own recent median for comparable jobs.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Your production system is creating unnecessary hot wait after the asset is ready. Make that gap evidence-grade and assign the handoff.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Ready-to-take minutes for that handoff class. Energy during the idle gap when a meter exists. Output and quality unchanged; JIT flags respected.</p>
+                  <p class="rx-mv">If the live job or quality gate is threatened, do not take this action.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-p56" data-theme="light" aria-label="Prescriptions five and six">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescriptions 5 and 6 · continuity and Type III</p>
+        <h2 class="reveal">Protect live work. Stop expensive finish power from running empty or under-loaded.</h2>
+        <p class="meta reveal hide-mobile" style="margin-top:0;margin-bottom:0.35rem;">Flip each card for the decision, owner feedback, and verification.</p>
+        <div class="rx-layout reveal">
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Continuity and sacred-load protection. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 05 · Continuity / sacred load</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Protect live processes when grid, genset, or solar conditions turn hostile.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>When grid, genset, or solar conditions turn hostile, the wrong load gets shed and a live T6, Type III, powder, or JIT job is hit: stoppage, scrap, overtime, or customer risk.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Electrical + HT + finishing write the plant rulebook together</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Connect the power signal to live asset state. Name two lists with the plant team: <strong>Never touch while live</strong> and <strong>Can wait / start later</strong>. At stress time, give the owner one clear action, not a dashboard alert.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If a Never-shed load was cut during a drill or cut event, the playbook failed. If an empty furnace or non-urgent oven could have waited, record that correction.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never shed live T6, cut soak, or treat a bill saving as more important than the process.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · power stress + asset state</span>
+                  <span class="rx-priority rx-priority--med">Protect first</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Power is unstable and asset state identifies a live charge, locked dwell, or JIT job versus an empty asset that can wait.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> "Grid unstable + T6 charge in soak: do not shed this. Cut from the May-stagger list first."</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> The right owner receives the action, the Never / May rule is followed, and no live process is interrupted.</p>
+                  <p class="rx-mv">Rupees are quantified only after their scrap, overtime, or diesel story is measured.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="rx-flip" data-rx-flip aria-pressed="false" aria-label="Type III idle and rack density. Show evidence.">
+            <div class="rx-flip__inner">
+              <div class="rx-face rx-face--front">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Rx 06 · Type III idle / rack density</span>
+                  <span class="rx-priority">Priority · High</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-action">Stop full hard-coat power from running with no or thin work.</p>
+                  <dl class="rx-fields">
+                    <div class="rx-row"><dt>Problem</dt><dd>The hard-coat tank or rectifier is powered with no productive rack, or a sparse rack runs the full process. The plant pays for full power and time without a useful load to show for it.</dd></div>
+                    <div class="rx-row"><dt>Owner</dt><dd>Finishing + quality own the approved idle and density rules</dd></div>
+                    <div class="rx-row"><dt>Do</dt><dd>Detect the waste mode first. If the tank is powered empty, power down or use the idle state their finishing team already allows until the next rack is ready. If the rack is below the allowed density, fill it, sequence the next rack, or wait before starting.</dd></div>
+                    <div class="rx-row"><dt>Feedback</dt><dd>If thickness, salt spray, or another quality check fails, stop and correct the rule. Quality wins; this is an idle and loading decision, not a chemistry change.</dd></div>
+                  </dl>
+                  <p class="rx-lock">Never cut Type III dwell, ASF, bath temperature, or current-density rules to save energy.</p>
+                  <p class="rx-flip-cue">Flip for notice + verify →</p>
+                </div>
+              </div>
+              <div class="rx-face rx-face--back">
+                <div class="rx-hero__head">
+                  <span class="rx-badge">Evidence · idle hours + rack fill</span>
+                  <span class="rx-priority rx-priority--med">Quality locked</span>
+                </div>
+                <div class="rx-hero__body">
+                  <p class="rx-cite"><strong>What we notice:</strong> Rectifier or tank power continues without a productive rack, or metal area sits below the density limit quality already allows.</p>
+                  <p class="rx-cite"><strong>What we do:</strong> Assign an idle cut, fill, or sequence action. Do not change bath, current density, or dwell.</p>
+                  <p class="rx-cite"><strong>How we verify:</strong> Empty-powered hours fall and rack fill improves against their own rules, while thickness and salt-spray checks hold.</p>
+                  <p class="rx-mv">Energy never wins over Type III quality. Rupees are quantified only after their meters and clocks say otherwise.</p>
+                  <p class="rx-flip-cue">← Back to decision</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-floor" data-theme="light" aria-label="Floor prescription phone">
+      <div class="slide__inner slide__inner--wide">
+        <div class="floor-layout">
+          <div class="floor-copy">
+            <div class="floor-intro">
+            <p class="eyebrow reveal">How the plant receives the decision</p>
+            <h2 class="reveal">One action on the phone. Human feedback before it becomes work.</h2>
+            <p class="lede reveal hide-mobile">The same empty-versus-charged decision, assigned to the owner who can act. Acknowledge, correct, or escalate before it becomes plant work. The card below is illustrative.</p>
+            <p class="lede reveal show-mobile">One action card. Human feedback. English or Hindi.</p>
+            </div>
+            <div class="floor-points reveal">
+              <article>
+                <strong>Assigned to the right owner</strong>
+                <p>HT supervisor and production see one clear action: delay empty heat-up until the next charge is confirmed ready.</p>
+              </article>
+              <article>
+                <strong>Human feedback is required</strong>
+                <p>Acknowledge, Done, or Escalate. Corrections such as "charge not ready yet" or "JIT locked" refine the next recommendation.</p>
+              </article>
+              <article>
+                <strong>Language for the floor</strong>
+                <p>Use the English / Hindi control inside the phone to show how the same action reaches the owner.</p>
+              </article>
+            </div>
+            <p class="footnote reveal">Illustrative workflow. Not measured plant telemetry. No automatic furnace commands.</p>
+          </div>
+          <div class="phone-col">
+            <div class="phone reveal" id="floorPhone" role="region" aria-label="Prescription phone preview">
+              <div class="phone__bezel">
+                <div class="phone__screen">
+                  <div class="phone-island" aria-hidden="true"></div>
+                  <div class="phone-statusbar" aria-hidden="true">
+                    <span class="phone-time">10:42</span>
+                    <span>5G</span>
+                  </div>
+                  <div class="wa-app">
+                    <div class="wa-header">
+                      <div class="wa-back" aria-hidden="true">‹</div>
+                      <div class="wa-avatar">SE</div>
+                      <div class="wa-head-text">
+                        <strong>Stamped Energy</strong>
+                        <span id="waOnlineLabel">online</span>
+                      </div>
+                      <div class="lang-toggle" role="group" aria-label="Prescription language">
+                        <button type="button" id="langEn" class="is-active" aria-pressed="true">EN</button>
+                        <button type="button" id="langHi" aria-pressed="false">HI</button>
+                      </div>
+                    </div>
+                    <div class="wa-body" id="floorWaBody">
+                      <p class="wa-meta" id="floorMeta">Today · assigned action · 1/2</p>
+                      <div class="wa-msg" id="floorMsg">
+                        <div class="wa-bubble" id="floorBubble" role="button" tabindex="0" aria-label="Acknowledge prescription">
+                          <span class="tag" id="floorTag">Rx · High</span>
+                          <h4 id="floorTitle">Align empty-furnace heat-up with the next confirmed charge.</h4>
+                          <div class="wa-bubble__divider" aria-hidden="true"></div>
+                          <p class="wa-line" id="floorWhy"><b>Why:</b> Empty furnace reached soak temperature before the next charge was confirmed. That is hot idle with no metallurgy in progress.</p>
+                          <p class="wa-line" id="floorImpact"><b>Impact:</b> Cut avoidable hot wait; rupees after furnace meter or bill attribution</p>
+                          <p class="wa-line" id="floorOwner"><b>Owner:</b> HT supervisor · production confirms charge readiness</p>
+                          <p class="wa-line" id="floorEffort"><b>Do:</b> Shift empty-asset start later so temperature arrives with confirmed load readiness</p>
+                          <p class="wa-line" id="floorVerify"><b>Verify:</b> Setpoint-to-charge minutes fall, or JIT reason is recorded</p>
+                          <p class="wa-line" id="floorDue"><b>Due:</b> Before the next empty heat-up</p>
+                          <div class="wa-bubble__foot">
+                            <span class="wa-tick" aria-hidden="true">10:42</span>
+                          </div>
+                        </div>
+                        <div class="wa-actions" id="floorActions">
+                          <button type="button" id="floorAck" aria-label="Acknowledge prescription">Acknowledge</button>
+                          <button type="button" class="primary" id="floorDone" aria-label="Mark prescription done">Done</button>
+                          <button type="button" id="floorEscalate" aria-label="Escalate prescription">Escalate</button>
+                        </div>
+                      </div>
+                      <div class="wa-end" id="floorEnd" hidden>
+                        <strong>Stamped Energy</strong>
+                        <span id="floorEndText">Inbox clear for this shift</span>
+                      </div>
+                    </div>
+                    <div class="wa-compose" aria-hidden="true">
+                      <span class="wa-compose__icon">+</span>
+                      <div class="wa-compose__field" id="waComposeHint">Message</div>
+                      <span class="wa-compose__mic">◉</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="scene-vision" data-theme="light" aria-label="Energy-aware scheduling">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Prescription 5 · energy-aware scheduling</p>
+        <h2 class="reveal">Schedule flexible work with energy in the room - same tonnes, better peaks, clearer sustainability path.</h2>
+        <p class="lede reveal hide-mobile">Stamped coordinates known flexible windows across forge, T6, finishing, and CNC so coincidence and empty hot time fall. Same delivery locks. Same recipes. Production still owns the plan. You gain a practical lever for intensity and sustainability goals OEMs already ask about.</p>
+        <p class="lede reveal show-mobile">Energy-aware scheduling of flexible starts. Same tonnes. Same JIT. Better peaks and intensity.</p>
+        <div class="vision-grid">
+          <article class="vision-col vision-col--lead">
+            <span class="vision-badge">Capability</span>
+            <h3>Energy-aware production coordination</h3>
+            <p>Flexible starts and empty thermal recovery should not stack peaks or buy empty hot time across forming, heat treatment, finish, and first-wave CNC. We help stagger the work the plant already knows is movable.</p>
+          </article>
+          <article class="vision-col">
+            <h3>What can move</h3>
+            <ul>
+              <li>Empty furnace heat-up</li>
+              <li>Empty oven recovery</li>
+              <li>Flexible CNC first-wave</li>
+              <li>Empty-tank idle between proven empty cycles</li>
+            </ul>
+          </article>
+          <article class="vision-col">
+            <h3>Sustainability and intensity</h3>
+            <p>Help the campus schedule so SEC / EnPI and responsible-growth targets move with real operations, not only with solar or hybrid supply. Sacred loads stay sacred: live soak, live hard coat, loaded powder cure, flagged JIT.</p>
+          </article>
+        </div>
+        <p class="footnote reveal">Same tonnes. Same recipes. Coordination of known windows, not a replacement scheduler. Rupees after your bill and clocks.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--light grid-bg" id="scene-offer" data-theme="light" aria-label="Next step">
+      <div class="slide__inner slide__inner--wide">
+        <p class="eyebrow reveal">Practical next step</p>
+        <h2 class="reveal">An offline working deployment on one line, or a demonstration on historical data.</h2>
+        <p class="lede reveal">No broad rollout ask today. Choose one operational line or one historical process dataset, test one safe decision with human feedback, and verify the result on a clock, meter, or agreed production signal.</p>
+        <div class="offer-grid">
+          <article class="offer-card">
+            <strong>What the plant provides</strong>
+            <p>Access to one line or historical state logs, a named HT and production owner, and clarity on which lots are flexible versus JIT-locked.</p>
+          </article>
+          <article class="offer-card">
+            <strong>What Stamped returns</strong>
+            <p>One practical prescription, an owner-visible workflow with human feedback, and evidence of whether the action helped.</p>
+          </article>
+          <article class="offer-card">
+            <strong>Suggested session</strong>
+            <p>A working walk with HT and electrical. Agree the first asset class, the falsifier, and whether we start live or from historical data.</p>
+          </article>
+        </div>
+        <p class="footnote reveal">Industry Energy Management on the stack you already run. Not another collector. Not automatic furnace commands.</p>
+        <p class="meta reveal">stamped.work · a plant in Faridabad · prescription types</p>
+      </div>
+    </section>
+
+  </main>
+
+  <button type="button" class="nav-btn nav-btn--prev" id="btnPrev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button type="button" class="nav-btn nav-btn--next" id="btnNext" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <nav class="dots" id="dots" aria-label="Slide navigation"></nav>
+
+  <script>
+    window.__FLOOR_RX__ = {
+      "en": [
+        {
+          title: "Align empty-furnace heat-up with the next confirmed charge.",
+          why: "Empty furnace reached soak temperature before the next charge was confirmed. That is hot idle with no metallurgy in progress.",
+          impact: "Cut avoidable hot wait; rupees after furnace meter or bill attribution",
+          owner: "HT supervisor · production confirms charge readiness",
+          effort: "Shift empty-asset start later so temperature arrives with confirmed load readiness",
+          verify: "Setpoint-to-charge minutes fall, or JIT reason is recorded",
+          due: "Before the next empty heat-up",
+          priority: "High",
+          labels: {
+            why: "Why",
+            impact: "Impact",
+            owner: "Owner",
+            effort: "Do",
+            verify: "Verify",
+            due: "Due",
+            ack: "Acknowledge",
+            done: "Done",
+            escalate: "Escalate",
+            meta: "Today · assigned action",
+            online: "online",
+            compose: "Message",
+            end: "Inbox clear for this shift",
+            tagPrefix: "Rx"
+          }
+        },
+        {
+          title: "Handoff idle: coordinate so the ready asset does not wait hot.",
+          why: "Upstream is ready while press, charge, or hoist is not. Energy continues with no additional good parts.",
+          impact: "Recover ready-to-take minutes; energy when metered",
+          owner: "Production + both station owners",
+          effort: "Assign the handoff so the next station is ready when the upstream clock clears",
+          verify: "Ready-to-take minutes return toward the plant median",
+          due: "This shift · before the next handoff window",
+          priority: "High",
+          labels: {
+            why: "Why",
+            impact: "Impact",
+            owner: "Owner",
+            effort: "Do",
+            verify: "Verify",
+            due: "Due",
+            ack: "Acknowledge",
+            done: "Done",
+            escalate: "Escalate",
+            meta: "Today · assigned action",
+            online: "online",
+            compose: "Message",
+            end: "Inbox clear for this shift",
+            tagPrefix: "Rx"
+          }
+        }
+      ],
+      "hi": [
+        {
+          title: "अगला चार्ज तैयार होने तक खाली फर्नेस गर्म न करें।",
+          why: "अगले चार्ज की पुष्टि से पहले खाली फर्नेस सोख तापमान पर पहुँच गई। बिना धातुकर्म के गर्म इंतजार: यह हॉट आइडल है।",
+          impact: "अनावश्यक गर्म इंतजार घटाएँ; रुपये फर्नेस मीटर या बिल के बाद",
+          owner: "HT सुपरवाइज़र · प्रोडक्शन चार्ज रेडीनेस की पुष्टि करें",
+          effort: "खाली एसेट का स्टार्ट टालें ताकि तापमान पुष्टि किए लोड के साथ आए",
+          verify: "सेटपॉइंट से चार्ज तक के मिनट घटे, या JIT कारण दर्ज हो",
+          due: "अगले खाली हीट-अप से पहले",
+          priority: "उच्च",
+          labels: {
+            why: "कारण",
+            impact: "प्रभाव",
+            owner: "जिम्मेदार",
+            effort: "करें",
+            verify: "जाँच",
+            due: "समय",
+            ack: "स्वीकार करें",
+            done: "हो गया",
+            escalate: "ऊपर भेजें",
+            meta: "आज · निर्धारित कार्रवाई",
+            online: "ऑनलाइन",
+            compose: "संदेश",
+            end: "इस शिफ्ट का इनबॉक्स खाली",
+            tagPrefix: "Rx"
+          }
+        },
+        {
+          title: "हैंडऑफ समन्वय: तैयार एसेट अगले स्टेशन का इंतजार कर रहा है।",
+          why: "अपस्ट्रीम तैयार है, पर प्रेस, चार्ज या होइस्ट तैयार नहीं। बिना अतिरिक्त अच्छे पार्ट्स के ऊर्जा खर्च होती रहती है।",
+          impact: "रेडी-टू-टेक मिनट वापस लाएँ; ऊर्जा मीटर उपलब्ध हो तो",
+          owner: "प्रोडक्शन + दोनों स्टेशन के जिम्मेदार",
+          effort: "हैंडऑफ असाइन करें ताकि अपस्ट्रीम क्लॉक क्लियर होते ही अगला स्टेशन तैयार हो",
+          verify: "रेडी-टू-टेक मिनट प्लांट के सामान्य औसत के करीब आएँ",
+          due: "इस शिफ्ट · अगली हैंडऑफ विंडो से पहले",
+          priority: "उच्च",
+          labels: {
+            why: "कारण",
+            impact: "प्रभाव",
+            owner: "जिम्मेदार",
+            effort: "करें",
+            verify: "जाँच",
+            due: "समय",
+            ack: "स्वीकार करें",
+            done: "हो गया",
+            escalate: "ऊपर भेजें",
+            meta: "आज · निर्धारित कार्रवाई",
+            online: "ऑनलाइन",
+            compose: "संदेश",
+            end: "इस शिफ्ट का इनबॉक्स खाली",
+            tagPrefix: "Rx"
+          }
+        }
+      ]
+    };
+
+    (function () {
+      var img = document.getElementById("heroPhotoImg");
+      if (!img) return;
+      img.src = new URL("assets/faridabad-plant-prescriptions/forge-hero.jpg", window.location.href).href;
+    })();
+  </script>
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const total = slides.length;
+      const progressFill = document.getElementById("progressFill");
+      const counter = document.getElementById("sceneCounter");
+      const btnPrev = document.getElementById("btnPrev");
+      const btnNext = document.getElementById("btnNext");
+      const btnBegin = document.getElementById("btnBegin");
+      const dotsNav = document.getElementById("dots");
+      const chromeLogo = document.getElementById("chromeLogo");
+      const titleSlide = document.getElementById("scene-title");
+
+      let index = 0;
+      let touchX = null;
+      let touchY = null;
+      let lang = "en";
+
+      function onLogoFail(imgEl) {
+        chromeLogo.classList.add("fallback");
+        if (titleSlide) titleSlide.classList.add("logo-failed");
+        if (imgEl) imgEl.style.display = "none";
+      }
+      ["chromeLogoImg", "heroLogo"].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener("error", function () { onLogoFail(el); });
+        if (el.complete && el.naturalWidth === 0) onLogoFail(el);
+      });
+
+      slides.forEach(function (_, i) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "dots__dot" + (i === 0 ? " active" : "");
+        b.setAttribute("aria-label", "Go to slide " + (i + 1));
+        b.addEventListener("click", function () { goTo(i); });
+        dotsNav.appendChild(b);
+      });
+      const dots = Array.from(dotsNav.querySelectorAll(".dots__dot"));
+
+      function pad(n) { return String(n).padStart(2, "0"); }
+
+      function resetRxFlips(root) {
+        if (!root) return;
+        root.querySelectorAll("[data-rx-flip].is-flipped").forEach(function (card) {
+          card.classList.remove("is-flipped");
+          card.setAttribute("aria-pressed", "false");
+          var label = card.getAttribute("aria-label") || "";
+          card.setAttribute("aria-label", label.replace("Hide evidence.", "Show evidence."));
+        });
+      }
+
+      var floorPack = window.__FLOOR_RX__ || { en: [], hi: [] };
+      var floorIdx = 0;
+      var floorBusy = false;
+      var floorBubble = document.getElementById("floorBubble");
+      var floorActions = document.getElementById("floorActions");
+      var floorEnd = document.getElementById("floorEnd");
+      var floorMeta = document.getElementById("floorMeta");
+      var floorTag = document.getElementById("floorTag");
+      var floorTitle = document.getElementById("floorTitle");
+      var floorWhy = document.getElementById("floorWhy");
+      var floorImpact = document.getElementById("floorImpact");
+      var floorOwner = document.getElementById("floorOwner");
+      var floorEffort = document.getElementById("floorEffort");
+      var floorVerify = document.getElementById("floorVerify");
+      var floorDue = document.getElementById("floorDue");
+      var floorMsg = document.getElementById("floorMsg");
+      var floorAck = document.getElementById("floorAck");
+      var floorDone = document.getElementById("floorDone");
+      var floorEscalate = document.getElementById("floorEscalate");
+      var floorEndText = document.getElementById("floorEndText");
+      var waOnlineLabel = document.getElementById("waOnlineLabel");
+      var waComposeHint = document.getElementById("waComposeHint");
+      var langEn = document.getElementById("langEn");
+      var langHi = document.getElementById("langHi");
+
+      function currentRxList() {
+        return floorPack[lang] || floorPack.en || [];
+      }
+
+      function setFloorControlsEnabled(on) {
+        if (floorAck) floorAck.disabled = !on;
+        if (floorDone) floorDone.disabled = !on;
+        if (floorEscalate) floorEscalate.disabled = !on;
+        if (floorBubble) floorBubble.setAttribute("aria-disabled", on ? "false" : "true");
+      }
+
+      function renderFloorRx(i, animateIn) {
+        var list = currentRxList();
+        var rx = list[i];
+        if (!rx || !floorBubble) return;
+        floorIdx = i;
+        var labels = rx.labels || {};
+        if (floorTag) floorTag.textContent = (labels.tagPrefix || "Rx") + " · " + (rx.priority || "High");
+        if (floorTitle) floorTitle.textContent = rx.title || "";
+        if (floorWhy) floorWhy.innerHTML = "<b>" + (labels.why || "Why") + ":</b> " + (rx.why || "");
+        if (floorImpact) floorImpact.innerHTML = "<b>" + (labels.impact || "Impact") + ":</b> " + (rx.impact || "");
+        if (floorOwner) floorOwner.innerHTML = "<b>" + (labels.owner || "Owner") + ":</b> " + (rx.owner || "");
+        if (floorEffort) floorEffort.innerHTML = "<b>" + (labels.effort || "Do") + ":</b> " + (rx.effort || "");
+        if (floorVerify) floorVerify.innerHTML = "<b>" + (labels.verify || "Verify") + ":</b> " + (rx.verify || "");
+        if (floorDue) floorDue.innerHTML = "<b>" + (labels.due || "Due") + ":</b> " + (rx.due || "");
+        if (floorAck) floorAck.textContent = labels.ack || "Acknowledge";
+        if (floorDone) floorDone.textContent = labels.done || "Done";
+        if (floorEscalate) floorEscalate.textContent = labels.escalate || "Escalate";
+        if (floorMeta) floorMeta.textContent = (labels.meta || "Today · assigned action") + " · " + (i + 1) + "/" + list.length;
+        if (waOnlineLabel) waOnlineLabel.textContent = labels.online || "online";
+        if (waComposeHint) waComposeHint.textContent = labels.compose || "Message";
+        if (floorEndText) floorEndText.textContent = labels.end || "Inbox clear for this shift";
+        if (floorMsg) floorMsg.hidden = false;
+        floorBubble.hidden = false;
+        if (floorActions) floorActions.hidden = false;
+        if (floorEnd) floorEnd.hidden = true;
+        if (floorMsg) floorMsg.classList.remove("is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate", "is-enter");
+        if (animateIn && floorMsg) {
+          void floorMsg.offsetWidth;
+          floorMsg.classList.add("is-enter");
+        }
+        setFloorControlsEnabled(true);
+      }
+
+      function showFloorEnd() {
+        if (floorMsg) floorMsg.hidden = true;
+        if (floorMeta) floorMeta.hidden = true;
+        if (floorEnd) floorEnd.hidden = false;
+        floorBusy = false;
+        setFloorControlsEnabled(false);
+      }
+
+      function resetFloorPhone() {
+        floorBusy = false;
+        if (floorMeta) floorMeta.hidden = false;
+        var list = currentRxList();
+        if (!list.length) return;
+        renderFloorRx(0, false);
+      }
+
+      function dismissFloor(mode) {
+        var list = currentRxList();
+        if (floorBusy || !floorBubble || !floorMsg || floorMsg.hidden || !list.length) return;
+        floorBusy = true;
+        setFloorControlsEnabled(false);
+        floorMsg.classList.remove("is-enter", "is-dismiss-ack", "is-dismiss-done", "is-dismiss-escalate");
+        void floorMsg.offsetWidth;
+        var dismissClass = mode === "done" ? "is-dismiss-done" : (mode === "escalate" ? "is-dismiss-escalate" : "is-dismiss-ack");
+        floorMsg.classList.add(dismissClass);
+        window.setTimeout(function () {
+          var next = floorIdx + 1;
+          if (next >= list.length) {
+            showFloorEnd();
+            return;
+          }
+          renderFloorRx(next, true);
+          floorBusy = false;
+        }, 340);
+      }
+
+      function setLanguage(nextLang) {
+        lang = nextLang === "hi" ? "hi" : "en";
+        document.documentElement.setAttribute("lang", lang);
+        if (langEn) {
+          langEn.classList.toggle("is-active", lang === "en");
+          langEn.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+        }
+        if (langHi) {
+          langHi.classList.toggle("is-active", lang === "hi");
+          langHi.setAttribute("aria-pressed", lang === "hi" ? "true" : "false");
+        }
+        resetFloorPhone();
+      }
+
+      if (langEn) langEn.addEventListener("click", function (e) { e.stopPropagation(); setLanguage("en"); });
+      if (langHi) langHi.addEventListener("click", function (e) { e.stopPropagation(); setLanguage("hi"); });
+      if (floorAck) floorAck.addEventListener("click", function (e) { e.stopPropagation(); dismissFloor("ack"); });
+      if (floorDone) floorDone.addEventListener("click", function (e) { e.stopPropagation(); dismissFloor("done"); });
+      if (floorEscalate) floorEscalate.addEventListener("click", function (e) { e.stopPropagation(); dismissFloor("escalate"); });
+      if (floorBubble) {
+        floorBubble.addEventListener("click", function () { dismissFloor("ack"); });
+        floorBubble.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            dismissFloor("ack");
+          }
+        });
+      }
+      resetFloorPhone();
+
+      document.querySelectorAll("[data-rx-flip]").forEach(function (card) {
+        card.addEventListener("click", function () {
+          var flipped = card.classList.toggle("is-flipped");
+          card.setAttribute("aria-pressed", flipped ? "true" : "false");
+          var base = (card.getAttribute("aria-label") || "").replace(/\s*(Show|Hide) evidence\./, "");
+          card.setAttribute("aria-label", base + (flipped ? " Hide evidence." : " Show evidence."));
+        });
+      });
+
+      function goTo(i, force) {
+        if (i < 0 || i >= total) return;
+        if (i === index && !force) return;
+
+        const prev = slides[index];
+        if (prev !== slides[i]) {
+          resetRxFlips(prev);
+          prev.classList.remove("active");
+          prev.querySelectorAll(".reveal").forEach(function (el) {
+            el.style.animation = "none";
+            void el.offsetWidth;
+            el.style.animation = "";
+          });
+        }
+
+        index = i;
+        const slide = slides[index];
+        slide.classList.add("active");
+        slide.scrollTop = 0;
+        document.body.setAttribute("data-theme", "light");
+        if (slide.id === "scene-floor") resetFloorPhone();
+
+        progressFill.style.width = ((index + 1) / total * 100) + "%";
+        counter.textContent = pad(index + 1) + " / " + pad(total);
+
+        dots.forEach(function (d, di) {
+          d.classList.toggle("active", di === index);
+          d.setAttribute("aria-current", di === index ? "true" : "false");
+        });
+
+        btnPrev.disabled = index === 0;
+        btnNext.disabled = index === total - 1;
+      }
+
+      function next() { goTo(Math.min(index + 1, total - 1)); }
+      function prev() { goTo(Math.max(index - 1, 0)); }
+
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      if (btnBegin) btnBegin.addEventListener("click", next);
+
+      document.addEventListener("keydown", function (e) {
+        const tag = (e.target && e.target.tagName) || "";
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON") return;
+        if (e.target && e.target.isContentEditable) return;
+        if (e.target && e.target.closest && e.target.closest("#floorPhone")) return;
+
+        switch (e.key) {
+          case "ArrowRight":
+          case " ":
+          case "PageDown":
+            e.preventDefault();
+            next();
+            break;
+          case "ArrowLeft":
+          case "PageUp":
+            e.preventDefault();
+            prev();
+            break;
+          case "Home":
+            e.preventDefault();
+            goTo(0);
+            break;
+          case "End":
+            e.preventDefault();
+            goTo(total - 1);
+            break;
+          default:
+            if (e.key >= "1" && e.key <= "9") {
+              const n = parseInt(e.key, 10) - 1;
+              if (n < total) { e.preventDefault(); goTo(n); }
+            }
+        }
+      });
+
+      const stage = document.getElementById("stage");
+      stage.addEventListener("touchstart", function (e) {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        touchX = e.changedTouches[0].clientX;
+        touchY = e.changedTouches[0].clientY;
+      }, { passive: true });
+      stage.addEventListener("touchend", function (e) {
+        if (touchX == null || touchY == null || !e.changedTouches || !e.changedTouches[0]) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        const dy = e.changedTouches[0].clientY - touchY;
+        touchX = null;
+        touchY = null;
+        if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) next(); else prev();
+      }, { passive: true });
+
+      function slideIndexFromHash() {
+        var id = (location.hash || "").replace(/^#/, "");
+        if (!id) return 0;
+        var idx = slides.findIndex(function (s) { return s.id === id; });
+        return idx >= 0 ? idx : 0;
+      }
+
+      goTo(slideIndexFromHash(), true);
+      window.addEventListener("hashchange", function () {
+        goTo(slideIndexFromHash(), true);
+      });
+    })();
+  </script>
+</body>
+</html>

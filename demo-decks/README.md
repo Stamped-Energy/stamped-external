@@ -30,13 +30,15 @@ From the industry hub, open **Clients** → [`clients/index.html`](./clients/ind
 | [clients/itc-nadiad-technical/](./clients/itc-nadiad-technical/) | ITC Nadiad technical brief (deploy folder) |
 | [clients/itc-nadiad-technical.html](./clients/itc-nadiad-technical.html) | Flat twin of the ITC folder index |
 | [clients/lnm-auto-faridabad-technical/](./clients/lnm-auto-faridabad-technical/) | LNM Auto Faridabad Sector 59 leave-behind (precision forge / machine / HT / surface) |
+| [clients/bhatia-alloy-faridabad-technical/](./clients/bhatia-alloy-faridabad-technical/) | Bhatia Alloy named owner brief |
+| [clients/faridabad-plant-prescriptions/](./clients/faridabad-plant-prescriptions/) | Anonymous Faridabad prescription-types leave-behind (no plant name; no Stamped Process) |
 | [clients/lohia-corp-brief.html](./clients/lohia-corp-brief.html) | Named Lohia brief (DIC, not a second audit, Chaubepur visit) |
 | [clients/auto-forge-ht.html](./clients/auto-forge-ht.html) | Anonymous forge / HT / die-cast brief |
 | [clients/machinery-oem.html](./clients/machinery-oem.html) | Anonymous packaging-machinery OEM brief (60-day if justified) |
 | [clients/machinery-oem/](./clients/machinery-oem/) | Optional standalone deploy root |
 | [clients/technical-explainer.html](./clients/technical-explainer.html) | Generic technical explainer (11 scenes; 60-day close) |
 
-Named-account default: Nestlé or ITC. Keep OEM / forge-HT ready when the room should stay anonymous. Bhatia Alloy is a lean 6-scene owner brief (refined perceptions), not the 11-scene technical shell.
+Named-account default: Nestlé or ITC. Keep OEM / forge-HT ready when the room should stay anonymous. Bhatia Alloy is a named owner brief. Use `faridabad-plant-prescriptions/` when the plant must stay unnamed.
 
 **Technical explainers** (also linked from the root hub): generic product explainer plus named-account briefs.
 

@@ -45,6 +45,16 @@ Common spine (Nestlé quality bar): **title → gap → fit → load → equipme
 | Frame | Named Lohia · DIC · not a second audit · Chaubepur visit context |
 | Sample Rx | Stagger extrusion vs compressor/chiller start · Inspect Compressor 2 |
 
+## A plant in Faridabad · prescription types (`faridabad-plant-prescriptions/`)
+
+| Field | Claim |
+|-------|-------|
+| Site | **A plant in Faridabad** only. Do not name the plant, Sector 24, or the recipient. |
+| Shape | 9 scenes from the Bhatia owner brief **minus** Stamped Process |
+| Sample Rx | Empty furnace / hot idle · under-loaded HT · matched-output drift · handoff idle · continuity / sacred load · Type III idle / rack density · energy-aware scheduling · bilingual floor WhatsApp |
+| Close | Offline working deployment on one line, or historical data |
+| Note | Same prescription types as the named Bhatia brief. Send this file when the room must not see the plant name. |
+
 ## Anonymous forge / HT (`auto-forge-ht.html`)
 
 | Field | Claim |
