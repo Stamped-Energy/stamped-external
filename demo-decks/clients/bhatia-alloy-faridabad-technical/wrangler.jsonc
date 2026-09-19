@@ -1,0 +1,22 @@
+{
+  "name": "bhatia-alloy-faridabad",
+  "account_id": "9238bdaafed593aeb030afad9be31962",
+  "compatibility_date": "2026-09-19",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": ".",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    {
+      "pattern": "bhatia.stamped.work",
+      "custom_domain": true
+    },
+    {
+      "pattern": "bhatia.presentation.stamped.work",
+      "custom_domain": true
+    }
+  ]
+}

@@ -10,3 +10,4 @@
 # Cursor config (from cursor-config-coding)
 .cursor/skills-catalog/.cache/
 __pycache__/
+.wrangler/
