@@ -448,13 +448,10 @@ def file_gate() -> list[str]:
             issues.append("faridabad-rx must not carry LNM / agentic / LLM leftovers")
         if re.search(r"\bunknown\b|\[minutes|₹\d|X kWh|Heat #", faridabad_rx, re.I):
             issues.append("faridabad-rx must not show unknown / placeholder money or minute fields")
-        if 'src="assets/faridabad-plant-prescriptions/forge-hero.jpg"' not in faridabad_rx:
-            issues.append("faridabad-rx hero src should be forge-hero.jpg")
-        if not (
-            ROOT
-            / "demo-decks/clients/faridabad-plant-prescriptions/assets/faridabad-plant-prescriptions/forge-hero.jpg"
-        ).is_file():
-            issues.append("missing faridabad-rx forge-hero.jpg asset")
+        if "res.cloudinary.com/ddpyjpt4v/image/upload/v1789816171/Normalizing-Heattreatment_ush2is.webp" not in faridabad_rx:
+            issues.append("faridabad-rx hero src should be the Cloudinary heat-treatment image")
+        if 'src="assets/faridabad-plant-prescriptions/forge-hero.jpg"' in faridabad_rx:
+            issues.append("faridabad-rx must not use the local forge-hero.jpg")
         faridabad_rx_body = re.sub(r"<style[\s\S]*?</style>", "", faridabad_rx)
         faridabad_rx_body = re.sub(r"<script[\s\S]*?</script>", "", faridabad_rx_body)
         if re.search(r"[—–]", faridabad_rx_body):

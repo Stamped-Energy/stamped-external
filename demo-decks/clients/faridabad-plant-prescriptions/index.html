@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Stamped Energy · prescription types for a plant in Faridabad</title>
-  <link rel="preload" as="image" href="assets/faridabad-plant-prescriptions/forge-hero.jpg" />
+  <link rel="preload" as="image" href="https://res.cloudinary.com/ddpyjpt4v/image/upload/v1789816171/Normalizing-Heattreatment_ush2is.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -1167,7 +1167,7 @@
             <p class="title-position reveal hide-mobile">Example of the prescription types we can issue. Operators stay in control.</p>
           </div>
           <figure class="hero-photo reveal" id="heroPhoto">
-            <img id="heroPhotoImg" src="assets/faridabad-plant-prescriptions/forge-hero.jpg" alt="Industrial forging and process heating environment" width="1024" height="575" loading="eager" decoding="async" />
+            <img id="heroPhotoImg" src="https://res.cloudinary.com/ddpyjpt4v/image/upload/v1789816171/Normalizing-Heattreatment_ush2is.webp" alt="Heat-treatment furnace, normalizing line" width="3996" height="2620" loading="eager" decoding="async" fetchpriority="high" />
           </figure>
         </div>
       </div>
@@ -1772,7 +1772,13 @@
     (function () {
       var img = document.getElementById("heroPhotoImg");
       if (!img) return;
-      img.src = new URL("assets/faridabad-plant-prescriptions/forge-hero.jpg", window.location.href).href;
+      var rel = "https://res.cloudinary.com/ddpyjpt4v/image/upload/v1789816171/Normalizing-Heattreatment_ush2is.webp";
+      var resolved = new URL(rel, window.location.href).href;
+      if (img.src !== resolved) img.src = resolved;
+      img.addEventListener("error", function onHeroErr() {
+        img.removeEventListener("error", onHeroErr);
+        img.src = new URL(rel + "?t=" + Date.now(), window.location.href).href;
+      });
     })();
   </script>
   <script>
