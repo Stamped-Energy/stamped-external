@@ -238,6 +238,73 @@
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$",
       "description": "Stable key from category + assets + window per L3 spec"
+    },
+    "md_episode_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Non-additive MD episode key when category participates in demand-charge attribution"
+    },
+    "allocation_share": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Share of episode_inr_cap attributed to this finding"
+    },
+    "md_episode": {
+      "type": "object",
+      "description": "Embedded MD episode snapshot for L5 clearance (non-additive INR cap)",
+      "required": [
+        "schema_version",
+        "md_episode_id",
+        "org_id",
+        "plant_id",
+        "incomer_asset_id",
+        "peak_kva",
+        "cmd_kva",
+        "md_rate_inr_per_kva",
+        "episode_inr_cap",
+        "period_start",
+        "period_end",
+        "member_finding_ids",
+        "allocation",
+        "clearance_status"
+      ],
+      "properties": {
+        "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "md_episode_id": { "type": "string", "minLength": 1 },
+        "org_id": { "type": "string", "minLength": 1 },
+        "plant_id": { "type": "string", "minLength": 1 },
+        "incomer_asset_id": { "type": "string", "minLength": 1 },
+        "peak_kva": { "type": "number", "minimum": 0 },
+        "cmd_kva": { "type": "number", "minimum": 0 },
+        "md_rate_inr_per_kva": { "type": "number", "minimum": 0 },
+        "episode_inr_cap": { "type": "number", "minimum": 0 },
+        "period_start": { "type": "string", "minLength": 1 },
+        "period_end": { "type": "string", "minLength": 1 },
+        "member_finding_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "allocation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["finding_id", "weight"],
+            "properties": {
+              "finding_id": { "type": "string", "minLength": 1 },
+              "weight": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "clearance_status": {
+          "type": "string",
+          "enum": ["pending", "cleared", "reopened"]
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
