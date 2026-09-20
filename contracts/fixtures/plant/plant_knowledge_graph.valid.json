@@ -20,6 +20,30 @@
       "properties": { "metric": "header_bar", "unit": "bar", "band_low": 6.5 }
     },
     {
+      "id": "never_shed_soak_quench",
+      "type": "Constraint",
+      "label": "Never shed soak/quench/Type III dwell",
+      "properties": {
+        "load_flexibility": "never_shed",
+        "codes": ["soak", "quench", "type_iii_dwell", "loaded_cure"]
+      }
+    },
+    {
+      "id": "isolation_requires_standby",
+      "type": "Constraint",
+      "label": "Isolation requires standby",
+      "properties": { "requires": "standby_asset", "metric": "header_bar" }
+    },
+    {
+      "id": "validated_empty_setback",
+      "type": "Constraint",
+      "label": "Empty-chamber setback band only",
+      "properties": {
+        "empty_chamber_only": true,
+        "formula_id": "furnace_setback_opt"
+      }
+    },
+    {
       "id": "comp2_typical_sp",
       "type": "TypicalEnvelope",
       "label": "COMP2 specific power band",
