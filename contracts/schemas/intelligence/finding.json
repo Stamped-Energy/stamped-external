@@ -114,7 +114,15 @@
       "type": "object",
       "properties": {
         "bill_line": { "type": "string" },
-        "rate_ref": { "type": "string" }
+        "rate_ref": { "type": "string" },
+        "formula_id": {
+          "type": "string",
+          "description": "formula_registry id for calculator-owned cite"
+        },
+        "kvar_needed": {
+          "type": "string",
+          "description": "PF correction magnitude as decimal string"
+        }
       },
       "additionalProperties": false
     },

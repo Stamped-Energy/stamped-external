@@ -59,6 +59,18 @@
           "items": { "type": "number" },
           "minItems": 2,
           "maxItems": 2
+        },
+        "formula_id": {
+          "type": "string",
+          "description": "L3 formula_registry id; calculator-owned cite (never LLM)"
+        },
+        "rate_ref": {
+          "type": "string",
+          "description": "Tariff / rate version reference from Finding.inr_decomposition"
+        },
+        "bill_line": {
+          "type": "string",
+          "description": "Bill line attribution when known"
         }
       },
       "additionalProperties": false
@@ -151,6 +163,10 @@
         "otel_trace_id": {
           "type": "string",
           "description": "Optional Phoenix / OTel deep link"
+        },
+        "formula_id": {
+          "type": "string",
+          "description": "Physics/tariff formula cite mirrored from impact for audit"
         }
       },
       "additionalProperties": false
