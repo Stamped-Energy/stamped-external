@@ -2,7 +2,7 @@
 
 Linked from the main demo hub via **Clients** → [`index.html`](./index.html).
 
-Most are **11-scene technical briefs** (Nestlé / ITC shell). Bhatia Alloy is a lean **6-scene owner brief**. Copy follows the live website pillars: Industry Energy Management and Asset Health Intelligence. HTML is hand-authored. `python scripts/decks/build/build-client-decks.py` only syncs `assets/`.
+Most are **11-scene technical briefs** (Nestlé / ITC shell). Bhatia Alloy is a lean **named owner brief**. `faridabad-plant-prescriptions/` is the same campus with the plant unnamed and without Stamped Process. Copy follows the live website pillars: Industry Energy Management and Asset Health Intelligence. HTML is hand-authored. `python scripts/decks/build/build-client-decks.py` only syncs `assets/`.
 
 | File | Use |
 |------|-----|
@@ -11,7 +11,8 @@ Most are **11-scene technical briefs** (Nestlé / ITC shell). Bhatia Alloy is a 
 | [itc-nadiad-technical/](./itc-nadiad-technical/) | ITC Nadiad technical brief (deploy folder) |
 | [itc-nadiad-technical.html](./itc-nadiad-technical.html) | Flat twin of the ITC folder index |
 | [lnm-auto-faridabad-technical/](./lnm-auto-faridabad-technical/) | LNM Auto Faridabad Sector 59 leave-behind (precision forge / machine / HT / surface) |
-| [bhatia-alloy-faridabad-technical/](./bhatia-alloy-faridabad-technical/) | Bhatia Alloy Sector 24 owner brief (8 scenes: value, six-loop, flip prescriptions, bilingual phone, vision) |
+| [bhatia-alloy-faridabad-technical/](./bhatia-alloy-faridabad-technical/) | Bhatia Alloy Sector 24 owner brief (10 scenes: value, six-loop, flip prescriptions, bilingual phone, vision, Stamped Process) |
+| [faridabad-plant-prescriptions/](./faridabad-plant-prescriptions/) | Anonymous “a plant in Faridabad” prescription-types leave-behind (9 scenes; no plant name; no Stamped Process) |
 | [lohia-corp-brief.html](./lohia-corp-brief.html) | Named Lohia brief (DIC, not a second audit, Chaubepur visit) |
 | [auto-forge-ht.html](./auto-forge-ht.html) | Anonymous forge / HT / die-cast brief (must not name LNM) |
 | [machinery-oem.html](./machinery-oem.html) | Anonymous packaging-machinery OEM brief (60-day Proof Run if justified) |
