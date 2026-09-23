@@ -57,6 +57,9 @@ L1 emits four canonical record types. Path A may add machine state via existing 
 | 11 | Methods / tooling freezes | Cycle time / cost/part / tool life | Drawings, process docs, tooling, machine capability | ChatGPT ad hoc; CAM seats; consultants | **Weak on current L1** — Process-shaped gap |
 | 12 | Closed-loop setpoint write | Margin / yield | Historian + DCS write path | Imubit / OPTIMITIVE / APC | **Out** — HITL only near term |
 | 13 | Vision QC / robotics | Yield / labour | Cameras / cells | Cognex / Bright Machines | **Out** — hardware |
+| 14 | Exception response | Continuity + time + cost (short horizon) | Machine/production state + calendar (+ alternate capacity if known) | WhatsApp firefighting; whiteboard replan; APS misuse | **Strong if Path A or clear stop signal** — **not** APS / MRP rewrite |
+
+**Mode 14 — Exception response:** When something breaks or today’s sequence slips (cell down, starve, long alarm dwell), recommend a **short-horizon** next action under constraints: don’t release WIP into a dead cell; pull jobs that fit alternates; escalate maintenance with evidence; hold one batch for fill — with one owner and verification. Explicitly **not** month-ahead production planning, finite-capacity APS, or silent ERP reschedule. See founder vision [`09-stamped-founder-vision.md`](./09-stamped-founder-vision.md).
 
 ---
 
@@ -95,7 +98,7 @@ Use these as **lever libraries** under mode 1–2, not as “Stamped = energy.�
 | Path | Data | Modes unlocked fast |
 |------|------|---------------------|
 | **B** — meter + bill + calendar | Incomer, bills, shifts | 2, 7, partial 1, partial 6 |
-| **A** — + feeders / SCADA / CNC | Machine attribution | 3, 4, 5, richer 1 and 6 |
+| **A** — + feeders / SCADA / CNC | Machine attribution | 3, 4, 5, richer 1 and 6, **14** |
 | **Process-shaped** — + docs/tooling | Methods freezes | 11 (new connectors / upload product) |
 
 ---

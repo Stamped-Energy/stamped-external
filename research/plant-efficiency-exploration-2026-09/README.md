@@ -13,7 +13,7 @@ A multi-file market and product-vision **exploration** for Stamped as applied AI
 
 0. **Cold start (do this first):** [START-HERE.md](./START-HERE.md) — glossary, modes 1–13, options A–E, then what to open next  
 1. **30 min:** START-HERE + [00-framing](./00-framing-vaibhav-and-vision.md) + [01-intake](./01-intake-and-value-modes.md) §1–3 (or [06-synthesis](./06-synthesis-and-open-questions.md) if you already know modes)
-2. **90 min:** add [05-vision-options](./05-product-vision-option-space.md) + [07-product-vision-council](./07-product-vision-council.md) §§4–5 + [08-beyond-energy-action-catalog](./08-beyond-energy-action-catalog.md) §§1–4
+2. **90 min:** add [05-vision-options](./05-product-vision-option-space.md) + [07-product-vision-council](./07-product-vision-council.md) §§4–5 + [08-beyond-energy-action-catalog](./08-beyond-energy-action-catalog.md) §§1–4 + [09-stamped-founder-vision](./09-stamped-founder-vision.md)
 3. **180 min:** full USA / Europe / India deep dives + [08a-prior-research-landscape](./08a-prior-research-landscape.md)
 
 ## Files
@@ -31,6 +31,7 @@ A multi-file market and product-vision **exploration** for Stamped as applied AI
 | [07-product-vision-council.md](./07-product-vision-council.md) | Five-model vision council + phased recommendation (read after START-HERE + 01) |
 | [08-beyond-energy-action-catalog.md](./08-beyond-energy-action-catalog.md) | Beyond-energy **actions/decisions** unlocked from software plant data |
 | [08a-prior-research-landscape.md](./08a-prior-research-landscape.md) | Inventory of **other** Stamped research relevant to efficiency actions |
+| [09-stamped-founder-vision.md](./09-stamped-founder-vision.md) | **Founder vision** (standalone) — decisions we own; adopt soon |
 | [PROGRESS.md](./PROGRESS.md) | Live status |
 | [PROGRESS_ACTION_CATALOG.md](./PROGRESS_ACTION_CATALOG.md) | Action-catalog workstream progress |
 | [SOURCES.md](./SOURCES.md) | URL index |
