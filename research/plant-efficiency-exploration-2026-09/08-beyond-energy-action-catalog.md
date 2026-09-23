@@ -122,3 +122,70 @@ Decision: “Add minimum alloy to meet tensile — operator confirms before char
 Drives efficiency via **materials cost + quality variation** (Fero/Gerdau-class, vendor-claimed $3/ton, −15% quality variation). Stamped near-term: only where historian/lab tags exist; never silent DCS writeback.
 
 ---
+
+## 5. Additive peer research digests (Phase B)
+
+All outcome figures below are **vendor-claimed** unless a primary filing is cited. Focus: **what actions they tell operators/engineers to take**.
+
+### Jemba (TeepTrak)
+
+- **Actions:** Decompose OEE losses (availability / performance / quality); **rank fixes by recoverable output**; operator-language recommendations; quality correlation → parameter bands; energy waste agents with €/yr + effort; apply via OPC-UA/PLC/CMMS WO.
+- **Insight:** Product is the **ranked backlog**, not the OEE number.
+- **URLs:** https://jemba.ai/ · https://jemba.ai/oee-optimisation/ · https://teeptrak.com/en/oee-monitoring-software-2/
+- **Maps to catalog:** A1–A4, A7, A10, A20
+
+### Fero Labs
+
+- **Actions:** Live **alloy/chemistry addition recommendations** after ladle sample; predict yield/tensile; minimize raw material while holding quality; expand to defects / energy / yield.
+- **Case (vendor-claimed):** Gerdau — ~$3/ton alloy cost cut; ~15% lower quality variation; operators act in pulpit in seconds.
+- **URLs:** https://www.ferolabs.com/case-studies/gerdau · https://www.ferolabs.com/insights/post/how-gerdau-saved-3-ton-of-steel-with-white-box-machine-learning
+- **Maps to:** A12, A10, materials intensity
+
+### MadeOS
+
+- **Actions:** Prescriptive **operator + maintenance** actions from operational digital twin; uptime / throughput / quality drift (marketing claims include large downtime cuts).
+- **URL:** https://madeos.ai/
+- **Maps to:** A15–A16, A1–A3, A20
+
+### Braincube
+
+- **Actions:** CrossRank variable ranking; RTPO continuous steering; may adjust controllable settings (path to writeback — contrast only for Stamped HITL).
+- **URL:** https://braincube.com/
+- **Maps to:** A12 (HITL stop before writeback)
+
+### Oden Technologies
+
+- **Actions:** Factory data → recommendations on throughput, quality drivers, scrap reduction.
+- **URL:** https://oden.io/ (confirm live) · pack peer notes
+- **Maps to:** A4, A10, A14
+
+### Guidewheel
+
+- **Actions:** Power-signature machine states → downtime categorization / OEE-style ops (often clamp-on hardware — absorb software pattern only).
+- **URL:** https://www.guidewheel.com/
+- **Maps to:** A1–A3 (state from signal)
+
+### Green Factory AI
+
+- **Actions:** Operator-approved **setpoint/recipe** advice (chemicals, lime, gas, steam, energy/ton); staged writeback when approved.
+- **URL:** https://greenfactory.ai/
+- **Maps to:** A12, A13
+
+### MachineMetrics / Sight Machine (adjacent)
+
+- **Actions:** Mostly loss visibility / cycle / OEE analytics — risk of dashboard-only unless layered with assignment.
+- **URLs:** https://www.machinemetrics.com/ · https://sightmachine.com/
+- **Maps to:** A1–A4 as *detection*; Stamped differentiator = A20 closure
+
+### Greenovative / ZeroWatt (India energy contrast)
+
+- **Actions:** Energy waste → root cause → prescribe; Zerowatt exemplar includes asset + ₹ + immediate + preventive + difficulty + M&V (case extract in repo).
+- **URLs:** https://greenovative.com/ · https://zerowatt.energy/ · `docs/zerowatt-case-study-extract.md`
+- **Maps to:** Baseline §2; multi-utility intensity A13; output contract shape
+
+### Imubit / OPTIMITIVE (contrast)
+
+- **Actions:** Closed-loop setpoint write to DCS/APC — **out** for Stamped near-term HITL.
+- **URLs:** https://imubit.com/ · https://optimitive.com/
+
+---

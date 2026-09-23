@@ -43,3 +43,18 @@
 ## Pending
 
 - Vaibhav shared competitor / company list (not yet received)
+
+## Additive peer research (08 action catalog, 2026-09-24)
+
+- Fero Labs × Gerdau case: https://www.ferolabs.com/case-studies/gerdau  
+- Fero insight post: https://www.ferolabs.com/insights/post/how-gerdau-saved-3-ton-of-steel-with-white-box-machine-learning  
+- Jemba OEE optimisation: https://jemba.ai/oee-optimisation/  
+- Jemba platform: https://jemba.ai/platform/  
+- TeepTrak + Jemba OEE: https://teeptrak.com/en/oee-monitoring-software-2/  
+- MadeOS: https://madeos.ai/  
+- Braincube: https://braincube.com/  
+- Guidewheel: https://www.guidewheel.com/  
+- Green Factory AI: https://greenfactory.ai/  
+- MachineMetrics: https://www.machinemetrics.com/  
+- ZeroWatt industries (case corpus): https://zerowatt.energy/industries/  
+- Repo Zerowatt extract: `docs/zerowatt-case-study-extract.md`
