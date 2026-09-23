@@ -4,6 +4,12 @@ Docs in this folder are written for **founder readability** — plain English fi
 
 ## What to read
 
+### Industrial AI global deep dive (2026-09-22)
+
+Source-cited **~55-company** industrial AI / factory intelligence pack: USA, Europe, China, and India dossiers, plain-English tech approaches, and Stamped **Energy vs Process** adjacency mapping. Expands the earlier factory-intelligence baseline. Start at [`industrial-ai-global-2026-09-22/README.md`](industrial-ai-global-2026-09-22/README.md) or the [master TOC](industrial-ai-global-2026-09-22/Industrial_AI_Competitor_and_Tech_Deep_Dive_2026-09-22.md).
+
+### Stamped Energy gap pack
+
 | File | What it is |
 | --- | --- |
 | [00-stamped-capability-baseline.md](00-stamped-capability-baseline.md) | What Stamped already does (plain-English loop at top; detailed cited inventory below) |
