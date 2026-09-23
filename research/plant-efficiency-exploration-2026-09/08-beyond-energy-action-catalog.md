@@ -189,3 +189,24 @@ All outcome figures below are **vendor-claimed** unless a primary filing is cite
 - **URLs:** https://imubit.com/ · https://optimitive.com/
 
 ---
+
+## 6. Phase C — Crosswalk prior research → unlocked actions
+
+| Prior research theme (`08a`) | Catalog IDs | Reuse vs gap |
+|------------------------------|-------------|--------------|
+| Dual wallet / CNC hours (Bhatia, playbooks) | A1–A3, A14, A21 | **Reuse now** — promote as plant-efficiency SKU language |
+| Continuity / handoff / HT fill / rack | A5–A6 | **Reuse now** — vertical-colored; generalize carefully |
+| ADR-024 `mgmt_*` / `maint` | A8–A9, A15–A16, A22 | **Reuse** — tag decision_class + tradeoff on mgmt Rx |
+| INSIGHTS causal record / closure | A20 | **Reuse** — first-class product metric |
+| Zerowatt Rx contract + multi-utility | A13, A15; output shape | **Reuse shape**; substitute software signals for thermal/vibration claims |
+| India MES / production-Rx parked (ADR-026) | A4, A7, A10–A11 | **Exploratory unlock** — list actions; do **not** treat as third product pillar without founder reopen |
+| Doc intake taxonomy | A17–A18 | **Gap** — needs doc connectors; Process beachhead |
+| Fero/Jemba/MadeOS peers (Phase B) | A10–A12, A1–A4, A20 | **Steal** ranked/costed HITL actions; stop before writeback |
+| Camera perception concept | — | **Contrast only** — prefer CNC/SCADA idle over vision SKU |
+| Energy conservation catalog / waste bands | §2 baseline | **Contrast** — already shipping energy spine |
+| Value architecture / competitor pressure | A14, dual evidence | **Reuse** ₹ + minutes evidence doctrine |
+| Competitive industrial-AI pack | Peer section §5 | **Reuse** archetypes; fill India software-only + bill M&V white space |
+
+**Implication:** Many “new” efficiency actions are **already latent** in Bhatia levers + ADR-024 + CNC rules. Truly net-new unlocks needing new software intake: **quality (QMS)**, **setpoint HITL (historian/lab)**, **methods freezes (docs/CAM)**, **ERP capacity triage**.
+
+---

@@ -175,3 +175,5 @@ Canonical research lives under `universal-repositary/` when mirrored across laye
 | MES brief parked production Rx | Throughput/quality as exploratory unlocks |
 
 **Next:** `08-beyond-energy-action-catalog.md` baseline + unlock map + action rows; Phase B peers; Phase C crosswalk.
+
+**Phase C link:** Catalog IDs A1–A22 and reuse/gap table live in [`08-beyond-energy-action-catalog.md`](./08-beyond-energy-action-catalog.md) §6.
