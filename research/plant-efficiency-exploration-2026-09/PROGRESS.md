@@ -12,6 +12,8 @@
 | D India + physical AI | done | 04 |
 | E Vision options | done | 05 |
 | N Synthesis | done | 06, SOURCES |
+| Vision council | done | 07 (uncommitted earlier / see main history as applicable) |
+| Beyond-energy actions | done | 08 + 08a on branch `cursor/beyond-energy-action-catalog` |
 
 ## Blockers
 
@@ -26,3 +28,4 @@
 - [x] Intake→modes with incumbents  
 - [x] Options A–E scored without lock  
 - [x] Deferred doc rewrite list  
+- [x] Beyond-energy action catalog (08) + prior-research landscape (08a)
