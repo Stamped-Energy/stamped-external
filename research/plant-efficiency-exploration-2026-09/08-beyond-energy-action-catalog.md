@@ -103,4 +103,22 @@ Beyond pure bill/tariff energy. Each row: **operator/manager language** → how 
 
 **Count:** 22 rows; ≥15 beyond pure bill/tariff energy. Energy baseline actions (MD stagger, PF, pure ToD shift without ops framing) intentionally omitted here — see §2.
 
+### 4.1 Worked examples (how efficiency is driven)
+
+**A1 — Aux shutdown after idle (promote:availability)**  
+Decision: “Cell 4 has been idle 18 minutes with coolant/aux on — assign operator to shut aux or restart job.”  
+Drives efficiency by converting **wasted machine-minutes** (and parasitic kWh) into available capacity; evidence = idle-minute reduction from CNC state, not only the bill.
+
+**A5 — Handoff wait kill (new-family:flow-continuity)**  
+Decision: “Forge batch ready 40 min before HT slot — pull HT forward or hold forge start.”  
+Drives efficiency by removing **cross-dept queue time** that never appears as a single feeder’s “energy waste”; evidence = wait minutes between MES timestamps.
+
+**A10 — Scrap Pareto owner (new-family:quality-actions)**  
+Decision: “Defect code D12 is 38% of scrap this week — quality + cell lead own a containment action by Friday.”  
+Drives efficiency via **cost of poor quality**, often larger than electricity; needs QMS software data Stamped does not yet take as core intake.
+
+**A12 — HITL setpoint / alloy nudge (new-family:setpoint-hitl)**  
+Decision: “Add minimum alloy to meet tensile — operator confirms before charge.”  
+Drives efficiency via **materials cost + quality variation** (Fero/Gerdau-class, vendor-claimed $3/ton, −15% quality variation). Stamped near-term: only where historian/lab tags exist; never silent DCS writeback.
+
 ---
