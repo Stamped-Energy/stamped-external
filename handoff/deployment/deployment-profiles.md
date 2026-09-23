@@ -2,7 +2,8 @@
 
 > **Authority:** [ADR-010](../../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)  
 > **Research:** `docs/research/enterprise-air-gap-ai-deployment.md` (consumer repos)  
-> **Cost-first cloud + plant-PC edge:** [cost-effective-aws-pilot.md](./cost-effective-aws-pilot.md)
+> **Cost-first cloud + plant-PC edge:** [cost-effective-aws-pilot.md](./cost-effective-aws-pilot.md)  
+> **Bhatia placement (air-gap / hybrid / cloud + IP hardening):** [bhatia-deployment-modes.md](./bhatia-deployment-modes.md)
 
 ---
 
@@ -102,4 +103,5 @@ Bill path: connectors-bill → MQTT `.../bills` → same cloud ingest → L2 `co
 
 | Date | Change |
 |------|--------|
+| 2026-09-23 | Link Bhatia deployment modes SSOT (air-gap / hybrid / cloud + IP hardening) |
 | 2026-07-12 | Initial cross-repo deployment profiles |

@@ -20,4 +20,6 @@ Most are **11-scene technical briefs** (Nestlé / ITC shell). Bhatia Alloy is a 
 | [technical-explainer.html](./technical-explainer.html) | Generic sales collateral (60-day close) |
 | [assets/](./assets/) | Co-located images (open HTML from this folder) |
 
+**Bhatia deployment SSOT (not owner-facing):** [handoff/deployment/bhatia-deployment-modes.md](../../handoff/deployment/bhatia-deployment-modes.md) — air-gap / hybrid / cloud placement, SKUs, BOMs, LLM sizing, IP hardening, discovery checklist.
+
 **Gate:** `python scripts/decks/checks/check-client-decks.py`
