@@ -210,3 +210,46 @@ All outcome figures below are **vendor-claimed** unless a primary filing is cite
 **Implication:** Many “new” efficiency actions are **already latent** in Bhatia levers + ADR-024 + CNC rules. Truly net-new unlocks needing new software intake: **quality (QMS)**, **setpoint HITL (historian/lab)**, **methods freezes (docs/CAM)**, **ERP capacity triage**.
 
 ---
+
+## 7. Candidate new action families (outside modes 1–13)
+
+Exploratory names — not a contract enum lock.
+
+| Family ID | One-line definition | Example catalog rows | Software data gate |
+|-----------|---------------------|----------------------|--------------------|
+| `availability` | Recover machine-minutes from idle/alarm/aux (beyond kWh idle) | A1–A3 | CNC/SCADA state |
+| `flow-continuity` | Kill cross-cell / cross-dept waits and partial-batch continuity loss | A5–A6 | MES timestamps + calendar |
+| `flow-capacity` | Protect constraint capacity and job sequence | A4, A22 | MES/ERP + CNC |
+| `changeover` | Setup/ready discipline before stop | A7 | Stop codes + soft checklist |
+| `capacity-triage` | OT vs shift vs defer with explicit tradeoff | A9, A22 | ERP due dates + hours wallet |
+| `quality-actions` | Scrap/hold decisions with owners | A10–A11 | QMS codes |
+| `setpoint-hitl` | Operator-approved parameter/recipe moves (no silent writeback) | A12 | Historian/lab |
+| `materials-intensity` | Non-electric utilities / chemicals per unit | A13 | Utility meters + production |
+| `methods-freeze` | Adopt/freeze methods, tooling, setup sheets | A17–A18 | Docs/CAM/tooling |
+| `maint-orchestration` | Tie inspect findings to CMMS one-owner closure | A16 | CMMS + findings |
+| `closure` | Assign → escalate → verify on any family | A20 | Workflow |
+
+Relate to `01` modes only as optional rhyme (e.g. availability ≈ mode 3; methods-freeze ≈ mode 11); **do not force** every family into 1–13.
+
+---
+
+## 8. Discovery prompts (plants)
+
+1. After electricity, which controllable monthly loss is largest — scrap, idle hours, overtime, tooling, quality escapes — with rough ₹ and owner?  
+2. Show the last efficiency idea that **didn’t ship**: where it died, who owned it, what proof would have unblocked it.  
+3. Which systems already hold truth for run/idle, scrap, jobs, and maintenance (CNC, MES, QMS, CMMS, Excel)?  
+4. Would you pay for **assigned actions with evidence** (₹ and/or minutes), or only dashboards?  
+5. Across sister plants, what decision is identical enough to buy one playbook (idle discipline, handoff, scrap code X)?  
+6. Software-only for 12 months: which missing signal would force sensors — and is that a must-have?  
+7. If cycle time on the worst part improved 20%, what files/systems would we need to read?
+
+---
+
+## 9. Reading guide
+
+1. [`START-HERE.md`](./START-HERE.md) if cold to the pack  
+2. This file §§1–4 (framing → catalog)  
+3. [`08a-prior-research-landscape.md`](./08a-prior-research-landscape.md) for prior research  
+4. §§5–8 peers, crosswalk, new families  
+
+**Not a strategy lock.** Next: plant discovery against §8 prompts; separate strategy-lock plan if families graduate to product.
