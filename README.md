@@ -12,7 +12,8 @@
 
 - **One product, five decision domains, one card, one owner** — [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
 - **One repo per layer** (L1 edge/cloud/bill, L2–L6) communicates only through **versioned contracts** ([ADR-008](decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md))
-- **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
+- **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) (overall stack; L4 agent / L5 live card)
+- **Coarse evolution:** [`research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md)
 - **Agent entry:** [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` → ADR-030
 - External marketing lives under [`archive/external-marketing-2026-09/`](archive/external-marketing-2026-09/) — **not** company identity
 - Pin consumers to a **specific SHA or semver tag**; never float on `main` in production branches
