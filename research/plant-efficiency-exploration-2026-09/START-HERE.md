@@ -111,7 +111,8 @@ When `07` says “ship modes 1, 2, 7, 8,” it means these product capabilities:
 | [`07-product-vision-council`](./07-product-vision-council.md) | Five models + synthesis: phased “now / pilots / before hardware.” |
 | [`08-beyond-energy-action-catalog`](./08-beyond-energy-action-catalog.md) | **Actions unlocked beyond energy** — software-data map + decision catalog. |
 | [`08a-prior-research-landscape`](./08a-prior-research-landscape.md) | Other Stamped research packs inventory (not only this pack). |
-| [`09-stamped-founder-vision`](./09-stamped-founder-vision.md) | **Founder/co-founder vision** — standalone; what decisions Stamped owns (adopt soon). |
+| [`09-stamped-founder-vision`](./09-stamped-founder-vision.md) | **Founder vision** — canonical company narrative (product name: **Stamped**). |
+| [`10-stamped-vision-agent-alignment`](./10-stamped-vision-agent-alignment.md) | **Agent contract** — machine-consumable alignment for updating older docs to match `09`. |
 
 Supporting: `README.md`, `PROGRESS.md`, `SOURCES.md`, `IMPLEMENTATION_PLAN.md` — skip until you care about process/meta.
 
@@ -127,7 +128,8 @@ Supporting: `README.md`, `PROGRESS.md`, `SOURCES.md`, `IMPLEMENTATION_PLAN.md` �
 4. [`05-product-vision-option-space.md`](./05-product-vision-option-space.md) — options A–E + comparative table only
 5. [`07-product-vision-council.md`](./07-product-vision-council.md) — sections 4–5 first (recommendation + phased capabilities), then 2–3 if curious
 6. [`08-beyond-energy-action-catalog.md`](./08-beyond-energy-action-catalog.md) — §§1–4 (beyond-energy actions); skim [`08a`](./08a-prior-research-landscape.md) for prior-research context
-7. [`09-stamped-founder-vision.md`](./09-stamped-founder-vision.md) — if you want the co-founder-ready company vision in one file (no other docs required)
+7. [`09-stamped-founder-vision.md`](./09-stamped-founder-vision.md) — canonical company vision (product: **Stamped**)
+8. [`10-stamped-vision-agent-alignment.md`](./10-stamped-vision-agent-alignment.md) — when an AI agent must realign older Stamped / Stamped Energy material to `09`
 
 ### Pass B — ~90 minutes
 
