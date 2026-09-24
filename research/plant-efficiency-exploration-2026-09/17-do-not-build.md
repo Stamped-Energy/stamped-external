@@ -2,11 +2,11 @@
 
 **Date:** 2026-09-24
 **Status:** Boundary for the coarse pass and for the layer repos that follow it.
-**Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md) §12 and §8. The agent in [`14-coarse-architecture.md`](14-coarse-architecture.md) is in scope. The list below is not.
+**Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md) §12 and §8. The L4 **agentic system** and an open L3 detection ceiling in [`14-coarse-architecture.md`](14-coarse-architecture.md) / [`technical/STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md) are in scope. The list below is not.
 
 ## In scope, so it is not on this list
 
-L4 as a long-lived agent. Hindsight as its memory. A cross-section check before one card. Specialist passes that reconcile into that one card. Decision seams a later decision model may fill. A certified autonomy catalog that defaults to off. A richer L6 card, including constraint editing and Ask.
+L4 as a proper agentic system (planning, tools, memory, evaluation — not memory alone). Hindsight as the memory subsystem. A cross-section check before one card. Specialist passes that reconcile into that one card. Decision seams a later decision model may fill. L3 detection / methods / eval uplift above today’s floor. A certified autonomy catalog that defaults to off. A richer L6 card, including constraint editing and Ask. Studying state-of-the-art agentic systems to raise the bar.
 
 ## Failure modes copied from peers
 
