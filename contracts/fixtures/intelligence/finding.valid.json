@@ -55,5 +55,15 @@
     "severity": "error",
     "category_code": "md.coincidence"
   },
-  "dedupe_key": "sha256:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+  "dedupe_key": "sha256:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+  "detector_id": "det.md_overlap",
+  "detector_version": "1.0.0",
+  "decision_family_id": "fam.md_coincidence",
+  "condition_key": "ck:md_overlap:incomer_1:2026-06-15T06:00:00Z/2026-06-15T07:00:00Z",
+  "condition_key_material": {
+    "asset_ids": ["incomer_1"],
+    "state_window": "2026-06-15T06:00:00Z/2026-06-15T07:00:00Z",
+    "shift_id": "shift-a"
+  },
+  "constraint_refs_considered": ["cstr.min_header_bar"]
 }

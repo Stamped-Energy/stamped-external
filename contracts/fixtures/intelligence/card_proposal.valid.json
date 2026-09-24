@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "cp-2026-09-25-0001",
+  "proposal_version": "1",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "decision_case_id": "dc-2026-09-25-0001",
+  "decision_trace_id": "dt-2026-09-25-0001",
+  "condition_key": "ck:md_overlap:incomer_1:2026-06-15T06:00:00Z/2026-06-15T07:00:00Z",
+  "emit_idempotency_key": "dc-2026-09-25-0001:emit:sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "origin": "l3_finding",
+  "exploration": false,
+  "primary_domain_id": "dom.energy_cost",
+  "owner_role": "utilities_lead",
+  "footprint": {
+    "asset_ids": ["incomer_1", "furnace_1"],
+    "shared_resource_ids": ["feeder_main"],
+    "crew_role": "utilities_lead",
+    "time_window": "2026-09-25T14:00:00Z/2026-09-25T16:00:00Z"
+  },
+  "evidence_refs": ["ev-incomer-kva-2026-06-15", "ev-furnace-start"],
+  "calculator_refs": ["calc.md_overlap.v1"],
+  "verification_plan": {
+    "measurement_boundary": "incomer_1",
+    "signal_refs": ["incomer_1/apparent_power_kva"],
+    "window": "PT30M",
+    "success_predicate": "apparent_power_kva in baseline band for stabilize window",
+    "method_options": ["ops_clearance"]
+  },
+  "lockfile_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "build_sha": "2e6edc28c2b508b8025565e4f1326b3d4a349424",
+  "operation": "emit",
+  "finding_refs": ["f-2026-07-08-0042"],
+  "recommended_action": {
+    "template_id": "tmpl.stagger_furnace_start.v1",
+    "summary": "Stagger furnace start off incomer coincidence window"
+  },
+  "alternatives": [
+    {
+      "kind": "no_action",
+      "summary": "Leave coincidence; accept demand-charge exposure"
+    }
+  ]
+}

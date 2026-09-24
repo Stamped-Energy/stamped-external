@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ### Added
 
+- Contracts **0.15.0**: L4 decision runtime wire schemas (`decision-case`, `decision-trace`, `card-proposal`, `opportunity-ledger-row` 1.0.0); additive Finding intake-floor fields (schema_version stays 1.2.0). `prescription` and `l4-compile-trace` marked deprecated (dual-read retained). See [contracts/CHANGELOG.md](contracts/CHANGELOG.md)
 - [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md) — five-domain choose / assign / verify framing lock
 - Vision authority pack entry: [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md)
 - Always-on rule `stamped-vision.mdc` and [`scripts/vision-identity-lint.ps1`](scripts/vision-identity-lint.ps1)

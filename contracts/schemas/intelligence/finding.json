@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/finding.v1.json",
   "title": "Finding",
-  "description": "L3 → L4 structured finding. Numeric intelligence only — no prose. v1.2.0 adds value_domain (two-pillar) + equipment-health categories. See technical/03-two-pillar-technical-bridge.md · ADR-020.",
+  "description": "L3 → L4 structured finding. Numeric intelligence only — no prose. v1.2.0 adds value_domain (two-pillar) + equipment-health categories. Additive optional intake-floor fields (detector_id, detector_version, decision_family_id, condition_key / condition_key_material, constraint_refs_considered) do not bump schema_version — dual-read stays 1.2.0. See technical/03-two-pillar-technical-bridge.md · ADR-020 · technical/l4/15-l3-l4-interface.md.",
   "type": "object",
   "required": [
     "schema_version",
@@ -35,24 +35,46 @@
     "plant_id": { "type": "string", "minLength": 1 },
     "detector_id": {
       "type": "string",
-      "description": "L4 intake floor (ADR-033/doc 07) — certified detector id"
+      "minLength": 1,
+      "description": "Optional L4 intake floor (ADR-033 / doc 07) — detector identity. Missing at intake → reject in runtime, not a schema break."
     },
     "detector_version": {
       "type": "string",
-      "description": "L4 intake floor — certified detector version"
+      "minLength": 1,
+      "description": "Optional L4 intake floor — detector version pin. Uncertified versions are shadow-only."
     },
     "decision_family_id": {
       "type": "string",
-      "description": "Finding family registry id for L4 routing"
+      "minLength": 1,
+      "description": "Optional L4 intake floor — family registry id (primary domain is derived from this, not chosen by a model)"
     },
     "condition_key": {
       "type": "string",
-      "description": "Shared condition key material when L3 already computed it"
+      "minLength": 1,
+      "description": "Optional precomputed shared key. If absent, L4 computes from condition_key_material (or enough existing fields)."
+    },
+    "condition_key_material": {
+      "type": "object",
+      "description": "Ingredients for the shared condition-key function (asset, state window, shift). Alternative to a precomputed condition_key.",
+      "properties": {
+        "asset_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "state_window": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 interval"
+        },
+        "shift_id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
     },
     "constraint_refs_considered": {
       "type": "array",
-      "items": { "type": "string" },
-      "description": "Constraint row ids considered by L3 for this Finding"
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Optional L4 intake floor — constraint ids L3 already considered"
     },
     "category": {
       "type": "string",

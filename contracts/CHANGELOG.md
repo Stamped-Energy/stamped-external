@@ -4,6 +4,17 @@
 
 ### Added
 
+- Contracts **0.15.0** (ADR-033 / ADR-038 / ADR-040): L4 decision runtime wire schemas — `decision-case`, `decision-trace`, `card-proposal`, `opportunity-ledger-row` each **1.0.0**. `card-proposal` carries doc-18 L4→L5 fields (`condition_key`, `supersedes`, `emit_idempotency_key`, `origin`, `primary_domain_id`, `owner_role`, `footprint`, `evidence_refs`, `calculator_refs`, `verification_plan`, `lockfile_hash`, `build_sha`). Kernel pin `l4-kernel.v1` on case and trace.
+- `finding.json` **1.2.0** (const unchanged, dual-read): optional intake-floor fields `detector_id`, `detector_version`, `decision_family_id`, `condition_key`, `condition_key_material`, `constraint_refs_considered`
+- Golden valid/invalid fixtures under `fixtures/intelligence/` for the new schemas
+
+### Deprecated
+
+- `prescription.json` **1.0.0** — dual-read retained; new L4 emits use `card-proposal` 1.0.0
+- `l4-compile-trace.json` **1.0.0/1.1.0** — dual-read retained; new L4 traces use `decision-trace` 1.0.0
+
+### Added (prior unreleased)
+
 - Contracts **0.14.0** (ADR-031): L1 context records — `asset_state`, `process_batch`, `flow_position`, `maintenance_context`, `quality_status`, `material_availability`, `operating_rate`, `plant_constraint`; pack schema; `tools/l2-query-tools.json`
 - Envelope `record_type` enum extended additively (shape and `schema_version` 1.0.0 unchanged)
 - MQTT `orders` and `context` topics with wrapper and dedupe strings

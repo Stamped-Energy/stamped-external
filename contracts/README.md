@@ -9,10 +9,10 @@ Shared schemas and MQTT topic conventions for all L1 publishers (edge agent, bil
 
 | Artifact | Status |
 | --- | --- |
-| JSON Schemas (`schemas/{topic}/*.json`) | **Implemented** — nested by topic (envelope, telemetry, intelligence, closure, plant, config). ADR-029: `action-intent`, `machine-capability`. ADR-028: `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace` |
+| JSON Schemas (`schemas/{topic}/*.json`) | **Implemented** — nested by topic (envelope, telemetry, intelligence, closure, plant, config). ADR-033: `decision-case`, `decision-trace`, `card-proposal`, `opportunity-ledger-row`. ADR-029: `action-intent`, `machine-capability`. ADR-028: `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace` (deprecated) |
 | Golden fixtures (`fixtures/{topic}/*.json`) | **Implemented** — valid payloads + `fixtures/golden/dedupe_golden.json` |
 | [TOPICS.md](TOPICS.md) | Draft topic layout |
-| [CHANGELOG.md](CHANGELOG.md) | Current: **0.13.0** unreleased (see changelog) |
+| [CHANGELOG.md](CHANGELOG.md) | Current: **0.15.0** unreleased (see changelog) |
 
 **CI:** run [../scripts/contracts/contract-check.sh](../scripts/contracts/contract-check.sh) from consumer repo (path: `external/scripts/contracts/contract-check.sh`).
 
