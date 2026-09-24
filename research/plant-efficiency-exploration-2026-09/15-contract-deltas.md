@@ -1,8 +1,22 @@
 # Contract deltas — coarse fields
 
-**Date:** 2026-09-24
+**Date:** 2026-09-24  
+**Amended:** 2026-09-25 — see [`../../technical/l4/18-contract-deltas.md`](../../technical/l4/18-contract-deltas.md) for the L4-era field list. Prefer that file + ADRs 033–039 when this note conflicts.  
 **Status:** Field names for a later schema bump in this submodule. Not JSON Schema yet.
 **Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md). Shape: [`14-coarse-architecture.md`](14-coarse-architecture.md).
+
+### Amendments (2026-09-25)
+
+| Prior | Now |
+| --- | --- |
+| Card proposal emitted only on terminal `emit`; `finding_refs` required | Terminals include `supersede`. `origin` + optional `pattern_ref` / `hypothesis_type_id`; Finding path still uses `finding_refs`; discovery builds sections/verification via L3 builders |
+| `secondary_domains` — each one of the five domain names | Domain **registry ids** (product framing still five under ADR-030; architecture may add more) |
+| Uncertainty from tier and freshness only | Also dual-family **agreement** as confidence signal on routing; disagreement on action-affecting seams → **withhold** (hard) |
+| `compile_trace_id` | `decision_trace_id` + `lockfile_id` + `footprint` + `exploration` boolean + `operation` / supersede refs |
+| Customer view hides all withholds | Hard-gate withholds stay hidden on Now; soft-gate blocks → owner opportunity backlog |
+| Low confidence → generative agent | Removed — see ADR-036 |
+
+**Implementers:** use [`../../technical/l4/18-contract-deltas.md`](../../technical/l4/18-contract-deltas.md) as the field list. The body below is the pre-amendment sketch retained for history; where it conflicts with the amendment table or `l4/18`, those win.
 
 Prescription **1.0.0** is not edited in place. It rejects unknown fields and is energy-shaped. The card proposal is a new schema beside it. L5 reads both until 1.0.0 is retired.
 

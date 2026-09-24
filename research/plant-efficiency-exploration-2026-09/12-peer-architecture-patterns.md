@@ -5,6 +5,8 @@
 **Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md) wins on conflict.  
 **Confidence:** **High** means a vendor doc or product page states it. **Medium** means a consistent implication. **Low** means a third-party or thin public record. Nothing here is a private architecture.
 
+**L4 follow-on:** for agent-system peers, dual-model reviews, plant-wide methods, and the L4 adopt map, use [`19-l4-agent-peer-systems.md`](19-l4-agent-peer-systems.md). Keep this file for the earlier layer adopt / adapt / reject map.
+
 ## Sight Machine — semantic model and investigation agents
 
 **Paradigm (High):** plant data is mapped into a semantic model so agents can investigate and recommend. Public pages name controls, historians, MES, and ERP as sources, and describe expert approval of mappings before agents reason. FactoryTX docs describe edge or cloud collection into a cloud path. **Medium:** that path is acquisition into their cloud, not a bidirectional equipment bus. Public docs reviewed here do not describe silent PLC write-back as a first-class product path (**High** that the acquisition docs are one-directional; **Low** on whether an undocumented connector writes back).

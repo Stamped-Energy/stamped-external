@@ -1,10 +1,24 @@
 # Coarse architecture — how L1–L6 evolves
 
-**Date:** 2026-09-24
-**Status:** Coarse target. Fine design belongs in each layer repo.
+**Date:** 2026-09-24  
+**Amended:** 2026-09-25 — L4 architecture set. Prefer [`../../technical/l4/`](../../technical/l4/) and ADRs [033](../../decisions/033-039/ADR-033-l4-decision-runtime.md)–[039](../../decisions/033-039/ADR-039-registries-and-stage-graph.md) when this note conflicts. Peers: [`19-l4-agent-peer-systems.md`](19-l4-agent-peer-systems.md).  
+**Status:** Coarse target. Fine design belongs in each layer repo.  
 **Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md), then [`10-stamped-vision-agent-alignment.md`](10-stamped-vision-agent-alignment.md). This file does not replace either.
 **As-built:** [`13-as-built-invariants.md`](13-as-built-invariants.md).
 **Patterns:** [`12-peer-architecture-patterns.md`](12-peer-architecture-patterns.md).
+
+### Amendments (2026-09-25) — do not re-open as debate
+
+| Prior wording in this note | Now |
+| --- | --- |
+| L4 turns a Finding into a card | Also certified discovery patterns and opt-in grounded-hypothesis lane ([ADR-035](../../decisions/033-039/ADR-035-l4-discovery.md)) |
+| Terminals emit / withhold / abstain | Adds **supersede**; portfolio **hold** is L4-internal |
+| L2 is the only database | Still true for **plant truth**; L4 operational store holds derived PSM / traces / case library / opportunity ledger ([ADR-034](../../decisions/033-039/ADR-034-plant-situation-model-and-memory.md)) |
+| Low-confidence → generative agent | Disagreement on action / owner / constraint / verification / terminal → **withhold**; routing seams → registry default ([ADR-036](../../decisions/033-039/ADR-036-dual-family-models.md)) |
+| Tools = agent typed reads | Adds **builder reads** (PSM) and L3 method tools; catalogs stay separate |
+| Jev seams reserved, unspecified | Specified in [`../../technical/l4/11-models-and-seams.md`](../../technical/l4/11-models-and-seams.md); LLM-only in v1 |
+| Mental models change only after owner accept | Questions owner-gated; refreshed **content** is advisory |
+| Customer UI hides all withholds | Hard-gate blocks stay hidden; soft-gate blocks → owner opportunity backlog ([ADR-038](../../decisions/033-039/ADR-038-soft-gates-opportunity-ledger.md)) |
 
 **Stamped helps plant teams choose, assign, and verify the next operating action across energy, cost, time / throughput, continuity / flow, and short-horizon exceptions.**
 
@@ -14,7 +28,7 @@ The six-layer path stays. L4 is rebuilt into a **proper agentic system** (planni
 
 **L1 stays read-only.** A connector is added when a named decision family needs that source. Pilot 1 uses machine state and load the edge path already accepts. No equipment write. No plant message broker.
 
-**L2 grows a little.** It remains the only database. It stores a constraint registry (scope, owner, expiry, source), who holds a role on a shift, and a condition key: asset, state window, and shift. A named plant owner writes constraints in L6. L2 stores them. L4 only reads them. If no live family reads a relation, it does not get a table.
+**L2 grows a little.** It remains the only database for **plant truth** (Timescale / SoR). It stores a constraint registry (scope, owner, expiry, source), who holds a role on a shift, condition keys, and published topology records. A named plant owner writes constraints in L6. L2 stores them. L4 reads them and may hold **derived** operational data in its own store (PSM, traces, case library, opportunity ledger, OE corpus index) — not a second plant SoR. If no live family reads a relation, it does not get a plant-truth table.
 
 **L3 keeps a contract floor and an open tech ceiling.** Hot, warm, and cold paths, dual-lane emit, no database URL, lab never promotes, calculator owns money — those stay. Each finding gains a condition key, a decision-family id, a primary domain taken from that family, evidence-tiered facts, an effect per domain section, and a verification plan. Findings that share a condition key merge before L4. Beyond that floor, L3 is allowed and expected to become far stronger (methods, features, evals, multi-signal detection). That uplift is designed in the L3 repos later; this note does not freeze today’s detector catalog as the ambition.
 
