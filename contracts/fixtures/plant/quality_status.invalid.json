@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_demo",
+  "plant_id": "plant_bhatia",
+  "subject_type": "lot",
+  "subject_id": "HT-1001",
+  "status": "hold",
+  "since": "2026-09-25T05:00:00Z",
+  "observed_at": "2026-09-25T06:20:00Z",
+  "lineage": {
+    "source_system": "fixture",
+    "connector_id": "ctx-1",
+    "pack_id": "generic-csv",
+    "pack_version": "1.0.0",
+    "source_record_id": "row-1"
+  }
+}

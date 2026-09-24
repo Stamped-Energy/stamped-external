@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/pack.v1.json",
+  "title": "SystemPack",
+  "description": "YAML/JSON pack that maps a plant system export or API into one L1 record type.",
+  "type": "object",
+  "required": [
+    "pack_id",
+    "pack_version",
+    "engine",
+    "record_type",
+    "field_map"
+  ],
+  "properties": {
+    "pack_id": { "type": "string", "minLength": 1 },
+    "pack_version": { "type": "string", "minLength": 1 },
+    "engine": {
+      "type": "string",
+      "enum": ["file_rows", "rest_rows", "sql_rows", "opcua_state"]
+    },
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "measurement",
+        "event",
+        "production_record",
+        "production_order",
+        "bill_line",
+        "asset_state",
+        "process_batch",
+        "flow_position",
+        "maintenance_context",
+        "quality_status",
+        "material_availability",
+        "shift_roster",
+        "operating_rate"
+      ]
+    },
+    "field_map": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "timezone": {
+      "type": "string",
+      "default": "Asia/Kolkata",
+      "description": "IANA timezone for source timestamps without offsets"
+    },
+    "date_format": {
+      "type": "string",
+      "description": "e.g. dd-mm-yyyy or dd/mm/yyyy"
+    },
+    "number_grouping": {
+      "type": "string",
+      "enum": ["lakh", "international"],
+      "default": "international"
+    },
+    "asset_ref": {
+      "type": "string",
+      "description": "Column or JSON path naming a machine/line; resolved via site asset_aliases"
+    },
+    "secret_ref": {
+      "type": "string",
+      "description": "Name of env/file secret reference only — never a literal password"
+    },
+    "description": { "type": "string" }
+  },
+  "additionalProperties": false
+}

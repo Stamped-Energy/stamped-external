@@ -1,16 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://stamped.energy/schemas/shift-roster.v1.json",
-  "title": "ShiftRoster",
-  "description": "Optional named people on shift (ADR-028). If absent, Rx must use owner_resolution=role_only \u2014 never invent a name.",
+  "$id": "https://stamped.energy/schemas/maintenance-context.v1.json",
+  "title": "MaintenanceContext",
+  "description": "Read-only maintenance work context. Stamped does not authorize or close work orders.",
   "type": "object",
   "required": [
     "schema_version",
     "org_id",
     "plant_id",
-    "shift_id",
-    "window",
-    "assignments"
+    "work_id",
+    "asset_id",
+    "status",
+    "blocks_production",
+    "observed_at",
+    "lineage"
   ],
   "properties": {
     "schema_version": {
@@ -26,7 +29,11 @@
       "type": "string",
       "minLength": 1
     },
-    "shift_id": {
+    "work_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asset_id": {
       "type": "string",
       "minLength": 1
     },
@@ -36,6 +43,7 @@
         "start_utc",
         "end_utc"
       ],
+      "additionalProperties": false,
       "properties": {
         "start_utc": {
           "type": "string",
@@ -45,42 +53,23 @@
           "type": "string",
           "format": "date-time"
         }
-      },
-      "additionalProperties": false
-    },
-    "assignments": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "role",
-          "department_id"
-        ],
-        "properties": {
-          "role": {
-            "type": "string",
-            "minLength": 1
-          },
-          "department_id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "person_id": {
-            "type": "string"
-          },
-          "display_name": {
-            "type": "string"
-          },
-          "asset_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "additionalProperties": false
       }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "open",
+        "in_progress",
+        "done",
+        "cancelled"
+      ]
+    },
+    "blocks_production": {
+      "type": "boolean"
+    },
+    "summary": {
+      "type": "string"
     },
     "observed_at": {
       "type": "string",
