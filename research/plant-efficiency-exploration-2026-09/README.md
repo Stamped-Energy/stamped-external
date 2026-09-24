@@ -8,6 +8,9 @@
 | 2 | [`09-stamped-founder-vision.md`](./09-stamped-founder-vision.md) | Canonical company vision — wins on conflict |
 | 3 | [`10-stamped-vision-agent-alignment.md`](./10-stamped-vision-agent-alignment.md) | Operating contract for alignment |
 | — | [`START-HERE.md`](./START-HERE.md) | Human index |
+| — | [`12-peer-architecture-patterns.md`](./12-peer-architecture-patterns.md) | Layer adopt / adapt / reject map |
+| — | [`19-l4-agent-peer-systems.md`](./19-l4-agent-peer-systems.md) | L4 agent peers, literature, dual-model resolutions |
+| — | [`20-oe-knowledge-retrieval.md`](./20-oe-knowledge-retrieval.md) | OE knowledge corpus / GraphRAG pattern choice and ingest list |
 
 Research files `00`–`08a` were removed from the live tree after the vision lock. Recover them from git tag `v2026.09.24` if needed as history. Do not reopen them as a second company.
 

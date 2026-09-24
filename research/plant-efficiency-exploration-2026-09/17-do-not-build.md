@@ -1,8 +1,9 @@
 # What this architecture will not build
 
-**Date:** 2026-09-24
+**Date:** 2026-09-24  
+**Amended:** 2026-09-25 — L4 architecture set does **not** move these exclusions. It adds: no multi-round debate/voting; no LLM as constraint evaluator or money owner; no silent soft-gate promotion; no auto-accepted topology suggestions; no free LLM discovery emit without L3 grounding. Detail: [`../../technical/l4/19-failure-modes.md`](../../technical/l4/19-failure-modes.md).  
 **Status:** Boundary for the coarse pass and for the layer repos that follow it.
-**Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md) §12 and §8. The L4 **agentic system** and an open L3 detection ceiling in [`14-coarse-architecture.md`](14-coarse-architecture.md) / [`technical/STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md) are in scope. The list below is not.
+**Authority:** [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md) §12 and §8. The L4 **agentic system** and an open L3 detection ceiling in [`14-coarse-architecture.md`](14-coarse-architecture.md) / [`technical/STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md) / [`technical/l4/`](../../technical/l4/) are in scope. The list below is not.
 
 ## In scope, so it is not on this list
 
