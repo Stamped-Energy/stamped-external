@@ -21,7 +21,7 @@ Sibling L3 repos: **intelligence-core** (engines / outbox / LabLog) · **stamped
 
 - Offline-first eval: score checked-in **RunArtifact 1.1.0** goldens — no pip dependency on intelligence-core
 - Dual-lane Lab IA (ADR-015): **L4** = `delivery=l4` ∧ `status=emitted`; **Discovery** = everything else (retained, not failure)
-- Corpus **v1.1** = **16** Finding categories (two-pillar `value_domain`) + of-record expects; precision gate floor **0.75** (`config/gates.yaml`; optional `precision_min_pillar1` / `precision_min_pillar2`)
+- Corpus **v1.1** = **16** Finding categories (`value_domain`) + of-record expects; precision gate floor **0.75** (`config/gates.yaml`; optional `precision_min_pillar1` / `precision_min_pillar2`)
 - Lab console: Triage · dual-board forensic · Coverage (families A–H) · Expects · **Explore** · Detectors (pillar filter) · Gates · Compare · Live (+ Intelligence Score panel)
 - Showcase pack with synthetic `inputs.series` for demos; gate/validate stays pinned to `corpus/v1`
 - Download RunArtifacts / reports as **JSON**; tabular matrices as **CSV** (`/api/export/*`)
@@ -54,7 +54,7 @@ Sibling L3 repos: **intelligence-core** (engines / outbox / LabLog) · **stamped
 
 ### 1.1 What it is
 
-An **L3 evaluation workbench** for Stamped Energy: maintain a golden corpus of telemetry windows, score offline RunArtifacts into eval reports, gate precision/recall, compare champion vs challenger reports, and give engineers a dense forensic Lab to inspect every candidate detection (emitted, suppressed, shadow, hypothesis) with clear segregation between outbox-bound (L4) and retained discovery (Lab-only).
+An **L3 evaluation workbench** for Stamped: maintain a golden corpus of telemetry windows, score offline RunArtifacts into eval reports, gate precision/recall, compare champion vs challenger reports, and give engineers a dense forensic Lab to inspect every candidate detection (emitted, suppressed, shadow, hypothesis) with clear segregation between outbox-bound (L4) and retained discovery (Lab-only).
 
 ### 1.2 What it is not
 

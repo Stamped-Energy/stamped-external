@@ -1,24 +1,24 @@
-# ADR-023: L6 EMS console and dual-mode analyst context
+# ADR-023: L6 next-action surfaces and dual-mode analyst context
 
 | Field | Value |
 | --- | --- |
-| **Status** | Accepted |
+| **Status** | Accepted (identity revised 2026-09-24) |
 | **Date** | 2026-07-21 |
 | **Deciders** | Engineering (L6 architecture + UI handoff) |
-| **Related** | [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](ADR-020-l5-mv-claim-governance.md) · [ADR-021](ADR-021-l5-notification-and-evidence.md) · [ADR-022](ADR-022-l6-bff-runtime-boundary.md) · [L5 SSOT](../../technical/layers/l4-l6/L5-closure-and-verification.md) · [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md) · [workflow-event.json](../../contracts/schemas/envelope/workflow-event.json) |
+| **Related** | [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](ADR-020-l5-mv-claim-governance.md) · [ADR-021](ADR-021-l5-notification-and-evidence.md) · [ADR-022](ADR-022-l6-bff-runtime-boundary.md) · [ADR-030](../028-032/ADR-030-five-domain-decision-loop.md) · [L5 SSOT](../../technical/layers/l4-l6/L5-closure-and-verification.md) · [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md) · [workflow-event.json](../../contracts/schemas/envelope/workflow-event.json) |
 
 ---
 
 ## Context
 
-Product decisions (2026-07-21):
+Product decisions (2026-07-21), restated under ADR-030 (2026-09-24):
 
-1. L6 is an **ops-first control room**, not a chart gallery.
-2. EMS-style alarms are detected/hinted by L3, routed by L5, and **rendered/acted in L6**.
-3. The analyst must not live only as a left-rail drawer: it needs a **full workspace** and a **route-aware side assistant**.
-4. Cognitive load must stay low: advanced EMS/energy modules appear via **progressive reveal**, never by dumping every skill on Today.
+1. L6 is an **ops-first control room** for the next operating action — not a chart gallery and not an energy-management product.
+2. Alarms and exceptions are detected/hinted by L3, routed by L5, and **rendered/acted in L6**.
+3. The analyst needs a **full workspace** and a **route-aware side assistant**.
+4. Cognitive load stays low: advanced modules appear via **progressive reveal**.
 
-L4 owns RAG/agent runtime ([ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)); L6 owns chat UX only.
+L4 owns RAG/agent runtime ([ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)); L6 owns chat UX only. Product identity: [ADR-030](../028-032/ADR-030-five-domain-decision-loop.md).
 
 ---
 
@@ -26,7 +26,7 @@ L4 owns RAG/agent runtime ([ADR-018](../016-020/ADR-018-l4-pilot-execution-knowl
 
 | # | Topic | Decision |
 | --- | --- | --- |
-| 1 | EMS ownership | **L6 renders** alarm console; **L5 owns** raise/ack/escalate/silence/clear truth |
+| 1 | Alarm / exception UI | **L6 renders** the console; **L5 owns** raise/ack/escalate/silence/clear truth |
 | 2 | Alarm states | `raised` · `acked` · `escalated` · `silenced` · `cleared` (from L5 / `WorkflowEvent`) |
 | 3 | Home density | Today shows **≤7** decision signals; advanced modules behind role-aware **More / Reveal** |
 | 4 | Analyst modes | **Dual-mode**: (A) contextual side assistant, (B) full `/analyst` workspace |
@@ -38,12 +38,12 @@ L4 owns RAG/agent runtime ([ADR-018](../016-020/ADR-018-l4-pilot-execution-knowl
 
 ---
 
-## 1. EMS console (P0)
+## 1. Alarm and exception console (P0)
 
 | Concern | Rule |
 | --- | --- |
 | Data | L5 alarm list query + SSE `alarm_*` / `ops_*` events |
-| Actions | Ack / escalate / silence / open evidence / link Rx — POSTs through L6 BFF → L5 with Idempotency-Key |
+| Actions | Ack / escalate / silence / open evidence / link decision card — POSTs through L6 BFF → L5 with Idempotency-Key |
 | UX | Severity-first, ageing badges, keyboard triage, stale-connection banner, mobile-capable ack |
 | Colour | ISA-101: grayscale normal; colour only for abnormal / overdue |
 | Non-goal | L6 is **not** a SCADA HMI or OT alarm system of record |
@@ -52,14 +52,14 @@ L4 owns RAG/agent runtime ([ADR-018](../016-020/ADR-018-l4-pilot-execution-knowl
 
 ## 2. Progressive disclosure
 
-Primary nav (always): **Today · Alarms · Prescriptions · Evidence · Analyst · Reports**.
+Primary nav (always): **Today · Alarms · Decision cards · Evidence · Analyst · Reports**.
 
-Role-gated **More** reveals: Energy analytics, Equipment health, TOD/MD, Intensity/CO₂, Integrations, Admin.
+Role-gated **More** reveals: Energy domain analytics, Equipment health, TOD/MD, Intensity/CO₂, Integrations, Admin.
 
 Rules:
 
 - Reveal preference remembered per user.
-- Critical open alarms and assigned Rx **cannot** be hidden by collapsing More.
+- Critical open alarms and assigned cards **cannot** be hidden by collapsing More.
 - Today never becomes a dashboard of every module.
 
 ---
@@ -68,7 +68,7 @@ Rules:
 
 ### Mode A — Contextual side assistant (P0 shell)
 
-Mounted beside a working screen (Alarms, Prescriptions, Evidence, Energy, …).
+Mounted beside a working screen (Alarms, Decision cards, Evidence, …).
 
 ```text
 AnalystContextEnvelope {
@@ -87,7 +87,7 @@ AnalystContextEnvelope {
 
 ### Mode B — Full analyst workspace (P1)
 
-Route `/analyst`: conversation column, sources/citations, evidence canvas, saved investigations, **handoff-to-action** (create/open Rx, deep-link alarm) with human confirm.
+Route `/analyst`: conversation column, sources/citations, evidence canvas, saved investigations, **handoff-to-action** (create/open card, deep-link alarm) with human confirm.
 
 ---
 
@@ -102,8 +102,8 @@ Route `/analyst`: conversation column, sources/citations, evidence canvas, saved
 
 ## Consequences
 
-- L6 SSOT phasing moves conversational analyst from vague P3 → **P0 contextual / P1 full**.
-- UI charter must specify EMS console and both analyst modes with acceptance criteria.
+- L6 SSOT phasing: conversational analyst **P0 contextual / P1 full**.
+- UI charter specifies alarm/exception console and both analyst modes.
 - Reference seed implements Mode A chrome + Mode B layout against fixtures; live L4 wiring is consumer P1.
 
 ---
@@ -113,6 +113,6 @@ Route `/analyst`: conversation column, sources/citations, evidence canvas, saved
 | Option | Rejected because |
 | --- | --- |
 | Drawer-only AI (demo `AiDrawer`) | Undervalues investigation; context of active screen is weak |
-| Full analyst in P0 | Blocks EMS/queue closure on L4 maturity |
+| Full analyst in P0 | Blocks queue closure on L4 maturity |
 | Silent full-page context scrape | Prompt injection + PII/secret leak risk |
-| Separate EMS micro-frontend | Over-splits one product; progressive reveal covers density |
+| Separate alarm micro-frontend | Over-splits one product; progressive reveal covers density |

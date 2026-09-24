@@ -1,6 +1,6 @@
-# L3 TradeoffEngine — deadline & department-aware ranking
+﻿# L3 TradeoffEngine — deadline & department-aware ranking
 
-> **Authority:** [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [L3 intelligence core](../../technical/layers/l3/L3-intelligence-core.md) · contracts: [`production-order.json`](../../contracts/schemas/plant/production-order.json), [`plant-department-graph.json`](../../contracts/schemas/plant/plant-department-graph.json), prescription `tradeoff`  
+> **Authority:** [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [L3 intelligence core](../../technical/layers/l3/L3-intelligence-core.md) · contracts: [`production-order.json`](../../contracts/schemas/plant/production-order.json), [`plant-department-graph.json`](../../contracts/schemas/plant/plant-department-graph.json), prescription `tradeoff`  
 > **Audience:** intelligence-core / rulepacks agents  
 > **Status:** Spec for P1 build — not yet in consumer runtime
 
@@ -29,8 +29,8 @@ Deterministic numbers only. L4 formats prose and attaches the trade-off block to
 ## 3. Algorithm (v1 — boring)
 
 ```
-1. Enumerate template-parameterised candidates (e.g. stagger_min ∈ {5,8,12};
-   exclude_line_ids ∈ subsets that still break coincidence).
+1. Enumerate template-parameterised candidates (e.g. stagger_min âˆˆ {5,8,12};
+   exclude_line_ids âˆˆ subsets that still break coincidence).
 2. For each candidate:
    a. Simulate peak kVA / TOD exposure / holding kWh (existing simulators).
    b. Compute energy_benefit_inr via impact calculator.
@@ -51,7 +51,7 @@ Deterministic numbers only. L4 formats prose and attaches the trade-off block to
 
 ## 4. Outputs
 
-Attached to Finding extras or L4 tool result → Prescription.tradeoff:
+Attached to Finding extras or L4 tool result â†’ Prescription.tradeoff:
 
 | Field | Required for mgmt_* |
 | --- | --- |
@@ -60,7 +60,7 @@ Attached to Finding extras or L4 tool result → Prescription.tradeoff:
 | `order_context` | Yes (`known` \| `partial` \| `unknown`) |
 | `order_ids` | When known |
 | `recommended_window` | Yes |
-| `alternatives` | ≥1 when primary has order conflict |
+| `alternatives` | â‰¥1 when primary has order conflict |
 | `department_owners` | Yes |
 
 ---

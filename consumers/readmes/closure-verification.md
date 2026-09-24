@@ -707,4 +707,4 @@ Read in order before changing L5 semantics:
 5. [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) · [`DECISIONS.md`](DECISIONS.md) · [`PROJECT_OVERVIEW.md`](PROJECT_OVERVIEW.md)  
 6. [`AGENTS.md`](AGENTS.md) — agent/human contributor contract  
 
-License / product branding: Stamped Energy L5 consumer (`stamped-l5` package name; GitHub repo may remain `closure-verification` per DEC-002).
+License / product branding: Stamped L5 consumer (`stamped-l5` package name; GitHub repo may remain `closure-verification` per DEC-002).

@@ -1,4 +1,4 @@
-# Path map (2026-07-30 layout reorg)
+﻿# Path map (2026-07-30 layout reorg)
 
 Breaking path changes for submodule consumers. Update `external/...` references on next pin.
 
@@ -76,9 +76,9 @@ Breaking path changes for submodule consumers. Update `external/...` references 
 | `decisions/ADR-021-l5-notification-and-evidence.md` | `decisions/020-023/ADR-021-l5-notification-and-evidence.md` |
 | `decisions/ADR-022-l6-bff-runtime-boundary.md` | `decisions/020-023/ADR-022-l6-bff-runtime-boundary.md` |
 | `decisions/ADR-023-l6-ems-and-analyst-context.md` | `decisions/020-023/ADR-023-l6-ems-and-analyst-context.md` |
-| `decisions/ADR-024-holistic-plant-decisions.md` | `decisions/024-026/ADR-024-holistic-plant-decisions.md` |
+| `decisions/ADR-030-five-domain-decision-loop.md` | `decisions/024-026/ADR-030-five-domain-decision-loop.md` |
 | `decisions/ADR-025-improve-loop-step-06.md` | `decisions/024-026/ADR-025-improve-loop-step-06.md` |
-| `decisions/ADR-026-two-pillars-shared-context.md` | `decisions/024-026/ADR-026-two-pillars-shared-context.md` |
+| `decisions/ADR-030-five-domain-decision-loop.md` | `decisions/024-026/ADR-030-five-domain-decision-loop.md` |
 | `decisions/asset-id-migration.md` | `decisions/024-026/asset-id-migration.md` |
 
 ## Technical

@@ -6,7 +6,7 @@
 > **What it is not:** An engine runtime, TOW-P fitter, Lab UI, L4 template store, plant-parameter database, SCADA writer, MILP optimizer, or NILM stack.  
 > **Primary interface:** Filesystem packs (`domain/`, `verticals/`, `tariffs/`) + pytest golden / schema CI  
 > **Package:** `stamped-l3-rulepacks` **0.5.1** · **Python ≥3.11** · Catalog index **1.4.0**  
-> **Authority:** [ADR-012](external/decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 shadows](external/decisions/ADR-016-attribution-shadow-challengers.md) · [ADR-020 ops clearance](external/decisions/ADR-020-l5-mv-claim-governance.md) · [L3 intelligence core](external/technical/layers/L3-intelligence-core.md) · [`finding.json` v1.2.0](external/contracts/schemas/finding.json) · [two-pillar bridge](external/technical/03-two-pillar-technical-bridge.md) · [ops_clearance consumer prompt](external/handoff/stamped-l3-ops-clearance-consumer-prompt.md)
+> **Authority:** [ADR-012](external/decisions/ADR-012-l3-artifact-repo-topology.md) · [ADR-015 dual-lane](external/decisions/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016 shadows](external/decisions/ADR-016-attribution-shadow-challengers.md) · [ADR-020 ops clearance](external/decisions/ADR-020-l5-mv-claim-governance.md) · [L3 intelligence core](external/technical/layers/L3-intelligence-core.md) · [`finding.json` v1.2.0](external/contracts/schemas/finding.json) · [technical bridge](external/technical/03-technical-bridge.md) · [ops_clearance consumer prompt](external/handoff/stamped-l3-ops-clearance-consumer-prompt.md)
 
 **Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
 
@@ -18,7 +18,7 @@
 
 **TL;DR**
 
-- **10 domain packs**, **37 rules**, **16 Finding categories** (two-pillar `value_domain` on every rule)
+- **10 domain packs**, **37 rules**, **16 Finding categories** (`value_domain` on every rule)
 - Wastes **1–6** at production `1.1.0` + **`equipment_health` 1.0.0** (trip/duty/feeder/air leak)
 - Optimization methods are **first-class rule IDs** (holding, setback, stagger, shed, idle sleep, COP, dispatch gap, …)
 - Findings cite `rulepack://{pack}/{semver}#{rule_id}` — math runs in **core**, not here
@@ -27,7 +27,7 @@
 - Dual-lane Lab trust synced via platform pin above (Finding **1.2.0** / ADR-020) — of-record only in this repo
 - **43 deep synthetic goldens** — every catalog `rule_id` has ≥1 of-record fixture with `ops_clearance` + `value_domain` (D025)
 - Rule YAML documents `related_tag_ids_pattern` + default `stabilize_window`; **L5 owns verification** (no alarm router / clearance poller here)
-- Two-pillar map: [`docs/TWO_PILLAR.md`](docs/TWO_PILLAR.md)
+- `value_domain` map: [`docs/TWO_PILLAR.md`](docs/TWO_PILLAR.md)
 - CI: integrity + schema + Python **3.11/3.12** + Hypothesis **fuzz** job
 - Platform contracts via git submodule [`external/`](https://github.com/Vinayak-RZ/stamped-external)
 
@@ -272,7 +272,7 @@ stamped-l3-rulepacks/
 
 Full machine index: [`schemas/catalog_index.json`](schemas/catalog_index.json).
 
-Two-pillar map (A–H → packs / `value_domain`): [`docs/TWO_PILLAR.md`](docs/TWO_PILLAR.md).
+`value_domain` map (A–H → packs / `value_domain`): [`docs/TWO_PILLAR.md`](docs/TWO_PILLAR.md).
 
 | Pack | Semver | Rules | Waste | Finding categories |
 | --- | --- | ---: | ---: | --- |

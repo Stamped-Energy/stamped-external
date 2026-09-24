@@ -1,7 +1,9 @@
-# Product architecture (pointer)
+﻿# Product architecture pointer
 
-**Canonical architecture (latest):** [../STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md)
+**Canonical:**
 
-Framing: two pillars + shared context — [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md).
+1. [`../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)
+2. [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md)
+3. [`../STAMPED_ARCHITECTURE.md`](../STAMPED_ARCHITECTURE.md)
 
-This path is kept only so old bookmarks resolve. Do not maintain a second product narrative here.
+Prior prior-framing framing: tag `v2026.09.24` only.

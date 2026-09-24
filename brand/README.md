@@ -1,12 +1,12 @@
-# Brand → copy pack
+# Brand → archived marketing pack
 
-Website canon **moved** to [`../copy/website/`](../copy/website/).
+Website / selling copy **moved** to [`../archive/external-marketing-2026-09/`](../archive/external-marketing-2026-09/).
 
-**Agent entry for all selling / client-facing copy:** [`../copy/README.md`](../copy/README.md)
+**Live product framing (agents):** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [`../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)
 
 | Was here | Now |
 |----------|-----|
-| `COPY_CANON.md` | [`../copy/website/COPY_CANON.md`](../copy/website/COPY_CANON.md) |
-| `WEBSITE_COPY.md` | [`../copy/website/WEBSITE_COPY.md`](../copy/website/WEBSITE_COPY.md) |
+| `COPY_CANON.md` | under `archive/external-marketing-2026-09/` |
+| `WEBSITE_COPY.md` | under `archive/external-marketing-2026-09/` |
 
-Sync rule unchanged: when stamped.work / Main_Website `lib/content/` changes, update `copy/website/` in the same change set.
+Do not teach archived marketing as current product identity.

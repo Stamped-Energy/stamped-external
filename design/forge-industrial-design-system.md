@@ -1,4 +1,4 @@
-# Forge Industrial v2.0 — Stamped Energy design system
+﻿# Forge Industrial v2.0 — Stamped design system
 
 > **Use in:** connectors-bill customer UI, stamped-l6 dashboard, marketing-adjacent product surfaces.  
 > **Live references:** [stamped.work/how-it-works](https://stamped.work/how-it-works) · [stamped-energy.vercel.app](https://stamped-energy.vercel.app/)  
@@ -15,7 +15,7 @@ The design system is built for **manufacturing decision-makers** who need immedi
 **Product voice (from marketing):**
 
 - Lead with **rupees on the bill**, not abstract kWh.
-- Six-step loop: **Connect → Observe → Decide → Execute → Verify → Improve**.
+- Six-step loop: **Connect â†’ Observe â†’ Decide â†’ Execute â†’ Verify â†’ Improve**.
 - Prescriptions show **What · Why · Who · Impact · Due** — bill upload UI should feel like step **01 Connect** ("Start with meter + bill").
 - Management prescriptions also show **trade-off** (energy vs order/department) when relevant; **Improve** is an internal monthly step, not a customer nav item.
 
@@ -33,7 +33,7 @@ High-contrast palette for legibility in office and plant-floor lighting.
 | **Secondary** | `#000a07` | Nav, footers, anchor sections, stable states |
 | **Tertiary** | `#00666b` / `#008287` | Informational accents, links, data highlights |
 | **Surface** | `#f7faf5` | App background (warm grey — reduces eye strain) |
-| **Surface container** | `#ecefea` → `#ffffff` | Cards sit on white over warm surface |
+| **Surface container** | `#ecefea` â†’ `#ffffff` | Cards sit on white over warm surface |
 | **On-surface** | `#191c1a` | Primary text |
 | **On-surface variant** | `#5a403c` | Secondary text |
 | **Outline** | `#8f706b` | Borders |
@@ -194,7 +194,7 @@ Reuse for **empty states & onboarding** in bill upload:
 - **Six-step loop** visual — bill upload is **Step 1: Connect**; step **6 Improve** is internal (developer report), not a customer wizard step.
 - **Utility bill** icon in unified ingestion diagram (alongside SCADA, meters).
 - Copy tone: "Start with meter + bill", "Check the next bill".
-- Section structure: eyebrow label → headline → supporting body → CTA.
+- Section structure: eyebrow label â†’ headline â†’ supporting body â†’ CTA.
 
 ### 8.2 Dashboard demo — [stamped-energy.vercel.app](https://stamped-energy.vercel.app/)
 
@@ -263,7 +263,7 @@ theme: {
 
 - WCAG AA contrast on text vs surface (on-surface on surface passes).
 - Focus rings: 2px secondary outline, offset 2px.
-- Touch targets ≥44×44px on mobile (buttons already 48px).
+- Touch targets â‰¥44Ã—44px on mobile (buttons already 48px).
 - Do not rely on color alone for status — include text label (Critical, Validated, etc.).
 
 ---

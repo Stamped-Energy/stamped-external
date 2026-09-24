@@ -1,31 +1,29 @@
-# Prompt — Positioning + holistic plant (ADR-024–027)
+# Prompt — Five-domain decision loop (ADR-030)
 
 > **Use this:** One copy-paste block for **any** Stamped consumer-repo agent (L1–L6).  
 > **Platform:** [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external)  
-> **Authority:** [ADR-026](../../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [architecture audit](../../holistic/stamped-holistic-architecture-audit.md) · [console AD-7](../../holistic/improve/stamped-l5-internal-console-handoff.md)
+> **Authority:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · founder vision [`09`](../../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) · agent contract [`10`](../../../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) · [console AD-7](../../holistic/improve/stamped-l5-internal-console-handoff.md)
 
 ---
 
 ## Copy-paste prompt (full — start here)
 
 ```text
-PLATFORM UPDATE — Positioning-aligned generic-energy pilot + holistic Phase 5
-(ADR-024/025/026/027). Contracts ≥ 0.11.2.
+PLATFORM UPDATE — Five-domain decision loop (ADR-030).
+Contracts pin: confirm current stamped-external VERSION / contracts CHANGELOG.
 
 FRAMING (mandatory — read first):
-  One product. Exactly TWO outcome pillars:
-    1) Load & Energy Efficiency Intelligence (hero ₹)
-    2) Prescriptive Equipment Intelligence
-  Shared context (NOT a third pillar, NOT an MES product):
-    orders / MES-lite / departments / tradeoffs / negotiation / Improve
-  Client narrative order (do NOT lead with "agentic AI"):
-    load → equipment ML → practical prescriptions → agentic layer
-  Named outcomes: energy efficiency (hero) + plant effectiveness/OEE
-  co-benefits on management Rx. Do not invent Pillar 3 or split products.
+  Product name: Stamped (never append Energy to the product name).
+  One product. One decision card. Five domains:
+    energy · cost · time/throughput · continuity/flow · short-horizon exceptions
+  Default autonomy: recommend and assign; humans decide and execute.
+  Energy is the entry wedge, not the category.
+  Client narrative: choose → assign → verify the next operating action.
+  Do not invent savings bands. Do not teach prior framing (tag v2026.09.24)
+  as live identity. Do not replace MES / ERP / APS. Hard stops per ADR-030.
 
 GENERIC-ENERGY FIRST (Wave A) before order-aware Wave B:
-  Pillar 1: MD/PF/ToD + idle_load
-  Pillar 2: compressor_sp_drift (abnormal_duty only if signals exist)
+  Wave A: MD/PF/ToD + idle_load + compressor_sp_drift (when signals exist)
   L5 Internal Console: ALL Rx visible to Stamped staff; force send/stop;
   plant practicality_gate_mode. Customer L6 sees approved only.
 
@@ -47,11 +45,11 @@ Do not invent a MES. Do not add L7. Do not edit files under external/.
   git submodule update --init --recursive
   test -f external/VERSION || { echo "missing external/"; exit 1; }
   cd external && git fetch origin
-  # Prefer v2026.08.05+ ; confirm:
-  grep -n "0.11.2" contracts/CHANGELOG.md
+  # Pin to the SHA/tag that includes ADR-030; confirm:
+  test -f decisions/028-032/ADR-030-five-domain-decision-loop.md
   git checkout <pin-tag-or-sha> && cd ..
   git add external
-  git commit -m "chore(external): pin stamped-external for practical Rx gates"
+  git commit -m "chore(external): pin stamped-external for ADR-030 framing"
   bash external/scripts/contracts/contract-check.sh
 
 ═══════════════════════════════════════════════════════════════════
@@ -59,17 +57,15 @@ Do not invent a MES. Do not add L7. Do not edit files under external/.
 ═══════════════════════════════════════════════════════════════════
 
 Shared:
-  1. external/decisions/024-026/ADR-026-two-pillars-shared-context.md
-  2. external/technical/product/Stamped_Client_Positioning_and_Narrative_v1.md
-  3. external/demo-decks/prescriptions-examples.md
-  4. external/handoff/holistic/stamped-holistic-architecture-audit.md
-  5. external/handoff/holistic/stamped-holistic-pilot-stack.md
-  6. external/handoff/holistic/improve/stamped-l5-internal-console-handoff.md
-  7. external/decisions/024-026/ADR-024-holistic-plant-decisions.md
-  8. external/decisions/024-026/ADR-025-improve-loop-step-06.md
-  9. external/technical/STAMPED_ARCHITECTURE.md
-  10. external/contracts/CHANGELOG.md (0.11.2)
-  11. external/AGENTS.md + ponytail skill before any code
+  1. external/decisions/028-032/ADR-030-five-domain-decision-loop.md
+  2. external/research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md
+  3. external/research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md
+  4. external/handoff/holistic/stamped-holistic-pilot-stack.md
+  5. external/handoff/holistic/improve/stamped-l5-internal-console-handoff.md
+  6. external/decisions/024-026/ADR-025-improve-loop-step-06.md
+  7. external/technical/STAMPED_ARCHITECTURE.md
+  8. external/contracts/CHANGELOG.md (pin version)
+  9. external/AGENTS.md + ponytail skill before any code
 
 Layer blocks:
 
@@ -96,8 +92,8 @@ Layer blocks:
 3) HARD RULES
 ═══════════════════════════════════════════════════════════════════
 
-  - ₹ energy HERO; order/OEE CO-BENEFITS. Two pillars only ([ADR-026]).
-  - Not MES/CMMS. Improve weekly human-gated — not L7.
+  - Five-domain decision loop ([ADR-030]); energy wedge only.
+  - Not MES/CMMS/APS. Improve weekly human-gated — not L7.
   - Bounded templates only. Contract changes only in stamped-external.
   - Commit after each validated milestone; push check at 10 unpushed.
   - Ponytail: smallest diff. Run contract-check + repo tests after implement.
@@ -106,12 +102,12 @@ Layer blocks:
 4) DELIVERABLE THIS SESSION
 ═══════════════════════════════════════════════════════════════════
 
-  A. Confirm submodule pin and contracts ≥ 0.11.2.
+  A. Confirm submodule pin includes ADR-030.
   B. Restate layer (L1…L6) + files read + framing.
   C. IMPLEMENTATION PLAN only; STOP for approval before app code.
   D. Do not edit external/.
 
-If requirements conflict with ADR-024/025/026, STOP — platform wins.
+If requirements conflict with ADR-030 / 09, STOP — platform wins.
 ```
 
 ---
@@ -119,7 +115,7 @@ If requirements conflict with ADR-024/025/026, STOP — platform wins.
 ## Short form
 
 ```text
-Bump external/ to stamped-external ≥ 0.11.2 / v2026.08.05. Read ADR-026 +
+Bump external/ to stamped-external with ADR-030. Read ADR-030 + 09 + 10 +
 stamped-holistic-consumer-prompt.md. Wave A = generic-energy (idle + compressor
 SP + practical Rx gates + L5 console). Wave B = orders/Tradeoff/Discuss. No MES, no L7.
 ```
@@ -137,4 +133,4 @@ SP + practical Rx gates + L5 console). Wave B = orders/Tradeoff/Discuss. No MES,
 | closure-verification | Gate + all-Rx console + force send/stop |
 | stamped-l6 | Live approved-only Rx + flip evidence |
 
-Pin note: use `v2026.08.05` or SHA with contracts **0.11.2**.
+Pin note: use the stamped-external SHA/tag that includes ADR-030.

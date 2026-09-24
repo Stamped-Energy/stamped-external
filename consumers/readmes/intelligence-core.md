@@ -2,7 +2,7 @@
 
 # intelligence-core — Stamped L3 Intelligence Engine Runtime
 
-> **What it is:** The deployable **L3 Intelligence Core** for Stamped Energy — a Python runtime that reads L2 telemetry/bills (fixture or HTTP), runs hot/warm/cold engines, and emits contract-aligned `Finding` objects through a durable outbox for L4.  
+> **What it is:** The deployable **L3 Intelligence Core** for Stamped — a Python runtime that reads L2 telemetry/bills (fixture or HTTP), runs hot/warm/cold engines, and emits contract-aligned `Finding` objects through a durable outbox for L4.  
 > **What it is not:** A plant UI, a rulepack authoring repo, an eval workbench, or a database client for L2 (`L2_DATABASE_URL` is forbidden).  
 > **Primary interface:** Python library (`stamped_l3_core`) + CLI scripts (`scripts/run_mock_plant.py`, `scripts/validate.sh`)  
 > **Runtime:** Python **3.11+** · optional extras `[dev]`, `[ml]`, `[challenger]` · platform SSOT via git submodule [`external/`](https://github.com/Vinayak-RZ/stamped-external)
@@ -10,7 +10,7 @@
 **Platform pin:** `external/` → stamped-external **v2026.08.05** (`5900531`) · contracts **0.11.2**
 
 - **Wave A:** hot path emits `idle_load` + `compressor_sp_drift` with required `value_domain` (`energy_efficiency` | `equipment_health`)
-- Finding **1.2.0** two-pillar; dual-lane Lab (ADR-015/016) — MD/PF/ToD alone insufficient for Wave A
+- Finding **1.2.0** with `value_domain`; dual-lane Lab (ADR-015/016) — MD/PF/ToD alone insufficient for Wave A
 - **Wave B:** TradeoffEngine + ProductionOrder awareness (holistic phase)
 
 ---
@@ -18,7 +18,7 @@
 **TL;DR**
 
 - Turns L2 measurements/bills into schema-valid `Finding` **1.2.0** payloads inside `StampedRecordEnvelope` rows
-- **Two-pillar tagging:** every Finding carries `value_domain` (`energy_efficiency` | `equipment_health`); Lab export includes dual `PlantIntelligenceScore`
+- **`value_domain` tagging:** every Finding carries `value_domain` (`energy_efficiency` | `equipment_health`); Lab export includes dual `PlantIntelligenceScore`
 - **Dual-lane Lab (ADR-015):** every candidate → `LabLog` / RunArtifact **1.1.0** with `status` + `delivery`; outbox only when `emitted`/`l4`
 - Hot path: MD overlap, PF slab, TOD (+ optional LightGBM MD exceedance + greedy source-mix + equipment-health engines)
 - Attribution of-record = graph co-start; runner-ups + ranking/STUMPY shadows stay `lab_only` (ADR-016)
@@ -389,7 +389,7 @@ Redacted keys (never emitted): `l2_service_key`, `service_key`, `password`, `tok
 
 ### 7.1 Finding (contract `finding.json` v1.2.0)
 
-Domain dataclass: [`models/finding.py`](src/stamped_l3_core/models/finding.py). Schema SSOT: [`external/contracts/schemas/finding.json`](external/contracts/schemas/finding.json). Authority: [ADR-020](external/decisions/ADR-020-l5-mv-claim-governance.md) · two-pillar bridge [`external/technical/03-two-pillar-technical-bridge.md`](external/technical/03-two-pillar-technical-bridge.md) · consumer prompt [`external/handoff/stamped-l3-ops-clearance-consumer-prompt.md`](external/handoff/stamped-l3-ops-clearance-consumer-prompt.md).
+Domain dataclass: [`models/finding.py`](src/stamped_l3_core/models/finding.py). Schema SSOT: [`external/contracts/schemas/finding.json`](external/contracts/schemas/finding.json). Authority: [ADR-020](external/decisions/ADR-020-l5-mv-claim-governance.md) · technical bridge [`external/technical/03-technical-bridge.md`](external/technical/03-technical-bridge.md) · consumer prompt [`external/handoff/stamped-l3-ops-clearance-consumer-prompt.md`](external/handoff/stamped-l3-ops-clearance-consumer-prompt.md).
 
 **L3 emits** the clearance contract; **L5 owns** ops verification (poll L2 tags, stabilize_window, `ops_verified` / `ops_regressed`). This repo does **not** implement alarm router, clearance poller, or ledger append.
 

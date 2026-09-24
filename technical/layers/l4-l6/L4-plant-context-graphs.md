@@ -1,4 +1,4 @@
----
+﻿---
 type: Product Architecture
 title: "L4 — Plant context graphs (canonical + live + Path D)"
 description: >-
@@ -18,7 +18,7 @@ status: Accepted with ADR-028 — companion to L4-knowledge-and-reasoning.md
 
 > L4 still does not detect waste, own tariff arithmetic, write OT, or auto-approve. This document changes **how** a Finding becomes a practical Prescription — not those boundaries.
 >
-> Gold bar: [demo prescriptions](../../../demo-decks/prescriptions-examples.md). Example 6 (Tuesday inspect blocked → Thursday after Job 447) is Path D, not a better prompt.
+> Gold bar: [demo prescriptions](../../../demo-decks/prescriptions-examples.md). Example 6 (Tuesday inspect blocked â†’ Thursday after Job 447) is Path D, not a better prompt.
 
 ---
 
@@ -58,16 +58,16 @@ flowchart TB
 
 Default steps:
 
-1. **Bind** Finding → asset / class / vertical / waste. Tenant-scoped (`org_id` + `plant_id` + asset id). Ambiguous or missing → **abstain** (record candidates on compile-trace). Never guess across plants.
-2. **Freshness gate** on Graph B (see §4.1). Fail → **withhold**, not a generic card.
+1. **Bind** Finding â†’ asset / class / vertical / waste. Tenant-scoped (`org_id` + `plant_id` + asset id). Ambiguous or missing â†’ **abstain** (record candidates on compile-trace). Never guess across plants.
+2. **Freshness gate** on Graph B (see Â§4.1). Fail â†’ **withhold**, not a generic card.
 3. Path G hop on Graph A (owners, standby edges, SOP, typical, playbook via `REMEDY_IN`).
 4. Live pull Graph B for those IDs (L2 projection — L4 never `L2_DATABASE_URL`).
-5. Path D: emit typed delta facts (need / blocker / feasible / who / not) — §5.
+5. Path D: emit typed delta facts (need / blocker / feasible / who / not) — Â§5.
 6. Path H: playbook chunks filtered by vertical + equipment class + Playbook.`waste_category`. Trust tiers T1–T4 unchanged ([ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md)).
-7. Deterministic next-best window ([ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) feasibility **at compile**).
+7. Deterministic next-best window ([ADR-030](../../../decisions/028-032/ADR-030-five-domain-decision-loop.md) feasibility **at compile**).
 8. Draft What/Why/Who/When/Effort from the pack. `template_id` still bounds the **action family**.
 9. Verify ₹ / citations / veto (non-tradeable).
-10. Practicality judge (language only). Repair while `generation_calls < max_generation_calls` (default **12**; ≥10 allowed, not unbounded). Exhausted → **abstain** with reason. Never emit a generic card to look busy.
+10. Practicality judge (language only). Repair while `generation_calls < max_generation_calls` (default **12**; â‰¥10 allowed, not unbounded). Exhausted â†’ **abstain** with reason. Never emit a generic card to look busy.
 
 **Lane A** (`force_lane=a`, `L4_DEFAULT_LANE=template`, or structured model down): label `provenance.lane = template_fast_path`. Emit **only** when Path D practicality fields are already complete (feasible When + role Who + named What from template). Otherwise **withhold** — model-down is not a license for an infeasible Due.
 
@@ -77,7 +77,7 @@ Terminal statuses for every compile: `emit` | `withhold` | `abstain` (on `l4-com
 
 ## 3. Graph A — canonical ontology
 
-Keep this small. ISA-95-shaped, not a MES product ([ADR-026](../../../decisions/024-026/ADR-026-two-pillars-shared-context.md)).
+Keep this small. ISA-95-shaped, not a MES product ([ADR-030](../../../decisions/028-032/ADR-030-five-domain-decision-loop.md)).
 
 ### 3.1 Node types
 
@@ -97,17 +97,17 @@ Keep this small. ISA-95-shaped, not a MES product ([ADR-026](../../../decisions/
 
 ### 3.2 Edge types
 
-| Edge | From → To |
+| Edge | From â†’ To |
 | --- | --- |
-| `CONTAINS` | Plant → Department → Line → Asset |
-| `INSTANCE_OF` | Asset → AssetClass |
-| `OWNED_BY` | Asset / Line → Role (Role → Person if roster) |
-| `STANDBY_FOR` | Asset → Asset (COMP1 standby for COMP2) |
-| `FEEDS` / `SERVED_BY` | e.g. WHR → mill, chiller → hall |
-| `CONSTRAINED_BY` | Asset → Constraint |
-| `REMEDY_IN` | **AssetClass → Playbook** (binary). Filter by Playbook.`waste_category` — do **not** invent a ternary edge |
-| `IN_VERTICAL` | Plant → Vertical |
-| `CRITICAL_NO_STAGGER` | Department → Asset (already on department graph) |
+| `CONTAINS` | Plant â†’ Department â†’ Line â†’ Asset |
+| `INSTANCE_OF` | Asset â†’ AssetClass |
+| `OWNED_BY` | Asset / Line â†’ Role (Role â†’ Person if roster) |
+| `STANDBY_FOR` | Asset â†’ Asset (COMP1 standby for COMP2) |
+| `FEEDS` / `SERVED_BY` | e.g. WHR â†’ mill, chiller â†’ hall |
+| `CONSTRAINED_BY` | Asset â†’ Constraint |
+| `REMEDY_IN` | **AssetClass â†’ Playbook** (binary). Filter by Playbook.`waste_category` — do **not** invent a ternary edge |
+| `IN_VERTICAL` | Plant â†’ Vertical |
+| `CRITICAL_NO_STAGGER` | Department â†’ Asset (already on department graph) |
 
 Refresh: clock (e.g. 72 h) or SOP / asset / tariff-structure change. Store later: L4 Postgres property-graph tables. **Not** Neo4j / Graphiti in this spec.
 
@@ -143,7 +143,7 @@ Standby *now*: keep `available_as_standby` boolean; attach `standby_evidence` (`
 
 ## 5. Path D — typed delta (deterministic)
 
-Same inputs → same `delta_facts`. No LLM in Path D.
+Same inputs â†’ same `delta_facts`. No LLM in Path D.
 
 **Inputs**
 
@@ -158,11 +158,11 @@ Same inputs → same `delta_facts`. No LLM in Path D.
 
 **Comparators (minimal)**
 
-1. `vs_typical_pct` (or named metric) outside `[band_low, band_high]` → **need**.
-2. Isolation blocked when any `STANDBY_FOR` sibling has `available_as_standby=false` **or** an open order lists the asset in `uses_asset_ids` with `window_end_utc` still ahead → **blocker**.
-3. Next-best window = first interval after max(`window_end_utc` of blockers) where standby is true (or planned) and ToD rules allow → **feasible**.
-4. Who = roles from `OWNED_BY` + shift; name only if roster → **who**.
-5. Template / playbook slogans that fail P-1 → **not**.
+1. `vs_typical_pct` (or named metric) outside `[band_low, band_high]` â†’ **need**.
+2. Isolation blocked when any `STANDBY_FOR` sibling has `available_as_standby=false` **or** an open order lists the asset in `uses_asset_ids` with `window_end_utc` still ahead â†’ **blocker**.
+3. Next-best window = first interval after max(`window_end_utc` of blockers) where standby is true (or planned) and ToD rules allow â†’ **feasible**.
+4. Who = roles from `OWNED_BY` + shift; name only if roster â†’ **who**.
+5. Template / playbook slogans that fail P-1 â†’ **not**.
 
 Each fact may carry `evidence_refs` (measurement / order / standby ids).
 
@@ -176,7 +176,7 @@ Fixtures: [`plant_knowledge_graph.valid.json`](../../../contracts/fixtures/plant
 
 - `COMP2` INSTANCE_OF screw_compressor · OWNED_BY utilities_lead + mechanical_maint
 - `COMP1` STANDBY_FOR `COMP2` · CONSTRAINED_BY min_header_bar
-- TypicalEnvelope `comp2_typical_sp`: vs_typical_pct band −5…+8 over 8w_matched
+- TypicalEnvelope `comp2_typical_sp`: vs_typical_pct band âˆ’5…+8 over 8w_matched
 - `screw_compressor` REMEDY_IN `pb_comp_sp_inspect` (`waste_category=3`, `template_id=tmpl_comp_filter_inspect_v1`)
 
 **Live** (`as_of` Tuesday 09:15)
@@ -184,7 +184,7 @@ Fixtures: [`plant_knowledge_graph.valid.json`](../../../contracts/fixtures/plant
 - COMP2 `vs_typical_pct=+14` (need)
 - COMP1 `available_as_standby=false`, sibling_load_pct=90 (blocker)
 - Order `447` in_progress on `pkg_1`, `window_end_utc=Thursday 12:00Z`, `uses_asset_ids=[COMP1,COMP2]` (blocker)
-- Freshness OK; roster absent → role_only
+- Freshness OK; roster absent â†’ role_only
 
 **Path D**
 
@@ -221,7 +221,7 @@ Hybrid RAG fetches the inspect playbook. It does **not** discover Job 447 — th
 | **Quality (default)** | All categories | `quality` | After Path D + judge pass |
 | Lane A | `force_lane=a`, `L4_DEFAULT_LANE=template`, or model down | `template_fast_path` | Only if Path D When/Who/What already complete; else withhold |
 
-Today’s `CATEGORY_TEMPLATE_ID → Lane A` default is **revoked** by ADR-028. Templates remain the action-family guard on the quality path.
+Today’s `CATEGORY_TEMPLATE_ID â†’ Lane A` default is **revoked** by ADR-028. Templates remain the action-family guard on the quality path.
 
 Analyst and Path W budgets are unchanged (still cheap / allowlisted).
 
@@ -230,7 +230,7 @@ Analyst and Path W budgets are unchanged (still cheap / allowlisted).
 ## 8. Non-tradeables
 
 - No OT write
-- Calculator-owned ₹ / kWh / tCO₂e
+- Calculator-owned ₹ / kWh / tCOâ‚‚e
 - T4 never sole money source
 - L5 owns approval; negotiation never auto-commits
 - Deterministic gates **before** the judge
@@ -257,7 +257,7 @@ flowchart LR
 1. Card — What/Why/Who + AD-5 gate (existing)
 2. Graph overview — neighborhood for *this* Rx (canonical edges + live stamps)
 3. Retrieval log — Path H / G / D, filters, ranked chunk IDs, trust tier
-4. Compile loop — bind → freshness → draft → verify → judge → repair; call count; lane; terminal
+4. Compile loop — bind â†’ freshness â†’ draft â†’ verify â†’ judge â†’ repair; call count; lane; terminal
 5. Eval / practicality — judge rubric next to AD-5 so staff can withhold
 
 Keep `prescription.provenance` small: lane, versions, `compile_trace_id`, optional `otel_trace_id`.

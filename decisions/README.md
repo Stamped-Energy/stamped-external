@@ -2,6 +2,8 @@
 
 Decision records for the Stamped platform. Distributed via submodule at `external/` ([ADR-011](011-015/ADR-011-stamped-platform-submodule-distribution.md)).
 
+**Product framing lock:** [ADR-030](028-032/ADR-030-five-domain-decision-loop.md) — five-domain choose / assign / verify. ADR-024 and ADR-026 are withdrawn (recoverable on tag `v2026.09.24`).
+
 ADRs live in number buckets (≤5 files each). Start with the index below.
 
 | ADR | Title | Status | Path |
@@ -18,7 +20,6 @@ ADRs live in number buckets (≤5 files each). Start with the index below.
 | [ADR-010](006-010/ADR-010-deployment-profiles-and-portability.md) | Three deployment modes | Accepted | `006-010/` |
 | [ADR-011](011-015/ADR-011-stamped-platform-submodule-distribution.md) | stamped-platform submodule SSOT | Accepted | `011-015/` |
 | [ADR-012](011-015/ADR-012-l3-artifact-repo-topology.md) | L3 artifact repos | Accepted | `011-015/` |
-| [ADR-013](011-015/ADR-013-counterfactual-savings-ledger.md) | Counterfactual savings ledger | Accepted | `011-015/` |
 | [ADR-014](011-015/ADR-014-ts-foundation-model-role.md) | TS foundation model shadow-only | Accepted | `011-015/` |
 | [ADR-014b](011-015/ADR-014-promotion-record.md) | Promotion record (companion) | Accepted | `011-015/` |
 | [ADR-015](016-020/ADR-015-l3-dual-lane-lab-detections.md) | L3 dual-lane lab detections | Accepted | `016-020/` |
@@ -29,13 +30,13 @@ ADRs live in number buckets (≤5 files each). Start with the index below.
 | [ADR-020](020-023/ADR-020-l5-mv-claim-governance.md) | L5 claim governance | Accepted | `020-023/` |
 | [ADR-021](020-023/ADR-021-l5-notification-and-evidence.md) | L5 notification + evidence | Accepted | `020-023/` |
 | [ADR-022](020-023/ADR-022-l6-bff-runtime-boundary.md) | L6 BFF runtime boundary | Accepted | `020-023/` |
-| [ADR-023](020-023/ADR-023-l6-ems-and-analyst-context.md) | L6 EMS + analyst context | Accepted | `020-023/` |
-| [ADR-024](024-026/ADR-024-holistic-plant-decisions.md) | Holistic plant decisions | Accepted | `024-026/` |
-| [ADR-025](024-026/ADR-025-improve-loop-step-06.md) | Improve loop step 06 | Accepted | `024-026/` |
-| [ADR-026](024-026/ADR-026-two-pillars-shared-context.md) | Two pillars + shared context | Accepted | `024-026/` |
+| [ADR-023](020-023/ADR-023-l6-ems-and-analyst-context.md) | L6 next-action surfaces + dual-mode analyst | Accepted | `020-023/` |
+| [ADR-025](024-026/ADR-025-improve-loop-step-06.md) | Learning from closed cards | Accepted | `024-026/` |
 | [ADR-027](024-026/ADR-027-plant-calibration-champion-promote.md) | Plant calibration + champion promote | Accepted | `024-026/` |
 | [ADR-028](028-032/ADR-028-dual-plant-graphs-and-path-d.md) | Dual plant graphs, Path D, quality-default Rx, L5 compile-trace | Accepted | `028-032/` |
-| [ADR-029](028-032/ADR-029-human-guided-ot-command-path.md) | Human-guided OT command path (opt-in ActionIntent) | Accepted | `028-032/` |
+| [ADR-030](028-032/ADR-030-five-domain-decision-loop.md) | Five-domain decision loop (product framing) | Accepted | `028-032/` |
+
+Withdrawn (tag `v2026.09.24` only): ADR-013, ADR-024, ADR-026. ADR-029 archived under [`archive/external-marketing-2026-09/decisions/`](../archive/external-marketing-2026-09/decisions/).
 
 Also: [asset-id-migration.md](024-026/asset-id-migration.md)
 

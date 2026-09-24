@@ -1,6 +1,6 @@
-# Holistic pilot stack — L1–L6 deployment checklist
+﻿# Holistic pilot stack — L1–L6 deployment checklist
 
-> **Authority:** [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-029](../../decisions/028-032/ADR-029-human-guided-ot-command-path.md) · [REPOS.md](../../REPOS.md)  
+> **Authority:** [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [ADR-025](../../decisions/024-026/ADR-025-improve-loop-step-06.md) · [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [ADR-029](../../decisions/028-032/ADR-029-human-guided-ot-command-path.md) · [REPOS.md](../../REPOS.md)  
 > **Goal:** Integrated pilot — **generic-energy first**, then order-aware, then opt-in desk writeback
 
 ---
@@ -9,9 +9,9 @@
 
 | Wave | Scope |
 | --- | --- |
-| **A — Generic energy** | MD/PF/ToD + `idle_load` + `compressor_sp_drift` → practical Rx → L5 gate/console → L6 live |
+| **A — Generic energy** | MD/PF/ToD + `idle_load` + `compressor_sp_drift` â†’ practical Rx â†’ L5 gate/console â†’ L6 live |
 | **B — Holistic + desk assign** | ProductionOrder + TradeoffEngine + negotiation + Discuss + weekly Improve; **desk assign/confirm** hardening (no OT write required) |
-| **C — Opt-in writeback** | Human-guided ActionIntent → L1 command tags — only after [ot-write-site-checklist.md](./ot-write-site-checklist.md) passes |
+| **C — Opt-in writeback** | Human-guided ActionIntent â†’ L1 command tags — only after [ot-write-site-checklist.md](./ot-write-site-checklist.md) passes |
 
 Do not block Wave A on Wave B. Do not enable Wave C without the site checklist.
 
@@ -26,9 +26,9 @@ Do not block Wave A on Wave B. Do not enable Wave C without the site checklist.
 | L3 | intelligence-core + rulepacks | Emit `idle_load` + `compressor_sp_drift` with `value_domain` |
 | L4 | knowledge-reasoning | Templates for those categories + AD-5 fields |
 | L5 | closure-verification | Gate scoring; internal console all-Rx; WhatsApp shadow |
-| L6 | stamped-l6 / experience-integration | BFF → L5 live; approved-only lists |
+| L6 | stamped-l6 / experience-integration | BFF â†’ L5 live; approved-only lists |
 
-Platform pin: `external/VERSION` ≥ **2026.08.01** and contracts ≥ **0.11.2**. Wave C needs contracts ≥ **0.13.0** (`action-intent`, `machine-capability`).
+Platform pin: `external/VERSION` â‰¥ **2026.08.01** and contracts â‰¥ **0.11.2**. Wave C needs contracts â‰¥ **0.13.0** (`action-intent`, `machine-capability`).
 
 ---
 
@@ -51,11 +51,11 @@ Platform pin: `external/VERSION` ≥ **2026.08.01** and contracts ≥ **0.11.2**
 4. L4 emits Prescription with What/Why/Who/Effort/Impact/When + evidence + mv_plan  
 5. L5 scores gate; internal console shows Rx (including fail path); WhatsApp optional in shadow  
 6. L6 `/prescriptions` lists from L5 (not only fixtures); excludes withheld/pending review  
-7. Shadow mode ≥2 weeks before WhatsApp on  
+7. Shadow mode â‰¥2 weeks before WhatsApp on  
 
 ---
 
-## 4. Demo → pilot gate (L6)
+## 4. Demo â†’ pilot gate (L6)
 
 | Before | After |
 | --- | --- |
@@ -72,7 +72,7 @@ Keep fixtures as offline / CI when `USE_FIXTURES=1`.
 
 | Metric | Target `[~]` |
 | --- | --- |
-| ≥1 Pillar 1 + ≥1 Pillar 2 finding | Yes |
+| â‰¥1 Pillar 1 + â‰¥1 Pillar 2 finding | Yes |
 | Client Rx has verification + feasibility fields | 100% |
 | Incomplete Rx withheld from L6 | 100% |
 | Internal console shows all Rx | Yes |

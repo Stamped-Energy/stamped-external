@@ -1,6 +1,6 @@
-# Prescription negotiation loop — L4 / L5 / L6
+﻿# Prescription negotiation loop — L4 / L5 / L6
 
-> **Authority:** [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-023](../../decisions/020-023/ADR-023-l6-ems-and-analyst-context.md) · [`prescription-revision.json`](../../contracts/schemas/intelligence/prescription-revision.json) · [`improvement-signal.json`](../../contracts/schemas/closure/improvement-signal.json)  
+> **Authority:** [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [ADR-023](../../decisions/020-023/ADR-023-l6-ems-and-analyst-context.md) · [`prescription-revision.json`](../../contracts/schemas/intelligence/prescription-revision.json) · [`improvement-signal.json`](../../contracts/schemas/closure/improvement-signal.json)  
 > **Audience:** knowledge-reasoning (L4), closure-verification (L5), stamped-l6  
 > **Status:** Spec for Phase 2 build
 
@@ -17,12 +17,12 @@ Distinct from read-only Analyst (ADR-023 Mode A/B).
 ## 2. Sequence
 
 ```
-Supervisor (L6 Discuss) → L6 BFF → L4 POST /v1/negotiation/revise
-  → L4 calls L3 TradeoffEngine with constraints
-  → L4 emits PrescriptionRevision (confirmation=proposed)
-  → L5 stores thread + revision; emits improvement_signal negotiation_objection
-  → L6 shows diff; supervisor Accept | Reject | Escalate
-  → on Accept: L5 prescription.revised; new Rx supersedes old; WorkflowEvent
+Supervisor (L6 Discuss) â†’ L6 BFF â†’ L4 POST /v1/negotiation/revise
+  â†’ L4 calls L3 TradeoffEngine with constraints
+  â†’ L4 emits PrescriptionRevision (confirmation=proposed)
+  â†’ L5 stores thread + revision; emits improvement_signal negotiation_objection
+  â†’ L6 shows diff; supervisor Accept | Reject | Escalate
+  â†’ on Accept: L5 prescription.revised; new Rx supersedes old; WorkflowEvent
 ```
 
 ---
@@ -40,7 +40,7 @@ Supervisor (L6 Discuss) → L6 BFF → L4 POST /v1/negotiation/revise
 - `revised_prescription.what` must stay on approved template family (parameter change only)
 - Numeric impact from calculator only
 - Rules veto before return
-- Max 1 LLM call for constraint parsing → structured `constraints`; Prefer structured chips from L6 over free text when possible
+- Max 1 LLM call for constraint parsing â†’ structured `constraints`; Prefer structured chips from L6 over free text when possible
 - Step/token budget like analyst ReAct; no OT tools
 
 ---
@@ -67,10 +67,10 @@ On Rx detail (management-class only in P0):
 1. Button **Discuss**
 2. Side panel: chips for protected orders / exclude lines / no_stagger_until (user-visible, removable — same policy as AnalystContextEnvelope)
 3. Free-text box for constraint summary
-4. **Propose revision** → loading → diff view (what/impact/tradeoff)
+4. **Propose revision** â†’ loading â†’ diff view (what/impact/tradeoff)
 5. **Accept revision** / **Keep original** / **Escalate to plant head**
 
-Irreversible: Accept requires explicit click (ADR-023 §9).
+Irreversible: Accept requires explicit click (ADR-023 Â§9).
 
 Fixture-first seed may mock L4; live wiring is Phase 2.
 
@@ -90,4 +90,4 @@ Fixture-first seed may mock L4; live wiring is Phase 2.
 
 1. Fixture negotiation produces valid `prescription_revision.valid.json` shape.
 2. Accept creates new Rx with `supersedes_rx_id`.
-3. ≥30% of deferred/disputed mgmt Rx in pilot resolve via revision (product metric).
+3. â‰¥30% of deferred/disputed mgmt Rx in pilot resolve via revision (product metric).

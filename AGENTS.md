@@ -1,45 +1,39 @@
 # Stamped Platform — Agent Mode
 
-> **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs, **public marketing voice**) — **not application code**.  
+> **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs) — **not application code**.  
+> **Product:** Stamped — choose, assign, and verify the next operating action across five domains.  
 > **Cursor config source:** [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding) (vendored under `.cursor/`).
 
 Engineering workflow: **ponytail → (spec-kit for features) → research → plan → approve → implement → validate → commit → learn**.
 
-## Public copy (customer-facing prose)
+## Vision (read first — every product-shaped task)
 
-If the task is **copy, marketing, website, narrative, pitch, origin, decks, or prescriptions**, read [`copy/README.md`](copy/README.md) **before** writing. Website canon: [`copy/website/COPY_CANON.md`](copy/website/COPY_CANON.md) + [`copy/website/WEBSITE_COPY.md`](copy/website/WEBSITE_COPY.md). Rule: `stamped-copy.mdc`.
+1. [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md)
+2. [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) — **wins on conflict**
+3. [`research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)
+4. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
+5. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
 
-Live SSOT when Main_Website is present: `lib/content/`. Do not invent a different origin. Write **rupee-scored** / **rupee-ranked**, never `₹-scored` / `₹-ranked`.
+**Never** append Energy to the product name. **Never** teach withdrawn dual-pillar framing, fixed savings-% as identity, or energy-only company. External marketing is under [`archive/external-marketing-2026-09/`](archive/external-marketing-2026-09/) — do not read it for identity; do not rewrite it unless the human asked for a marketing pass.
+
+Rule: `stamped-vision.mdc`. Lint: `./scripts/vision-identity-lint.ps1`.
 
 ## Repo-specific guidance
 
 | Area | Guidance |
 |------|----------|
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
-| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index |
-| **Handoff** (`handoff/`) | Cross-repo integration docs by topic folder; start at `handoff/README.md` |
-| **Copy pack** (`copy/`) | Agent-facing selling copy: website, client narrative, prescriptions, deck claims. Start at [`copy/README.md`](copy/README.md). (`brand/` redirects here.) **Deck HTML SSOT:** public [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped) |
-| **Demo decks** (`demo-decks/`) | Mirror only — edit in [`decks-stamped`](https://github.com/Stamped-Energy/decks-stamped); live https://stamped-energy.github.io/decks-stamped/ |
+| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index; framing = ADR-030 |
+| **Handoff** (`handoff/`) | Cross-repo integration docs; start at `handoff/README.md` |
+| **Archive** | Marketing / decks / old client narrative — out of agent identity path |
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
-| **Release** | Tag `vYYYY.MM.DD`; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) |
+| **Release** | Tag as needed; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) after intentional releases |
 
-**Reading order for new agents:** [README.md](README.md) → [technical/STAMPED_ARCHITECTURE.md](technical/STAMPED_ARCHITECTURE.md) → [copy/README.md](copy/README.md) (selling copy) → [technical/product/Stamped_Client_Positioning_and_Narrative_v1.md](technical/product/Stamped_Client_Positioning_and_Narrative_v1.md) → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md). Client Positioning is decks/WhatsApp, not public homepage or About.
+**Reading order for new agents:** [README.md](README.md) → vision pack above → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
 
 ## Ponytail — mandatory gate for all coding
 
 **Before writing or modifying any code**, read and apply the `ponytail` skill (`.cursor/skills/ponytail/SKILL.md`). Always-on rule: `ponytail.mdc`.
-
-From [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) — lazy senior dev ladder for minimal, production-grade diffs. **Skills + MDC only** (no Ponytail MCP).
-
-| Layer | What | When |
-|-------|------|------|
-| Rule | `ponytail.mdc` | Always on — requires reading the `ponytail` skill before code |
-| Skill | `ponytail` | **Read first** on every coding task (write, fix, refactor, add deps) |
-| Review | `ponytail-review`, `ponytail-audit` | After implementation or on request — hunt over-engineering |
-
-Climb the ladder after you understand the problem: YAGNI → reuse codebase → stdlib → native → installed dep → one line → minimum that works. Never cut validation, security, accessibility, or error handling that prevents data loss.
-
-Intensity: `full` (default). User can say `/ponytail ultra` for stricter YAGNI or `stop ponytail` to disable.
 
 ## Spec Kit — Spec-Driven Development (features / greenfield)
 
@@ -47,18 +41,13 @@ From [github/spec-kit](https://github.com/github/spec-kit). Pre-installed skills
 
 Use for **new features / greenfield**, not one-line fixes or contract typo fixes.
 
-Order: `constitution` → `specify` → (`clarify`) → `plan` → (`checklist`) → `tasks` → (`analyze`) → `implement` → (`converge`).
-
-During implement, still apply **ponytail** on every code change.
-
 ## Before any task
 
-1. Read this file and all `.cursor/rules/` (start with `rule-awareness`, `ponytail`, `core-engineering`, `learn-and-research`).
-2. **Coding tasks:** read `ponytail` skill and climb the ladder before proposing or writing code.
-3. **Feature / greenfield:** follow `speckit.mdc` and Spec Kit skills when the user wants specs-first or the change is multi-phase.
+1. Read this file and all `.cursor/rules/` (start with `rule-awareness`, `stamped-vision`, `ponytail`, `core-engineering`).
+2. **Coding tasks:** read `ponytail` skill before proposing or writing code.
+3. **Feature / greenfield:** follow `speckit.mdc` when the user wants specs-first or the change is multi-phase.
 4. Follow `planning.mdc` — analyze, plan, **get user approval** before non-trivial coding.
-5. Follow `communication.mdc` — surface risks and tradeoffs explicitly.
-6. Unfamiliar tech → research brief for the user before architectural choices.
+5. Unfamiliar tech → research brief for the user before architectural choices.
 
 ## Architecture (when designing or refactoring)
 
@@ -69,16 +58,7 @@ During implement, still apply **ponytail** on every code change.
 | AI agents / LLM / tools | `agentic-system-design` | `agentic-systems.mdc` |
 | Any major trade-off | `system-design-tradeoffs` | `trade-offs.mdc` |
 
-Before large refactors, consider `graphify` on the affected directory.
-
-## Learning & documentation
-
-| Need | Skill / doc |
-|------|-------------|
-| Learn while building | `learn-while-building` |
-| Exhaustive README | `extensive-readme` |
-
-End each phase with a short **What you learned** summary.
+Do **not** invent a new company when designing. Product = five-domain closed decision loop ([ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)).
 
 ## Git commits and pushes
 
@@ -87,39 +67,12 @@ After each validated phase or meaningful feature:
 - **Conventional commit** per `git-commit-discipline.mdc`
 - **Push check** after every commit — auto-push when **≥ 10 unpushed** commits, or when user asks
 
-## MCP (live architecture patterns)
-
-Default server: **agent-patterns** → [Agent Patterns Catalog](https://www.agentpatternscatalog.org/)  
-Config: `.cursor/mcp.json`
-
-For agentic design, **query MCP first** (`find_pattern`, `recommend_recipe`, `pattern_for_symptom`) then apply `agentic-system-design` + `system-design-tradeoffs`.
-
-## During implementation
-
-7. Apply `execution.mdc` — phase-based work only; minimal scope; **read `ponytail` skill** on every edit.
-8. UI polish: `impeccable`. Animation: `gsap-*` skills.
-9. Before marking done on non-trivial changes: consider `ponytail-review` on the diff.
-
 ## Before completion
 
-10. Apply `quality-gates.mdc` — validate, report, update progress docs, **commit**.
-11. Contract changes: run `./scripts/contracts/contract-check.sh` before marking done.
-
-## Pre-installed skills (37)
-
-See [skills-manifest.json](skills-manifest.json) for the full list.
-
-## BeHuman — human prose / de-AI writing
-
-When the user asks to make copy feel **not AI-generated**, strip AI tells, or **write like a human**, read and apply `behuman` (`.cursor/skills/behuman/SKILL.md`) before drafting or rewriting. Rule: `behuman.mdc`. Prose only — code still goes through `ponytail`.
+1. Apply `quality-gates.mdc` — validate, report, update progress docs, **commit**.
+2. Contract changes: run `./scripts/contracts/contract-check.sh` before marking done.
+3. Identity-sensitive doc PRs: run `./scripts/vision-identity-lint.ps1`.
 
 ## Upstream config
 
-To refresh from [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding):
-
-```bash
-git clone --depth 1 https://github.com/Vinayak-RZ/cursor-config-coding.git /tmp/cursor-config-coding
-cp -a /tmp/cursor-config-coding/.cursor /workspace/
-cp /tmp/cursor-config-coding/skills-manifest.json /workspace/
-# Re-apply repo-specific AGENTS.md overrides as needed
-```
+To refresh from [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding), follow that repo’s vendor instructions. Project overrides for Stamped vision stay in this repo’s `.cursor/rules/stamped-vision.mdc`.

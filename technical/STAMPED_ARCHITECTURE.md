@@ -1,54 +1,59 @@
 # Stamped — Product & Technical Architecture (SSOT)
 
-*Status: current · 2026-07-30*  
-*Authority:* this file is the **single** latest product + technical architecture summary. Layer deep-dives live under [`layers/`](layers/). Framing lock: [ADR-026](../decisions/024-026/ADR-026-two-pillars-shared-context.md).
+*Status: current · 2026-09-24*  
+*Authority:* product framing is [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) and [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md). This file summarizes **product + technical** architecture. Layer deep-dives live under [`layers/`](layers/).
 
-> Honesty: `[~]` approximate · `[!]` evolving — verify before customer-facing claims.
+> Honesty: `[~]` approximate · `[!]` evolving — verify before customer-facing claims. Do not invent savings, customers, or revenue.
 
 ---
 
 ## 1. What Stamped is
 
-**Stamped Intelligence** is one product: a **software-first, read-only** overlay on plant OT/IT for Indian energy-intensive manufacturers. It turns meters, SCADA/PLC/EMS, bills, and (when available) orders into **assigned prescriptions with ₹ impact**, then **verifies with evidence** and **improves** from what was followed vs ignored.
+**Stamped** helps plant teams **choose, assign, and verify** the next operating action across **energy, cost, time / throughput, continuity / flow, and short-horizon exceptions**.
+
+One meaningful condition → **one decision card** → **one owner** → honest closure. Energy is the entry wedge, not the product name and not the category. Recommend and assign by default. Hard stops in ADR-030 and vision `09` stay absolute.
 
 | Dimension | Definition |
 | --- | --- |
-| **Category** | Verified-with-evidence **operational decision layer** (not EMS / monitoring-only) |
-| **Buyer outcome** | Verified ₹ / SEC reduction with evidence; effectiveness co-benefits when context exists |
-| **Client enemy** | Insight without closure — dashboards and OEE that never become assigned, verified actions |
-| **Integration** | Read-only — no control writes, not a hardware retrofit program |
-| **Operating loop** | Connect → Observe → Decide → Execute → Verify → **Improve** |
-| **Proof phrase** | **Verified with evidence** (ops-cleared / calculated ledger). DISCOM bill confirmation is optional, not the lead claim. |
+| **Category** | Closed operational decision loop (not EMS / monitoring-only / OpEx suite) |
+| **Buyer outcome** | A named next action with owner and evidence that closes — across five domains |
+| **Client enemy** | Insight without closure — dashboards that never become assigned, verified actions |
+| **Integration** | Read / ingest default; write-back human-confirmed, narrow, allow-listed |
+| **Operating loop** | detect → recommend → assign → act → verify (optional propose learning) |
+| **Proof** | Evidence labeled Measured / Confirmed / Modeled / Unknown; wallets separate; calculator owns money |
 
-### Exactly two pillars + shared context (not a third pillar)
+### Five domains on one card
 
 ```text
-One product
- ├── Pillar 1 — Load & Energy Efficiency Intelligence   (hero ₹ / SEC / bill)
- ├── Pillar 2 — Prescriptive Equipment Intelligence     (equipment early warnings)
- └── Shared context — orders, departments, tradeoffs, negotiation, Improve
+One product — Stamped
+ ├── Energy · Cost · Time/throughput · Continuity/flow · Exception response
+ ├── One primary domain tag per card; optional secondary tags; one owner
+ └── Stack L1→L6 unchanged (ADR-008); claim is the closed action
 ```
 
 | Say | Do not say |
 | --- | --- |
-| Two pillars + shared plant context | Third pillar / plant OS / MES product |
-| Energy efficiency (hero ₹) | Energy-only forever |
-| Plant effectiveness / OEE co-benefits on Rx | Separate OEE / MES product |
-| Prescriptive equipment intelligence | Vibration PdM company / full CMMS |
-| Read ERP/MES orders | We replace MES scheduling |
+| Stamped | Product name with Energy appended |
+| Five-domain decision loop | Withdrawn dual-pillar framing |
+| Energy as entry wedge | Energy-only company |
+| Choose / assign / verify | Dashboard-only / runs the plant |
+| Read ERP/MES context | We replace MES / APS / ERP |
 
-**30-second pitch:** (1) Cut energy cost with assigned, evidence-verified actions. (2) Same stack flags equipment issues early for maintenance. (3) For schedule-type actions, read orders/departments so we do not break production — **not your MES**. (4) Management Rx show **₹ energy** (hero) plus **effectiveness co-benefits** when context exists.
+**30-second pitch:** Put the next operating action in front of one named owner. Close it with honest evidence. Start where energy data opens the door; expand when a non-energy decision closes the same way.
 
-**Client narrative (canonical order):** load & energy management → equipment ML baselines → **practical prescriptions** → agentic layer that makes Rx feasible at scale. Do **not** lead with “agentic AI”. Full copy: [Stamped_Client_Positioning_and_Narrative_v1.md](product/Stamped_Client_Positioning_and_Narrative_v1.md).
+External marketing is archived under [`archive/external-marketing-2026-09/`](../archive/external-marketing-2026-09/). Agents do not take identity from that folder.
 
 ---
 
-## 2. Named outcomes
+## 2. Named outcome domains
 
-| Outcome | Role on prescriptions |
-| --- | --- |
-| **Energy efficiency** | Hero — ₹ / kWh / SEC on every relevant Rx |
-| **Plant effectiveness** | Co-benefit — OEE / order-on-time / downtime risk when order context exists ([ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md) trade-off block). **Not** Pillar 3. |
+| Domain | Owns | Does not own |
+| --- | --- | --- |
+| **Energy** | When/how loads run; avoidable use / intensity where data supports | Retail energy, bill-audit firm, meter hardware, critical remote control |
+| **Cost** | Visible operating-cost levers | Plant ledger / FP&A |
+| **Time / throughput** | Machine-minutes, dwell, constraint-cell next choice | Full plant schedule publish |
+| **Continuity / flow** | One handoff / batch / queue decision | New dispatch list / month-ahead plan |
+| **Exception response** | Next choice after stop / slip under visible constraints | APS / MRP replacement; quality hold release |
 
 ---
 
@@ -56,67 +61,64 @@ One product
 
 | Step | Name | What happens |
 | --- | --- | --- |
-| 01 | Connect | Ingest meters, bills, OT tags, optional ERP/MES orders |
-| 02 | Observe | Baselines, SEC, anomalies, equipment health signals |
-| 03 | Decide | Findings → ranked prescriptions (energy + optional trade-off) |
-| 04 | Execute | Assign owners; WhatsApp / dashboard; optional negotiation revise |
-| 05 | Verify | Ops-cleared / calculated M&V → ledger; bill path optional |
-| 06 | Improve | Calibration + preference signals from follow/ignore outcomes ([ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md)) |
+| 1 | Ingest | Meters, machine state, production, maintenance context, calendars, structured human input |
+| 2 | Normalize | Join enough to name one condition |
+| 3 | Detect | ML models / methods / rules → condition worth a card |
+| 4 | Recommend | Agent stack: options, constraints, uncertainty, one owner |
+| 5 | Assign | Route to the accountable role |
+| 6 | Record | Accept / edit / reject / defer + reason |
+| 7 | Verify | Named evidence; honest closure state |
+| 8 | Propose learning | Named-owner gate for production changes ([ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md)) |
 
 ---
 
 ## 4. L0–L6 stack
 
 ```text
-L0  Plant systems (customer-owned, read-only)
+L0  Plant systems (customer-owned)
 L1  Connect & normalise          → connectors-edge / cloud / bill
 L2  Universal Repository         → six stores in Postgres+Timescale
 L3  Intelligence core            → findings (numeric / rules)
-L4  Knowledge & reasoning        → evidence-bound Rx drafting (agentic)
-L5  Closure & verification       → workflow, WhatsApp, M&V, ledger
-L6  Experience & integration     → dashboard, BFF, exports, APIs
+L4  Knowledge & reasoning        → evidence-bound recommendation drafting
+L5  Closure & verification       → workflow, notify, M&V, ledger
+L6  Experience & integration     → control room, BFF, exports, APIs
 ```
 
 | Layer | Spec | Owns |
 | --- | --- | --- |
 | L1 | [L1](layers/l1-l2/L1-connect-and-normalise.md) | Protocols, edge, bill ingest, normalisation |
-| L2 | [L2](layers/l1-l2/L2-universal-repository.md) | TSDB, energy graph, commercial/production context, features, baselines, ledger |
-| L3 | [L3 core](layers/l3/L3-intelligence-core.md) | Engines for both pillars; Finding emit |
-| L4 | [L4](layers/l4-l6/L4-knowledge-and-reasoning.md) | Dual-lane agent, RAG, Rx draft |
+| L2 | [L2](layers/l1-l2/L2-universal-repository.md) | TSDB, plant graph, commercial/production context, features, baselines, ledger |
+| L3 | [L3 core](layers/l3/L3-intelligence-core.md) | Detection engines; Finding emit |
+| L4 | [L4](layers/l4-l6/L4-knowledge-and-reasoning.md) | Dual-lane agent, RAG, recommendation draft |
 | L5 | [L5](layers/l4-l6/L5-closure-and-verification.md) | Workflow, notify, M&V, ledger append |
-| L6 | [L6](layers/l4-l6/L6-experience-and-integration.md) | EMS console, Rx queue, analyst, APIs |
-| Cross | [Production](cross-cutting/03-production-engineering.md) · [Eval](cross-cutting/04-evaluation-and-quality.md) · [Rx practicality](cross-cutting/05-prescription-practicality-eval.md) | Reliability, quality gates, demo-card gold |
+| L6 | [L6](layers/l4-l6/L6-experience-and-integration.md) | Next-action surfaces, queue, analyst, APIs |
+| Cross | [Production](cross-cutting/03-production-engineering.md) · [Eval](cross-cutting/04-evaluation-and-quality.md) · [Practicality](cross-cutting/05-prescription-practicality-eval.md) | Reliability, quality gates |
 
 **Layer-per-repo** communicates only through versioned contracts in this pack ([ADR-008](../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)).
 
 ---
 
-## 5. Shared context (not a pillar)
-
-These enable practical management Rx; they are **not** a MES product.
+## 5. Plant context (enablers, not a second product)
 
 | Artifact | Role |
 | --- | --- |
-| Production orders (ERP/MES/MES-lite read) | Schedule windows, order risk on stagger/shed Rx |
-| Department graph + incentives | Who owns the action; conflict visibility |
-| Trade-off block on management Rx | ₹ energy (hero) + effectiveness co-benefits + alternatives |
-| Dual plant graphs + Path D (L4) | Canonical + live index so management Rx are plant-now; staff verify on L5 console ([ADR-028](../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)) |
-| Prescription negotiation | Bounded parameter revise — not free-form rewrite |
-| Improve (step 06) | ML calibration + agent preferences + monthly UI report |
+| Production orders (ERP/MES read) | Constraint context for near-term choices — never own dispatch |
+| Department / owner graph | Who owns the action |
+| Dual plant graphs + Path D (L4) | Canonical + live index ([ADR-028](../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)) |
+| Bounded negotiation | Parameter revise with human confirm — not free-form rewrite |
+| Improve | Learning from closed cards ([ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md)) |
 
-Contracts (0.10.0+): `production-order`, `plant-department-graph`, `prescription-revision`, `improvement-signal`, `plant-preference-profile`; Rx fields `decision_class` / `tradeoff`.
-
-Handoff hub: [`../handoff/holistic/`](../handoff/holistic/).
+Handoff hub: [`../handoff/`](../handoff/).
 
 ---
 
-## 6. How 15–20% savings is engineered
+## 6. How value is engineered
 
-Savings are **not** one model score. They are:
+Value is **not** one model score and **not** a fixed 15–20% identity claim.
 
-> **Σ (closed prescriptions across waste categories) × closure rate**, defended by **evidence-backed M&V**.
+> Closed decision cards × honest closure (including rejection and no-change) × evidence that matches its tier.
 
-Architecture must (a) detect across categories, (b) convert detections into executed actions, (c) verify on telemetry/ledger (bill optional). Detection without closure is not the product.
+Architecture must (a) detect conditions across domains, (b) assign an owner, (c) verify with labeled evidence. Detection without closure is outside the product center.
 
 ---
 
@@ -128,23 +130,20 @@ Architecture must (a) detect across categories, (b) convert detections into exec
 | Messaging | Mosquitto MQTT (L1) · Postgres outbox | Need Redpanda-class bus |
 | Runtime shape | Modular monoliths per layer repo | Clear satellite boundaries |
 | Deploy modes | `local`, `local-dashboard`, `cloud` ([ADR-010](../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)) | Same contracts in all modes |
-| Edge | Go agent, read-only OT | — |
+| Edge | Go agent; OT write only if plant-accepted earned path (hard stops bind) | — |
 
-India compliance by design: CERT-In residency, DPDP, read-only OT — [`../compliance/`](../compliance/).
+India compliance by design: CERT-In residency, DPDP — [`../compliance/`](../compliance/).
 
 ---
 
-## 8. Prescription card (hero UX)
+## 8. Decision card (hero UX)
 
-**Practical floor action** — not a chart insight. Client-visible fields:
+**Practical next action** — not a chart insight:
 
-- **What** · **Why** · **Owner** (role + department) · **Effort** · **Impact** (₹ hero, `[illustrative]` until M&V locked) · **Due** (real window: shift, job, maintenance slot) · **Priority**
-- **Flip for evidence** — tags, baseline comparison, tariff window
-- **Management-class:** trade-off block (energy + effectiveness co-benefits + alternatives)
-- **Discuss:** bounded negotiation when first window is unsafe (low standby, active order) → next-best slot
-- Proof: verified with evidence badges (ops vs bill paths separate)
-
-Illustrative cards + constraints: [prescriptions-examples.md](../demo-decks/prescriptions-examples.md). Client wording: [product/Stamped_Client_Positioning_and_Narrative_v1.md](product/Stamped_Client_Positioning_and_Narrative_v1.md) §2 step 3.
+- **What** · **Why** · **Owner** · **Effort** · **Expected effect** (domain wallets separate; ₹ only via calculator) · **Due / review** · **Primary domain tag**
+- **Evidence** — Measured / Confirmed / Modeled / Unknown beside the result
+- **Closure** — verified / no change / rejected / deferred / blocked
+- Hard stops always visible in product claims
 
 ---
 
@@ -152,10 +151,11 @@ Illustrative cards + constraints: [prescriptions-examples.md](../demo-decks/pres
 
 | Concern | Stamped is | Stamped is not |
 | --- | --- | --- |
-| Energy | Pillar 1 | Passive EMS charts only |
-| Equipment | Pillar 2 early-warning Rx | Full CMMS / vibration PdM company |
-| Effectiveness / OEE | Co-benefit via shared context | Separate OEE / MES product |
-| MES / ERP | Read orders & schedules | Dispatch / WIP / scheduling SoR |
+| Energy | Entry wedge + one domain | Energy-only product / EMS dashboard |
+| Time / flow / exception | Domains on the same card | APS / logistics SKU / plant OS |
+| Equipment / maintenance | May escalate with evidence | Full CMMS / vibration PdM company |
+| MES / ERP | Read context | Dispatch / WIP / scheduling SoR |
+| Agents | Latest-tech presentation for recommend + learn | The company itself |
 
 ---
 
@@ -163,13 +163,12 @@ Illustrative cards + constraints: [prescriptions-examples.md](../demo-decks/pres
 
 | Priority | Doc |
 | --- | --- |
-| 1 | **This file** |
-| 2 | [Client positioning & narrative](product/Stamped_Client_Positioning_and_Narrative_v1.md) — WhatsApp, decks, I4.0 buyers, Rx practicality |
-| 3 | [ADR-026](../decisions/024-026/ADR-026-two-pillars-shared-context.md) · [ADR-024](../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md) |
-| 4 | [prescriptions-examples.md](../demo-decks/prescriptions-examples.md) — floor-tied illustrative Rx |
-| 5 | [handoff/README.md](../handoff/README.md) → your layer / [`agents/prompts/stamped-holistic-consumer-prompt.md`](../handoff/agents/prompts/stamped-holistic-consumer-prompt.md) |
-| 6 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
-| 7 | Layer specs under [`layers/`](layers/) as needed |
+| 1 | [`AGENT-START.md`](../research/plant-efficiency-exploration-2026-09/AGENT-START.md) → [`09`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) → [`10`](../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) |
+| 2 | [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) |
+| 3 | **This file** (stack + layer map) |
+| 4 | [handoff/README.md](../handoff/README.md) → your layer |
+| 5 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
+| 6 | Layer specs under [`layers/`](layers/) as needed |
 | Legacy names | Thin pointers in [`pointers/`](pointers/) redirect here |
 
-Research/ML bibliography: [`research/stamped-research-and-ml-citations.md`](research/stamped-research-and-ml-citations.md).
+Prior product snapshot: tag `v2026.09.24`. Marketing archive is not identity.

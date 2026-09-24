@@ -1,4 +1,4 @@
-# knowledge-reasoning — Stamped L4 Knowledge & Reasoning
+﻿# knowledge-reasoning — Stamped L4 Knowledge & Reasoning
 
 > **Platform mirror:** This file is copied into `stamped-external` for discoverability.  
 > **Canonical live repo:** [Vinayak-RZ/knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning)  
@@ -52,7 +52,7 @@
 
 ### 1.1 What it is
 
-Stamped Energy’s **L4 — Knowledge & Reasoning** layer. It composes evidence into **advice**:
+Stamped’s **L4 — Knowledge & Reasoning** layer. It composes evidence into **advice**:
 
 1. **Prescription compiler** — Accept L3 outbox envelopes (`delivery=l4` ∧ `status=emitted`), route Lane A or B, verify schema/impact, apply L3 veto stub, emit to L5 (fixture today).
 2. **Conversational energy analyst** — Multi-turn, cited, budgeted ReAct over Path H / L2 fixture tools / Path W; explicit saved notes only (no silent semantic memory).
@@ -75,14 +75,14 @@ Stamped Energy’s **L4 — Knowledge & Reasoning** layer. It composes evidence 
 
 | Persona | Interface |
 |---------|-----------|
-| Energy engineer / operator | L6 chat & Rx queue → L4 APIs |
+| Energy engineer / operator | L6 chat & Rx queue â†’ L4 APIs |
 | Platform engineer | Swagger `/docs`, preview, docker-compose |
 | Reviewer / auditor | Provenance, citations, eval gates |
 | Agents / contributors | This README + `external/` SSOT + nawab plans |
 
 ### 1.4 Success criteria (today)
 
-- Fixture Finding → valid Prescription on Lane A (0 LLM) and Lane B (mock model)
+- Fixture Finding â†’ valid Prescription on Lane A (0 LLM) and Lane B (mock model)
 - Durable job survives restart without duplicate emit (lease + checkpointer path)
 - Analyst multi-turn with citations; Path W results labelled T4
 - `./scripts/contracts/validate.sh` green with `L4_MODEL_*` unset
@@ -172,9 +172,9 @@ flowchart TD
 |------|------|
 | `src/stamped_l4/api/app.py` | FastAPI routes |
 | `src/stamped_l4/worker/runner.py` | Route + invoke Lane A/B |
-| `src/stamped_l4/worker/durable.py` | Lease claim → process → complete/fail |
+| `src/stamped_l4/worker/durable.py` | Lease claim â†’ process â†’ complete/fail |
 | `src/stamped_l4/graph/lane_a.py` | Lane A StateGraph (0 LLM) |
-| `src/stamped_l4/graph/lane_b.py` | Lane B retrieve → draft/repair → claims → emit |
+| `src/stamped_l4/graph/lane_b.py` | Lane B retrieve â†’ draft/repair â†’ claims â†’ emit |
 | `src/stamped_l4/analyst/react.py` | Analyst ReAct StateGraph |
 | `src/stamped_l4/analyst/tools.py` | Read-only tool registry (9 tools) |
 | `src/stamped_l4/retrieval/path_h.py` | Path H hybrid RAG |
@@ -217,7 +217,7 @@ unset L4_MODEL_PROVIDER L4_MODEL_BASE_URL L4_MODEL_API_KEY L4_MODEL_NAME
 export L4_DATABASE_URL="${L4_DATABASE_URL:-sqlite+pysqlite:///./data/l4.db}"
 mkdir -p data
 python -m stamped_l4.api
-# → http://127.0.0.1:8000/docs
+# â†’ http://127.0.0.1:8000/docs
 ```
 
 Worker (separate terminal):
@@ -255,7 +255,7 @@ Source of truth for local secrets template: [`deploy/.env.example`](deploy/.env.
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `L4_DATABASE_URL` | compose/prod | `sqlite+pysqlite:///:memory:` in unit tests | SQLAlchemy URL (prefer Postgres) |
-| `L4_MODEL_PROVIDER` | no | empty → mock | Set `openai_compat` for real model |
+| `L4_MODEL_PROVIDER` | no | empty â†’ mock | Set `openai_compat` for real model |
 | `L4_MODEL_BASE_URL` | with real model | — | OpenAI-compatible base URL |
 | `L4_MODEL_API_KEY` | with real model | — | API key (secret) |
 | `L4_MODEL_NAME` | with real model | — | Model id |
@@ -286,34 +286,34 @@ Source of truth for local secrets template: [`deploy/.env.example`](deploy/.env.
 
 ```text
 knowledge-reasoning/
-├── src/stamped_l4/           # Installable package
-│   ├── api/                  # FastAPI app + __main__
-│   ├── analyst/              # ReAct, memory, tools, budgets
-│   ├── claims/               # Numeric claim ledger (Lane B)
-│   ├── clients/              # L2/L3/L5 fixtures + HTTP stubs
-│   ├── db/                   # SQLAlchemy engine, models, repos
-│   ├── graph/                # Lane A / Lane B StateGraphs
-│   ├── jobs/                 # Leases + checkpointer factory
-│   ├── models/               # StructuredModel mock / openai_compat
-│   ├── obs/                  # OTel + Phoenix
-│   ├── retrieval/            # Path H + RRF + seed corpus loader
-│   ├── web/                  # Path W
-│   ├── worker/               # process_record + durable loop
-│   ├── inbox.py              # Envelope filter
-│   ├── router.py             # Lane A vs B
-│   ├── impact.py             # Deterministic impact from Finding
-│   ├── template_renderer.py  # Lane A templates
-│   └── verifier.py           # Prescription schema checks
-├── migrations/               # Alembic
-├── corpus/seed/              # Path H seed playbooks
-├── deploy/                   # Dockerfile, compose, .env.example
-├── tests/{unit,api,fuzz,e2e,eval,integration,contract}/
-├── docs/                     # USER_GUIDE, DEPLOYMENT, cutover-live-http
-├── external/                 # stamped-external submodule (SSOT)
-├── IMPLEMENTATION_PLAN*.md   # Nawab plans P0/P1/P2
-├── DECISIONS.md              # Consumer ADRs
-├── PROGRESS.md
-└── scripts/contracts/validate.sh
+â”œâ”€â”€ src/stamped_l4/           # Installable package
+â”‚   â”œâ”€â”€ api/                  # FastAPI app + __main__
+â”‚   â”œâ”€â”€ analyst/              # ReAct, memory, tools, budgets
+â”‚   â”œâ”€â”€ claims/               # Numeric claim ledger (Lane B)
+â”‚   â”œâ”€â”€ clients/              # L2/L3/L5 fixtures + HTTP stubs
+â”‚   â”œâ”€â”€ db/                   # SQLAlchemy engine, models, repos
+â”‚   â”œâ”€â”€ graph/                # Lane A / Lane B StateGraphs
+â”‚   â”œâ”€â”€ jobs/                 # Leases + checkpointer factory
+â”‚   â”œâ”€â”€ models/               # StructuredModel mock / openai_compat
+â”‚   â”œâ”€â”€ obs/                  # OTel + Phoenix
+â”‚   â”œâ”€â”€ retrieval/            # Path H + RRF + seed corpus loader
+â”‚   â”œâ”€â”€ web/                  # Path W
+â”‚   â”œâ”€â”€ worker/               # process_record + durable loop
+â”‚   â”œâ”€â”€ inbox.py              # Envelope filter
+â”‚   â”œâ”€â”€ router.py             # Lane A vs B
+â”‚   â”œâ”€â”€ impact.py             # Deterministic impact from Finding
+â”‚   â”œâ”€â”€ template_renderer.py  # Lane A templates
+â”‚   â””â”€â”€ verifier.py           # Prescription schema checks
+â”œâ”€â”€ migrations/               # Alembic
+â”œâ”€â”€ corpus/seed/              # Path H seed playbooks
+â”œâ”€â”€ deploy/                   # Dockerfile, compose, .env.example
+â”œâ”€â”€ tests/{unit,api,fuzz,e2e,eval,integration,contract}/
+â”œâ”€â”€ docs/                     # USER_GUIDE, DEPLOYMENT, cutover-live-http
+â”œâ”€â”€ external/                 # stamped-external submodule (SSOT)
+â”œâ”€â”€ IMPLEMENTATION_PLAN*.md   # Nawab plans P0/P1/P2
+â”œâ”€â”€ DECISIONS.md              # Consumer ADRs
+â”œâ”€â”€ PROGRESS.md
+â””â”€â”€ scripts/contracts/validate.sh
 ```
 
 ---
@@ -332,7 +332,7 @@ Base: FastAPI app from `create_app()` in `src/stamped_l4/api/app.py`. Interactiv
 | `GET` | `/v1/chat/sessions` | `X-Org-Id` + filters | List sessions |
 | `GET` | `/v1/chat/sessions/{id}` | org (+ plant) | Get session + summary |
 | `GET` | `/v1/chat/sessions/{id}/messages` | org/plant/user | Paginated transcript |
-| `POST` | `/v1/chat/sessions/{id}/messages` | org/plant/user | ReAct turn → answer/abstain/429 budget |
+| `POST` | `/v1/chat/sessions/{id}/messages` | org/plant/user | ReAct turn â†’ answer/abstain/429 budget |
 | `POST` | `/v1/chat/sessions/{id}/notes` | org/plant/user | Explicit save note |
 | `GET` | `/v1/chat/sessions/{id}/notes` | org/plant/user | List plant+user notes |
 | `DELETE` | `/v1/chat/notes/{note_id}` | org/plant/user | Delete note |
@@ -435,7 +435,7 @@ L4_DATABASE_URL=postgresql+psycopg://l4:l4@localhost:5432/stamped_l4 \
 | Eval | `tests/eval/` | Lane B goldens + **60-case** `p2_manifest_60.json` |
 | Integration | `tests/integration/` | Real Postgres leases/API (skipped without URL) |
 
-Coverage gate: ≥85% lines on `api/`, `analyst/`, `jobs/`, `web/`, `db/` (see `scripts/contracts/validate.sh`).
+Coverage gate: â‰¥85% lines on `api/`, `analyst/`, `jobs/`, `web/`, `db/` (see `scripts/contracts/validate.sh`).
 
 ### 9.3 Eval gates (60)
 
@@ -523,7 +523,7 @@ export L4_ALLOWLISTED_WEB_TRANSPORT=httpx   # or L4_ALLOWLISTED_WEB_LIVE=1
 
 | Path | Role |
 |------|------|
-| [`external/`](external/) | Submodule → [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external) |
+| [`external/`](external/) | Submodule â†’ [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external) |
 | [`external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md`](external/technical/layers/l4-l6/L4-knowledge-and-reasoning.md) | **L4 architecture SSOT** |
 | [`external/handoff/l4/stamped-l4-architecture-handoff.md`](external/handoff/l4/stamped-l4-architecture-handoff.md) | Consumer bootstrap |
 | [`external/decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md`](external/decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Path W / T4 trust |
@@ -555,9 +555,9 @@ git submodule update --init --recursive
 
 | Phase | Theme | Status |
 |-------|-------|--------|
-| P0 | Lane A pipeline, inbox, fixture clients, FastAPI health/preview | ✅ |
-| P1 | Router, Lane B, Path H, mock/openai_compat model, claims budget | ✅ |
-| P2 | Durable Postgres jobs, analyst ReAct, Path W, Phoenix/OTel, eval/60, compose | ✅ |
+| P0 | Lane A pipeline, inbox, fixture clients, FastAPI health/preview | âœ… |
+| P1 | Router, Lane B, Path H, mock/openai_compat model, claims budget | âœ… |
+| P2 | Durable Postgres jobs, analyst ReAct, Path W, Phoenix/OTel, eval/60, compose | âœ… |
 
 ### 13.2 Possible future directions
 
@@ -607,7 +607,7 @@ Unit/API tests use SQLite files. Production/compose use Postgres for leases (`SK
 | **Lane A / B** | Template fast path vs evidence synthesis |
 | **Path H** | Internal hybrid RAG over curated corpus |
 | **Path W** | Allowlisted web research |
-| **ReAct** | Budgeted reason↔act loop (`analyst/react.py`) |
+| **ReAct** | Budgeted reasonâ†”act loop (`analyst/react.py`) |
 | **Lease / fencing token** | Worker claim exclusivity; stale workers cannot complete |
 | **SSOT** | Platform pack in `external/` — architecture truth |
 
@@ -615,4 +615,4 @@ Unit/API tests use SQLite files. Production/compose use Postgres for leases (`SK
 
 ## License / ownership
 
-Consumer repository for Stamped Energy L4. Platform contracts and architecture are owned by `stamped-external`. See submodule license/docs there.
+Consumer repository for Stamped L4. Platform contracts and architecture are owned by `stamped-external`. See submodule license/docs there.

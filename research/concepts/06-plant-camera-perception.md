@@ -1,4 +1,4 @@
----
+﻿---
 type: Research Note
 title: "Plant camera perception — cameras as structured observation, not a plant brain"
 description: "Exploration of plant CCTV as a dense-sensing input for Stamped. Compares narrow vision, VLMs, and world models; maps the one decision cameras can uniquely improve (idle / occupancy); designs a cheap shadow experiment that can fail."
@@ -15,7 +15,7 @@ timestamp: "2026-08-15T00:00:00Z"
 
 **This note is an exploration.** It does not add an L1 source, an event-schema type, or an ADR. No connector, no GPU pipeline, no new cameras.
 
-**Identity lock:** Stamped remains a read-only operational decision layer. Cameras, if they ever enter the stack, are **shared context** — the same class as orders and shift calendars — not a third pillar and not a VMS / people-analytics product. Framing: [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md).
+**Identity lock:** Stamped remains a read-only operational decision layer. Cameras, if they ever enter the stack, are **shared context** — the same class as orders and shift calendars — not a third pillar and not a VMS / people-analytics product. Framing: [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md).
 
 > Evidence labels: **[Repo]** grounded in current architecture · **[Research]** grounded in published work · **[Inference]** deduction to test, not fact.
 
@@ -28,7 +28,7 @@ Stamped already infers plant state from meters, SCADA, bills, and (when present)
 L3 idle detection is effectively:
 
 ```text
-kW high  ∧  production = 0   →   idle / phantom-load finding
+kW high  ∧  production = 0   â†’   idle / phantom-load finding
 ```
 
 ([L3 intelligence core](../../technical/layers/l3/L3-intelligence-core.md) waste classifier: `phantom = kW > floor when production = 0`; `machine state = idle ∧ kW > threshold for > N min`.)
@@ -42,9 +42,9 @@ Existing strategy already constrains how far this idea may go:
 | Constraint | Source |
 |---|---|
 | World models stay **shadow-only** until they change a decision | [PATHS v2](../strategy/PATHS_FOR_STAMPED_V2.md) Part IX / recommended default #5 |
-| Dense sensing is valuable only when it improves observability of decide → close → verify | [INSIGHTS](../strategy/INSIGHTS_FOR_STAMPED.md) executive synthesis |
+| Dense sensing is valuable only when it improves observability of decide â†’ close â†’ verify | [INSIGHTS](../strategy/INSIGHTS_FOR_STAMPED.md) executive synthesis |
 | Do not add sensors before proving a repeated missing-data problem | PATHS anti-pattern #7 (hardware romanticism) |
-| L1 source inventory has **no camera / CCTV** today; phone camera is bill capture only | [L1 spec](../../technical/layers/l1-l2/L1-connect-and-normalise.md) §2.1 |
+| L1 source inventory has **no camera / CCTV** today; phone camera is bill capture only | [L1 spec](../../technical/layers/l1-l2/L1-connect-and-normalise.md) Â§2.1 |
 | Foundation models are **challengers**, never the M&V path of record | [ADR-014](../../decisions/011-015/ADR-014-ts-foundation-model-role.md) |
 
 Referenced concept files (`00-world-models-primer.md`, `03-dinowm.md`, `04-agents-with-world-models.md`) are cited from INSIGHTS but **are not in this repo**. This note fills the vision-modality gap here. It does not reconstruct that KB.
@@ -55,20 +55,20 @@ Referenced concept files (`00-world-models-primer.md`, `03-dinowm.md`, `04-agent
 
 ```text
 Pixels
-  → Vision model     "what objects / states are in this frame?"
-  → VLM              "answer a question about this scene in language"
-  → World model      "predict the next state if X happens"
+  â†’ Vision model     "what objects / states are in this frame?"
+  â†’ VLM              "answer a question about this scene in language"
+  â†’ World model      "predict the next state if X happens"
 ```
 
 | Class | What it is | When it wins | Why it usually loses for Stamped |
 |---|---|---|---|
-| **Narrow vision** (YOLO / pose / occupancy classifier) | Detector or classifier → structured labels (`line_occupied`, `machine_spinning`, `bay_empty`) | One repeated visual fact; edge-cheap; JSON-auditable | Brittle across plants; needs per-site labels |
-| **VLM** (Qwen-VL, GPT-4o-vision, MonitorVLM-style) | Image or short clip + prompt → JSON or prose | Open vocabulary; few-shot “is this line running?”; useful as analyst assist | Hallucinates. SteelBench (Jul 2026) best VLM is **42.6%** action accuracy vs **84.6%** human on real plant CCTV (dust, glare, distant workers) **[Research]**. Chain-of-thought VLMs do not scale to many RTSP streams (MonitorVLM-v2 had to *compress* reasoning into a finite rule-ID space to stay real-time) **[Research]** |
-| **World model** (V-JEPA 2, DINO-WM, LeWM) | Latent dynamics: predict `z_{t+1}` from `z_t` (+ optional action) | Counterfactuals; planning; “what if we stagger this line” from video | Needs action-labeled trajectories. Stamped is **read-only** — no control writes. Predicts pixels or latents, not ₹. Does not solve tag mapping or operational feasibility ([INSIGHTS §7](../strategy/INSIGHTS_FOR_STAMPED.md)) |
+| **Narrow vision** (YOLO / pose / occupancy classifier) | Detector or classifier â†’ structured labels (`line_occupied`, `machine_spinning`, `bay_empty`) | One repeated visual fact; edge-cheap; JSON-auditable | Brittle across plants; needs per-site labels |
+| **VLM** (Qwen-VL, GPT-4o-vision, MonitorVLM-style) | Image or short clip + prompt â†’ JSON or prose | Open vocabulary; few-shot “is this line running?”; useful as analyst assist | Hallucinates. SteelBench (Jul 2026) best VLM is **42.6%** action accuracy vs **84.6%** human on real plant CCTV (dust, glare, distant workers) **[Research]**. Chain-of-thought VLMs do not scale to many RTSP streams (MonitorVLM-v2 had to *compress* reasoning into a finite rule-ID space to stay real-time) **[Research]** |
+| **World model** (V-JEPA 2, DINO-WM, LeWM) | Latent dynamics: predict `z_{t+1}` from `z_t` (+ optional action) | Counterfactuals; planning; “what if we stagger this line” from video | Needs action-labeled trajectories. Stamped is **read-only** — no control writes. Predicts pixels or latents, not ₹. Does not solve tag mapping or operational feasibility ([INSIGHTS Â§7](../strategy/INSIGHTS_FOR_STAMPED.md)) |
 
 **Default:** treat cameras as a **narrow observation source**, not a plant brain.
 
-- **P0 experiment (this note):** frozen detector or small VLM → structured occupancy labels (`yes` / `no` / `unknown`).
+- **P0 experiment (this note):** frozen detector or small VLM â†’ structured occupancy labels (`yes` / `no` / `unknown`).
 - **P1 (only if P0 lifts a decision):** VLM as L4 analyst assist — “show me the bay at 14:12” — citing a stored keyframe. Never as the finding engine.
 - **P2+ shadow:** world-model challenger only if we later have paired `(visual state, electrical state, accepted Rx, verified outcome)` trajectories. Same promotion gate as TimesFM in ADR-014.
 
@@ -76,7 +76,7 @@ Pixels
 
 **Decision:** which class to explore first.
 
-**Option A — Narrow CV → structured events.** Pros: cheap, edge-local, JSON-auditable, fits the existing L1 `Event` shape. Cons: one skill per visual fact; plant-specific calibration.
+**Option A — Narrow CV â†’ structured events.** Pros: cheap, edge-local, JSON-auditable, fits the existing L1 `Event` shape. Cons: one skill per visual fact; plant-specific calibration.
 
 **Option B — VLM as the plant observer.** Pros: flexible questions; faster to demo. Cons: cost, latency, hallucination; DPDP if frames leave India; SteelBench shows industrial CCTV is still hard.
 
@@ -118,13 +118,13 @@ Cameras stay customer-owned L0. Stamped never becomes a video-management system 
 
 ```text
 L0 CCTV (RTSP / NVR)
-  → edge sampler (keyframes only — not continuous video)
-  → vision extractor (narrow CV, or small VLM as shadow captioner)
-  → visual_observation Event   { line_occupied: yes | no | unknown }
-  → L2 event store
-  → L3 idle / occupancy covariate (confirmation, not engine of record)
-  → L4 Rx evidence (optional redacted keyframe cite)
-  ╌→ world-model challenger (shadow only; not in this experiment)
+  â†’ edge sampler (keyframes only — not continuous video)
+  â†’ vision extractor (narrow CV, or small VLM as shadow captioner)
+  â†’ visual_observation Event   { line_occupied: yes | no | unknown }
+  â†’ L2 event store
+  â†’ L3 idle / occupancy covariate (confirmation, not engine of record)
+  â†’ L4 Rx evidence (optional redacted keyframe cite)
+  â•Œâ†’ world-model challenger (shadow only; not in this experiment)
 ```
 
 | Layer | Role | Must not |
@@ -164,7 +164,7 @@ CCTV includes people. Faces and gait are personal data. This is a different clas
 | Plant DPA + worker notice before any pilot | Workplace surveillance is a customer-fiduciary problem; Stamped is processor |
 | India-region inference if any frame must leave the edge | No EU/US VLM API on plant faces |
 
-A public-footage fallback (below) avoids this until a plant consents. That is the default path for the experiment in §6.
+A public-footage fallback (below) avoids this until a plant consents. That is the default path for the experiment in Â§6.
 
 ---
 
@@ -175,7 +175,7 @@ Cheapest test that can fail. World-model work is **out of this experiment**.
 ### 6.1 One visual fact
 
 ```text
-line_occupied ∈ { yes, no, unknown }
+line_occupied âˆˆ { yes, no, unknown }
 ```
 
 on **one bay that already has a feeder meter**. Not “what is happening in the plant.” Not open-ended VQA.
@@ -188,7 +188,7 @@ on **one bay that already has a feeder meter**. Not “what is happening in the 
 
 **Default now:** public industrial footage or SteelBench-style stills, plus a *synthetic* kW + calendar pairing so the decision metric can still be computed. Public clips will not prove plant-specific detectors. They *will* prove whether the evaluation harness and the three-way comparison are coherent before we ask a plant for cameras.
 
-Target: **50–100 labeled keyframes**, stratified across occupied / empty / unusable. One person labels; a second person spot-checks 20%. Disagreement → `unknown` or discard.
+Target: **50–100 labeled keyframes**, stratified across occupied / empty / unusable. One person labels; a second person spot-checks 20%. Disagreement â†’ `unknown` or discard.
 
 ### 6.3 Three systems, same windows
 
@@ -222,7 +222,7 @@ Stop. Do not write an L1 connector, an event type, or an ADR.
 
 | Kill | Meaning |
 |---|---|
-| No lift on **≥ 30 conflicting windows** | Cameras do not change the idle decision vs kW + calendar |
+| No lift on **â‰¥ 30 conflicting windows** | Cameras do not change the idle decision vs kW + calendar |
 | Plant refuses camera access **and** public footage cannot produce 30 conflicting windows | We cannot run a real test; park the idea |
 | DPDP / customer legal blocks retention of even redacted keyframes **and** event-only (no frame) inference is refused | The modality is commercially closed |
 | Visual model abstains on > 40% of frames that a human can label | The view is not usable (angle, lighting, occlusion) — fix the camera, do not train a bigger model |
@@ -231,7 +231,7 @@ A “pretty demo” that never hits 30 disagreements is a kill, not a maybe.
 
 ### 6.6 What would count as a pass (still not a product)
 
-On ≥ 30 conflicting windows, visual confirmation improves idle-finding precision by a margin a supervisor would notice (target: **+0.15 precision** without a recall collapse worse than −0.05) **[Inference — threshold to revisit after the first labeled set]**.
+On â‰¥ 30 conflicting windows, visual confirmation improves idle-finding precision by a margin a supervisor would notice (target: **+0.15 precision** without a recall collapse worse than âˆ’0.05) **[Inference — threshold to revisit after the first labeled set]**.
 
 A pass unlocks a *design* conversation: draft `visual_observation` on `Event`, an L1 “not P0” source row, and a shadow-challenger ADR in the ADR-014 shape. It does not unlock a CCTV product, a live wall, or M&V citation.
 
@@ -243,8 +243,8 @@ A world model is a dynamics model: it predicts the next state given the current 
 
 Revisit a video world-model challenger only when all of these are true:
 
-1. The occupancy experiment passed (§6.6) or was killed for a reason that does not apply to dynamics (e.g. we have occupancy another way).
-2. We have trajectories of `(visual state, electrical state, recommended action, human response, verified outcome)` — the intervention record [INSIGHTS §1](../strategy/INSIGHTS_FOR_STAMPED.md) already treats as the atomic data asset.
+1. The occupancy experiment passed (Â§6.6) or was killed for a reason that does not apply to dynamics (e.g. we have occupancy another way).
+2. We have trajectories of `(visual state, electrical state, recommended action, human response, verified outcome)` — the intervention record [INSIGHTS Â§1](../strategy/INSIGHTS_FOR_STAMPED.md) already treats as the atomic data asset.
 3. There is a **specific decision** a latent rollout would change that TOW-P + the stagger simulator cannot (PATHS founder question 16: “What decision can a world model make uniquely better — not merely predict more accurately?”).
 
 Until then, “we should use a world model on the cameras” is model prestige. PATHS recommended default #5 still holds: run world models in shadow against **decision-level** metrics, not video-prediction loss.
@@ -265,7 +265,7 @@ Until then, “we should use a world model on the cameras” is model prestige. 
 
 | Assumption | Reason | Impact if wrong |
 |---|---|---|
-| First gap is idle / bay occupancy | Highest overlap with an existing L3 finding and a known Path B hole (missing production tags) | Experiment target changes — rewrite §6.1, do not keep the same labels |
+| First gap is idle / bay occupancy | Highest overlap with an existing L3 finding and a known Path B hole (missing production tags) | Experiment target changes — rewrite Â§6.1, do not keep the same labels |
 | No consented plant CCTV in this pass | We have not asked; DPDP is unresolved | Public-footage fallback; plant CCTV is a later gated step |
 | Written exploration is the deliverable | Approved plan: docs only | No connector, no GPU work, no schema bump |
 
@@ -278,7 +278,7 @@ Until then, “we should use a world model on the cameras” is model prestige. 
 - [L3 intelligence core](../../technical/layers/l3/L3-intelligence-core.md) — idle rule, shift discovery
 - [L1 connect & normalise](../../technical/layers/l1-l2/L1-connect-and-normalise.md) — no camera source today
 - [ADR-014](../../decisions/011-015/ADR-014-ts-foundation-model-role.md) — challenger template
-- [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md) — shared context, not a third pillar
+- [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md) — shared context, not a third pillar
 - [India compliance register](../../compliance/india-compliance-register.md) — DPDP / PII
 - SteelBench: [arXiv:2607.05264](https://arxiv.org/abs/2607.05264) (Jul 2026)
 - MonitorVLM-v2: [arXiv:2608.00975](https://arxiv.org/html/2608.00975) (Aug 2026)

@@ -1,4 +1,4 @@
-# ADR-028: Dual plant graphs, Path D, quality-default compile, L5 compile-trace
+﻿# ADR-028: Dual plant graphs, Path D, quality-default compile, L5 compile-trace
 
 > **Naming (2026-08):** Implementation code uses descriptive names — plant knowledge graph / plant live index / neighborhood / delta facts / playbook corpus / allowlisted web. Letter codes in this ADR are historical; only L1–L6 remain as layer codes.
 
@@ -7,13 +7,13 @@
 | **Status** | Accepted |
 | **Date** | 2026-08-18 |
 | **Deciders** | Product + Engineering |
-| **Related** | [ADR-017](../016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-024](../024-026/ADR-024-holistic-plant-decisions.md) · [ADR-026](../024-026/ADR-026-two-pillars-shared-context.md) · [L4 plant context graphs](../../technical/layers/l4-l6/L4-plant-context-graphs.md) · [research](../../technical/research/stamped-context-graphs-and-practical-prescriptions.md) · [`l4-compile-trace.json`](../../contracts/schemas/intelligence/l4-compile-trace.json) |
+| **Related** | [ADR-017](../016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-030](ADR-030-five-domain-decision-loop.md) · [L4 plant context graphs](../../technical/layers/l4-l6/L4-plant-context-graphs.md) · [research](../../technical/research/stamped-context-graphs-and-practical-prescriptions.md) · [`l4-compile-trace.json`](../../contracts/schemas/intelligence/l4-compile-trace.json) |
 
 ---
 
 ## Context
 
-L4 was designed cheap-first: Lane A (0 LLM) for 16 known categories, Lane B ≤2 calls, Path G deferred. Demo prescriptions ([prescriptions-examples.md](../../demo-decks/prescriptions-examples.md)) require plant-now context — open orders, standby, who is on shift, industry overlay. Example 6 (Tuesday inspect blocked → Thursday after Job 447) is a **diff between canonical constraints and live state**, not a better prompt.
+L4 was designed cheap-first: Lane A (0 LLM) for 16 known categories, Lane B ≤2 calls, Path G deferred. Demo prescriptions ([prescriptions-examples.md](../../demo-decks/prescriptions-examples.md)) require plant-now context — open orders, standby, who is on shift, industry overlay. Example 6 (Tuesday inspect blocked â†’ Thursday after Job 447) is a **diff between canonical constraints and live state**, not a better prompt.
 
 One practical Rx can save ₹5–10k. Ten or more model calls are cheap next to that. Poverty-pricing the compiler (0–2 calls as the *goal*) produces cards nobody executes.
 
@@ -27,7 +27,7 @@ ADR-017 already reserved Path G. ADR-024 already required order/department feasi
 
 2. **Path D (delta)** is a first-class retrieval question: live vs canonical/allowed. Path H stays for playbooks (filter by vertical + class). **Path G trigger is pulled** for relational hops. Microsoft GraphRAG is not the default index.
 
-3. **Quality path is the default compiler** for *all* Finding categories, including the 16 that used to auto-route to Lane A. Loop: bind → Path G → live pull → Path D → Path H → deterministic next-best window → draft → verify/veto → practicality judge → repair. **≥10 generation calls allowed** when quality needs it; not a ceiling. Analyst and Path W stay cost-aware.
+3. **Quality path is the default compiler** for *all* Finding categories, including the 16 that used to auto-route to Lane A. Loop: bind â†’ Path G â†’ live pull â†’ Path D â†’ Path H â†’ deterministic next-best window â†’ draft â†’ verify/veto â†’ practicality judge â†’ repair. **â‰¥10 generation calls allowed** when quality needs it; not a ceiling. Analyst and Path W stay cost-aware.
 
 4. **Lane A is kept, not default.** Zero-call template graph remains for CI without a provider, `force_lane=a`, `L4_DEFAULT_LANE=template`, and degrade when the structured model is down. Label `provenance.lane = template_fast_path`. Do not delete Lane A. Templates still bound the **action family** on the quality path (`template_id`) — no free-form What rewrite.
 
@@ -43,7 +43,7 @@ ADR-017 already reserved Path G. ADR-024 already required order/department feasi
 
 ## Consequences
 
-- Amend [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md), [defense brief](../../technical/layers/l4-l6/L4-decision-defense-brief.md) §2.2 / §3.2 / §3.4 / §3.11, [L4 handoff](../../handoff/l4/stamped-l4-architecture-handoff.md), [L5 SSOT](../../technical/layers/l4-l6/L5-closure-and-verification.md) §15, [internal console handoff](../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md).
+- Amend [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md), [defense brief](../../technical/layers/l4-l6/L4-decision-defense-brief.md) Â§2.2 / Â§3.2 / Â§3.4 / Â§3.11, [L4 handoff](../../handoff/l4/stamped-l4-architecture-handoff.md), [L5 SSOT](../../technical/layers/l4-l6/L5-closure-and-verification.md) Â§15, [internal console handoff](../../handoff/holistic/improve/stamped-l5-internal-console-handoff.md).
 - Architecture companion: [L4-plant-context-graphs.md](../../technical/layers/l4-l6/L4-plant-context-graphs.md).
 - Contracts: `l4-compile-trace`; sketches for plant-knowledge-graph, plant-live-index, optional shift-roster; additive `compile_trace_id` / `otel_trace_id` / `quality` lane on prescription provenance.
 - Consumer code (`knowledge-reasoning`, `closure-verification` console UI) follows a **later platform pin**. This ADR is spec.
