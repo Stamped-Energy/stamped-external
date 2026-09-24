@@ -13,7 +13,7 @@
 | 2 | [`09-stamped-founder-vision.md`](./09-stamped-founder-vision.md) | **Canonical company vision** — wins on conflict |
 | 3 | [`10-stamped-vision-agent-alignment.md`](./10-stamped-vision-agent-alignment.md) | Operating contract: invariants, hard stops, alignment check, change queues |
 
-Then read research `00`–`08a` only as **history and evidence**. Their recommendation sections have been aligned to `09`. Peer survey facts stay. They must not invent a second company.
+Research drafts `00`–`08a` were removed from the live tree; recover only from tag `v2026.09.24` as history. Do not invent a second company from them.
 
 Human readers may start at [`START-HERE.md`](./START-HERE.md). Agents start **here**.
 
@@ -39,6 +39,8 @@ Human readers may start at [`START-HERE.md`](./START-HERE.md). Agents start **he
 | `AGENT-START` (this) | Entry. Authority map. Out of scope. |
 | `09` | Vision. Prefer over everything else. |
 | `10` | How to align docs. Alignment check. Internal change queues. |
+| `14` | Coarse L1–L6 evolution. Read after `09` and `10` when changing architecture. `09` still wins. |
+| `15`–`18` | Contract fields, pilot path, exclusions, and the layer-repo sequence for `14`. |
 | `00`–`08a` | Research that led here. Use facts; follow updated recommendations; do not reopen A–E as the company decision. |
 | `02`–`04` | Peer facts and vendor-claimed numbers — keep; do not treat competitor copy as our category. |
 | `README` / `START-HERE` | Indexes. Point humans and agents to authority. |

@@ -5,7 +5,7 @@
 | **Status** | Accepted (revised 2026-08-01; identity revised 2026-09-24) |
 | **Date** | 2026-07-30 |
 | **Deciders** | Product + Engineering |
-| **Related** | [ADR-030](../028-032/ADR-030-five-domain-decision-loop.md) · [ADR-027](ADR-027-plant-calibration-champion-promote.md) · [ADR-018](../016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-020](../020-023/ADR-020-l5-mv-claim-governance.md) · [04-evaluation-and-quality](../../technical/cross-cutting/04-evaluation-and-quality.md) · [`improvement-signal.json`](../../contracts/schemas/closure/improvement-signal.json) · [`plant-preference-profile.json`](../../contracts/schemas/plant/plant-preference-profile.json) · [`improve-cycle.json`](../../contracts/schemas/closure/improve-cycle.json) |
+| **Related** | [ADR-030](../028-032/ADR-030-five-domain-decision-loop.md) · [ADR-020](../020-023/ADR-020-l5-mv-claim-governance.md) · [`improvement-signal.json`](../../contracts/schemas/closure/improvement-signal.json) · [`plant-preference-profile.json`](../../contracts/schemas/plant/plant-preference-profile.json) · [`improve-cycle.json`](../../contracts/schemas/closure/improve-cycle.json) · archived: ADR-018 / ADR-027 / eval notes under [`../../archive/cleanup-2026-09/`](../../archive/cleanup-2026-09/) |
 
 ---
 

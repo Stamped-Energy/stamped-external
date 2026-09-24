@@ -1,20 +1,22 @@
 # Stamped Platform — shared architecture, contracts, and handoff
 
-> **What it is:** The single source of truth for Stamped’s cross-repo platform layer — JSON schemas, ADRs, technical specs, and handoff playbooks.  
+> **What it is:** The single source of truth for Stamped’s cross-repo platform layer — JSON schemas, ADRs, technical specs, design system, and handoff playbooks.  
 > **What it is not:** Application code, deploy compose, or a runnable service. Consumer repos mount this pack as a git submodule and implement layers L1–L6.  
 > **Product:** Stamped helps plant teams choose, assign, and verify the next operating action across energy, cost, time / throughput, continuity / flow, and short-horizon exceptions.  
 > **Framing lock:** [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md) · Vision: [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)  
-> **GitHub:** [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external) · **Prior product snapshot:** tag `v2026.09.24`
+> **GitHub:** [Stamped-Energy/stamped-external](https://github.com/Stamped-Energy/stamped-external) · **Prior product snapshot:** tag `v2026.09.24`
 
 ---
 
 **TL;DR**
 
 - **One product, five decision domains, one card, one owner** — [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
-- **One repo per layer** (L1 edge/cloud/bill, L2–L6) communicates only through **versioned contracts** ([ADR-008](decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md))
-- **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
+- **One repo per layer** communicates only through **versioned contracts** ([ADR-008](decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md))
+- **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) (L4 **agentic system** · L3 open detection ceiling · hard stops bind plant action)
+- **Coarse evolution:** [`research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md)
 - **Agent entry:** [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` → ADR-030
-- External marketing lives under [`archive/external-marketing-2026-09/`](archive/external-marketing-2026-09/) — **not** company identity
+- **Design / brand:** [`design/`](design/) (website + [Bhatia pilot deck](https://bhatia-stamped-pilot.vercel.app/#s6))
+- **Demo decks:** [`demo-decks/`](demo-decks/)
 - Pin consumers to a **specific SHA or semver tag**; never float on `main` in production branches
 
 ---
@@ -32,7 +34,7 @@ Full narrative: [`09-stamped-founder-vision.md`](research/plant-efficiency-explo
 | Aspect | Description |
 |--------|-------------|
 | **Name** | `stamped-external` (platform pack) |
-| **Role** | Shared contracts, ADRs, specs, handoff docs, compliance |
+| **Role** | Shared contracts, ADRs, specs, design system, handoff docs |
 | **Distribution** | Git submodule at `external/` in every consumer repo ([ADR-011](decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md)) |
 
 ### 1.3 What this repository is not
@@ -40,14 +42,14 @@ Full narrative: [`09-stamped-founder-vision.md`](research/plant-efficiency-explo
 - Not application code
 - Not deploy compose files
 - Not customer data or secrets
-- Not the live website (marketing archive is deferred rewrite)
+- Not the live website (site lives in Stamped-Energy-Website / local `Main_Website`)
 
 ### 1.4 Who it is for
 
 | Audience | Use |
 |----------|-----|
 | **Layer repo engineers** | Implement against contracts and ADRs |
-| **Platform maintainers** | Evolve schemas, ADRs, handoff |
+| **Platform maintainers** | Evolve schemas, ADRs, handoff, design tokens |
 | **AI coding agents** | Onboard via [`AGENTS.md`](AGENTS.md) + vision pack |
 
 ---
@@ -69,6 +71,7 @@ See [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) §�
 7. [`handoff/README.md`](handoff/README.md) → your layer
 8. [`decisions/README.md`](decisions/README.md)
 9. [`contracts/`](contracts/) + `./scripts/contracts/contract-check.sh`
+10. [`design/`](design/) when touching UI or decks
 
 ---
 
@@ -77,12 +80,15 @@ See [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) §�
 | Path | Purpose |
 |------|---------|
 | `contracts/` | Versioned JSON schemas + fixtures |
-| `decisions/` | ADRs |
-| `technical/` | Architecture SSOT + layer specs |
+| `decisions/` | Active ADRs |
+| `technical/` | Architecture SSOT + pointers |
 | `handoff/` | Cross-repo integration docs |
-| `compliance/` | India compliance register |
-| `research/plant-efficiency-exploration-2026-09/` | Vision authority |
-| `archive/external-marketing-2026-09/` | Archived marketing (do not treat as identity) |
+| `design/` | Brand + design system + tokens |
+| `demo-decks/` | Client / industry HTML decks (incl. Bhatia pilot snapshot) |
+| `future/` | Open tech directions (not live product) |
+| `pilot-research/` | Pilot plant notes |
+| `research/plant-efficiency-exploration-2026-09/` | Vision + coarse architecture authority |
+| `archive/` | Pre-overhaul marketing + 2026-09 cleanup |
 
 ---
 

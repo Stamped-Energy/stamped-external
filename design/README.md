@@ -1,17 +1,24 @@
-﻿# Stamped — design system (external)
+﻿# Design — brand + visual system
 
-Product UI for **connectors-bill**, **stamped-l6**, and related apps must follow **Forge Industrial v2.0**.
+**Brand lives here.** There is no separate `brand/` folder.
+
+Stamped’s visual identity for the **main website**, **client demo decks**, and product UI chrome.
 
 | Document | Purpose |
 |----------|---------|
-| [forge-industrial-design-system.md](./forge-industrial-design-system.md) | Full guidelines — colors, type, layout, components, live site patterns |
-| [forge-industrial-v2.tokens.yaml](./forge-industrial-v2.tokens.yaml) | Machine-readable tokens for Tailwind / CSS |
+| [`stamped-design-system.md`](stamped-design-system.md) | Guidelines — colors, type, layout, deck + site patterns |
+| [`stamped-tokens.yaml`](stamped-tokens.yaml) | Machine-readable tokens (Tailwind / CSS / decks) |
 
-## Live references
+## Live references (canonical)
 
-- [stamped.work/how-it-works](https://stamped.work/how-it-works) — marketing tone; align to **six-step** ops loop (Connect â†’ Observe â†’ Decide â†’ Execute â†’ Verify â†’ Improve) and **four-step** client narrative (load â†’ equipment â†’ prescriptions â†’ agentic)
-- [stamped-energy.vercel.app](https://stamped-energy.vercel.app/) — dashboard KPIs, status chips, prescription cards, data tables
+| Surface | URL / path | Role |
+|---------|------------|------|
+| Main website | Local: `Main_Website/` · live: [stamped.work](https://stamped.work) · code: [Stamped-Energy-Website](https://github.com/Stamped-Energy/Stamped-Energy-Website) | Marketing chrome + motion scenes |
+| Bhatia pilot deck | [bhatia-stamped-pilot.vercel.app](https://bhatia-stamped-pilot.vercel.app/#s6) · local snapshot: [`../demo-decks/clients/bhatia-alloy-pilot/`](../demo-decks/clients/bhatia-alloy-pilot/) | Latest client deck grammar |
+| Other decks | [`../demo-decks/`](../demo-decks/) | Industry / client HTML decks |
 
-## connectors-bill
+## Product framing (not visual)
 
-See [../handoff/connectors/bill/connectors-bill-ui-ux-charter.md](../handoff/connectors/bill/connectors-bill-ui-ux-charter.md) for screen inventory; apply this design system to all customer-facing surfaces.
+Identity and claims: [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [`../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md).
+
+Do not invent MES / plant-OS claims in UI copy. Do not append “Energy” to the product name.

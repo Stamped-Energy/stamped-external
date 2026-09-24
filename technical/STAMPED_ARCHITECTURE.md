@@ -1,7 +1,11 @@
 # Stamped — Product & Technical Architecture (SSOT)
 
 *Status: current · 2026-09-24*  
-*Authority:* product framing is [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) and [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md). This file summarizes **product + technical** architecture. Layer deep-dives live under [`layers/`](layers/).
+*Authority:* product framing is [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) and [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md).  
+*Coarse evolution (how the stack changes):* [`14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md).  
+*As-built hops and invariants:* [`13-as-built-invariants.md`](../research/plant-efficiency-exploration-2026-09/13-as-built-invariants.md).
+
+This file is the **overall** product + technical architecture. It does not replace layer-repo deep-dives. Per-layer specs under [`layers/`](layers/) and handoffs under [`../handoff/`](../handoff/) will be updated in a later pass; until then, prefer this file and `14` over older L4 “compiler-only” wording in those deep-dives.
 
 > Honesty: `[~]` approximate · `[!]` evolving — verify before customer-facing claims. Do not invent savings, customers, or revenue.
 
@@ -13,6 +17,12 @@
 
 One meaningful condition → **one decision card** → **one owner** → honest closure. Energy is the entry wedge, not the product name and not the category. Recommend and assign by default. Hard stops in ADR-030 and vision `09` stay absolute.
 
+### Tech and innovation bar
+
+The company is the closed decision loop. The **bar for how we build it** is to be among the best at industrial agentic systems and detection science — not a thin wrapper on a chat model, and not a frozen detector catalog. Compute cost is not a reason to under-build L3 or L4. Hard stops still bind what the system may *do* to the plant; they do not cap how ambitious the intelligence inside L3 and L4 may be.
+
+We study state-of-the-art agentic systems (planning, tools, memory, evaluation, selective control) and first-class detection / ML methods, then adopt what raises the quality of the card — without becoming a plant OS or silent controller.
+
 | Dimension | Definition |
 | --- | --- |
 | **Category** | Closed operational decision loop (not EMS / monitoring-only / OpEx suite) |
@@ -20,15 +30,15 @@ One meaningful condition → **one decision card** → **one owner** → honest 
 | **Client enemy** | Insight without closure — dashboards that never become assigned, verified actions |
 | **Integration** | Read / ingest default; write-back human-confirmed, narrow, allow-listed |
 | **Operating loop** | detect → recommend → assign → act → verify (optional propose learning) |
-| **Proof** | Evidence labeled Measured / Confirmed / Modeled / Unknown; wallets separate; calculator owns money |
+| **Proof** | Evidence labeled Measured / Confirmed / Modeled / Unknown; domain sections separate; calculator owns money |
 
 ### Five domains on one card
 
 ```text
 One product — Stamped
  ├── Energy · Cost · Time/throughput · Continuity/flow · Exception response
- ├── One primary domain tag per card; optional secondary tags; one owner
- └── Stack L1→L6 unchanged (ADR-008); claim is the closed action
+ ├── One primary domain section per card; optional secondary sections; one owner
+ └── Stack L1→L6 topology stays (ADR-008); claim is the closed action
 ```
 
 | Say | Do not say |
@@ -55,6 +65,8 @@ External marketing is archived under [`archive/external-marketing-2026-09/`](../
 | **Continuity / flow** | One handoff / batch / queue decision | New dispatch list / month-ahead plan |
 | **Exception response** | Next choice after stop / slip under visible constraints | APS / MRP replacement; quality hold release |
 
+On the card these are **sections**, not five queues. Each section that applies has its own claim, evidence tier, and effect. Sections are never summed into one headline savings number.
+
 ---
 
 ## 3. Operating loop
@@ -62,67 +74,172 @@ External marketing is archived under [`archive/external-marketing-2026-09/`](../
 | Step | Name | What happens |
 | --- | --- | --- |
 | 1 | Ingest | Meters, machine state, production, maintenance context, calendars, structured human input |
-| 2 | Normalize | Join enough to name one condition |
-| 3 | Detect | ML models / methods / rules → condition worth a card |
-| 4 | Recommend | Agent stack: options, constraints, uncertainty, one owner |
-| 5 | Assign | Route to the accountable role |
+| 2 | Normalize | Join enough to name one condition (condition key) |
+| 3 | Detect | L3 intelligence: ML models / methods / rules → Finding with verification plan |
+| 4 | Recommend | L4 **agentic system**: plan, tools, memory, cross-section check, options, constraints, uncertainty, one owner role |
+| 5 | Assign | L5 resolves role → person on shift |
 | 6 | Record | Accept / edit / reject / defer + reason |
 | 7 | Verify | Named evidence; honest closure state |
-| 8 | Propose learning | Named-owner gate for production changes ([ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md)) |
+| 8 | Propose learning | Short learning fact into plant memory; named-owner gate for production rule changes |
 
 ---
 
-## 4. L0–L6 stack
+## 4. L0–L6 stack (overall)
+
+Topology is unchanged. Jobs inside L4–L6 are the evolution.
 
 ```text
 L0  Plant systems (customer-owned)
-L1  Connect & normalise          → connectors-edge / cloud / bill
-L2  Universal Repository         → six stores in Postgres+Timescale
-L3  Intelligence core            → findings (numeric / rules)
-L4  Knowledge & reasoning        → evidence-bound recommendation drafting
-L5  Closure & verification       → workflow, notify, M&V, ledger
-L6  Experience & integration     → control room, BFF, exports, APIs
+L1  Connect & normalise          → read-only connectors (edge / cloud / bill)
+L2  Universal store              → only layer with the DB; constraints + roster + condition context
+L3  Intelligence core            → Findings; detection science open to major uplift
+L4  Agentic system               → full agent stack → card proposal; never executes
+L5  Closure & action             → live card, verify, autonomy policy (default off)
+L6  Experience                   → one card queue, constraint UI, Ask (view over L4)
 ```
 
-| Layer | Spec | Owns |
+```mermaid
+flowchart LR
+  l1[L1_read_only]
+  l2[L2_store_and_constraints]
+  l3[L3_intelligence]
+  l4[L4_agentic_system]
+  mem[Hindsight_and_agent_memory]
+  l5[L5_live_card]
+  l6[L6_card_view]
+  l1 --> l2 --> l3 --> l4
+  l4 <--> mem
+  l4 --> l5 --> l6
+  l5 -->|"short_learning_fact"| mem
+```
+
+| Layer | Overall job | Must not |
 | --- | --- | --- |
-| L1 | [L1](layers/l1-l2/L1-connect-and-normalise.md) | Protocols, edge, bill ingest, normalisation |
-| L2 | [L2](layers/l1-l2/L2-universal-repository.md) | TSDB, plant graph, commercial/production context, features, baselines, ledger |
-| L3 | [L3 core](layers/l3/L3-intelligence-core.md) | Detection engines; Finding emit |
-| L4 | [L4](layers/l4-l6/L4-knowledge-and-reasoning.md) | Dual-lane agent, RAG, recommendation draft |
-| L5 | [L5](layers/l4-l6/L5-closure-and-verification.md) | Workflow, notify, M&V, ledger append |
-| L6 | [L6](layers/l4-l6/L6-experience-and-integration.md) | Next-action surfaces, queue, analyst, APIs |
-| Cross | [Production](cross-cutting/03-production-engineering.md) · [Eval](cross-cutting/04-evaluation-and-quality.md) · [Practicality](cross-cutting/05-prescription-practicality-eval.md) | Reliability, quality gates |
+| **L1** | Read plant and document signals; add connectors only when a decision family needs them | OT write; plant message-broker of record |
+| **L2** | Canonical store; constraint registry; shift owner resolution; condition key | Give L3–L6 a database URL; become a plant-wide industrial graph |
+| **L3** | Detect conditions; emit Findings; merge same condition_key; verification plan. **Direction open:** push detection, methods, and eval toward best-in-class industrial intelligence — not “keep the old detector list forever” | Open L2 SQL; promote Lab to L4; invent ₹ |
+| **L4** | **Agentic system** that turns a Finding into a card proposal: planning, specialist passes, tools, memory, evaluation, emit / withhold / abstain. Memory is one subsystem, not the whole of L4 | Assign the final person; notify; execute; write equipment or master data |
+| **L5** | Own the live card; resolve person; verify; close; run only certified+enabled autonomy classes | Draft options; invent recommendations; override a withhold |
+| **L6** | Decision product UI: Now queue, card, close, autonomy settings, constraints, Ask | Hold bank keys in the browser; five inboxes; summed ₹ headline |
 
 **Layer-per-repo** communicates only through versioned contracts in this pack ([ADR-008](../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)).
 
+Spine invariants that must stay true until an explicit contract bump: only L2 opens Timescale; Lab never promotes (`emitted` + `delivery=l4` only); money cites tariff or tagged fallback; customer UI hides withhold/abstain; ops-confirmed ≠ bill-verified. Detail: [`13-as-built-invariants.md`](../research/plant-efficiency-exploration-2026-09/13-as-built-invariants.md).
+
 ---
 
-## 5. Plant context (enablers, not a second product)
+## 5. Two objects: proposal vs live card
 
-| Artifact | Role |
+| Object | Owner | Nature |
+| --- | --- | --- |
+| **Card proposal** | L4 | Immutable. Domain sections, one recommended action, ≤2 alternatives (including “no action”), proposed owner role, autonomy class or human-only, uncertainty, verification plan (may only narrow the Finding’s plan), compile trace id. |
+| **Live card** | L5 | Mutable. Person, eight closure states, history, same domain sections, whether a human or an enabled class ran it. |
+
+Prescription **1.0.0** remains as a schema. The card proposal is a **new schema beside it**; L5 dual-reads until 1.0.0 is retired. One product — not two customer SKUs. Field list: [`15-contract-deltas.md`](../research/plant-efficiency-exploration-2026-09/15-contract-deltas.md).
+
+Closure states (minimum): Open; Assigned; In progress; Closed — verified; Closed — no change; Rejected; Deferred / expired; Blocked / disputed. Closed ≠ successful.
+
+---
+
+## 6. L4 agentic system (overall, not implementation)
+
+L4 is a **complete overhaul** of the old prescription compiler into a **proper agentic system** — not “a long-lived process that happens to have memory.” Memory (including [Hindsight](https://hindsight.vectorize.io/)) is a **subsystem**. The system as a whole plans, uses tools, runs specialist passes, checks the rest of the plant, evaluates whether it can emit honestly, and produces one card proposal. We keep studying how the best agentic systems are built (orchestration, memory hierarchies, tool discipline, evaluation, selective control) and raise L4 to that bar. Compute is not a reason to shrink it.
+
+The shell that stays is emit / withhold / abstain, a trace on every run, a constraint gate, calculator-owned ₹, and no equipment or master-data write. Ambition lives *inside* that shell.
+
+**What “agentic system” means here (coarse)**
+
+| Capability | Role in L4 |
 | --- | --- |
-| Production orders (ERP/MES read) | Constraint context for near-term choices — never own dispatch |
-| Department / owner graph | Who owns the action |
-| Dual plant graphs + Path D (L4) | Canonical + live index ([ADR-028](../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)) |
-| Bounded negotiation | Parameter revise with human confirm — not free-form rewrite |
-| Improve | Learning from closed cards ([ADR-025](../decisions/024-026/ADR-025-improve-loop-step-06.md)) |
+| Planning / orchestration | Turn a Finding into a bounded option set and a proposal |
+| Specialist passes | Energy, flow, constraints, and similar views — reconcile to **one** card |
+| Tools | Allowlisted typed reads only (below) |
+| Memory | Plant bank + dialogue banks; retain / recall / reflect; observations |
+| Evaluation / gates | Freshness, bind, constraint conflict, cross-section conflict → emit, withhold, or abstain |
+| Decision seams | Closed choices (role, emit terminal, secondary domain, …) may later use a decision model (e.g. Jev) |
 
-Handoff hub: [`../handoff/`](../handoff/).
+**Memory — [Hindsight](https://hindsight.vectorize.io/)**
+
+| Bank | Scope | Holds | Does not hold |
+| --- | --- | --- | --- |
+| Plant bank | One per plant | World facts; short learning facts from closes / withholds | Full card body; chat transcripts |
+| Dialogue bank | One per conversation | That thread (stable document id) | Other threads; plant operating knowledge |
+
+Banks are hard walls. Ask merges plant + dialogue reads in L4; Hindsight has no cross-bank query. Hosting (cloud vs self-host) is an L4-repo decision.
+
+Self-improvement is **observation consolidation** from short learning facts (family, asset, sections, disposition / withhold reason, constraint hit, evidence tier) — not storing the whole card. An ineligible close may teach that evidence was missing; it must not teach that the action worked. Production thresholds / mental models change only with named-owner acceptance.
+
+**Cross-section check.** Before emit, L4 checks upstream feed, downstream block, shared utilities, shift, and open cards on related assets. A locally attractive action that starves another cell is withheld or ships with the conflict visible. Specialist passes reconcile into **one** card.
+
+**Tools.** Allowlisted typed reads: L2 query HTTP, constraint registry, open cards, Hindsight recall / reflect. No raw SQL, no open web as authority, no OT write.
+
+**Owner routing.** Configured roles only: production task → production head; operational task → ops head. L4’s language model chooses the role; L5 resolves the person on shift. That choice is a closed **decision seam** (later replaceable by a decision model such as [Jev](https://jevtypesafeai.com/jev-ai) without changing the card). Seams are reserved; this architecture does not require Jev to be wired yet.
+
+**Ask.** L6 paints the thread; L4 holds the session. Ask does not emit cards, change autonomy, or issue a second prescription. Chat enters the plant bank only via explicit promotion after confirm or verified closure.
 
 ---
 
-## 6. How value is engineered
+## 6a. L3 direction — detection that can go much further
 
-Value is **not** one model score and **not** a fixed 15–20% identity claim.
+Today’s L3 core (scheduler paths, dual-lane emit, Finding contract, no DB URL, calculator-owned money) is the **floor**, not the ceiling. The **direction is open**: we will invest in better detectors, methods, features, evals, and multi-signal condition finding so that what reaches L4 is as sharp as the best industrial intelligence we can field. Lab still never promotes. Rupees still never invent. That is not permission to freeze L3 as “a few energy engines and dark CNC flags.”
+
+Fine design of that uplift belongs in the L3 repos later. This SSOT only locks that **technological excellence in L3 is in scope and encouraged**.
+
+---
+
+## 7. L5 action and autonomy
+
+L5 is the case layer: open card, resolve person, accept / edit / reject / defer, notify when destination is clear, verify against L2, close honestly, emit the short learning fact.
+
+**Autonomy default: no actions.** A class runs only after **Stamped certifies** it and a **named plant owner enables** it. First catalog classes (from vision `09`): suppress duplicate notification; open a review task. A plant may propose another class; it stays pending until certified as reversible, low-risk, audited, watched, rollback-ready, and not a hard stop. Idle-load and equipment actions are **not** in the catalog.
+
+Hard stops that never become autonomy classes: automatic safety / remote critical-equipment command; quality hold release; maintenance authorization; silent change to customer priority, promise date, routing, master data, or full dispatch; recommendation that outranks a known plant constraint.
+
+**Constraints.** Named plant owner authors rows in L6; L2 stores them; L4’s constraint gate withholds on conflict regardless of predicted benefit.
+
+---
+
+## 8. L6 experience (overall)
+
+Home is the **next action**, not a dashboard.
+
+| Surface | Job |
+| --- | --- |
+| **Now** | One queue, one owner, due / review, primary domain, honest state |
+| **Card** | Condition, cross-section checks, recommended action + alternatives, domain sections, constraints, uncertainty, accept / edit / reject / defer |
+| **Close** | Verified / no-change / rejected / deferred / blocked in the same place as open work |
+| **Autonomy** | Default “no autonomous actions”; certified classes off until enabled; stop / revert / dispute on in-flight autonomous work |
+| **Constraints** | Author / expire / review plant constraints |
+| **Evidence** | Live vs Preview honesty; signals as proof behind a card |
+| **Ask** | Secondary conversational view over L4 memory |
+
+Compiler / Hindsight internals stay off the customer card.
+
+---
+
+## 9. Pilot 1 and admission rule
+
+**Pilot 1:** confirmed machine idle with extra loads still on. Operational task → ops head. Primary section energy; machine-minutes (if any) as a separate time section. Autonomy off. Verification follows **IPMVP retrofit isolation** on the named auxiliary circuit: Option B (load + idle interval measured) may close as verified; Option A keeps estimated parameters Modeled; whole-facility meter is the wrong boundary. Detail: [`16-pilot-and-hard-stops.md`](../research/plant-efficiency-exploration-2026-09/16-pilot-and-hard-stops.md).
+
+**Next family** (alarm dwell, then handoff or exception) only with a named owner role, verification source already in L2, reviewed constraint, and reusable template. New L1 connectors follow that manifest — not an “ingest everything” program.
+
+What we will not build: [`17-do-not-build.md`](../research/plant-efficiency-exploration-2026-09/17-do-not-build.md). Layer-repo sequence: [`18-propagation.md`](../research/plant-efficiency-exploration-2026-09/18-propagation.md).
+
+---
+
+## 10. How value is engineered
+
+Value is **not** one model score and **not** a fixed savings-% identity claim.
 
 > Closed decision cards × honest closure (including rejection and no-change) × evidence that matches its tier.
 
-Architecture must (a) detect conditions across domains, (b) assign an owner, (c) verify with labeled evidence. Detection without closure is outside the product center.
+Architecture must (a) detect conditions across domains, (b) assign one owner, (c) verify with labeled evidence, (d) learn from eligible closures without inventing success.
 
 ---
 
-## 7. Technology defaults (cost-first)
+## 11. Technology defaults (spine cost-first; L3/L4 intelligence is excellence-first)
+
+The ingest/store spine stays portable and cost-aware. **L3 detection and the L4 agentic system are excellence-first:** we do not under-build them to save tokens or GPU. Compliance and hard stops still apply.
 
 | Concern | Default | Upgrade when |
 | --- | --- | --- |
@@ -130,45 +247,41 @@ Architecture must (a) detect conditions across domains, (b) assign an owner, (c)
 | Messaging | Mosquitto MQTT (L1) · Postgres outbox | Need Redpanda-class bus |
 | Runtime shape | Modular monoliths per layer repo | Clear satellite boundaries |
 | Deploy modes | `local`, `local-dashboard`, `cloud` ([ADR-010](../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)) | Same contracts in all modes |
-| Edge | Go agent; OT write only if plant-accepted earned path (hard stops bind) | — |
+| Edge | Go agent; no OT write on the default path | Plant-accepted earned path only inside hard stops |
+| L3 intelligence | Contract + dual-lane floor | Best detection / methods / eval we can field for each decision family |
+| L4 agentic system | Full agent stack; Hindsight as memory subsystem | Hosting + orchestration chosen in L4 repo; study SOTA agent patterns continuously |
+| Decision seams | Language model today; closed answer sets | Optional decision-model (e.g. Jev) later at those seams only |
 
-India compliance by design: CERT-In residency, DPDP — [`../compliance/`](../compliance/).
-
----
-
-## 8. Decision card (hero UX)
-
-**Practical next action** — not a chart insight:
-
-- **What** · **Why** · **Owner** · **Effort** · **Expected effect** (domain wallets separate; ₹ only via calculator) · **Due / review** · **Primary domain tag**
-- **Evidence** — Measured / Confirmed / Modeled / Unknown beside the result
-- **Closure** — verified / no change / rejected / deferred / blocked
-- Hard stops always visible in product claims
+India compliance posture (CERT-In residency, DPDP) remains an engineering constraint on deploy modes; the old compliance register was archived under [`../archive/cleanup-2026-09/compliance/`](../archive/cleanup-2026-09/compliance/).
 
 ---
 
-## 9. Anti-confusion
+## 12. Anti-confusion
 
 | Concern | Stamped is | Stamped is not |
 | --- | --- | --- |
-| Energy | Entry wedge + one domain | Energy-only product / EMS dashboard |
-| Time / flow / exception | Domains on the same card | APS / logistics SKU / plant OS |
+| Energy | Entry wedge + one domain section | Energy-only product / EMS dashboard |
+| Time / flow / exception | Sections on the same card | APS / logistics SKU / plant OS |
 | Equipment / maintenance | May escalate with evidence | Full CMMS / vibration PdM company |
 | MES / ERP | Read context | Dispatch / WIP / scheduling SoR |
-| Agents | Latest-tech presentation for recommend + learn | The company itself |
+| L4 | **Agentic system** for recommend + plan + tools + memory + learn | The company; silent plant control; “just a chatbot with a vector store” |
+| L3 | Detection science we keep raising | A frozen energy-only detector list |
+| Autonomy | Certified class, default off | Progressive equipment autonomy |
+| Memory | Plant bank + per-conversation dialogue banks (one L4 subsystem) | Chat as system of record; memory as the whole of L4 |
 
 ---
 
-## 10. Reading map (agents)
+## 13. Reading map (agents)
 
 | Priority | Doc |
 | --- | --- |
 | 1 | [`AGENT-START.md`](../research/plant-efficiency-exploration-2026-09/AGENT-START.md) → [`09`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) → [`10`](../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) |
 | 2 | [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) |
-| 3 | **This file** (stack + layer map) |
-| 4 | [handoff/README.md](../handoff/README.md) → your layer |
-| 5 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
-| 6 | Layer specs under [`layers/`](layers/) as needed |
+| 3 | **This file** (overall stack) |
+| 4 | [`14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md) and [`15`](../research/plant-efficiency-exploration-2026-09/15-contract-deltas.md)–[`18`](../research/plant-efficiency-exploration-2026-09/18-propagation.md) |
+| 5 | [handoff/README.md](../handoff/README.md) → your layer (update when layer deep-dives catch up) |
+| 6 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
+| 7 | Layer specs under [`layers/`](layers/) — prefer this file + `14` if they still describe L4 as compiler-only |
 | Legacy names | Thin pointers in [`pointers/`](pointers/) redirect here |
 
 Prior product snapshot: tag `v2026.09.24`. Marketing archive is not identity.

@@ -1,0 +1,150 @@
+# Stamped design tokens
+# Sources:
+#   - Main website: Main_Website/styles/theme.css + DESIGN.md (2026-08 / ongoing)
+#   - Bhatia pilot deck: https://bhatia-stamped-pilot.vercel.app/ (:root vars, 2026-09)
+# Use with Tailwind, CSS variables, or static HTML decks.
+
+name: Stamped Design System
+synced: "2026-09-24"
+
+# --- Site chrome (Main_Website --brand-*) ---
+colors:
+  primary: "#F75440"          # Forge Coral
+  on-primary: "#ffffff"
+  primary-fixed: "#ffdad4"
+  primary-fixed-dim: "#ffb4a8"
+  inverse-primary: "#ffb4a8"
+  secondary: "#000a07"        # Obsidian Green
+  on-secondary: "#ffffff"
+  secondary-container: "#bdd9c8"
+  on-secondary-container: "#2a4034"
+  tertiary: "#00666b"         # Process Teal
+  on-tertiary: "#ffffff"
+  surface: "#f7faf5"          # Demo-deck / site paper
+  surface-low: "#f1f4f0"
+  surface-container: "#ecefea"
+  surface-high: "#e6e9e4"
+  surface-highest: "#e0e3df"
+  surface-dim: "#d8dbd6"
+  on-surface: "#191c1a"
+  on-surface-variant: "#5a403c"
+  outline: "#8f706b"
+  outline-variant: "#e3beb8"
+  inverse-surface: "#252926"
+  inverse-on-surface: "#e9ece7"
+  error: "#ba1a1a"
+  background: "#f7faf5"
+  cream: "#fbfcf9"
+
+# --- Deck shorthand (Bhatia pilot :root) ---
+deck:
+  coral: "#F75440"
+  coral-soft: "#fff4f1"
+  ink: "#051F13"
+  body: "#3f4a44"
+  muted: "#6b716d"
+  line: "#e6d6d2"
+  line-soft: "#efe6e3"
+  paper: "#f7faf5"
+  white: "#ffffff"
+  teal: "#00666b"
+  canvas: "1600x900"          # Fixed deck stage; scale with --s
+  ease: "cubic-bezier(0.22, 1, 0.36, 1)"
+
+# --- Motion scene fills (website MotionSlots only — not chrome) ---
+motion:
+  cream: "#fbfcf9"
+  coral: "#F75440"
+  coral-soft: "#ffdad4"
+  lime: "#e8f07a"
+  lime-ink: "#2f3218"
+  acid: "#eef981"
+  acid-ink: "#2f3218"
+  forest: "#4a634d"
+  forest-ink: "#fbfcf9"
+  ember: "#e35f3f"
+  ember-ink: "#fbfcf9"
+  wine: "#761438"
+  wine-ink: "#fbfcf9"
+  wine-deep: "#4b1728"
+  wine-deep-ink: "#e5ded1"
+  cream-warm: "#eeeae3"
+  cream-warm-ink: "#4a634d"
+  cream-paper: "#f1ede3"
+  cream-paper-ink: "#3f5143"
+  ink-dark: "#182a27"
+  ink-dark-on: "#f2eee5"
+  halo: "color-mix(in srgb, #F75440 22%, transparent)"
+
+typography:
+  display:
+    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontWeight: 700
+    letterSpacing: "-0.025em"
+    lineHeight: 1.15
+    weightsLoaded: "400 500 600 700"
+  headline:
+    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.875rem, 4vw, 3rem)"
+    fontWeight: 700
+    letterSpacing: "-0.025em"
+    lineHeight: 1.2
+  title:
+    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 600
+    letterSpacing: "-0.02em"
+    lineHeight: 1.3
+  body:
+    fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.65
+    weightsLoaded: "400 500 600 700"
+  label:
+    fontFamily: "IBM Plex Mono, ui-monospace, monospace"
+    fontSize: "0.68rem"
+    fontWeight: 500
+    letterSpacing: "0.12em"
+    lineHeight: 1.4
+    weightsLoaded: "400 500 600 700"
+  nav:
+    fontFamily: "Space Grotesk, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.8rem"
+    fontWeight: 600
+    letterSpacing: "0.04em"
+    lineHeight: 1.2
+
+rounded:
+  sm: "2px"
+  md: "6px"
+  lg: "8px"
+  deck-card: "12px"
+
+spacing:
+  section-y-sm: "4rem"
+  section-y-md: "5.5rem"
+  section-y-lg: "7.5rem"
+  container-inline-sm: "1.25rem"
+  container-inline-lg: "2.5rem"
+  deck-pad: "132px 112px 96px"
+  deck-chrome-top: "40px"
+
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    rounded: "{rounded.md}"
+    height: "2.75rem"
+  button-outline:
+    backgroundColor: "transparent"
+    textColor: "{colors.primary}"
+    border: "2px solid {colors.primary}"
+    rounded: "{rounded.md}"
+  deck-price-accent:
+    color: "{deck.coral}"
+    fontFamily: "{typography.display.fontFamily}"
+  deck-meta:
+    fontFamily: "{typography.label.fontFamily}"
+    textTransform: uppercase
+    color: "{deck.muted}"

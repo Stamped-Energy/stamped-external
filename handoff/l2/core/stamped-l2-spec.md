@@ -27,7 +27,7 @@
 
 `stamped-l2` is the **evidence layer** for Stamped. Every verified bill reduction flows through L2 twice: raw evidence in (telemetry, bills, production), verified outcomes out (ledger). L3–L6 read via query API; only L2 ingest writes.
 
-Primary research spec: [L2-universal-repository.md](../../../technical/layers/l1-l2/L2-universal-repository.md).
+Primary architecture: [`../../../technical/STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md). Pre-overhaul L2 research spec archived: [`../../../archive/cleanup-2026-09/technical/layers/l1-l2/L2-universal-repository.md`](../../../archive/cleanup-2026-09/technical/layers/l1-l2/L2-universal-repository.md).
 
 ### 1.2 What it is not
 
