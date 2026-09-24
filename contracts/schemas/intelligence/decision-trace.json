@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/decision-trace.v1.json",
+  "title": "DecisionTrace",
+  "description": "Always-on L4 run record (ADR-033). Slots: observed → context → action → policy → approval → outcome. Every terminal and every portfolio hold writes one. Replay reads this ledger — if it is not here, it did not happen. See technical/l4/12-trace-and-eval.md.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decision_trace_id",
+    "decision_case_id",
+    "org_id",
+    "plant_id",
+    "lockfile_hash",
+    "kernel_version",
+    "correlation_id",
+    "terminal",
+    "observed",
+    "context",
+    "action",
+    "policy",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "decision_trace_id": { "type": "string", "minLength": 1 },
+    "decision_case_id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "lockfile_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Release lockfile hash at run time"
+    },
+    "kernel_version": {
+      "type": "string",
+      "const": "l4-kernel.v1"
+    },
+    "correlation_id": { "type": "string", "minLength": 1 },
+    "condition_key": { "type": "string", "minLength": 1 },
+    "terminal": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["emit", "supersede", "withhold", "abstain", "hold"],
+          "description": "hold is L4-internal (not sent to L5); cancelled/failed_infra use withhold/abstain plus terminal_reason"
+        },
+        "reason": { "type": "string" },
+        "gate_id": { "type": "string", "minLength": 1 },
+        "card_proposal_id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "observed": {
+      "type": "object",
+      "description": "What triggered the case and the as-known-at snapshot",
+      "required": ["origin", "psm_snapshot_id"],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "enum": ["l3_finding", "l4_pattern", "l4_hypothesis", "portfolio"]
+        },
+        "finding_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "pattern_ref": { "type": "string", "minLength": 1 },
+        "hypothesis_type_id": { "type": "string", "minLength": 1 },
+        "detector_id": { "type": "string", "minLength": 1 },
+        "detector_version": { "type": "string", "minLength": 1 },
+        "condition_key": { "type": "string", "minLength": 1 },
+        "psm_snapshot_id": { "type": "string", "minLength": 1 },
+        "coverage_manifest": {
+          "type": "object",
+          "description": "What the digest included / excluded / marked unknown",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "description": "Frozen ledger, memory, L3 outputs, and reads used for this run",
+      "required": ["evidence_ledger_hash"],
+      "properties": {
+        "evidence_ledger_hash": { "type": "string", "minLength": 1 },
+        "frozen_memory_row_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "frozen_l3_outputs": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "read_manifest": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "proof_obligations": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "met": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "description": "Candidates, selection, footprint, and emit/block pointers",
+      "properties": {
+        "candidates": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "critiques": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "preferred_candidate": { "type": "object" },
+        "footprint": { "$ref": "#/$defs/footprint" },
+        "card_proposal_id": { "type": "string", "minLength": 1 },
+        "opportunity_ledger_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Set when blocked — full candidate kept under ADR-038"
+        }
+      },
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "description": "Lockfile, seams, constraints, gates, portfolio, kernel checkpoints",
+      "required": ["lockfile_hash"],
+      "properties": {
+        "lockfile_hash": { "type": "string", "minLength": 1 },
+        "seam_records": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "constraint_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["constraint_ref", "result"],
+            "properties": {
+              "constraint_ref": { "type": "string", "minLength": 1 },
+              "result": {
+                "type": "string",
+                "enum": ["satisfied", "violated", "unknown"]
+              },
+              "conflicting_facts": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "gate_records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["gate_id", "gate_class"],
+            "properties": {
+              "gate_id": { "type": "string", "minLength": 1 },
+              "gate_class": { "type": "string", "enum": ["hard", "soft"] },
+              "threshold": { "type": ["number", "string", "null"] },
+              "candidate_value": { "type": ["number", "string", "boolean", "null"] },
+              "fired": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "portfolio_action": {
+          "type": "string",
+          "enum": ["dedupe", "conflict", "supersede", "hold", "budget", "pass"]
+        },
+        "kernel_checkpoint_results": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "process_labels": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "description": "Filled when a human or L5 acts; model agreement is not owner acceptance",
+      "properties": {
+        "l5_decision": {
+          "type": "string",
+          "enum": ["accept", "edit", "reject", "defer"]
+        },
+        "backlog_action": {
+          "type": "string",
+          "enum": ["promote", "dismiss"]
+        },
+        "exploration": { "type": "boolean" },
+        "improve_accepts": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "description": "Filled as closures and later joins arrive; case library is authority when banks disagree",
+      "properties": {
+        "closure_state": { "type": "string", "minLength": 1 },
+        "learning_fact_id": { "type": "string", "minLength": 1 },
+        "persistence_result": { "type": "string", "minLength": 1 },
+        "later_card_join": { "type": "string", "minLength": 1 },
+        "exploration_result": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "footprint": {
+      "type": "object",
+      "description": "Action footprint for conflict / verification (technical/l4/18-contract-deltas.md)",
+      "required": ["asset_ids"],
+      "properties": {
+        "asset_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "shared_resource_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "crew_role": { "type": "string", "minLength": 1 },
+        "material": { "type": "string", "minLength": 1 },
+        "time_window": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 interval"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

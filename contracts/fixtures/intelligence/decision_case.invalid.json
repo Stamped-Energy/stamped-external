@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "decision_case_id": "dc-missing-plant",
+  "org_id": "org_acme",
+  "lockfile_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "kernel_version": "l4-kernel.v1",
+  "correlation_id": "corr-bad",
+  "origin": "l3_finding",
+  "state": "queued",
+  "created_at": "2026-09-25T04:00:00Z",
+  "updated_at": "2026-09-25T04:00:00Z",
+  "extra_field": true
+}

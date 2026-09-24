@@ -33,6 +33,27 @@
     "finding_id": { "type": "string", "minLength": 1 },
     "org_id": { "type": "string", "minLength": 1 },
     "plant_id": { "type": "string", "minLength": 1 },
+    "detector_id": {
+      "type": "string",
+      "description": "L4 intake floor (ADR-033/doc 07) — certified detector id"
+    },
+    "detector_version": {
+      "type": "string",
+      "description": "L4 intake floor — certified detector version"
+    },
+    "decision_family_id": {
+      "type": "string",
+      "description": "Finding family registry id for L4 routing"
+    },
+    "condition_key": {
+      "type": "string",
+      "description": "Shared condition key material when L3 already computed it"
+    },
+    "constraint_refs_considered": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Constraint row ids considered by L3 for this Finding"
+    },
     "category": {
       "type": "string",
       "enum": [

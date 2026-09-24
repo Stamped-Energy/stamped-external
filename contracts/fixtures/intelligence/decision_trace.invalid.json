@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "decision_trace_id": "dt-bad",
+  "decision_case_id": "dc-bad",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "lockfile_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "kernel_version": "l4-kernel.v1",
+  "correlation_id": "corr-bad",
+  "terminal": {
+    "status": "emit"
+  },
+  "observed": {
+    "origin": "l3_finding",
+    "psm_snapshot_id": "psm-1"
+  },
+  "context": {
+    "evidence_ledger_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "action": {},
+  "policy": {
+    "lockfile_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "created_at": "2026-09-25T04:02:11Z",
+  "extra_field": true
+}
