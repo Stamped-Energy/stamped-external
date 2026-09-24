@@ -1,0 +1,103 @@
+{
+  "description": "Golden dedupe key vectors for L1 context records. Fields are pipe-joined then sha256 hex with sha256: prefix.",
+  "vectors": [
+    {
+      "record_type": "asset_state",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "cell_vmc_12",
+        "2026-09-25T06:00:00Z",
+        "running"
+      ],
+      "formula": "org|plant|asset_id|ts_utc|state",
+      "dedupe_key": "sha256:4d73e488fba02b56aad0cf2740cd9c289169faa4b7565afe7efbac57d5eb47e9"
+    },
+    {
+      "record_type": "process_batch",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "process_batch",
+        "HT-1001",
+        "2026-09-25T06:05:00Z"
+      ],
+      "formula": "org|plant|record_type|business_id|observed_at",
+      "dedupe_key": "sha256:096185fcb2a2526626123e9a20c2a3628f83bd51d07d09270ff8f51541a42743"
+    },
+    {
+      "record_type": "flow_position",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "flow_position",
+        "q_forge_ht",
+        "2026-09-25T06:10:00Z"
+      ],
+      "formula": "org|plant|record_type|business_id|observed_at",
+      "dedupe_key": "sha256:d8c6d11f5ce6ffe7bb66660429cd47444fbeee1e8b11f3a22ba0f112bc1e9cd9"
+    },
+    {
+      "record_type": "maintenance_context",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "maintenance_context",
+        "WO-55",
+        "2026-09-25T06:15:00Z"
+      ],
+      "formula": "org|plant|record_type|business_id|observed_at",
+      "dedupe_key": "sha256:92399622f3d4415d0e4881d182ee7f334365fbcd70d5ff69e6b815f1da20a4b2"
+    },
+    {
+      "record_type": "quality_status",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "quality_status",
+        "batch",
+        "HT-1001",
+        "2026-09-25T06:20:00Z"
+      ],
+      "formula": "org|plant|record_type|subject_type|subject_id|observed_at",
+      "dedupe_key": "sha256:95599e970403ebe3aba540a1e5f03d9cd0929081e9bfc1cfe65c7f3b236655e1"
+    },
+    {
+      "record_type": "material_availability",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "material_availability",
+        "BILLET-6061",
+        "yard_a",
+        "2026-09-25T06:25:00Z"
+      ],
+      "formula": "org|plant|record_type|sku|location_id|observed_at",
+      "dedupe_key": "sha256:bb8bad69fa6036c29adc455ece4ed29876f8f65251381f45f7917ee57a3c06a7"
+    },
+    {
+      "record_type": "shift_roster",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "shift_roster",
+        "shift_a",
+        "2026-09-25T06:00:00Z"
+      ],
+      "formula": "org|plant|record_type|business_id|observed_at",
+      "dedupe_key": "sha256:d032162c8420607960400c8ae00a5b94010fbbe172bd30530e7868aba59c73e2"
+    },
+    {
+      "record_type": "operating_rate",
+      "fields": [
+        "org_demo",
+        "plant_bhatia",
+        "operating_rate",
+        "ot_hour",
+        "2026-09-25T06:30:00Z"
+      ],
+      "formula": "org|plant|record_type|business_id|observed_at",
+      "dedupe_key": "sha256:a664591c12d4c7acf27e85e29d4bd2c962650bd8b4cdf5edf51549b3d88fffde"
+    }
+  ]
+}

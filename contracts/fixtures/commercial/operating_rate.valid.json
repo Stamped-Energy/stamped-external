@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_demo",
+  "plant_id": "plant_bhatia",
+  "rate_id": "ot_hour",
+  "name": "Overtime labour",
+  "amount": 450,
+  "currency": "INR",
+  "per_unit": "hour",
+  "valid_from": "2026-04-01T00:00:00Z",
+  "observed_at": "2026-09-25T06:30:00Z",
+  "lineage": {
+    "source_system": "fixture",
+    "connector_id": "ctx-1",
+    "pack_id": "generic-csv",
+    "pack_version": "1.0.0",
+    "source_record_id": "row-1"
+  }
+}

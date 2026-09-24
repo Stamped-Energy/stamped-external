@@ -44,7 +44,16 @@
         "prescription_revision",
         "improve_cycle",
         "calibration_patch",
-        "model_run"
+        "model_run",
+        "asset_state",
+        "process_batch",
+        "flow_position",
+        "maintenance_context",
+        "quality_status",
+        "material_availability",
+        "shift_roster",
+        "operating_rate",
+        "plant_constraint"
       ]
     },
     "org_id": { "type": "string", "minLength": 1 },
