@@ -18,6 +18,7 @@
 - **Design / brand:** [`design/`](design/) (website + [Bhatia pilot deck](https://bhatia-stamped-pilot.vercel.app/#s6))
 - **Demo decks:** [`demo-decks/`](demo-decks/)
 - Pin consumers to a **specific SHA or semver tag**; never float on `main` in production branches
+- **L1–L2 context plane:** [`technical/L1-L2-DATA-PLANE.md`](technical/L1-L2-DATA-PLANE.md) · [ADR-031](decisions/028-032/ADR-031-l1-l2-context-records.md) (closed record catalog, MQTT wrapper, L2 shapes, tool allowlist)
 
 ---
 

@@ -2,6 +2,8 @@
 
 Shared schemas and MQTT topic conventions for all L1 publishers (edge agent, bill ingest) and L2 consumers.
 
+**L1–L2 context records (ADR-031):** closed record catalog, `…/context` wrapper, dedupe material, and L4 tool allowlist — operator narrative in [`../technical/L1-L2-DATA-PLANE.md`](../technical/L1-L2-DATA-PLANE.md); decision in [ADR-031](../decisions/028-032/ADR-031-l1-l2-context-records.md). Packs: `packs/` · tools: `tools/l2-query-tools.json` · topics: [TOPICS.md](TOPICS.md).
+
 **Package name (when published):** `stamped-l1-contracts`  
 **Canonical source:** this directory in **[stamped-platform](https://github.com/vinayak-rz/stamped-external)** ([ADR-011](../decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md))
 
