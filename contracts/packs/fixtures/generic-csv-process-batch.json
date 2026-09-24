@@ -1,0 +1,21 @@
+{
+  "pack_id": "generic-csv-process-batch",
+  "pack_version": "1.0.0",
+  "engine": "file_rows",
+  "record_type": "process_batch",
+  "timezone": "Asia/Kolkata",
+  "date_format": "dd-mm-yyyy",
+  "number_grouping": "lakh",
+  "asset_ref": "Machine",
+  "field_map": {
+    "batch_id": "Batch",
+    "asset_id": "Machine",
+    "recipe_code": "Recipe",
+    "charge_qty": "ChargeQty",
+    "unit": "Unit",
+    "fill_fraction": "FillPct",
+    "status": "Status",
+    "observed_at": "ModifiedAt"
+  },
+  "description": "Generic CSV drop for furnace or anodize charges"
+}
