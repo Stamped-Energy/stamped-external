@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/material-availability.v1.json",
+  "title": "MaterialAvailability",
+  "description": "On-hand and reserved quantity for one sku at one location.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "sku",
+    "location_id",
+    "qty_on_hand",
+    "qty_reserved",
+    "unit",
+    "observed_at",
+    "lineage"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sku": {
+      "type": "string",
+      "minLength": 1
+    },
+    "location_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "qty_on_hand": {
+      "type": "number"
+    },
+    "qty_reserved": {
+      "type": "number"
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lineage": {
+      "type": "object",
+      "required": [
+        "source_system",
+        "connector_id",
+        "pack_id",
+        "pack_version",
+        "source_record_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "connector_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pack_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pack_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_record_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/quality-status.v1.json",
+  "title": "QualityStatus",
+  "description": "Hold or clear fact. Nothing in L1/L2 sets clear unless the source already says clear.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "subject_type",
+    "subject_id",
+    "status",
+    "since",
+    "observed_at",
+    "lineage"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject_type": {
+      "type": "string",
+      "enum": [
+        "order",
+        "batch",
+        "asset"
+      ]
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "clear",
+        "hold",
+        "unknown"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "since": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lineage": {
+      "type": "object",
+      "required": [
+        "source_system",
+        "connector_id",
+        "pack_id",
+        "pack_version",
+        "source_record_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "connector_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pack_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pack_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_record_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

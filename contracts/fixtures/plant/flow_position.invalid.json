@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "org_id": "org_demo",
+  "plant_id": "plant_bhatia",
+  "position_id": "q_forge_ht",
+  "from_asset_id": "forge_1",
+  "to_asset_id": "furnace_1",
+  "qty": 40,
+  "unit": "pcs",
+  "state": "jammed",
+  "observed_at": "2026-09-25T06:10:00Z",
+  "lineage": {
+    "source_system": "fixture",
+    "connector_id": "ctx-1",
+    "pack_id": "generic-csv",
+    "pack_version": "1.0.0",
+    "source_record_id": "row-1"
+  }
+}

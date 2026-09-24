@@ -4,12 +4,16 @@
 
 ### Added
 
+- Contracts **0.14.0** (ADR-031): L1 context records — `asset_state`, `process_batch`, `flow_position`, `maintenance_context`, `quality_status`, `material_availability`, `operating_rate`, `plant_constraint`; pack schema; `tools/l2-query-tools.json`
+- Envelope `record_type` enum extended additively (shape and `schema_version` 1.0.0 unchanged)
+- MQTT `orders` and `context` topics with wrapper and dedupe strings
 - Contracts **0.13.0** (ADR-029): `action-intent`, `machine-capability` — human-guided OT command path (Wave C opt-in)
 - Contracts **0.12.0** (ADR-028): `plant-knowledge-graph`, `plant-live-index`, `shift-roster`, `l4-compile-trace`
 - `prescription.provenance`: optional `compile_trace_id`, `otel_trace_id`; `lane` enum adds `quality`
 
 ### Changed
 
+- `shift-roster`: optional `observed_at` and `lineage` for L2 ingest
 - `plant-live-index` **1.0.0**: required `freshness` watermarks; `orders[]` with `window_end_utc` / `uses_asset_ids` (Job 447–class Path D); optional `standby_evidence`; `open_order_ids` kept as deprecated alias
 - `l4-compile-trace` **1.0.0**: required `snapshots`, `max_generation_calls`, `terminal` (`emit`|`withhold`|`abstain`); optional `bind`, `template_id`; delta `evidence_refs`
 - `plant-knowledge-graph`: document `REMEDY_IN` as AssetClass→Playbook; waste_category / template_id on Playbook node properties

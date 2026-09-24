@@ -26,6 +26,7 @@ ADRs live in number buckets. Start with the index below.
 | [ADR-022](020-023/ADR-022-l6-bff-runtime-boundary.md) | L6 BFF runtime boundary | Accepted | `020-023/` |
 | [ADR-025](024-026/ADR-025-improve-loop-step-06.md) | Learning from closed cards | Accepted | `024-026/` |
 | [ADR-030](028-032/ADR-030-five-domain-decision-loop.md) | Five-domain decision loop (product framing) | Accepted | `028-032/` |
+| [ADR-031](028-032/ADR-031-l1-l2-context-records.md) | L1–L2 context records data plane | Accepted | `028-032/` |
 
 **Archived / superseded (2026-09 cleanup):** ADR-004, ADR-006, ADR-014 (TS FM), ADR-016, ADR-017, ADR-018, ADR-023, ADR-027, ADR-028, and `asset-id-migration.md` → [`../archive/cleanup-2026-09/adrs/`](../archive/cleanup-2026-09/adrs/). Also recoverable on tag `v2026.09.24`. Withdrawn earlier: ADR-013, ADR-024, ADR-026. ADR-029 under marketing archive.
 

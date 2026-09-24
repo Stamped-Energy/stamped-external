@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/flow-position.v1.json",
+  "title": "FlowPosition",
+  "description": "One handoff or queue between assets.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "org_id",
+    "plant_id",
+    "position_id",
+    "from_asset_id",
+    "to_asset_id",
+    "qty",
+    "unit",
+    "state",
+    "observed_at",
+    "lineage"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "org_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "position_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "from_asset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "to_asset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "qty": {
+      "type": "number"
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "oldest_since": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "clear",
+        "waiting",
+        "blocked",
+        "starved"
+      ]
+    },
+    "order_id": {
+      "type": "string"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lineage": {
+      "type": "object",
+      "required": [
+        "source_system",
+        "connector_id",
+        "pack_id",
+        "pack_version",
+        "source_record_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "connector_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pack_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pack_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_record_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
