@@ -1,8 +1,8 @@
-# Handoff — agent navigation
+﻿# Handoff — agent navigation
 
 > **Audience:** AI agents and engineers bootstrapping consumer repos (`connectors-*`, `stamped-l2`…`l6`).  
 > **Architecture SSOT:** [../technical/STAMPED_ARCHITECTURE.md](../technical/STAMPED_ARCHITECTURE.md)  
-> **Framing lock:** [ADR-026](../decisions/024-026/ADR-026-two-pillars-shared-context.md) — two pillars + shared context; not MES.  
+> **Framing lock:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) — five-domain decision loop; not MES. Prior framing: tag `v2026.09.24` only.  
 > **Path moves:** [PATH_MAP.md](PATH_MAP.md)
 
 **Paste into any consumer `AGENTS.md`:** [agents/prompts/consumer-platform-prompt.md](agents/prompts/consumer-platform-prompt.md)  
@@ -32,7 +32,7 @@
 | Repo | Start |
 | --- | --- |
 | Any | [agents/prompts/consumer-platform-prompt.md](agents/prompts/consumer-platform-prompt.md) |
-| Holistic / management Rx | [agents/prompts/stamped-holistic-consumer-prompt.md](agents/prompts/stamped-holistic-consumer-prompt.md) → [holistic/](holistic/) |
+| Holistic / management Rx | [agents/prompts/stamped-holistic-consumer-prompt.md](agents/prompts/stamped-holistic-consumer-prompt.md) â†’ [holistic/](holistic/) |
 | stamped-l2 | [l2/core/stamped-l2-spec.md](l2/core/stamped-l2-spec.md) · [agents/onboarding/stamped-l2-agent-onboarding.md](agents/onboarding/stamped-l2-agent-onboarding.md) |
 | stamped-l3 | [agents/prompts/stamped-l3-dual-lane-consumer-prompt.md](agents/prompts/stamped-l3-dual-lane-consumer-prompt.md) · [l3/](l3/) |
 | stamped-l4 | [l4/stamped-l4-architecture-handoff.md](l4/stamped-l4-architecture-handoff.md) |

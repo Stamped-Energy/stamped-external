@@ -1,4 +1,4 @@
----
+﻿---
 type: Product Architecture
 title: "Context graphs, live twins, and practical prescriptions — research + gap"
 description: >-
@@ -12,11 +12,11 @@ status: Accepted research companion — does not override L4 SSOT until ADR-028
 
 # Context graphs and practical prescriptions
 
-*Companion to [ML citations](stamped-research-and-ml-citations.md), [L4 SSOT](../layers/l4-l6/L4-knowledge-and-reasoning.md), [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md), [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md). Architecture that this research recommends: [L4 plant context graphs](../layers/l4-l6/L4-plant-context-graphs.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md). Eval: [practicality rubric + demo gold](../cross-cutting/05-prescription-practicality-eval.md).*
+*Companion to [ML citations](stamped-research-and-ml-citations.md), [L4 SSOT](../layers/l4-l6/L4-knowledge-and-reasoning.md), [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md), [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md). Architecture that this research recommends: [L4 plant context graphs](../layers/l4-l6/L4-plant-context-graphs.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md). Eval: [practicality rubric + demo gold](../cross-cutting/05-prescription-practicality-eval.md).*
 
 > **Purpose.** Explain how others produce *practical* plant advice, map that onto Stamped L4, and name the gaps that make our demo cards better than our compiler. This is CORE vs FRONTIER honesty — we do **not** run Graphiti, PlantGPT, or Neo4j today.
 >
-> **Gold bar.** [Demo prescriptions](../../demo-decks/prescriptions-examples.md) — named floor action, feasible Due, industry overlay, Example 6 (Tuesday blocked → Thursday after Job 447).
+> **Gold bar.** [Demo prescriptions](../../demo-decks/prescriptions-examples.md) — named floor action, feasible Due, industry overlay, Example 6 (Tuesday blocked â†’ Thursday after Job 447).
 
 **How to read the lanes**
 
@@ -37,7 +37,7 @@ status: Accepted research companion — does not override L4 SSOT until ADR-028
 | Live / digital-twin index | Fast now: running, orders, shift, ToD/MD | L2 measurements + `ProductionOrder` exist; L4 does not pack them at compile | **Graph B** — same node IDs, event updates, **no LLM** |
 | Context pack | What matters for *this* Finding | Path H hop-2 = document siblings | **Path D** (delta) + Path G hop + Path H playbooks |
 | Hybrid RAG | Find playbook text | Path H sparse+dense RRF over 5 seeds | Keep Path H; filter by vertical + class |
-| LLM-as-judge | Language quality after facts | Specified in defense brief §3.11; not on Rx path | Judge **practicality** after deterministic gates; 10+ calls allowed |
+| LLM-as-judge | Language quality after facts | Specified in defense brief Â§3.11; not on Rx path | Judge **practicality** after deterministic gates; 10+ calls allowed |
 | Staff debug UI | Human verifies the compile | L5 console: card + AD-5 gate | Console tabs: graph, retrieval, compile loop, eval. **Not L6.** |
 | Decision memory (why we chose) | Precedent + exceptions, not plant topology | Compile-trace emitted; L5 accept/reject exists | Keep traces as *byproduct*; do not merge into Graph A |
 
@@ -45,7 +45,7 @@ status: Accepted research companion — does not override L4 SSOT until ADR-028
 
 ## 1. Knowledge graph vs context graph vs live twin
 
-### 1.1 Graph → knowledge graph → context graph
+### 1.1 Graph â†’ knowledge graph â†’ context graph
 
 **Neo4j, “What is a context graph” (2026).** *[VERIFIED]* [neo4j.com/blog/agentic-ai/what-is-context-graph](https://neo4j.com/blog/agentic-ai/what-is-context-graph/)
 
@@ -65,13 +65,13 @@ KG is the map of the business. A context graph adds decisions, timing, exception
 
 ### 1.2 Industrial KG + digital twin
 
-Smart-manufacturing KG surveys (e.g. *Computers in Industry* 2024, “Making knowledge graphs work for smart manufacturing”). *[GENERAL]* KGs are used because manufacturing data is relational: asset ↔ process ↔ maintenance ↔ decision. The hard part is *contextualising* a live plant, not storing triples.
+Smart-manufacturing KG surveys (e.g. *Computers in Industry* 2024, “Making knowledge graphs work for smart manufacturing”). *[GENERAL]* KGs are used because manufacturing data is relational: asset â†” process â†” maintenance â†” decision. The hard part is *contextualising* a live plant, not storing triples.
 
 Digital twin + KG fusion papers (2026 DT–KG “Q-layer” style work). *[GENERAL]* Twin = live state; KG = semantics and constraints. Fusion is what lets a system explain *why*, not only *what*.
 
-**PlantGPT / DomainWise (Tridiagonal).** *[VERIFIED]* Marketing + architecture claims: SAP + sensors + P&IDs + maintenance logs → agents; KG as auditable decision path. We do **not** claim feature parity.
+**PlantGPT / DomainWise (Tridiagonal).** *[VERIFIED]* Marketing + architecture claims: SAP + sensors + P&IDs + maintenance logs â†’ agents; KG as auditable decision path. We do **not** claim feature parity.
 
-**OnBrain (open Graph RAG + Neo4j + Chroma).** *[VERIFIED]* [github.com/prajwal-priyadarshan/OnBrain](https://github.com/prajwal-priyadarshan/OnBrain) — manuals/work orders → entity graph + vector store + cited answers. Closer to our *analyst* surface than to money-bearing Rx.
+**OnBrain (open Graph RAG + Neo4j + Chroma).** *[VERIFIED]* [github.com/prajwal-priyadarshan/OnBrain](https://github.com/prajwal-priyadarshan/OnBrain) — manuals/work orders â†’ entity graph + vector store + cited answers. Closer to our *analyst* surface than to money-bearing Rx.
 
 **PlantGraphExpert (Computers & Chemical Engineering 2026).** *[VERIFIED]* OntoCAPE + Tennessee Eastman — P&ID/PFD exploration for *fault diagnosis*, not energy prescriptions.
 
@@ -100,17 +100,17 @@ Digital twin + KG fusion papers (2026 DT–KG “Q-layer” style work). *[GENER
 
 **Microsoft GraphRAG.** Community summaries over *static* corpora. Wrong default for live plant state (orders, standby, shift).
 
-**ADR-017 Path G.** *[FROM SSOT]* Reserved for `asset_type ↔ waste_category ↔ measure ↔ standard_ref` over L2 graph + curated edges. Deferred until two-hop docs fail a labelled slice.
+**ADR-017 Path G.** *[FROM SSOT]* Reserved for `asset_type â†” waste_category â†” measure â†” standard_ref` over L2 graph + curated edges. Deferred until two-hop docs fail a labelled slice.
 
 **Steal:** Path H stays for playbooks. Path G for relations. **Path D (delta)** is the *question*: live vs canonical. Hybrid does not discover Job 447.
 
 ### 1.5 Quality loops / LLM-as-judge
 
-**L4 decision defense §3.11.** *[FROM SSOT]* Deterministic gates on 100% of outputs; LLM judge only on residual language. Do not ask a model whether ₹ matches the calculator.
+**L4 decision defense Â§3.11.** *[FROM SSOT]* Deterministic gates on 100% of outputs; LLM judge only on residual language. Do not ask a model whether ₹ matches the calculator.
 
-Industry pattern: draft → schema/claim verify → judge rubric → repair → abstain. Judges that *are* the quality score hide deterministic failures.
+Industry pattern: draft â†’ schema/claim verify â†’ judge rubric â†’ repair â†’ abstain. Judges that *are* the quality score hide deterministic failures.
 
-**Steal:** judge scores *practicality* (owner, window, industry specificity), never ₹. Loop until practical or abstain. **≥10 generation calls allowed** on the Rx path; not a ceiling.
+**Steal:** judge scores *practicality* (owner, window, industry specificity), never ₹. Loop until practical or abstain. **â‰¥10 generation calls allowed** on the Rx path; not a ceiling.
 
 **Reject:** judge-as-sole-score; stopping at 2 calls because a 2026-07 SSOT said cheap.
 
@@ -131,7 +131,7 @@ His phased path: (1) pick decision-heavy workflows, (2) capture a **minimal deci
 **Adapt (later, after traces exist — do not reverse ADR-028):**
 
 - Attach **outcome** onto the same id: L5 accept / reject / force-send / verified ₹. Shah’s trace is incomplete without what happened after the card.
-- **Precedent query** at compile: “similar Finding + similar Path D → last Rx and result.” Today we have reason codes and Improve; we do not yet retrieve prior traces as Path D input.
+- **Precedent query** at compile: “similar Finding + similar Path D â†’ last Rx and result.” Today we have reason codes and Improve; we do not yet retrieve prior traces as Path D input.
 - `delta_facts` (`need` / `blocker` / `feasible` / `not`) already encode options. Do not add a second free-text “options considered” field unless eval shows staff cannot reconstruct the fork.
 - Override rate (reject + force-send) as a **staff** metric, not a floor-surveillance score. Aligns with L5 withhold / AD-5.
 
@@ -146,8 +146,8 @@ Gold: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md). C
 | Demo need | Example | Lane A / Path H today | Gap |
 |---|---|---|---|
 | Named floor action | “Inspect COMP2 filter in next low-load window” | Category template: generic inspect / stagger copy | Template is a family, not a plant-now card |
-| Feasible Due | Ex. 6: Tue blocked → Thu after Job 447 | `when: next_shift_start` | Orders + standby not packed at compile |
-| Live standby | COMP1 at 90% → cannot isolate COMP2 | Not read | Live index property `available_as_standby` |
+| Feasible Due | Ex. 6: Tue blocked â†’ Thu after Job 447 | `when: next_shift_start` | Orders + standby not packed at compile |
+| Live standby | COMP1 at 90% â†’ cannot isolate COMP2 | Not read | Live index property `available_as_standby` |
 | Open orders | Job 447 air-using line | `ProductionOrder` contract exists; L4 barely uses it | Compile-time feasibility (move ADR-024 earlier) |
 | Who on this shift | Electrical lead · Shift B · Feeder A | Role string (`utilities lead`) | Roster optional; degrade to role+shift; never invent names |
 | Industry overlay | Steel holding, cement kiln+mill+WHR, pharma setback | Five seed playbooks, generic energy | Vertical + AssetClass on Graph A + Path H filters |
@@ -158,7 +158,7 @@ Gold: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md). C
 
 1. Treat the demo deck as **eval**, not brochure.
 2. **Keep Lane A; stop making it the default.** Quality path for all categories. Lane A = CI / `force_lane=a` / model-down degrade, labelled `template_fast_path`.
-3. Pull Path G. Two-hop documents cannot encode standby × order × owner.
+3. Pull Path G. Two-hop documents cannot encode standby Ã— order Ã— owner.
 4. Move ADR-024 feasibility **into compile**. Negotiation stays for human pushback.
 5. Quality over pricing on Rx (10+ calls). Analyst / Path W / indexing stay cost-aware. Calculator owns ₹.
 6. Do not copy telemetry into a second graph DB. Graph B = L2 projection.
@@ -181,8 +181,8 @@ Gold: [prescriptions-examples.md](../../demo-decks/prescriptions-examples.md). C
 | L5 compile-trace UI | **Adopt** | Staff verify; not L6; not a second Phoenix |
 | Graphiti / Neo4j | **Reject for now** | Ops cost; steal the *pattern* |
 | Microsoft GraphRAG as default | **Reject** | Static corpus summarisation |
-| Full ISA-95 / MES product | **Reject** | ADR-026 two pillars + shared context |
-| Judge as sole quality score | **Reject** | Defense brief §3.11 |
+| Full ISA-95 / MES product | **Reject** | ADR-026 prior framing (tag v2026.09.24) + shared context |
+| Judge as sole quality score | **Reject** | Defense brief Â§3.11 |
 | Poverty-pricing Rx (0–2 calls as goal) | **Reject** | Quality wins on this surface |
 | Decision traces as byproduct (`l4-compile-trace`) | **Adopt** | Shah: if capture is extra work, adoption dies |
 | Precedent + outcome on the same id | **Adapt later** | After traces exist; Improve / L5 already have labels |

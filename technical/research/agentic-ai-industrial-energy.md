@@ -1,4 +1,4 @@
----
+﻿---
 type: Product Research
 title: "Agentic AI in industrial settings + IBM energy/resource optimization"
 description: >-
@@ -28,7 +28,7 @@ status: Research brief — implications for perceived value; no ADR change
 
 ## 1. Why these sources matter for Stamped
 
-Stamped’s category is a **verified-with-evidence operational decision layer** for energy-intensive Indian manufacturers (two pillars + shared context; not MES). Both sources describe the **market language and constraints** around “agents on the factory,” including an explicit **energy and resource optimization** use case (IBM) and energy-industrial interviewees (GE Vernova in the arXiv sample).
+Stamped’s category is a **verified-with-evidence operational decision layer** for energy-intensive Indian manufacturers (prior framing (tag v2026.09.24) + shared context; not MES). Both sources describe the **market language and constraints** around “agents on the factory,” including an explicit **energy and resource optimization** use case (IBM) and energy-industrial interviewees (GE Vernova in the arXiv sample).
 
 They do **not** change ADR-026. They change how we **talk and show** load/energy and bounded agents so perceived value matches what industrial buyers already believe — and so we do not absorb IBM’s entire use-case list.
 
@@ -52,7 +52,7 @@ They do **not** change ADR-026. They change how we **talk and show** load/energy
 
 | IBM use case | Stamped `[NOW]` | `[LATER]` | `[NEVER]` this wave |
 | --- | --- | --- | --- |
-| **Energy and resource optimization** | TOD, MD overlap, PF, idle, stagger, thermal timing; LNM: induction×CNC **timing** (₹ pending kWh) | Bill-locked ₹; off-peak shift with approval | Autonomous process shift; “furnace off” |
+| **Energy and resource optimization** | TOD, MD overlap, PF, idle, stagger, thermal timing; LNM: inductionÃ—CNC **timing** (₹ pending kWh) | Bill-locked ₹; off-peak shift with approval | Autonomous process shift; “furnace off” |
 | Autonomous quality management | — | Co-benefit language only | Vision AOI / auto parameter writes |
 | Dynamic production scheduling | Schedule-aware **negotiation** when orders exist | ERP due-date join | APS / MES replacement |
 | End-to-end process optimization (slow line to cut defects) | — | — | Plant OS |
@@ -73,9 +73,9 @@ Exploratory qualitative study. Not a prevalence estimate. Sample includes NASA, 
 
 | Task class | Examples from interviews | Stamped analog |
 | --- | --- | --- |
-| **Repetitive, high-volume, structured** | Requirements matrices; customer quality clauses → ERP; rev-to-rev compare; AOI | Cluster FANUC state/alarms; fill Rx templates (Lane A); bill-line ingest |
+| **Repetitive, high-volume, structured** | Requirements matrices; customer quality clauses â†’ ERP; rev-to-rev compare; AOI | Cluster FANUC state/alarms; fill Rx templates (Lane A); bill-line ingest |
 | **Data-intensive synthesis** | NASA: historical data inaccessible; 25% time on docs; sensor validation; drawing release checks | Event clustering vs “26k events/day” dump; evidence flip; people-archaeology on collectors |
-| **Process orchestration** | Multi-step RFQ; specialist agent teams with an orchestrator | Finding → Path D/context → feasible Rx → L5 assign → ops-confirm |
+| **Process orchestration** | Multi-step RFQ; specialist agent teams with an orchestrator | Finding â†’ Path D/context â†’ feasible Rx â†’ L5 assign â†’ ops-confirm |
 | **Not ready: safety-critical autonomy** | AI suggests; humans validate; existing PDR/CDR/TRR extend to AI | HITL; no silent OT; same checkpoints language |
 | **Not ready: new interaction paradigms** | Ambient agents; “multiplayer Jarvis”; “no API for machine shops” | Overlay on MT-LINKi/SCADA APIs we *do* have; don’t wait for CNC write APIs |
 
@@ -96,9 +96,9 @@ Exploratory qualitative study. Not a prevalence estimate. Sample includes NASA, 
 | Machine-unfriendly formats | Specs in PDFs, CAD, tribal knowledge | Playbooks + structured tags; don’t promise PDF-BOM magic |
 | Knowledge in heads | Craft knowledge uncodified; retirement wave | `[LATER]` capture setter/EE interviews into Path H; don’t claim a custom foundation model |
 | HITL + explainability | “Engineers still make the final decision”; knowledge graph for safety facts (Autodesk) | Calculator owns ₹; Lane A default in demos; compile trace |
-| Security / on-prem | ITAR, CMMC, “BMW ≠ VW on the same server”; cloud LLM often banned | Deployment modes `local` / `local-dashboard`; India residency; never “we train on your Gantt” |
+| Security / on-prem | ITAR, CMMC, “BMW â‰  VW on the same server”; cloud LLM often banned | Deployment modes `local` / `local-dashboard`; India residency; never “we train on your Gantt” |
 | Legacy tools | Pro/E since the 1990s; no REST; MCP aspirational | Stamped *is* the integration layer; FANUC MT-LINKi is the API |
-| Verification gap | Want ground truth, replay, same checkpoints as humans | Surface `l4-compile-trace`; ops_confirmed ≠ bill verified |
+| Verification gap | Want ground truth, replay, same checkpoints as humans | Surface `l4-compile-trace`; ops_confirmed â‰  bill verified |
 | Literacy / culture | Enthusiasts / skeptics / pragmatists; CEO aha matters | First-win on *their* machine beats a model-name slide |
 | Cyvl trust pattern | Customer adopted after they could **download and inspect** the exact data | Evidence drawer with raw tag/Gantt cut |
 
@@ -117,7 +117,7 @@ Not our wedge: native 3D spatial / multi-physics foundation models (Synera/NASA 
 | Bounded autonomy | Tight scope, human validation, no engineering accountability handed to the model | Physics/tariff guardrails; Lane A templates; LLM Lane B optional |
 | Multi-agent teams | LangChain: specialist agents + orchestrator | Do not productize “multi-agent” as a client feature |
 | Orchestration across MES/maintenance/supply | IBM: compress the decision loop | We orchestrate **energy + inspect** decisions, not the factory |
-| HITL / audit | IBM challenges section; arXiv §5 | Operators stay in control; audit trail; ADR-021 push cap |
+| HITL / audit | IBM challenges section; arXiv Â§5 | Operators stay in control; audit trail; ADR-021 push cap |
 
 Copy rule (unchanged): **do not lead with agentic AI.** Use these sources to *defend* the bounded design when a digital lead asks.
 
@@ -149,7 +149,7 @@ Full prioritized table: `knowledge-reasoning/docs/PERCEIVED_VALUE_STRATEGY.md`.
 
 | Doc | Use |
 | --- | --- |
-| [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md) | Two pillars, operating loop, savings equation |
+| [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md) | prior framing (tag v2026.09.24), operating loop, savings equation |
 | [Stamped_Client_Positioning_and_Narrative_v1.md](../product/Stamped_Client_Positioning_and_Narrative_v1.md) | Four-step narrative; don’t lead agentic |
 | [`../../copy/client/LNM_FARIDABAD.md`](../../copy/client/LNM_FARIDABAD.md) | Site perceived-value rank (C then B then A) |
 | [india-mes-ai-and-production-rx-opportunity.md](india-mes-ai-and-production-rx-opportunity.md) | Why not a third production pillar |

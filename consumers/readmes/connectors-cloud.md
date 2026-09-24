@@ -1,6 +1,6 @@
 ﻿<!-- SNAPSHOT: mirrored from connectors-cloud/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
-# connectors-cloud — L1 cloud ingest for Stamped Energy
+# connectors-cloud — L1 cloud ingest for Stamped
 
 > **What it is:** The **L1 cloud** portion of Connect & Normalise — a two-service Python stack that ingests plant MQTT/HTTP streams, validates JSON Schema contracts, deduplicates, writes a transactional outbox, and relays `StampedRecordEnvelope` records to **stamped-l2**.  
 > **What it is not:** Edge protocol drivers, tag-mapping UI, DISCOM bill PDF parsing, or L2–L6 intelligence. Those live in sibling repos (`connectors-edge`, `connectors-bill`, `stamped-l2`…`stamped-l6`).  
@@ -660,4 +660,4 @@ HTTP ingest accepts requests without auth (dev only). Set a key in production.
 
 ## License & contact
 
-Part of **Stamped Energy** internal platform. See org repos under [Vinayak-RZ](https://github.com/Vinayak-RZ) for related layers.
+Part of **Stamped** internal platform. See org repos under [Vinayak-RZ](https://github.com/Vinayak-RZ) for related layers.

@@ -1,6 +1,7 @@
-# Stamped Energy — Technical Context Pack
+# Stamped — Technical Context Pack
 
-**Start here:** [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) — single latest product + technical architecture (two pillars + shared context).
+**Start here:** [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) — product + technical architecture (five-domain decision loop).  
+**Framing lock:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) · Vision [`../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)
 
 This folder is the portable technical pack (submodule path `external/technical/`).
 
@@ -8,15 +9,15 @@ This folder is the portable technical pack (submodule path `external/technical/`
 
 | # | Document | For |
 | --- | --- | --- |
-| 1 | [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) | **SSOT** — product + technical architecture (two pillars + shared context) |
-| 2 | [product/Stamped_Client_Positioning_and_Narrative_v1.md](product/Stamped_Client_Positioning_and_Narrative_v1.md) | Client story, WhatsApp, practical Rx rules |
-| 3 | [`layers/`](layers/) | Per-layer deep dives |
-| 4 | [`cross-cutting/`](cross-cutting/) | Production engineering + evaluation |
-| 5 | [research/stamped-research-and-ml-citations.md](research/stamped-research-and-ml-citations.md) | CORE vs FRONTIER bibliography |
-| 6 | [research/stamped-context-graphs-and-practical-prescriptions.md](research/stamped-context-graphs-and-practical-prescriptions.md) | Dual graphs / Path D research (ADR-028) |
-| 7 | [cross-cutting/05-prescription-practicality-eval.md](cross-cutting/05-prescription-practicality-eval.md) | Rx practicality rubric + 10 demo-card gold cases |
-| 8 | [research/agentic-ai-industrial-energy.md](research/agentic-ai-industrial-energy.md) | arXiv industrial-agent interviews + IBM energy/resource optimization — NOW vs LATER claims |
+| 0 | [`../research/plant-efficiency-exploration-2026-09/AGENT-START.md`](../research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` | Company identity |
+| 1 | [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) | **SSOT** — product + technical architecture |
+| 2 | [`layers/`](layers/) | Per-layer deep dives |
+| 3 | [`cross-cutting/`](cross-cutting/) | Production engineering + evaluation |
+| 4 | [research/stamped-research-and-ml-citations.md](research/stamped-research-and-ml-citations.md) | CORE vs FRONTIER bibliography |
+| 5 | [research/stamped-context-graphs-and-practical-prescriptions.md](research/stamped-context-graphs-and-practical-prescriptions.md) | Dual graphs / Path D research (ADR-028) |
 | — | [`pointers/`](pointers/) | Legacy filenames → redirect to SSOT |
+
+Client positioning and website copy are **archived** under [`../archive/external-marketing-2026-09/`](../archive/external-marketing-2026-09/). Do not treat them as identity.
 
 ## Layer specs
 
@@ -35,4 +36,4 @@ This folder is the portable technical pack (submodule path `external/technical/`
 
 ## Thesis
 
-> 15–20% verified savings is engineered as the **sum of closed prescriptions**, multiplied by **closure rate**, defended by **evidence-backed M&V** — not a single model output.
+> Value is engineered as **closed decision cards** with honest evidence tiers — not a single model output and not a fixed savings percentage as company identity.

@@ -58,7 +58,7 @@
 
 ### 1.1 What it is
 
-Stamped Energy’s **L4 — Knowledge & Reasoning** layer. It composes evidence into **advice**:
+Stamped’s **L4 — Knowledge & Reasoning** layer. It composes evidence into **advice**:
 
 1. **Prescription compiler** — Accept L3 outbox envelopes (`delivery=l4` ∧ `status=emitted`), route Lane A or B, verify schema/impact, apply L3 veto stub, emit to L5 (fixture today).
 2. **Conversational energy analyst** — Multi-turn, cited, budgeted ReAct over Path H / L2 fixture tools / Path W; explicit saved notes only (no silent semantic memory).
@@ -683,4 +683,4 @@ Unit/API tests use SQLite files. Production/compose use Postgres for leases (`SK
 
 ## License / ownership
 
-Consumer repository for Stamped Energy L4. Platform contracts and architecture are owned by `stamped-external`. See submodule license/docs there.
+Consumer repository for Stamped L4. Platform contracts and architecture are owned by `stamped-external`. See submodule license/docs there.

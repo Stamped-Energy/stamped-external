@@ -1,4 +1,4 @@
-# stamped-l2 — Repo charter (Universal Repository)
+﻿# stamped-l2 — Repo charter (Universal Repository)
 
 > **What it is:** Stamped **L2** — the Universal Repository: six data stores (time-series, graph, commercial, features, baselines, M&V ledger) in one Postgres+TimescaleDB database, plus L1 HTTP ingest consumer and internal query API for L3–L6.  
 > **What it is not:** L1 MQTT ingest, edge agents, bill OCR, intelligence engines, prescriptions, or customer dashboard.  
@@ -25,7 +25,7 @@
 
 ### 1.1 What it is
 
-`stamped-l2` is the **evidence layer** for Stamped Energy. Every verified bill reduction flows through L2 twice: raw evidence in (telemetry, bills, production), verified outcomes out (ledger). L3–L6 read via query API; only L2 ingest writes.
+`stamped-l2` is the **evidence layer** for Stamped. Every verified bill reduction flows through L2 twice: raw evidence in (telemetry, bills, production), verified outcomes out (ledger). L3–L6 read via query API; only L2 ingest writes.
 
 Primary research spec: [L2-universal-repository.md](../../../technical/layers/l1-l2/L2-universal-repository.md).
 
@@ -40,7 +40,7 @@ Primary research spec: [L2-universal-repository.md](../../../technical/layers/l1
 | Prescription agent | `stamped-l4` |
 | Workflow, M&V verification UI | `stamped-l5` |
 | Customer dashboard, exports | `stamped-l6` |
-| Direct L1 → L2 table writes from any other repo | **Forbidden** (ADR-008) |
+| Direct L1 â†’ L2 table writes from any other repo | **Forbidden** (ADR-008) |
 
 ### 1.3 Who it is for
 
@@ -53,8 +53,8 @@ Primary research spec: [L2-universal-repository.md](../../../technical/layers/l1
 - connectors-cloud relay POST succeeds; `l1_processed_inbox` dedupes correctly
 - Measurement and bill_line golden fixtures round-trip to queryable rows
 - RLS probe suite green (zero cross-tenant leakage)
-- Joint E2E with connectors-cloud green 3× consecutive runs
-- First evidence pointer resolves: incomer tag window ↔ bill_line anchor
+- Joint E2E with connectors-cloud green 3Ã— consecutive runs
+- First evidence pointer resolves: incomer tag window â†” bill_line anchor
 
 ---
 
@@ -130,23 +130,23 @@ DDL authority: [stamped-l2-database-schema.md](./stamped-l2-database-schema.md).
 
 ```text
 stamped-l2/
-├── external/                 # COPY FROM HANDOFF — specs, ADRs, contracts
-├── packages/
-│   ├── ingest/
-│   ├── query-api/
-│   ├── migrate/
-│   └── jobs/                 # P1
-├── mocks/
-│   └── envelope-fixtures/    # Golden StampedRecordEnvelope JSON
-├── deploy/
-│   ├── docker-compose.l2.yml
-│   └── terraform/
-├── scripts/
-│   ├── e2e-l1-ingest.sh
-│   └── contract-check.sh
-├── docs/architecture/
-│   └── layer-interfaces.md   # Copy from external/architecture/layer-interfaces-l2.md
-└── AGENTS.md                 # From stamped-l2-agent-onboarding.md
+â”œâ”€â”€ external/                 # COPY FROM HANDOFF — specs, ADRs, contracts
+â”œâ”€â”€ packages/
+â”‚   â”œâ”€â”€ ingest/
+â”‚   â”œâ”€â”€ query-api/
+â”‚   â”œâ”€â”€ migrate/
+â”‚   â””â”€â”€ jobs/                 # P1
+â”œâ”€â”€ mocks/
+â”‚   â””â”€â”€ envelope-fixtures/    # Golden StampedRecordEnvelope JSON
+â”œâ”€â”€ deploy/
+â”‚   â”œâ”€â”€ docker-compose.l2.yml
+â”‚   â””â”€â”€ terraform/
+â”œâ”€â”€ scripts/
+â”‚   â”œâ”€â”€ e2e-l1-ingest.sh
+â”‚   â””â”€â”€ contract-check.sh
+â”œâ”€â”€ docs/architecture/
+â”‚   â””â”€â”€ layer-interfaces.md   # Copy from external/architecture/layer-interfaces-l2.md
+â””â”€â”€ AGENTS.md                 # From stamped-l2-agent-onboarding.md
 ```
 
 ---
@@ -182,11 +182,11 @@ AWS sizing: [stamped-l2-aws-deployment.md](./stamped-l2-aws-deployment.md).
 | Deliverable | Exit |
 | --- | --- |
 | `graph.asset` incomer seed | FK from measurement.asset_id |
-| JVVNL tariff_version seed | Bill recompute test ±0.5% |
+| JVVNL tariff_version seed | Bill recompute test Â±0.5% |
 | `baselines.baseline` + lock trigger | UPDATE on locked row fails |
 | `ledger.mv_ledger` immutability | REVOKE + trigger tests |
 | RLS on all tenant tables | Cross-org probe returns 0 rows |
-| Joint E2E with connectors-cloud | 3× green |
+| Joint E2E with connectors-cloud | 3Ã— green |
 
 Full step list: [stamped-l2-build-order.md](./stamped-l2-build-order.md).
 

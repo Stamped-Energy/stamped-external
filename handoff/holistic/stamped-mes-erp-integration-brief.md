@@ -1,6 +1,6 @@
-# MES / ERP integration brief — integrate + MES-lite
+﻿# MES / ERP integration brief — integrate + MES-lite
 
-> **Authority:** [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [L1](../../technical/layers/l1-l2/L1-connect-and-normalise.md) · [L6 ERP reality](../../technical/layers/l4-l6/L6-experience-and-integration.md) · [`production-order.json`](../../contracts/schemas/plant/production-order.json)  
+> **Authority:** [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [L1](../../technical/layers/l1-l2/L1-connect-and-normalise.md) · [L6 ERP reality](../../technical/layers/l4-l6/L6-experience-and-integration.md) · [`production-order.json`](../../contracts/schemas/plant/production-order.json)  
 > **Audience:** connectors-cloud / connectors-edge / L2 / L6  
 > **Non-goal:** Stamped is **not** an MES
 
@@ -21,14 +21,14 @@ Stamped is a **read-only decision overlay** beside Level 3 (MES) and Level 4 (ER
 
 ## 2. Tier A — Integrate (MES/ERP present)
 
-| System | Protocol | Fields to map → ProductionOrder |
+| System | Protocol | Fields to map â†’ ProductionOrder |
 | --- | --- | --- |
 | SAP S/4 / ECC | OData / IDoc / scheduled CSV | order_id, line, sku, qty, due_at, status |
 | Oracle / Tally | REST / ODBC / export | same |
 | SAP ME / Opcenter / custom MES | REST / DB view / CSV | WIP line state, charge windows, routing_step |
 | CMMS (if separate) | REST / webhook | Open PM WO — suppress duplicate maint Rx |
 
-**Outbound:** signed webhooks + SFTP/CSV for savings / WO hints — **no direct ERP writes** in P0–P2 (named connector only when ≥3 customers request).
+**Outbound:** signed webhooks + SFTP/CSV for savings / WO hints — **no direct ERP writes** in P0–P2 (named connector only when â‰¥3 customers request).
 
 L1 build: extend REST poller / file profile for `production_order` envelope record_type.
 
@@ -49,7 +49,7 @@ Path B plants use Tier B; Path A may still use CSV as bootstrap before OData goe
 ## 4. Mapping checklist (per plant)
 
 - [ ] Confirm ERP/MES vendor and export path
-- [ ] Map plant lines → `line_id` / `department_id` ([plant-department-graph](../../contracts/schemas/plant/plant-department-graph.json))
+- [ ] Map plant lines â†’ `line_id` / `department_id` ([plant-department-graph](../../contracts/schemas/plant/plant-department-graph.json))
 - [ ] Due-date timezone = plant TZ
 - [ ] Idempotent dedupe on `org|plant|order_id|window`
 - [ ] Shadow: orders appear in L2 before enabling TradeoffEngine in production

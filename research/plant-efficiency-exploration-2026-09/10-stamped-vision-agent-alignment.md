@@ -3,7 +3,7 @@
 **Date:** 2026-09-24  
 **Audience:** AI systems and agents updating docs, product copy, architecture notes, research memos, prompts, and plans.  
 **Authority:** Derived from [`09-stamped-founder-vision.md`](09-stamped-founder-vision.md). If this file and `09` conflict, **`09` wins**.  
-**Job of this file:** Give agents a machine-consumable contract so they can realign older Stamped / Stamped Energy material to the current company vision without inventing a new company.
+**Job of this file:** Give agents a machine-consumable contract so they can realign older **internal** Stamped material (including Energy-suffixed branding) to the current company vision without inventing a new company. External marketing is out of scope.
 
 ---
 
@@ -15,9 +15,10 @@ When you are asked to update prior work, or to write anything “about Stamped�
 2. Run the **alignment check** in §9 on the target document or change.
 3. Prefer **surgical edits** that restore invariants over rewriting whole files.
 4. Do **not** invent revenue, customers, savings %, ship status, or competitor implementation claims.
-5. Do **not** rename the product to “Stamped Energy.” Product name is **Stamped**. Energy is a domain and an entry wedge.
-6. If a prior doc claims Stamped is energy-only, an OpEx suite, an MES/APS replacement, a dashboard, a logistics SKU, or a system that runs the plant — **correct it** to match this contract.
-7. For long prose or founder-facing narrative, prefer lifting from `09`. This file is the **operating contract** for alignment work.
+5. Do **not** append Energy to the product name. Product name is **Stamped**. Energy is a domain and an entry wedge.
+6. Do **not** update external marketing (website, decks, LinkedIn, ads, client brochures) from this contract.
+7. If a prior **internal** doc claims Stamped is energy-only, an OpEx suite, an MES/APS replacement, a dashboard, a logistics SKU, or a system that runs the plant — **correct it** to match this contract.
+8. For long prose or founder-facing narrative, prefer lifting from `09`. This file is the **operating contract** for alignment work.
 
 ### Output contract when you finish an update
 
@@ -72,7 +73,7 @@ Agents must preserve these. If a prior doc violates them, fix the doc.
 ### 2.1 Name and identity
 
 - Product name: **Stamped**
-- Never present the product as **Stamped Energy**
+- Never present the product with an Energy suffix on the name
 - Energy = entry wedge + one owned domain, **not** the category label
 - Company is **not** an operational-excellence suite (OpEx is the plant’s program)
 
@@ -228,11 +229,11 @@ Hardware, sensors, and analytics may **support** a decision family. They are not
 
 ## 7. Delta map — old framing → current vision
 
-Use this when scanning older Stamped / Stamped Energy docs, READMEs, decks, research notes, and prompts.
+Use this when scanning older Stamped docs (including Energy-suffixed branding), READMEs, decks, research notes, and prompts.
 
 | If prior material says… | Rewrite toward… |
 |---|---|
-| “Stamped Energy” as product | **Stamped**; energy is wedge + domain |
+| Energy-suffixed product name | **Stamped**; energy is wedge + domain |
 | Energy company / energy-only AI | Five-domain decision loop; energy opens the door |
 | Dashboard, findings, rankings | Decision card → owner → verify → honest close |
 | Savings % / ₹ hero / additive wallets | Separate wallets; calculator owns money; no fake proof |
@@ -267,7 +268,7 @@ Plain map only — do not turn layer codes into marketing:
 
 ### Step B — Scan for violations
 
-Search for: `Stamped Energy`, `energy-only`, `dashboard`, `savings`, `%`, `autonomous`, `run the plant`, `replace MES`, `APS`, `OpEx platform`, `digital twin`, `copilot`, `intelligence of record`, `factory brain`, `mill model`, fake customer counts.
+Search for: Energy-suffixed product name, `energy-only`, `dashboard`, `savings`, `%`, `autonomous`, `run the plant`, `replace MES`, `APS`, `OpEx platform`, `digital twin`, `copilot`, `intelligence of record`, `factory brain`, `mill model`, fake customer counts, prior framing (tag `v2026.09.24`).
 
 ### Step C — Apply fixes in this order
 
@@ -309,7 +310,7 @@ Answer yes to all:
 ALIGNMENT CHECK — Stamped vision
 Authority: 09-stamped-founder-vision.md + this agent alignment file (09 wins on conflict)
 
-1. Name: Is the product called Stamped (not Stamped Energy)?
+1. Name: Is the product called Stamped (no Energy suffix)?
 2. Sentence: Does it still mean choose, assign, verify across five domains?
 3. Card: One condition → one card → one owner → closure?
 4. Evidence: Measured / Confirmed / Modeled / Unknown respected? Wallets separate? Calculator owns money?
@@ -367,7 +368,7 @@ Before proposing a feature, doc section, or roadmap item, require answers:
 
 ### 11.3 Wrong rewrite (reject)
 
-“Stamped Energy’s autonomous AI runs your plant and delivers 15% savings.”
+“Stamped’s autonomous AI runs your plant and delivers invented savings.”
 
 **Corrected:**  
 “Stamped recommends, assigns, and verifies the next operating action across five domains. Humans decide by default. Money claims need measured or confirmed evidence and calculator-owned ₹ — not a modeled hero number.”
@@ -438,18 +439,67 @@ After Pilot 1, expand domains only when data, frequency, owner access, and verif
 
 - **Canonical narrative:** `09-stamped-founder-vision.md`  
 - **This file:** agent alignment contract derived from `09`  
+- **Folder entry for agents:** `AGENT-START.md`  
 - When `09` changes: update §1–§7 and §13–§15 here in the same change set  
 - Prefer keeping **anti-vision short** (this file’s §6). Long competitor lists belong in research notes, not in agent context  
+- **Internal only.** Do not use this file to rewrite website, decks, LinkedIn, ads, or client brochures.
+
+---
+
+## 17. This folder — what agents may edit
+
+| May edit | Leave alone unless asked |
+|----------|---------------------------|
+| `AGENT-START.md`, `README.md`, `START-HERE.md` | Peer survey **bodies** and vendor numbers in `02`–`04` |
+| Authority banners + recommendation / conclusion sections in `00`–`08` and `08a` | Mode tables as data inventory in `01` |
+| This file (`10`) | Action-catalog **rows** as research inventory in `08` |
+
+**Rules**
+
+1. Do not turn `00`–`08` into a second copy of `09`.  
+2. Do not invent savings, customers, or revenue.  
+3. Do not update **external marketing**.  
+4. Prefer surgical recommendation fixes over full rewrites.
+
+---
+
+## 18. Other projects — internal change queue
+
+Only run this queue when the human asks you to realign other repos. Skip sites, decks, LinkedIn, ads, and outbound copy.
+
+| Priority | Path (as known in `08a`) | Old framing to fix | Delta toward `09` |
+|----------|--------------------------|--------------------|-------------------|
+| P0 | `universal-repositary/external/research/strategy/INSIGHTS_FOR_STAMPED.md` | Energy-as-identity / vague industrial intelligence | Stamped; five domains; closed decision loop |
+| P0 | `universal-repositary/external/research/strategy/PATHS_FOR_STAMPED_V2.md` | Expansive paths that blur product | Filter to HITL choose/assign/verify; hard stops |
+| P0 | `knowledge-reasoning/docs/STAMPED_ENERGY_VALUE_ARCHITECTURE.md` | Title/brand energy-primary | Product **Stamped**; dual wallets; five domains |
+| P0 | `knowledge-reasoning/docs/COMPETITOR_VALUE_PRESSURE_TEST.md` | Energy-primary overlay | Same delta as value architecture |
+| P1 | `universal-repositary/external/technical/research/agentic-ai-industrial-energy.md` | Agent = company / energy-only agents | Agent stack = latest-tech presentation; ML methods also innovation |
+| P1 | Withdrawn ADR-024 (prior framing; tag `v2026.09.24`) | Holistic decisions without five-domain card language | Map to five domains; one card; one owner · cite ADR-030 |
+| P1 | Withdrawn ADR-026 (prior framing; tag `v2026.09.24`) | Dual Energy+Process product surface | Process deferred; Stamped single product surface · cite ADR-030 |
+| P1 | `knowledge-reasoning/docs/client/bhatia-alloy/research/VALUE_LEVERS_AND_REFERENCES.md` | Lever list without company lock | Keep levers; frame as domain tags under `09` |
+| P2 | `universal-repositary/external/research/competitive/industrial-ai-global-2026-09-22/` | Survey conclusions that set company | Keep peer facts; conclusions → `09` |
+| P2 | Zerowatt / energy conservation catalogs under `docs/` | Energy-only product story | Contrast peers; Stamped = five-domain loop |
+| P2 | Agent prompts / system prompts with Energy-suffixed product name | Product name | Rename to Stamped; energy = domain |
+
+**Stop rules**
+
+- Do not edit those paths unless the human asked in this session.  
+- Do not invent proof.  
+- Do not touch external marketing.  
+- Return **Aligned / Changed / Open**.
+
+---
 
 ### Agent start prompt (copy/paste)
 
 ```text
-You are aligning Stamped materials to the current company vision.
-Load: stamped-external/research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md
-Authority conflict: prefer 09-stamped-founder-vision.md.
-Product name: Stamped (never Stamped Energy as product).
+You are aligning Stamped INTERNAL materials to the current company vision.
+Open: AGENT-START.md → 09-stamped-founder-vision.md → 10-stamped-vision-agent-alignment.md
+Authority conflict: prefer 09.
+Product name: Stamped (never append Energy to the product name).
 North star: choose, assign, and verify the next operating action across five domains.
-Hard stops and earned-run rules in the alignment file are absolute.
-Run the ALIGNMENT CHECK before finishing. Return Aligned / Changed / Open.
+Hard stops and earned-run rules are absolute.
+Do NOT update external marketing (website, decks, LinkedIn, ads).
 Do not invent savings, customers, or revenue.
+Run the ALIGNMENT CHECK before finishing. Return Aligned / Changed / Open.
 ```

@@ -1,4 +1,4 @@
----
+﻿---
 type: Product Architecture
 title: "L4 — Knowledge & Reasoning"
 description: "Production architecture SSOT for Stamped L4: quality-default prescription compile (dual plant graphs + Path D), Lane A retained as opt-in, bounded industrial RAG, advisory analyst, model portability, and evaluation."
@@ -10,7 +10,7 @@ status: Accepted pilot architecture — 1–2 plants, English only
 
 *Architecture SSOT · July 2026 · Pilot target: **1–2 plants***
 *Siblings: [L3 — Intelligence core](L3-intelligence-core.md) · [L4 decision defense](L4-decision-defense-brief.md) · [L4 plant context graphs](L4-plant-context-graphs.md) · [L5 — Closure & verification](L5-closure-and-verification.md) · [Technical architecture](../../STAMPED_ARCHITECTURE.md) · [Evaluation & quality](../../cross-cutting/04-evaluation-and-quality.md) · [Prescription practicality eval](../../cross-cutting/05-prescription-practicality-eval.md)*
-*Related decisions: [ADR-013](../../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-024](../../../decisions/024-026/ADR-024-holistic-plant-decisions.md) · [ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)*
+*Related decisions: [ADR-013](../../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-017](../../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-030](../../../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)*
 
 > **Honesty convention:** `[~]` is an estimate or target; `[!]` must be validated on pilot data.
 >
@@ -22,24 +22,24 @@ status: Accepted pilot architecture — 1–2 plants, English only
 
 L4 is not a free-running “society of agents.” It is a **durable, mostly deterministic prescription compiler** with four bounded surfaces:
 
-1. **Finding → Prescription** — production-critical; **quality path is default** (graphs + Path D + draft/judge; ≥10 calls allowed). Lane A (0 LLM) is retained as opt-in / degrade ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)).
+1. **Finding â†’ Prescription** — production-critical; **quality path is default** (graphs + Path D + draft/judge; â‰¥10 calls allowed). Lane A (0 LLM) is retained as opt-in / degrade ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md)).
 2. **Conversational energy analyst** — read-only, cited, budgeted ReAct (API-only; product UX is L6).
 3. **Sustainability narrative** — ledger-backed templates with optional one-call language composition (**P3** for the pilot consumer).
 4. **Curated web research** — explicit, allowlisted, separately labelled; never silent evidence.
 
-LangChain supplies model adapters, retrievers, structured output, and composable `Runnable` primitives. **LangGraph supplies the orchestration shell** for Lane A/B and the analyst (pilot early pull of the §17 LangGraph trigger — see [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)). **Application code owns routing, state transitions, budgets, retries, permissions, and final decisions.** The prescription path does not use `AgentExecutor`, an LLM-generated plan, or an unbounded ReAct loop; the analyst ReAct loop is hard-budgeted.
+LangChain supplies model adapters, retrievers, structured output, and composable `Runnable` primitives. **LangGraph supplies the orchestration shell** for Lane A/B and the analyst (pilot early pull of the Â§17 LangGraph trigger — see [ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)). **Application code owns routing, state transitions, budgets, retries, permissions, and final decisions.** The prescription path does not use `AgentExecutor`, an LLM-generated plan, or an unbounded ReAct loop; the analyst ReAct loop is hard-budgeted.
 
 The **practical** path is the default ([ADR-028](../../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md), [plant context graphs](L4-plant-context-graphs.md)):
 
 ```text
 Finding
-  → Graph A hop + Graph B live pull + Path D delta + Path H playbooks
-  → deterministic impact + next-best window + template family
-  → drafted / verified / judged Prescription
-  → compile-trace to L5
+  â†’ Graph A hop + Graph B live pull + Path D delta + Path H playbooks
+  â†’ deterministic impact + next-best window + template family
+  â†’ drafted / verified / judged Prescription
+  â†’ compile-trace to L5
 ```
 
-Lane A (known Finding + approved template → 0 LLM) remains for CI, `force_lane=a`, and model-down degrade — **not** the production default. Analyst and Path W stay cost-aware. Numbers still never come from the model.
+Lane A (known Finding + approved template â†’ 0 LLM) remains for CI, `force_lane=a`, and model-down degrade — **not** the production default. Analyst and Path W stay cost-aware. Numbers still never come from the model.
 
 ---
 
@@ -72,7 +72,7 @@ Lane A (known Finding + approved template → 0 LLM) remains for CI, `force_lane
 
 ## 3. Layer boundaries and contracts
 
-### 3.1 L3 → L4
+### 3.1 L3 â†’ L4
 
 Canonical input: [`contracts/schemas/intelligence/finding.json`](../../../contracts/schemas/intelligence/finding.json), wrapped in [`stamped-record-envelope.json`](../../../contracts/schemas/envelope/stamped-record-envelope.json).
 
@@ -84,7 +84,7 @@ delivery = l4 AND status = emitted
 
 Suppressed, hypothesis, and shadow detections remain in the L3 Lab ([ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md)).
 
-### 3.2 L4 → L5
+### 3.2 L4 â†’ L5
 
 Canonical output: [`contracts/schemas/intelligence/prescription.json`](../../../contracts/schemas/intelligence/prescription.json). Capex actions additionally require [`capex-proposal.json`](../../../contracts/schemas/intelligence/capex-proposal.json).
 
@@ -227,16 +227,16 @@ It does **not** decide the workflow. A typed application state machine does.
 
 ```text
 RECEIVED
-  → VALIDATED
-  → DEDUPED
-  → ROUTED
-  → EVIDENCE_READY
-  → IMPACT_READY
-  → DRAFTED
-  → VERIFIED
-  → VETO_PASSED
-  → READY
-  → EMITTED
+  â†’ VALIDATED
+  â†’ DEDUPED
+  â†’ ROUTED
+  â†’ EVIDENCE_READY
+  â†’ IMPACT_READY
+  â†’ DRAFTED
+  â†’ VERIFIED
+  â†’ VETO_PASSED
+  â†’ READY
+  â†’ EMITTED
 ```
 
 Terminal non-success states:
@@ -252,9 +252,9 @@ L4 annotates `approval_required` and its reason, then emits the candidate. **L5 
 
 ### 6.2 Quality path — default compiler (ADR-028)
 
-Default for **all** categories. Bind entities → Path G on Graph A → live pull Graph B → Path D delta → Path H (vertical + class) → deterministic next-best window → structured draft → verify/veto → practicality judge → repair. `template_id` still bounds the action family. Emit `l4-compile-trace` with the Rx. Details: [L4-plant-context-graphs.md](L4-plant-context-graphs.md).
+Default for **all** categories. Bind entities â†’ Path G on Graph A â†’ live pull Graph B â†’ Path D delta â†’ Path H (vertical + class) â†’ deterministic next-best window â†’ structured draft â†’ verify/veto â†’ practicality judge â†’ repair. `template_id` still bounds the action family. Emit `l4-compile-trace` with the Rx. Details: [L4-plant-context-graphs.md](L4-plant-context-graphs.md).
 
-**LLM calls:** as many as practicality needs; **≥10 allowed**; not a ceiling. Fail-closed on veto and invented ₹.
+**LLM calls:** as many as practicality needs; **â‰¥10 allowed**; not a ceiling. Fail-closed on veto and invented ₹.
 
 ### 6.2b Lane A — template path (kept, not default)
 
@@ -277,7 +277,7 @@ flowchart LR
 
 ### 6.3 Generation core (inside the quality path)
 
-Historical name: Lane B. **Not a separate default route.** ADR-028 folds Path H synthesis into §6.2. The following remain true inside that loop: structured output, claim ledger, one-or-more repair passes (not a hard 1-repair cap when practicality fails the judge), final L3 veto, no unbounded ReAct on the Rx path.
+Historical name: Lane B. **Not a separate default route.** ADR-028 folds Path H synthesis into Â§6.2. The following remain true inside that loop: structured output, claim ledger, one-or-more repair passes (not a hard 1-repair cap when practicality fails the judge), final L3 veto, no unbounded ReAct on the Rx path.
 
 1. Select a fixed evidence recipe from finding category.
 2. Gather L2 evidence and run bounded retrieval.
@@ -292,9 +292,9 @@ Normal call budget: **one**. Hard maximum: **two** generation calls.
 
 ### 6.4 Analyst workflow
 
-The conversational analyst uses a **budgeted LangGraph ReAct** loop (`agent` ↔ `tools` → finalize) because query shapes vary, with hard turn/tool/hop/Path W/time caps ([ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)):
+The conversational analyst uses a **budgeted LangGraph ReAct** loop (`agent` â†” `tools` â†’ finalize) because query shapes vary, with hard turn/tool/hop/Path W/time caps ([ADR-018](../../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)):
 
-1. adversarial / forbidden-intent short-circuit → abstain;
+1. adversarial / forbidden-intent short-circuit â†’ abstain;
 2. structured agent step selects `tool` | `answer` | `abstain` (mock or `openai_compat` model);
 3. call read-only tools;
 4. synthesize once with citations;
@@ -360,12 +360,12 @@ Examples:
 
 ```text
 compressor_sp_drift
-  → Hop 1: compressed-air specific-power remedy
-  → Hop 2: matching compressor model's inlet-filter service limits
+  â†’ Hop 1: compressed-air specific-power remedy
+  â†’ Hop 2: matching compressor model's inlet-filter service limits
 
 md_overlap
-  → Hop 1: stagger-start best practice
-  → Hop 2: L2 graph/shift-calendar constraints for the implicated assets
+  â†’ Hop 1: stagger-start best practice
+  â†’ Hop 2: L2 graph/shift-calendar constraints for the implicated assets
 ```
 
 For prescriptions, second-hop expansion is deterministic from the evidence recipe and validated metadata (pilot: same-doc expand). For analyst questions, the ReAct loop may call Path H at most twice per user message; unresolved references cause abstention or human review, not a third hop.
@@ -373,9 +373,9 @@ For prescriptions, second-hop expansion is deterministic from the evidence recip
 ### 7.3 Path G and Path D (ADR-028 — Path G trigger pulled)
 
 - **Path H** remains hybrid sparse+dense over playbooks (vertical + equipment-class filters).
-- **Path G** is a light industrial graph hop over Graph A (asset ↔ class ↔ owner ↔ standby ↔ playbook) plus L2 topology — not Microsoft GraphRAG community summaries.
+- **Path G** is a light industrial graph hop over Graph A (asset â†” class â†” owner â†” standby â†” playbook) plus L2 topology — not Microsoft GraphRAG community summaries.
 - **Path D** is the delta between Graph B (live) and Graph A (typical/allowed). That delta is Why and Due.
-- Vectorless tree navigation (Path V) remains deferred (§17).
+- Vectorless tree navigation (Path V) remains deferred (Â§17).
 - Graphiti / Neo4j are not a production dependency; Postgres property-graph tables later.
 
 ### 7.4 Corpus authority tiers
@@ -389,10 +389,10 @@ For prescriptions, second-hop expansion is deterministic from the evidence recip
 
 Conflict precedence depends on claim type:
 
-- legal/regulatory → current official source;
-- equipment operating limit → matching current OEM/model manual;
-- plant operational constraint → approved plant SOP;
-- impact number → deterministic plant/tariff calculation only.
+- legal/regulatory â†’ current official source;
+- equipment operating limit â†’ matching current OEM/model manual;
+- plant operational constraint â†’ approved plant SOP;
+- impact number â†’ deterministic plant/tariff calculation only.
 
 Within T1, official standards/regulatory material (`T1-official`) outranks internally authored reviewed guidance (`T1-internal`) for normative claims. Stamped playbooks may operationalize an official source, but must cite it and cannot silently replace it.
 
@@ -400,14 +400,14 @@ Within T1, official standards/regulatory material (`T1-official`) outranks inter
 
 ```text
 Acquire
-  → checksum + malware scan
-  → parse/OCR
-  → human review / authority classification
-  → section-aware chunk
-  → deterministic context header
-  → embed + FTS index
-  → retrieval eval
-  → promote immutable corpus snapshot
+  â†’ checksum + malware scan
+  â†’ parse/OCR
+  â†’ human review / authority classification
+  â†’ section-aware chunk
+  â†’ deterministic context header
+  â†’ embed + FTS index
+  â†’ retrieval eval
+  â†’ promote immutable corpus snapshot
 ```
 
 Required document metadata:
@@ -497,7 +497,7 @@ generate_structured(
   deadline,
   max_output_tokens,
   idempotency_key
-) → {
+) â†’ {
   value,
   provider,
   model,
@@ -683,7 +683,7 @@ Phoenix traces are diagnostics, not the recovery source of truth.
 Ranking is deterministic:
 
 ```text
-score = (monthly_inr × confidence × urgency_multiplier) / effort_weight
+score = (monthly_inr Ã— confidence Ã— urgency_multiplier) / effort_weight
 ```
 
 Pilot safeguards:
@@ -760,11 +760,11 @@ Initial targets are project gates, not industry truths:
 
 | Area | Metric | Initial target |
 | --- | --- | ---: |
-| Retrieval | Recall@10 | ≥ 0.90 |
-| Ranking | nDCG@10 | ≥ 0.75 |
-| Exact model/standard lookup | Recall@5 | ≥ 0.95 |
-| Answer | Atomic-claim correctness | ≥ 0.90 |
-| Citations | Claim-to-source correctness | ≥ 0.95 |
+| Retrieval | Recall@10 | â‰¥ 0.90 |
+| Ranking | nDCG@10 | â‰¥ 0.75 |
+| Exact model/standard lookup | Recall@5 | â‰¥ 0.95 |
+| Answer | Atomic-claim correctness | â‰¥ 0.90 |
+| Citations | Claim-to-source correctness | â‰¥ 0.95 |
 | Abstention | Unsafe answer rate | 0 |
 
 Report by query class and source tier. Aggregate averages must not hide a failed safety or exact-lookup slice.
@@ -805,7 +805,7 @@ Configurable pilot ceilings `[!]`:
 | Surface | Normal calls | Hard calls | Target variable AI cost |
 | --- | ---: | ---: | ---: |
 | Lane A Rx (opt-in / degrade) | 0 | 0 | ₹0 |
-| Quality-path Rx (default) | as needed | **no poverty cap** (≥10 allowed) | quality wins; still fail-closed on ₹ |
+| Quality-path Rx (default) | as needed | **no poverty cap** (â‰¥10 allowed) | quality wins; still fail-closed on ₹ |
 | Internal analyst answer | 1–2 | 4 | ≤₹3 / answer |
 | Web research answer | 2 | 4 | ≤₹8 / answer |
 | Narrative block | 0–1 | 1 | ≤₹2 / block |

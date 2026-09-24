@@ -1,6 +1,6 @@
-# India compliance register (Stamped L1 / connectors-edge)
+﻿# India compliance register (Stamped L1 / connectors-edge)
 
-Living register of regulations, standards, and compliance systems relevant to **Stamped Energy** and the **connectors-edge** / **connectors-bill** repos. Use with [../decisions/](../decisions/) ADRs.
+Living register of regulations, standards, and compliance systems relevant to **Stamped** and the **connectors-edge** / **connectors-bill** repos. Use with [../decisions/](../decisions/) ADRs.
 
 **Last updated:** 2026-07-09  
 **Scope:** Indian ICP manufacturing plants, HT electricity consumers, OT read-only integration, AWS cloud (`ap-south-1`).
@@ -46,7 +46,7 @@ Living register of regulations, standards, and compliance systems relevant to **
 
 | Field | Detail |
 | --- | --- |
-| **Instrument** | CERT-In Direction No. 20(3)/2022 under IT Act §70B |
+| **Instrument** | CERT-In Direction No. 20(3)/2022 under IT Act Â§70B |
 | **Applies to** | All body corporates in India, including SaaS/cloud providers |
 | **L1 relevance** | **Direct** — cloud ingest, MQTT broker, tag-mapping-api, bill service |
 
@@ -62,7 +62,7 @@ Living register of regulations, standards, and compliance systems relevant to **
 
 **Architecture decisions (see ADR-004):** single-region AWS Mumbai; no production telemetry to foreign-only observability stacks.
 
-Sources: [CERT-In Directions PDF](https://beta.medianama.com/wp-content/uploads/2022/04/CERT-In_Directions_70B_28.04.2022.pdf), IT Act §70B.
+Sources: [CERT-In Directions PDF](https://beta.medianama.com/wp-content/uploads/2022/04/CERT-In_Directions_70B_28.04.2022.pdf), IT Act Â§70B.
 
 ---
 
@@ -103,9 +103,9 @@ Sources: [CERT-In Directions PDF](https://beta.medianama.com/wp-content/uploads/
 
 | Section | Relevance |
 | --- | --- |
-| §43, §66 | Computer misuse — our systems must prevent unauthorised access to customer OT data |
-| §43A / reasonable security | Precursor to DPDP safeguard duty |
-| §70A | NCIIPC mandate for **Critical Information Infrastructure** — see §4 |
+| Â§43, Â§66 | Computer misuse — our systems must prevent unauthorised access to customer OT data |
+| Â§43A / reasonable security | Precursor to DPDP safeguard duty |
+| Â§70A | NCIIPC mandate for **Critical Information Infrastructure** — see Â§4 |
 
 ---
 
@@ -153,7 +153,7 @@ Relevant for US-parent or global OEM customers. Indian SOC 2 ~₹8–14L via Ind
 
 | Field | Detail |
 | --- | --- |
-| **Instrument** | IT Act §70A; NCIIPC guidelines; QCI-NCIIPC CAF (2025) |
+| **Instrument** | IT Act Â§70A; NCIIPC guidelines; QCI-NCIIPC CAF (2025) |
 | **Sectors** | Energy, power, transport, telecom, banking, government, strategic |
 | **Applies to Stamped** | **Indirect** unless we are declared CII or sell to designated CSEs under CAF audit |
 
@@ -325,13 +325,13 @@ Baseline model statistics (CVRMSE, NMBE) for M&V certification — L3/L5, but L1
 
 ---
 
-## 9. Compliance-driven architecture decisions (→ ADR-004)
+## 9. Compliance-driven architecture decisions (â†’ ADR-004)
 
 Consolidated decisions that **must** appear in ADRs and implementation:
 
 | ID | Decision | Driven by |
 | --- | --- | --- |
-| C-01 | Production in **AWS `ap-south-1` only**; logs never US-only | CERT-In §180-day India logs |
+| C-01 | Production in **AWS `ap-south-1` only**; logs never US-only | CERT-In Â§180-day India logs |
 | C-02 | **NTP** on all edge + cloud systems | CERT-In time sync |
 | C-03 | **6-hour incident runbook** + CERT-In PoC | CERT-In |
 | C-04 | **DPA + privacy notice** before first paying customer | DPDP |
@@ -393,5 +393,5 @@ Full ADR: [ADR-004-compliance-driven-architecture.md](../decisions/001-005/ADR-0
 ## 13. Maintenance
 
 - Review this register **quarterly** or when entering a new state/vertical.
-- Each new regulation → row here + ADR if architecture changes.
+- Each new regulation â†’ row here + ADR if architecture changes.
 - Copy `external/compliance/` into `connectors-bill` and L2+ repos.

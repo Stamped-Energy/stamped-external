@@ -2,7 +2,7 @@
 
 # Stamped L2 — Universal Repository
 
-> **What it is:** Stamped Energy's **Layer 2 (L2) canonical data store** — time-series telemetry, plant graph, commercial billing context, production features, baselines, and M&V ledger — exposed via HTTP APIs for L3–L6 intelligence layers.  
+> **What it is:** Stamped's **Layer 2 (L2) canonical data store** — time-series telemetry, plant graph, commercial billing context, production features, baselines, and M&V ledger — exposed via HTTP APIs for L3–L6 intelligence layers.  
 > **What it is not:** An L1 connector, a customer-facing dashboard (L6), or a platform contract owner (those live in `external/`).  
 > **Primary interface:** HTTP ingest + read APIs; internal Next.js ops console on port **8092**.
 
@@ -75,7 +75,7 @@ Run locally: [`scripts/demo-walkthrough.sh`](scripts/demo-walkthrough.sh) · [`d
 
 ### 1.1 What it is
 
-**stamped-l2** is the **Universal Repository** in Stamped Energy's L0–L6 architecture. L1 connectors (edge, cloud, bill) publish `StampedRecordEnvelope` records; L2 validates, deduplicates, and persists them into a multi-schema TimescaleDB database. Downstream layers (L3 prescription, L4 M&V, L5/L6 customer surfaces) **read only through L2 APIs** — never direct database access.
+**stamped-l2** is the **Universal Repository** in Stamped's L0–L6 architecture. L1 connectors (edge, cloud, bill) publish `StampedRecordEnvelope` records; L2 validates, deduplicates, and persists them into a multi-schema TimescaleDB database. Downstream layers (L3 prescription, L4 M&V, L5/L6 customer surfaces) **read only through L2 APIs** — never direct database access.
 
 This repository ships:
 
@@ -1044,7 +1044,7 @@ Upstream docs: [README-cursor-config-coding.md](README-cursor-config-coding.md)
 
 ## License and contribution
 
-Platform contracts in `external/` follow the stamped-external repo license. Application code in `packages/` and `l1/` is Stamped Energy internal — confirm contribution policy with maintainers before external PRs.
+Platform contracts in `external/` follow the stamped-external repo license. Application code in `packages/` and `l1/` is Stamped internal — confirm contribution policy with maintainers before external PRs.
 
 **Before opening a PR:**
 

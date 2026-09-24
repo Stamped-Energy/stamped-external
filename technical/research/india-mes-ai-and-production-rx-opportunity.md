@@ -1,9 +1,9 @@
----
+﻿---
 type: Product Research
 title: "India MES / AI reality + production-efficiency Rx expansion opportunity"
 description: >-
   Founder brief: what MES/AI looks like at Stamped ICP accounts (LNM, JBM, ITC,
-  Nestlé-class); how much "agentic MES" would actually improve; whether Stamped
+  NestlÃ©-class); how much "agentic MES" would actually improve; whether Stamped
   should add production-volume/efficiency prescriptions. Docs-only — does not
   reopen ADR-026.
 tags: [stamped-energy, research, mes, india, production, gtm, adr-024, adr-026]
@@ -13,7 +13,7 @@ status: Research brief — recommendation locked; ADR change requires separate a
 
 # India MES / AI + production-Rx expansion
 
-*Companion to [ADR-024](../../decisions/024-026/ADR-024-holistic-plant-decisions.md), [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md), [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md), client narrative [`../../copy/client/POSITIONING_AND_NARRATIVE.md`](../../copy/client/POSITIONING_AND_NARRATIVE.md).*
+*Companion to [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md), [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md), [STAMPED_ARCHITECTURE.md](../STAMPED_ARCHITECTURE.md), client narrative [`../../copy/client/POSITIONING_AND_NARRATIVE.md`](../../copy/client/POSITIONING_AND_NARRATIVE.md).*
 
 > **Honesty:** `[~]` approximate / vendor-survey · `[!]` evolving / incomplete public trail · `[VERIFIED]` primary source checked this pass.  
 > **Scope:** Desk research + architecture gap analysis. **No ADR reopen, no contracts, no code** in this pack.  
@@ -29,7 +29,7 @@ status: Research brief — recommendation locked; ADR change requires separate a
 
 **Stamped expansion.** You *can* extend the stack toward production-efficiency prescriptions—but that is a **category change** (third hero outcome / near-MES), not an agent prompt. Current connect surface + contracts support **energy/equipment Rx with production co-benefits**, not cycle-time / scrap / OEE-loss-tree heroes. **Recommendation: do not add a third production pillar or `prod_*` decision class in this wave.** Deepen co-benefits + fix the EMS objection with clearer job-to-be-done language. Revisit only if pilots show energy buyers will not close unless production is the hero metric.
 
-**Founder lock (2026-08-24):** Keep this research on file. **Do not build production-efficiency Rx** unless a pilot explicitly demands it (kill criteria §6). Before chasing OEE/volume as an expansion, prefer studying **margin-scored operating decisions** (CVector-style) — see [Appendix D](#appendix-d--cvector-plant-margin-optimization).
+**Founder lock (2026-08-24):** Keep this research on file. **Do not build production-efficiency Rx** unless a pilot explicitly demands it (kill criteria Â§6). Before chasing OEE/volume as an expansion, prefer studying **margin-scored operating decisions** (CVector-style) — see [Appendix D](#appendix-d--cvector-plant-margin-optimization).
 
 **Parked location:** [`future/`](../../future/README.md) — nearer: [`future/near-term/plant-margin-optimization.md`](../../future/near-term/plant-margin-optimization.md); later: [`future/later/production-efficiency-prescriptions.md`](../../future/later/production-efficiency-prescriptions.md). Agents must **not** implement either unless the founder explicitly asks.
 
@@ -45,7 +45,7 @@ status: Research brief — recommendation locked; ADR change requires separate a
 | India fully integrated MES | **36%** `[~]` | Same [1] | Majority still fragmented — room for a **decision/closure** layer that is *not* MES |
 | Global have MES / fully integrated | **93% / 23%** `[~]` | Rockwell global report [2] | Scale problem is worldwide; India surveys read more optimistic on “have MES” |
 | Top India MES barriers | TCO **56%**, ERP integration **49%**, expertise **47%**, security **45%** `[~]` | [1] | Buyers buy modules slowly; another production AI SKU competes for the same budget/attention |
-| India industrial tech spend vs global | **1.6×** `[~]` | Express Computer / Rockwell Smart Manufacturing framing [3] | Spend ≠ usable intelligence |
+| India industrial tech spend vs global | **1.6Ã—** `[~]` | Express Computer / Rockwell Smart Manufacturing framing [3] | Spend â‰  usable intelligence |
 | India #1 internal AI obstacle = data use | **60%** (vs **37%** global) `[~]` | [3] | AI features outrun pipelines — same reason Stamped’s “assigned + verified” job still differentiates |
 
 **Practical read:** MES is ubiquitous as a *checkbox*; agentic closed-loop production AI is rare. The gap is **integration + action**, not “nobody has a system.”
@@ -88,12 +88,12 @@ Confidence: public trail only. Always validate in discovery.
 
 | Dimension | Public trail | Confidence |
 |-----------|--------------|------------|
-| Ops systems | Migrated **SAP → ERPNext** (Apr 2023) with I4.0 roadmap language [8] | Med |
+| Ops systems | Migrated **SAP â†’ ERPNext** (Apr 2023) with I4.0 roadmap language [8] | Med |
 | Shop floor | In-house CNC gantry / robot pick-place; automation cells [9] | Med-High |
-| Classic MES (Siemens/Rockwell) | No public Opcenter/FactoryTalk claim found | Low (absence ≠ proof) |
+| Classic MES (Siemens/Rockwell) | No public Opcenter/FactoryTalk claim found | Low (absence â‰  proof) |
 | AI | Not publicly described as plant-wide AI MES | Low |
 
-**Implication:** Likely **ERP-as-ops + cells**, not enterprise MES AI. Stamped energy + equipment prescriptions remain differentiated. A “production efficiency Rx” product would collide with ERPNext manufacturing consultants and in-house IE—not with a missing agentic MES.
+**Implication:** Likely **ERP-as-ops + cells**, not enterprise MES AI. Stamped + equipment prescriptions remain differentiated. A “production efficiency Rx” product would collide with ERPNext manufacturing consultants and in-house IE—not with a missing agentic MES.
 
 ### 3.2 JBM Group (auto + EV buses)
 
@@ -113,15 +113,15 @@ Confidence: public trail only. Always validate in discovery.
 | Stack | MES + **data historian** (sensors, quality from SAP, MES) [13] | High |
 | AI/analytics | **100+** use cases; claimed **~2.4% EBIDTA** impact in paperboards journey `[~]` [13] | Med (self-reported) |
 | Org | I4.0 CoE, Analytics CoE, Digital Council [13]; ITC Infotech sells smart factory / OEE programs [14] | High |
-| MES role | Integration layer shop-floor ↔ SAP; yield/quality/ops | High |
+| MES role | Integration layer shop-floor â†” SAP; yield/quality/ops | High |
 
 **Implication:** Sophisticated buyer. “We will be your AI MES” fails. Narrative that works: *you already monitor; Stamped is the layer that decides energy/load actions, checks production feasibility, assigns, verifies ₹* (matches existing client narrative).
 
-### 3.4 Nestlé-class CPG (India)
+### 3.4 NestlÃ©-class CPG (India)
 
 | Dimension | Public trail | Confidence |
 |-----------|--------------|------------|
-| MES | **DMO (Digital Manufacturing Operations)** — Nestlé’s MES; modules include performance, quality, **energy**, CIP, safety; SAP integration [15][16] | Med-High (role posts + tech press) |
+| MES | **DMO (Digital Manufacturing Operations)** — NestlÃ©’s MES; modules include performance, quality, **energy**, CIP, safety; SAP integration [15][16] | Med-High (role posts + tech press) |
 | Digital | Factory I4.0 / DMO rollout; India tech budget rising; DCs with digital twin (logistics) [17] | Med |
 | AI | Predictive / analytics language; uneven by factory | Low-Med |
 
@@ -156,7 +156,7 @@ flowchart TB
 Buyers usually mean one or more of:
 
 1. **More volume** (units/shift) — throughput / bottleneck  
-2. **Higher OEE** (Availability × Performance × Quality)  
+2. **Higher OEE** (Availability Ã— Performance Ã— Quality)  
 3. **Less scrap / rework**  
 4. **Shorter cycle / changeover**  
 5. **Better schedule adherence** (OTIF)
@@ -210,7 +210,7 @@ flowchart LR
 
 ### 4.5 Policy
 
-- [ADR-026](../../decisions/024-026/ADR-026-two-pillars-shared-context.md): no third Production/OEE/MES pillar; no full OEE/MESA product.  
+- [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md): no third Production/OEE/MES pillar; no full OEE/MESA product.  
 - [CONSTRAINTS.md](../../copy/prescriptions/CONSTRAINTS.md): do not claim MES / EMS / plant OS replacement.  
 - Expanding to Level 2 is **possible with capital and ADR change**, not blocked by physics—but **strategically wrong** while EMS objections are solved by clearer category, not by becoming MES.
 
@@ -222,7 +222,7 @@ flowchart LR
 
 | Wrong response | Better response |
 |----------------|-----------------|
-| “We’ll also improve your production volume / OEE” | Different job: monitoring ≠ assigned decisions with ₹ proof |
+| “We’ll also improve your production volume / OEE” | Different job: monitoring â‰  assigned decisions with ₹ proof |
 | “We’re an AI MES” | Triggers IT/MES owners; dilutes energy wedge |
 | Feature dump | One sentence job + one sample Rx + ledger |
 
@@ -246,13 +246,13 @@ flowchart LR
 | Deepen Level 0–1 co-benefits + EMS/MES objection scripts | **Accept** |
 | Partner / read OEE tags as context when a plant insists | **Accept later** (integrate, don’t rebuild) |
 
-**Kill criteria to reopen Level 2:** ≥3 qualified pilots refuse to buy *because* hero metric must be OEE/units **and** they will give cycle/scrap/downtime feeds **and** legal/category review accepts near-MES positioning. Until then, do not build.
+**Kill criteria to reopen Level 2:** â‰¥3 qualified pilots refuse to buy *because* hero metric must be OEE/units **and** they will give cycle/scrap/downtime feeds **and** legal/category review accepts near-MES positioning. Until then, do not build.
 
 ---
 
 ## 7. Discovery experiments (no build)
 
-Use on next LNM / JBM / ITC / Nestlé-class calls:
+Use on next LNM / JBM / ITC / NestlÃ©-class calls:
 
 1. “What system do you call MES today—and what does it *not* close by end of shift?”  
 2. “Show me the last energy or MD saving that died because nobody owned the action.”  
@@ -290,8 +290,8 @@ Log answers against Level 0–2; do not promise Level 2.
 
 ### Where we lose
 
-- Plant wants **dispatch / APS / quality SPC** → MES SI, not us.  
-- Nestlé-class with mature DMO energy module → must prove **closure + India tariff specificity**, not “we see energy too.”
+- Plant wants **dispatch / APS / quality SPC** â†’ MES SI, not us.  
+- NestlÃ©-class with mature DMO energy module â†’ must prove **closure + India tariff specificity**, not “we see energy too.”
 
 ### Where we win
 
@@ -310,16 +310,16 @@ Log answers against Level 0–2; do not promise Level 2.
 5. PTC — Bharat Forge ThingWorx / OEE >15% on forging lines  
 6. McKinsey — Industry 4.0 value (downtime 30–50%, throughput 10–30%)  
 7. Vendor/industry blogs citing 15–25% OEE from AI — use as marketing upper bound only  
-8. LinkedIn — LNM Auto SAP→ERPNext (Asim N. / IBSL, Apr 2023)  
+8. LinkedIn — LNM Auto SAPâ†’ERPNext (Asim N. / IBSL, Apr 2023)  
 9. lnmauto.com — In-house automation / gantry  
 10. JBM EV sustainability report — MES at new EV plant  
 11. JBM Auto annual report (machine productivity monitoring)  
 12. IBRS / digital mandate — JBM CIO / Third Eye AI themes  
 13. DQ India — ITC Industry 4.0 case (historian, 100+ use cases, EBIDTA claim)  
 14. ITC Infotech smart factory / OEE case materials  
-15. Nestlé DMO / MES — public role descriptions (Performance, Energy modules, SAP)  
-16. TechCircle — Nestlé India tech / DMO / I4.0 factories  
-17. Nestlé India Bhiwandi DC digital twin (logistics—not factory MES, but digital maturity signal)
+15. NestlÃ© DMO / MES — public role descriptions (Performance, Energy modules, SAP)  
+16. TechCircle — NestlÃ© India tech / DMO / I4.0 factories  
+17. NestlÃ© India Bhiwandi DC digital twin (logistics—not factory MES, but digital maturity signal)
 
 ---
 
@@ -329,7 +329,7 @@ Log answers against Level 0–2; do not promise Level 2.
 |--------|---------|--------|
 | **(a) Stop** | No product work; research stands | **Accepted 2026-08-24** — production Rx only if pilots demand |
 | **(b) Sales-only** | Update talk-tracks / battlecard into decks or WhatsApp scripts; no ADR | Optional later |
-| **(c) Later ADR** | Only if kill criteria in §6 are met | Deferred |
+| **(c) Later ADR** | Only if kill criteria in Â§6 are met | Deferred |
 
 **Author recommendation remains:** (a) now; (b) if sales needs the EMS landmines; (c) only after kill criteria. Prefer Appendix D (margin) over production-efficiency if expansion is revisited.
 
@@ -350,7 +350,7 @@ CVector’s **umbrella identity** is “AI-native **margin** optimization,” no
 | Asset Health Intelligence | Pillar 2 (dollar-ranked anomalies + operator feedback) |
 | Custom Model Integration | Bring-your-own techno-economic models |
 
-**PMO job (plain language):** Continuously combine plant telemetry, ERP/CMMS/inventory, and **external** signals (energy prices, feedstock/commodity prices, weather, demand) → run scenario/impact/risk → emit **dollar-ranked** recommendations (feed rate, dispatch, restart, storage charge, shift melt, pull maintenance forward) → human accept/reject/adjust with audit trail.
+**PMO job (plain language):** Continuously combine plant telemetry, ERP/CMMS/inventory, and **external** signals (energy prices, feedstock/commodity prices, weather, demand) â†’ run scenario/impact/risk â†’ emit **dollar-ranked** recommendations (feed rate, dispatch, restart, storage charge, shift melt, pull maintenance forward) â†’ human accept/reject/adjust with audit trail.
 
 Claimed outcome bands on their page `[~]` marketing: **3–7%** operating margin uplift, **10–15%** production cost savings, **3–8%** less off-spec, **12–15%** throughput, faster decision latency. Treat as brochure until independently verified.
 
@@ -358,7 +358,7 @@ Claimed outcome bands on their page `[~]` marketing: **3–7%** operating margin
 
 **No — different expansion axis.**
 
-| Axis | Production-efficiency Rx (this memo §§4–5) | CVector PMO |
+| Axis | Production-efficiency Rx (this memo Â§Â§4–5) | CVector PMO |
 |------|--------------------------------------------|-------------|
 | Hero metric | Units, OEE, cycle/scrap | **Contribution margin $** |
 | Category risk | MES / plant OS fight | Overlaps **commercial ops + energy** — closer to Stamped’s decision layer |
@@ -373,7 +373,7 @@ For Stamped taxonomy:
 - **Could** be framed as (i) hero-metric upgrade on Pillar 1 management Rx, or (ii) a future commercial SKU — still **one product**, richer economics — *if* India data exists.  
 - Overlaps ADR-024 trade-off block (`energy_benefit` + throughput risk) but CVector pushes **revenue/feedstock** into the same ranker Stamped keeps energy-first.
 
-### Fit for Indian ICP (LNM / JBM / ITC / Nestlé-class)
+### Fit for Indian ICP (LNM / JBM / ITC / NestlÃ©-class)
 
 | Factor | US/EU CVector beachhead | India Stamped beachhead |
 |--------|-------------------------|-------------------------|
@@ -395,7 +395,7 @@ For Stamped taxonomy:
 
 ### Competitive note
 
-CVector’s public site structure (energy management + asset health + margin umbrella) is **very close** to Stamped’s two-pillar + economics story. Differentiation for India remains: **DISCOM/HT bill proof, WhatsApp closure, India tariff/MD**, human-guided execute — not “we also do margin.” Do not copy US commodity-first positioning onto LNM-class calls.
+CVector’s public site structure (energy management + asset health + margin umbrella) is **very close** to Stamped’s prior-framing + economics story. Differentiation for India remains: **DISCOM/HT bill proof, WhatsApp closure, India tariff/MD**, human-guided execute — not “we also do margin.” Do not copy US commodity-first positioning onto LNM-class calls.
 
 ### Extra discovery questions (margin track)
 

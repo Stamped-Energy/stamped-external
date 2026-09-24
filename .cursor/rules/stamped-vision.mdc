@@ -1,0 +1,25 @@
+---
+description: Stamped product vision lock for all agents — five-domain choose/assign/verify
+alwaysApply: true
+---
+
+# Stamped vision (always on)
+
+Product name: **Stamped**. Never present the product as Stamped Energy.
+
+One sentence: **Stamped helps plant teams choose, assign, and verify the next operating action across energy, cost, time / throughput, continuity / flow, and short-horizon exceptions.**
+
+Authority order:
+
+1. `research/plant-efficiency-exploration-2026-09/AGENT-START.md`
+2. `research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md` (wins on conflict)
+3. `research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md`
+4. `decisions/028-032/ADR-030-five-domain-decision-loop.md`
+
+Hard stops and earned-run rules in `09` / `10` are absolute.
+
+Do **not** teach: two pillars, 15–20% savings as identity, energy-only company, OpEx suite, MES/APS replacement, plant OS, silent control, or agent-stack-as-company.
+
+Do **not** read `archive/external-marketing-2026-09/` for product identity. Do not invent savings, customers, or revenue. Do not update external marketing unless the human explicitly asked.
+
+L0–L6 topology stays; product claim is the closed action.

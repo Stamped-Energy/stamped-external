@@ -1,6 +1,6 @@
 ﻿<!-- SNAPSHOT: mirrored from connectors-bill/README.md on 2026-08-05. Canonical README lives in the consumer repo. Platform pin v2026.08.05 / 5900531 / contracts 0.11.2. -->
 
-# connectors-bill — L1 document intake for Stamped Energy
+# connectors-bill — L1 document intake for Stamped
 
 > **What it is:** A customer-facing mobile-first PWA plus FastAPI backend that ingests DISCOM electricity bills and plant documents, validates them, and publishes canonical records to MQTT for downstream **connectors-cloud** ingest.
 >
@@ -60,7 +60,7 @@
 
 ### 1.1 What it is
 
-connectors-bill is the **L1 connect-and-normalise** intake path for Stamped Energy's industrial customers in India. Plant supervisors upload:
+connectors-bill is the **L1 connect-and-normalise** intake path for Stamped's industrial customers in India. Plant supervisors upload:
 
 - **Electricity bills** (HT portal PDFs, phone photos, LT bills) from state DISCOMs
 - **Plant documents** (EMS CSV, production exports, shift calendars, tariff orders, compliance PDFs)
@@ -990,4 +990,4 @@ Set `AUTH_ENABLED=true` and pass `Authorization: Bearer <jwt>` with `role=analys
 
 ---
 
-*connectors-bill v0.1.0 · Stamped Energy L1 intake · Python 3.12+ · Next.js 15*
+*connectors-bill v0.1.0 · Stamped L1 intake · Python 3.12+ · Next.js 15*

@@ -8,11 +8,25 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ### Added
 
-- Research source notes: [agentic AI in industry + IBM energy/resource optimization](technical/research/agentic-ai-industrial-energy.md) (arXiv:2604.09633; IBM Think manufacturing). Docs-only; no ADR change.
+- [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md) — five-domain choose / assign / verify framing lock
+- Vision authority pack entry: [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md)
+- Always-on rule `stamped-vision.mdc` and [`scripts/vision-identity-lint.ps1`](scripts/vision-identity-lint.ps1)
+- Planning artifacts under [`docs/planning/`](docs/planning/)
 
 ### Changed
 
-- LNM Faridabad technical brief: several sample jobs instead of CNC_14 S1/S2 as the through-line; flip cards and phone cards are different sets ([`demo-decks/clients/lnm-auto-faridabad-technical/`](demo-decks/clients/lnm-auto-faridabad-technical/))
+- Platform identity: product is **Stamped** (five domains); architecture SSOT, README, AGENTS, and agent reading orders retargeted to ADR-030 + vision `09`/`10`
+- Marketing pack (`copy/`, `demo-decks/`, `technical/product/`, root `PRODUCT.md`) and ADR-029 moved to [`archive/external-marketing-2026-09/`](archive/external-marketing-2026-09/)
+- ADR-023 / ADR-025 rewritten for next-action surfaces and learning from closed cards
+
+### Removed
+
+- Research drafts `00`–`08a` and `research/competitive/` from the live tree (recover on tag `v2026.09.24`)
+- ADR-013, ADR-024, ADR-026 (withdrawn; recover on tag `v2026.09.24`)
+
+### Prior notes (still unreleased from earlier)
+
+- Research source notes: [agentic AI in industry + IBM energy/resource optimization](technical/research/agentic-ai-industrial-energy.md) (arXiv:2604.09633; IBM Think manufacturing). Docs-only.
 
 ## [2026.08.21] - 2026-08-21
 
