@@ -2,6 +2,8 @@
 
 Breaking path changes for submodule consumers. Update `external/...` references on next pin.
 
+**2026-09-24 cleanup:** `compliance/`, `brand/`, `consumers/`, `project/`, `docs/planning/`, `artifacts/`, `architecture/`, pre-overhaul `technical/layers|research|cross-cutting`, and superseded ADRs moved to [`../archive/cleanup-2026-09/`](../archive/cleanup-2026-09/). Live SSOT is [`../technical/STAMPED_ARCHITECTURE.md`](../technical/STAMPED_ARCHITECTURE.md). Demo decks live at [`../demo-decks/`](../demo-decks/). Design/brand at [`../design/`](../design/).
+
 ## Handoff
 
 | Old | New |

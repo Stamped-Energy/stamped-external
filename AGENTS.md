@@ -1,6 +1,6 @@
 # Stamped Platform — Agent Mode
 
-> **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs) — **not application code**.  
+> **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs, design) — **not application code**.  
 > **Product:** Stamped — choose, assign, and verify the next operating action across five domains.  
 > **Cursor config source:** [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding) (vendored under `.cursor/`).
 
@@ -14,7 +14,7 @@ Engineering workflow: **ponytail → (spec-kit for features) → research → pl
 4. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
 5. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
 
-**Never** append Energy to the product name. **Never** teach withdrawn dual-pillar framing, fixed savings-% as identity, or energy-only company. External marketing is under [`archive/external-marketing-2026-09/`](archive/external-marketing-2026-09/) — do not read it for identity; do not rewrite it unless the human asked for a marketing pass.
+**Never** append Energy to the product name. **Never** teach withdrawn dual-pillar framing, fixed savings-% as identity, or energy-only company. Archived marketing and cleanup material are under [`archive/`](archive/) — do not read them for identity unless the human asked for a recovery pass.
 
 Rule: `stamped-vision.mdc`. Lint: `./scripts/vision-identity-lint.ps1`.
 
@@ -25,7 +25,10 @@ Rule: `stamped-vision.mdc`. Lint: `./scripts/vision-identity-lint.ps1`.
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
 | **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index; framing = ADR-030 |
 | **Handoff** (`handoff/`) | Cross-repo integration docs; start at `handoff/README.md` |
-| **Archive** | Marketing / decks / old client narrative — out of agent identity path |
+| **Design** (`design/`) | Brand + tokens; align UI/decks to website + Bhatia pilot grammar |
+| **Demo decks** (`demo-decks/`) | Client HTML decks; keep Bhatia as latest grammar reference |
+| **Future** (`future/`) | Open tech directions only — not live product |
+| **Archive** | Pre-overhaul marketing + 2026-09 cleanup — out of agent identity path |
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag as needed; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) after intentional releases |
 

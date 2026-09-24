@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stamped Energy · Client decks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #F75440; --secondary: #051F13; --surface: #f7faf5;
+      --on-surface: #191c1a; --muted: #5a403c; --line: #e3beb8;
+      --font-d: "Plus Jakarta Sans", system-ui, sans-serif;
+      --font-b: Inter, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100dvh; font-family: var(--font-b);
+      color: var(--on-surface); background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(247,84,64,0.12), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(0,102,107,0.08), transparent 50%),
+        var(--surface);
+      padding: max(1.5rem, env(safe-area-inset-top)) 1.25rem max(2rem, env(safe-area-inset-bottom));
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    .logo { height: 36px; width: auto; margin-bottom: 1.25rem; }
+    .back {
+      display: inline-block; margin-bottom: 1rem; font-size: 0.88rem; font-weight: 650;
+      color: var(--secondary); text-decoration: none;
+    }
+    .back:hover { color: var(--primary); }
+    h1 {
+      font-family: var(--font-d); font-weight: 800; letter-spacing: -0.04em;
+      font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.05; margin: 0 0 0.65rem;
+      color: var(--secondary);
+    }
+    .lede { color: var(--muted); line-height: 1.5; margin: 0 0 1.75rem; max-width: 36em; }
+    .grid { display: grid; gap: 0.85rem; }
+    a.card {
+      display: block; text-decoration: none; color: inherit;
+      background: #fff; border: 1px solid var(--line); border-radius: 14px;
+      padding: 1.15rem 1.25rem; transition: border-color 0.15s, transform 0.15s;
+    }
+    a.card:hover { border-color: var(--primary); transform: translateY(-1px); }
+    a.card strong {
+      display: block; font-family: var(--font-d); font-size: 1.2rem;
+      margin-bottom: 0.35rem; color: var(--secondary);
+    }
+    a.card span { display: block; color: var(--muted); font-size: 0.92rem; line-height: 1.4; }
+    a.card em {
+      display: inline-block; margin-top: 0.75rem; font-style: normal;
+      font-size: 0.8rem; font-weight: 700; color: var(--primary);
+    }
+    a.card--visual {
+      padding: 0;
+      overflow: hidden;
+    }
+    a.card--visual .card__thumb {
+      display: block;
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+    a.card--visual .card__body { display: block; padding: 1.15rem 1.25rem; }
+    footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
+    footer a { color: var(--secondary); }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../index.html">← Back to industry decks</a>
+    <img class="logo" src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" width="140" height="36" />
+    <h1>Client decks</h1>
+    <p class="lede">Named-account and anonymous client briefs. Most are 11-scene technical shells. Bhatia Alloy is a lean owner brief. The Faridabad prescription-types deck is the same campus example with the plant unnamed. Same website pillars: Industry Energy Management and Asset Health Intelligence.</p>
+    <div class="grid">
+      <a class="card card--visual" href="./nestle-pantnagar-technical/">
+        <img class="card__thumb" src="./nestle-pantnagar-technical/assets/nestle-pantnagar-technical/plant-hero.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>Nestlé Pantnagar · technical brief</strong>
+          <span>Leave-behind for Pantnagar Maggi: warehouse HVAC, UPCL ToD / MD, prescriptions on WhatsApp. Quality bar for the other briefs.</span>
+          <em>Open Nestlé brief →</em>
+        </span>
+      </a>
+      <a class="card card--visual" href="./itc-nadiad-technical/">
+        <img class="card__thumb" src="./itc-nadiad-technical/assets/itc-nadiad-technical/nadiad-plant.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>ITC Nadiad · technical brief</strong>
+          <span>Named account brief for Marut Shukla / ITC Packaging &amp; Printing, Nadiad.</span>
+          <em>Open ITC brief →</em>
+        </span>
+      </a>
+      <a class="card card--visual" href="./lnm-auto-faridabad-technical/">
+        <img class="card__thumb" src="./lnm-auto-faridabad-technical/assets/lnm-auto-faridabad-technical/cnc-shop-hero.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>LNM Auto Faridabad · technical brief</strong>
+          <span>Named Sector 59 leave-behind: precision forge / machine / HT / surface, DHBVN ToD / MD, early equipment warnings.</span>
+          <em>Open LNM brief →</em>
+        </span>
+      </a>
+      <a class="card card--visual" href="./bhatia-alloy-faridabad-technical/">
+        <img class="card__thumb" src="./bhatia-alloy-faridabad-technical/assets/bhatia-alloy-faridabad-technical/forge-hero.jpg" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>Bhatia Alloy Faridabad · owner brief</strong>
+          <span>8-scene leave-behind: Stamped value, six-step loop with human feedback, flip prescriptions, bilingual phone demo, coordination vision.</span>
+          <em>Open Bhatia brief →</em>
+        </span>
+      </a>
+      <a class="card card--visual" href="./faridabad-plant-prescriptions/">
+        <img class="card__thumb" src="https://res.cloudinary.com/ddpyjpt4v/image/upload/v1789816171/Normalizing-Heattreatment_ush2is.webp" alt="" width="720" height="140" loading="lazy" decoding="async" />
+        <span class="card__body">
+          <strong>A plant in Faridabad · prescription types</strong>
+          <span>Anonymous 9-scene example of the prescriptions we issue: empty furnace, under-loaded HT, drift, handoff idle, sacred load, Type III, energy-aware scheduling, floor WhatsApp.</span>
+          <em>Open Faridabad prescriptions →</em>
+        </span>
+      </a>
+      <a class="card" href="./lohia-corp-brief.html">
+        <strong>Lohia Corp · brief</strong>
+        <span>Named 11-scene brief: woven raffia lines, sits beside DIC, not a second audit, on-site Chaubepur ask.</span>
+        <em>Open Lohia brief →</em>
+      </a>
+      <a class="card" href="./auto-forge-ht.html">
+        <strong>Forge · HT · Die cast</strong>
+        <span>Anonymous 11-scene brief: press vs furnace MD, compressor drift, working session close.</span>
+        <em>Open forge / HT demo →</em>
+      </a>
+      <a class="card" href="./machinery-oem.html">
+        <strong>Packaging machinery OEM</strong>
+        <span>Anonymous 11-scene brief for tape lines and test bays after solar and VFDs. 60-day Proof Run if the numbers justify it.</span>
+        <em>Open OEM demo →</em>
+      </a>
+      <a class="card" href="./machinery-oem/">
+        <strong>OEM demo · deploy root</strong>
+        <span>Same machinery OEM brief as a folder index for standalone hosting.</span>
+        <em>Open deploy root →</em>
+      </a>
+      <a class="card" href="./technical-explainer.html">
+        <strong>Stamped Intelligence · technical explainer</strong>
+        <span>Generic 11-scene sales collateral: two pillars, prescription loop, evidence, 60-day close.</span>
+        <em>Open technical explainer →</em>
+      </a>
+    </div>
+    <footer>
+      <a href="../index.html">Industry hub</a>
+      ·
+      <a href="https://stamped.work">stamped.work</a>
+    </footer>
+  </main>
+</body>
+</html>

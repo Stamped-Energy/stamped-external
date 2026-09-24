@@ -252,7 +252,7 @@ The ingest/store spine stays portable and cost-aware. **L3 detection and the L4 
 | L4 agentic system | Full agent stack; Hindsight as memory subsystem | Hosting + orchestration chosen in L4 repo; study SOTA agent patterns continuously |
 | Decision seams | Language model today; closed answer sets | Optional decision-model (e.g. Jev) later at those seams only |
 
-India compliance by design: CERT-In residency, DPDP — [`../compliance/`](../compliance/).
+India compliance posture (CERT-In residency, DPDP) remains an engineering constraint on deploy modes; the old compliance register was archived under [`../archive/cleanup-2026-09/compliance/`](../archive/cleanup-2026-09/compliance/).
 
 ---
 

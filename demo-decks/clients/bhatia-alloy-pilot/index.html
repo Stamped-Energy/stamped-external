@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" data-deck="bhatia-alloy-pilot">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bhatia Alloy × Stamped · Pilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --coral: #F75440;
+      --coral-soft: #fff4f1;
+      --ink: #051F13;
+      --body: #3f4a44;
+      --muted: #6b716d;
+      --line: #e6d6d2;
+      --line-soft: #efe6e3;
+      --paper: #f7faf5;
+      --white: #ffffff;
+      --teal: #00666b;
+      --display: "Space Grotesk", system-ui, sans-serif;
+      --sans: "Inter", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --s: 1;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed 1600×900 canvas, scaled to the window, so every slide lays out identically on every screen. */
+    .deck {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1600px;
+      height: 900px;
+      transform: translate(-50%, -50%) scale(var(--s));
+      transform-origin: center center;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 132px 112px 96px;
+      background: var(--paper);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s var(--ease), visibility 0.35s;
+    }
+    .slide.active { opacity: 1; visibility: visible; }
+    .slide.active .in { animation: rise 0.6s var(--ease) both; }
+    .slide.active .in:nth-child(2) { animation-delay: 0.06s; }
+    .slide.active .in:nth-child(3) { animation-delay: 0.12s; }
+    .slide.active .in:nth-child(4) { animation-delay: 0.18s; }
+    .slide.active .in:nth-child(5) { animation-delay: 0.24s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .chrome {
+      position: absolute;
+      left: 112px;
+      right: 112px;
+      top: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 5;
+    }
+    .chrome a { display: flex; align-items: center; text-decoration: none; color: var(--ink); }
+    .chrome img { height: 30px; width: auto; display: block; }
+    .chrome .word { display: none; font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -0.03em; }
+    .chrome.fallback img { display: none; }
+    .chrome.fallback .word { display: block; }
+    .chrome-right { display: flex; align-items: center; gap: 22px; }
+    .client {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .count {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      padding-left: 22px;
+      border-left: 1px solid var(--line);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 18px;
+    }
+    h1, h2, h3 { font-family: var(--display); color: var(--ink); font-weight: 700; }
+    h1 { font-size: 66px; line-height: 1.02; letter-spacing: -0.04em; }
+    h2 { font-size: 52px; line-height: 1.06; letter-spacing: -0.035em; max-width: 1300px; text-wrap: balance; }
+    h3 { font-size: 27px; line-height: 1.12; letter-spacing: -0.025em; }
+    .coral { color: var(--coral); }
+    .lede { font-size: 22px; line-height: 1.5; color: var(--body); }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 1px 0 rgba(5, 31, 19, 0.02), 0 18px 40px -26px rgba(5, 31, 19, 0.16);
+    }
+    .num {
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      color: var(--coral);
+    }
+    .ticks { list-style: none; display: grid; gap: 12px; }
+    .ticks li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 19px;
+      line-height: 1.4;
+      color: var(--body);
+    }
+    .ticks li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 10px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--coral);
+    }
+
+    /* ---------- 1 ---------- */
+    #s1 { display: grid; grid-template-columns: 1fr 620px; gap: 88px; align-items: center; padding-top: 110px; }
+    #s1 h1 { max-width: 800px; }
+    #s1 .lede { margin-top: 30px; max-width: 700px; }
+    #s1 .tech {
+      margin-top: 22px;
+      max-width: 640px;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+    #s1 .punch {
+      margin-top: 36px;
+      padding-left: 22px;
+      border-left: 4px solid var(--coral);
+      font-family: var(--display);
+      font-size: 27px;
+      line-height: 1.3;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      max-width: 680px;
+    }
+
+    .map { position: relative; display: grid; gap: 0; }
+    .map .tier { padding: 26px 28px; }
+    .map .tier-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .sources { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .sources span {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      background: #fbfcfa;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .sources span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      opacity: 0.75;
+      flex: none;
+    }
+    .link {
+      position: relative;
+      height: 46px;
+      margin-left: 52px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(247, 84, 64, 0.25), var(--coral));
+    }
+    .link::after {
+      content: "";
+      position: absolute;
+      left: -5px;
+      bottom: -2px;
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid var(--coral);
+      border-bottom: 2px solid var(--coral);
+      transform: rotate(45deg);
+    }
+    .core {
+      position: relative;
+      padding: 30px 28px 28px;
+      border: 2px solid var(--coral);
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse 360px 160px at 100% 0%, rgba(247, 84, 64, 0.14), transparent 70%),
+        var(--white);
+      box-shadow: 0 26px 60px -30px rgba(247, 84, 64, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .core strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 46px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .core em {
+      display: block;
+      margin-top: 8px;
+      font-style: normal;
+      font-size: 20px;
+      color: var(--body);
+    }
+    .core .pulse {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      color: var(--coral);
+      white-space: nowrap;
+    }
+    .core .pulse i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 6px rgba(247, 84, 64, 0.15);
+    }
+    .flow4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; align-items: center; }
+    .flow4 b {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      margin-right: 22px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      background: var(--white);
+    }
+    .flow4 b:last-child { margin-right: 0; }
+    .flow4 b:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid var(--coral);
+      border-right: 2px solid var(--coral);
+      transform: translateY(-50%) rotate(45deg);
+    }
+    .flow4 b.on { background: var(--coral); border-color: var(--coral); color: #fff; }
+
+    /* ---------- 2 ---------- */
+    #s2 .lede { margin-top: 26px; max-width: 1240px; }
+    #s2 .lede strong { color: var(--ink); font-weight: 700; }
+    .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 52px; }
+    .four .card { padding: 34px 30px 40px; border-top: 4px solid var(--coral); }
+    .four h3 { margin-top: 14px; font-size: 30px; }
+    .four p { margin-top: 14px; font-size: 19.5px; line-height: 1.45; color: var(--body); }
+    .statement {
+      margin-top: 46px;
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      font-family: var(--display);
+      font-size: 30px;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+    }
+    .statement span { color: var(--muted); font-weight: 600; }
+
+    /* ---------- steppers (3 and 7) ---------- */
+    .stepper { position: relative; display: grid; gap: 22px; margin-top: 50px; }
+    .stepper::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      right: calc((100% - (var(--n) - 1) * 22px) / var(--n) - 28px);
+      top: 27px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--coral), rgba(247, 84, 64, 0.25));
+    }
+    .step { position: relative; }
+    .dot {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--coral);
+      font-family: var(--mono);
+      font-size: 16px;
+      color: var(--coral);
+    }
+    .step.on .dot { background: var(--coral); color: #fff; box-shadow: 0 0 0 8px rgba(247, 84, 64, 0.14); }
+    .step h3 { margin-top: 22px; }
+    .step p { margin-top: 10px; font-size: 18.5px; line-height: 1.45; color: var(--body); max-width: 250px; }
+
+    /* ---------- 3 ---------- */
+    #s3 .stepper { --n: 5; grid-template-columns: repeat(5, 1fr); }
+    #s3 .note {
+      margin-top: 34px;
+      font-size: 20px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .compare { display: grid; grid-template-columns: 380px 1fr; margin-top: 20px; overflow: hidden; }
+    .compare > div { padding: 28px 32px; }
+    .compare .before { background: #fafbf9; border-right: 1px solid var(--line-soft); }
+    .compare .label {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .compare .after .label { color: var(--coral); }
+    .compare .before p:not(.label) {
+      font-family: var(--display);
+      font-size: 25px;
+      line-height: 1.3;
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(107, 113, 109, 0.5);
+    }
+    .compare .after p:not(.label) {
+      font-family: var(--display);
+      font-size: 24px;
+      line-height: 1.38;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+    .compare .after p b { color: var(--coral); font-weight: 700; }
+
+    /* ---------- 4 ---------- */
+    .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 38px; }
+    .three .card { padding: 30px 32px 34px; }
+    .three h3 { margin: 12px 0 22px; font-size: 29px; }
+    .strip {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      border-radius: 14px;
+      background: var(--coral-soft);
+      border: 1px solid rgba(247, 84, 64, 0.28);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .strip i {
+      flex: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    /* ---------- 5 ---------- */
+    #s5 .lede { margin-top: 18px; font-size: 21px; }
+    .rail {
+      display: grid;
+      grid-template-columns: 1fr 1fr 3fr;
+      gap: 14px;
+      margin-top: 34px;
+    }
+    .rail span {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .rail .a { background: var(--ink); color: #fff; }
+    .rail .b { background: #dbe7e3; color: var(--ink); }
+    .rail .c { background: var(--coral-soft); color: var(--coral); border: 1px solid rgba(247, 84, 64, 0.3); }
+    .five { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 14px; }
+    .five .card { padding: 24px 22px 26px; }
+    .five h3 { margin-top: 10px; font-size: 22px; line-height: 1.15; min-height: 52px; }
+    .five .ticks { margin-top: 16px; gap: 9px; }
+    .five .ticks li { font-size: 16.5px; line-height: 1.38; padding-left: 18px; }
+    .five .ticks li::before { width: 8px; }
+    .five .card.out { border: 2px solid var(--coral); background: linear-gradient(180deg, #fff 0%, var(--coral-soft) 100%); }
+
+    /* ---------- 6 ---------- */
+    .cost { display: grid; grid-template-columns: 1fr 420px; gap: 28px; margin-top: 34px; align-items: stretch; }
+    .lines { padding: 10px 34px; }
+    .line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .line b { display: block; font-family: var(--display); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+    .line span { display: block; margin-top: 4px; font-size: 16.5px; color: var(--muted); }
+    .line sup, .price sup { font-size: 0.42em; line-height: 0; }
+    .line em {
+      font-style: normal;
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .line.total { border-bottom: 0; border-top: 2px solid var(--ink); margin-top: 4px; padding-top: 20px; }
+    .line.total em { color: var(--coral); font-size: 32px; }
+    .price {
+      padding: 38px 36px;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid var(--coral);
+      background:
+        radial-gradient(ellipse 300px 200px at 100% 0%, rgba(247, 84, 64, 0.14), transparent 70%),
+        var(--white);
+    }
+    .price .figure {
+      margin-top: 18px;
+      font-family: var(--display);
+      font-size: 60px;
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      font-variant-numeric: tabular-nums;
+    }
+    .price .gst { margin-top: 12px; font-size: 20px; font-weight: 700; color: var(--coral); }
+    .price p.fine {
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid var(--line-soft);
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--body);
+    }
+    #s6 .foot {
+      margin-top: 22px;
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    #s6 .foot b { color: var(--coral); }
+
+    /* ---------- 7 ---------- */
+    #s7 h2 { font-size: 60px; }
+    #s7 .stepper { --n: 6; grid-template-columns: repeat(6, 1fr); margin-top: 56px; }
+    #s7 .step p { font-size: 18px; max-width: 210px; }
+    .close {
+      margin-top: 62px;
+      padding: 34px 40px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 40px;
+      border-left: 5px solid var(--coral);
+    }
+    .close p { font-family: var(--display); letter-spacing: -0.025em; }
+    .close .a { font-size: 24px; color: var(--muted); font-weight: 600; }
+    .close .b { margin-top: 8px; font-size: 34px; line-height: 1.2; font-weight: 700; max-width: 960px; }
+    .close .ask {
+      padding: 16px 24px;
+      border-radius: 12px;
+      background: var(--coral);
+      color: #fff;
+      font-family: var(--display);
+      font-size: 21px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ---------- nav ---------- */
+    .dots {
+      position: absolute;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+    .dots button {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      padding: 0;
+      border-radius: 99px;
+      background: rgba(5, 31, 19, 0.2);
+      cursor: pointer;
+      transition: width 0.3s var(--ease), background 0.3s;
+    }
+    .dots button.on { width: 26px; background: var(--coral); }
+    .nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      opacity: 0.55;
+      transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .nav:hover { opacity: 1; border-color: var(--coral); color: var(--coral); }
+    .nav svg { width: 18px; height: 18px; }
+    .nav.prev { left: 14px; }
+    .nav.next { right: 14px; }
+    .nav:disabled { opacity: 0.15; pointer-events: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide { transition: none; }
+      .slide.active .in { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <header class="chrome" id="chrome">
+      <a href="https://stamped.work" target="_blank" rel="noopener noreferrer" aria-label="Stamped">
+        <img src="https://stamped.work/LogoOrange.png" alt="" id="logo" />
+        <span class="word">Stamped</span>
+      </a>
+      <div class="chrome-right">
+        <span class="client">Bhatia Alloy · Pilot</span>
+        <span class="count" id="count">01 / 07</span>
+      </div>
+    </header>
+
+    <section class="slide active" id="s1" aria-label="The new manufacturing advantage">
+      <div>
+        <p class="eyebrow in">Bhatia Alloy × Stamped</p>
+        <h1 class="in">The factory already has the data.<br><span class="coral">The gain is operational excellence.</span></h1>
+        <p class="lede in">Stamped finds where energy, capacity, time and production are being lost, and recommends what your team should do next. Your people decide and act. The result is verified with evidence.</p>
+        <p class="punch in">More output. Lower operating cost. Less wasted time. Without replacing the factory you already have.</p>
+        <p class="tech in">A self-improving agentic system. It lives with the factory and keeps learning on the plant’s own data.</p>
+      </div>
+      <div class="map in" aria-hidden="true">
+        <div class="card tier">
+          <div class="tier-label"><span>Factory data</span><span>Already in the plant</span></div>
+          <div class="sources">
+            <span>Machines</span><span>Energy</span><span>ERP</span><span>MES</span>
+            <span>Process</span><span>Quality</span><span>Tools</span><span>Shifts</span>
+          </div>
+        </div>
+        <div class="link"></div>
+        <div class="core">
+          <div>
+            <strong>Stamped</strong>
+            <em>Understands the plant</em>
+          </div>
+          <span class="pulse"><i></i>RECOMMENDS</span>
+        </div>
+        <div class="link"></div>
+        <div class="card tier">
+          <div class="tier-label"><span>Operational actions</span><span>Your team executes</span></div>
+          <div class="flow4"><b class="on">Decide</b><b>Execute</b><b>Verify</b><b>Improve</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s2" aria-label="Why this matters to Bhatia">
+      <p class="eyebrow in">Why this matters</p>
+      <h2 class="in">The factory already has the assets. The next advantage is how intelligently it operates them.</h2>
+      <p class="lede in">Decisions today sit across operators, engineers, planners, ERP, machine data and spreadsheets. <strong>The data exists. The intelligence is fragmented.</strong> Stamped is one continuous layer across the plant, connecting what is happening on the floor with what should happen next.</p>
+      <div class="four in">
+        <article class="card">
+          <span class="num">01</span>
+          <h3>Energy</h3>
+          <p>Cut avoidable consumption and demand exposure.</p>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <h3>Capacity</h3>
+          <p>Recover output hidden in idle time, bottlenecks and poor sequencing.</p>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <h3>Production</h3>
+          <p>Plan from live constraints, not a plan that went stale this morning.</p>
+        </article>
+        <article class="card">
+          <span class="num">04</span>
+          <h3>Response</h3>
+          <p>React faster when a machine, a process or a condition changes.</p>
+        </article>
+      </div>
+      <p class="statement in"><span>Not another dashboard.</span> A more intelligent factory.</p>
+    </section>
+
+    <section class="slide" id="s3" aria-label="What Stamped does">
+      <p class="eyebrow in">What Stamped does</p>
+      <h2 class="in">From plant data to decisions that can actually be executed.</h2>
+      <div class="stepper in">
+        <div class="step"><span class="dot">01</span><h3>Connect</h3><p>Machines, meters, ERP, MES, SCADA and production systems.</p></div>
+        <div class="step"><span class="dot">02</span><h3>Understand</h3><p>Assets, processes, production, energy and operating states, in context.</p></div>
+        <div class="step"><span class="dot">03</span><h3>Identify</h3><p>Deviations, waste, constraints and the opportunities the day hides.</p></div>
+        <div class="step on"><span class="dot">04</span><h3>Act</h3><p>A specific prescription, assigned to a person.</p></div>
+        <div class="step"><span class="dot">05</span><h3>Verify</h3><p>Measure what happened after the action, and learn from it.</p></div>
+      </div>
+      <p class="note in">Every recommendation carries the operating context that produced it. For example:</p>
+      <div class="card compare in">
+        <div class="before">
+          <p class="label">A generic system says</p>
+          <p>“Reduce furnace energy consumption.”</p>
+        </div>
+        <div class="after">
+          <p class="label">Stamped prescribes</p>
+          <p><b>Furnace 3</b> has held operating temperature for <b>74 minutes</b> with no scheduled batch. If the next batch starts after <b>16:40</b>, cut the idle hold now and restore temperature <b>18 minutes</b> before loading.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s4" aria-label="What we will look for inside Bhatia">
+      <p class="eyebrow in">What we will look for</p>
+      <h2 class="in">We don’t want to prescribe the problems before seeing the plant. We want the plant to tell us where the value is.</h2>
+      <div class="three in">
+        <article class="card">
+          <span class="num">01</span>
+          <h3>Energy intelligence</h3>
+          <ul class="ticks">
+            <li>Idle and standby consumption</li>
+            <li>Specific energy deterioration</li>
+            <li>Peak-demand exposure</li>
+            <li>Heat-treatment efficiency</li>
+            <li>Utility optimisation</li>
+            <li>Solar, grid and load interaction</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <h3>Tooling and assets</h3>
+          <ul class="ticks">
+            <li>Tool utilisation and life</li>
+            <li>Tool-related downtime</li>
+            <li>Machine under-utilisation</li>
+            <li>Repeated operating patterns</li>
+            <li>Maintenance and production together</li>
+            <li>Hidden capacity constraints</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <h3>Production and process</h3>
+          <ul class="ticks">
+            <li>Dynamic production planning</li>
+            <li>Machine allocation</li>
+            <li>Replanning after a breakdown</li>
+            <li>Process sequencing</li>
+            <li>Bottleneck identification</li>
+            <li>Production and energy trade-offs</li>
+          </ul>
+        </article>
+      </div>
+      <p class="strip in"><i></i>Final use cases are selected after the plant survey and data assessment.</p>
+    </section>
+
+    <section class="slide" id="s5" aria-label="The Bhatia pilot">
+      <p class="eyebrow in">The Bhatia pilot</p>
+      <h2 class="in">A 60-day industrial deployment. Not a software demo.</h2>
+      <p class="lede in">From Bhatia’s existing plant data to validated operational intelligence, inside the agreed security boundary.</p>
+      <div class="rail in">
+        <span class="a">On site · 1–2 days</span>
+        <span class="b">Deploy · 2–3 days</span>
+        <span class="c">60 days live · then review</span>
+      </div>
+      <div class="five in">
+        <article class="card">
+          <span class="num">01</span>
+          <h3>Plant and system discovery</h3>
+          <ul class="ticks">
+            <li>Process walkthrough</li>
+            <li>Energy and utilities</li>
+            <li>Machine, tooling and process map</li>
+            <li>ERP, MES, SCADA, PLC</li>
+            <li>Instrumentation and data sources</li>
+            <li>How production is planned today</li>
+            <li>IT / OT and security</li>
+            <li>Where the pilot value sits</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <h3>Data and deployment</h3>
+          <ul class="ticks">
+            <li>Connect the agreed sources</li>
+            <li>Normalise and contextualise</li>
+            <li>Operational baselines</li>
+            <li>Plant, machine and process context</li>
+            <li>Deploy in the agreed private environment</li>
+            <li>Prove data flow and reliability</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <h3>Intelligence</h3>
+          <ul class="ticks">
+            <li>Operational deviations</li>
+            <li>Energy, capacity and process opportunities</li>
+            <li>Logic built for this plant</li>
+            <li>Actionable prescriptions</li>
+            <li>Ranked by operational and economic impact</li>
+            <li>Review and feedback from Bhatia</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="num">04</span>
+          <h3>Execution and verification</h3>
+          <ul class="ticks">
+            <li>Track the actions taken</li>
+            <li>Capture floor feedback</li>
+            <li>Before and after, where comparable</li>
+            <li>Measure outcomes where measurable</li>
+            <li>Refine prescriptions from feedback</li>
+            <li>Pilot findings</li>
+          </ul>
+        </article>
+        <article class="card out">
+          <span class="num">05 · Final output</span>
+          <h3>Pilot review</h3>
+          <ul class="ticks">
+            <li>Use cases that held</li>
+            <li>Prescriptions demonstrated</li>
+            <li>Verification where it applies</li>
+            <li>Deployment learnings</li>
+            <li>Next opportunity map</li>
+            <li>Recommendation to scale</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" id="s6" aria-label="Pilot investment">
+      <p class="eyebrow in">Pilot investment</p>
+      <h2 class="in">What the pilot costs, and how that number is built.</h2>
+      <div class="cost in">
+        <div class="card lines">
+          <div class="line"><div><b>Technical discovery and product work</b><span>3–4 days on site. Process, systems, and the use cases worth running.</span></div><em>₹1L<sup>*</sup></em></div>
+          <div class="line"><div><b>Data integration and deployment</b><span>Agreed sources connected, normalised, and deployed in the agreed environment.</span></div><em>₹1.5L<sup>*</sup></em></div>
+          <div class="line"><div><b>60-day pilot</b><span>The system running: detection, prescriptions, plant intelligence.</span></div><em>₹3L<sup>*</sup></em></div>
+          <div class="line"><div><b>Engineering and architecture</b><span>The product and technology already built, with iteration during the pilot.</span></div><em>₹1.5–2L</em></div>
+          <div class="line"><div><b>Travel and site expenses</b><span>On-site time through discovery and deployment.</span></div><em>₹25k</em></div>
+          <div class="line total"><div><b>Total</b></div><em>~₹7.25–7.75L<sup>*</sup></em></div>
+        </div>
+        <aside class="card price">
+          <p class="eyebrow" style="margin:0;">Indicative pilot</p>
+          <p class="figure">₹7.50L<sup>*</sup></p>
+          <p class="gst">+ GST</p>
+          <p class="fine"><sup>*</sup> Subject to change on the basis of deployment scale. For the scope discussed so far. The final number follows plant scale, number of facilities, data sources, integration, infrastructure and the use cases selected.</p>
+        </aside>
+      </div>
+      <p class="foot in">The same architecture scales <b>→</b> one process line <b>→</b> the plant <b>→</b> more plants.</p>
+    </section>
+
+    <section class="slide" id="s7" aria-label="What happens next">
+      <p class="eyebrow in">What happens next</p>
+      <h2 class="in">From discussion to deployment.</h2>
+      <div class="stepper in">
+        <div class="step"><span class="dot">01</span><h3>Align</h3><p>Pilot structure, commercial frame and owners.</p></div>
+        <div class="step on"><span class="dot">02</span><h3>Plant survey</h3><p>1–2 days with operations, engineering and IT/OT.</p></div>
+        <div class="step"><span class="dot">03</span><h3>Finalise</h3><p>Data sources, use cases, deployment and scope.</p></div>
+        <div class="step"><span class="dot">04</span><h3>Deploy</h3><p>2–3 days. Connect, contextualise, activate.</p></div>
+        <div class="step"><span class="dot">05</span><h3>60 days</h3><p>Identify, act, verify, improve.</p></div>
+        <div class="step"><span class="dot">06</span><h3>Scale</h3><p>Take what held to more processes and plants.</p></div>
+      </div>
+      <div class="card close in">
+        <div>
+          <p class="a">The goal is not to run an AI pilot.</p>
+          <p class="b">It is to build a measurable intelligence layer over the factory Bhatia already operates.</p>
+        </div>
+        <span class="ask">Next: lock the plant survey</span>
+      </div>
+    </section>
+
+    <nav class="dots" id="dots" aria-label="Slides"></nav>
+  </div>
+
+  <button type="button" class="nav prev" id="prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button type="button" class="nav next" id="next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var total = slides.length;
+      var index = 0;
+      var count = document.getElementById("count");
+      var prev = document.getElementById("prev");
+      var next = document.getElementById("next");
+      var dotsNav = document.getElementById("dots");
+      var touchX = null;
+
+      document.getElementById("logo").addEventListener("error", function () {
+        document.getElementById("chrome").classList.add("fallback");
+      });
+
+      function fit() {
+        root.style.setProperty("--s", Math.min(window.innerWidth / 1600, window.innerHeight / 900));
+      }
+      window.addEventListener("resize", fit);
+      fit();
+
+      slides.forEach(function (_, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", "Slide " + (i + 1));
+        b.addEventListener("click", function () { go(i); });
+        dotsNav.appendChild(b);
+      });
+      var dots = Array.prototype.slice.call(dotsNav.children);
+
+      function paint() {
+        slides.forEach(function (s, i) { s.classList.toggle("active", i === index); });
+        dots.forEach(function (d, i) { d.classList.toggle("on", i === index); });
+        count.textContent = String(index + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+        prev.disabled = index === 0;
+        next.disabled = index === total - 1;
+        if (history.replaceState) history.replaceState(null, "", "#s" + (index + 1));
+      }
+
+      function go(i) {
+        if (i < 0 || i >= total || i === index) return;
+        index = i;
+        paint();
+      }
+
+      prev.addEventListener("click", function () { go(index - 1); });
+      next.addEventListener("click", function () { go(index + 1); });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(index + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(index - 1); }
+        else if (e.key === "Home") { e.preventDefault(); go(0); }
+        else if (e.key === "End") { e.preventDefault(); go(total - 1); }
+      });
+
+      document.addEventListener("touchstart", function (e) {
+        if (e.changedTouches && e.changedTouches[0]) touchX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      document.addEventListener("touchend", function (e) {
+        if (touchX == null || !e.changedTouches || !e.changedTouches[0]) return;
+        var dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+
+      var start = parseInt((location.hash || "").replace("#s", ""), 10);
+      if (start >= 1 && start <= total) index = start - 1;
+      paint();
+    })();
+  </script>
+</body>
+</html>

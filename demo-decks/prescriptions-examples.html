@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+ <title>Stamped Energy · Prescription examples</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+ <style>
+  :root {
+   --primary: #F75440;
+   --on-primary: #ffffff;
+   --secondary: #051F13;
+   --on-secondary: #ffffff;
+   --surface: #f7faf5;
+   --surface-low: #f1f4f0;
+   --white: #ffffff;
+   --on-surface: #191c1a;
+   --on-surface-variant: #5a403c;
+   --outline: #8f706b;
+   --outline-variant: #e3beb8;
+   --tertiary: #00666b;
+   --inverse-primary: #ffb4a8;
+   --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+   --font-body: "Inter", system-ui, sans-serif;
+   --radius-btn: 8px;
+   --radius-card: 12px;
+   --radius-lg: 16px;
+   --chrome-h: 52px;
+   --progress-h: 3px;
+   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+   --grid-line: color-mix(in srgb, var(--primary) 10%, transparent);
+   --safe-t: env(safe-area-inset-top, 0px);
+   --safe-b: env(safe-area-inset-bottom, 0px);
+   --safe-l: env(safe-area-inset-left, 0px);
+   --safe-r: env(safe-area-inset-right, 0px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+   height: 100%;
+   height: 100dvh;
+   overflow: hidden;
+   background: var(--surface);
+   color: var(--on-surface);
+   font-family: var(--font-body);
+   -webkit-font-smoothing: antialiased;
+  }
+
+  .progress {
+   position: fixed; top: 0; left: 0; right: 0;
+   height: var(--progress-h); z-index: 100;
+   background: rgba(247, 84, 64, 0.15);
+  }
+  .progress__fill {
+   height: 100%; width: 0%;
+   background: linear-gradient(90deg, var(--primary), rgba(247, 84, 64, 0.55));
+   transition: width 0.45s var(--ease);
+  }
+
+  .chrome-top {
+   position: fixed; top: calc(var(--progress-h) + var(--safe-t)); left: 0; right: 0;
+   height: var(--chrome-h); z-index: 90;
+   display: flex; align-items: center; justify-content: space-between;
+   padding: 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-l)) 0 max(clamp(1rem, 3vw, 2.25rem), var(--safe-r));
+   pointer-events: none;
+  }
+  .chrome-logo {
+   display: flex; align-items: center; gap: 0.55rem;
+   pointer-events: auto; text-decoration: none; color: inherit;
+  }
+  .chrome-logo img { height: 26px; width: auto; display: block; }
+  .chrome-logo .wordmark {
+   display: none; font-family: var(--font-display); font-weight: 800;
+   font-size: 0.85rem; letter-spacing: -0.02em;
+  }
+  .chrome-logo.fallback img { display: none; }
+  .chrome-logo.fallback .wordmark { display: block; }
+  .chrome-counter {
+   font-size: 0.72rem; font-weight: 650; letter-spacing: 0.08em;
+   font-variant-numeric: tabular-nums; opacity: 0.72;
+   color: var(--on-surface);
+  }
+
+  .stage {
+   position: relative; width: 100%;
+   height: 100%; height: 100dvh;
+   overflow: hidden;
+  }
+
+  .slide {
+   position: absolute; inset: 0;
+   display: flex; flex-direction: column; justify-content: center;
+   padding:
+    calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + clamp(0.25rem, 0.8vh, 0.65rem))
+    max(clamp(4.25rem, 7.5vw, 6.5rem), var(--safe-r))
+    max(clamp(3.25rem, 6vh, 4.4rem), calc(var(--safe-b) + 2.5rem));
+   opacity: 0; visibility: hidden; pointer-events: none;
+   transition: opacity 0.28s var(--ease), visibility 0.28s;
+   overflow: auto;
+  }
+  .slide.active {
+   opacity: 1; visibility: visible; pointer-events: auto; z-index: 1;
+  }
+
+  .slide--light {
+   background:
+    linear-gradient(180deg, #ffffff 0%, var(--surface) 55%, #f3f6f2 100%),
+    radial-gradient(ellipse 42% 32% at 94% 6%, rgba(227,190,184,0.22), transparent 60%);
+   color: var(--on-surface);
+  }
+  .slide--light.grid-bg::after {
+   content: "";
+   position: absolute; inset: 0; pointer-events: none; z-index: 0;
+   background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+   background-size: 40px 40px;
+   opacity: 0.45;
+   mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
+  }
+
+  .slide__inner {
+   position: relative; z-index: 1;
+   width: 100%; max-width: min(920px, 100%);
+   margin: 0 auto;
+   transform: translateY(-1.2vh);
+  }
+  .slide__inner--wide { max-width: min(1040px, 100%); }
+
+  .reveal { opacity: 0; transform: translateY(14px); }
+  .slide.active .reveal { animation: fadeUp 0.48s var(--ease) forwards; }
+  .slide.active .reveal:nth-child(1) { animation-delay: 0.04s; }
+  .slide.active .reveal:nth-child(2) { animation-delay: 0.10s; }
+  .slide.active .reveal:nth-child(3) { animation-delay: 0.16s; }
+  .slide.active .reveal:nth-child(4) { animation-delay: 0.22s; }
+
+  @keyframes fadeUp {
+   from { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+   to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes sceneIn {
+   from { opacity: 0; transform: translateY(calc(-1.2vh + 10px)) scale(0.996); }
+   to { opacity: 1; transform: translateY(-1.2vh) scale(1); }
+  }
+  @keyframes itemIn {
+   from { opacity: 0; transform: translateY(12px); }
+   to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lineSweep {
+   from { background-position: 180% 0; }
+   to { background-position: -80% 0; }
+  }
+
+  .slide.active > .slide__inner {
+   animation: sceneIn 0.52s var(--ease) both;
+  }
+
+  .rx-row { opacity: 0; transform: translateY(12px); }
+  .slide.active .rx-row {
+   animation: itemIn 0.46s var(--ease) forwards;
+  }
+  .slide.active .rx-row:nth-child(1) { animation-delay: 0.16s; }
+  .slide.active .rx-row:nth-child(2) { animation-delay: 0.22s; }
+  .slide.active .rx-row:nth-child(3) { animation-delay: 0.28s; }
+  .slide.active .rx-row:nth-child(4) { animation-delay: 0.34s; }
+  .slide.active .rx-row:nth-child(5) { animation-delay: 0.40s; }
+  .slide.active .rx-row:nth-child(6) { animation-delay: 0.46s; }
+  .slide.active .rx-row:nth-child(7) { animation-delay: 0.52s; }
+  .slide.active .rx-row:nth-child(8) { animation-delay: 0.58s; }
+  .slide.active .rx-row:nth-child(9) { animation-delay: 0.64s; }
+
+  @media (prefers-reduced-motion: reduce) {
+   .reveal { opacity: 1; transform: none; }
+   .slide.active .reveal { animation: none; }
+   .slide.active > .slide__inner { animation: none; }
+   .rx-row { opacity: 1; transform: none; animation: none !important; }
+   .progress__fill, .nav-btn, .dots__dot, .rx-flip__inner { transition: none; }
+  }
+
+  .eyebrow {
+   font-size: clamp(0.68rem, 1vw, 0.78rem);
+   font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase;
+   color: var(--primary); margin-bottom: 0.55rem;
+  }
+  h1, h2 {
+   font-family: var(--font-display); font-weight: 800;
+   letter-spacing: -0.025em; line-height: 1.12;
+  }
+  h1 { font-size: clamp(1.85rem, 4.2vw, 3rem); margin-bottom: 0.7rem; }
+  h2 { font-size: clamp(1.35rem, 2.8vw, 2rem); margin-bottom: 0.45rem; }
+  .lede {
+   font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+   line-height: 1.55; max-width: 42em;
+   color: var(--on-surface-variant);
+  }
+  .meta { font-size: 0.78rem; opacity: 0.55; margin-top: 1rem; letter-spacing: 0.02em; }
+
+  .btn {
+   display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+   height: 48px; padding: 0 1.35rem; border-radius: var(--radius-btn);
+   font-size: 0.95rem; font-weight: 650; border: 1px solid transparent;
+   cursor: pointer; text-decoration: none;
+   transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn--primary { background: var(--primary); color: var(--on-primary); }
+  .btn--primary:hover { background: #e04634; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.4rem; }
+
+  .chip {
+   display: inline-flex; align-items: center; gap: 0.35rem;
+   font-size: 0.72rem; font-weight: 650; letter-spacing: 0.03em;
+   padding: 0.35rem 0.7rem; border-radius: 999px;
+   border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+   background: color-mix(in srgb, var(--primary) 8%, transparent);
+   color: var(--primary);
+  }
+  .flow-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+
+  .nav-btn {
+   position: fixed; top: 50%; transform: translateY(-50%); z-index: 95;
+   width: clamp(42px, 4.6vw, 52px); height: clamp(42px, 4.6vw, 52px);
+   border-radius: 50%; border: 1px solid var(--outline-variant);
+   background: rgba(255,255,255,0.9); color: var(--on-surface);
+   cursor: pointer; display: flex; align-items: center; justify-content: center;
+   transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+  .nav-btn--prev { left: clamp(0.55rem, 1.4vw, 1.15rem); }
+  .nav-btn--next { right: clamp(0.55rem, 1.4vw, 1.15rem); }
+  .nav-btn svg { width: 18px; height: 18px; }
+  .nav-btn:hover {
+   background: var(--white); border-color: var(--primary); color: var(--primary);
+  }
+  .nav-btn:focus-visible,
+  .dots__dot:focus-visible {
+   outline: 2px solid var(--primary);
+   outline-offset: 3px;
+  }
+  .nav-btn:disabled { opacity: 0.22; cursor: default; pointer-events: none; }
+
+  .dots {
+   position: fixed; bottom: clamp(0.85rem, 2.2vh, 1.5rem);
+   left: 50%; transform: translateX(-50%); z-index: 95;
+   display: flex; align-items: center; gap: 0.35rem;
+   padding: 0.32rem 0.5rem; border-radius: 999px;
+   background: rgba(25,28,26,0.08); backdrop-filter: blur(6px);
+   max-width: calc(100vw - 2rem); overflow-x: auto;
+  }
+  .dots__dot {
+   width: 6px; height: 6px; border-radius: 999px; border: none; padding: 0;
+   background: rgba(25,28,26,0.28); cursor: pointer; flex-shrink: 0;
+   transition: width 0.3s var(--ease), background 0.25s;
+  }
+  .dots__dot.active { width: 20px; background: var(--primary); }
+
+  /* Prescription flip card — sized to match ITC reference cards */
+  .illustrative-badge {
+   display: inline-block; margin-bottom: 0.5rem; padding: 0.28rem 0.6rem;
+   border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em;
+   text-transform: uppercase; background: rgba(247,84,64,0.12); color: var(--primary);
+  }
+  .rx-solo {
+   margin-top: 0.75rem;
+   perspective: 1400px;
+   max-width: 100%;
+   width: 100%;
+  }
+  .rx-flip {
+   position: relative;
+   min-height: min(52vh, 440px);
+   border: none; background: transparent; padding: 0;
+   cursor: pointer; text-align: left; color: inherit;
+   font: inherit; width: 100%;
+   -webkit-tap-highlight-color: transparent;
+  }
+  .rx-flip:focus-visible {
+   outline: 2px solid var(--primary);
+   outline-offset: 3px;
+   border-radius: var(--radius-lg);
+  }
+  .rx-flip__inner {
+   display: grid;
+   width: 100%;
+   min-height: min(52vh, 440px);
+   transition: transform 0.55s var(--ease);
+   transform-style: preserve-3d;
+  }
+  .rx-flip.is-flipped .rx-flip__inner { transform: rotateY(180deg); }
+  .rx-face {
+   grid-area: 1 / 1;
+   backface-visibility: hidden; -webkit-backface-visibility: hidden;
+   border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--outline-variant));
+   border-radius: var(--radius-lg); background: var(--white);
+   display: flex; flex-direction: column;
+   min-height: 100%;
+   min-width: 0;
+   overflow: hidden;
+  }
+  .rx-face--back {
+   transform: rotateY(180deg);
+   border-color: color-mix(in srgb, var(--tertiary) 35%, var(--outline-variant));
+   background: #f7faf8;
+  }
+  .rx-face::before {
+   content: "";
+   position: absolute; top: 0; left: 0; right: 0; height: 3px;
+   background: linear-gradient(90deg, transparent 0%, var(--primary) 42%, var(--inverse-primary) 55%, transparent 100%);
+   background-size: 220% 100%;
+   opacity: 0;
+   z-index: 2;
+  }
+  .rx-face { position: relative; }
+  .slide.active .rx-flip:not(.is-flipped) .rx-face--front::before {
+   opacity: 1;
+   animation: lineSweep 1.25s var(--ease) 0.35s both;
+  }
+  .rx-hero__head {
+   display: flex; justify-content: space-between; align-items: center;
+   padding: 0.85rem 1.25rem; border-bottom: 1px solid #e0e3df; background: #fafcfa;
+   flex-shrink: 0; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .rx-badge {
+   font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+   color: var(--on-surface-variant); border: 1px solid var(--outline-variant);
+   background: var(--surface-low); padding: 0.22rem 0.5rem; border-radius: 6px;
+  }
+  .rx-priority {
+   font-size: 0.68rem; font-weight: 700; color: #fff; background: var(--primary);
+   padding: 0.22rem 0.5rem; border-radius: 6px;
+   white-space: nowrap;
+  }
+  .rx-priority--med { background: var(--tertiary); }
+  .rx-hero__body {
+   padding: 1.15rem 1.35rem 1.05rem;
+   display: flex; flex-direction: column; flex: 1; min-height: 0;
+   min-width: 0;
+  }
+  .rx-action {
+   font-family: var(--font-display); font-weight: 750;
+   font-size: clamp(1.05rem, 1.85vw, 1.35rem); line-height: 1.4; margin-bottom: 1rem;
+  }
+  .rx-fields { display: grid; gap: 0.55rem; flex: 1; }
+  .rx-row {
+   display: grid; grid-template-columns: 96px 1fr; gap: 0.55rem;
+   font-size: 0.9rem; line-height: 1.45;
+   min-width: 0;
+  }
+  .rx-row dt {
+   font-weight: 650; color: var(--on-surface-variant); font-size: 0.72rem;
+   text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.15rem;
+  }
+  .rx-row dd {
+   min-width: 0;
+   overflow-wrap: break-word;
+   word-break: normal;
+  }
+  .rx-row dd strong { color: var(--on-surface); font-weight: 700; }
+  .rx-flip-cue {
+   margin-top: 0.75rem; padding-top: 0.65rem;
+   border-top: 1px dashed var(--outline-variant);
+   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+   text-transform: uppercase; color: var(--primary);
+  }
+  .rx-ev-title {
+   font-size: 0.66rem; font-weight: 700; letter-spacing: 0.07em;
+   text-transform: uppercase; color: var(--on-surface-variant); margin-bottom: 0.35rem;
+  }
+  .rx-spark {
+   width: 100%; height: 64px; margin-bottom: 0.55rem;
+   border-radius: 8px; background: var(--white);
+   border: 1px solid #e0e3df;
+   display: block;
+  }
+  .rx-ev-table-wrap {
+   width: 100%;
+   max-width: 100%;
+   overflow-x: auto;
+   -webkit-overflow-scrolling: touch;
+   margin-bottom: 0.55rem;
+  }
+  .rx-ev-table {
+   width: 100%; border-collapse: collapse;
+   font-size: 0.72rem; font-variant-numeric: tabular-nums;
+   margin-bottom: 0;
+   min-width: 260px;
+  }
+  .rx-ev-table th, .rx-ev-table td {
+   padding: 0.32rem 0.4rem; text-align: left;
+   border-bottom: 1px solid #e0e3df;
+   vertical-align: top;
+  }
+  .rx-ev-table th {
+   font-size: 0.6rem; letter-spacing: 0.05em; text-transform: uppercase;
+   color: var(--on-surface-variant); font-weight: 700;
+  }
+  .rx-ev-table code {
+   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+   font-size: 0.68rem; color: var(--secondary);
+   word-break: break-all;
+  }
+  .rx-cite {
+   font-size: 0.72rem; line-height: 1.4; color: var(--on-surface-variant);
+   background: var(--white); border: 1px solid #e0e3df;
+   border-radius: 8px; padding: 0.55rem 0.65rem; margin-bottom: 0.45rem;
+   overflow-wrap: anywhere;
+  }
+  .rx-cite strong { color: var(--on-surface); font-weight: 650; }
+  .rx-mv {
+   font-size: 0.74rem; font-weight: 650; color: var(--tertiary);
+   margin-top: auto;
+  }
+
+  .close-list {
+   list-style: none; display: grid; gap: 0.75rem; margin-top: 1.25rem;
+   max-width: 36em;
+  }
+  .close-list li {
+   font-size: 0.95rem; line-height: 1.5; color: var(--on-surface);
+   padding: 0.85rem 1rem; background: var(--white);
+   border: 1px solid var(--outline-variant); border-radius: var(--radius-card);
+   padding-left: 1.15rem; position: relative;
+  }
+  .close-list li::before {
+   content: ""; position: absolute; left: 0; top: 0.9rem; bottom: 0.9rem;
+   width: 3px; border-radius: 2px; background: var(--primary);
+  }
+  .close-list strong { font-weight: 700; }
+
+  .hint {
+   font-size: 0.88rem; color: var(--on-surface-variant); margin-top: 0.35rem;
+   line-height: 1.5; max-width: 52em;
+  }
+
+  .vignette-box {
+   margin-top: 0.85rem; padding: 1.25rem 1.35rem;
+   background: var(--white); border: 1px solid var(--outline-variant);
+   border-radius: var(--radius-lg); font-size: 1rem; line-height: 1.55;
+   max-width: 100%;
+  }
+  .vignette-box blockquote {
+   margin: 0; padding: 0; border: none; font-style: normal;
+   color: var(--on-surface);
+  }
+  .vignette-table {
+   width: 100%; border-collapse: collapse; margin-top: 0.85rem;
+   font-size: 0.82rem;
+  }
+  .vignette-table th, .vignette-table td {
+   padding: 0.45rem 0.55rem; text-align: left;
+   border-bottom: 1px solid #e0e3df; vertical-align: top;
+  }
+  .vignette-table th {
+   font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
+   color: var(--on-surface-variant); font-weight: 700;
+  }
+
+  /* Tablet */
+  @media (max-width: 980px) {
+   .slide {
+    padding-left: max(3.5rem, var(--safe-l));
+    padding-right: max(3.5rem, var(--safe-r));
+   }
+   .rx-solo { max-width: 100%; }
+  }
+
+  /* Phone */
+  @media (max-width: 720px) {
+   :root { --chrome-h: 48px; }
+
+   .slide {
+    justify-content: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding:
+     calc(var(--chrome-h) + var(--progress-h) + var(--safe-t) + 0.65rem)
+     max(1rem, var(--safe-r))
+     max(5.25rem, calc(var(--safe-b) + 4.75rem));
+   }
+   .slide__inner,
+   .slide__inner--wide {
+    transform: none;
+    max-width: 100%;
+    width: 100%;
+    padding-bottom: 0.35rem;
+   }
+   .slide.active > .slide__inner { animation: none; }
+
+   h1 {
+    font-size: clamp(1.5rem, 7vw, 1.95rem);
+    margin-bottom: 0.55rem;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+   }
+   h2 {
+    font-size: clamp(1.2rem, 5.5vw, 1.45rem);
+    margin-bottom: 0.35rem;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+   }
+   .lede {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    max-width: none;
+   }
+   .eyebrow {
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.1em;
+    font-size: 0.66rem;
+   }
+   .hint {
+    font-size: 0.74rem;
+    margin-bottom: 0.15rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+   }
+   .meta { font-size: 0.72rem; }
+   .flow-tags { gap: 0.35rem; margin-top: 0.85rem; }
+   .chip { font-size: 0.68rem; padding: 0.3rem 0.6rem; }
+   .btn { width: 100%; height: 48px; font-size: 1rem; }
+   .btn-row { width: 100%; margin-top: 1.1rem; }
+
+   .chrome-top {
+    padding-left: max(0.85rem, var(--safe-l));
+    padding-right: max(0.85rem, var(--safe-r));
+   }
+   .chrome-counter { font-size: 0.68rem; }
+
+   .nav-btn {
+    width: 44px; height: 44px;
+    top: auto;
+    bottom: calc(var(--safe-b) + 3.35rem);
+    transform: none;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 4px 14px -6px rgba(5,31,19,0.28);
+   }
+   .nav-btn--prev { left: max(0.55rem, var(--safe-l)); }
+   .nav-btn--next { right: max(0.55rem, var(--safe-r)); }
+
+   .dots {
+    bottom: max(0.65rem, calc(var(--safe-b) + 0.45rem));
+    max-width: min(72vw, 16rem);
+    gap: 0.28rem;
+    padding: 0.28rem 0.45rem;
+   }
+   .dots__dot { width: 5px; height: 5px; }
+   .dots__dot.active { width: 16px; }
+
+   .rx-solo { margin-top: 0.65rem; max-width: 100%; }
+   .rx-flip { min-height: min(58vh, 400px); }
+   .rx-flip__inner { min-height: min(58vh, 400px); }
+   .rx-flip,
+   .rx-flip__inner,
+   .rx-face { max-width: 100%; width: 100%; }
+   .rx-hero__head { padding: 0.65rem 0.85rem; gap: 0.35rem; }
+   .rx-badge { font-size: 0.6rem; padding: 0.18rem 0.4rem; }
+   .rx-priority { font-size: 0.62rem; padding: 0.18rem 0.4rem; }
+   .rx-hero__body { padding: 0.8rem 0.85rem 0.8rem; }
+   .rx-action {
+    font-size: 1.02rem;
+    line-height: 1.38;
+    margin-bottom: 0.85rem;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+   }
+   .rx-fields { gap: 0.48rem; }
+   .rx-row {
+    grid-template-columns: 72px 1fr;
+    gap: 0.45rem;
+    font-size: 0.84rem;
+    line-height: 1.42;
+   }
+   .rx-row dt { font-size: 0.62rem; }
+   /* Keep Why / Owner / Impact on phone; hide Effort / Due */
+   .rx-row:nth-child(4),
+   .rx-row:nth-child(5) { display: none; }
+   .rx-flip-cue {
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    font-size: 0.68rem;
+   }
+   .rx-spark { height: 52px; margin-bottom: 0.45rem; }
+   .rx-ev-table { font-size: 0.66rem; min-width: 0; }
+   .rx-ev-table th, .rx-ev-table td { padding: 0.28rem 0.3rem; }
+   .rx-ev-table code { font-size: 0.6rem; }
+   .rx-cite { font-size: 0.66rem; padding: 0.45rem 0.5rem; }
+   .rx-mv { font-size: 0.68rem; }
+
+   .close-list { gap: 0.6rem; margin-top: 1rem; }
+   .close-list li {
+    font-size: 0.88rem;
+    padding: 0.75rem 0.85rem 0.75rem 1rem;
+   }
+
+   .slide, .slide__inner, .lede, .hint,
+   .rx-cite, .chip, .close-list li, .meta {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+   }
+   h1, h2, .rx-action, .rx-row dd {
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+   }
+   img, svg { max-width: 100%; height: auto; }
+   .rx-spark { height: 52px; }
+  }
+
+  @media (pointer: coarse) {
+   .dots { display: none; }
+  }
+
+  @media (max-width: 380px) {
+   .slide {
+    padding-left: max(0.75rem, var(--safe-l));
+    padding-right: max(0.75rem, var(--safe-r));
+   }
+   .rx-row { grid-template-columns: 58px 1fr; font-size: 0.74rem; }
+   .rx-action { font-size: 0.95rem; }
+   .nav-btn { width: 44px; height: 44px; }
+   .dots { max-width: 64vw; }
+  }
+
+  @media (max-width: 720px) and (orientation: landscape) {
+   .slide {
+    padding-bottom: max(4.5rem, calc(var(--safe-b) + 3.75rem));
+   }
+   .nav-btn {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+   }
+   .rx-row:nth-child(n+4) { display: none; }
+  }
+  </style>
+</head>
+<body data-theme="light">
+ <div class="progress" aria-hidden="true"><div class="progress__fill" id="progressFill"></div></div>
+
+ <header class="chrome-top">
+  <a class="chrome-logo" id="chromeLogo" href="../index.html" aria-label="Stamped Energy demo hub">
+   <img src="https://stamped.work/LogoOrange.png" alt="Stamped Energy" id="chromeLogoImg" />
+   <span class="wordmark">Stamped</span>
+  </a>
+  <span class="chrome-counter" id="sceneCounter">01 / 12</span>
+ </header>
+
+ <button type="button" class="nav-btn nav-btn--prev" id="btnPrev" aria-label="Previous slide" disabled>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+ </button>
+ <button type="button" class="nav-btn nav-btn--next" id="btnNext" aria-label="Next slide">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+ </button>
+ <nav class="dots" id="dots" aria-label="Slide navigation"></nav>
+
+ <main class="stage" id="stage">
+
+  <!-- 0 Title -->
+  <section class="slide slide--light grid-bg active" id="scene-title" data-theme="light" aria-label="Title">
+   <div class="slide__inner">
+    <p class="eyebrow reveal">Client pack · sample numbers</p>
+    <h1 class="reveal">Practical prescriptions your plant team can run.</h1>
+    <p class="lede reveal">Each example names the action, owner, due window, and evidence needed to verify the result.</p>
+    <div class="flow-tags reveal">
+     <span class="chip">5 agnostic</span>
+     <span class="chip">4 vertical / equipment</span>
+     <span class="chip">1 negotiation vignette</span>
+     <span class="chip">Flip for evidence</span>
+    </div>
+    <div class="btn-row reveal">
+     <button type="button" class="btn btn--primary" id="btnBegin">Begin</button>
+    </div>
+    <p class="meta reveal">Click a card to flip. Arrow keys or space move between slides.</p>
+   </div>
+  </section>
+
+
+
+  <!-- 1 -->
+  <section class="slide slide--light" id="scene-rx-1" data-theme="light" aria-label="Prescription 1">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">01 · Agnostic · MD</p>
+    <h2 class="reveal">Hold the second feeder start 10 minutes</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Two big loads hit your incomer in the same 15-minute MD window — the bill won’t tell you which machines until it’s too late.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Hold second feeder start. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Agnostic · MD</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Hold the second large feeder start until the first load settles (for example under 95% of its ramp). Usual stagger: <strong>8–12 minutes</strong> inside the open MD window.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Two heavy feeders started in the same billing slot and stacked on the HT incomer. The monthly bill shows the peak later — not which machines overlapped while the window was still open.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Electrical lead + area supervisor · active shift</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹80,000–₹1.2L / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Sequence change · no new equipment</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next morning ramp · before peak week</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">MD window</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Co-start window · Mon 07:10–07:22</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>HT_INCOMER.MD</code></td><td>1,180 kVA</td><td>07:14–07:18</td></tr>
+           <tr><td><code>FEEDER_A.RESTART</code></td><td>TRUE</td><td>07:12</td></tr>
+           <tr><td><code>FEEDER_B.START</code></td><td>ON</td><td>07:14+</td></tr>
+           <tr><td><code>AUX_BANK.RUN</code></td><td>ON</td><td>07:13+</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> Apr peak week · MD slab · Stamped check: co-start inside rolling 15-min window</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide slide--light" id="scene-rx-2" data-theme="light" aria-label="Prescription 2">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">02 · Agnostic · ToD / thermal</p>
+    <h2 class="reveal">Gravure dryer warm-up 25 min earlier</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Warm-up is eating peak ToD even when output is the same — shift warm-up, not production start.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Gravure dryer warm-up earlier. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · ToD / warm-up</span>
+         <span class="rx-priority rx-priority--med">Priority · Med</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Start gravure dryer warm-up <strong>25 minutes earlier</strong> into the lower MGVCL ToD window before day-shift gravure release, <strong>without changing job start time</strong>.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Warm-up load overlaps the peak ToD band on three of five weekday gravure runs, even when production volume is stable.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + gravure shift supervisor</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹35,000–₹55,000 / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Schedule change only · production sign-off</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next gravure day-shift cycle</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">ToD overlap</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Warm-up vs MGVCL ToD band · weekday gravure</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>TARIFF.TOD_BLOCK</code></td><td>PEAK during warm-up</td><td>Mon–Fri avg</td></tr>
+           <tr><td><code>DRYER.kW</code></td><td>elevated</td><td>25 min pre-release</td></tr>
+           <tr><td><code>GRAVURE.RELEASE</code></td><td>unchanged</td><td>shift start</td></tr>
+           <tr><td><code>HT_INCOMER.kW</code></td><td>+120 kW vs shoulder</td><td>warm-up overlap</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> last 4 gravure weeks · MGVCL ToD schedule · warm-up vs release timestamp</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide slide--light" id="scene-rx-3" data-theme="light" aria-label="Prescription 3">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">03 · Equipment · drift</p>
+    <h2 class="reveal">Inspect Compressor 2 filter / unload valve</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Compressor 2 is using more power than usual for the same air pressure — nine days. Inspect before extra bill and breakdown.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Inspect Compressor 2 filter and unload valve. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Equipment · drift</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Inspect Compressor 2 inlet filter and unload valve during the next approved low-load window. Use Compressor 1 as standby only if available capacity is confirmed.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Specific power is 14% above its eight-week baseline for matched header pressure, run hours, and shift load. The drift has persisted for nine days.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + mechanical maintenance</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000–₹70,000 / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>~2 hours · subject to isolation and permit</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next approved low-load maintenance window</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">Specific power</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Specific-power trend · last 8 weeks</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>COMP2.kW</code></td><td>+14% vs matched baseline</td><td>9-day trend</td></tr>
+           <tr><td><code>HEADER.BAR</code></td><td>matched band</td><td>same runs</td></tr>
+           <tr><td><code>COMP2.SPEC_PWR</code></td><td>elevated</td><td>8-week baseline</td></tr>
+           <tr><td><code>COMP2.RUN_HRS</code></td><td>normal</td><td>same</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> eight-week matched specific-power · same header pressure and run hours</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide slide--light" id="scene-rx-4" data-theme="light" aria-label="Prescription 4">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">04 · Agnostic · idle</p>
+    <h2 class="reveal">Switch off packaging line aux when nothing runs 20 min</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Conveyors and fans stay on when the line is empty — nobody connects no output to aux power in real time.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Switch off packaging line aux when idle. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Idle auxiliaries</span>
+         <span class="rx-priority rx-priority--med">Priority · Med-High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">When packaging line output is zero for <strong>20 minutes</strong>, switch off tagged auxiliaries (conveyors, idle fans, non-critical pumps). Restart when production pulse returns or supervisor overrides.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Auxiliaries stay on during idle because production count and machine power are not watched together in time.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Area supervisor · packaging line + utilities lead</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹50,000–₹90,000 / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Idle SOP · safety loads on protect list</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next idle window of 20 min or more</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Idle kWh</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Last 5 idle events · aux still online</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>LINE.OUTPUT</code></td><td>0</td><td>22+ min avg</td></tr>
+           <tr><td><code>AUX_CONV.kW</code></td><td>38 kW</td><td>same</td></tr>
+           <tr><td><code>AUX_FAN.RUN</code></td><td>ON</td><td>same</td></tr>
+           <tr><td><code>IDLE.FLAG</code></td><td>TRUE</td><td>planned / unplanned</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> last 5 idle events · flat/ToD energy tariff</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide slide--light" id="scene-rx-5" data-theme="light" aria-label="Prescription 5">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">05 · Agnostic · ToD</p>
+    <h2 class="reveal">Start batch chiller later — batch still on time</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">You’re cooling for a batch that doesn’t start for 90 minutes — that’s peak-rate power you can move.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Start batch chiller later. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Batch chiller</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Delay batch chiller pull until <strong>90 minutes before</strong> batch start (instead of 150 min early), when validated temp band allows — batch hall still hits temperature before start.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Pre-cooling runs through the peak ToD block while the batch hall is still empty — kWh you can shift to shoulder rate without missing batch readiness.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities lead + batch hall supervisor</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹40,000–₹75,000 / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Schedule change · quality sign-off on temp band</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next scheduled batch in peak block</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">Peak block</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Pre-cool vs batch start · peak block</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>TARIFF.TOD_BLOCK</code></td><td>PEAK</td><td>pre-batch window</td></tr>
+           <tr><td><code>CHILLER.kW</code></td><td>180 kW</td><td>90 min early pull</td></tr>
+           <tr><td><code>BATCH.START</code></td><td>T+90 min</td><td>scheduled</td></tr>
+           <tr><td><code>HALL.TEMP</code></td><td>in band at start</td><td>historical</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> last 4 batch cycles · DISCOM ToD schedule · hall temp at batch start</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 6 Negotiation vignette -->
+  <section class="slide slide--light" id="scene-rx-6" data-theme="light" aria-label="Schedule negotiation">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">06 · Shared context</p>
+    <h2 class="reveal">Schedule negotiation vignette</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">We suggested Tuesday inspection but standby air was too low — so we moved it to Thursday after Job 447 closes.</p>
+    <div class="vignette-box reveal">
+     <blockquote>Compressor 2 filter inspection was suggested for <strong>Tuesday 9–11 am</strong>, but standby air capacity that day is too low to isolate safely. Stamped flags that and proposes <strong>Thursday 2–4 pm</strong> instead, after <strong>Job 447</strong> closes.</blockquote>
+     <table class="vignette-table">
+      <thead><tr><th></th><th>Before</th><th>After</th></tr></thead>
+      <tbody>
+       <tr><th>Due</th><td>Tue 9–11 am</td><td>Thu 2–4 pm after Job 447</td></tr>
+       <tr><th>Status</th><td>Standby air below isolation threshold</td><td>Order cleared · standby confirmed</td></tr>
+      </tbody>
+     </table>
+     <p class="hint" style="margin-top:0.85rem;">Bounded negotiation (ADR-024): revise window and parameters, not rewrite the Rx from scratch.</p>
+    </div>
+   </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide slide--light" id="scene-rx-7" data-theme="light" aria-label="Prescription 7">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">07 · Steel · melt shop</p>
+    <h2 class="reveal">Reduce furnace holding when roll is delayed 45+ min</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Holding power keeps running through a delay — melt schedule and furnace kW aren’t looked at together until the shift ends.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Reduce furnace holding on roll delay. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Furnace holding</span>
+         <span class="rx-priority rx-priority--med">Priority · Med-High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">On a planned cast or roll delay <strong>longer than 45 minutes</strong>, reduce furnace holding power per melt-shop SOP (controlled ramp to hold-safe). Do not leave full holding kW with zero heats.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Holding power with no cast or roll on three of the last five delay events burned kWh the shift did not need — delay flags and furnace kW are rarely joined in time for the supervisor to act.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Melt-shop supervisor · Furnace 2 + utilities lead</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹60,000–₹1.0L / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Holding SOP · note restart lead time before cast resumes</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next delay window over 45 min</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Idle kWh</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Delay / holding · last 5 events</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>FURNACE2.HOLD</code></td><td>ON</td><td>48 min avg</td></tr>
+           <tr><td><code>ROLL.PROD</code></td><td>0</td><td>same window</td></tr>
+           <tr><td><code>FURNACE2.kWh</code></td><td>~180 kWh</td><td>per event</td></tr>
+           <tr><td><code>DELAY.FLAG</code></td><td>TRUE</td><td>planned</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> last 5 delay events · ToD energy · normal hold profile</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide slide--light" id="scene-rx-8" data-theme="light" aria-label="Prescription 8">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">08 · Cement · pyro + grinding</p>
+    <h2 class="reveal">Start the mill after the kiln settles</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Kiln and mill ramp together every morning — that’s when demand and peak grid import hurt.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Start mill after kiln settles. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Kiln + mill</span>
+         <span class="rx-priority">Priority · High</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Hold <strong>Raw Mill 2</strong> start until <strong>Kiln 1</strong> load settles (for example under 95% of ramp) or ~10 minutes pass. Prefer available <strong>WHR</strong> over peak grid import when WHR is online.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Kiln and mill co-start in the morning peak window pushed rolling MD up while WHR sat under-used — EMS often shows kiln, mill, WHR, and incomer on separate screens.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>CCR / pyro supervisor + electrical lead · Shift B</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹50,000–₹90,000 / month [illustrative]</strong> MD + peak import</dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Sequence + dispatch · no new equipment</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next morning ramp · before peak week</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority">MD + WHR</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Morning co-start · Tue 09:40 IST</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>KILN1.LOAD_PCT</code></td><td>108%</td><td>09:40</td></tr>
+           <tr><td><code>RAWMILL2.START</code></td><td>ON (co-start)</td><td>09:40</td></tr>
+           <tr><td><code>HT_INCOMER.MD</code></td><td>4,680 kVA</td><td>rolling 15-min</td></tr>
+           <tr><td><code>WHR.AVAIL_kW</code></td><td>1,100 under-used</td><td>same</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> peak week morning ramp · TOD + MD · WHR availability log</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide slide--light" id="scene-rx-9" data-theme="light" aria-label="Prescription 9">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">09 · Pharma · batch utilities</p>
+    <h2 class="reveal">Trim chillers when the batch hall is empty</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Full chiller run on an empty batch block — utilities can trim within your approved temperature band.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Trim chillers when batch hall empty. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Chiller trim</span>
+         <span class="rx-priority rx-priority--med">Priority · Med</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Trim chiller duty when batch hall occupancy is zero for the idle window, using <strong>approved setback set-points</strong> only (temp/RH/ACH). Auto-revert on batch start or env alarm.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Full chiller duty runs across empty batch blocks — validation worry and split BMS ownership mean no timed, zone-specific setback with an owner when the area is actually empty.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Utilities / HVAC lead · Block C + batch supervisor</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹45,000–₹85,000 / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>Validated setback SOP · no free-text set-point changes</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next confirmed idle batch window</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Idle HVAC</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Last 6 idle windows · full duty</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>BATCH.OCCUPANCY</code></td><td>0</td><td>4 / 6 windows</td></tr>
+           <tr><td><code>CHILLER.DUTY</code></td><td>FULL</td><td>same</td></tr>
+           <tr><td><code>ZONE.TEMP_RH</code></td><td>in band</td><td>continuous</td></tr>
+           <tr><td><code>CHILLER.kW</code></td><td>+42 kW vs setback</td><td>per idle hour</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> validated env envelope · last 6 idle windows · energy tariff</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide slide--light" id="scene-rx-10" data-theme="light" aria-label="Prescription 10">
+   <div class="slide__inner slide__inner--wide">
+    <p class="eyebrow reveal">10 · Equipment · pumps</p>
+    <h2 class="reveal">Check CW pump P-12 — valve may be stuck recirculating</h2>
+    <span class="illustrative-badge reveal">Illustrative examples · sample numbers only</span>
+    <p class="hint reveal">Pump working harder than needed for the same flow — a two-hour mechanical check, not a vibration project.</p>
+    <div class="rx-solo">
+     <button type="button" class="rx-flip reveal" data-rx-flip aria-pressed="false" aria-label="Check CW pump P-12 recirc valve. Show evidence.">
+      <div class="rx-flip__inner">
+       <div class="rx-face rx-face--front">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Rx · Pump recirc</span>
+         <span class="rx-priority rx-priority--med">Priority · Med</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-action">Inspect CW pump <strong>P-12</strong> bypass / recirc valve and VFD set-point during next low-load window. Trim or close bypass per skid SOP; keep min-flow protection for critical users.</p>
+         <dl class="rx-fields">
+          <div class="rx-row"><dt>Why</dt><dd>Pump power stayed high for 40+ minutes while header pressure was above set-point and process demand was low — likely open recirc, not more useful flow.</dd></div>
+          <div class="rx-row"><dt>Owner</dt><dd>Area supervisor · pump skid + mechanical maintenance</dd></div>
+          <div class="rx-row"><dt>Impact</dt><dd><strong>₹25,000–₹55,000 / month [illustrative]</strong></dd></div>
+          <div class="rx-row"><dt>Effort</dt><dd>~2 hours mechanical check · no new equipment</dd></div>
+          <div class="rx-row"><dt>Due</dt><dd>Next overpressure window or scheduled maint slot</dd></div>
+         </dl>
+         <p class="rx-flip-cue">Flip for evidence →</p>
+        </div>
+       </div>
+       <div class="rx-face rx-face--back">
+        <div class="rx-hero__head">
+         <span class="rx-badge">Evidence · sample</span>
+         <span class="rx-priority rx-priority--med">Overpressure</span>
+        </div>
+        <div class="rx-hero__body">
+         <p class="rx-ev-title">Overpressure + bypass · 42 min window</p>
+         <div class="rx-ev-table-wrap">
+         <table class="rx-ev-table">
+          <thead><tr><th>Tag</th><th>Value</th><th>Window</th></tr></thead>
+          <tbody>
+           <tr><td><code>P12.HEADER_BAR</code></td><td>high vs set-point</td><td>42 min</td></tr>
+           <tr><td><code>P12.BYPASS</code></td><td>OPEN ~40%</td><td>same</td></tr>
+           <tr><td><code>PROC.DEMAND</code></td><td>low</td><td>same</td></tr>
+           <tr><td><code>P12.kW</code></td><td>+18% vs trimmed</td><td>same</td></tr>
+          </tbody>
+         </table>
+         </div>
+         <p class="rx-cite"><strong>Baseline:</strong> skid matched-flow profile · 30-day pump baseline</p>
+         <p class="rx-mv">M&amp;V · verify with evidence · plan locked at issue</p>
+         <p class="rx-flip-cue">← Back to decision</p>
+        </div>
+       </div>
+      </div>
+     </button>
+    </div>
+   </div>
+  </section>
+
+
+  <!-- Close -->
+  <section class="slide slide--light grid-bg" id="scene-close" data-theme="light" aria-label="How to use">
+   <div class="slide__inner">
+    <p class="eyebrow reveal">How to use with a client</p>
+    <h2 class="reveal">One load example. One that matches their plant.</h2>
+    <p class="lede reveal">Read the talk track aloud. Walk action → Why → Owner → Due, then flip for evidence. You already monitor — Stamped helps decide <strong>what to do next</strong>, checks feasibility, assigns it, and measures the result.</p>
+    <ol class="close-list reveal">
+     <li><strong>Pick two.</strong> One agnostic (MD stagger, ToD warm-up, idle aux, batch chiller) and one vertical or equipment example.</li>
+     <li><strong>Flip the card.</strong> Tags + baseline show why a monthly bill alone cannot issue this in time.</li>
+     <li><strong>Say the caveat.</strong> Figures are samples. A live audit binds tags, tariff, and baseline to <em>their</em> plant.</li>
+    </ol>
+    <p class="meta reveal">Markdown twin · prescriptions-examples.md · stamped.work</p>
+   </div>
+  </section>
+ </main>
+
+ <script>
+  (function () {
+   const slides = Array.from(document.querySelectorAll(".slide"));
+   const total = slides.length;
+   const progressFill = document.getElementById("progressFill");
+   const counter = document.getElementById("sceneCounter");
+   const btnPrev = document.getElementById("btnPrev");
+   const btnNext = document.getElementById("btnNext");
+   const btnBegin = document.getElementById("btnBegin");
+   const dotsNav = document.getElementById("dots");
+   const chromeLogo = document.getElementById("chromeLogo");
+
+   let index = 0;
+   let touchX = null;
+   let touchY = null;
+
+   function onLogoFail(img) {
+    if (chromeLogo) chromeLogo.classList.add("fallback");
+    if (img) img.style.display = "none";
+   }
+   var logoImg = document.getElementById("chromeLogoImg");
+   if (logoImg) {
+    logoImg.addEventListener("error", function () { onLogoFail(logoImg); });
+    if (logoImg.complete && logoImg.naturalWidth === 0) onLogoFail(logoImg);
+   }
+
+   slides.forEach(function (_, i) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "dots__dot" + (i === 0 ? " active" : "");
+    b.setAttribute("aria-label", "Go to slide " + (i + 1));
+    b.addEventListener("click", function () { goTo(i); });
+    dotsNav.appendChild(b);
+   });
+   const dots = Array.from(dotsNav.querySelectorAll(".dots__dot"));
+
+   function pad(n) { return String(n).padStart(2, "0"); }
+
+   function resetRxFlips(root) {
+    if (!root) return;
+    root.querySelectorAll("[data-rx-flip].is-flipped").forEach(function (card) {
+     card.classList.remove("is-flipped");
+     card.setAttribute("aria-pressed", "false");
+     var label = card.getAttribute("aria-label") || "";
+     card.setAttribute("aria-label", label.replace("Hide evidence.", "Show evidence."));
+    });
+   }
+
+   function goTo(i, force) {
+    if (i < 0 || i >= total) return;
+    if (i === index && !force) return;
+
+    const prev = slides[index];
+    if (prev !== slides[i]) {
+     resetRxFlips(prev);
+     prev.classList.remove("active");
+     prev.querySelectorAll(".reveal").forEach(function (el) {
+      el.style.animation = "none";
+      void el.offsetWidth;
+      el.style.animation = "";
+     });
+    }
+
+    index = i;
+    const slide = slides[index];
+    slide.classList.add("active");
+    slide.scrollTop = 0;
+    document.body.setAttribute("data-theme", "light");
+
+    progressFill.style.width = ((index + 1) / total * 100) + "%";
+    counter.textContent = pad(index + 1) + " / " + pad(total);
+
+        dots.forEach(function (d, di) {
+          d.classList.toggle("active", di === index);
+          if (di === index) d.setAttribute("aria-current", "true");
+          else d.removeAttribute("aria-current");
+        });
+
+    btnPrev.disabled = index === 0;
+    btnNext.disabled = index === total - 1;
+   }
+
+   document.querySelectorAll("[data-rx-flip]").forEach(function (card) {
+    card.addEventListener("click", function () {
+     var flipped = card.classList.toggle("is-flipped");
+     card.setAttribute("aria-pressed", flipped ? "true" : "false");
+     var base = (card.getAttribute("aria-label") || "").replace(/\s*(Show|Hide) evidence\./, "");
+     card.setAttribute("aria-label", base + (flipped ? " Hide evidence." : " Show evidence."));
+    });
+   });
+
+   function next() { goTo(Math.min(index + 1, total - 1)); }
+   function prev() { goTo(Math.max(index - 1, 0)); }
+
+   btnPrev.addEventListener("click", prev);
+   btnNext.addEventListener("click", next);
+   if (btnBegin) btnBegin.addEventListener("click", next);
+
+   document.addEventListener("keydown", function (e) {
+    const tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    if (e.target && e.target.isContentEditable) return;
+    if (tag === "BUTTON" && e.target.hasAttribute("data-rx-flip")) {
+     if (e.key === "Escape" && e.target.classList.contains("is-flipped")) {
+      e.preventDefault();
+      e.target.click();
+      return;
+     }
+     if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+      e.preventDefault();
+      next();
+      return;
+     }
+     if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      e.preventDefault();
+      prev();
+      return;
+     }
+     return;
+    }
+    if (tag === "BUTTON") return;
+
+    switch (e.key) {
+     case "ArrowRight":
+     case " ":
+     case "PageDown":
+      e.preventDefault();
+      next();
+      break;
+     case "ArrowLeft":
+     case "PageUp":
+      e.preventDefault();
+      prev();
+      break;
+     case "Home":
+      e.preventDefault();
+      goTo(0);
+      break;
+     case "End":
+      e.preventDefault();
+      goTo(total - 1);
+      break;
+     default:
+      if (e.key >= "1" && e.key <= "9") {
+       const n = parseInt(e.key, 10) - 1;
+       if (n < total) { e.preventDefault(); goTo(n); }
+      }
+    }
+   });
+
+   const stage = document.getElementById("stage");
+   stage.addEventListener("touchstart", function (e) {
+    if (!e.changedTouches || !e.changedTouches[0]) return;
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+   }, { passive: true });
+   stage.addEventListener("touchend", function (e) {
+    if (touchX == null || touchY == null || !e.changedTouches || !e.changedTouches[0]) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    touchX = null;
+    touchY = null;
+    if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) next(); else prev();
+   }, { passive: true });
+
+   function slideIndexFromHash() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id) return -1;
+    return slides.findIndex(function (s) { return s.id === id; });
+   }
+
+   var fromHash = slideIndexFromHash();
+   goTo(fromHash >= 0 ? fromHash : 0, true);
+  })();
+ </script>
+</body>
+</html>
