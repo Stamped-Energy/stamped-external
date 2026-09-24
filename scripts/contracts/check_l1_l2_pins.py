@@ -89,17 +89,11 @@ def main() -> int:
     # compose configs
     for compose in [
         ws / "universal-repositary" / "deploy" / "docker-compose.l2.yml",
-        ws / "Connector - L1" / "connectors-cloud" / "deploy" / "l1-l6-real-l2.yml",
+        ws / "Connector - L1" / "connectors-cloud" / "deploy" / "profiles" / "l1-l6-real-l2.yml",
     ]:
         if not compose.exists():
-            # try alternate names
-            alts = list(compose.parent.glob("*real*l2*.yml")) + list(
-                compose.parent.glob("*l2*.yml")
-            )
-            if not alts:
-                print(f"WARN: compose not found {compose} (checked later in R1)")
-                continue
-            compose = alts[0]
+            print(f"WARN: compose not found {compose} (checked later in R1)")
+            continue
         dc = run(["docker", "compose", "-f", str(compose), "config", "-q"])
         if dc.returncode != 0:
             print(f"FAIL: docker compose config -q {compose.name}: {dc.stderr.strip()}")
