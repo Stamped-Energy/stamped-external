@@ -12,6 +12,7 @@ This folder is the portable technical pack (submodule path `external/technical/`
 | 0 | [`../research/plant-efficiency-exploration-2026-09/AGENT-START.md`](../research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` | Company identity |
 | 1 | [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) | **SSOT** — overall product + technical architecture |
 | 2 | [`../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md) (+ `15`–`18`) | How L1–L6 evolve |
+| 2b | [L1-L2-DATA-PLANE.md](L1-L2-DATA-PLANE.md) | Configure meters, ERP exports, and context into L2; boot/trial proof |
 | — | [`pointers/`](pointers/) | Legacy filenames → redirect to SSOT |
 
 Pre-overhaul layer specs, cross-cutting notes, and citation packs were moved to [`../archive/cleanup-2026-09/technical/`](../archive/cleanup-2026-09/technical/). Prefer SSOT + `14` over archived layer markdown.
