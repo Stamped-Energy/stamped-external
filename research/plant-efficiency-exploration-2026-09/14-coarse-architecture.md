@@ -8,7 +8,7 @@
 
 **Stamped helps plant teams choose, assign, and verify the next operating action across energy, cost, time / throughput, continuity / flow, and short-horizon exceptions.**
 
-The six-layer path stays. L4 is rebuilt into an agent. L5 is the only layer that may carry out an enabled action. Compute cost is not a reason to make the agent smaller.
+The six-layer path stays. L4 is rebuilt into a **proper agentic system** (planning, tools, memory, evaluation — memory is one part, not the whole). L3’s contract floor stays, but its **detection technology direction is open** — we aim to be best-in-class, not to freeze today’s engines. L5 is the only layer that may carry out an enabled action. Compute cost is not a reason to under-build L3 or L4. Hard stops still bind what may touch the plant.
 
 ## What each layer does
 
@@ -16,15 +16,17 @@ The six-layer path stays. L4 is rebuilt into an agent. L5 is the only layer that
 
 **L2 grows a little.** It remains the only database. It stores a constraint registry (scope, owner, expiry, source), who holds a role on a shift, and a condition key: asset, state window, and shift. A named plant owner writes constraints in L6. L2 stores them. L4 only reads them. If no live family reads a relation, it does not get a table.
 
-**L3 keeps its core and grows the finding.** Hot, warm, and cold paths stay. Only an emitted finding with delivery to L4 leaves the lab. The lab never promotes. The calculator owns money. Each finding gains a condition key, a decision-family id, a primary domain taken from that family, evidence-tiered facts, an effect per domain section, and a verification plan. Findings that share a condition key merge before L4, so one idle machine is one case. Effect models that guess a counterfactual stay off until a family needs one. Those effects are Modeled and are not priced by the model.
+**L3 keeps a contract floor and an open tech ceiling.** Hot, warm, and cold paths, dual-lane emit, no database URL, lab never promotes, calculator owns money — those stay. Each finding gains a condition key, a decision-family id, a primary domain taken from that family, evidence-tiered facts, an effect per domain section, and a verification plan. Findings that share a condition key merge before L4. Beyond that floor, L3 is allowed and expected to become far stronger (methods, features, evals, multi-signal detection). That uplift is designed in the L3 repos later; this note does not freeze today’s detector catalog as the ambition.
 
-**L4 is the agent.** The shell that stays is emit, withhold, abstain, a trace on every run, a constraint gate, calculator-owned rupees, and no equipment or master-data write. Inside that shell the old compiler is replaced.
+**L4 is the agentic system.** Not “a long-lived agent plus a memory product.” The system plans, uses allowlisted tools, runs specialist passes, checks the rest of the plant, evaluates honesty, and emits one card proposal. Memory (Hindsight plant bank + dialogue banks) is a subsystem. The shell that stays is emit, withhold, abstain, a trace on every run, a constraint gate, calculator-owned rupees, and no equipment or master-data write. Inside that shell we aim for state-of-the-art agentic engineering.
 
 **L5 owns the live card.** It resolves the person, records the response, verifies, closes, and runs an action only when that class is certified and enabled.
 
 **L6 is the card.** One queue. Domain sections on the card. Honest closes. Constraint editing for a named owner. Autonomy settings, default off.
 
-## L4 memory
+## L4 agentic system (memory is one part)
+
+L4 is a **proper agentic system**: planning / orchestration, specialist passes, allowlisted tools, evaluation and gates, and memory. We keep studying how the best agentic systems are built and raise L4 to that bar. Compute is not a reason to shrink it.
 
 Memory is [Hindsight](https://hindsight.vectorize.io/). Hosting, their cloud or self-host, is decided in the L4 repo.
 
@@ -102,5 +104,5 @@ Alarm dwell, then one handoff or exception, only with a named owner role, a veri
 - Evidence tiers stay Measured, Confirmed, Modeled, Unknown. Wallets stay separate. The calculator owns money.
 - Hard stops are intact.
 - Recommend and assign are the default. An autonomous class is certified, enabled, reversible, and watched.
-- The agent is how the current tech is presented. The company is the closed decision.
+- The agentic system (and strong L3 detection) is how the current tech is presented. The company is the closed decision.
 - No summed savings headline. No claim that Stamped runs the plant.

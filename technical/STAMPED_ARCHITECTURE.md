@@ -17,6 +17,12 @@ This file is the **overall** product + technical architecture. It does not repla
 
 One meaningful condition → **one decision card** → **one owner** → honest closure. Energy is the entry wedge, not the product name and not the category. Recommend and assign by default. Hard stops in ADR-030 and vision `09` stay absolute.
 
+### Tech and innovation bar
+
+The company is the closed decision loop. The **bar for how we build it** is to be among the best at industrial agentic systems and detection science — not a thin wrapper on a chat model, and not a frozen detector catalog. Compute cost is not a reason to under-build L3 or L4. Hard stops still bind what the system may *do* to the plant; they do not cap how ambitious the intelligence inside L3 and L4 may be.
+
+We study state-of-the-art agentic systems (planning, tools, memory, evaluation, selective control) and first-class detection / ML methods, then adopt what raises the quality of the card — without becoming a plant OS or silent controller.
+
 | Dimension | Definition |
 | --- | --- |
 | **Category** | Closed operational decision loop (not EMS / monitoring-only / OpEx suite) |
@@ -69,8 +75,8 @@ On the card these are **sections**, not five queues. Each section that applies h
 | --- | --- | --- |
 | 1 | Ingest | Meters, machine state, production, maintenance context, calendars, structured human input |
 | 2 | Normalize | Join enough to name one condition (condition key) |
-| 3 | Detect | ML models / methods / rules → Finding with verification plan |
-| 4 | Recommend | L4 agent: cross-section check, options, constraints, uncertainty, one owner role |
+| 3 | Detect | L3 intelligence: ML models / methods / rules → Finding with verification plan |
+| 4 | Recommend | L4 **agentic system**: plan, tools, memory, cross-section check, options, constraints, uncertainty, one owner role |
 | 5 | Assign | L5 resolves role → person on shift |
 | 6 | Record | Accept / edit / reject / defer + reason |
 | 7 | Verify | Named evidence; honest closure state |
@@ -86,8 +92,8 @@ Topology is unchanged. Jobs inside L4–L6 are the evolution.
 L0  Plant systems (customer-owned)
 L1  Connect & normalise          → read-only connectors (edge / cloud / bill)
 L2  Universal store              → only layer with the DB; constraints + roster + condition context
-L3  Intelligence core            → Findings (detect); lab never becomes operator work
-L4  Agent & memory               → card proposal; plant bank + dialogue banks; never executes
+L3  Intelligence core            → Findings; detection science open to major uplift
+L4  Agentic system               → full agent stack → card proposal; never executes
 L5  Closure & action             → live card, verify, autonomy policy (default off)
 L6  Experience                   → one card queue, constraint UI, Ask (view over L4)
 ```
@@ -96,9 +102,9 @@ L6  Experience                   → one card queue, constraint UI, Ask (view ov
 flowchart LR
   l1[L1_read_only]
   l2[L2_store_and_constraints]
-  l3[L3_finding_and_merge]
-  l4[L4_agent]
-  mem[Hindsight_banks]
+  l3[L3_intelligence]
+  l4[L4_agentic_system]
+  mem[Hindsight_and_agent_memory]
   l5[L5_live_card]
   l6[L6_card_view]
   l1 --> l2 --> l3 --> l4
@@ -111,8 +117,8 @@ flowchart LR
 | --- | --- | --- |
 | **L1** | Read plant and document signals; add connectors only when a decision family needs them | OT write; plant message-broker of record |
 | **L2** | Canonical store; constraint registry; shift owner resolution; condition key | Give L3–L6 a database URL; become a plant-wide industrial graph |
-| **L3** | Detect conditions; emit Findings; merge same condition_key; verification plan on each Finding | Open L2 SQL; promote Lab to L4; invent ₹ |
-| **L4** | Long-lived agent: memory, cross-section check, card proposal, emit / withhold / abstain | Assign the final person; notify; execute; write equipment or master data |
+| **L3** | Detect conditions; emit Findings; merge same condition_key; verification plan. **Direction open:** push detection, methods, and eval toward best-in-class industrial intelligence — not “keep the old detector list forever” | Open L2 SQL; promote Lab to L4; invent ₹ |
+| **L4** | **Agentic system** that turns a Finding into a card proposal: planning, specialist passes, tools, memory, evaluation, emit / withhold / abstain. Memory is one subsystem, not the whole of L4 | Assign the final person; notify; execute; write equipment or master data |
 | **L5** | Own the live card; resolve person; verify; close; run only certified+enabled autonomy classes | Draft options; invent recommendations; override a withhold |
 | **L6** | Decision product UI: Now queue, card, close, autonomy settings, constraints, Ask | Hold bank keys in the browser; five inboxes; summed ₹ headline |
 
@@ -135,9 +141,22 @@ Closure states (minimum): Open; Assigned; In progress; Closed — verified; Clos
 
 ---
 
-## 6. L4 agent (overall, not implementation)
+## 6. L4 agentic system (overall, not implementation)
 
-L4 is a **complete overhaul** of the old prescription compiler. The shell that stays is emit / withhold / abstain, a trace on every run, a constraint gate, calculator-owned ₹, and no equipment or master-data write.
+L4 is a **complete overhaul** of the old prescription compiler into a **proper agentic system** — not “a long-lived process that happens to have memory.” Memory (including [Hindsight](https://hindsight.vectorize.io/)) is a **subsystem**. The system as a whole plans, uses tools, runs specialist passes, checks the rest of the plant, evaluates whether it can emit honestly, and produces one card proposal. We keep studying how the best agentic systems are built (orchestration, memory hierarchies, tool discipline, evaluation, selective control) and raise L4 to that bar. Compute is not a reason to shrink it.
+
+The shell that stays is emit / withhold / abstain, a trace on every run, a constraint gate, calculator-owned ₹, and no equipment or master-data write. Ambition lives *inside* that shell.
+
+**What “agentic system” means here (coarse)**
+
+| Capability | Role in L4 |
+| --- | --- |
+| Planning / orchestration | Turn a Finding into a bounded option set and a proposal |
+| Specialist passes | Energy, flow, constraints, and similar views — reconcile to **one** card |
+| Tools | Allowlisted typed reads only (below) |
+| Memory | Plant bank + dialogue banks; retain / recall / reflect; observations |
+| Evaluation / gates | Freshness, bind, constraint conflict, cross-section conflict → emit, withhold, or abstain |
+| Decision seams | Closed choices (role, emit terminal, secondary domain, …) may later use a decision model (e.g. Jev) |
 
 **Memory — [Hindsight](https://hindsight.vectorize.io/)**
 
@@ -157,6 +176,14 @@ Self-improvement is **observation consolidation** from short learning facts (fam
 **Owner routing.** Configured roles only: production task → production head; operational task → ops head. L4’s language model chooses the role; L5 resolves the person on shift. That choice is a closed **decision seam** (later replaceable by a decision model such as [Jev](https://jevtypesafeai.com/jev-ai) without changing the card). Seams are reserved; this architecture does not require Jev to be wired yet.
 
 **Ask.** L6 paints the thread; L4 holds the session. Ask does not emit cards, change autonomy, or issue a second prescription. Chat enters the plant bank only via explicit promotion after confirm or verified closure.
+
+---
+
+## 6a. L3 direction — detection that can go much further
+
+Today’s L3 core (scheduler paths, dual-lane emit, Finding contract, no DB URL, calculator-owned money) is the **floor**, not the ceiling. The **direction is open**: we will invest in better detectors, methods, features, evals, and multi-signal condition finding so that what reaches L4 is as sharp as the best industrial intelligence we can field. Lab still never promotes. Rupees still never invent. That is not permission to freeze L3 as “a few energy engines and dark CNC flags.”
+
+Fine design of that uplift belongs in the L3 repos later. This SSOT only locks that **technological excellence in L3 is in scope and encouraged**.
 
 ---
 
@@ -210,7 +237,9 @@ Architecture must (a) detect conditions across domains, (b) assign one owner, (c
 
 ---
 
-## 11. Technology defaults (cost-first for the spine; agent compute is not the constraint)
+## 11. Technology defaults (spine cost-first; L3/L4 intelligence is excellence-first)
+
+The ingest/store spine stays portable and cost-aware. **L3 detection and the L4 agentic system are excellence-first:** we do not under-build them to save tokens or GPU. Compliance and hard stops still apply.
 
 | Concern | Default | Upgrade when |
 | --- | --- | --- |
@@ -219,7 +248,8 @@ Architecture must (a) detect conditions across domains, (b) assign one owner, (c
 | Runtime shape | Modular monoliths per layer repo | Clear satellite boundaries |
 | Deploy modes | `local`, `local-dashboard`, `cloud` ([ADR-010](../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)) | Same contracts in all modes |
 | Edge | Go agent; no OT write on the default path | Plant-accepted earned path only inside hard stops |
-| L4 memory | Hindsight plant + dialogue banks | Hosting chosen in L4 repo |
+| L3 intelligence | Contract + dual-lane floor | Best detection / methods / eval we can field for each decision family |
+| L4 agentic system | Full agent stack; Hindsight as memory subsystem | Hosting + orchestration chosen in L4 repo; study SOTA agent patterns continuously |
 | Decision seams | Language model today; closed answer sets | Optional decision-model (e.g. Jev) later at those seams only |
 
 India compliance by design: CERT-In residency, DPDP — [`../compliance/`](../compliance/).
@@ -234,9 +264,10 @@ India compliance by design: CERT-In residency, DPDP — [`../compliance/`](../co
 | Time / flow / exception | Sections on the same card | APS / logistics SKU / plant OS |
 | Equipment / maintenance | May escalate with evidence | Full CMMS / vibration PdM company |
 | MES / ERP | Read context | Dispatch / WIP / scheduling SoR |
-| L4 agent | Latest-tech for recommend + memory + learn | The company; silent plant control |
+| L4 | **Agentic system** for recommend + plan + tools + memory + learn | The company; silent plant control; “just a chatbot with a vector store” |
+| L3 | Detection science we keep raising | A frozen energy-only detector list |
 | Autonomy | Certified class, default off | Progressive equipment autonomy |
-| Memory | Plant bank + per-conversation dialogue banks | Chat as system of record |
+| Memory | Plant bank + per-conversation dialogue banks (one L4 subsystem) | Chat as system of record; memory as the whole of L4 |
 
 ---
 
