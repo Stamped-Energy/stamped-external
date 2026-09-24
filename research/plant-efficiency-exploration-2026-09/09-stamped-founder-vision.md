@@ -1,33 +1,29 @@
 ﻿# Stamped — founder vision
 
 **Date:** 2026-09-24  
-**Status:** Working company vision we intend to adopt soon. Pilots teach sequencing and first-loop proof — they are not a vote on whether Stamped is energy-only or a general plant platform.
+**Status:** Working company vision. The same note is cut into a plant conversation and a funding conversation. Both describe the same company.
 
 ## 1. Why this note exists
 
 We need one answer to: what company are we building?
 
-Stamped is software that turns plant signals into a specific next step for a person, records the choice, and checks what happened. We start with energy-led plant-efficiency problems, but the product boundary is five decision domains: Energy, Cost, Time / throughput, Continuity / flow, and Exception response.
+Stamped is software that turns plant signals into a specific next step for a person, records the choice, and checks what happened. It covers five decision domains: Energy, Cost, Time / throughput, Continuity / flow, and Exception response. Energy is how the first conversation often opens. It is not the company name and not the product category.
 
-We are not building a full plant operating system, a replacement for MES or APS, or an autonomous controller. We are building a small, repeatable decision loop. A pilot should prove that a real person can use it, act on it, and accept the evidence when the loop closes.
+We are not building a full plant operating system, a replacement for MES or APS, or an autonomous controller. We are building a repeatable decision loop: one card, one owner, an honest close. The first loop is narrow by design. A pilot is the intended first sequence into wider plant coverage, not a vote to become energy-only.
 
-### 1.1 Where Stamped is today — September 2026
-
-This memo describes the product direction, not a claim that the whole product already exists.
-
-- The current work is an applied research and pilot foundation: plant data exploration, decision-family definition, and product-boundary work.
-- The expected data path is practical plant data—meter or utility readings, machine states, production timestamps, calendars, and human input—joined around one decision. A connector is not proof of a shipped, repeatable integration.
-- We can design recommendations, owner assignment, evidence capture, and verification workflows now. We do not yet have a proven, multi-site action library or a validated closure rate to report.
-- The first pilots should test one decision family end to end, not promise all five domains at once.
-- Not built yet: autonomous control, full production planning, master-data replacement, quality release, or a plant-wide digital twin. We also have no honest basis here for claiming revenue, customer count, savings, or retention metrics.
-
-“Adopt soon” means adopt the product point of view now and use pilots to prove the first narrow loop. It does not mean pretend that the whole vision is shipped.
+This note is the source. A plant brief and a funding brief are cut from it. They must not invent a different company.
 
 ## 2. Stamped in one sentence
 
 **Stamped helps plant teams choose, assign, and verify the next operating action across energy, cost, time / throughput, continuity / flow, and short-horizon exceptions.**
 
-For example, it can show that a machine is idle while its extra loads remain on, recommend a safe idle response, assign it to the responsible operator or supervisor, and check the machine state and measured load afterward. The same card can show an energy effect and a recovered machine-minute without pretending they are one savings number.
+For example, it can show that a machine is idle while its extra loads remain on, recommend a safe idle response, assign it to the responsible operator or supervisor, and check the machine state and measured load afterward. The same card can show an energy effect and a recovered machine-minute without pretending they are one savings number. The calculator owns money. Evidence is labeled Measured, Confirmed, Modeled, or Unknown. Modeled does not mean measured.
+
+**Extent.** One card format covers the five domains across the plant, with one primary tag, optional secondary tags, and one owner. Wide coverage, narrow authority. Not five products, not a logistics tool, and not a plant-wide dashboard or operating system.
+
+**Rhythm.** See the operation through systems the plant already runs. Learn how this plant actually works. Put a bounded action with an owner in front of a person. Close the result so it sharpens the next one.
+
+**Intelligence.** ML models and ML methods find conditions and estimate effects. They do not invent a rupee figure. A self-improving agent stack turns a condition into a bounded recommendation — options, constraints, uncertainty, one owner — and gets sharper from closed cards, including rejection and no measurable change. That self-improving agent stack is the latest tech we point to. A production rule still changes only with a named owner’s acceptance.
 
 ## 3. Definitions we will use consistently
 
@@ -63,6 +59,14 @@ A closed action is not automatically a successful action. Zero measured change s
 ### Action kernel
 The **action kernel** is the smallest reusable product loop: ingest the relevant signals, detect a condition, create a decision card, recommend a bounded choice, assign an owner, record the response, and verify closure. Decision templates, evidence rules, role routing, and closure states are part of the kernel. A one-off analysis without that loop is not the product.
 
+### Self-improving
+**Self-improving** means that closed cards sharpen the next recommendation. Verified, no-change, and rejected cards all count as learning events. A production threshold still requires review and acceptance by a named owner.
+
+### Earned run
+An **earned run** is a plant-accepted, reversible, low-risk workflow with a named owner, audit record, watch mode, and rollback. It is an accepted exception to the default of recommendation and assignment.
+
+Allowed examples include suppressing a duplicate notification or opening a review task after a repeated, agreed condition. An earned run cannot reroute a job, switch critical equipment, release quality, or change a customer commitment.
+
 ## 4. The problem
 
 Plants already have meters, machine states, alarms, production counts, shift calendars, work orders, ERP records, spreadsheets, logbooks, and experienced people. The recurring problem is that these signals are not joined to a decision when the decision matters.
@@ -81,6 +85,8 @@ The result is familiar:
 Energy matters, but it is not the company’s identity and a monthly utility bill is not sufficient proof. The outcome types we care about are: energy use and intensity, operating cost, productive machine time, throughput, continuity across handoffs and batches, and response to short-horizon exceptions. They can overlap in one decision, but they are not automatically added into one savings line.
 
 ## 5. What we own: five decision domains
+
+This is the width of the product: one decision card, one primary tag, optional secondary tags, and one owner.
 
 The five domains are product boundaries, not five separate products. They overlap in plant life. They should not create five duplicate queues.
 
@@ -155,7 +161,7 @@ Closure rules apply to every domain: a condition has an owner, a due or review t
 
 Example: Stamped detects extra machine loads running during a confirmed idle period. It recommends an operator check, assigns the operator, and records the expected state change. After the agreed interval, it checks machine state and the relevant load signal. The card becomes `closed — verified`, `closed — no change`, `rejected`, or `blocked / disputed`; it does not claim success merely because the recommendation was sent.
 
-The normal loop is **detect → recommend → assign → act → verify**. Humans decide and execute by default. Rule or threshold changes are proposed to a named owner; nothing production-facing changes without explicit plant acceptance.
+The normal loop is **detect → recommend → assign → act → verify**. Humans decide and execute by default. A closed state is also a learning event: verified, no-change, and rejected cards all sharpen the next recommendation. A production threshold still needs a named owner. An earned run is the exception defined in §8; it is not smuggled into the default loop.
 
 ## 8. Sacred constraints and automation boundary
 
@@ -167,9 +173,11 @@ These are hard stops, not ranking preferences:
 - no silent change to customer priority, promise date, routing, master data, or full dispatch sequence;
 - no recommendation that outranks a known plant constraint merely because a model predicts a benefit.
 
-Low-risk automation, if later approved, means a reversible action with a known owner, a documented plant rule, an audit record, watch mode, and rollback. Examples might include suppressing a duplicate notification or opening a review task after a repeated, agreed condition. It does not mean rerouting a job, switching critical equipment, releasing quality, or changing customer commitments.
+Recommendation and assignment are the default. A plant may accept a boundary for a reversible, low-risk workflow. Inside that boundary, an **earned run** can operate with a named owner, audit record, watch mode, and rollback.
 
-If an automated rule is wrong, the plant can stop it, see what it did, revert the rule, and mark the decision disputed. Until a plant has approved a boundary and evidence shows the rule is reliable, Stamped stays in recommendation and assignment mode.
+Allowed examples include suppressing a duplicate notification or opening a review task after a repeated, agreed condition. Forbidden examples include rerouting a job, switching critical equipment, releasing quality, or changing customer commitments.
+
+If an earned run is wrong, the plant can stop it, see what it did, revert it, and mark the decision disputed. The default remains recommend and assign; earned run is the accepted exception. Earned run never reaches a hard stop.
 
 ## 9. Evidence and proof
 
@@ -188,18 +196,26 @@ The product should show the evidence source beside the result. It should not use
 
 The first screen should help a role answer: what changed, what choice is available, who owns it, and what evidence will close it.
 
+Stamped reads or ingests signals from meters, machine states, plant automation logs, production systems, maintenance context, calendars, spreadsheets, or structured operator input. The default is read and ingest. Those inputs are joined around one condition — enough to name the asset, the state, the shift, and the owner.
+
+ML models and ML methods, with rules where a rule is the right tool, decide whether the condition is worth a card and what kind of effect is estimated. They do not invent a rupee figure. Evidence stays Measured, Confirmed, Modeled, or Unknown.
+
+The self-improving agent stack turns that condition into a bounded recommendation: options, constraints, uncertainty, and one owner. It learns from closed cards — verified, no change, and rejected. That stack is how we present the current generation of the tech. A production rule still needs named-owner acceptance.
+
+Assignment, the person’s response, and verification close the card. Notification or task creation is allowed when the destination and owner are clear. Write-back is human-confirmed, narrow, allow-listed, and auditable by default. An earned run (§8) is the only exception: one named low-risk action type inside a plant-accepted boundary. It is not general control of the plant.
+
 The action kernel is:
 
-1. **Ingest** relevant signals from meters, machine states, plant automation logs, production systems, maintenance work orders, calendars, spreadsheets, or structured operator input.
+1. **Ingest** relevant signals.
 2. **Normalize** assets, states, jobs, batches, shifts, and owners enough to connect one operating condition.
-3. **Detect** a condition that may justify action.
-4. **Recommend** a bounded choice with constraints, tradeoffs, and uncertainty.
+3. **Detect** a condition that may justify action (ML models, ML methods, and rules where they fit).
+4. **Recommend** a bounded choice with constraints, tradeoffs, and uncertainty (agent stack).
 5. **Assign** the next action to one accountable role.
 6. **Record** accept, edit, reject, defer, and reason codes.
 7. **Verify** against a named signal or human confirmation.
 8. **Propose learning** from closed actions. A threshold or template change requires named-owner review and explicit plant acceptance.
 
-Default integration posture is ingest and read. Notification or task creation is allowed when the destination and owner are clear. Human-confirmed write-back may be earned for a narrow, allow-listed exception workflow. Stamped never silently writes master data, full priorities, quality release, or critical controls.
+This path — from signal to closed action across the five domains — is the product. It is not a single energy detector and not a logistics module. Stamped never silently writes master data, full priorities, quality release, or critical controls.
 
 ## 11. Who it is for
 
@@ -208,6 +224,8 @@ Stamped is for a manufacturer with recurring operational friction, enough observ
 An illustrative beachhead is an India mid-market discrete manufacturer with a visible utility or constraint problem, existing machine or production data, and a single plant willing to run a narrow pilot. This is a hypothesis, not a permanent geography lock.
 
 The first account should have a recurring decision, a named owner, a practical verification source, and enough repetition for evidence to accumulate. A buyer seeking a generic dashboard, autonomous operator, or full ERP/MES/APS/QMS/CMMS replacement is outside the first wedge.
+
+The same note is what we cut a plant conversation from and what we cut a funding conversation from. Energy wins the first conversation; the company is the five-domain loop.
 
 ### Business model and GTM — working hypothesis
 
@@ -223,12 +241,18 @@ Pricing is TBD. The wedge hypothesis is a paid, narrowly scoped site pilot or so
 - **Not agentic ERP, MES, APS, QMS, or CMMS.** We integrate with systems that own those records; we do not silently replace them.
 - **Not a plant-wide digitalization or digital-twin services firm.** We do not promise to model everything or implement every department before one decision loop repeats.
 - **Not a default CapEx sensor play.** Hardware serves a proven product decision only when existing data cannot support it and the economics justify the burden.
+- **Not an operational-excellence suite.** Operational excellence is the plant’s program, not Stamped’s category.
+- **Not an agent operating system.** The agent stack supports the product; it is not the company.
+- **Not a plant-wide AI that owns judgment or control.** People in the plant decide. Stamped puts the next action in front of the right one.
+- **Not a replacement system of record.** Existing plant systems retain ownership of their records.
+- **Not a sensing-pod company.** Sensors serve a proven decision where existing data is insufficient.
+- **Not a silent-control product.** Earned runs are allowed only inside an accepted boundary; silent control is not.
 
 ## 13. Build order: energy-led entry, five-domain vision
 
-We talk to the market through an energy-led entry because it is concrete, measurable, and often opens a practical first data path. We build toward the five-domain decision boundary because plants do not experience energy, time, cost, flow, and exceptions as five isolated departments.
+The first loop of the vision is energy-led because energy is concrete, measurable, and often opens a practical first data path. The product boundary is the five-domain decision loop because plants do not experience energy, time, cost, flow, and exceptions as five isolated departments.
 
-Pilot 1 should prove the action kernel, not all five domains.
+Pilot 1 proves the action kernel, not all five domains at once.
 
 ### Pilot 1 contract
 
@@ -257,7 +281,7 @@ Process means methods, recipes, work instructions, and document or process freez
 It is deferred, not silently included in this product. The current company focus is operational decisions and closure. We will not let a pilot create a dual-product narrative or pull the core team into document management before the kernel is proven.
 
 ### Is Stamped still an energy company?
-Energy is the entry wedge and one owned decision domain. The product identity is the five-domain decision loop. We should be able to start with idle load or demand decisions and then prove a machine-minute, flow, cost, or exception decision without changing the core product.
+Energy is the entry wedge and one owned decision domain. The product identity is the five-domain decision loop. The product name is Stamped. We should be able to start with idle load or demand decisions and then prove a machine-minute, flow, cost, or exception decision without changing the core product.
 
 ### How is Stamped different from MES, APS, and energy point solutions?
 
@@ -271,13 +295,31 @@ Energy is the entry wedge and one owned decision domain. The product identity is
 Infinite Uptime is a predictive-maintenance and machine-health category example; Stamped may use maintenance evidence but asks what operating response should happen next across the five domains. Greenovative and similar energy-AI products are energy-category examples; Stamped must distinguish itself by assigning and verifying an operating action rather than stopping at an energy finding. These are category comparisons, not claims about another company’s exact implementation.
 
 ### What do we read and write?
-The default is read and ingest. We may notify or create a task. Write-back is human-confirmed, narrow, allow-listed, and auditable. Stamped never silently changes master data, the full dispatch list, customer priority or promise dates, quality status, or critical controls.
+The default is read and ingest. We may notify or create a task. Write-back is human-confirmed, narrow, allow-listed, and auditable. An earned run (§8) is the only plant-accepted exception for a named low-risk action type. Stamped never silently changes master data, the full dispatch list, customer priority or promise dates, quality status, or critical controls.
 
 ### Is holding a job the same as planning?
 No. A short operating hold for one batch or step can be an exception response when an authorized role chooses it and the card has a clear verification path. It is not month-ahead planning. It is never a quality hold release or conformance decision.
 
-### What is low-risk automation?
-Only an approved, reversible rule with a named owner, watch mode, audit trail, and rollback. Duplicate-alert suppression or opening a review task may qualify after proof. Rerouting a job, changing a customer date, releasing quality, authorizing maintenance, or controlling critical equipment does not.
+### What is low-risk automation / an earned run?
+An earned run is an approved, reversible, low-risk workflow with a named owner, watch mode, audit trail, and rollback. Suppressing a duplicate notification or opening a review task may qualify after proof. Rerouting a job, changing a customer date, releasing quality, authorizing maintenance, or controlling critical equipment does not.
+
+### Is the agent stack the company?
+No. The agent stack is how we present the current generation of the tech that supports recommendation and learning from closed cards. The company is the five-domain decision loop and the closed action it records. ML models and ML methods are also part of the intelligence.
+
+### Are we an operational-excellence platform?
+No. Operational excellence is the plant’s program, not Stamped’s category. Stamped owns a bounded decision and closure workflow that a plant can use inside that program.
+
+### What may run without a person pressing go each time?
+Only an earned run inside a plant-accepted boundary. It must be reversible, low-risk, owned, audited, watched, and rollback-ready. Duplicate-alert suppression or opening a review task may qualify. Plant control, quality release, maintenance authorization, customer commitment changes, and critical-equipment switching do not.
+
+### How is this not another layer that only recommends?
+Stamped owns the closed action, not infinite recommendation-only behavior. It routes one decision to one owner, records what happened, checks the evidence, and learns from verified, no-change, and rejected outcomes. The plant still decides and executes by default. An earned run is a fenced exception, not a replacement for that default.
+
+### How is this not a system that runs the plant?
+The hard stops remain in force. Stamped does not make automatic safety decisions, control critical equipment, release quality, authorize maintenance, rewrite dispatch or customer commitments, or outrank known plant constraints. An earned run is a fenced exception, not plant control.
+
+### Are we a logistics product?
+No. Stamped can address continuity, handoffs, batches, queues, and short-horizon exceptions when they form part of an operating decision. It is not logistics-only and does not become a dispatch or full planning system.
 
 ### What if the recommendation is wrong or the data is offline?
 The plant can reject, edit, defer, or mark a card blocked or disputed. Stamped must show the stale or missing source, avoid false verification, and preserve the reason. A wrong recommendation is a product signal; it is not silently converted into a success.
@@ -312,7 +354,14 @@ Before building, ask:
 - Does it preserve safety, quality, maintenance, and customer-commitment boundaries?
 - Can it become a reusable decision family rather than custom consulting?
 - Does it work with the plant’s existing systems without silently replacing them?
+- Will the closed result make the next recommendation sharper, and does it stay inside the hard stops?
 
 Do not build when the feature is only a dashboard, a generic alert, an unsupported savings claim, an autonomous critical action, a full-planning feature, a new pillar, or a request with no owner and no verification path.
 
 The founder test is: **what decision is Stamped helping the plant make, who acts, what evidence closes it, and what will Stamped refuse to change?**
+
+## 16. What to lift
+
+**Plant cut.** Stamped puts the next operating action in front of one named owner. One card covers Energy, Cost, Time / throughput, Continuity / flow, or a short-horizon exception. The card shows the condition, the bounded choice, the constraints, the uncertainty, and the evidence that will close it. The plant can accept, edit, reject, defer, or verify. An idle-load card recommends a safe idle response, assigns the operator or supervisor, and checks machine state and measured load afterward; it does not add an energy effect and a machine-minute into one savings number. Stamped does not make automatic safety decisions or send remote commands to critical equipment; does not release quality holds, sign off conformance, or give metallurgical or process acceptance; does not authorize maintenance or bypass a lockout; does not silently change customer priority, promise date, routing, master data, or the full dispatch sequence; and does not outrank a known plant constraint because a model predicts a benefit.
+
+**Funding cut.** Stamped turns plant signals into one next operating action with one named owner and a reading that closes it. ML models and ML methods find conditions and estimate effects; they do not own money. The self-improving agent stack is how we present the current generation of the tech; it sharpens options, constraints, and the next recommendation from closed cards, including rejection and no measurable change. The loop is scored by honest closure, not by recommendations issued. Stamped sits on systems the plant already runs. It recommends, assigns, records, and verifies. It does not run the plant. A production rule changes only when a named plant owner accepts it.
