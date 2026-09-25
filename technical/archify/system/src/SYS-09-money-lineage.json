@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Evidence and money lineage",
+    "viewBox": [
+      1080,
+      640
+    ],
+    "views": [
+      {
+        "id": "modeled",
+        "label": "Modeled estimate",
+        "focus": [
+          "tel",
+          "calc",
+          "find"
+        ],
+        "note": "Telemetry + tariff in L2; L3 calculator_ref only source of \u20b9 estimate on Finding (Modeled tier)."
+      },
+      {
+        "id": "realised",
+        "label": "Realised ledger",
+        "focus": [
+          "card",
+          "l5",
+          "ledger"
+        ],
+        "note": "L5 appends realised row on ops_confirmed; L6 sanitizes claim status."
+      }
+    ],
+    "output": "SYS-09-money-lineage.html"
+  },
+  "stages": [
+    {
+      "label": "Evidence"
+    },
+    {
+      "label": "Model"
+    },
+    {
+      "label": "Decision"
+    },
+    {
+      "label": "Realise"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "tel",
+      "type": "database",
+      "label": "Telemetry",
+      "sublabel": "BUILT \u00b7 L2",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "tar",
+      "type": "database",
+      "label": "Tariff",
+      "sublabel": "BUILT \u00b7 L2",
+      "stage": 0,
+      "row": 1
+    },
+    {
+      "id": "calc",
+      "type": "backend",
+      "label": "L3 calculator",
+      "sublabel": "BUILT \u00b7 ref only",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "find",
+      "type": "database",
+      "label": "Finding estimate",
+      "sublabel": "Modeled tier",
+      "stage": 1,
+      "row": 1
+    },
+    {
+      "id": "l4",
+      "type": "backend",
+      "label": "L4 card",
+      "sublabel": "cites ref",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "card",
+      "type": "frontend",
+      "label": "Live card",
+      "sublabel": "PARTIAL",
+      "stage": 2,
+      "row": 1
+    },
+    {
+      "id": "l5",
+      "type": "security",
+      "label": "L5 M&V",
+      "sublabel": "BUILT \u00b7 worker",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "ledger",
+      "type": "database",
+      "label": "Ledger append",
+      "sublabel": "BUILT \u00b7 only writer",
+      "stage": 3,
+      "row": 1
+    }
+  ],
+  "flows": [
+    {
+      "from": "tel",
+      "to": "calc",
+      "label": "features",
+      "route": "vertical-channel",
+      "labelAt": [
+        160,
+        220
+      ]
+    },
+    {
+      "from": "tar",
+      "to": "calc",
+      "label": "tariff",
+      "route": "vertical-channel",
+      "labelAt": [
+        240,
+        300
+      ]
+    },
+    {
+      "from": "calc",
+      "to": "find",
+      "label": "calculator_ref",
+      "route": "vertical-channel",
+      "labelAt": [
+        400,
+        314
+      ]
+    },
+    {
+      "from": "find",
+      "to": "l4",
+      "label": "cites ref",
+      "route": "vertical-channel",
+      "labelAt": [
+        480,
+        124
+      ]
+    },
+    {
+      "from": "l4",
+      "to": "card",
+      "label": "proposal",
+      "route": "vertical-channel",
+      "labelAt": [
+        600,
+        330
+      ]
+    },
+    {
+      "from": "card",
+      "to": "l5",
+      "label": "ops act",
+      "route": "vertical-channel",
+      "labelAt": [
+        820,
+        220
+      ]
+    },
+    {
+      "from": "l5",
+      "to": "ledger",
+      "label": "realised row",
+      "route": "vertical-channel",
+      "labelAt": [
+        800,
+        320
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Evidence tiers",
+      "items": [
+        "Measured \u00b7 Confirmed \u00b7 Modeled \u00b7 Unknown",
+        "No rupee figures on this diagram; only \u20b90 verified honesty"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Life of one plant condition",
+    "viewBox": [
+      1068,
+      580
+    ],
+    "views": [
+      {
+        "id": "finding",
+        "label": "Finding rail",
+        "focus": [
+          "cand",
+          "emit",
+          "proposal"
+        ],
+        "note": "L3: candidate \u2192 emitted or lab_only; certification shadow fails closed."
+      },
+      {
+        "id": "case-card",
+        "label": "Case to card",
+        "focus": [
+          "proposal",
+          "live",
+          "cleared"
+        ],
+        "note": "L4 DecisionCase \u2192 immutable proposal; live card hop DESIGNED."
+      }
+    ],
+    "output": "SYS-06-condition-lifecycle.html"
+  },
+  "lanes": [
+    {
+      "id": "main",
+      "label": "Cross-layer states"
+    }
+  ],
+  "states": [
+    {
+      "id": "cand",
+      "type": "start",
+      "label": "Candidate",
+      "sublabel": "L3 shadow",
+      "lane": "main",
+      "col": 0,
+      "step": "01",
+      "tag": "PARTIAL"
+    },
+    {
+      "id": "emit",
+      "type": "active",
+      "label": "Emitted",
+      "sublabel": "Finding l4",
+      "lane": "main",
+      "col": 1,
+      "step": "02",
+      "tag": "BUILT"
+    },
+    {
+      "id": "proposal",
+      "type": "success",
+      "label": "Proposal",
+      "sublabel": "L4 immutable",
+      "lane": "main",
+      "col": 2,
+      "step": "03",
+      "tag": "BUILT"
+    },
+    {
+      "id": "live",
+      "type": "waiting",
+      "label": "Live card",
+      "sublabel": "DESIGNED hop",
+      "lane": "main",
+      "col": 3,
+      "step": "04",
+      "tag": "DESIGNED"
+    },
+    {
+      "id": "cleared",
+      "type": "success",
+      "label": "ops_confirmed",
+      "sublabel": "ledger append",
+      "lane": "main",
+      "col": 4,
+      "step": "05",
+      "tag": "BUILT"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "cand",
+      "to": "emit"
+    },
+    {
+      "from": "emit",
+      "to": "proposal"
+    },
+    {
+      "from": "proposal",
+      "to": "live",
+      "variant": "dashed"
+    },
+    {
+      "from": "live",
+      "to": "cleared"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Honesty",
+      "items": [
+        "No integration is live at any customer plant. Verified savings to date: \u20b90.",
+        "Gaps drawn as dashed hops; see index gaps table"
+      ]
+    }
+  ]
+}
