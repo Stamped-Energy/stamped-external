@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Runtime: data batch to decision",
+    "viewBox": [
+      1000,
+      480
+    ],
+    "animation": "trace",
+    "views": [
+      {
+        "id": "edge-cloud",
+        "label": "Edge to cloud",
+        "focus": [
+          "edge",
+          "cloud",
+          "l2"
+        ],
+        "note": "Trigger: PLC poll. Edge buffers SQLite \u2192 MQTT QoS1 \u2192 cloud ingest dedupes \u2192 outbox."
+      },
+      {
+        "id": "detect",
+        "label": "Detection",
+        "focus": [
+          "l3",
+          "l2",
+          "l3o"
+        ],
+        "note": "L5 perception or CLI starts run; scheduler BUILT not deployed; L3 reads L2, emits Finding."
+      },
+      {
+        "id": "decide",
+        "label": "Decision",
+        "focus": [
+          "l4",
+          "l5"
+        ],
+        "note": "L4 inbox \u2192 runtime \u2192 CardSink stub; POST /cards DESIGNED."
+      }
+    ],
+    "output": "SYS-02-data-batch-runtime.html"
+  },
+  "participants": [
+    {
+      "id": "edge",
+      "type": "external",
+      "label": "edge-agent",
+      "sublabel": "BUILT \u00b7 L1"
+    },
+    {
+      "id": "cloud",
+      "type": "cloud",
+      "label": "L1 cloud",
+      "sublabel": "PARTIAL \u00b7 MQTT"
+    },
+    {
+      "id": "l2",
+      "type": "database",
+      "label": "L2 ingest",
+      "sublabel": "BUILT \u00b7 TS"
+    },
+    {
+      "id": "l3",
+      "type": "backend",
+      "label": "L3 detect",
+      "sublabel": "PARTIAL \u00b7 run"
+    },
+    {
+      "id": "l3o",
+      "type": "messagebus",
+      "label": "L3 outbox",
+      "sublabel": "BUILT \u00b7 relay"
+    },
+    {
+      "id": "l4",
+      "type": "backend",
+      "label": "L4 runtime",
+      "sublabel": "BUILT \u00b7 stages"
+    },
+    {
+      "id": "l5",
+      "type": "security",
+      "label": "L5 /cards",
+      "sublabel": "DESIGNED \u00b7 sink"
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 240,
+      "label": "L1 uplink"
+    },
+    {
+      "from": 250,
+      "to": 320,
+      "label": "L3 detect"
+    },
+    {
+      "from": 330,
+      "to": 400,
+      "label": "L4 decide"
+    }
+  ],
+  "messages": [
+    {
+      "from": "edge",
+      "to": "cloud",
+      "y": 180,
+      "label": "publish batch"
+    },
+    {
+      "from": "cloud",
+      "to": "l2",
+      "y": 220,
+      "label": "relay ingest"
+    },
+    {
+      "from": "l3",
+      "to": "l2",
+      "y": 260,
+      "label": "read window"
+    },
+    {
+      "from": "l3",
+      "to": "l3o",
+      "y": 300,
+      "label": "Finding out"
+    },
+    {
+      "from": "l3o",
+      "to": "l4",
+      "y": 340,
+      "label": "/v1/jobs/inbox"
+    },
+    {
+      "from": "l4",
+      "to": "l5",
+      "y": 380,
+      "label": "POST /cards",
+      "variant": "dashed"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "edge",
+      "from": 172,
+      "to": 228,
+      "type": "external"
+    },
+    {
+      "participant": "cloud",
+      "from": 212,
+      "to": 232,
+      "type": "cloud"
+    },
+    {
+      "participant": "l3",
+      "from": 252,
+      "to": 312,
+      "type": "backend"
+    },
+    {
+      "participant": "l4",
+      "from": 332,
+      "to": 388,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Honesty",
+      "items": [
+        "No integration is live at any customer plant. Verified savings to date: \u20b90.",
+        "Gaps drawn as dashed hops; see index gaps table"
+      ]
+    }
+  ]
+}

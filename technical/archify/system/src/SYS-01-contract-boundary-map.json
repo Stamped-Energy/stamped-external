@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Contract & boundary map",
+    "viewBox": [
+      1080,
+      640
+    ],
+    "views": [
+      {
+        "id": "l1-l2",
+        "label": "L1 \u2192 L2",
+        "focus": [
+          "l1",
+          "env",
+          "l2"
+        ],
+        "note": "Trigger: MQTT batch. Envelope + telemetry/context/bill schemas cross into L2 ingest (telemetry classification)."
+      },
+      {
+        "id": "l3-l4",
+        "label": "L3 \u2192 L4",
+        "focus": [
+          "l3",
+          "find",
+          "l4"
+        ],
+        "note": "Finding 1.2.0/2.0.0 and l3-methods OpenAPI; card-proposal to L5 is DESIGNED (dashed)."
+      }
+    ],
+    "output": "SYS-01-contract-boundary-map.html"
+  },
+  "stages": [
+    {
+      "label": "L1 Connect"
+    },
+    {
+      "label": "L2 Store"
+    },
+    {
+      "label": "L3 Findings"
+    },
+    {
+      "label": "L4 Decide"
+    },
+    {
+      "label": "L5\u2013L6"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "l1",
+      "type": "external",
+      "label": "L1",
+      "sublabel": "PARTIAL \u00b7 publish",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "env",
+      "type": "database",
+      "label": "envelope",
+      "sublabel": "BUILT \u00b7 wrap",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "l2",
+      "type": "backend",
+      "label": "L2 ingest",
+      "sublabel": "BUILT \u00b7 /v1/ingest",
+      "stage": 1,
+      "row": 1
+    },
+    {
+      "id": "l3",
+      "type": "backend",
+      "label": "L3 core",
+      "sublabel": "PARTIAL \u00b7 Finding",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "find",
+      "type": "database",
+      "label": "Finding 1.2.0",
+      "sublabel": "BUILT \u00b7 schema",
+      "stage": 2,
+      "row": 1
+    },
+    {
+      "id": "l4",
+      "type": "backend",
+      "label": "L4 runtime",
+      "sublabel": "PARTIAL \u00b7 inbox",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "card",
+      "type": "database",
+      "label": "card-proposal",
+      "sublabel": "DESIGNED \u00b7 Rx",
+      "stage": 3,
+      "row": 1
+    },
+    {
+      "id": "l5",
+      "type": "security",
+      "label": "L5 workflow",
+      "sublabel": "PARTIAL \u00b7 closure",
+      "stage": 4,
+      "row": 0
+    },
+    {
+      "id": "l6",
+      "type": "frontend",
+      "label": "L6 BFF",
+      "sublabel": "PARTIAL \u00b7 poll",
+      "stage": 4,
+      "row": 1
+    }
+  ],
+  "flows": [
+    {
+      "from": "l1",
+      "to": "env",
+      "label": "telemetry",
+      "route": "vertical-channel",
+      "labelAt": [
+        120,
+        200
+      ]
+    },
+    {
+      "from": "env",
+      "to": "l2",
+      "label": "ingest records",
+      "route": "vertical-channel",
+      "labelAt": [
+        280,
+        314
+      ]
+    },
+    {
+      "from": "l2",
+      "to": "l3",
+      "label": "query-api",
+      "route": "vertical-channel",
+      "labelAt": [
+        440,
+        200
+      ]
+    },
+    {
+      "from": "l3",
+      "to": "find",
+      "label": "emit 1.2.0",
+      "route": "vertical-channel",
+      "labelAt": [
+        560,
+        314
+      ]
+    },
+    {
+      "from": "find",
+      "to": "l4",
+      "label": "inbox",
+      "route": "vertical-channel",
+      "labelAt": [
+        700,
+        124
+      ]
+    },
+    {
+      "from": "l4",
+      "to": "card",
+      "label": "proposal",
+      "route": "vertical-channel",
+      "variant": "dashed",
+      "labelAt": [
+        840,
+        314
+      ]
+    },
+    {
+      "from": "card",
+      "to": "l5",
+      "label": "Rx ingest",
+      "route": "vertical-channel",
+      "variant": "dashed",
+      "labelAt": [
+        920,
+        124
+      ]
+    },
+    {
+      "from": "l5",
+      "to": "l6",
+      "label": "HMAC",
+      "route": "vertical-channel",
+      "variant": "dashed",
+      "labelAt": [
+        1000,
+        310
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Authority",
+      "items": [
+        "contracts/ CHANGELOG owns schema@version",
+        "prescription 1.0.0 deprecated; closure + ledger active"
+      ]
+    }
+  ]
+}

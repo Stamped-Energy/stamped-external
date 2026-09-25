@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Stamped end-to-end map",
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "viewBox": [1346, 520],
+    "repository": {
+      "url": "https://github.com/Stamped-Energy/stamped-external",
+      "revision": "a4c91bc286099e0cb0d3db124932994df045ac94"
+    },
+    "legend": { "mode": "hidden" },
+    "views": [
+      {
+        "id": "data-in",
+        "label": "Data in",
+        "focus": ["l0", "l1", "l2", "contracts"],
+        "note": "Trigger: plant reading. L1 wraps envelope → MQTT/HTTP → L2 ingest; contracts define every hop."
+      },
+      {
+        "id": "detect",
+        "label": "Detect",
+        "focus": ["l2", "l3", "contracts"],
+        "note": "Trigger: detection run. L3 reads L2, emits Finding 1.2.0; rulepacks + evals gate quality."
+      },
+      {
+        "id": "decide",
+        "label": "Decide",
+        "focus": ["l3", "l4", "l5", "contracts"],
+        "note": "Trigger: emitted Finding. L4 runtime stages → card proposal; L5 ingest of live cards is DESIGNED."
+      },
+      {
+        "id": "close",
+        "label": "Close",
+        "focus": ["l5", "l6", "contracts"],
+        "note": "Trigger: owner acts. L5 workflow + M&V → ledger; L6 polls L5 (webhook DESIGNED)."
+      }
+    ],
+    "output": "SYS-00-stamped-end-to-end.html"
+  },
+  "components": [
+    {
+      "id": "l0",
+      "type": "external",
+      "label": "L0 Plant",
+      "sublabel": "PARTIAL · OT meters",
+      "tag": "PARTIAL",
+      "pos": [24, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "technical/STAMPED_ARCHITECTURE.md", "line": 1, "label": "L0 scope" }]
+    },
+    {
+      "id": "l1",
+      "type": "cloud",
+      "label": "L1 Connect",
+      "sublabel": "PARTIAL · edge+cloud",
+      "tag": "PARTIAL",
+      "pos": [198, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "technical/L1-L2-DATA-PLANE.md", "line": 1, "label": "L1 plane" }]
+    },
+    {
+      "id": "l2",
+      "type": "database",
+      "label": "L2 Store",
+      "sublabel": "BUILT · Timescale",
+      "tag": "BUILT",
+      "pos": [372, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "decisions/006-010/ADR-009-stamped-l2-repo-charter.md", "line": 1, "label": "L2 charter" }]
+    },
+    {
+      "id": "l3",
+      "type": "backend",
+      "label": "L3 Findings",
+      "sublabel": "PARTIAL · scheduler",
+      "tag": "PARTIAL",
+      "pos": [546, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "contracts/schemas/finding.json", "line": 1, "label": "Finding" }]
+    },
+    {
+      "id": "l4",
+      "type": "backend",
+      "label": "L4 Decisions",
+      "sublabel": "PARTIAL · stub sink",
+      "tag": "PARTIAL",
+      "pos": [720, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "decisions/033-039/ADR-033-l4-decision-runtime.md", "line": 1, "label": "ADR-033" }]
+    },
+    {
+      "id": "l5",
+      "type": "security",
+      "label": "L5 Closure",
+      "sublabel": "PARTIAL · no /cards",
+      "tag": "PARTIAL",
+      "pos": [894, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "decisions/020-023/ADR-020-l5-mv-claim-governance.md", "line": 1, "label": "ADR-020" }]
+    },
+    {
+      "id": "l6",
+      "type": "frontend",
+      "label": "L6 Control room",
+      "sublabel": "PARTIAL · poll L5",
+      "tag": "PARTIAL",
+      "pos": [1068, 200],
+      "size": [150, 68],
+      "sources": [{ "path": "decisions/020-023/ADR-022-l6-bff-runtime-boundary.md", "line": 1, "label": "ADR-022" }]
+    },
+    {
+      "id": "contracts",
+      "type": "security",
+      "label": "Contracts SSOT",
+      "sublabel": "BUILT · stamped-ext",
+      "tag": "BUILT",
+      "pos": [546, 368],
+      "size": [190, 72],
+      "sources": [{ "path": "contracts/README.md", "line": 1, "label": "catalog" }]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Stamped cloud (L1–L6 services)",
+      "wraps": ["l1", "l2", "l3", "l4", "l5", "l6"],
+      "pad": 12
+    }
+  ],
+  "connections": [
+    { "id": "l0-l1", "from": "l0", "to": "l1", "label": "MQTT stamped/v1", "labelAt": [140, 168] },
+    { "id": "l1-l2", "from": "l1", "to": "l2", "label": "envelope ingest", "labelAt": [304, 168] },
+    { "id": "l2-l3", "from": "l2", "to": "l3", "label": "query-api reads", "labelAt": [468, 168] },
+    { "id": "l3-l4", "from": "l3", "to": "l4", "label": "Finding 1.2.0", "labelAt": [632, 168] },
+    {
+      "id": "l4-l5",
+      "from": "l4",
+      "to": "l5",
+      "label": "card proposal",
+      "variant": "dashed",
+      "labelAt": [796, 168]
+    },
+    { "id": "l5-l6", "from": "l5", "to": "l6", "label": "closure + ledger", "labelAt": [960, 168] },
+    {
+      "id": "c-l2",
+      "from": "contracts",
+      "to": "l2",
+      "label": "schemas",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelAt": [480, 332]
+    },
+    {
+      "id": "c-l4",
+      "from": "contracts",
+      "to": "l4",
+      "label": "L4 tools",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelAt": [820, 332]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "L1E@332ec0d · L1C@d63ee46 · L2@6c8d454 · L3C@5c74aee · L4@d1887ee · L5@88fe58f · L6@82df09e",
+        "BUILT/PARTIAL from pinned manifests; dashed = DESIGNED cross-layer edge",
+        "ADR-030 five-domain loop: detect → recommend → assign → act → verify"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Honesty",
+      "items": [
+        "No integration is live at any customer plant. Verified savings to date: ₹0.",
+        "L4 HttpCardSink targets POST /cards; L5 has prescription ingest only (gap card SYS-02)"
+      ]
+    }
+  ]
+}
