@@ -1,0 +1,38 @@
+{
+  "schema_version": "2.0.0",
+  "finding_id": "finding-blocked-starved-1",
+  "org_id": "org-demo",
+  "plant_id": "plant-demo",
+  "detector_id": "l3.continuity.blocked_starved",
+  "detector_version": "1",
+  "decision_family_id": "blocked_starved",
+  "domain": "continuity",
+  "condition_key": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "assets": ["cell-b"],
+  "facts": [
+    {
+      "name": "episode",
+      "value": "starved",
+      "tier": "measured",
+      "source": "flow_position"
+    }
+  ],
+  "effects": [
+    {
+      "method_id": "l3.calculator.v1",
+      "tier": "modeled",
+      "unit": "inr",
+      "quantity": 12.5,
+      "calculator_ref": "l3.calculator.v1:l2:tariff-demo"
+    }
+  ],
+  "verification_plan": {
+    "status": "ready",
+    "signals": ["flow_position"],
+    "horizon": "PT2H",
+    "expect": "queue depth recovers inside the window"
+  },
+  "constraint_refs_considered": [],
+  "lane": "shadow",
+  "dedupe_key": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

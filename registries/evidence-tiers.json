@@ -1,0 +1,13 @@
+{
+  "tiers": ["measured", "confirmed", "modeled", "unknown"],
+  "source_kind": {
+    "meter": "measured",
+    "machine_state": "measured",
+    "timestamp": "measured",
+    "production": "measured",
+    "operator": "confirmed",
+    "model": "modeled",
+    "assumption": "modeled",
+    "calculator": "modeled"
+  }
+}

@@ -4,6 +4,9 @@
 
 ### Added
 
+- Contracts **0.15.0**: Finding **2.0.0** (`finding-2.0.0.json`) with detector identity, condition key, family, tiered facts, calculator-referenced effects, and a verification plan. Finding **1.2.0** is unchanged.
+- Registries pack `registries/` (domains, families, evidence tiers, condition-key recipe, lockfile) shared by L3 and L4.
+- L3 methods OpenAPI: `contracts/openapi/l3-methods.openapi.json`
 - Contracts **0.14.0** (ADR-031): L1 context records — `asset_state`, `process_batch`, `flow_position`, `maintenance_context`, `quality_status`, `material_availability`, `operating_rate`, `plant_constraint`; pack schema; `tools/l2-query-tools.json`
 - Envelope `record_type` enum extended additively (shape and `schema_version` 1.0.0 unchanged)
 - MQTT `orders` and `context` topics with wrapper and dedupe strings

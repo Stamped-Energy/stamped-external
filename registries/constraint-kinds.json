@@ -1,0 +1,3 @@
+{
+  "kinds": ["hard_stop", "capacity", "quality_hold", "maintenance_window"]
+}

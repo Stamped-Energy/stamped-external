@@ -1,0 +1,11 @@
+{
+  "lockfile_id": "registries-2026.09.25",
+  "entries": {
+    "domains": "domains.json",
+    "families": "families.json",
+    "patterns": "patterns.json",
+    "constraint_kinds": "constraint-kinds.json",
+    "evidence_tiers": "evidence-tiers.json",
+    "condition_key": "condition-key.json"
+  }
+}

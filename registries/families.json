@@ -1,0 +1,34 @@
+{
+  "families": {
+    "aux_on_idle": {
+      "domain": "energy",
+      "secondary": ["time"],
+      "suppresses": []
+    },
+    "blocked_starved": {
+      "domain": "continuity",
+      "secondary": ["time"],
+      "suppresses": []
+    },
+    "material_gated_idle": {
+      "domain": "exception",
+      "secondary": ["energy", "time"],
+      "suppresses": ["aux_on_idle"]
+    },
+    "running_on_hold": {
+      "domain": "exception",
+      "secondary": ["energy"],
+      "suppresses": []
+    },
+    "maintenance_peak": {
+      "domain": "cost",
+      "secondary": ["energy"],
+      "suppresses": []
+    },
+    "cycle_changepoint": {
+      "domain": "time",
+      "secondary": [],
+      "suppresses": []
+    }
+  }
+}

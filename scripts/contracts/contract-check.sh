@@ -64,6 +64,7 @@ fixture_by_name = _prefer_nested(fixture_files)
 pairs = {
     "bill_line.valid.json": "bill-line.json",
     "finding.valid.json": "finding.json",
+    "finding-2.0.valid.json": "finding-2.0.0.json",
     "prescription.valid.json": "prescription.json",
     "ledger_entry.valid.json": "ledger-entry.json",
     "ledger_entry_opportunity_cost.valid.json": "ledger-entry.json",

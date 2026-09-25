@@ -1,0 +1,9 @@
+{
+  "id": "condition_key.v1",
+  "fields": ["plant_id", "family_id", "assets", "window_start"],
+  "asset_order": "sorted_unique",
+  "separator": "|",
+  "asset_separator": ",",
+  "digest": "sha256",
+  "prefix": "sha256:"
+}
