@@ -3,7 +3,7 @@
   "repo": "Stamped-Energy/stamped-external",
   "base_sha": "a4c91bc286099e0cb0d3db124932994df045ac94",
   "branch": "cursor/archify-architecture-8fe4",
-  "pr_url": null,
+  "pr_url": "https://github.com/Stamped-Energy/stamped-external/pull/77",
   "pr_state": "draft",
   "archify": {
     "commit": "9e35d2b0b39b155553ba9fcfe0b4f2a5198dd993",
