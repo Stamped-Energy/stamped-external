@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/opportunity-ledger-row.v1.json",
+  "title": "OpportunityLedgerRow",
+  "description": "L4-internal row for every candidate that did not become a normal card (ADR-038). Hard-gate rows are audit-only (never backlog / explore). Soft-gate rows may enter the owner backlog. See technical/l4/22-missed-opportunities.md.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ledger_entry_id",
+    "plant_id",
+    "decision_case_id",
+    "gate_id",
+    "gate_class",
+    "block_terminal",
+    "origin",
+    "lockfile_hash",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "ledger_entry_id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "decision_case_id": { "type": "string", "minLength": 1 },
+    "psm_snapshot_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "As-known-at PSM snapshot at block time"
+    },
+    "condition_key": { "type": "string", "minLength": 1 },
+    "gate_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical ids in technical/l4/00-kernel.md §11 (plus token_budget_required_proof)"
+    },
+    "gate_class": {
+      "type": "string",
+      "enum": ["hard", "soft"]
+    },
+    "gate_threshold": {
+      "type": ["number", "string", "null"],
+      "description": "Threshold then in force; null for hard gates"
+    },
+    "gate_value": {
+      "type": ["number", "string", "boolean", "null"],
+      "description": "Candidate measured value against the gate"
+    },
+    "block_terminal": {
+      "type": "string",
+      "enum": ["withhold", "abstain", "hold", "shadow"],
+      "description": "hold = portfolio hold (L4 store). shadow = uncertified / hypothesis-fail path."
+    },
+    "origin": {
+      "type": "string",
+      "enum": ["l3_finding", "l4_pattern", "l4_hypothesis", "portfolio"]
+    },
+    "candidate_snapshot": {
+      "type": "object",
+      "description": "Winning or full candidate set at block time: claims, citations, footprint, priced effects, seam records"
+    },
+    "ledger_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Evidence ledger hash at block time"
+    },
+    "lockfile_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Release pin at block time"
+    },
+    "later_outcome": {
+      "type": "object",
+      "description": "Join slot filled as evidence arrives",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "none_yet",
+            "persistence",
+            "later_card",
+            "owner_promoted",
+            "owner_dismissed",
+            "explored"
+          ]
+        },
+        "detail": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

@@ -86,6 +86,10 @@ pairs = {
     "l4_compile_trace.valid.json": "l4-compile-trace.json",
     "action_intent.valid.json": "action-intent.json",
     "machine_capability.valid.json": "machine-capability.json",
+    "decision_case.valid.json": "decision-case.json",
+    "decision_trace.valid.json": "decision-trace.json",
+    "card_proposal.valid.json": "card-proposal.json",
+    "opportunity_ledger_row.valid.json": "opportunity-ledger-row.json",
 }
 for fixture, schema_name in pairs.items():
     fp, sp = fixture_by_name.get(fixture), schema_by_name.get(schema_name)
@@ -95,6 +99,28 @@ for fixture, schema_name in pairs.items():
         with open(fp) as f:
             data = json.load(f)
         jsonschema.validate(instance=data, schema=schema)
+
+invalid_pairs = {
+    "decision_case.invalid.json": "decision-case.json",
+    "decision_trace.invalid.json": "decision-trace.json",
+    "card_proposal.invalid.json": "card-proposal.json",
+    "opportunity_ledger_row.invalid.json": "opportunity-ledger-row.json",
+}
+for fixture, schema_name in invalid_pairs.items():
+    fp, sp = fixture_by_name.get(fixture), schema_by_name.get(schema_name)
+    if fp is None or sp is None:
+        print(f"contract-check: missing invalid pair {fixture} / {schema_name}", file=sys.stderr)
+        sys.exit(1)
+    with open(sp) as f:
+        schema = json.load(f)
+    with open(fp) as f:
+        data = json.load(f)
+    try:
+        jsonschema.validate(instance=data, schema=schema)
+    except jsonschema.ValidationError:
+        continue
+    print(f"contract-check: expected {fixture} to fail {schema_name}", file=sys.stderr)
+    sys.exit(1)
 
 print(f"contract-check: OK ({len(schema_by_name)} schemas, {len(fixture_by_name)} fixtures)")
 PY

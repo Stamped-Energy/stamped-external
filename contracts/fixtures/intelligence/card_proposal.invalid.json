@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "cp-bad",
+  "org_id": "org_acme",
+  "plant_id": "plant_ghaziabad_1",
+  "decision_case_id": "dc-bad",
+  "decision_trace_id": "dt-bad",
+  "condition_key": "ck:bad",
+  "emit_idempotency_key": "bad",
+  "origin": "l3_finding",
+  "exploration": false,
+  "primary_domain_id": "dom.energy_cost",
+  "owner_role": "utilities_lead",
+  "footprint": {
+    "asset_ids": ["incomer_1"]
+  },
+  "evidence_refs": ["ev-1"],
+  "calculator_refs": [],
+  "verification_plan": {
+    "measurement_boundary": "incomer_1",
+    "signal_refs": ["incomer_1/apparent_power_kva"],
+    "window": "PT30M"
+  },
+  "lockfile_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "build_sha": "deadbeef",
+  "operation": "supersede"
+}
