@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/decision-case.v1.json",
+  "title": "DecisionCase",
+  "description": "L4 durable run unit (ADR-033 / ADR-040). One intake + snapshot + obligations + candidates + terminal. Kernel pin is l4-kernel.v1. See technical/l4/26-decision-case-lifecycle.md.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decision_case_id",
+    "org_id",
+    "plant_id",
+    "lockfile_hash",
+    "kernel_version",
+    "correlation_id",
+    "origin",
+    "state",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "decision_case_id": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "lockfile_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Release lockfile pin for the whole case — never mid-case flip"
+    },
+    "kernel_version": {
+      "type": "string",
+      "const": "l4-kernel.v1"
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Joins queue → ports → trace → CardSink"
+    },
+    "origin": {
+      "type": "string",
+      "enum": ["l3_finding", "l4_pattern", "l4_hypothesis", "portfolio"]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "leased",
+        "running",
+        "awaiting_ports",
+        "retry_wait",
+        "terminalizing",
+        "terminal",
+        "held",
+        "cancelled",
+        "timed_out",
+        "failed_infra"
+      ]
+    },
+    "condition_key": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Shared one-card identity; present when the key function has enough material"
+    },
+    "finding_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Required conceptually when origin=l3_finding"
+    },
+    "pattern_ref": { "type": "string", "minLength": 1 },
+    "hypothesis_type_id": { "type": "string", "minLength": 1 },
+    "detector_id": { "type": "string", "minLength": 1 },
+    "detector_version": { "type": "string", "minLength": 1 },
+    "decision_family_id": { "type": "string", "minLength": 1 },
+    "primary_domain_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Domain registry id — kernel never lists domain names"
+    },
+    "psm_snapshot_id": { "type": "string", "minLength": 1 },
+    "decision_trace_id": { "type": "string", "minLength": 1 },
+    "card_proposal_id": { "type": "string", "minLength": 1 },
+    "emit_idempotency_key": { "type": "string", "minLength": 1 },
+    "terminal": {
+      "type": "string",
+      "enum": ["emit", "supersede", "withhold", "abstain"],
+      "description": "Set when state=terminal. Portfolio hold is not a terminal."
+    },
+    "terminal_reason": { "type": "string", "minLength": 1 },
+    "gate_id": { "type": "string", "minLength": 1 },
+    "lease_owner": { "type": "string", "minLength": 1 },
+    "lease_until": { "type": "string", "format": "date-time" },
+    "attempt": { "type": "integer", "minimum": 0 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

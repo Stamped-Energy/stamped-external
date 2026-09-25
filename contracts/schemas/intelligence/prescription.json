@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://stamped.energy/schemas/prescription.v1.json",
   "title": "Prescription",
-  "description": "L4 → L5 actionable prescription intake. status here is intake/lifecycle at handoff — L5 runtime closure states (verified, disputed, …) live on WorkflowEvent/WorkflowState (ADR-019). Optional decision_class + tradeoff for holistic management Rx (ADR-024). See technical/layers/L5-closure-and-verification.md §2–3.",
+  "description": "DEPRECATED for new L4 emits — prefer card-proposal.v1 (dual-read retained). L4 → L5 actionable prescription intake. status here is intake/lifecycle at handoff — L5 runtime closure states (verified, disputed, …) live on WorkflowEvent/WorkflowState (ADR-019). Optional decision_class + tradeoff for holistic management Rx (ADR-024). See technical/layers/L5-closure-and-verification.md §2–3.",
   "type": "object",
   "required": [
     "schema_version",

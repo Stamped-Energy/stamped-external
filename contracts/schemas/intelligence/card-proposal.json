@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stamped.energy/schemas/card-proposal.v1.json",
+  "title": "CardProposal",
+  "description": "L4 → L5 emit/supersede payload (replaces Prescription for the decision runtime). One owned card per condition_key. Hold never appears on this interface. See technical/l4/18-contract-deltas.md.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "org_id",
+    "plant_id",
+    "decision_case_id",
+    "decision_trace_id",
+    "condition_key",
+    "emit_idempotency_key",
+    "origin",
+    "primary_domain_id",
+    "owner_role",
+    "footprint",
+    "evidence_refs",
+    "calculator_refs",
+    "verification_plan",
+    "lockfile_hash",
+    "build_sha",
+    "operation",
+    "exploration"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "const": "1.0.0"
+    },
+    "proposal_id": { "type": "string", "minLength": 1 },
+    "proposal_version": { "type": "string", "minLength": 1 },
+    "org_id": { "type": "string", "minLength": 1 },
+    "plant_id": { "type": "string", "minLength": 1 },
+    "decision_case_id": { "type": "string", "minLength": 1 },
+    "decision_trace_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Link to the full DecisionTrace in the L4 store"
+    },
+    "condition_key": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Shared key function — one card per key"
+    },
+    "emit_idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "description": "CardSink idempotency: decision_case_id + operation + proposal_content_hash"
+    },
+    "origin": {
+      "type": "string",
+      "enum": ["l3_finding", "l4_pattern", "l4_hypothesis"],
+      "description": "Never exploration — that is the orthogonal exploration flag"
+    },
+    "exploration": {
+      "type": "boolean",
+      "description": "true only for opt-in exploration cards (ADR-038). Default false."
+    },
+    "primary_domain_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Domain registry id (kernel never lists domain names)"
+    },
+    "owner_role": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Assigned role from the configured set — L4 does not name a person"
+    },
+    "footprint": {
+      "type": "object",
+      "required": ["asset_ids"],
+      "properties": {
+        "asset_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "shared_resource_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "crew_role": { "type": "string", "minLength": 1 },
+        "material": { "type": "string", "minLength": 1 },
+        "time_window": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 interval"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Evidence ledger row ids cited by the card"
+    },
+    "calculator_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "L3 calculator references for every priced effect. Empty only when the card has no priced claim."
+    },
+    "verification_plan": {
+      "type": "object",
+      "description": "May only narrow the Finding / L3-built plan (same boundary, equal or tighter bounds)",
+      "required": ["measurement_boundary", "signal_refs", "window"],
+      "properties": {
+        "measurement_boundary": { "type": "string", "minLength": 1 },
+        "signal_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 interval or duration"
+        },
+        "success_predicate": { "type": "string", "minLength": 1 },
+        "method_options": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "lockfile_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Replay pin (doc-18 lockfile_id)"
+    },
+    "build_sha": {
+      "type": "string",
+      "minLength": 1,
+      "description": "L4 service build identity at emit"
+    },
+    "operation": {
+      "type": "string",
+      "enum": ["emit", "supersede"]
+    },
+    "supersedes": {
+      "type": "object",
+      "description": "Required when operation=supersede. Prior L4 proposal that is not yet owner-accepted.",
+      "required": ["proposal_id"],
+      "properties": {
+        "proposal_id": { "type": "string", "minLength": 1 },
+        "proposal_version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "finding_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Set when origin=l3_finding"
+    },
+    "pattern_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Set when origin=l4_pattern"
+    },
+    "hypothesis_type_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Set when origin=l4_hypothesis"
+    },
+    "recommended_action": {
+      "type": "object",
+      "properties": {
+        "template_id": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "alternatives": {
+      "type": "array",
+      "maxItems": 2,
+      "description": "At most two; one alternative is always no action",
+      "items": {
+        "type": "object",
+        "required": ["kind"],
+        "properties": {
+          "kind": { "type": "string", "enum": ["no_action", "alternate"] },
+          "template_id": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "operation": { "const": "supersede" } },
+        "required": ["operation"]
+      },
+      "then": { "required": ["supersedes"] }
+    },
+    {
+      "if": {
+        "properties": { "origin": { "const": "l3_finding" } },
+        "required": ["origin"]
+      },
+      "then": { "required": ["finding_refs"] }
+    },
+    {
+      "if": {
+        "properties": { "origin": { "const": "l4_pattern" } },
+        "required": ["origin"]
+      },
+      "then": { "required": ["pattern_ref"] }
+    },
+    {
+      "if": {
+        "properties": { "origin": { "const": "l4_hypothesis" } },
+        "required": ["origin"]
+      },
+      "then": { "required": ["hypothesis_type_id"] }
+    }
+  ]
+}
