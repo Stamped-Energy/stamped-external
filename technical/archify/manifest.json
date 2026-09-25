@@ -1,0 +1,516 @@
+{
+  "node": "S1",
+  "repo": "Stamped-Energy/stamped-external",
+  "base_sha": "a4c91bc286099e0cb0d3db124932994df045ac94",
+  "branch": "cursor/archify-system-20d9",
+  "pr_url": null,
+  "archify": {
+    "commit": "9e35d2b0b39b155553ba9fcfe0b4f2a5198dd993",
+    "version": "2.17.0-dev.1"
+  },
+  "diagrams": [
+    {
+      "id": "SYS-00",
+      "type": "architecture",
+      "title": "Stamped end-to-end map",
+      "question": "What are the layers of Stamped and how does plant data become a decision card?",
+      "file": "SYS-00-stamped-end-to-end.html",
+      "spec": "src/SYS-00-stamped-end-to-end.json",
+      "status_counts": {
+        "BUILT": 2,
+        "PARTIAL": 6,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "f290231840779d8b77387c01e75c001fc22eed0557469bba2a91bd4fb942c876",
+      "artifact_sha256": "ef56e0c7c91f293143a72fe9e2148458250d452f11680c1f1e15126b94bf2039"
+    },
+    {
+      "id": "SYS-01",
+      "type": "dataflow",
+      "title": "Contract & boundary map",
+      "question": "Which contracts (schema@version) cross each layer boundary, and who owns them?",
+      "file": "SYS-01-contract-boundary-map.html",
+      "spec": "src/SYS-01-contract-boundary-map.json",
+      "status_counts": {
+        "BUILT": 3,
+        "PARTIAL": 5,
+        "DESIGNED": 1,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "6b900ab531c3b3057bf09d90d1fb905be033581df783086d75e194aa63aada5d",
+      "artifact_sha256": "ddea90225a10da0010c65e40f89419d2f04d86e6d0b29cf25f4019ff37a12796"
+    },
+    {
+      "id": "SYS-02",
+      "type": "sequence",
+      "title": "Runtime: data batch to decision",
+      "question": "When a machine reading is taken, what runs until a card proposal exists?",
+      "file": "SYS-02-data-batch-runtime.html",
+      "spec": "src/SYS-02-data-batch-runtime.json",
+      "status_counts": {
+        "BUILT": 4,
+        "PARTIAL": 2,
+        "DESIGNED": 1,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "0beff9fd5d17be9ca7d50e66daa11afdf57fd68c957cb4e5f15f4cf94ce76428",
+      "artifact_sha256": "4384f4b8041ccde74aa9e05f06706be55afa27557459ded0e38821e53640e7d7"
+    },
+    {
+      "id": "SYS-03",
+      "type": "sequence",
+      "title": "Runtime: Ask analyst question",
+      "question": "When someone types a question in the control room, what happens until an answer appears?",
+      "file": "SYS-03-ask-runtime.html",
+      "spec": "src/SYS-03-ask-runtime.json",
+      "status_counts": {
+        "BUILT": 4,
+        "PARTIAL": 2,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "9e16e045bfb5553d920bbc66adcde006c4246ff2b47c6b1391128116bc4a7158",
+      "artifact_sha256": "12554d31977f381e6ede4c18a58dca985178f9a25df0a74386495d7d118fa83d"
+    },
+    {
+      "id": "SYS-04",
+      "type": "sequence",
+      "title": "Runtime: card closure and M&V",
+      "question": "After an owner marks a card done, how does Stamped decide whether savings are real?",
+      "file": "SYS-04-closure-mv-runtime.html",
+      "spec": "src/SYS-04-closure-mv-runtime.json",
+      "status_counts": {
+        "BUILT": 5,
+        "PARTIAL": 1,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "bad7f18e317b5d1082c867792afffceb935a988542d77cba5e34377f20332597",
+      "artifact_sha256": "973e91998fe6cc36b40b86a2449544cc6bdaa7e9d095091ce6b47a3143eeb9a7"
+    },
+    {
+      "id": "SYS-05",
+      "type": "workflow",
+      "title": "Operating loop across layers",
+      "question": "Which layer owns each step of the product loop and where are the human gates?",
+      "file": "SYS-05-operating-loop.html",
+      "spec": "src/SYS-05-operating-loop.json",
+      "status_counts": {
+        "BUILT": 4,
+        "PARTIAL": 2,
+        "DESIGNED": 1,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "6e01c05f742f64508d2e5d5424da059b99a089c9a20246fa131b28bc4bace81c",
+      "artifact_sha256": "f60b9df9602586d500cc53f0533424bed3757ce19fca4214ed14db7a43d5f187"
+    },
+    {
+      "id": "SYS-06",
+      "type": "lifecycle",
+      "title": "Life of one plant condition",
+      "question": "What states does a single issue pass through across layers, and who owns each state?",
+      "file": "SYS-06-condition-lifecycle.html",
+      "spec": "src/SYS-06-condition-lifecycle.json",
+      "status_counts": {
+        "BUILT": 3,
+        "PARTIAL": 1,
+        "DESIGNED": 1,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "81b37cc2057828be74b81f584c6fd03e36f66929b6c8a4326e2671de4358a3e3",
+      "artifact_sha256": "aed3ba57043bbd402804aabd742ec7664d5f7fabcfeb1561cad39785cec8375f"
+    },
+    {
+      "id": "SYS-07",
+      "type": "architecture",
+      "title": "Deployment and trust boundaries",
+      "question": "Where does each component run, which networks are separated, and where do secrets stay?",
+      "file": "SYS-07-deployment-trust.html",
+      "spec": "src/SYS-07-deployment-trust.json",
+      "status_counts": {
+        "BUILT": 4,
+        "PARTIAL": 3,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "eef9716a9bfca15bf0c557a388d2924229a348de8b75a1b0783e5273fb15bf0a",
+      "artifact_sha256": "92a60ad1b9bb0fdbf0a1aa214bab6b4b56575e40512037950013a4a78c5b4e14"
+    },
+    {
+      "id": "SYS-08",
+      "type": "architecture",
+      "title": "Built vs designed status map",
+      "question": "Which parts exist in code today, which are only designed, and what is not live?",
+      "file": "SYS-08-built-vs-designed.html",
+      "spec": "src/SYS-08-built-vs-designed.json",
+      "status_counts": {
+        "BUILT": 3,
+        "PARTIAL": 3,
+        "DESIGNED": 2,
+        "DEFERRED": 1
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "d50a8555871b71cbec00b94d482d653b0b97e0ab3728dbfe71fffeac373c689e",
+      "artifact_sha256": "c16982c2afe3b0151c4f85f8489cd98e9ca5b82b24cf28db4829dc8b426e6b8e"
+    },
+    {
+      "id": "SYS-09",
+      "type": "dataflow",
+      "title": "Evidence and money lineage",
+      "question": "Where does a rupee figure come from, and which steps may create or change it?",
+      "file": "SYS-09-money-lineage.html",
+      "spec": "src/SYS-09-money-lineage.json",
+      "status_counts": {
+        "BUILT": 5,
+        "PARTIAL": 1,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok",
+      "spec_sha256": "81d5aa2636389b0980f1d97fbf613305c7e684366d4b16e8f84dc31e0f98021a",
+      "artifact_sha256": "b73e7f0e6647fdaa164cb3df333aec968076c8643f512d6c29d12364acebbcf7"
+    }
+  ],
+  "repos": {
+    "L1E": {
+      "repo": "Stamped-Energy/connectors-edge",
+      "base_sha": "332ec0d311485cccce4b7881f5f994f1cb77bc6a",
+      "pr_url": "https://github.com/Stamped-Energy/connectors-edge/pull/28",
+      "diagram_count": 5
+    },
+    "L1C": {
+      "repo": "Stamped-Energy/connectors-cloud",
+      "base_sha": "d63ee4662adffb7f62a96b7ce00d693e7e980a6d",
+      "pr_url": "https://github.com/Stamped-Energy/connectors-cloud/pull/15",
+      "diagram_count": 5
+    },
+    "L1B": {
+      "repo": "Stamped-Energy/connectors-bill",
+      "base_sha": "fd2b16870e348686ba86104727f6065e5ab87474",
+      "pr_url": "https://github.com/Stamped-Energy/connectors-bill/pull/18",
+      "diagram_count": 4
+    },
+    "L2": {
+      "repo": "Stamped-Energy/universal-repositary",
+      "base_sha": "6c8d4543d5c705a306b01c66a50e2eccf21a565a",
+      "pr_url": "https://github.com/Stamped-Energy/universal-repositary/pull/34",
+      "diagram_count": 7
+    },
+    "L3C": {
+      "repo": "Stamped-Energy/intelligence-core",
+      "base_sha": "5c74aee4ffaa0984bf2b84086612c8ee3cbb6d8a",
+      "pr_url": "https://github.com/Stamped-Energy/intelligence-core/pull/40",
+      "diagram_count": 10
+    },
+    "L3R": {
+      "repo": "Stamped-Energy/intelligence-rulepacks",
+      "base_sha": "19f76b999ec2b2192abd4ff82dd087ea96f2e2a1",
+      "pr_url": "https://github.com/Stamped-Energy/intelligence-rulepacks/pull/19",
+      "diagram_count": 4
+    },
+    "L3E": {
+      "repo": "Stamped-Energy/intelligence-evals",
+      "base_sha": "263fd91104c3f994f33e1b0919033391ae0b9cf0",
+      "pr_url": "https://github.com/Stamped-Energy/intelligence-evals/pull/18",
+      "diagram_count": 4
+    },
+    "L4": {
+      "repo": "Stamped-Energy/knowledge-reasoning",
+      "base_sha": "d1887ee5788bb56039c6f02fb1497fb390d57a9c",
+      "pr_url": "https://github.com/Stamped-Energy/knowledge-reasoning/pull/21",
+      "diagram_count": 12
+    },
+    "L5": {
+      "repo": "Stamped-Energy/closure-verification",
+      "base_sha": "88fe58f2aecce54690b60d70b7a8f0e1b535cb12",
+      "pr_url": "https://github.com/Stamped-Energy/closure-verification/pull/15",
+      "diagram_count": 8
+    },
+    "L6": {
+      "repo": "Stamped-Energy/experience-integration",
+      "base_sha": "82df09ee87eb67b2e177f5d085dc83c171d85830",
+      "pr_url": "https://github.com/Stamped-Energy/experience-integration/pull/27",
+      "diagram_count": 8
+    },
+    "EXT": {
+      "repo": "Stamped-Energy/stamped-external",
+      "base_sha": "a4c91bc286099e0cb0d3db124932994df045ac94",
+      "pr_url": "https://github.com/Stamped-Energy/stamped-external/pull/77",
+      "diagram_count": 5
+    },
+    "DAP": {
+      "repo": "Stamped-Energy/data-analysis-package-1",
+      "base_sha": "f91772f6366412614f690d29304f1ca0b7e9c461",
+      "pr_url": "https://github.com/Stamped-Energy/data-analysis-package-1/pull/3",
+      "diagram_count": 3
+    }
+  },
+  "glossary_terms": 61,
+  "gaps": [
+    {
+      "id": "G-new-prune",
+      "summary": "Docs claim automatic prune by retention_hours; agent never calls PruneBefore",
+      "evidence": "packages/edge-agent/internal/buffer/sqlite.go:158",
+      "layer": "L1E"
+    },
+    {
+      "id": "G-new-expiry",
+      "summary": "Pending buffer rows are not expired at ~72h in agent code",
+      "evidence": "packages/edge-agent/internal/uplink/mqtt.go:132-145",
+      "layer": "L1E"
+    },
+    {
+      "id": "G-context-live",
+      "summary": "context-agent BUILT on main; no live customer IT source",
+      "evidence": "docs/EXTENSIVE.md:36-40",
+      "layer": "L1E"
+    },
+    {
+      "id": "G-new",
+      "summary": "Dual transport dedupe via Redis is stub-only when TRANSPORT_DEDUPE_REDIS_URL is set",
+      "evidence": "packages/ingest/ingest/dedupe/transport_store.py:22",
+      "layer": "L1C"
+    },
+    {
+      "id": "G-new",
+      "summary": "RELAY_TRANSPORT=kafka publisher is not implemented (http only)",
+      "evidence": "packages/relay/relay/publisher.py:27",
+      "layer": "L1C"
+    },
+    {
+      "id": "G-new",
+      "summary": "layer-interfaces dual dedupe implies Redis path; P0 uses business dedupe in Postgres only",
+      "evidence": "docs/architecture/layer-interfaces.md:31",
+      "layer": "L1C"
+    },
+    {
+      "id": "G1",
+      "summary": "No extracted/validated/mismatch DB enums; review + metadata.recompute + line flags",
+      "evidence": "packages/api/models.py:24-29",
+      "layer": "L1B"
+    },
+    {
+      "id": "G2",
+      "summary": "Auto-publish when recompute passes and publisher configured",
+      "evidence": "packages/api/services.py:218-222",
+      "layer": "L1B"
+    },
+    {
+      "id": "G3",
+      "summary": "Tariff orders not MQTT-published in P0",
+      "evidence": "packages/api/services.py:546",
+      "layer": "L1B"
+    },
+    {
+      "id": "G1",
+      "summary": "graph/traverse exposed on query-api but omitted from L4 agent-tools catalog",
+      "evidence": "packages/query-api/main.py:299",
+      "layer": "L2"
+    },
+    {
+      "id": "G2",
+      "summary": "SEC features table filled by seed, not continuous rollup job",
+      "evidence": "packages/seed/sql_loader.py:242",
+      "layer": "L2"
+    },
+    {
+      "id": "G3",
+      "summary": "Seed toolkit SQL/HTTP modes break against current contracts",
+      "evidence": "AGENTS.md Cursor Cloud section",
+      "layer": "L2"
+    },
+    {
+      "id": "G4",
+      "summary": "graph/baselines/ledger not reachable via ingest envelopes",
+      "evidence": "packages/ingest/routers/store.py:356",
+      "layer": "L2"
+    },
+    {
+      "id": "G5",
+      "summary": "PathScheduler built but not started by deploy",
+      "evidence": "deploy/docker-compose.yml:8-50",
+      "layer": "L3C"
+    },
+    {
+      "id": "G8093",
+      "summary": "Docs/port 8093 vs code default 8094",
+      "evidence": "src/stamped_l3_core/api/app.py:120-121",
+      "layer": "L3C"
+    },
+    {
+      "id": "new",
+      "summary": "Agentic run_pipeline not wired into execute_detection_run",
+      "evidence": "src/stamped_l3_core/detection_runs.py:306",
+      "layer": "L3C"
+    },
+    {
+      "id": "new",
+      "summary": "Hot path _emit uses suppression not g14/precision/PSI per row",
+      "evidence": "src/stamped_l3_core/scheduler.py:237-238",
+      "layer": "L3C"
+    },
+    {
+      "id": "G6",
+      "summary": "README two-pillar value_domain vs ADR-030 five domains",
+      "evidence": "README.md:16",
+      "layer": "L3R"
+    },
+    {
+      "id": "new-1",
+      "summary": "README stale pack/rule counts 11/42 vs catalog 14/46",
+      "evidence": "schemas/catalog_index.json:3-4",
+      "layer": "L3R"
+    },
+    {
+      "id": "new-2",
+      "summary": "YAML load_all_packs documented; consumer scaffold JSON-only load_rulepack",
+      "evidence": "docs/HANDOFF_CORE_YAML_LOADER.md:9",
+      "layer": "L3R"
+    },
+    {
+      "id": "new-3",
+      "summary": "Catalog goldens at incomer 1.1.0; scaffold lab_export still 1.0.0 cites",
+      "evidence": "fixtures/golden/golden_md_exceedance_risk.json:4",
+      "layer": "L3R"
+    },
+    {
+      "id": "G1",
+      "summary": "L3 layer doc cites precision \u22650.85 by P2; fleet gate uses 0.75",
+      "evidence": "config/gates.yaml:3",
+      "layer": "L3E"
+    },
+    {
+      "id": "G2",
+      "summary": "Default runtime is offline goldens; CORE_LAB_URL live attach optional",
+      "evidence": "README.md:48-56",
+      "layer": "L3E"
+    },
+    {
+      "id": "G3",
+      "summary": "Champion/promotion helpers are observation-only, not L4 promote",
+      "evidence": "src/stamped_l3_eval/champion.py:38",
+      "layer": "L3E"
+    },
+    {
+      "id": "G1",
+      "summary": "Hindsight memory banks designed only",
+      "evidence": "docs/planning/AUD1_INTENDED_VS_IMPLEMENTED.md",
+      "layer": "L4"
+    },
+    {
+      "id": "G2",
+      "summary": "Docs forbid graph traverse; code has traverse_graph tool",
+      "evidence": "src/stamped_l4/analyst/tools.py:94",
+      "layer": "L4"
+    },
+    {
+      "id": "G4",
+      "summary": "HttpCardSink POST /cards; L5 consumer not in this repo",
+      "evidence": "src/stamped_l4/runtime/sinks/http.py:34",
+      "layer": "L4"
+    },
+    {
+      "id": "G8",
+      "summary": "SqlCaseStore exists but default path in-memory",
+      "evidence": "src/stamped_l4/db/runtime_store.py:85",
+      "layer": "L4"
+    },
+    {
+      "id": "G9",
+      "summary": "Archived SSOT layer doc still describes LangGraph compiler",
+      "evidence": "external/archive/cleanup-2026-09/technical/layers/l4-l6/L4-knowledge-and-reasoning.md",
+      "layer": "L4"
+    },
+    {
+      "id": "new",
+      "summary": "Ask ReAct retired; analyst routes return 503",
+      "evidence": "src/stamped_l4/analyst/graph.py:20",
+      "layer": "L4"
+    },
+    {
+      "id": "G3",
+      "summary": "SSOT eight closure states vs code ten WorkflowState values",
+      "evidence": "packages/domain/stamped_l5_domain/workflow/__init__.py:36-61",
+      "layer": "L5"
+    },
+    {
+      "id": "G4",
+      "summary": "No L4 card-proposal /cards ingest endpoint",
+      "evidence": "packages/api/stamped_l5_api/main.py:376 (prescriptions only)",
+      "layer": "L5"
+    },
+    {
+      "id": "new",
+      "summary": "SSOT uppercase state names vs lowercase code wire values",
+      "evidence": "workflow/__init__.py:36-45 vs external/technical/layers/l4-l6/L5-closure-and-verification.md \u00a75",
+      "layer": "L5"
+    },
+    {
+      "id": "G7",
+      "summary": "As-built nav module grid \u2260 SSOT five-domain loop IA",
+      "evidence": "packages/web/src/lib/navigation.ts:12-93",
+      "layer": "L6"
+    },
+    {
+      "id": "new-L5-push",
+      "summary": "No inbound L5 HMAC webhook; 30s poll ingest instead",
+      "evidence": "packages/api/src/index.ts:74-88",
+      "layer": "L6"
+    },
+    {
+      "id": "new-SSE-ui",
+      "summary": "SSE API exists; web UI does not subscribe yet",
+      "evidence": "packages/api/src/events/routes.ts:67",
+      "layer": "L6"
+    },
+    {
+      "id": "G9",
+      "summary": "Archived layer L4 compiler docs vs technical/l4/ kernel",
+      "evidence": "technical/STAMPED_ARCHITECTURE.md:9",
+      "layer": "EXT"
+    },
+    {
+      "id": "new",
+      "summary": "Removed contract state is CHANGELOG policy only",
+      "evidence": "contracts/CHANGELOG.md:14",
+      "layer": "EXT"
+    },
+    {
+      "id": "G-new",
+      "summary": "README phase table order vs run_all STEPS (phase7 before phase6 in docs, opposite in code list presentation)",
+      "evidence": "analysis/pipeline/run_all.py:27-28",
+      "layer": "DAP"
+    }
+  ],
+  "safety_scan": "clean",
+  "failures": null
+}
