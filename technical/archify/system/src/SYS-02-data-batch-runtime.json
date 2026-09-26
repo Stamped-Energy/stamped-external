@@ -82,7 +82,7 @@
       "id": "l4",
       "type": "backend",
       "label": "L4 runtime",
-      "sublabel": "BUILT \u00b7 stages"
+      "sublabel": "BUILT\u00b7stub out"
     },
     {
       "id": "sink",
@@ -137,7 +137,8 @@
       "from": "l3o",
       "to": "l4",
       "y": 340,
-      "label": "/v1/jobs/inbox"
+      "label": "relay_once\u2192inbox (CLI)",
+      "variant": "dashed"
     },
     {
       "from": "l4",
@@ -188,7 +189,8 @@
       "title": "Honesty",
       "items": [
         "No integration is live at any customer plant. Verified savings to date: \u20b90.",
-        "Today: L4 \u2192 StubCardSink; L5 has no /cards; only Prescription ingest \u2014 no live L5 card from L4 (L5-G4)"
+        "Today: L4 \u2192 StubCardSink; L5 has no /cards; only Prescription ingest \u2014 no live L5 card from L4 (L5-G4)",
+        "relay_once \u2192 /v1/jobs/inbox: CLI drain; default compose does not start relay worker (dashed)"
       ]
     }
   ]

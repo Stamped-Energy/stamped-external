@@ -34,15 +34,15 @@
     { "id": "ingest", "lane": "platform", "col": 0, "type": "cloud", "label": "Ingest", "sublabel": "BUILT · L1→L2" },
     { "id": "detect", "lane": "platform", "col": 1, "type": "backend", "label": "Detect", "sublabel": "PARTIAL · suppress+lane", "width": 96 },
     { "id": "recommend", "lane": "platform", "col": 2, "type": "backend", "label": "Recommend", "sublabel": "BUILT · runtime" },
-    { "id": "assign", "lane": "human", "col": 3, "type": "security", "label": "Assign", "sublabel": "BUILT · owner" },
+    { "id": "assign", "lane": "human", "col": 3, "type": "security", "label": "Assign", "sublabel": "PARTIAL · no live L4 card", "width": 118 },
     { "id": "act", "lane": "human", "col": 4, "type": "frontend", "label": "Act", "sublabel": "PARTIAL · UX" },
-    { "id": "verify", "lane": "human", "col": 5, "type": "security", "label": "Verify", "sublabel": "BUILT · M&V" },
+    { "id": "verify", "lane": "human", "col": 5, "type": "security", "label": "Verify", "sublabel": "BUILT · ops_confirmed only", "width": 118 },
     { "id": "learn", "lane": "platform", "col": 5, "type": "backend", "label": "Learn", "sublabel": "DESIGNED · L4" }
   ],
   "edges": [
     { "from": "ingest", "to": "detect" },
-    { "from": "detect", "to": "recommend", "label": "can_emit" },
-    { "from": "recommend", "to": "assign", "variant": "dashed" },
+    { "from": "detect", "to": "recommend" },
+    { "from": "recommend", "to": "assign", "label": "can_emit", "variant": "dashed" },
     { "from": "assign", "to": "act" },
     { "from": "act", "to": "verify" },
     { "from": "verify", "to": "learn", "variant": "dashed" }
@@ -53,6 +53,7 @@
       "title": "Status & sources",
       "items": [
         "Detect hot path: suppression then lane (L4 emit vs lab_only)",
+        "can_emit is L4 CardSink guard (recommend\u2192assign), not an L3 detect gate",
         "g14 cold baseline; precision/PSI are eval-only (intelligence-evals)",
         "Sequence: dashed arrows = replies; workflow dashed = DESIGNED hop"
       ]

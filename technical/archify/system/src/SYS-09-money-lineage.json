@@ -207,6 +207,7 @@
       "title": "Evidence tiers",
       "items": [
         "Measured \u00b7 Confirmed \u00b7 Modeled \u00b7 Unknown",
+        "Realised \u20b9: only L5 appends a ledger row after ops_confirmed; L6 shows it sanitised",
         "No rupee figures on this diagram; only \u20b90 verified honesty"
       ]
     }

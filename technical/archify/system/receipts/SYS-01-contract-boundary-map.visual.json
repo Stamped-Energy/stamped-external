@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-01-contract-boundary-map.html",
-    "sha256": "3dec75222e8b90d2dcb83df1747373d615ada580969b51f68244f78ce5fb6d4f",
-    "bytes": 807789
+    "sha256": "b6af48bf096bf5c96d6d2f6229997858604e7516a6ef8f62c888e41c6f3e90c9",
+    "bytes": 807860
   },
   "state": {
     "detail": "read",

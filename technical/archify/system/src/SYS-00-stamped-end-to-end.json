@@ -85,8 +85,8 @@
       "id": "l4",
       "type": "backend",
       "label": "L4 Decisions",
-      "sublabel": "PARTIAL · stub sink",
-      "tag": "PARTIAL",
+      "sublabel": "BUILT\u00b7stub out",
+      "tag": "BUILT",
       "pos": [720, 200],
       "size": [150, 68],
       "sources": [{ "path": "decisions/033-039/ADR-033-l4-decision-runtime.md", "line": 1, "label": "ADR-033" }]

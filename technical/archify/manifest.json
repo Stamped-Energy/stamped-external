@@ -25,8 +25,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "e8effd60f28915dd4e03c5c1dd208d5c242af1952c7e96745abef825b23dfc18",
-      "artifact_sha256": "dd83dce00dbd326df645d796701d9f3fccf1bc9ece7bbfc7366f63f62a1e9d8f"
+      "spec_sha256": "f8ca9401500399edaa2866289950a2db1f3565a448d7b701b4291e41c2f5c46a",
+      "artifact_sha256": "e4d5d05ba3bbc4e19da704e37a840efd55996ca3f40a3b868f40146725f7786e"
     },
     {
       "id": "SYS-01",
@@ -44,8 +44,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "05b35d7dbc8e48ef302840f3af04ded4daf253c007057f1121b1d04a6c5e4e8c",
-      "artifact_sha256": "3dec75222e8b90d2dcb83df1747373d615ada580969b51f68244f78ce5fb6d4f"
+      "spec_sha256": "fe404861229c98331df1539ad662efea19c7392c592b635e0ac8906adaa25d15",
+      "artifact_sha256": "b6af48bf096bf5c96d6d2f6229997858604e7516a6ef8f62c888e41c6f3e90c9"
     },
     {
       "id": "SYS-02",
@@ -63,8 +63,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "36f3f2b4bac25f015c5d518589206dbb476ab4db7ce0a81b5e09b84ffc4b866d",
-      "artifact_sha256": "d98649a6844ab6275b63ed65c174e727f6c4fd0445b60967a30b25d1bb581b6b"
+      "spec_sha256": "082a20dec19380d7057f7a7f1be3ae868c91b1ccbb54a28f5c7be6193a1c8de8",
+      "artifact_sha256": "6aed5a6cab1621276e81323fbf874bd5ee934c433b2c5fdf8dba532df5a25223"
     },
     {
       "id": "SYS-03",
@@ -120,8 +120,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "d42a5355944a1a19560aa5f387d56b44c19eb7c6aa2d5ab0d07437b11790ec0d",
-      "artifact_sha256": "8179eaefdc3fa4798e8902e6c5a86c1df213956650a5a38c191ba0fccac1c00f"
+      "spec_sha256": "c4941e2242f8c61f7951f210790796093f398adce4112f303be79fc685d8bfdb",
+      "artifact_sha256": "b0292a9611b17ddeac11aa5a32d0d3fec25a86e73d8b978e47a019eabe5f839e"
     },
     {
       "id": "SYS-06",
@@ -196,8 +196,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "849a19e3730e1828d32b6373c4af6848724c493fbe50289e9be9f38ffa2bc7db",
-      "artifact_sha256": "4ee6b03ed9fdb9be62bdd98750422174931d54d6e742eee0deb8bcb702b351b5"
+      "spec_sha256": "a6ac2ad7f1604a9d1e30f7527b2cb5c5d525b0b722c1eb559196aea5bf80c660",
+      "artifact_sha256": "c5d0e7e8b99977ed057492ba55d94ab09b9b2c5757d229cd90d9b83ac6dd4551"
     }
   ],
   "repos": {

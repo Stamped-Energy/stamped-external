@@ -99,7 +99,7 @@
       "id": "l4",
       "type": "backend",
       "label": "L4 runtime",
-      "sublabel": "PARTIAL \u00b7 inbox",
+      "sublabel": "BUILT\u00b7stub out",
       "stage": 3,
       "row": 0
     },
@@ -204,12 +204,12 @@
     {
       "from": "l5",
       "to": "l6",
-      "label": "HMAC",
+      "label": "HMAC (DESIGNED); poll today",
       "route": "vertical-channel",
       "variant": "dashed",
       "labelAt": [
         1000,
-        314
+        326
       ]
     }
   ],
