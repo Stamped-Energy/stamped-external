@@ -28,8 +28,8 @@
       {
         "id": "decide",
         "label": "Decide",
-        "focus": ["l3", "l4", "l5", "contracts"],
-        "note": "Trigger: emitted Finding. L4 runtime stages → card proposal; L5 ingest of live cards is DESIGNED."
+        "focus": ["l3", "l4", "stub_sink", "l5", "contracts"],
+        "note": "Trigger: emitted Finding. L4 stages → StubCardSink today; L5 live card ingest is DESIGNED."
       },
       {
         "id": "close",
@@ -92,6 +92,16 @@
       "sources": [{ "path": "decisions/033-039/ADR-033-l4-decision-runtime.md", "line": 1, "label": "ADR-033" }]
     },
     {
+      "id": "stub_sink",
+      "type": "security",
+      "label": "StubCardSink",
+      "sublabel": "BUILT\u00b7local only (emit off)",
+      "tag": "BUILT",
+      "pos": [890, 312],
+      "size": [168, 68],
+      "sources": [{ "path": "decisions/033-039/ADR-033-l4-decision-runtime.md", "line": 1, "label": "ADR-033" }]
+    },
+    {
       "id": "l5",
       "type": "security",
       "label": "L5 Closure",
@@ -135,6 +145,15 @@
     { "id": "l1-l2", "from": "l1", "to": "l2", "label": "envelope ingest", "labelAt": [304, 168] },
     { "id": "l2-l3", "from": "l2", "to": "l3", "label": "query-api reads", "labelAt": [468, 168] },
     { "id": "l3-l4", "from": "l3", "to": "l4", "label": "Finding 1.2.0", "labelAt": [632, 168] },
+    {
+      "id": "l4-stub",
+      "from": "l4",
+      "to": "stub_sink",
+      "label": "proposal (today)",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [930, 296]
+    },
     {
       "id": "l4-l5",
       "from": "l4",

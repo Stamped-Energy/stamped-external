@@ -17,7 +17,7 @@
       "file": "SYS-00-stamped-end-to-end.html",
       "spec": "src/SYS-00-stamped-end-to-end.json",
       "status_counts": {
-        "BUILT": 2,
+        "BUILT": 3,
         "PARTIAL": 6,
         "DESIGNED": 0,
         "DEFERRED": 0
@@ -25,8 +25,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "f8ca9401500399edaa2866289950a2db1f3565a448d7b701b4291e41c2f5c46a",
-      "artifact_sha256": "e4d5d05ba3bbc4e19da704e37a840efd55996ca3f40a3b868f40146725f7786e"
+      "spec_sha256": "3f57293e9c9f000031440bb4fbac3eb828567a40824e4e304e4939c767946d2c",
+      "artifact_sha256": "4ed5eb4f8be56b35f4a81f593732d8e1b267acef3ad89c08ade3da80fa16905b"
     },
     {
       "id": "SYS-01",
@@ -274,8 +274,8 @@
       "diagram_count": 3
     }
   },
-  "glossary_terms": 62,
-  "glossary_sha256": "13b6f35f92a44c73a1ebf92c4da96841d4bcef92efffc3a32b267d2213eda9b4",
+  "glossary_terms": 64,
+  "glossary_sha256": "7cda07758e5231f2123ade32866904ac217f9f34e2f11ed2a4eefa9211708bb4",
   "gaps": [
     {
       "id": "L1E-G-new-prune",
