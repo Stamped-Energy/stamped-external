@@ -23,7 +23,7 @@
         "id": "detect",
         "label": "Detect",
         "focus": ["l2", "l3", "contracts"],
-        "note": "Trigger: detection run. L3 reads L2, emits Finding 1.2.0; rulepacks + evals gate quality."
+        "note": "Trigger: detection run. L3 reads L2, emits Finding; hot path uses suppression + lane (not eval gates)."
       },
       {
         "id": "decide",
@@ -75,7 +75,7 @@
       "id": "l3",
       "type": "backend",
       "label": "L3 Findings",
-      "sublabel": "PARTIAL · scheduler",
+      "sublabel": "PARTIAL · on-demand",
       "tag": "PARTIAL",
       "pos": [546, 200],
       "size": [150, 68],
@@ -171,8 +171,10 @@
       "title": "Status & sources",
       "items": [
         "L1E@332ec0d · L1C@d63ee46 · L2@6c8d454 · L3C@5c74aee · L4@d1887ee · L5@88fe58f · L6@82df09e",
-        "BUILT/PARTIAL from pinned manifests; dashed = DESIGNED cross-layer edge",
-        "ADR-030 five-domain loop: detect → recommend → assign → act → verify"
+        "BUILT/PARTIAL from pinned manifests on labels",
+        "Sequence: dashed arrows = replies; arch/flow dashed = DESIGNED or DEFERRED",
+        "ADR-030 five-domain loop: detect → recommend → assign → act → verify",
+        "L3: on-demand detection runs; PathScheduler built but not deployed (L3C-G5)"
       ]
     },
     {
@@ -180,7 +182,8 @@
       "title": "Honesty",
       "items": [
         "No integration is live at any customer plant. Verified savings to date: ₹0.",
-        "L4 HttpCardSink targets POST /cards; L5 has prescription ingest only (gap card SYS-02)"
+        "Default card sink is StubCardSink (emit off); HttpCardSink optional toward missing L5 /cards (L4-G4, L5-G4)",
+        "Today: L4 writes proposals locally; L5 only Prescription ingest — no L4 proposal becomes a live L5 card"
       ]
     }
   ]

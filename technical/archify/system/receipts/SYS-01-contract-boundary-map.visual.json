@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-01-contract-boundary-map.html",
-    "sha256": "ddea90225a10da0010c65e40f89419d2f04d86e6d0b29cf25f4019ff37a12796",
-    "bytes": 807636
+    "sha256": "2b85184812f3365bb14b9b051e99eb12e94d3c5b08ceebcb6068e87e42ebe479",
+    "bytes": 807779
   },
   "state": {
     "detail": "read",
@@ -95,8 +95,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1122,
-        "diagramWidth": 1092,
+        "readerWidth": 1132,
+        "diagramWidth": 1102,
         "viewBoxWidth": 1080,
         "minimumProjectedNodeTextPx": 7,
         "minimumProjectedNodeText": "PARTIAL · publish",
@@ -225,8 +225,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1122,
-        "diagramWidth": 1092,
+        "readerWidth": 1132,
+        "diagramWidth": 1102,
         "viewBoxWidth": 1080,
         "minimumProjectedNodeTextPx": 7,
         "minimumProjectedNodeText": "PARTIAL · publish",
@@ -354,8 +354,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1122,
-        "diagramWidth": 1092,
+        "readerWidth": 1132,
+        "diagramWidth": 1102,
         "viewBoxWidth": 1080,
         "minimumProjectedNodeTextPx": 7,
         "minimumProjectedNodeText": "PARTIAL · publish",

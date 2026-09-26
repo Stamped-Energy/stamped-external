@@ -23,7 +23,7 @@
           "cloud",
           "l2"
         ],
-        "note": "Trigger: PLC poll. Edge buffers SQLite \u2192 MQTT QoS1 \u2192 cloud ingest dedupes \u2192 outbox."
+        "note": "PLC poll → SQLite until MQTT QoS1 ack → sent; backlog drains after outage; unsent rows not expired in code."
       },
       {
         "id": "detect",
@@ -40,9 +40,9 @@
         "label": "Decision",
         "focus": [
           "l4",
-          "l5"
+          "sink"
         ],
-        "note": "L4 inbox \u2192 runtime \u2192 CardSink stub; POST /cards DESIGNED."
+        "note": "L4: inbox \u2192 PlantWorkQueue \u2192 worker \u2192 stages \u2192 terminal + DecisionTrace \u2192 StubCardSink. No live L5 card (L5-G4)."
       }
     ],
     "output": "SYS-02-data-batch-runtime.html"
@@ -85,10 +85,10 @@
       "sublabel": "BUILT \u00b7 stages"
     },
     {
-      "id": "l5",
+      "id": "sink",
       "type": "security",
-      "label": "L5 /cards",
-      "sublabel": "DESIGNED \u00b7 sink"
+      "label": "StubCardSink",
+      "sublabel": "BUILT \u00b7 emit off"
     }
   ],
   "segments": [
@@ -141,10 +141,9 @@
     },
     {
       "from": "l4",
-      "to": "l5",
+      "to": "sink",
       "y": 380,
-      "label": "POST /cards",
-      "variant": "dashed"
+      "label": "write proposal"
     }
   ],
   "activations": [
@@ -179,7 +178,8 @@
       "title": "Status & sources",
       "items": [
         "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
-        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "Sequence: dashed arrows = replies; arch/flow dashed = DESIGNED or DEFERRED",
         "No integration is live \u00b7 verified savings \u20b90"
       ]
     },
@@ -188,7 +188,7 @@
       "title": "Honesty",
       "items": [
         "No integration is live at any customer plant. Verified savings to date: \u20b90.",
-        "Gaps drawn as dashed hops; see index gaps table"
+        "Today: L4 \u2192 StubCardSink; L5 has no /cards; only Prescription ingest \u2014 no live L5 card from L4 (L5-G4)"
       ]
     }
   ]

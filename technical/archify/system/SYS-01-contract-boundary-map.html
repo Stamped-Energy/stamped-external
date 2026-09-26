@@ -5178,7 +5178,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <path data-edge-from="l3" data-edge-to="find" data-edge-label="emit 1.2.0" data-edge-key="3" data-composition-points="530,186;486,186;486,242;530,242" d="M 530 186 L 486 186 L 486 242 L 530 242" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <path data-edge-from="find" data-edge-to="l4" data-edge-label="inbox" data-edge-key="4" data-composition-points="586,271;630,271;630,157;689,157" d="M 586 271 L 630 271 L 630 157 L 689 157" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <path data-edge-from="l4" data-edge-to="card" data-edge-label="proposal" data-edge-key="5" data-composition-points="745,186;701,186;701,242;745,242" d="M 745 186 L 701 186 L 701 242 L 745 242" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="card" data-edge-to="l5" data-edge-label="Rx ingest" data-edge-key="6" data-composition-points="801,271;845,271;845,157;904,157" d="M 801 271 L 845 271 L 845 157 L 904 157" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="card" data-edge-to="l5" data-edge-label="/cards ingest (DESIGNED)" data-edge-key="6" data-composition-points="801,271;845,271;845,157;904,157" d="M 801 271 L 845 271 L 845 157 L 904 157" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <path data-edge-from="l5" data-edge-to="l6" data-edge-label="HMAC" data-edge-key="7" data-composition-points="960,186;916,186;916,242;960,242" d="M 960 186 L 916 186 L 916 242 L 960 242" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
 
         <!-- Nodes -->
@@ -5314,9 +5314,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="814.4" y="303" width="51.2" height="16" rx="4" class="c-mask"/>
           <text x="840" y="314" class="t-messagebus" font-size="8" text-anchor="middle">proposal</text>
         </g>
-        <g data-detail="context" data-edge-from="card" data-edge-to="l5" data-edge-label="Rx ingest" data-edge-key="6">
-          <rect x="891.95" y="113" width="56.1" height="16" rx="4" class="c-mask"/>
-          <text x="920" y="124" class="t-messagebus" font-size="8" text-anchor="middle">Rx ingest</text>
+        <g data-detail="context" data-edge-from="card" data-edge-to="l5" data-edge-label="/cards ingest (DESIGNED)" data-edge-key="6">
+          <rect x="855.2" y="113" width="129.6" height="16" rx="4" class="c-mask"/>
+          <text x="920" y="124" class="t-messagebus" font-size="8" text-anchor="middle">/cards ingest (DESIGNED)</text>
         </g>
         <g data-detail="context" data-edge-from="l5" data-edge-to="l6" data-edge-label="HMAC" data-edge-key="7">
           <rect x="983" y="299" width="34" height="16" rx="4" class="c-mask"/>
@@ -5518,7 +5518,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </div>
         <ul>
           <li>&bull; Pinned manifests L1E–L6 + EXT@a4c91bc (see manifest.json)</li>
-          <li>&bull; BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live</li>
+          <li>&bull; BUILT/PARTIAL/DESIGNED/DEFERRED on node labels; flow dashed = DESIGNED</li>
           <li>&bull; No integration is live · verified savings ₹0</li>
         </ul>
       </div>
@@ -5526,11 +5526,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <div class="card">
         <div class="card-header">
           <div class="card-dot amber"></div>
-          <h3>Authority</h3>
+          <h3>Transport &amp; isolation</h3>
         </div>
         <ul>
-          <li>&bull; contracts/ CHANGELOG owns schema@version</li>
-          <li>&bull; prescription 1.0.0 deprecated; closure + ledger active</li>
+          <li>&bull; Transport: HTTP (OpenAPI), MQTT (TOPICS.md), L4 tool allowlist via stamped-external / external/</li>
+          <li>&bull; Isolation: no cross-layer DB; SSOT is a repo not a service; L4 → StubCardSink (L5-G4)</li>
         </ul>
       </div>
     </div>

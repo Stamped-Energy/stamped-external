@@ -5191,11 +5191,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
         </g>
 
-        <g data-edge-from="l5w" data-edge-to="l2" data-edge-label="read window" data-edge-key="2">
-          <path data-composition-edge-from="l5w" data-composition-edge-to="l2" data-composition-points="393,260;487,260" d="M 393 260 L 487 260" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="l5w" data-edge-to="l2" data-edge-label="read window (fixture default)" data-edge-key="2">
+          <path data-composition-edge-from="l5w" data-composition-edge-to="l2" data-composition-points="393,260;487,260" d="M 393 260 L 487 260" class="a-dashed" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
-          <rect x="405.4" y="240" width="69.2" height="16" rx="3" class="c-mask"/>
-          <text x="440" y="250" class="t-backend" font-size="9" text-anchor="middle">read window</text>
+          <rect x="358.6" y="240" width="162.8" height="16" rx="3" class="c-mask"/>
+          <text x="440" y="250" class="t-messagebus" font-size="9" text-anchor="middle">read window (fixture default)</text>
         </g>
         </g>
 
@@ -5283,8 +5283,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text data-detail="context" x="386" y="111" class="t-muted" font-size="7" text-anchor="middle">BUILT · poll</text>
         </g>
 
-        <g id="node-l2" data-node-id="l2" data-node-label="L2 evidence" tabindex="0" role="button" aria-label="Focus L2 evidence, BUILT · window, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="BUILT · window" data-node-context="Sequence participant">
-          <title>L2 evidence · BUILT · window · Sequence participant</title>
+        <g id="node-l2" data-node-id="l2" data-node-label="L2 evidence" tabindex="0" role="button" aria-label="Focus L2 evidence, PARTIAL · fixture, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="PARTIAL · fixture" data-node-context="Sequence participant">
+          <title>L2 evidence · PARTIAL · fixture · Sequence participant</title>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:4" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(457 78) scale(0.6875)">
@@ -5292,7 +5292,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="494" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">L2 evidence</text>
-          <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">BUILT · window</text>
+          <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">PARTIAL · fixture</text>
         </g>
 
         <g id="node-ledger" data-node-id="ledger" data-node-label="Ledger" tabindex="0" role="button" aria-label="Focus Ledger, BUILT · append, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="BUILT · append" data-node-context="Sequence participant">
@@ -5502,7 +5502,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </div>
         <ul>
           <li>&bull; Pinned manifests L1E–L6 + EXT@a4c91bc (see manifest.json)</li>
-          <li>&bull; BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live</li>
+          <li>&bull; BUILT/PARTIAL/DESIGNED/DEFERRED on node labels</li>
+          <li>&bull; Sequence: dashed arrows = replies; arch/flow dashed = DESIGNED or DEFERRED</li>
           <li>&bull; No integration is live · verified savings ₹0</li>
         </ul>
       </div>
@@ -5513,9 +5514,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>ADR-020</h3>
         </div>
         <ul>
-          <li>&bull; verified bill path DEFERRED; ops_confirmed ≠ verified</li>
-          <li>&bull; L6 sanitizeClaimStatus hides deferred verified</li>
-          <li>&bull; L5→L4 learning fact hop DESIGNED (not shown)</li>
+          <li>&bull; Careful: workflow state verified = ops-cleared (telemetry), not bill-verified</li>
+          <li>&bull; L6 demotes verified claims without bill line refs to ops_confirmed</li>
+          <li>&bull; Bill-verified path DEFERRED; worker uses fixture evidence by default on L2 read</li>
         </ul>
       </div>
     </div>

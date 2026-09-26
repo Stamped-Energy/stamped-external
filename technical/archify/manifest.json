@@ -25,8 +25,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "f290231840779d8b77387c01e75c001fc22eed0557469bba2a91bd4fb942c876",
-      "artifact_sha256": "ef56e0c7c91f293143a72fe9e2148458250d452f11680c1f1e15126b94bf2039"
+      "spec_sha256": "0abd570322c3104d1eafb41b1827625683ee20afd20f24ab949c2d5cf5f24722",
+      "artifact_sha256": "94552275fb48c4d2e2e76d31efc534d8df72349041369ae0361a7c179a39bb1e"
     },
     {
       "id": "SYS-01",
@@ -44,8 +44,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "6b900ab531c3b3057bf09d90d1fb905be033581df783086d75e194aa63aada5d",
-      "artifact_sha256": "ddea90225a10da0010c65e40f89419d2f04d86e6d0b29cf25f4019ff37a12796"
+      "spec_sha256": "a17d1c4fdf66a7689238f99e938e3abc64c49d06cc655c0e9c086978fe3eb5b2",
+      "artifact_sha256": "2b85184812f3365bb14b9b051e99eb12e94d3c5b08ceebcb6068e87e42ebe479"
     },
     {
       "id": "SYS-02",
@@ -63,8 +63,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "0beff9fd5d17be9ca7d50e66daa11afdf57fd68c957cb4e5f15f4cf94ce76428",
-      "artifact_sha256": "4384f4b8041ccde74aa9e05f06706be55afa27557459ded0e38821e53640e7d7"
+      "spec_sha256": "36f3f2b4bac25f015c5d518589206dbb476ab4db7ce0a81b5e09b84ffc4b866d",
+      "artifact_sha256": "d98649a6844ab6275b63ed65c174e727f6c4fd0445b60967a30b25d1bb581b6b"
     },
     {
       "id": "SYS-03",
@@ -82,8 +82,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "60f49045ab72ffca9ff604f9fd92e2f14c3c03a495354fc2fe6be8fa59d7f526",
-      "artifact_sha256": "9634906deb4e15d7339f34f8e94c908802b10774453143d057dac74c74d2a3c1"
+      "spec_sha256": "72ad49304f0c038976af8d0fa5ba0fce64765806d7e041fb17dc4d68f73e7371",
+      "artifact_sha256": "056774daf2de7ba4e9c1e4abcc6215556f08119073a788528a527d735634719a"
     },
     {
       "id": "SYS-04",
@@ -101,8 +101,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "bad7f18e317b5d1082c867792afffceb935a988542d77cba5e34377f20332597",
-      "artifact_sha256": "973e91998fe6cc36b40b86a2449544cc6bdaa7e9d095091ce6b47a3143eeb9a7"
+      "spec_sha256": "7bb4409a9c621af31b1195ee51b475726df2475707f987ca0b9147f25539293a",
+      "artifact_sha256": "c69af984754f4a380fd3c7bf45d533cac7c18889a820b35794a2bce3768140f1"
     },
     {
       "id": "SYS-05",
@@ -120,8 +120,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "6e01c05f742f64508d2e5d5424da059b99a089c9a20246fa131b28bc4bace81c",
-      "artifact_sha256": "f60b9df9602586d500cc53f0533424bed3757ce19fca4214ed14db7a43d5f187"
+      "spec_sha256": "d42a5355944a1a19560aa5f387d56b44c19eb7c6aa2d5ab0d07437b11790ec0d",
+      "artifact_sha256": "8179eaefdc3fa4798e8902e6c5a86c1df213956650a5a38c191ba0fccac1c00f"
     },
     {
       "id": "SYS-06",
@@ -139,8 +139,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "81b37cc2057828be74b81f584c6fd03e36f66929b6c8a4326e2671de4358a3e3",
-      "artifact_sha256": "aed3ba57043bbd402804aabd742ec7664d5f7fabcfeb1561cad39785cec8375f"
+      "spec_sha256": "7121482e823ed7efc744490679b396ae8537dade451479a3aacb33d87a6639e4",
+      "artifact_sha256": "41ab8ba801b794a7d5b3e83bf69c0cd06442212b195b6601d7e019ee8fe47fa5"
     },
     {
       "id": "SYS-07",
@@ -158,8 +158,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "4c61b0692757f346eca67cbc0859e6a0329bb181a312c28748ce9fd8f3f736a5",
-      "artifact_sha256": "ad7151f418d873c1cf269c2a829314b37788c20be821bbf83217fd16d9b1ae50"
+      "spec_sha256": "5cde52b024ee3c6c417177e9137d54473897d81fbbfed083461cfa0036375b02",
+      "artifact_sha256": "a68e11afdf85ef7228451ba395f500c21ab1bf1cbe94815c31935fc27667a482"
     },
     {
       "id": "SYS-08",
@@ -177,8 +177,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "9051795f028b999ebc09379d44b8419832b14642c51a5ce0106edff63bcbb158",
-      "artifact_sha256": "c9b33bc9ec4390ca68fd138c0a01d6d617e8562f3ff7e1d82d85ecd982fbbd55"
+      "spec_sha256": "3c73a9dc8a8b75ec479ec5cde1d17aec9299c3983257396cfab7e631217e0e77",
+      "artifact_sha256": "ae6547238c21609e2fffb2087833e27b811aa707cd0a827b3854019618557484"
     },
     {
       "id": "SYS-09",
@@ -196,8 +196,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "71f7b18ef7d1802c315d61a94436e7c503afe81c356817752bd35c36109fe83c",
-      "artifact_sha256": "6e0d90e2b312f1f9b30cfadab46a097469f8ca51389b3712f3aae87fb0140f11"
+      "spec_sha256": "849a19e3730e1828d32b6373c4af6848724c493fbe50289e9be9f38ffa2bc7db",
+      "artifact_sha256": "4ee6b03ed9fdb9be62bdd98750422174931d54d6e742eee0deb8bcb702b351b5"
     }
   ],
   "repos": {
@@ -274,238 +274,238 @@
       "diagram_count": 3
     }
   },
-  "glossary_terms": 61,
+  "glossary_terms": 62,
   "gaps": [
     {
-      "id": "G-new-prune",
+      "id": "L1E-G-new-prune",
       "summary": "Docs claim automatic prune by retention_hours; agent never calls PruneBefore",
       "evidence": "packages/edge-agent/internal/buffer/sqlite.go:158",
       "layer": "L1E"
     },
     {
-      "id": "G-new-expiry",
+      "id": "L1E-G-new-expiry",
       "summary": "Pending buffer rows are not expired at ~72h in agent code",
       "evidence": "packages/edge-agent/internal/uplink/mqtt.go:132-145",
       "layer": "L1E"
     },
     {
-      "id": "G-context-live",
+      "id": "L1E-G-context-live",
       "summary": "context-agent BUILT on main; no live customer IT source",
       "evidence": "docs/EXTENSIVE.md:36-40",
       "layer": "L1E"
     },
     {
-      "id": "G-new",
+      "id": "L1C-G-redis-dedupe",
       "summary": "Dual transport dedupe via Redis is stub-only when TRANSPORT_DEDUPE_REDIS_URL is set",
       "evidence": "packages/ingest/ingest/dedupe/transport_store.py:22",
       "layer": "L1C"
     },
     {
-      "id": "G-new",
+      "id": "L1C-new-kafka",
       "summary": "RELAY_TRANSPORT=kafka publisher is not implemented (http only)",
       "evidence": "packages/relay/relay/publisher.py:27",
       "layer": "L1C"
     },
     {
-      "id": "G-new",
+      "id": "L1C-G-dedupe-doc",
       "summary": "layer-interfaces dual dedupe implies Redis path; P0 uses business dedupe in Postgres only",
       "evidence": "docs/architecture/layer-interfaces.md:31",
       "layer": "L1C"
     },
     {
-      "id": "G1",
+      "id": "L1B-G1",
       "summary": "No extracted/validated/mismatch DB enums; review + metadata.recompute + line flags",
       "evidence": "packages/api/models.py:24-29",
       "layer": "L1B"
     },
     {
-      "id": "G2",
+      "id": "L1B-G2",
       "summary": "Auto-publish when recompute passes and publisher configured",
       "evidence": "packages/api/services.py:218-222",
       "layer": "L1B"
     },
     {
-      "id": "G3",
+      "id": "L1B-G3",
       "summary": "Tariff orders not MQTT-published in P0",
       "evidence": "packages/api/services.py:546",
       "layer": "L1B"
     },
     {
-      "id": "G1",
+      "id": "L2-G1",
       "summary": "graph/traverse exposed on query-api but omitted from L4 agent-tools catalog",
       "evidence": "packages/query-api/main.py:299",
       "layer": "L2"
     },
     {
-      "id": "G2",
+      "id": "L2-G2",
       "summary": "SEC features table filled by seed, not continuous rollup job",
       "evidence": "packages/seed/sql_loader.py:242",
       "layer": "L2"
     },
     {
-      "id": "G3",
+      "id": "L2-G3",
       "summary": "Seed toolkit SQL/HTTP modes break against current contracts",
       "evidence": "AGENTS.md Cursor Cloud section",
       "layer": "L2"
     },
     {
-      "id": "G4",
+      "id": "L2-G4",
       "summary": "graph/baselines/ledger not reachable via ingest envelopes",
       "evidence": "packages/ingest/routers/store.py:356",
       "layer": "L2"
     },
     {
-      "id": "G5",
+      "id": "L3C-G5",
       "summary": "PathScheduler built but not started by deploy",
       "evidence": "deploy/docker-compose.yml:8-50",
       "layer": "L3C"
     },
     {
-      "id": "G8093",
+      "id": "L3C-G8093",
       "summary": "Docs/port 8093 vs code default 8094",
       "evidence": "src/stamped_l3_core/api/app.py:120-121",
       "layer": "L3C"
     },
     {
-      "id": "new",
+      "id": "L3C-new-pipeline",
       "summary": "Agentic run_pipeline not wired into execute_detection_run",
       "evidence": "src/stamped_l3_core/detection_runs.py:306",
       "layer": "L3C"
     },
     {
-      "id": "new",
+      "id": "L3C-new-hotpath",
       "summary": "Hot path _emit uses suppression not g14/precision/PSI per row",
       "evidence": "src/stamped_l3_core/scheduler.py:237-238",
       "layer": "L3C"
     },
     {
-      "id": "G6",
+      "id": "L3R-G6",
       "summary": "README two-pillar value_domain vs ADR-030 five domains",
       "evidence": "README.md:16",
       "layer": "L3R"
     },
     {
-      "id": "new-1",
+      "id": "L3R-new-1",
       "summary": "README stale pack/rule counts 11/42 vs catalog 14/46",
       "evidence": "schemas/catalog_index.json:3-4",
       "layer": "L3R"
     },
     {
-      "id": "new-2",
+      "id": "L3R-new-2",
       "summary": "YAML load_all_packs documented; consumer scaffold JSON-only load_rulepack",
       "evidence": "docs/HANDOFF_CORE_YAML_LOADER.md:9",
       "layer": "L3R"
     },
     {
-      "id": "new-3",
+      "id": "L3R-new-3",
       "summary": "Catalog goldens at incomer 1.1.0; scaffold lab_export still 1.0.0 cites",
       "evidence": "fixtures/golden/golden_md_exceedance_risk.json:4",
       "layer": "L3R"
     },
     {
-      "id": "G1",
+      "id": "L3E-G1",
       "summary": "L3 layer doc cites precision \u22650.85 by P2; fleet gate uses 0.75",
       "evidence": "config/gates.yaml:3",
       "layer": "L3E"
     },
     {
-      "id": "G2",
+      "id": "L3E-G2",
       "summary": "Default runtime is offline goldens; CORE_LAB_URL live attach optional",
       "evidence": "README.md:48-56",
       "layer": "L3E"
     },
     {
-      "id": "G3",
+      "id": "L3E-G3",
       "summary": "Champion/promotion helpers are observation-only, not L4 promote",
       "evidence": "src/stamped_l3_eval/champion.py:38",
       "layer": "L3E"
     },
     {
-      "id": "G1",
+      "id": "L4-G1",
       "summary": "Hindsight memory banks designed only",
       "evidence": "docs/planning/AUD1_INTENDED_VS_IMPLEMENTED.md",
       "layer": "L4"
     },
     {
-      "id": "G2",
+      "id": "L4-G2",
       "summary": "Docs forbid graph traverse; code has traverse_graph tool",
       "evidence": "src/stamped_l4/analyst/tools.py:94",
       "layer": "L4"
     },
     {
-      "id": "G4",
+      "id": "L4-G4",
       "summary": "HttpCardSink POST /cards; L5 consumer not in this repo",
       "evidence": "src/stamped_l4/runtime/sinks/http.py:34",
       "layer": "L4"
     },
     {
-      "id": "G8",
+      "id": "L4-G8",
       "summary": "SqlCaseStore exists but default path in-memory",
       "evidence": "src/stamped_l4/db/runtime_store.py:85",
       "layer": "L4"
     },
     {
-      "id": "G9",
+      "id": "L4-G9",
       "summary": "Archived SSOT layer doc still describes LangGraph compiler",
       "evidence": "external/archive/cleanup-2026-09/technical/layers/l4-l6/L4-knowledge-and-reasoning.md",
       "layer": "L4"
     },
     {
-      "id": "new",
+      "id": "L4-new-ask",
       "summary": "Ask ReAct retired; analyst routes return 503",
       "evidence": "src/stamped_l4/analyst/graph.py:20",
       "layer": "L4"
     },
     {
-      "id": "G3",
+      "id": "L5-G3",
       "summary": "SSOT eight closure states vs code ten WorkflowState values",
       "evidence": "packages/domain/stamped_l5_domain/workflow/__init__.py:36-61",
       "layer": "L5"
     },
     {
-      "id": "G4",
+      "id": "L5-G4",
       "summary": "No L4 card-proposal /cards ingest endpoint",
       "evidence": "packages/api/stamped_l5_api/main.py:376 (prescriptions only)",
       "layer": "L5"
     },
     {
-      "id": "new",
+      "id": "L5-new-wire-states",
       "summary": "SSOT uppercase state names vs lowercase code wire values",
       "evidence": "workflow/__init__.py:36-45 vs external/technical/layers/l4-l6/L5-closure-and-verification.md \u00a75",
       "layer": "L5"
     },
     {
-      "id": "G7",
+      "id": "L6-G7",
       "summary": "As-built nav module grid \u2260 SSOT five-domain loop IA",
       "evidence": "packages/web/src/lib/navigation.ts:12-93",
       "layer": "L6"
     },
     {
-      "id": "new-L5-push",
+      "id": "L6-new-L5-push",
       "summary": "No inbound L5 HMAC webhook; 30s poll ingest instead",
       "evidence": "packages/api/src/index.ts:74-88",
       "layer": "L6"
     },
     {
-      "id": "new-SSE-ui",
+      "id": "L6-new-SSE-ui",
       "summary": "SSE API exists; web UI does not subscribe yet",
       "evidence": "packages/api/src/events/routes.ts:67",
       "layer": "L6"
     },
     {
-      "id": "G9",
+      "id": "EXT-G9",
       "summary": "Archived layer L4 compiler docs vs technical/l4/ kernel",
       "evidence": "technical/STAMPED_ARCHITECTURE.md:9",
       "layer": "EXT"
     },
     {
-      "id": "new",
+      "id": "EXT-new-changelog",
       "summary": "Removed contract state is CHANGELOG policy only",
       "evidence": "contracts/CHANGELOG.md:14",
       "layer": "EXT"
     },
     {
-      "id": "G-new",
+      "id": "DAP-G-new",
       "summary": "README phase table order vs run_all STEPS (phase7 before phase6 in docs, opposite in code list presentation)",
       "evidence": "analysis/pipeline/run_all.py:27-28",
       "layer": "DAP"

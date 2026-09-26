@@ -266,7 +266,8 @@
       "title": "Status & sources",
       "items": [
         "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
-        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "Arch/flow: dashed edges = DESIGNED or DEFERRED",
         "No integration is live \u00b7 verified savings \u20b90"
       ]
     },

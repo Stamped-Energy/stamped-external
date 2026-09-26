@@ -32,7 +32,7 @@
   "mainPath": ["ingest", "detect", "recommend", "assign", "act", "verify"],
   "nodes": [
     { "id": "ingest", "lane": "platform", "col": 0, "type": "cloud", "label": "Ingest", "sublabel": "BUILT · L1→L2" },
-    { "id": "detect", "lane": "platform", "col": 1, "type": "backend", "label": "Detect", "sublabel": "PARTIAL · gates" },
+    { "id": "detect", "lane": "platform", "col": 1, "type": "backend", "label": "Detect", "sublabel": "PARTIAL · suppress+lane", "width": 96 },
     { "id": "recommend", "lane": "platform", "col": 2, "type": "backend", "label": "Recommend", "sublabel": "BUILT · runtime" },
     { "id": "assign", "lane": "human", "col": 3, "type": "security", "label": "Assign", "sublabel": "BUILT · owner" },
     { "id": "act", "lane": "human", "col": 4, "type": "frontend", "label": "Act", "sublabel": "PARTIAL · UX" },
@@ -47,5 +47,15 @@
     { "from": "act", "to": "verify" },
     { "from": "verify", "to": "learn", "variant": "dashed" }
   ],
-  "cards": []
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Detect hot path: suppression then lane (L4 emit vs lab_only)",
+        "g14 cold baseline; precision/PSI are eval-only (intelligence-evals)",
+        "Sequence: dashed arrows = replies; workflow dashed = DESIGNED hop"
+      ]
+    }
+  ]
 }

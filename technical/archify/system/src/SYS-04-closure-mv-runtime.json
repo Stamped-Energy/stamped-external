@@ -67,7 +67,7 @@
       "id": "l2",
       "type": "database",
       "label": "L2 evidence",
-      "sublabel": "BUILT \u00b7 window"
+      "sublabel": "PARTIAL \u00b7 fixture"
     },
     {
       "id": "ledger",
@@ -105,7 +105,8 @@
       "from": "l5w",
       "to": "l2",
       "y": 260,
-      "label": "read window"
+      "label": "read window (fixture default)",
+      "variant": "dashed"
     },
     {
       "from": "l2",
@@ -147,7 +148,8 @@
       "title": "Status & sources",
       "items": [
         "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
-        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "Sequence: dashed arrows = replies; arch/flow dashed = DESIGNED or DEFERRED",
         "No integration is live \u00b7 verified savings \u20b90"
       ]
     },
@@ -155,9 +157,9 @@
       "dot": "amber",
       "title": "ADR-020",
       "items": [
-        "verified bill path DEFERRED; ops_confirmed \u2260 verified",
-        "L6 sanitizeClaimStatus hides deferred verified",
-        "L5\u2192L4 learning fact hop DESIGNED (not shown)"
+        "Careful: workflow state verified = ops-cleared (telemetry), not bill-verified",
+        "L6 demotes verified claims without bill line refs to ops_confirmed",
+        "Bill-verified path DEFERRED; worker uses fixture evidence by default on L2 read"
       ]
     }
   ]
