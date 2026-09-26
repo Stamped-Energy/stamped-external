@@ -107,7 +107,7 @@
       "id": "card",
       "type": "database",
       "label": "card-proposal",
-      "sublabel": "DESIGNED \u00b7 Rx",
+      "sublabel": "DESIGNED \u00b7 no L5",
       "stage": 3,
       "row": 1
     },
@@ -209,7 +209,7 @@
       "variant": "dashed",
       "labelAt": [
         1000,
-        310
+        314
       ]
     }
   ],
@@ -228,7 +228,7 @@
       "title": "Transport & isolation",
       "items": [
         "Transport: HTTP (OpenAPI), MQTT (TOPICS.md), L4 tool allowlist via stamped-external / external/",
-        "Isolation: no cross-layer DB; SSOT is a repo not a service; L4 \u2192 StubCardSink (L5-G4)"
+        "Isolation: no cross-layer DB; L5\u2192L6 HMAC push (DESIGNED); L6 polls /v1/events today"
       ]
     }
   ]

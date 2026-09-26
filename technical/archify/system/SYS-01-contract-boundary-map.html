@@ -5251,8 +5251,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text data-detail="context" x="745" y="165" class="t-muted" font-size="7" text-anchor="middle">PARTIAL · inbox</text>
         </g>
 
-        <g id="node-card" data-node-id="card" data-node-label="card-proposal" tabindex="0" role="button" aria-label="Focus card-proposal, DESIGNED · Rx, 04 / L4 Decide" aria-pressed="false" data-node-kind="database" data-node-sublabel="DESIGNED · Rx" data-node-context="04 / L4 Decide">
-          <title>card-proposal · DESIGNED · Rx · 04 / L4 Decide</title>
+        <g id="node-card" data-node-id="card" data-node-label="card-proposal" tabindex="0" role="button" aria-label="Focus card-proposal, DESIGNED · no L5, 04 / L4 Decide" aria-pressed="false" data-node-kind="database" data-node-sublabel="DESIGNED · no L5" data-node-context="04 / L4 Decide">
+          <title>card-proposal · DESIGNED · no L5 · 04 / L4 Decide</title>
           <rect x="689" y="242" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="689" y="242" width="112" height="58" rx="6" class="c-database" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(695 248) scale(0.6875)">
@@ -5260,7 +5260,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="745" y="263" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">card-proposal</text>
-          <text data-detail="context" x="745" y="279" class="t-muted" font-size="7" text-anchor="middle">DESIGNED · Rx</text>
+          <text data-detail="context" x="745" y="279" class="t-muted" font-size="7" text-anchor="middle">DESIGNED · no L5</text>
         </g>
 
         <g id="node-l5" data-node-id="l5" data-node-label="L5 workflow" tabindex="0" role="button" aria-label="Focus L5 workflow, PARTIAL · closure, 05 / L5–L6" aria-pressed="false" data-node-kind="security" data-node-sublabel="PARTIAL · closure" data-node-context="05 / L5–L6">
@@ -5319,8 +5319,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text x="920" y="124" class="t-messagebus" font-size="8" text-anchor="middle">/cards ingest (DESIGNED)</text>
         </g>
         <g data-detail="context" data-edge-from="l5" data-edge-to="l6" data-edge-label="HMAC" data-edge-key="7">
-          <rect x="983" y="299" width="34" height="16" rx="4" class="c-mask"/>
-          <text x="1000" y="310" class="t-messagebus" font-size="8" text-anchor="middle">HMAC</text>
+          <rect x="983" y="303" width="34" height="16" rx="4" class="c-mask"/>
+          <text x="1000" y="314" class="t-messagebus" font-size="8" text-anchor="middle">HMAC</text>
         </g>
 
         <!-- Legend -->
@@ -5530,7 +5530,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </div>
         <ul>
           <li>&bull; Transport: HTTP (OpenAPI), MQTT (TOPICS.md), L4 tool allowlist via stamped-external / external/</li>
-          <li>&bull; Isolation: no cross-layer DB; SSOT is a repo not a service; L4 → StubCardSink (L5-G4)</li>
+          <li>&bull; Isolation: no cross-layer DB; L5→L6 HMAC push (DESIGNED); L6 polls /v1/events today</li>
         </ul>
       </div>
     </div>

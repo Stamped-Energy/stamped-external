@@ -73,7 +73,7 @@
       "id": "ledger",
       "type": "database",
       "label": "Ledger",
-      "sublabel": "BUILT \u00b7 append"
+      "sublabel": "BUILT \u00b7 not bill"
     }
   ],
   "segments": [
@@ -157,9 +157,9 @@
       "dot": "amber",
       "title": "ADR-020",
       "items": [
-        "Careful: workflow state verified = ops-cleared (telemetry), not bill-verified",
-        "L6 demotes verified claims without bill line refs to ops_confirmed",
-        "Bill-verified path DEFERRED; worker uses fixture evidence by default on L2 read"
+        "See L5-03 / L5-05 \u201cThree meanings of verified\u201d table (closure-verification archify)",
+        "Ledger sublabel: append on ops_confirmed only \u2014 not bill-verified (ADR-020 deferred path)",
+        "Worker uses fixture evidence by default on L2 read"
       ]
     }
   ]

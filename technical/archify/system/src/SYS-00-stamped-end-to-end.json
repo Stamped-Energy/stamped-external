@@ -139,9 +139,9 @@
       "id": "l4-l5",
       "from": "l4",
       "to": "l5",
-      "label": "card proposal",
+      "label": "card proposal (DESIGNED — not live)",
       "variant": "dashed",
-      "labelAt": [796, 168]
+      "labelAt": [796, 152]
     },
     { "id": "l5-l6", "from": "l5", "to": "l6", "label": "closure + ledger", "labelAt": [960, 168] },
     {
@@ -183,7 +183,8 @@
       "items": [
         "No integration is live at any customer plant. Verified savings to date: ₹0.",
         "Default card sink is StubCardSink (emit off); HttpCardSink optional toward missing L5 /cards (L4-G4, L5-G4)",
-        "Today: L4 writes proposals locally; L5 only Prescription ingest — no L4 proposal becomes a live L5 card"
+        "Today: L4 writes proposals locally; L5 only Prescription ingest — no L4 proposal becomes a live L5 card",
+        "L4 runtime is built and runs; only the output hop to L5 is missing, so decisions exist in L4 but never reach an owner (L5-G4)"
       ]
     }
   ]

@@ -25,8 +25,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "0abd570322c3104d1eafb41b1827625683ee20afd20f24ab949c2d5cf5f24722",
-      "artifact_sha256": "94552275fb48c4d2e2e76d31efc534d8df72349041369ae0361a7c179a39bb1e"
+      "spec_sha256": "e8effd60f28915dd4e03c5c1dd208d5c242af1952c7e96745abef825b23dfc18",
+      "artifact_sha256": "dd83dce00dbd326df645d796701d9f3fccf1bc9ece7bbfc7366f63f62a1e9d8f"
     },
     {
       "id": "SYS-01",
@@ -44,8 +44,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "a17d1c4fdf66a7689238f99e938e3abc64c49d06cc655c0e9c086978fe3eb5b2",
-      "artifact_sha256": "2b85184812f3365bb14b9b051e99eb12e94d3c5b08ceebcb6068e87e42ebe479"
+      "spec_sha256": "05b35d7dbc8e48ef302840f3af04ded4daf253c007057f1121b1d04a6c5e4e8c",
+      "artifact_sha256": "3dec75222e8b90d2dcb83df1747373d615ada580969b51f68244f78ce5fb6d4f"
     },
     {
       "id": "SYS-02",
@@ -82,8 +82,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "72ad49304f0c038976af8d0fa5ba0fce64765806d7e041fb17dc4d68f73e7371",
-      "artifact_sha256": "056774daf2de7ba4e9c1e4abcc6215556f08119073a788528a527d735634719a"
+      "spec_sha256": "b6d86cc610103384692c7427e813b0bb67083f2b705633547d56eb87fc4b37c8",
+      "artifact_sha256": "10074c55f54edc7a04f3a95bca28bbf199da9356e70cb75b7b4f13f5bf1b96be"
     },
     {
       "id": "SYS-04",
@@ -101,8 +101,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "7bb4409a9c621af31b1195ee51b475726df2475707f987ca0b9147f25539293a",
-      "artifact_sha256": "c69af984754f4a380fd3c7bf45d533cac7c18889a820b35794a2bce3768140f1"
+      "spec_sha256": "9d51f907d61f5cc454906e2ae353a23e521f966361e6956330e1dc3df700d7d7",
+      "artifact_sha256": "2ca6fab44a33d60af9518e7b3a16e7db1c24a724ea0f7f30fb4c44ee6a2ee5a8"
     },
     {
       "id": "SYS-05",
@@ -275,7 +275,7 @@
     }
   },
   "glossary_terms": 62,
-  "glossary_sha256": "5ec4cde47bbbfa8b8c5507b61cafd23ca9b8483683600fa90632deea243911a1",
+  "glossary_sha256": "13b6f35f92a44c73a1ebf92c4da96841d4bcef92efffc3a32b267d2213eda9b4",
   "gaps": [
     {
       "id": "L1E-G-new-prune",

@@ -14,7 +14,7 @@
         "id": "as-built",
         "label": "As-built today",
         "focus": ["user", "web", "bff", "l4"],
-        "note": "Trigger: question typed. L6→BFF /analyst is BUILT; L4 analyst API answers 503 ASK_MOVED (AskRetired)."
+        "note": "Ask unusable today: 503 ASK_MOVED on every L4 call; ReAct DESIGNED; 12 tools built, unwired; UI unavailable or fixture+Preview."
       },
       {
         "id": "retired",
@@ -57,8 +57,7 @@
       "dot": "cyan",
       "title": "Status & sources",
       "items": [
-        "L4@d1887ee · AskRetired graph.py:20 returns 503 ASK_MOVED unconditionally",
-        "Tools + retrieval libraries remain BUILT; orchestrator not wired",
+        "L4@d1887ee · graph.py:20 AskRetired",
         "Sequence: dashed arrows = replies; dashed segment = retired ReAct design",
         "No integration is live · verified savings ₹0"
       ]
@@ -67,9 +66,10 @@
       "dot": "amber",
       "title": "Ask retired",
       "items": [
-        "Do not attribute 503 to L4_LIVE — analyst routes are retired on main",
-        "Designed loop: tool | answer | abstain \u2192 observation \u2192 repeat (budget 6) \u2192 citations",
-        "Operator UI: Analyst unavailable (L4_LIVE on) or fixture reply + Preview chip (L4_LIVE off); API still 503 ASK_MOVED"
+        "(1) Retired today: every analyst call returns 503 ASK_MOVED \u2014 Ask HTTP route is retired (AskRetired); reason not documented beyond that",
+        "(2) Designed ReAct loop (up to 6 turns) is DESIGNED only \u2014 not on the live path",
+        "(3) 12 agent tools + retrieval are BUILT but not wired to any live Ask path (CLI use remains)",
+        "(4) Operator UI: Analyst unavailable when L4_LIVE on; fixture reply + Preview chip when L4_LIVE off"
       ]
     }
   ]

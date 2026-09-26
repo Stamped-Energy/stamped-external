@@ -5163,7 +5163,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <path data-edge-from="l1" data-edge-to="l2" data-edge-label="envelope ingest" data-edge-key="1" data-edge-id="l1-l2" data-composition-points="348,234;372,234" d="M 348 234 L 372 234" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="l2" data-edge-to="l3" data-edge-label="query-api reads" data-edge-key="2" data-edge-id="l2-l3" data-composition-points="522,234;546,234" d="M 522 234 L 546 234" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="l3" data-edge-to="l4" data-edge-label="Finding 1.2.0" data-edge-key="3" data-edge-id="l3-l4" data-composition-points="696,234;720,234" d="M 696 234 L 720 234" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="l4" data-edge-to="l5" data-edge-label="card proposal" data-edge-key="4" data-edge-id="l4-l5" data-composition-points="870,234;894,234" d="M 870 234 L 894 234" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="l4" data-edge-to="l5" data-edge-label="card proposal (DESIGNED — not live)" data-edge-key="4" data-edge-id="l4-l5" data-composition-points="870,234;894,234" d="M 870 234 L 894 234" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         <path data-edge-from="l5" data-edge-to="l6" data-edge-label="closure + ledger" data-edge-key="5" data-edge-id="l5-l6" data-composition-points="1044,234;1068,234" d="M 1044 234 L 1068 234" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="contracts" data-edge-to="l2" data-edge-label="schemas" data-edge-key="6" data-edge-id="c-l2" data-composition-points="641,368;641,318;447,318;447,268" d="M 641 368 L 641 326 Q 641 318 633 318 L 455 318 Q 447 318 447 310 L 447 268" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         <path data-edge-from="contracts" data-edge-to="l4" data-edge-label="L4 tools" data-edge-key="7" data-edge-id="c-l4" data-composition-points="641,368;641,318;795,318;795,268" d="M 641 368 L 641 326 Q 641 318 649 318 L 787 318 Q 795 318 795 310 L 795 268" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
@@ -5289,9 +5289,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="595.8" y="158" width="72.4" height="14" rx="3" class="c-mask"/>
           <text x="632" y="168" class="t-muted" font-size="8" text-anchor="middle">Finding 1.2.0</text>
         </g>
-        <g data-detail="context" data-edge-from="l4" data-edge-to="l5" data-edge-label="card proposal" data-edge-key="4" data-edge-id="l4-l5">
-          <rect x="759.8" y="158" width="72.4" height="14" rx="3" class="c-mask"/>
-          <text x="796" y="168" class="t-messagebus" font-size="8" text-anchor="middle">card proposal</text>
+        <g data-detail="context" data-edge-from="l4" data-edge-to="l5" data-edge-label="card proposal (DESIGNED — not live)" data-edge-key="4" data-edge-id="l4-l5">
+          <rect x="707" y="142" width="178" height="14" rx="3" class="c-mask"/>
+          <text x="796" y="152" class="t-messagebus" font-size="8" text-anchor="middle">card proposal (DESIGNED — not live)</text>
         </g>
         <g data-detail="context" data-edge-from="l5" data-edge-to="l6" data-edge-label="closure + ledger" data-edge-key="5" data-edge-id="l5-l6">
           <rect x="916.6" y="158" width="86.8" height="14" rx="3" class="c-mask"/>
@@ -5523,6 +5523,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <li>&bull; No integration is live at any customer plant. Verified savings to date: ₹0.</li>
           <li>&bull; Default card sink is StubCardSink (emit off); HttpCardSink optional toward missing L5 /cards (L4-G4, L5-G4)</li>
           <li>&bull; Today: L4 writes proposals locally; L5 only Prescription ingest — no L4 proposal becomes a live L5 card</li>
+          <li>&bull; L4 runtime is built and runs; only the output hop to L5 is missing, so decisions exist in L4 but never reach an owner (L5-G4)</li>
         </ul>
       </div>
     </div>
