@@ -1,27 +1,26 @@
-# stamped-l4 / knowledge-reasoning — Architecture handoff
+# L4 / knowledge-reasoning — Architecture handoff
 
-> **Audience:** Engineers / agents building the L4 consumer.  
-> **Live consumer repo:** [Vinayak-RZ/knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning) (package `stamped_l4`)  
-> **Platform mirror README:** [`consumers/knowledge-reasoning/README.md`](../consumers/knowledge-reasoning/README.md)  
-> **Authority:** [L4 architecture SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md) · [L4 plant context graphs](../../technical/layers/l4-l6/L4-plant-context-graphs.md) · [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) · [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) · [ADR-028](../../decisions/028-032/ADR-028-dual-plant-graphs-and-path-d.md) · [ADR-013](../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md) · [ADR-015](../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md)  
-> **Contracts:** [`finding.json`](../../contracts/schemas/intelligence/finding.json) · [`prescription.json`](../../contracts/schemas/intelligence/prescription.json) · [`l4-compile-trace.json`](../../contracts/schemas/intelligence/l4-compile-trace.json) · [`capex-proposal.json`](../../contracts/schemas/intelligence/capex-proposal.json) · [`stamped-record-envelope.json`](../../contracts/schemas/envelope/stamped-record-envelope.json)  
-> **Platform pack:** mount this repo as git submodule at `external/` ([SUBMODULE.md](../SUBMODULE.md))
+> **Audience:** Engineers / agents building or integrating the L4 consumer.  
+> **Live consumer repo:** `knowledge-reasoning` (package `stamped_l4`)  
+> **Architecture authority (prefer):** [`technical/l4/`](../../technical/l4/) · [`technical/l4/30-as-built.md`](../../technical/l4/30-as-built.md) · [`STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md)  
+> **ADRs:** [033](../../decisions/033-039/ADR-033-l4-decision-runtime.md)–[040](../../decisions/040-044/ADR-040-l4-production-hardness.md) · [ADR-015](../../decisions/011-015/ADR-015-l3-dual-lane-lab-detections.md)  
+> **Contracts:** Finding · card-proposal · decision-trace · decision-case · opportunity-ledger-row under [`contracts/schemas/intelligence/`](../../contracts/schemas/intelligence/)  
+> **Platform pack:** git submodule at `external/` ([SUBMODULE.md](../../SUBMODULE.md))
 
-**Canonical L4 handoff** (former `stamped-l4-build-order.md` redirect stub removed).
+Legacy LangGraph “prescription compiler” / quality-path docs below are **not** the compile path. The live path is **`DecisionRuntime`**.
 
 ---
 
 ## 1. Mission
 
-**knowledge-reasoning** turns L3 `Finding` objects into L5-ready `Prescription` records: grounded language, deterministic ₹/kWh/tCO₂e, ranked queue, full audit trail — plus a read-only conversational analyst API.
+**knowledge-reasoning** runs the plant-scoped **decision runtime**: Finding (or discovery work) → staged graph → kernel gates → semantic terminal. It always records a **DecisionTrace**. It delivers a **card-proposal** to `CardSink` only when emit is allowed.
 
 | Is | Is not |
 | --- | --- |
-| Language, ranking, evidence binding | Numeric intelligence (L3) |
-| Adaptive RAG (Path H) + Path G/D (ADR-028) + allowlisted Path W | Direct L2 DB access |
-| Bounded LangGraph (quality path default; Lane A opt-in; analyst ReAct) | OT / SCADA writes |
-| Eval + optional Phoenix/OTel | Plant operator UI (**L6**) |
-| Durable jobs + checkpointer resume | Closure workflow owner (L5) |
+| Decision runtime + dual-family seams + PSM + portfolio | Free-roaming agent; OT write |
+| Card proposal + DecisionTrace | Final person assignment (L5); customer Forge (L6) |
+| Ask Analyst (read-only tools) over L4 | L2 SQL; invent ₹ |
+| Opportunity ledger on soft-gate blocks | Override a hard-gate withhold |
 
 ---
 
@@ -29,166 +28,65 @@
 
 ```mermaid
 flowchart LR
-  Core[intelligence-core outbox] -->|delivery=l4 emitted| L4[knowledge-reasoning]
-  L2[stamped-l2 query API] -->|HTTP tools later| L4
-  Packs[stamped-l3-rulepacks] -->|via L3 veto API later| L4
-  L4 -->|Prescription + compile_trace| L5[stamped-l5]
-  L6[L6_dashboard_chat] -->|chat + jobs APIs| L4
-  L4 -->|traces optional| PX[Phoenix_OTel]
+  Core[intelligence_core_outbox] -->|emitted_and_l4| L4[DecisionRuntime]
+  L2[L2_query_HTTP] -->|typed_reads| L4
+  L4 -->|card_proposal| L5[closure_verification]
+  L4 -->|DecisionTrace_always| Store[L4_runtime_store]
+  L6[experience_integration] -->|Ask_view| L4
 ```
 
-- **Intake:** only envelopes with `delivery=l4` ∧ `status=emitted` (ADR-015). Never Lab-only / hypothesis / shadow.
-- **L2:** HTTP only — no `L2_DATABASE_URL`. **P0–P2:** fixture clients; live HTTP post-P2 deploy ([ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)).
-- **Veto:** L3 `check_rule_violation` is final (fixture stub until live).
+- **Intake:** envelopes with `delivery=l4` ∧ `status=emitted` only (ADR-015). Lab never promotes.
+- **L2:** HTTP only — no `L2_DATABASE_URL`.
+- **Output:** card-proposal via sink when `can_emit()`; prescription **1.0.0** remains a dual-read schema beside card-proposal until retired ([`18-contract-deltas.md`](../../technical/l4/18-contract-deltas.md)).
 
 ---
 
-## 3. Compiler lanes (ADR-028)
+## 3. Compile path (as-built)
 
-| Lane | Trigger | LLM budget |
-| --- | --- | --- |
-| **Quality path (default)** | All categories | As needed; **≥10 allowed**; judge after gates |
-| **A — Template** | `force_lane=a`, `L4_DEFAULT_LANE=template`, CI, model-down | **0** calls; `lane=template_fast_path` |
+1. Inbox / enqueue Finding (or sweep / promote).
+2. `PlantWorkQueue` → lease `DecisionCase`.
+3. Stages (default): `candidates` → `constraints` → `portfolio` → `minimizer` → `kernel_recheck` → `terminal`.
+4. Terminal: `emit` | `supersede` | `withhold` | `abstain`.
+5. DecisionTrace always; `CardSink.deliver` only if `emit_enabled && !shadow_only && !kill_switch`.
 
-Do **not** delete Lane A. Do **not** default `CATEGORY_TEMPLATE_ID → Lane A`. `template_id` still bounds the action family on the quality path. Emit [`l4-compile-trace`](../../contracts/schemas/intelligence/l4-compile-trace.json) with every quality-path Rx.
+Orchestration: `worker/decision_runner.py` (`DecisionRuntime`). Legacy `graph/quality.py` LangGraph lanes remain in-tree for analyst / historical paths but are **not** invoked on the compile path (`worker/runner.py` routes compile through the runtime only).
 
-Foundation template *families* (generic-energy): `md_overlap`, `pf_slab_breach`, `tod_exposure`, **`idle_load`**, **`compressor_sp_drift`**. Expand under engineer approval + golden cases.
-
-### Positioning alignment
-
-| Client step | L4 role |
-| --- | --- |
-| 3 Prescriptions | Compile What/Why/Who/Effort/Impact/When + evidence_refs + mv_plan + compile-trace |
-| 4 Agentic | Rank/dedupe; emit gate diagnostics for L5; **no free-form What rewrite** |
-| Order-aware next-best | **At compile** (Path D); negotiation API remains for human pushback |
-
-**Practicality (AD-5):** incomplete owner/window/evidence → L5 `withheld` / `pending_stamped_review`, not prose fill-in.
-
-Orchestration: **LangGraph StateGraph**. Lane A has zero LLM nodes. Quality path has draft/judge nodes with a practicality budget, not unbounded ReAct.
+Safe local default: `emit_enabled=false`, `shadow_only=true`. Detail: [`30-as-built.md`](../../technical/l4/30-as-built.md).
 
 ---
 
-## 4. Adaptive RAG + tools
+## 4. Analyst (secondary surface)
 
-Per [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) and pilot shape in [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md):
+Ask Analyst remains a read-only conversational API (tools: knowledge lookup, timeseries, baselines, notes). **Forbidden:** OT write, messaging send, open crawl, SQL, cross-tenant retrieve. Ask does not emit cards.
 
-| Path | Pilot status |
-| --- | --- |
-| **Path H** | **Shipped** — filter → FTS + dense RRF → hop-2 same-doc neighbors; add vertical + class filters |
-| **Path W** | **Shipped for analyst (P2)** — allowlist T4; fixture in CI / httpx live |
-| **Path G** | **Specified (ADR-028)** — Graph A relational hop; implement after pin |
-| **Path D** | **Specified (ADR-028)** — live vs canonical delta; implement after pin |
-| **Path V** | Deferred |
-
-### Analyst tool registry (read-only)
-
-| Tool | Notes |
-| --- | --- |
-| `lookup_knowledge` | Path H |
-| `query_timeseries` / `get_baseline` / `traverse_graph` / `get_role_map` | L2 fixtures → live HTTP later |
-| `list_open_findings` | Preview / open store |
-| `web_research` | Path W; ≤1 / cycle; T4 |
-| `list_saved_notes` / `save_note` | Explicit notes only |
-
-**Forbidden:** OT write, messaging send, open crawl, SQL, cross-tenant retrieve.
+Retrieval ADRs (017 / 028) still apply to analyst RAG; they do not redefine the decision-runtime compile path.
 
 ---
 
-## 5. Guardrails (must implement)
+## 5. Guardrails
 
-- Strict structured outputs + schema gate on every generation
-- Numeric integrity: draft numerals ≡ deterministic impact / tool outputs
-- Evidence refs non-empty and resolvable when answering
-- Bounded template enum; unknown → Lane B or quarantine
-- T4 citation → never sole ₹/M&V truth; human approval when used on Rx
-- Analyst budgets enforced (turns / tools / hops / Path W / wall clock)
-- Dedup-after-reject policy (L4 SSOT §12)
-- LangGraph checkpointer + OTel spans; Phoenix optional
+- Kernel owns terminals, hard stops, money references, constraint evaluation
+- Models never assign evidence tier or ₹
+- Soft-gate blocks → opportunity ledger / owner backlog; hard-gate withhold hidden from customer Now queue
+- Bounded model budgets; fixture providers for CI (`L4_MODEL_PROVIDER=""`)
 
 ---
 
-## 6. Eval & observability
+## 6. Bootstrap checklist
 
-| Component | Use |
-| --- | --- |
-| **pytest** | Unit, API, fuzz, e2e, contract, integration |
-| **Eval manifest ≥60** | Schema, numeric, citations, budgets, adversarial, tenant |
-| **OpenTelemetry** | Workflow / retrieval / model spans when enabled |
-| **Arize Phoenix** | Optional compose profile + dataset sync helpers |
-
-**CI:** PR = deterministic + mock model; never set `L4_MODEL_*` in CI. Live upstreams not required for merge.
-
-Eval assets live **in** `knowledge-reasoning` (not a separate eval repo).
+1. Pin `external/`; read [`technical/l4/README.md`](../../technical/l4/README.md) → [`00-kernel.md`](../../technical/l4/00-kernel.md) → [`30-as-built.md`](../../technical/l4/30-as-built.md)
+2. Work in `knowledge-reasoning`; run R1 boot / smoke from that repo’s docs
+3. Never take `L2_DATABASE_URL`
+4. Do not treat LangGraph quality path as the Finding → card compile path
 
 ---
 
-## 7. Capability maturity (pilot)
-
-| Capability | Band |
-| --- | --- |
-| Quality path + compile-trace | **Specified (ADR-028)** — implement after pin |
-| Lane A + verifier + fixture emit | **Shipped (P0)** — retained as degrade / opt-in |
-| Lane B + Path H + mock/openai_compat model | **Shipped (P1)** |
-| Durable jobs + analyst ReAct + Path W + Phoenix optional + eval/60 | **Shipped (P2)** |
-| Sustainability narrative | **P3** |
-| Hindi Rx generation | **Far future** (not Core) |
-| Live L2/L3/L5 HTTP | **Post-P2 deploy** |
-
----
-
-## 8. Cost guidance (₹40L/mo plant `[~]`)
-
-Lean target no longer assumes Lane A dominant on production Rx. **Quality wins on prescriptions** (10+ calls allowed). Analyst / Path W remain cost-aware. Knobs: `L4_DEFAULT_LANE=template` (emergency) vs default quality path.
-
----
-
-## 9. Bootstrap checklist
-
-1. Add platform submodule at `external/`; pin SHA; run `external/scripts/contracts/contract-check.sh`
-2. Read L4 SSOT + [plant context graphs](../../technical/layers/l4-l6/L4-plant-context-graphs.md) + ADR-017 + **ADR-018** + **ADR-028** + this handoff
-3. Clone / work in [knowledge-reasoning](https://github.com/Vinayak-RZ/knowledge-reasoning); see mirrored README
-4. Keep Lane A working; implement quality path + Path G/D after pin — do not delete Lane A
-5. Instrument OTel; enable Phoenix; emit compile-trace for L5 console
-6. Never take `L2_DATABASE_URL`; fixture L2 client until query API live
-
-Platform reference scaffold (Lane A only): [`consumers/stamped-l4/`](../consumers/stamped-l4/README.md).
-
----
-
-## 10. L3 change prompt
-
-Paste into **intelligence-core** when outbox consumer API or rules veto HTTP is missing:
-
-```text
-L4 needs two platform-aligned interfaces from intelligence-core:
-
-1) Finding delivery: durable outbox already stages StampedRecordEnvelope
-   when delivery=l4 and status=emitted. Please expose a documented consumer
-   API: GET/POST pull with cursor + ack (or webhook) so knowledge-reasoning
-   can inbox Findings idempotently. No L2_DATABASE_URL. Contract:
-   external/contracts/schemas/intelligence/finding.json + stamped-record-envelope.json.
-
-2) Rules veto tool: HTTP POST /v1/rules/check_violation
-   body: { plant_id, template_id, params, evidence_refs }
-   response: { allowed: bool, rule_refs[], reason }
-   Deterministic only; versioned against RULEPACK_PATH.
-   L4 must never override a veto.
-
-Do not add prose generation or prescription logic to L3.
-Pin external/ to the same SHA L4 will use. Ponytail; tests for ack
-idempotency and veto finality.
-```
-
----
-
-## 11. Related docs
+## 7. Related docs
 
 | Doc | Why |
 | --- | --- |
-| [L4 SSOT](../../technical/layers/l4-l6/L4-knowledge-and-reasoning.md) | Full architecture |
-| [ADR-017](../../decisions/016-020/ADR-017-l4-adaptive-retrieval-and-web-trust.md) | Retrieval + T4 web |
-| [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md) | Pilot execution decisions |
-| [Consumer README mirror](../consumers/knowledge-reasoning/README.md) | Full operator/integrator manual |
-| [L3 build order](./stamped-l3-build-order.md) | Upstream outbox |
-| [L2 query API sketch](./stamped-l2-query-api-sketch.md) | Tool HTTP shapes |
-| [Evaluation spine](../../technical/cross-cutting/04-evaluation-and-quality.md) | Q9–Q11 gates |
+| [`technical/l4/`](../../technical/l4/) | Normative architecture contract |
+| [`30-as-built.md`](../../technical/l4/30-as-built.md) | Shipped package map and flags |
+| [`15-l3-l4-interface.md`](../../technical/l4/15-l3-l4-interface.md) | Finding floor + L3 methods port |
+| [`technical/l3/`](../../technical/l3/) | How Findings are produced |
+| ADR-017 / ADR-018 | Analyst retrieval / pilot history (not compile SoT) |

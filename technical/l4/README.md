@@ -1,11 +1,13 @@
 # L4 — Decision runtime architecture
 
-**Status:** Architecture contract (docs). Implementation lives in `stamped-l4`.  
-**Date:** 2026-09-25  
+**Status:** Architecture contract (docs). Implementation lives in `knowledge-reasoning` (`stamped_l4`).  
+**Date:** 2026-09-25 · **As-built map:** [`30-as-built.md`](30-as-built.md)  
 **Product framing:** [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md)  
 **Normative kernel:** [`00-kernel.md`](00-kernel.md) — other docs link here; they do not restate it.
 
 L4 turns plant conditions into **at most one owned card proposal** — or withholds / abstains with a full trace. Humans decide and execute. L5 owns the live card. L3 owns detection methods and money calculation. L2 owns plant source-of-truth records. L4 owns the decision runtime, the derived Plant Situation Model, and the opportunity ledger.
+
+The **live compile path** is `DecisionRuntime` (`stamped_l4.runtime` + `worker/decision_runner.py`). Legacy LangGraph prescription-compiler graphs may remain in the consumer tree; they are not the Finding → card compile path. See [`30-as-built.md`](30-as-built.md).
 
 ## Eight ideas this set leads with
 
@@ -52,6 +54,7 @@ L4 turns plant conditions into **at most one owned card proposal** — or withho
 | 27 | [`27-ports-and-reliability.md`](27-ports-and-reliability.md) | Timeouts, retries, breakers, idempotency |
 | 28 | [`28-commissioning-and-controls.md`](28-commissioning-and-controls.md) | Safe-start, kill switch |
 | 29 | [`29-software-quality-and-release.md`](29-software-quality-and-release.md) | Tests, CI, SLOs, durability |
+| 30 | [`30-as-built.md`](30-as-built.md) | Shipped package map + compile path |
 | — | [`glossary.md`](glossary.md) | Terms |
 
 ## ADRs
@@ -79,9 +82,9 @@ Not code. Not a schedule optimizer. Not equipment write. Not a second plant UI. 
 
 ## v1 slice vs later
 
-| v1 | Later |
+| v1 (docs + as-built runtime) | Later |
 | --- | --- |
-| Architecture docs + Finding runtime + PSM + dual-family seams + soft-gate ledger + OE corpus + **production hardness (`25`–`29`)** | stamped-l4 implementation of kernel **and** queue/lifecycle/ports/controls |
+| Architecture docs `00`–`29` + **as-built** Finding runtime / PSM / seams / ledger / queue / controls ([`30-as-built.md`](30-as-built.md)) | Harden SQL-backed case/trace loop; expand discovery certification |
 | Five **seeded** domain registry ids (ADR-030 framing); Pilot activates families when commissioned | Additional domains by registration |
 | Cross-plant memory / priors | Not in v1 (designed seam only) |
 | OE corpus Tier A public ingest | Broader Tier B/C under license / owner packs |
