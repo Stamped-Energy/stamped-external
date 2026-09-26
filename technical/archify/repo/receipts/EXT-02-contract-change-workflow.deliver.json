@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/workspace/technical/archify/repo/src/EXT-02-contract-change-workflow.json",
+  "output": "/workspace/technical/archify/repo/EXT-02-contract-change-workflow.html",
+  "specification": {
+    "sha256": "7cb2105f2c7ec4b391e2fbed43fe7c5ab560959ac9eae19d41433e52023ce595",
+    "bytes": 3995
+  },
+  "artifact": {
+    "sha256": "16ff37717226e5549cea3c0b6ac6f2d5da6110ebbe71116d938f777fa98224c7",
+    "bytes": 807834
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

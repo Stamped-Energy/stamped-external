@@ -1,0 +1,82 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "How a contract changes",
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "viewBox": [1140, 590],
+    "legend": { "mode": "hidden" },
+    "views": [
+      {
+        "id": "authoring",
+        "label": "Propose and edit",
+        "focus": ["author", "schema", "adr"],
+        "note": "Trigger: schema mismatch. Author PR + ADR when normative; edit contracts/schemas and CHANGELOG in stamped-external."
+      },
+      {
+        "id": "ci-gate",
+        "label": "Validate on main",
+        "focus": ["schema", "check", "tag"],
+        "note": "Merge runs contract-check.sh. Tag semver; layer repos open external/ submodule bump PRs (ADR-011)."
+      },
+      {
+        "id": "rollout",
+        "label": "Dual-read rollout",
+        "focus": ["dual", "bump", "deprecate"],
+        "note": "Consumers ship dual-read parsers, then drop deprecated shapes (e.g. prescription 1.0.0 → card-proposal 1.0.0 per CHANGELOG)."
+      }
+    ],
+    "output": "EXT-02-contract-change-workflow.html"
+  },
+  "lanes": [
+    { "id": "author", "label": "Authoring" },
+    { "id": "platform", "label": "Platform SSOT" },
+    { "id": "rollout", "label": "Consumer rollout" }
+  ],
+  "phases": [
+    { "id": "p0", "label": "Propose", "fromCol": 0, "toCol": 1 },
+    { "id": "p1", "label": "Verify + tag", "fromCol": 2, "toCol": 3 },
+    { "id": "p2", "label": "Adopt", "fromCol": 4, "toCol": 5 }
+  ],
+  "mainPath": ["author", "adr", "schema", "check", "tag", "bump"],
+  "nodes": [
+    { "id": "author", "lane": "author", "col": 0, "type": "external", "label": "Author PR", "sublabel": "BUILT · ADR when normative", "width": 140 },
+    { "id": "adr", "lane": "author", "col": 1, "type": "security", "label": "ADR note", "sublabel": "BUILT · decisions/", "width": 130 },
+    { "id": "schema", "lane": "platform", "col": 2, "type": "database", "label": "Edit schema", "sublabel": "BUILT · semver bump", "width": 140 },
+    { "id": "check", "lane": "platform", "col": 3, "type": "security", "label": "contract-check.sh", "sublabel": "BUILT · scripts/contracts/", "width": 150 },
+    { "id": "tag", "lane": "platform", "col": 4, "type": "cloud", "label": "Tag release", "sublabel": "BUILT · VERSION + CHANGELOG", "width": 140 },
+    { "id": "bump", "lane": "rollout", "col": 5, "type": "external", "label": "Bump submodule", "sublabel": "BUILT · external/ pin", "width": 150 },
+    { "id": "dual", "lane": "rollout", "col": 2, "type": "messagebus", "label": "Dual-read window", "sublabel": "BUILT · CHANGELOG policy", "width": 150 },
+    { "id": "deprecate", "lane": "rollout", "col": 4, "type": "backend", "label": "Deprecate old", "sublabel": "BUILT · dashed wire only", "width": 150 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "author", "to": "adr", "label": "links ADR" },
+    { "id": "e2", "from": "adr", "to": "schema", "label": "schema + CHANGELOG" },
+    { "id": "e3", "from": "schema", "to": "check", "label": "run CI locally" },
+    { "id": "e4", "from": "check", "to": "tag", "label": "merge → tag" },
+    { "id": "e5", "from": "tag", "to": "bump", "label": "ADR-011 bump PRs" },
+    { "id": "e6", "from": "schema", "to": "dual", "label": "dual-read note", "variant": "dashed" },
+    { "id": "e7", "from": "dual", "to": "deprecate", "label": "remove old parser", "variant": "dashed" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "stamped-external@a4c91bc · ADR-011 submodule flow · contracts/CHANGELOG.md",
+        "contract-check.sh: scripts/contracts/contract-check.sh:1",
+        "Example: prescription.json deprecated → card-proposal 1.0.0 (dual-read)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Status legend",
+      "items": [
+        "BUILT: schemas + CI on main (not live plant integration)",
+        "DESIGNED/DEFERRED edges dashed when policy not yet encoded in code"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "node": "B11",
+  "repo": "Stamped-Energy/stamped-external",
+  "base_sha": "a4c91bc286099e0cb0d3db124932994df045ac94",
+  "branch": "cursor/archify-architecture-8fe4",
+  "pr_url": "https://github.com/Stamped-Energy/stamped-external/pull/77",
+  "pr_state": "draft",
+  "archify": {
+    "commit": "9e35d2b0b39b155553ba9fcfe0b4f2a5198dd993",
+    "version": "2.17.0-dev.1"
+  },
+  "diagrams": [
+    {
+      "id": "EXT-01",
+      "type": "architecture",
+      "title": "stamped-external SSOT pack",
+      "question": "Where do I find vision, decisions, contracts and handoffs, and which is authoritative?",
+      "file": "EXT-01-stamped-external-ssot.html",
+      "spec": "src/EXT-01-stamped-external-ssot.json",
+      "status_counts": {
+        "BUILT": 8,
+        "PARTIAL": 0,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "spec_sha256": "26d88fd991fe83be63136d035acd651bcd5bf34356e283f933c4f00ef9f06bce",
+      "artifact_sha256": "bdc136a8cb1423408cb0ec18be1b33851867fb355b94148cc8637e290bf92ed1",
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok"
+    },
+    {
+      "id": "EXT-02",
+      "type": "workflow",
+      "title": "How a contract changes",
+      "question": "If a schema must change, what steps happen and who must update?",
+      "file": "EXT-02-contract-change-workflow.html",
+      "spec": "src/EXT-02-contract-change-workflow.json",
+      "status_counts": {
+        "BUILT": 8,
+        "PARTIAL": 0,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "spec_sha256": "7cb2105f2c7ec4b391e2fbed43fe7c5ab560959ac9eae19d41433e52023ce595",
+      "artifact_sha256": "16ff37717226e5549cea3c0b6ac6f2d5da6110ebbe71116d938f777fa98224c7",
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok"
+    },
+    {
+      "id": "EXT-03",
+      "type": "dataflow",
+      "title": "Contract catalog producers and consumers",
+      "question": "For each contract family, which layer produces it and which consumes it?",
+      "file": "EXT-03-contract-catalog-dataflow.html",
+      "spec": "src/EXT-03-contract-catalog-dataflow.json",
+      "status_counts": {
+        "BUILT": 6,
+        "PARTIAL": 0,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "spec_sha256": "e43c64333e7b3c74a8b72fc41fde1c31d706d0c54cc5f6440721a2c6547f4b1e",
+      "artifact_sha256": "c9a1bd2af0c9569c2959d120c5e1aa74e110c8c040df2b7edaa498bb0a90a168",
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok"
+    },
+    {
+      "id": "EXT-04",
+      "type": "workflow",
+      "title": "Authority order when docs disagree",
+      "question": "Which document wins when two docs disagree?",
+      "file": "EXT-04-authority-order-workflow.html",
+      "spec": "src/EXT-04-authority-order-workflow.json",
+      "status_counts": {
+        "BUILT": 9,
+        "PARTIAL": 0,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "spec_sha256": "b608011b2b1202df73f38c3ce5f030f07d691314a6040c6afd3ff540c09c6b61",
+      "artifact_sha256": "0bd955546b8acfce90418d875e28df49ee6c560b96eb40adf9baf702f0555024",
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok"
+    },
+    {
+      "id": "EXT-05",
+      "type": "lifecycle",
+      "title": "Contract version lifecycle",
+      "question": "What states can a contract version be in?",
+      "file": "EXT-05-contract-version-lifecycle.html",
+      "spec": "src/EXT-05-contract-version-lifecycle.json",
+      "status_counts": {
+        "BUILT": 4,
+        "PARTIAL": 0,
+        "DESIGNED": 0,
+        "DEFERRED": 0
+      },
+      "spec_sha256": "b631d8aba352fd9ab7097a93f614a20e655ce9ddec0427575ac00777c7f2938e",
+      "artifact_sha256": "c9fd3cbe88fd74d55f215755a6d3f5d3d874629d436eeebac8241db571b5e49b",
+      "validate": "9/9",
+      "visual_check": "pass",
+      "perceptual_review": "ok"
+    }
+  ],
+  "skipped": [],
+  "gaps": [
+    {
+      "id": "G9",
+      "summary": "Archived layer L4 compiler docs vs technical/l4/ kernel",
+      "evidence": "technical/STAMPED_ARCHITECTURE.md:9"
+    },
+    {
+      "id": "new",
+      "summary": "Removed contract state is CHANGELOG policy only",
+      "evidence": "contracts/CHANGELOG.md:14"
+    }
+  ],
+  "key_facts": [
+    "No runtime server in stamped-external; consumers mount external/ submodule (ADR-011). \u2014 decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md:31",
+    "contract-check.sh validates all schemas/fixtures on CI. \u2014 scripts/contracts/contract-check.sh:2",
+    "Authority: AGENT-START \u2192 09 \u2192 10 \u2192 ADR-030 \u2192 STAMPED_ARCHITECTURE \u2192 l4/ \u2192 handoff \u2192 contracts. \u2014 research/plant-efficiency-exploration-2026-09/AGENT-START.md:8",
+    "Finding 1.2.0 default; finding-2.0.0 dual-read. \u2014 contracts/CHANGELOG.md:10",
+    "prescription.json deprecated; card-proposal 1.0.0 for new L4 emits. \u2014 contracts/CHANGELOG.md:16",
+    "Seven schema families under contracts/schemas/. \u2014 contracts/README.md:12",
+    "L3 methods OpenAPI at contracts/openapi/l3-methods.openapi.json. \u2014 contracts/openapi/l3-methods.openapi.json:1",
+    "L4 tool allowlist at contracts/tools/l2-query-tools.json. \u2014 contracts/tools/l2-query-tools.json:1",
+    "MQTT topic conventions in contracts/TOPICS.md. \u2014 contracts/TOPICS.md:1",
+    "vision-identity-lint blocks withdrawn company framing on PRs. \u2014 scripts/vision-identity-lint.ps1:10",
+    "STAMPED_ARCHITECTURE prefers l4/ over compiler-only layer notes. \u2014 technical/STAMPED_ARCHITECTURE.md:9",
+    "Platform pack includes decisions/, handoff/, technical/, contracts/. \u2014 README.md:1",
+    "Honesty: no live plant integration; verified savings \u20b90. \u2014 technical/STAMPED_ARCHITECTURE.md:11"
+  ],
+  "safety_scan": "clean",
+  "failures": null
+}

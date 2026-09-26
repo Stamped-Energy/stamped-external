@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "/workspace/technical/archify/repo/src/EXT-03-contract-catalog-dataflow.json",
+  "output": "/workspace/technical/archify/repo/EXT-03-contract-catalog-dataflow.html",
+  "specification": {
+    "sha256": "e43c64333e7b3c74a8b72fc41fde1c31d706d0c54cc5f6440721a2c6547f4b1e",
+    "bytes": 2674
+  },
+  "artifact": {
+    "sha256": "c9a1bd2af0c9569c2959d120c5e1aa74e110c8c040df2b7edaa498bb0a90a168",
+    "bytes": 801027
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

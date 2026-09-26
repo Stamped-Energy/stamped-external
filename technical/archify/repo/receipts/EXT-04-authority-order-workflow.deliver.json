@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/workspace/technical/archify/repo/src/EXT-04-authority-order-workflow.json",
+  "output": "/workspace/technical/archify/repo/EXT-04-authority-order-workflow.html",
+  "specification": {
+    "sha256": "b608011b2b1202df73f38c3ce5f030f07d691314a6040c6afd3ff540c09c6b61",
+    "bytes": 3969
+  },
+  "artifact": {
+    "sha256": "0bd955546b8acfce90418d875e28df49ee6c560b96eb40adf9baf702f0555024",
+    "bytes": 807543
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

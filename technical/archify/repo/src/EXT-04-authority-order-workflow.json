@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Authority order when docs disagree",
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "viewBox": [1050, 590],
+    "legend": { "mode": "hidden" },
+    "views": [
+      {
+        "id": "vision-wins",
+        "label": "Vision chain",
+        "focus": ["agent", "v09", "v10"],
+        "note": "Trigger: conflicting internal docs. AGENT-START → 09 → 10; founder vision 09 wins unless a human overrides explicitly."
+      },
+      {
+        "id": "stack-wins",
+        "label": "Architecture stack",
+        "focus": ["adr030", "stamped", "l4"],
+        "note": "ADR-030 frames five domains; STAMPED_ARCHITECTURE.md and technical/l4/ beat retired compiler-only layer notes (gap G9)."
+      },
+      {
+        "id": "wire-gate",
+        "label": "Handoff, contracts, lint",
+        "focus": ["handoff", "contracts", "lint"],
+        "note": "handoff/ names cross-repo hops; contracts/schemas are wire truth; vision-identity-lint.ps1 blocks withdrawn identity on PRs."
+      }
+    ],
+    "output": "EXT-04-authority-order-workflow.html"
+  },
+  "lanes": [
+    { "id": "precedence", "label": "Precedence (earlier wins)" },
+    { "id": "wire", "label": "Integration & wire" }
+  ],
+  "phases": [
+    { "id": "p0", "label": "Vision", "fromCol": 0, "toCol": 2 },
+    { "id": "p1", "label": "Architecture", "fromCol": 3, "toCol": 5 }
+  ],
+  "mainPath": ["agent", "v09", "v10", "adr030", "stamped", "l4"],
+  "nodes": [
+    { "id": "agent", "lane": "precedence", "col": 0, "type": "frontend", "label": "AGENT-START", "sublabel": "BUILT · entry map", "width": 132 },
+    { "id": "v09", "lane": "precedence", "col": 1, "type": "security", "label": "Vision 09", "sublabel": "BUILT · wins", "width": 120 },
+    { "id": "v10", "lane": "precedence", "col": 2, "type": "security", "label": "Vision 10", "sublabel": "BUILT · alignment", "width": 120 },
+    { "id": "adr030", "lane": "precedence", "col": 3, "type": "backend", "label": "ADR-030", "sublabel": "BUILT · five domains", "width": 120 },
+    { "id": "stamped", "lane": "precedence", "col": 4, "type": "backend", "label": "STAMPED_ARCH", "sublabel": "BUILT · technical/", "width": 130 },
+    { "id": "l4", "lane": "precedence", "col": 5, "type": "backend", "label": "technical/l4/", "sublabel": "BUILT · L4 kernel", "width": 130 },
+    { "id": "handoff", "lane": "wire", "col": 1, "type": "cloud", "label": "handoff/", "sublabel": "BUILT · integration", "width": 130 },
+    { "id": "contracts", "lane": "wire", "col": 3, "type": "database", "label": "contracts/", "sublabel": "BUILT · wire SSOT", "width": 130 },
+    { "id": "lint", "lane": "wire", "col": 5, "type": "security", "label": "identity lint", "sublabel": "BUILT · PR gate", "width": 130 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "agent", "to": "v09", "label": "read order" },
+    { "id": "e2", "from": "v09", "to": "v10" },
+    { "id": "e3", "from": "v10", "to": "adr030", "label": "frames loop" },
+    { "id": "e4", "from": "adr030", "to": "stamped" },
+    { "id": "e5", "from": "stamped", "to": "l4" },
+    { "id": "e6", "from": "l4", "to": "handoff", "label": "layer hops", "fromSide": "bottom", "toSide": "top", "role": "return" },
+    { "id": "e7", "from": "handoff", "to": "contracts", "label": "wire bytes" },
+    { "id": "e8", "from": "contracts", "to": "lint", "label": "scripts/vision-identity-lint.ps1" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "stamped-external@a4c91bc · AGENT-START.md · STAMPED_ARCHITECTURE.md:9",
+        "Doc ↔ code gap G9: archive layer L4 compiler text vs technical/l4/ (DESIGNED docs only in archive)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Status legend",
+      "items": [
+        "BUILT: markdown + schemas on main with CI",
+        "Meaning conflicts: earlier node in this chain wins"
+      ]
+    }
+  ]
+}

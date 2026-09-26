@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "stamped-external SSOT pack",
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "viewBox": [1346, 520],
+    "repository": {
+      "url": "https://github.com/Stamped-Energy/stamped-external",
+      "revision": "a4c91bc286099e0cb0d3db124932994df045ac94"
+    },
+    "legend": { "mode": "hidden" },
+    "views": [
+      {
+        "id": "authority-trail",
+        "label": "Vision to contracts",
+        "focus": ["vision", "decisions", "technical", "contracts"],
+        "note": "Trigger: newcomer opens SSOT. Vision + ADRs set law; technical/ + contracts/schemas encode stack + wire shapes layers import."
+      },
+      {
+        "id": "integration-trail",
+        "label": "Handoff and CI gates",
+        "focus": ["handoff", "ci", "contracts", "apis"],
+        "note": "Trigger: PR merges here. handoff/ explains hops; contract-check.sh + identity lint gate before consumers bump external/ submodule tag."
+      },
+      {
+        "id": "consumer-lens",
+        "label": "What layer repos import",
+        "focus": ["contracts", "apis", "decisions", "consumers"],
+        "note": "Output: layer repos read contracts + ADRs via external/ submodule (ADR-011). No runtime server in this repo — docs/contracts only."
+      }
+    ],
+    "output": "EXT-01-stamped-external-ssot.html"
+  },
+  "components": [
+    {
+      "id": "vision",
+      "type": "frontend",
+      "label": "Vision pack",
+      "sublabel": "AGENT-START · 09 · 10",
+      "tag": "BUILT",
+      "pos": [48, 128],
+      "size": [200, 72],
+      "sources": [
+        { "path": "research/plant-efficiency-exploration-2026-09/AGENT-START.md", "line": 8, "label": "agent entry" }
+      ]
+    },
+    {
+      "id": "decisions",
+      "type": "security",
+      "label": "ADRs",
+      "sublabel": "decisions/ 001–040",
+      "tag": "BUILT",
+      "pos": [288, 128],
+      "size": [200, 72],
+      "sources": [
+        { "path": "decisions/028-032/ADR-030-five-domain-decision-loop.md", "line": 1, "label": "ADR-030" }
+      ]
+    },
+    {
+      "id": "technical",
+      "type": "backend",
+      "label": "technical/",
+      "sublabel": "STAMPED_ARCH · l4/",
+      "tag": "BUILT",
+      "pos": [528, 128],
+      "size": [200, 72],
+      "sources": [
+        { "path": "technical/STAMPED_ARCHITECTURE.md", "line": 1, "label": "SSOT arch" }
+      ]
+    },
+    {
+      "id": "contracts",
+      "type": "database",
+      "label": "contracts/",
+      "sublabel": "schemas + fixtures",
+      "tag": "BUILT",
+      "pos": [768, 128],
+      "size": [200, 72],
+      "sources": [
+        { "path": "contracts/README.md", "line": 12, "label": "schema catalog" }
+      ]
+    },
+    {
+      "id": "apis",
+      "type": "messagebus",
+      "label": "APIs & topics",
+      "sublabel": "OpenAPI · tools · MQTT",
+      "tag": "BUILT",
+      "pos": [48, 300],
+      "size": [200, 72],
+      "sources": [
+        { "path": "contracts/openapi/l3-methods.openapi.json", "line": 1, "label": "L3 methods" }
+      ]
+    },
+    {
+      "id": "handoff",
+      "type": "cloud",
+      "label": "handoff/",
+      "sublabel": "cross-repo docs",
+      "tag": "BUILT",
+      "pos": [288, 300],
+      "size": [200, 72],
+      "sources": [
+        { "path": "handoff/README.md", "line": 1, "label": "handoff index" }
+      ]
+    },
+    {
+      "id": "ci",
+      "type": "security",
+      "label": "CI scripts",
+      "sublabel": "contract-check · lint",
+      "tag": "BUILT",
+      "pos": [528, 300],
+      "size": [200, 72],
+      "sources": [
+        { "path": "scripts/contracts/contract-check.sh", "line": 2, "label": "schema CI" }
+      ]
+    },
+    {
+      "id": "consumers",
+      "type": "external",
+      "label": "Layer repos",
+      "sublabel": "external/ pin",
+      "tag": "BUILT",
+      "pos": [768, 300],
+      "size": [200, 72],
+      "sources": [
+        { "path": "decisions/011-015/ADR-011-stamped-platform-submodule-distribution.md", "line": 31, "label": "ADR-011" }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "stamped-external SSOT (docs + contracts)",
+      "wraps": ["vision", "decisions", "technical", "contracts", "apis", "handoff", "ci"],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    { "id": "v-to-d", "from": "vision", "to": "decisions" },
+    { "id": "d-to-t", "from": "decisions", "to": "technical" },
+    { "id": "t-to-c", "from": "technical", "to": "contracts" },
+    { "id": "t-to-h", "from": "technical", "to": "handoff", "label": "layer hops", "fromSide": "bottom", "toSide": "top", "labelAt": [458, 242] },
+    { "id": "ci-to-cons", "from": "ci", "to": "consumers", "label": "tag after green CI", "labelAt": [748, 386] }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "stamped-external@a4c91bc · vision, ADRs, technical/, contracts/, handoff/, scripts/",
+        "contracts/ also feeds OpenAPI, tools/, TOPICS.md and contract-check.sh (see card)",
+        "BUILT = on main with tests; no live plant integration"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Authority when docs disagree",
+      "items": [
+        "AGENT-START → 09 → 10 → ADR-030 → STAMPED_ARCHITECTURE → l4/ → handoff → contracts",
+        "handoff/ + external/ pin deliver integration docs to L1–L6 repos (see EXT-04)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>stamped-external (platform SSOT) — Stamped architecture (Archify)</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d2330;--mut:#5b6474;--line:#e3e0d8;--acc:#1f6feb;--b:#1a7f37;--p:#9a6700;--d:#6e40c9;--x:#8c959f}
+@media (prefers-color-scheme:dark){:root{--bg:#10141b;--fg:#e6e9ef;--mut:#9aa4b2;--line:#2a313c;--acc:#58a6ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 20px 64px}h1{font-size:28px;margin:0 0 4px}h2{font-size:20px;margin:36px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:17px;margin:22px 0 6px}.mut{color:var(--mut)}a{color:var(--acc)}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:rgba(127,127,127,.08)}
+.honest{border:1px solid var(--line);border-left:4px solid #cf222e;padding:10px 14px;border-radius:6px;margin:16px 0}
+.strip{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0}.strip span{padding:4px 8px;border:1px solid var(--line);border-radius:4px;font-size:13px}
+.strip .on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.tag{display:inline-block;font-size:12px;padding:1px 6px;border-radius:10px;border:1px solid;margin-right:4px}
+.B{color:var(--b)}.P{color:var(--p)}.D{color:var(--d)}.X{color:var(--x)}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0}.card h3{margin-top:0}
+code{font-size:13px}nav a{margin-right:12px}
+</style></head><body><main>
+<nav><a data-master-index href="https://github.com/Stamped-Energy/stamped-external/blob/main/technical/archify/index.html">← Master index</a><a href="#reading-order">Reading order</a><a href="#gaps">Doc ↔ code gaps</a><a href="#glossary">Glossary</a></nav>
+<h1>stamped-external (platform SSOT)</h1>
+<p class="mut">Layer Contracts (SSOT) · repo <code>Stamped-Energy/stamped-external</code> @ <code>a4c91bc</code> · generated 2026-09-25 with Archify (pinned 9e35d2b)</p>
+<div class="strip" aria-label="Where this repo sits">
+<span>L0 Plant</span><span>L1 Connect</span><span>L2 Store</span><span>L3 Findings</span><span>L4 Decisions</span><span>L5 Closure</span><span>L6 Control room</span><span class="on">Contracts (SSOT)</span>
+</div>
+<div class="honest"><strong>Honesty:</strong> No integration is live at any customer plant. Verified savings to date: ₹0. "BUILT" below means code on <code>main</code> with tests, not production.</div>
+
+<h2>What this repo does at runtime</h2>
+<p>Nothing listens on a port here: the pack is read when layer repos mount <code>external/</code> at build and CI time. A platform PR triggers <code>contract-check.sh</code>, which loads every JSON schema under <code>contracts/schemas</code> and validates golden fixtures. Maintainers tag semver releases; consumer repos bump their submodule pin (ADR-011). Vision and ADR markdown set product law; <code>contracts/</code> sets wire bytes. Outputs are validated schemas, handoff docs, and green CI—not plant telemetry.</p>
+
+<h2>How to read these diagrams</h2>
+<ul>
+<li><strong>Open a diagram</strong> (one HTML file, works offline). Zoom sets the detail: <strong>MAP</strong> (below 100%: structure only), <strong>READ</strong> (100%: labels and arrow labels), <strong>FULL</strong> (175%: sublabels such as ports, files, env flags).</li>
+<li><strong>Guided views</strong> (story mode): step through the chapters; each says what triggers the step, what happens and what comes out.</li>
+<li><strong>Route Probe</strong>: pick two boxes to highlight the path between them. <strong>Node Finder</strong>: search by name. Dark/light toggle and PNG/SVG export are built in.</li>
+<li><strong>Status tags</strong> on every box: <span class="tag B">BUILT</span> code on main, tested · <span class="tag P">PARTIAL</span> exists but not wired / flag off / in-memory · <span class="tag D">DESIGNED</span> docs only (dashed arrows) · <span class="tag X">DEFERRED</span> postponed (dashed).</li>
+</ul>
+
+<h2 id="reading-order">Reading order</h2>
+<table><thead><tr><th>#</th><th>Diagram</th><th>Type</th><th>Question it answers</th><th>Status</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="EXT-01-stamped-external-ssot.html">EXT-01 — stamped-external SSOT pack</a></td><td>architecture</td><td>Where do I find vision, decisions, contracts and handoffs, and which is authoritative?</td><td><span class="tag B">8 BUILT</span><span class="tag P">0 PARTIAL</span><span class="tag D">0 DESIGNED</span><span class="tag X">0 DEFERRED</span></td></tr>
+<tr><td>2</td><td><a href="EXT-04-authority-order-workflow.html">EXT-04 — Authority order when docs disagree</a></td><td>workflow</td><td>Which document wins when two docs disagree?</td><td><span class="tag B">9 BUILT</span><span class="tag P">0</span><span class="tag D">0</span><span class="tag X">0</span></td></tr>
+<tr><td>3</td><td><a href="EXT-02-contract-change-workflow.html">EXT-02 — How a contract changes</a></td><td>workflow</td><td>If a schema must change, what steps happen and who must update?</td><td><span class="tag B">8 BUILT</span><span class="tag P">0</span><span class="tag D">0</span><span class="tag X">0</span></td></tr>
+<tr><td>4</td><td><a href="EXT-03-contract-catalog-dataflow.html">EXT-03 — Contract catalog producers and consumers</a></td><td>dataflow</td><td>For each contract family, which layer produces it and which consumes it?</td><td><span class="tag B">6 BUILT</span><span class="tag P">0</span><span class="tag D">0</span><span class="tag X">0</span></td></tr>
+<tr><td>5</td><td><a href="EXT-05-contract-version-lifecycle.html">EXT-05 — Contract version lifecycle</a></td><td>lifecycle</td><td>What states can a contract version be in?</td><td><span class="tag B">4 BUILT</span><span class="tag P">0</span><span class="tag D">0</span><span class="tag X">0</span></td></tr>
+</tbody></table>
+
+<h2>The diagrams, explained</h2>
+<div class="card" id="EXT-01"><h3><a href="EXT-01-stamped-external-ssot.html">EXT-01 — stamped-external SSOT pack</a></h3>
+<p class="mut">architecture · answers: authority map for the whole pack</p>
+<p>The SSOT repo holds vision, ADRs, technical architecture, versioned contracts, handoffs, and CI scripts—there is no runtime service. Layer repos import it as <code>external/</code> and run the same contract checks on every PR. Follow the top row for “what is authoritative”; the second row shows integration docs and the submodule bump after green CI. Everything is tagged BUILT because the markdown and schemas exist on main with tests.</p>
+<p class="mut">Start with the guided view "Vision to contracts".</p></div>
+<div class="card" id="EXT-04"><h3><a href="EXT-04-authority-order-workflow.html">EXT-04 — Authority order</a></h3>
+<p class="mut">workflow · answers: precedence when two docs conflict</p>
+<p>When internal docs disagree, read vision files first—founder vision <code>09</code> wins product meaning—then ADR-030 and <code>STAMPED_ARCHITECTURE.md</code>, then <code>technical/l4/</code>, then handoff, then wire schemas. Identity lint blocks withdrawn company framing on PRs. Prefer this chain over archived “compiler-only” L4 layer notes (gap G9).</p>
+<p class="mut">Start with the guided view "Vision chain".</p></div>
+<div class="card" id="EXT-02"><h3><a href="EXT-02-contract-change-workflow.html">EXT-02 — Contract change</a></h3>
+<p class="mut">workflow · answers: schema change process</p>
+<p>A schema change starts as a PR in this repo with CHANGELOG and optional ADR, runs <code>contract-check.sh</code>, merges, tags, and triggers submodule bump PRs in consumers. Dual-read windows (e.g. Finding 2.0.0 beside 1.2.0) are documented before deprecated shapes are dropped.</p>
+<p class="mut">Start with the guided view "Propose and edit".</p></div>
+<div class="card" id="EXT-03"><h3><a href="EXT-03-contract-catalog-dataflow.html">EXT-03 — Catalog dataflow</a></h3>
+<p class="mut">dataflow · answers: who produces and consumes each family</p>
+<p>L1 publishes into envelope and related families; L3 emits Findings into <code>intelligence/*</code>; L2 ingests envelope-shaped rows; L4 runtime consumes Findings and emits card proposals under the same catalog. L5/L6 are readers of closure and intelligence DTOs defined here—not drawn as separate producers in this compact view.</p>
+<p class="mut">Start with the guided view "L1 → L2 families".</p></div>
+<div class="card" id="EXT-05"><h3><a href="EXT-05-contract-version-lifecycle.html">EXT-05 — Version lifecycle</a></h3>
+<p class="mut">lifecycle · answers: draft → active → deprecated</p>
+<p>Contract versions move from draft PR through CI review to active default on main; deprecated schemas stay dual-read while consumers catch up. A formal “removed” state is policy text in CHANGELOG only (DESIGNED—not automated in CI).</p>
+<p class="mut">Start with the guided view "Draft to active".</p></div>
+
+<h2 id="gaps">Doc ↔ code gaps found</h2>
+<table><thead><tr><th>ID</th><th>Docs say</th><th>Code on main does</th><th>Evidence</th><th>Shown in</th></tr></thead><tbody>
+<tr><td>G9</td><td>Archived layer docs describe L4 as prescription compiler only</td><td><code>technical/l4/</code> + STAMPED_ARCHITECTURE describe agentic L4 kernel</td><td><code>technical/STAMPED_ARCHITECTURE.md:9</code></td><td>EXT-04</td></tr>
+<tr><td>new</td><td>Some readers expect a “removed” schema state in CI</td><td>Removal is prose in CHANGELOG after consumer bumps</td><td><code>contracts/CHANGELOG.md:14</code></td><td>EXT-05</td></tr>
+</tbody></table>
+
+<h2 id="glossary">Glossary (this repo)</h2>
+<dl>
+<dt><strong>SSOT / contracts</strong></dt><dd><code>stamped-external</code> is the single source of truth for ADRs and versioned wire schemas all layers import via submodule. <span class="mut">(see EXT-01)</span></dd>
+<dt><strong>external/ submodule</strong></dt><dd>Git submodule path in each layer repo pinning a tagged release of this pack (ADR-011). <span class="mut">(see EXT-02)</span></dd>
+<dt><strong>contract-check.sh</strong></dt><dd>CI entry that jsonschema-validates every schema and golden fixture before a pin moves. <span class="mut">(see EXT-02)</span></dd>
+<dt><strong>Dual-read</strong></dt><dd>Policy where two schema versions parse in parallel during a consumer rollout (CHANGELOG). <span class="mut">(see EXT-05)</span></dd>
+<dt><strong>Five domains</strong></dt><dd>Energy, Cost, Time/throughput, Continuity/flow, Exception—framed in ADR-030 and vision <code>09</code>. <span class="mut">(see EXT-04)</span></dd>
+<dt><strong>Envelope</strong></dt><dd>Standard wrapper record defined under <code>contracts/schemas/envelope/</code> for all published payloads. <span class="mut">(see EXT-03)</span></dd>
+<dt><strong>Finding</strong></dt><dd>Versioned L3→L4 intelligence contract (<code>finding.json</code> 1.2.0 default, 2.0.0 dual-read). <span class="mut">(see EXT-03)</span></dd>
+<dt><strong>card-proposal</strong></dt><dd>L4→L5 decision intake schema replacing deprecated <code>prescription.json</code> for new emits. <span class="mut">(see EXT-03)</span></dd>
+<dt><strong>Handoff</strong></dt><dd>Cross-repo integration docs under <code>handoff/</code>; subordinate to vision/ADR but authoritative for hop-by-hop wiring. <span class="mut">(see EXT-01)</span></dd>
+<dt><strong>Identity lint</strong></dt><dd><code>scripts/vision-identity-lint.ps1</code> fails PRs that reintroduce withdrawn Stamped company framing. <span class="mut">(see EXT-04)</span></dd>
+</dl>
+<p class="mut">Sources: <code>TRACE_NOTES.md</code> (entry points, triggers, states, env flags with file:line evidence) and <code>manifest.json</code> in this folder.</p>
+</main></body></html>

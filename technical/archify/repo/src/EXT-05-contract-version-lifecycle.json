@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Contract version lifecycle",
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "viewBox": [1068, 580],
+    "legend": { "mode": "hidden" },
+    "views": [
+      {
+        "id": "happy-path",
+        "label": "Draft to active",
+        "focus": ["draft", "review", "active"],
+        "note": "Trigger: schema PR. Draft + fixtures pass contract-check.sh; CHANGELOG records semver and dual-read policy."
+      },
+      {
+        "id": "deprecate",
+        "label": "Deprecate old version",
+        "focus": ["active", "deprecated"],
+        "note": "New emit uses new schema; old file stays dual-read until consumers drop parsers (CHANGELOG examples)."
+      },
+      {
+        "id": "retire",
+        "label": "Removed policy",
+        "focus": ["deprecated"],
+        "note": "After consumer submodule bumps, old parsers drop; CHANGELOG marks removed — DESIGNED (no CI state machine)."
+      }
+    ],
+    "output": "EXT-05-contract-version-lifecycle.html"
+  },
+  "lanes": [
+    { "id": "main", "label": "Version states" }
+  ],
+  "states": [
+    { "id": "draft", "type": "start", "label": "Draft", "sublabel": "BUILT · PR", "lane": "main", "col": 0, "step": "01" },
+    { "id": "review", "type": "active", "label": "CI review", "sublabel": "BUILT · check", "lane": "main", "col": 1, "step": "02" },
+    { "id": "active", "type": "success", "label": "Active", "sublabel": "BUILT · default", "lane": "main", "col": 2, "step": "03" },
+    { "id": "deprecated", "type": "waiting", "label": "Deprecated", "sublabel": "BUILT · dual-read", "lane": "main", "col": 3, "step": "04" }
+  ],
+  "transitions": [
+    { "from": "draft", "to": "review" },
+    { "from": "review", "to": "active", "label": "merge", "labelAt": [480, 200] },
+    { "from": "active", "to": "deprecated", "variant": "dashed", "label": "dual-read", "labelAt": [720, 200] }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Examples",
+      "items": [
+        "Finding 1.2.0 + 2.0.0 dual-read · prescription → card-proposal",
+        "Removed policy in CHANGELOG after consumers drop parsers (DESIGNED)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Sources",
+      "items": [
+        "stamped-external@a4c91bc · contracts/CHANGELOG.md",
+        "contract-check.sh gates draft → active"
+      ]
+    }
+  ]
+}

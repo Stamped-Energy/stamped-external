@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Contract catalog producers and consumers",
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "viewBox": [1080, 640],
+    "legend": { "mode": "hidden" },
+    "views": [
+      {
+        "id": "ingest-families",
+        "label": "L1 → L2 families",
+        "focus": ["l1", "envelope", "l2"],
+        "note": "Trigger: L1 publish. Envelope wrapper + telemetry/plant schemas validated by L2 ingest (ADR-031)."
+      },
+      {
+        "id": "finding-card",
+        "label": "Finding → card proposal",
+        "focus": ["l3", "finding", "l4c"],
+        "note": "L3 emits Finding 1.2.0/2.0.0; L4 runtime consumes and emits card-proposal; prescription 1.0.0 deprecated (card)."
+      },
+      {
+        "id": "downstream",
+        "label": "L5/L6 consumers",
+        "focus": ["l2", "l4c"],
+        "note": "L5 closure + L6 BFF consume contract DTOs from this catalog; they never redefine schemas (handoff + CHANGELOG)."
+      }
+    ],
+    "output": "EXT-03-contract-catalog-dataflow.html"
+  },
+  "stages": [
+    { "label": "Producers" },
+    { "label": "SSOT catalog" },
+    { "label": "Consumers" }
+  ],
+  "nodes": [
+    { "id": "l1", "type": "external", "label": "L1 connectors", "sublabel": "BUILT · MQTT", "stage": 0, "row": 0 },
+    { "id": "l3", "type": "backend", "label": "L3 intelligence", "sublabel": "BUILT · Finding", "stage": 0, "row": 1 },
+    { "id": "envelope", "type": "database", "label": "envelope/*", "sublabel": "BUILT · wrap", "stage": 1, "row": 0 },
+    { "id": "finding", "type": "database", "label": "intelligence/*", "sublabel": "BUILT · schemas", "stage": 1, "row": 1 },
+    { "id": "l2", "type": "backend", "label": "L2 store", "sublabel": "BUILT · ingest", "stage": 2, "row": 0 },
+    { "id": "l4c", "type": "backend", "label": "L4 runtime", "sublabel": "BUILT · tools", "stage": 2, "row": 1 }
+  ],
+  "flows": [
+    { "from": "l1", "to": "envelope", "label": "wrap", "route": "straight", "labelDy": -18 },
+    { "from": "l3", "to": "finding", "label": "emit", "route": "vertical-channel", "labelAt": [230, 310] },
+    { "from": "envelope", "to": "l2", "label": "ingest", "route": "vertical-channel", "labelAt": [300, 360] },
+    { "from": "finding", "to": "l4c", "label": "L4 in/out", "route": "vertical-channel", "labelAt": [640, 400] }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & catalog",
+      "items": [
+        "stamped-external@a4c91bc · seven families + OpenAPI/tools/TOPICS",
+        "L5/L6 read closure + intelligence DTOs; prescription deprecated per CHANGELOG"
+      ]
+    }
+  ]
+}
