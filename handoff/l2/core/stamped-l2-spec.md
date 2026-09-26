@@ -1,10 +1,12 @@
 ﻿# stamped-l2 — Repo charter (Universal Repository)
 
-> **What it is:** Stamped **L2** — the Universal Repository: six data stores (time-series, graph, commercial, features, baselines, M&V ledger) in one Postgres+TimescaleDB database, plus L1 HTTP ingest consumer and internal query API for L3–L6.  
+> **Architecture authority (prefer):** [`technical/layers/L2-universal-repository.md`](../../../technical/layers/L2-universal-repository.md) · [`L1-L2-DATA-PLANE.md`](../../../technical/L1-L2-DATA-PLANE.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md). This charter may retain older six-store / P0 build language; live repo is `universal-repositary`.
+>
+> **What it is:** Stamped **L2** — the Universal Repository: time-series, graph, commercial, features, baselines, and M&V ledger in one Postgres+TimescaleDB database, plus L1 HTTP ingest and internal query API for L3–L6.  
 > **What it is not:** L1 MQTT ingest, edge agents, bill OCR, intelligence engines, prescriptions, or customer dashboard.  
 > **Primary interface:** `POST /v1/ingest/records` (from connectors-cloud relay) + read-only query API for downstream layers.
 
-**GitHub (target):** `Vinayak-RZ/stamped-l2`  
+**GitHub (live):** `Stamped-Energy/universal-repositary` (historical target name `stamped-l2`)  
 **Deploy target (P0):** Docker Compose locally · ECS Fargate + shared RDS `ap-south-1`
 
 ---
