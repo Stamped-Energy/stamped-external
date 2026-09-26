@@ -1,7 +1,7 @@
 # Stamped Platform — Agent Mode
 
 > **Repo role:** Shared platform pack (contracts, ADRs, handoff, technical specs, design) — **not application code**.  
-> **Product:** Stamped — choose, assign, and verify the next operating action across five domains.  
+> **Product:** Stamped. To understand what Stamped is, read [`Stamped_Master_Document.md`](Stamped_Master_Document.md).  
 > **Cursor config source:** [cursor-config-coding](https://github.com/Vinayak-RZ/cursor-config-coding) (vendored under `.cursor/`).
 
 Engineering workflow: **ponytail → (spec-kit for features) → research → plan → approve → implement → validate → commit → learn**.
@@ -65,7 +65,7 @@ Use for **new features / greenfield**, not one-line fixes or contract typo fixes
 | AI agents / LLM / tools | `agentic-system-design` | `agentic-systems.mdc` |
 | Any major trade-off | `system-design-tradeoffs` | `trade-offs.mdc` |
 
-Do **not** invent a new company when designing. Product = five-domain closed decision loop ([ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)).
+Do **not** invent a new company when designing. Company policy is [`Stamped_Master_Document.md`](Stamped_Master_Document.md). [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md) is supporting history and does not override it.
 
 ## Git commits and pushes
 
