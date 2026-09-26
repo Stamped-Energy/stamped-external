@@ -483,7 +483,7 @@
     },
     {
       "id": "L6-new-L5-push",
-      "summary": "No inbound L5 HMAC webhook; 30s poll ingest instead",
+      "summary": "L6 has no receiver for L5 signed outbox webhook (flush_l6 Standard Webhooks HMAC); L6 polls GET /v1/events ~30s (Meta WhatsApp inbound HMAC verify is built)",
       "evidence": "packages/api/src/index.ts:74-88",
       "layer": "L6"
     },
