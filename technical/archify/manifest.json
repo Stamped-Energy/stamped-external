@@ -158,8 +158,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "4a5e8e78c4964f31717646a7a77eed35034b028b60b45e0d71fc99552fcd6a9a",
-      "artifact_sha256": "2b3dcec356da6d4d3ffb7514262fa8b8b399220c0262ffe03ea6084168813e0c"
+      "spec_sha256": "f16b21e4b886650c76730930a038c325b1bb3364d6631ed5790e7b95c68ceb65",
+      "artifact_sha256": "db4e4a9f34708087aa19b7e0f5f996c2ea1b1cf917b778a5bb2f9d365444fa5b"
     },
     {
       "id": "SYS-08",
