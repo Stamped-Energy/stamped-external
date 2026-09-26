@@ -177,8 +177,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "c7f8e44ae74f6ba52fda903c4d34b12aec501b8511405663367cb3e67b87d60e",
-      "artifact_sha256": "8190d8d5b34a41842b3fafa49e11447abceda46b165dafc866378eee29548e69"
+      "spec_sha256": "f0bdc31352ad8056b28213e0b30dfcd9d922712235ecaea7718d0d6628abd827",
+      "artifact_sha256": "62c75177753fe094deae4fa986d520482feb298c55396b7deda1b1bff2f826a0"
     },
     {
       "id": "SYS-09",
@@ -274,8 +274,8 @@
       "diagram_count": 3
     }
   },
-  "glossary_terms": 66,
-  "glossary_sha256": "f292f4f8a82c6f681471a588153239069b0a6b1afbeaf3664a2df06bca75fb51",
+  "glossary_terms": 67,
+  "glossary_sha256": "bfbbcfbb57cbb600e2c3b89e794e231a5038a95ef7fd5ca2b4b4bc8bc834fdc6",
   "gaps": [
     {
       "id": "L1E-G-new-prune",
