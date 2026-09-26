@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Deployment and trust boundaries",
+    "viewBox": [
+      1346,
+      520
+    ],
+    "repository": {
+      "url": "https://github.com/Stamped-Energy/stamped-external",
+      "revision": "a4c91bc286099e0cb0d3db124932994df045ac94"
+    },
+    "views": [
+      {
+        "id": "ot",
+        "label": "Plant OT",
+        "focus": [
+          "ot",
+          "edge"
+        ],
+        "note": "edge-agent outbound-only; no inbound to plant OT network."
+      },
+      {
+        "id": "cloud",
+        "label": "Stamped cloud",
+        "focus": [
+          "cloud",
+          "l2",
+          "llm"
+        ],
+        "note": "MQTT, connectors, L2\u2013L6 share service-key auth seams (generic labels)."
+      }
+    ],
+    "output": "SYS-07-deployment-trust.html"
+  },
+  "components": [
+    {
+      "id": "ot",
+      "type": "external",
+      "label": "Plant OT net",
+      "sublabel": "PARTIAL \u00b7 pilot",
+      "tag": "PARTIAL",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        170,
+        72
+      ],
+      "sources": [
+        {
+          "path": "handoff/README.md",
+          "line": 1,
+          "label": "handoff"
+        }
+      ]
+    },
+    {
+      "id": "edge",
+      "type": "backend",
+      "label": "edge-agent",
+      "sublabel": "BUILT \u00b7 outbound",
+      "tag": "BUILT",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        170,
+        72
+      ],
+      "sources": [
+        {
+          "path": "decisions/001-005/ADR-005-edge-agent-go-architecture.md",
+          "line": 1,
+          "label": "ADR-005"
+        }
+      ]
+    },
+    {
+      "id": "it",
+      "type": "external",
+      "label": "Plant IT net",
+      "sublabel": "PARTIAL \u00b7 context",
+      "tag": "PARTIAL",
+      "pos": [
+        260,
+        180
+      ],
+      "size": [
+        170,
+        72
+      ],
+      "sources": [
+        {
+          "path": "decisions/028-032/ADR-031-l1-l2-context-records.md",
+          "line": 38,
+          "label": "context"
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "type": "cloud",
+      "label": "Stamped cloud",
+      "sublabel": "BUILT \u00b7 VPC",
+      "tag": "BUILT",
+      "pos": [
+        520,
+        200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "sources": [
+        {
+          "path": "decisions/006-010/ADR-007-connectors-cloud-repo-charter.md",
+          "line": 1,
+          "label": "L1C"
+        }
+      ]
+    },
+    {
+      "id": "l2",
+      "type": "database",
+      "label": "L2 + L3\u2013L6",
+      "sublabel": "BUILT \u00b7 services",
+      "tag": "BUILT",
+      "pos": [
+        780,
+        200
+      ],
+      "size": [
+        200,
+        80
+      ],
+      "sources": [
+        {
+          "path": "technical/STAMPED_ARCHITECTURE.md",
+          "line": 1,
+          "label": "layers"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "LLM providers",
+      "sublabel": "BUILT \u00b7 L4 seam",
+      "tag": "BUILT",
+      "pos": [
+        1040,
+        120
+      ],
+      "size": [
+        170,
+        72
+      ],
+      "sources": [
+        {
+          "path": "decisions/033-039/ADR-033-l4-decision-runtime.md",
+          "line": 1,
+          "label": "seams"
+        }
+      ]
+    },
+    {
+      "id": "wa",
+      "type": "external",
+      "label": "WhatsApp/SMS",
+      "sublabel": "PARTIAL\u00b7fake clients",
+      "tag": "PARTIAL",
+      "pos": [
+        1040,
+        300
+      ],
+      "size": [
+        170,
+        72
+      ],
+      "sources": [
+        {
+          "path": "decisions/020-023/ADR-021-l5-notification-and-evidence.md",
+          "line": 1,
+          "label": "notify"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Stamped managed cloud",
+      "wraps": [
+        "cloud",
+        "l2"
+      ],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    {
+      "id": "e-mqtt",
+      "from": "edge",
+      "to": "cloud",
+      "label": "MQTT egress",
+      "variant": "security",
+      "labelAt": [
+        300,
+        340
+      ]
+    },
+    {
+      "id": "it-cloud",
+      "from": "it",
+      "to": "cloud",
+      "label": "context HTTP",
+      "labelAt": [
+        420,
+        266
+      ]
+    },
+    {
+      "id": "ctrl-keys",
+      "from": "cloud",
+      "to": "l2",
+      "label": "X-Service-Key",
+      "variant": "security",
+      "labelAt": [680, 294]
+    },
+    {
+      "id": "l4-llm",
+      "from": "l2",
+      "to": "llm",
+      "label": "provider API keys",
+      "variant": "security",
+      "labelAt": [
+        960,
+        160
+      ]
+    },
+    {
+      "id": "l5-wa",
+      "from": "l2",
+      "to": "wa",
+      "label": "WA then SMS fallback",
+      "labelAt": [
+        900,
+        328
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "Arch/flow: dashed edges = DESIGNED or DEFERRED",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Trust",
+      "items": [
+        "No inbound to plant OT; secrets stay in cloud vaults",
+        "L5: WA-first / SMS-fallback notify logic built; API wires FakeMeta + FakeSms on main \u2014 no real messages leave L5",
+        "L6: Meta webhook HMAC verify BUILT; inbound button\u2192Rx mapping still stub; BFF still polls L5 events (no L5\u2192L6 push webhook)"
+      ]
+    }
+  ]
+}

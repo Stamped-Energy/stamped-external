@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Runtime: card closure and M&V",
+    "viewBox": [
+      960,
+      480
+    ],
+    "animation": "trace",
+    "views": [
+      {
+        "id": "act",
+        "label": "Owner acts",
+        "focus": [
+          "owner",
+          "l5",
+          "l6"
+        ],
+        "note": "Trigger: mark done. L5 workflow ack/done; L6 polls every 30s (webhook DESIGNED)."
+      },
+      {
+        "id": "verify",
+        "label": "Clearance",
+        "focus": [
+          "l5w",
+          "l2",
+          "ledger"
+        ],
+        "note": "Worker clearance_poll reads L2 evidence \u2192 ops_confirmed \u2192 ledger append."
+      }
+    ],
+    "output": "SYS-04-closure-mv-runtime.html"
+  },
+  "participants": [
+    {
+      "id": "owner",
+      "type": "external",
+      "label": "Owner",
+      "sublabel": "BUILT \u00b7 human"
+    },
+    {
+      "id": "l6",
+      "type": "frontend",
+      "label": "L6 UX",
+      "sublabel": "PARTIAL \u00b7 poll"
+    },
+    {
+      "id": "l5",
+      "type": "security",
+      "label": "L5 API",
+      "sublabel": "BUILT \u00b7 workflow"
+    },
+    {
+      "id": "l5w",
+      "type": "backend",
+      "label": "L5 worker",
+      "sublabel": "BUILT \u00b7 poll"
+    },
+    {
+      "id": "l2",
+      "type": "database",
+      "label": "L2 evidence",
+      "sublabel": "PARTIAL \u00b7 fixture"
+    },
+    {
+      "id": "ledger",
+      "type": "database",
+      "label": "Ledger",
+      "sublabel": "BUILT \u00b7 not bill"
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 230,
+      "label": "Human act"
+    },
+    {
+      "from": 250,
+      "to": 370,
+      "label": "M&V poll"
+    }
+  ],
+  "messages": [
+    {
+      "from": "owner",
+      "to": "l6",
+      "y": 180,
+      "label": "mark done"
+    },
+    {
+      "from": "l6",
+      "to": "l5",
+      "y": 212,
+      "label": "workflow event"
+    },
+    {
+      "from": "l5w",
+      "to": "l2",
+      "y": 260,
+      "label": "read window (fixture default)",
+      "variant": "dashed"
+    },
+    {
+      "from": "l2",
+      "to": "l5w",
+      "y": 292,
+      "label": "measurements",
+      "variant": "return"
+    },
+    {
+      "from": "l5w",
+      "to": "ledger",
+      "y": 324,
+      "label": "ops_confirmed"
+    },
+    {
+      "from": "l5",
+      "to": "l6",
+      "y": 356,
+      "label": "status poll"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "l5",
+      "from": 200,
+      "to": 360,
+      "type": "security"
+    },
+    {
+      "participant": "l5w",
+      "from": 252,
+      "to": 332,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "Sequence: dashed arrows = replies; arch/flow dashed = DESIGNED or DEFERRED",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "ADR-020",
+      "items": [
+        "See L5-03 / L5-05 \u201cThree meanings of verified\u201d table (closure-verification archify)",
+        "Ledger sublabel: append on ops_confirmed only \u2014 not bill-verified (ADR-020 deferred path)",
+        "Worker uses fixture evidence by default on L2 read"
+      ]
+    }
+  ]
+}

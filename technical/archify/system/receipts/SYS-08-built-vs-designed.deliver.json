@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "status": "pass",
+  "diagramType": "architecture",
+  "validate": "9/9",
+  "composition": "showcase: pass",
+  "specification": {
+    "path": "/workspace/technical/archify/system/src/SYS-08-built-vs-designed.json",
+    "sha256": "a813c1d5fabf9d6b95bdb088e1dd1e21cca1ca7091ca89b56ff1db4e3ab42a67"
+  },
+  "artifact": {
+    "path": "/workspace/technical/archify/system/SYS-08-built-vs-designed.html",
+    "sha256": "0af8840960bbc45b5034d085a8289c5afc8f4749f3899cff7d1aca00b794cda7"
+  }
+}

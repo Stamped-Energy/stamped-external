@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Runtime: data batch to decision",
+    "viewBox": [
+      1000,
+      480
+    ],
+    "animation": "trace",
+    "views": [
+      {
+        "id": "edge-cloud",
+        "label": "Edge to cloud",
+        "focus": [
+          "edge",
+          "cloud",
+          "l2"
+        ],
+        "note": "PLC poll → SQLite until MQTT QoS1 ack → sent; backlog drains after outage; unsent rows not expired in code."
+      },
+      {
+        "id": "detect",
+        "label": "Detection",
+        "focus": [
+          "l3",
+          "l2",
+          "l3o"
+        ],
+        "note": "L5 perception or CLI starts run; scheduler BUILT not deployed; L3 reads L2, emits Finding."
+      },
+      {
+        "id": "decide",
+        "label": "Decision",
+        "focus": [
+          "l4",
+          "sink"
+        ],
+        "note": "L4: inbox \u2192 PlantWorkQueue \u2192 worker \u2192 stages \u2192 terminal + DecisionTrace \u2192 StubCardSink. No live L5 card (L5-G4)."
+      }
+    ],
+    "output": "SYS-02-data-batch-runtime.html"
+  },
+  "participants": [
+    {
+      "id": "edge",
+      "type": "external",
+      "label": "edge-agent",
+      "sublabel": "BUILT \u00b7 L1"
+    },
+    {
+      "id": "cloud",
+      "type": "cloud",
+      "label": "L1 cloud",
+      "sublabel": "PARTIAL \u00b7 MQTT"
+    },
+    {
+      "id": "l2",
+      "type": "database",
+      "label": "L2 ingest",
+      "sublabel": "BUILT \u00b7 TS"
+    },
+    {
+      "id": "l3",
+      "type": "backend",
+      "label": "L3 detect",
+      "sublabel": "PARTIAL \u00b7 run"
+    },
+    {
+      "id": "l3o",
+      "type": "messagebus",
+      "label": "L3 outbox",
+      "sublabel": "BUILT \u00b7 relay"
+    },
+    {
+      "id": "l4",
+      "type": "backend",
+      "label": "L4 runtime",
+      "sublabel": "BUILT\u00b7stub out"
+    },
+    {
+      "id": "sink",
+      "type": "security",
+      "label": "StubCardSink",
+      "sublabel": "BUILT \u00b7 emit off"
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 240,
+      "label": "L1 uplink"
+    },
+    {
+      "from": 250,
+      "to": 320,
+      "label": "L3 detect"
+    },
+    {
+      "from": 330,
+      "to": 400,
+      "label": "L4 decide"
+    }
+  ],
+  "messages": [
+    {
+      "from": "edge",
+      "to": "cloud",
+      "y": 180,
+      "label": "publish batch"
+    },
+    {
+      "from": "cloud",
+      "to": "l2",
+      "y": 220,
+      "label": "relay ingest"
+    },
+    {
+      "from": "l3",
+      "to": "l2",
+      "y": 260,
+      "label": "read window"
+    },
+    {
+      "from": "l3",
+      "to": "l3o",
+      "y": 300,
+      "label": "Finding out"
+    },
+    {
+      "from": "l3o",
+      "to": "l4",
+      "y": 340,
+      "label": "relay_once\u2192inbox (CLI)",
+      "variant": "dashed"
+    },
+    {
+      "from": "l4",
+      "to": "sink",
+      "y": 380,
+      "label": "write proposal"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "edge",
+      "from": 172,
+      "to": 228,
+      "type": "external"
+    },
+    {
+      "participant": "cloud",
+      "from": 212,
+      "to": 232,
+      "type": "cloud"
+    },
+    {
+      "participant": "l3",
+      "from": 252,
+      "to": 312,
+      "type": "backend"
+    },
+    {
+      "participant": "l4",
+      "from": 332,
+      "to": 388,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "Sequence: dashed arrows = replies; arch/flow dashed = DESIGNED or DEFERRED",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Honesty",
+      "items": [
+        "No integration is live at any customer plant. Verified savings to date: \u20b90.",
+        "Today: L4 \u2192 StubCardSink; L5 has no /cards; only Prescription ingest \u2014 no live L5 card from L4 (L5-G4)",
+        "relay_once \u2192 /v1/jobs/inbox: CLI drain; default compose does not start relay worker (dashed)"
+      ]
+    }
+  ]
+}

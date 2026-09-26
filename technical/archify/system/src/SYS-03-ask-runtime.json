@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": { "mode": "hidden" },
+    "title": "Runtime: Ask analyst question",
+    "viewBox": [960, 480],
+    "animation": "trace",
+    "views": [
+      {
+        "id": "as-built",
+        "label": "As-built today",
+        "focus": ["user", "web", "bff", "l4"],
+        "note": "Ask unusable today: 503 ASK_MOVED on every L4 call; ReAct DESIGNED; 12 tools built, unwired; UI unavailable or fixture+Preview."
+      },
+      {
+        "id": "retired",
+        "label": "Retired ReAct (designed)",
+        "focus": ["react", "tools", "l2"],
+        "note": "Designed ReAct loop (tool|answer|abstain, budget 6, G/D/B/H citations). UI: Analyst unavailable (L4_LIVE) or fixture+Preview (off)."
+      }
+    ],
+    "output": "SYS-03-ask-runtime.html"
+  },
+  "participants": [
+    { "id": "user", "type": "external", "label": "Operator", "sublabel": "BUILT · L6" },
+    { "id": "web", "type": "frontend", "label": "L6 web", "sublabel": "PARTIAL · UI" },
+    { "id": "bff", "type": "backend", "label": "L6 BFF", "sublabel": "BUILT · /analyst" },
+    { "id": "l4", "type": "backend", "label": "L4 analyst", "sublabel": "BUILT · 503" },
+    { "id": "react", "type": "backend", "label": "ReAct loop", "sublabel": "DESIGNED · retired" },
+    { "id": "tools", "type": "cloud", "label": "Tools lib", "sublabel": "BUILT · not wired" },
+    { "id": "l2", "type": "database", "label": "L2 query-api", "sublabel": "BUILT · reads" }
+  ],
+  "segments": [
+    { "from": 160, "to": 300, "label": "Live path" },
+    { "from": 310, "to": 370, "label": "Retired design" }
+  ],
+  "messages": [
+    { "from": "user", "to": "web", "y": 180, "label": "type question" },
+    { "from": "web", "to": "bff", "y": 212, "label": "POST /analyst" },
+    { "from": "bff", "to": "l4", "y": 244, "label": "forward ask" },
+    { "from": "l4", "to": "bff", "y": 276, "label": "503 ASK_MOVED", "variant": "return" },
+    { "from": "bff", "to": "web", "y": 308, "label": "retired error", "variant": "return" },
+    { "from": "l4", "to": "react", "y": 340, "label": "ReAct turns", "variant": "dashed" },
+    { "from": "react", "to": "tools", "y": 332, "label": "tool call", "variant": "dashed" },
+    { "from": "tools", "to": "l2", "y": 356, "label": "query-api", "variant": "dashed" }
+  ],
+  "activations": [
+    { "participant": "bff", "from": 200, "to": 315, "type": "backend" },
+    { "participant": "l4", "from": 236, "to": 288, "type": "backend" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "L4@d1887ee · graph.py:20 AskRetired",
+        "Sequence: dashed arrows = replies; dashed segment = retired ReAct design",
+        "No integration is live · verified savings ₹0"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Ask retired",
+      "items": [
+        "(1) Retired today: every analyst call returns 503 ASK_MOVED \u2014 Ask HTTP route is retired (AskRetired); reason not documented beyond that",
+        "(2) Designed ReAct loop (up to 6 turns) is DESIGNED only \u2014 not on the live path",
+        "(3) 12 agent tools + retrieval are BUILT but not wired to any live Ask path (CLI use remains)",
+        "(4) Operator UI: Analyst unavailable when L4_LIVE on; fixture reply + Preview chip when L4_LIVE off"
+      ]
+    }
+  ]
+}

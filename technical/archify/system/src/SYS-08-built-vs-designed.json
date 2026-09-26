@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "title": "Built vs designed status map",
+    "viewBox": [
+      1346,
+      520
+    ],
+    "repository": {
+      "url": "https://github.com/Stamped-Energy/stamped-external",
+      "revision": "a4c91bc286099e0cb0d3db124932994df045ac94"
+    },
+    "views": [
+      {
+        "id": "built",
+        "label": "Mostly built",
+        "focus": [
+          "edge",
+          "l2",
+          "l3m",
+          "l4r"
+        ],
+        "note": "Code on main with tests; not production live."
+      },
+      {
+        "id": "gaps",
+        "label": "Designed / deferred",
+        "focus": [
+          "sched",
+          "cards",
+          "bill",
+          "hind"
+        ],
+        "note": "PathScheduler PARTIAL (built, not deploy L3C-G5); L5 /cards missing; bill-verify DEFERRED (fixture API)."
+      }
+    ],
+    "output": "SYS-08-built-vs-designed.html"
+  },
+  "components": [
+    {
+      "id": "edge",
+      "type": "backend",
+      "label": "edge-agent",
+      "sublabel": "BUILT",
+      "tag": "BUILT",
+      "pos": [
+        48,
+        140
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "REPOS.md",
+          "line": 1,
+          "label": "L1E"
+        }
+      ]
+    },
+    {
+      "id": "ctxedge",
+      "type": "backend",
+      "label": "context-agent",
+      "sublabel": "BUILT · L1E IT",
+      "tag": "BUILT",
+      "pos": [48, 260],
+      "size": [160, 64],
+      "sources": [{ "path": "decisions/028-032/ADR-031-l1-l2-context-records.md", "line": 38, "label": "context-agent" }]
+    },
+    {
+      "id": "ctx",
+      "type": "backend",
+      "label": "L1C ctx poller",
+      "sublabel": "PARTIAL · off",
+      "tag": "PARTIAL",
+      "pos": [48, 380],
+      "size": [160, 64],
+      "sources": [
+        {
+          "path": "decisions/028-032/ADR-031-l1-l2-context-records.md",
+          "line": 110,
+          "label": "CONTEXT_POLL_ENABLED"
+        }
+      ]
+    },
+    {
+      "id": "l2",
+      "type": "database",
+      "label": "L2 store",
+      "sublabel": "BUILT",
+      "tag": "BUILT",
+      "pos": [
+        280,
+        200
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "decisions/006-010/ADR-009-stamped-l2-repo-charter.md",
+          "line": 1,
+          "label": "L2"
+        }
+      ]
+    },
+    {
+      "id": "sched",
+      "type": "backend",
+      "label": "PathScheduler",
+      "sublabel": "built, not deploy (L3C-G5)",
+      "tag": "PARTIAL",
+      "pos": [
+        512,
+        140
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "technical/STAMPED_ARCHITECTURE.md",
+          "line": 1,
+          "label": "L3"
+        }
+      ]
+    },
+    {
+      "id": "l3m",
+      "type": "backend",
+      "label": "L3 methods",
+      "sublabel": "BUILT \u00b7 8094",
+      "tag": "BUILT",
+      "pos": [
+        512,
+        260
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "contracts/openapi/l3-methods.openapi.json",
+          "line": 1,
+          "label": "OpenAPI"
+        }
+      ]
+    },
+    {
+      "id": "l4r",
+      "type": "backend",
+      "label": "L4 runtime",
+      "sublabel": "PARTIAL memory",
+      "tag": "PARTIAL",
+      "pos": [
+        744,
+        200
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "decisions/033-039/ADR-033-l4-decision-runtime.md",
+          "line": 1,
+          "label": "L4"
+        }
+      ]
+    },
+    {
+      "id": "cards",
+      "type": "security",
+      "label": "L5 /cards ingest",
+      "sublabel": "DESIGNED",
+      "tag": "DESIGNED",
+      "pos": [
+        976,
+        140
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "contracts/schemas/prescription.json",
+          "line": 1,
+          "label": "Rx"
+        }
+      ]
+    },
+    {
+      "id": "bill",
+      "type": "security",
+      "label": "Bill verified",
+      "sublabel": "DEFERRED\u00b7fixtures",
+      "tag": "DEFERRED",
+      "pos": [
+        976,
+        260
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "decisions/020-023/ADR-020-l5-mv-claim-governance.md",
+          "line": 1,
+          "label": "ADR-020"
+        }
+      ]
+    },
+    {
+      "id": "hind",
+      "type": "frontend",
+      "label": "Hindsight memory",
+      "sublabel": "DESIGNED",
+      "tag": "DESIGNED",
+      "pos": [
+        1164,
+        200
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "technical/l4/06-memory.md",
+          "line": 1,
+          "label": "memory doc"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "e-l2",
+      "from": "edge",
+      "to": "l2"
+    },
+    { "id": "ctx-e", "from": "ctxedge", "to": "l2", "variant": "dashed", "labelAt": [200, 340] },
+    {
+      "id": "l2-l3",
+      "from": "l2",
+      "to": "sched"
+    },
+    {
+      "id": "l3-l4",
+      "from": "l3m",
+      "to": "l4r"
+    },
+    {
+      "id": "l4-l5",
+      "from": "l4r",
+      "to": "cards",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels (PARTIAL = exists but not wired)",
+        "PathScheduler PARTIAL: built on main, not started by deploy (L3C-G5)",
+        "Arch/flow: dashed = DESIGNED or DEFERRED (DEFERRED may still ship fixture-only code)",
+        "No integration is live \u00b7 verified savings \u20b90"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Honesty",
+      "items": [
+        "No integration is live at any customer plant.",
+        "DEFERRED: reconcile runs only vs FixtureBillClient; no production bill matcher \u2014 no savings verified against a real bill",
+        "Gaps drawn as dashed hops; see index gaps table"
+      ]
+    }
+  ]
+}

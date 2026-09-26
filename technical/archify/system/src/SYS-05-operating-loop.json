@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "locale": "en",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "legend": { "mode": "hidden" },
+    "title": "Operating loop across layers",
+    "views": [
+      {
+        "id": "loop",
+        "label": "Product loop",
+        "focus": ["ingest", "detect", "recommend", "assign", "act", "verify"],
+        "note": "Trigger: new signal. Layers own detect→recommend→assign→act→verify; human gates at assign and act."
+      },
+      {
+        "id": "learn",
+        "label": "Learn (designed)",
+        "focus": ["verify", "learn"],
+        "note": "Learn hop L5→L4 is DESIGNED; evals Lab never auto-promotes to production."
+      }
+    ],
+    "output": "SYS-05-operating-loop.html"
+  },
+  "lanes": [
+    { "id": "platform", "label": "Platform (L1–L4)" },
+    { "id": "human", "label": "People & closure (L5–L6)" }
+  ],
+  "phases": [],
+  "groups": [],
+  "mainPath": ["ingest", "detect", "recommend", "assign", "act", "verify"],
+  "nodes": [
+    { "id": "ingest", "lane": "platform", "col": 0, "type": "cloud", "label": "Ingest", "sublabel": "BUILT · L1→L2" },
+    { "id": "detect", "lane": "platform", "col": 1, "type": "backend", "label": "Detect", "sublabel": "PARTIAL · suppress+lane", "width": 96 },
+    { "id": "recommend", "lane": "platform", "col": 2, "type": "backend", "label": "Recommend", "sublabel": "BUILT · runtime" },
+    { "id": "assign", "lane": "human", "col": 3, "type": "security", "label": "Assign", "sublabel": "PARTIAL · no live L4 card", "width": 118 },
+    { "id": "act", "lane": "human", "col": 4, "type": "frontend", "label": "Act", "sublabel": "PARTIAL · UX" },
+    { "id": "verify", "lane": "human", "col": 5, "type": "security", "label": "Verify", "sublabel": "BUILT · ops_confirmed only", "width": 118 },
+    { "id": "learn", "lane": "platform", "col": 5, "type": "backend", "label": "Learn", "sublabel": "DESIGNED · L4" }
+  ],
+  "edges": [
+    { "from": "ingest", "to": "detect" },
+    { "from": "detect", "to": "recommend" },
+    { "from": "recommend", "to": "assign", "label": "can_emit", "variant": "dashed" },
+    { "from": "assign", "to": "act" },
+    { "from": "act", "to": "verify" },
+    { "from": "verify", "to": "learn", "variant": "dashed" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Status & sources",
+      "items": [
+        "Detect hot path: suppression then lane (L4 emit vs lab_only)",
+        "can_emit is L4 CardSink guard (recommend\u2192assign), not an L3 detect gate",
+        "g14 cold baseline; precision/PSI are eval-only (intelligence-evals)",
+        "Sequence: dashed arrows = replies; workflow dashed = DESIGNED hop"
+      ]
+    }
+  ]
+}

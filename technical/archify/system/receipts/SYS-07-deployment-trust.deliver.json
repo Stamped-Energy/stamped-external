@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "status": "pass",
+  "diagramType": "architecture",
+  "validate": "9/9",
+  "composition": "showcase: pass",
+  "specification": {
+    "path": "/workspace/technical/archify/system/src/SYS-07-deployment-trust.json",
+    "sha256": "f16b21e4b886650c76730930a038c325b1bb3364d6631ed5790e7b95c68ceb65"
+  },
+  "artifact": {
+    "path": "/workspace/technical/archify/system/SYS-07-deployment-trust.html",
+    "sha256": "db4e4a9f34708087aa19b7e0f5f996c2ea1b1cf917b778a5bb2f9d365444fa5b"
+  }
+}
