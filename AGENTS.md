@@ -8,8 +8,12 @@ Engineering workflow: **ponytail → (spec-kit for features) → research → pl
 
 ## Vision (read first — every product-shaped task)
 
+**If you want to understand what Stamped is:** read [`Stamped_Master_Document.md`](Stamped_Master_Document.md) first — company policy (identity, product, ICP, commercial motion, speech rules). Prefer it on company identity when older memos conflict.
+
+Supporting technical / historical vision pack:
+
 1. [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md)
-2. [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) — **wins on conflict**
+2. [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)
 3. [`research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)
 4. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
 5. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
