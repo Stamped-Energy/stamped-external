@@ -1,29 +1,28 @@
-# stamped-l6 — Architecture handoff
+# stamped-l6 / experience-integration — Architecture handoff
 
-> **Audience:** Engineers / agents starting `stamped-l6` or integrating L2/L4/L5 into the experience layer.  
-> **Consumer repo (planned):** [Vinayak-RZ/stamped-l6](https://github.com/Vinayak-RZ/stamped-l6)  
-> **Platform seed:** [../consumers/stamped-l6/](../consumers/stamped-l6/) (non-canonical UI reference)  
-> **Authority:** [L6 SSOT](../../technical/layers/l4-l6/L6-experience-and-integration.md) · [ADR-022](../../decisions/020-023/ADR-022-l6-bff-runtime-boundary.md) · [ADR-023](../../decisions/020-023/ADR-023-l6-ems-and-analyst-context.md) · [ADR-020](../../decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-018](../../decisions/016-020/ADR-018-l4-pilot-execution-knowledge-reasoning.md)  
+> **Architecture authority (prefer):** [`technical/layers/L6-experience.md`](../../technical/layers/L6-experience.md) · [`STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md).  
+> **Audience:** Engineers / agents working on the L6 consumer or integrating L2/L4/L5.  
+> **Consumer repo (live):** `experience-integration` (Forge web + BFF). Historical seed name `stamped-l6`.  
+> **ADRs:** [ADR-022](../../decisions/020-023/ADR-022-l6-bff-runtime-boundary.md) · [ADR-023](../../decisions/020-023/ADR-023-l6-ems-and-analyst-context.md) · [ADR-020](../../decisions/020-023/ADR-020-l5-mv-claim-governance.md)  
 > **UI charter:** [stamped-l6-ui-ux-charter.md](./stamped-l6-ui-ux-charter.md)  
-> **Build plan:** [stamped-l6-build-plan.md](./stamped-l6-build-plan.md)  
-> **Contracts:** [`workflow-event.json`](../../contracts/schemas/envelope/workflow-event.json) · [`ledger-entry.json`](../../contracts/schemas/closure/ledger-entry.json) · [`prescription.json`](../../contracts/schemas/intelligence/prescription.json) · [`finding.json`](../../contracts/schemas/intelligence/finding.json)  
-> **L2 reads:** [stamped-l2-query-api-sketch.md](./stamped-l2-query-api-sketch.md)  
-> **L5 connect:** [../consumers/readmes/closure-verification.md](../consumers/readmes/closure-verification.md) § Connect L6  
-> **Counterfactual UI:** [l6-counterfactual-display-stub.md](./l6-counterfactual-display-stub.md)
+> **Build plan:** [stamped-l6-build-plan.md](./stamped-l6-build-plan.md) (historical; prefer consumer README)  
+> **Contracts:** workflow-event · ledger-entry · prescription / card dual-read · finding (display only)
 
 ---
 
 ## 1. Mission
 
-**stamped-l6** is Experience & Integration — the ops-first control room where plants see alarms, close prescriptions, read ops-confirmed ₹, ask an analyst, and (later) export / webhook evidence.
+**experience-integration** is the customer plant control room: see the next action, close cards, read honest evidence labels, ask an analyst. It is not an EMS product category and not L5’s staff console.
 
 | Is | Is not |
 | --- | --- |
-| Dashboard + EMS console + Rx queue UX | L3 detection / L5 workflow SoR |
-| Dual-mode analyst UX (Mode A/B) | RAG / LangGraph runtime (L4) |
-| Tenant-scoped BFF composing L2/L4/L5 | Direct Timescale / OT writes |
-| Claim-safe savings display | Implying bill verification from ops |
-| Public API + webhooks (P2) | SCADA HMI / ESG filing system |
+| Forge UI + tenant BFF over L2/L4/L5 | L3 detection / L5 workflow SoR |
+| Now queue, alarms, prescriptions, Ask | RAG / decision runtime (L4 owns those) |
+| Live vs Preview honesty | Direct Timescale / OT writes |
+| Claim-safe ops vs bill labels | Implying bill verification from ops clearance |
+| Browser → BFF only for secrets | Service keys in `NEXT_PUBLIC_*` |
+
+Home is the **next action**, not a dashboard-only product.
 
 ---
 

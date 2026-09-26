@@ -1,40 +1,29 @@
-# stamped-l5 — Architecture handoff
+# stamped-l5 / closure-verification — Architecture handoff
 
+> **Architecture authority (prefer):** [`technical/layers/L5-closure.md`](../../technical/layers/L5-closure.md) · [`STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md).  
 > **Audience:** Engineers / agents working on the L5 consumer or integrating L6.  
-> **Consumer repo (live):** [Vinayak-RZ/closure-verification](https://github.com/Vinayak-RZ/closure-verification) — package `stamped-l5`  
-> **README snapshot:** [../consumers/readmes/closure-verification.md](../consumers/readmes/closure-verification.md)  
-> **Authority:** [L5 SSOT](../../technical/layers/l4-l6/L5-closure-and-verification.md) · [ADR-019](../../decisions/016-020/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](../../decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-021](../../decisions/020-023/ADR-021-l5-notification-and-evidence.md) · [ADR-013](../../decisions/011-015/ADR-013-counterfactual-savings-ledger.md)  
-> **L3 dependency:** [stamped-l3-ops-clearance-consumer-prompt.md](./stamped-l3-ops-clearance-consumer-prompt.md) · Finding 1.1.0 `ops_clearance`  
-> **Contracts:** [`prescription.json`](../../contracts/schemas/intelligence/prescription.json) · [`workflow-event.json`](../../contracts/schemas/envelope/workflow-event.json) · [`ledger-entry.json`](../../contracts/schemas/closure/ledger-entry.json) · [`finding.json`](../../contracts/schemas/intelligence/finding.json)  
-> **Build plan:** [stamped-l5-build-plan.md](./stamped-l5-build-plan.md) (P0–P2 historical; see consumer README for shipped surface)
+> **Consumer repo (live):** `closure-verification` — package `stamped-l5`  
+> **ADRs:** [ADR-019](../../decisions/016-020/ADR-019-l5-runtime-and-consistency.md) · [ADR-020](../../decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [ADR-021](../../decisions/020-023/ADR-021-l5-notification-and-evidence.md)  
+> **L3 dependency:** Finding **1.2.0** `ops_clearance` ([`technical/l3/04-finding-contract.md`](../../technical/l3/04-finding-contract.md)) · [ops-clearance prompt](../agents/prompts/stamped-l3-ops-clearance-consumer-prompt.md)  
+> **Contracts:** [`prescription.json`](../../contracts/schemas/intelligence/prescription.json) · card-proposal (dual-read) · [`workflow-event.json`](../../contracts/schemas/envelope/workflow-event.json) · [`ledger-entry.json`](../../contracts/schemas/closure/ledger-entry.json)  
+> **Build plan:** [stamped-l5-build-plan.md](./stamped-l5-build-plan.md) (historical; see consumer README for shipped surface)
 
 ---
 
 ## 1. Mission
 
-**stamped-l5** closes the loop: assign → alarm/notify → act → **ops-verify on telemetry** → track **calculated** ₹/kWh.
+**closure-verification** closes the loop: accept an L4 proposal → alarm/notify → act → **ops-verify on telemetry** → track calculated ₹/kWh with honest labels.
 
 | Is | Is not |
 | --- | --- |
-| Workflow + durable timers | L3 detection engines |
-| **EMS alarm router** (raise/ack/escalate/clear) | Re-implementing MD/idle/SEC detectors |
-| **Ops-clearance verification** | Bill/IPMVP gate (deferred) |
-| Calculated potential + ops_confirmed realised ledger | Claiming “verified on DISCOM bill” |
-| WhatsApp-first notification | Plant dashboard UI (L6) |
-| Opportunity-cost job (`modeled`) | Silent / autonomous OT writes (opt-in ActionIntent only — [ADR-029](../../decisions/028-032/ADR-029-human-guided-ot-command-path.md)) |
-| **Internal Console** (all Rx + gate + force send/stop) | Customer-facing Forge |
-| Weekly Improve + ML promote (human-gated) | Auto-promote |
-| **ActionIntent** authz + dispatch + verify ([action-intent handoff](./stamped-l5-action-intent.md)) | Protocol adapters / direct OPC from L5 |
+| Workflow + durable timers + clearance | L3 detection engines |
+| Alarm raise/ack/escalate/clear | Re-implementing MD/idle/SEC detectors |
+| Ops-clearance verification | Claiming “verified on DISCOM bill” from ops alone |
+| WhatsApp-first notification (+ SMS fallback) | Customer Forge UI (`experience-integration`) |
+| Internal console (staff statuses) | Customer Now queue |
+| Autonomy classes default **off** | Silent OT writes |
 
-### Positioning alignment
-
-| Client step | L5 role |
-| --- | --- |
-| 3 Prescriptions | Score AD-5 gate; assign; WhatsApp shadow; ops-verify → ledger |
-| Internal ops | All-Rx inbox; force send/stop; plant gate profile ([console handoff](../holistic/improve/stamped-l5-internal-console-handoff.md)) |
-| 6 Improve | Weekly cycles — Phase 5 full use |
-
-**Negotiation / Discuss:** Phase 5.
+**ops_confirmed ≠ bill-verified.** Customer L6 must hide withhold / pending-review statuses.
 
 ---
 
