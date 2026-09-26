@@ -36,6 +36,11 @@ ADRs live in number buckets. Start with the index below.
 | [ADR-038](033-039/ADR-038-soft-gates-opportunity-ledger.md) | Soft gates, opportunity ledger, and exploration | Accepted | `033-039/` |
 | [ADR-039](033-039/ADR-039-registries-and-stage-graph.md) | Registries and expandable stage graph | Accepted | `033-039/` |
 | [ADR-040](040-044/ADR-040-l4-production-hardness.md) | L4 production hardness (queue, lifecycle, ports, controls) | Accepted | `040-044/` |
+| [ADR-041](040-044/ADR-041-connectors-doc-charter.md) | connectors-doc rename and charter (amends ADR-001) | Accepted | `040-044/` |
+| [ADR-042](040-044/ADR-042-doc-ocr-and-review-confidence.md) | connectors-doc OCR and review confidence | Accepted | `040-044/` |
+| [ADR-043](040-044/ADR-043-doc-generic-table-mapping.md) | connectors-doc generic CSV/XLSX mapping via pack schema | Accepted | `040-044/` |
+| [ADR-044](040-044/ADR-044-edge-field-protocols.md) | Edge field protocols (BACnet, DLMS, MTConnect) | Accepted | `040-044/` |
+| [ADR-045](045-049/ADR-045-edge-sql-drivers-read-only.md) | Edge SQL drivers and read-only enforcement | Accepted | `045-049/` |
 
 **Archived / superseded (2026-09 cleanup):** ADR-004, ADR-006, ADR-014 (TS FM), ADR-016, ADR-017, ADR-018, ADR-023, ADR-027, ADR-028, and `asset-id-migration.md` → [`../archive/cleanup-2026-09/adrs/`](../archive/cleanup-2026-09/adrs/). Also recoverable on tag `v2026.09.24`. Withdrawn earlier: ADR-013, ADR-024, ADR-026. ADR-029 under marketing archive.
 

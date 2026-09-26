@@ -1,5 +1,7 @@
 # ADR-001: L1 connectors — repo split, edge packaging, schemas, transport, tag mapping
 
+> **Amendment (2026-09-27):** Repo count and the bill-repo charter in §1 / §6 are superseded. L1 is **three** repos: `connectors-edge`, **`connectors-cloud`** (chartered in [ADR-007](../006-010/ADR-007-connectors-cloud-repo-charter.md); no longer deferred), and **`connectors-doc`** (renamed from `connectors-bill`; [ADR-041](../040-044/ADR-041-connectors-doc-charter.md)). Payload names (`bill_line`, MQTT `…/bills`, `discom_bill`) are unchanged.
+
 | Field | Value |
 | --- | --- |
 | **Status** | Accepted |
