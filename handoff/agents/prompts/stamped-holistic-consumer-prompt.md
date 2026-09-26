@@ -1,8 +1,8 @@
-# Prompt — Five-domain decision loop (ADR-030)
+# Prompt — Plant decision loop (master document)
 
+> **Amended 2026-09-26.** Prefer [`Stamped_Master_Document.md`](../../../Stamped_Master_Document.md) and [`technical/STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md). Four outcomes: quality and yield, energy and waste, uptime, dynamic scheduling. The five-domain list below is historical.  
 > **Use this:** One copy-paste block for **any** Stamped consumer-repo agent (L1–L6).  
-> **Platform:** [Vinayak-RZ/stamped-external](https://github.com/Vinayak-RZ/stamped-external)  
-> **Authority:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) · [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · founder vision [`09`](../../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) · agent contract [`10`](../../../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) · [console AD-7](../../holistic/improve/stamped-l5-internal-console-handoff.md)
+> **Authority:** Master document · [ADR-030](../../../decisions/028-032/ADR-030-five-domain-decision-loop.md) (amended) · [ADR-025](../../../decisions/024-026/ADR-025-improve-loop-step-06.md) · vision [`09`](../../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) · [`10`](../../../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)
 
 ---
 

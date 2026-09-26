@@ -17,6 +17,7 @@ Supporting technical / historical vision pack:
 3. [`research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)
 4. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
 5. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
+6. [`technical/layers/`](technical/layers/) — then [`technical/l3/`](technical/l3/) or [`technical/l4/`](technical/l4/) for depth
 
 **Never** append Energy to the product name. **Never** teach withdrawn dual-pillar framing, fixed savings-% as identity, or energy-only company. Archived marketing and cleanup material are under [`archive/`](archive/) — do not read them for identity unless the human asked for a recovery pass.
 
@@ -27,8 +28,9 @@ Rule: `stamped-vision.mdc`. Lint: `./scripts/vision-identity-lint.ps1`.
 | Area | Guidance |
 |------|----------|
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
-| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index; framing = ADR-030 |
-| **Handoff** (`handoff/`) | Cross-repo integration docs; start at `handoff/README.md` |
+| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index; company framing = master document (ADR-030 amended) |
+| **Technical architecture** | Prefer `technical/layers/`, `technical/l3/`, `technical/l4/` over archived specs and stale handoff build notes |
+| **Handoff** (`handoff/`) | Cross-repo integration docs; start at `handoff/README.md` after the layer architecture page |
 | **Design** (`design/`) | Brand + tokens; align UI/decks to website + Bhatia pilot grammar |
 | **Demo decks** (`demo-decks/`) | Client HTML decks; keep Bhatia as latest grammar reference |
 | **Future** (`future/`) | Open tech directions only — not live product |
@@ -36,7 +38,7 @@ Rule: `stamped-vision.mdc`. Lint: `./scripts/vision-identity-lint.ps1`.
 | **Consumer repos** | See [REPOS.md](REPOS.md) and [SUBMODULE.md](SUBMODULE.md) |
 | **Release** | Tag as needed; bump [VERSION](VERSION) and [CHANGELOG.md](CHANGELOG.md) after intentional releases |
 
-**Reading order for new agents:** [README.md](README.md) → vision pack above → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
+**Reading order for new agents:** [README.md](README.md) §3 → master document + vision pack above → layer page → `l3/` or `l4/` depth → [handoff/README.md](handoff/README.md) → [decisions/README.md](decisions/README.md).
 
 ## Ponytail — mandatory gate for all coding
 

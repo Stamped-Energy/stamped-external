@@ -1,7 +1,8 @@
 # connectors-edge — Cloud + air-gap portability playbook
 
+> **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md).  
 > **Authority:** [ADR-010](../../../decisions/006-010/ADR-010-deployment-profiles-and-portability.md) · [ADR-003](../../../decisions/001-005/ADR-003-connectors-edge-monorepo.md)  
-> **Cross-repo:** [deployment-profiles.md](./deployment-profiles.md)
+> **Cross-repo:** [deployment-profiles.md](../../deployment/deployment-profiles.md)
 
 ---
 

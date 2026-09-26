@@ -1,6 +1,8 @@
 # Stamped copy pack (agent-facing)
 
-**Open this folder first** when writing or checking what we sell and show clients.
+> **Withdrawn.** Do not open this folder to learn what Stamped is. This is archived energy-era marketing (two pillars, Industry Energy Management, verified DISCOM-bill savings). Current identity is [`Stamped_Master_Document.md`](../../../Stamped_Master_Document.md) (four outcomes). Do not teach the five-domain list or this archive as live identity.
+
+The lines below are the old agent instructions. They are historical. They do not override the withdrawn banner above.
 
 Compiled from website canon, client positioning, prescription examples, and demo-deck leave-behinds. **Do not invent claims** beyond these files. Prefer verbatim or close paraphrase.
 

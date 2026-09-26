@@ -3,6 +3,8 @@
 Material removed from the live platform pack during the post-vision cleanup.
 Recoverable here and on git tag `v2026.09.24`.
 
+**Not product identity.** Layer specs under `technical/` open with a withdrawn claim: verified 15–20% savings on the DISCOM bill, with time-of-day as one energy lever. Do not use them to decide what Stamped is. Live identity is [`../../Stamped_Master_Document.md`](../../Stamped_Master_Document.md) and [`../../technical/STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md).
+
 | Folder | Was |
 |--------|-----|
 | `compliance/` | India compliance register |

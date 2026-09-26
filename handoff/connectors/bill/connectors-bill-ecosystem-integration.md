@@ -1,8 +1,7 @@
 # Stamped ecosystem — how connectors-bill connects to sibling repos
 
-> **Master context:** [Stamped master document](../../../technical/STAMPED_ARCHITECTURE.md) §4–5  
-> **Topology ADR:** [ADR-008](../../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)  
-> **Interface authority:** layer-interfaces.md (copy from connectors-cloud `docs/architecture/`)
+> **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md).  
+> **Topology ADR:** [ADR-008](../../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)
 
 ---
 

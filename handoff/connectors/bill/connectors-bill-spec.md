@@ -1,8 +1,8 @@
 # connectors-bill — workspace handoff specification (L1 bill + customer UI)
 
+> **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md). This handoff may retain older build detail; do not take company identity from archived layer specs.
+>
 > **Purpose:** Bootstrap **`connectors-bill`** — the **L1 bill / document ingest** portion of Connect & Normalise, plus the **customer-facing upload and review experience**.  
-> **Master doc:** [Stamped master document](../../../technical/STAMPED_ARCHITECTURE.md) — *"Insight is only valuable if it reliably causes action… Measurement is only trusted if it is in rupees **on the bill**."*  
-> **L1 depth:** [L1 connect & normalise §3.4](../../../technical/layers/l1-l2/L1-connect-and-normalise.md) (DISCOM bill & tariff ingest)  
 > **ADRs:** [ADR-001](../../../decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) · [ADR-008](../../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)  
 > **Downstream consumer (ready today):** [connectors-cloud-downstream-context.md](./connectors-cloud-downstream-context.md)
 

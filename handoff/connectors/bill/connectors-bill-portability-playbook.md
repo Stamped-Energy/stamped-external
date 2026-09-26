@@ -1,5 +1,6 @@
 # connectors-bill — Cloud + air-gap portability playbook
 
+> **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md).  
 > **Authority:** [ADR-010](../../../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)  
 > **Spec:** [connectors-bill-spec.md](./connectors-bill-spec.md)
 

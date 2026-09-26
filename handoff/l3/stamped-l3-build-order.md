@@ -1,18 +1,21 @@
 # stamped-l3 — P0 build order
 
-> **Aligned with:** [ADR-012](../../decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [ADR-008](../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md) · [L3 spec](../../technical/layers/l3/L3-intelligence-core.md) · [ADR-020](../../decisions/020-023/ADR-020-l5-mv-claim-governance.md)  
-> **Repos:** `stamped-l3-core` · `stamped-l3-rulepacks` · `stamped-l3-eval`  
-> **Ops-clearance enablement:** [stamped-l3-ops-clearance-consumer-prompt.md](./stamped-l3-ops-clearance-consumer-prompt.md)
+> **Architecture authority (prefer):** [`technical/l3/`](../../technical/l3/) · [`STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md).  
+> **Finding emit version (as-built):** **1.2.0** — exit criteria below that say **1.1.0** are historical P0 notes; do not implement against 1.1.0.  
+> **Aligned with:** [ADR-012](../../decisions/011-015/ADR-012-l3-artifact-repo-topology.md) · [ADR-008](../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md) · [ADR-020](../../decisions/020-023/ADR-020-l5-mv-claim-governance.md)  
+> **Repos (live names):** `intelligence-core` · `intelligence-rulepacks` · `intelligence-evals`  
+> **Ops-clearance enablement:** [stamped-l3-ops-clearance-consumer-prompt.md](../agents/prompts/stamped-l3-ops-clearance-consumer-prompt.md)
 
 ---
 
-## Exit criterion (P0 complete)
+## Exit criterion (P0 complete) — historical
 
-- MD engine emits `Finding` **1.1.0** (with `ops_clearance` + optional `alarm_hint`) from L2 fixture client via transactional outbox
+- MD engine emits `Finding` **1.1.0** (with `ops_clearance` + optional `alarm_hint`) from L2 fixture client via transactional outbox  
+  → **Superseded as-built:** Finding **1.2.0** (see [`technical/l3/04-finding-contract.md`](../../technical/l3/04-finding-contract.md))
 - incomer rulepack v0.1.0 golden CI green
 - `./scripts/contracts/contract-check.sh` green on pinned `external/contracts` SHA
 - Hot path scheduler runs MD + PF without blocking cold refit
-- Every emitted Finding validates against `finding.json` const `1.1.0`
+- Every emitted Finding validates against `finding.json` const `1.1.0` → **as-built const `1.2.0`**
 
 ---
 

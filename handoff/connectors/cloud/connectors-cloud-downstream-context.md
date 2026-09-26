@@ -1,5 +1,7 @@
 # connectors-cloud — context for connectors-bill builders
 
+> **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md).
+>
 > **Repo:** [Vinayak-RZ/connectors-cloud](https://github.com/Vinayak-RZ/connectors-cloud)  
 > **Status (2026-07-11):** L1 cloud ingest **complete for pilot prep** (minus AWS deploy). Bill MQTT path **implemented and E2E-tested**.
 

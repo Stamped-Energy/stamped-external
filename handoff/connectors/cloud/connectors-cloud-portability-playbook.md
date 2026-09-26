@@ -1,5 +1,6 @@
 # connectors-cloud — Cloud + air-gap portability playbook
 
+> **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md).  
 > **Authority:** [ADR-010](../../../decisions/006-010/ADR-010-deployment-profiles-and-portability.md) · [ADR-007](../../../decisions/006-010/ADR-007-connectors-cloud-repo-charter.md)  
 > **Downstream:** [connectors-cloud-downstream-context.md](./connectors-cloud-downstream-context.md)
 

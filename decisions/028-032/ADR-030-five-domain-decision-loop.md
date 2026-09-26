@@ -1,13 +1,16 @@
 ﻿# ADR-030: Five-domain decision loop (product framing)
 
+> **Amended 2026-09-26.** Company policy is now [`Stamped_Master_Document.md`](../../Stamped_Master_Document.md): **four outcomes** (quality and yield, energy and waste, uptime, dynamic scheduling) on one card. Cost, continuity/flow, and time are **effects**, not outcomes. Prefer the master document and [`technical/STAMPED_ARCHITECTURE.md`](../../technical/STAMPED_ARCHITECTURE.md) for live identity. Keep this ADR for topology, hard-stop spine, and historical five-domain wording — do not teach the five-domain list as current product identity.
+
 | Field | Value |
 | --- | --- |
-| **Status** | Accepted |
+| **Status** | **Amended** (by master document four-outcome framing) |
 | **Date** | 2026-09-24 |
 | **Deciders** | Product + Engineering |
 | **Supersedes** | ADR-024 (holistic plant / energy-hero framing), ADR-026 (prior framing; tag v2026.09.24) |
-| **Authority narrative** | [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) |
-| **Agent contract** | [`research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md`](../../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) |
+| **Amended by** | [`Stamped_Master_Document.md`](../../Stamped_Master_Document.md) (2026-09-26) |
+| **Authority narrative** | Master document wins · historical: [`09-stamped-founder-vision.md`](../../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) |
+| **Agent contract** | [`10-stamped-vision-agent-alignment.md`](../../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) |
 | **Related** | [ADR-008](../006-010/ADR-008-layer-repo-topology-and-interfaces.md) · [ADR-025](../024-026/ADR-025-improve-loop-step-06.md) · [STAMPED_ARCHITECTURE.md](../../technical/STAMPED_ARCHITECTURE.md) |
 
 ---

@@ -2,7 +2,8 @@
 
 Decision records for the Stamped platform. Distributed via submodule at `external/` ([ADR-011](011-015/ADR-011-stamped-platform-submodule-distribution.md)).
 
-**Product framing lock:** [ADR-030](028-032/ADR-030-five-domain-decision-loop.md) — five-domain choose / assign / verify.
+**Company policy:** [`../Stamped_Master_Document.md`](../Stamped_Master_Document.md) — four outcomes, choose / assign / verify.  
+**ADR-030:** [028-032/ADR-030-five-domain-decision-loop.md](028-032/ADR-030-five-domain-decision-loop.md) — **Amended**; five-domain list is not live identity.
 
 ADRs live in number buckets. Start with the index below.
 
@@ -25,7 +26,7 @@ ADRs live in number buckets. Start with the index below.
 | [ADR-021](020-023/ADR-021-l5-notification-and-evidence.md) | L5 notification + evidence | Accepted | `020-023/` |
 | [ADR-022](020-023/ADR-022-l6-bff-runtime-boundary.md) | L6 BFF runtime boundary | Accepted | `020-023/` |
 | [ADR-025](024-026/ADR-025-improve-loop-step-06.md) | Learning from closed cards | Accepted | `024-026/` |
-| [ADR-030](028-032/ADR-030-five-domain-decision-loop.md) | Five-domain decision loop (product framing) | Accepted | `028-032/` |
+| [ADR-030](028-032/ADR-030-five-domain-decision-loop.md) | Five-domain decision loop (product framing) | **Amended** (master four outcomes) | `028-032/` |
 | [ADR-031](028-032/ADR-031-l1-l2-context-records.md) | L1–L2 context records data plane | Accepted | `028-032/` |
 | [ADR-033](033-039/ADR-033-l4-decision-runtime.md) | L4 decision runtime (Finding → card proposal) | Accepted | `033-039/` |
 | [ADR-034](033-039/ADR-034-plant-situation-model-and-memory.md) | Plant Situation Model and memory | Accepted | `033-039/` |
