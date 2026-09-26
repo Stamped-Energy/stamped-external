@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-08-built-vs-designed.html",
-    "sha256": "ae6547238c21609e2fffb2087833e27b811aa707cd0a827b3854019618557484",
-    "bytes": 808448
+    "sha256": "8190d8d5b34a41842b3fafa49e11447abceda46b165dafc866378eee29548e69",
+    "bytes": 808700
   },
   "state": {
     "detail": "read",

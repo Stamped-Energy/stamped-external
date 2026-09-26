@@ -5163,7 +5163,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <path data-edge-from="it" data-edge-to="cloud" data-edge-label="context HTTP" data-edge-key="1" data-edge-id="it-cloud" data-composition-points="430,216;475,216;475,240;520,240" d="M 430 216 L 467 216 Q 475 216 475 224 L 475 232 Q 475 240 483 240 L 520 240" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="cloud" data-edge-to="l2" data-edge-label="X-Service-Key" data-edge-key="2" data-edge-id="ctrl-keys" data-composition-points="720,240;780,240" d="M 720 240 L 780 240" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         <path data-edge-from="l2" data-edge-to="llm" data-edge-label="provider API keys" data-edge-key="3" data-edge-id="l4-llm" data-composition-points="980,240;1010,240;1010,156;1040,156" d="M 980 240 L 1002 240 Q 1010 240 1010 232 L 1010 164 Q 1010 156 1018 156 L 1040 156" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="l2" data-edge-to="wa" data-edge-label="notify" data-edge-key="4" data-edge-id="l5-wa" data-composition-points="980,240;1010,240;1010,336;1040,336" d="M 980 240 L 1002 240 Q 1010 240 1010 248 L 1010 328 Q 1010 336 1018 336 L 1040 336" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="l2" data-edge-to="wa" data-edge-label="WA then SMS fallback" data-edge-key="4" data-edge-id="l5-wa" data-composition-points="980,240;1010,240;1010,336;1040,336" d="M 980 240 L 1002 240 Q 1010 240 1010 248 L 1010 328 Q 1010 336 1018 336 L 1040 336" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
 
         <!-- Components -->
         <g id="node-ot" data-node-id="ot" data-node-label="Plant OT net" tabindex="0" role="button" aria-label="Focus Plant OT net, PARTIAL · pilot, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="PARTIAL · pilot" data-node-tag="PARTIAL" data-node-context="Architecture component">
@@ -5242,8 +5242,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="1125" y="184" class="t-external" font-size="7" text-anchor="middle">BUILT</text>
         </g>
 
-        <g id="node-wa" data-node-id="wa" data-node-label="WhatsApp/SMS" tabindex="0" role="button" aria-label="Focus WhatsApp/SMS, PARTIAL · L5, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="PARTIAL · L5" data-node-tag="PARTIAL" data-node-context="Architecture component">
-          <title>WhatsApp/SMS · PARTIAL · L5 · Architecture component · PARTIAL</title>
+        <g id="node-wa" data-node-id="wa" data-node-label="WhatsApp/SMS" tabindex="0" role="button" aria-label="Focus WhatsApp/SMS, PARTIAL·no live send, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="PARTIAL·no live send" data-node-tag="PARTIAL" data-node-context="Architecture component">
+          <title>WhatsApp/SMS · PARTIAL·no live send · Architecture component · PARTIAL</title>
           <rect x="1040" y="300" width="170" height="72" rx="6" class="c-mask"/>
           <rect x="1040" y="300" width="170" height="72" rx="6" class="c-external" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1046 306) scale(0.6875)">
@@ -5251,7 +5251,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="1125" y="334" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">WhatsApp/SMS</text>
-        <text data-detail="context" x="1125" y="350" class="t-muted" font-size="9" text-anchor="middle">PARTIAL · L5</text>
+        <text data-detail="context" x="1125" y="350" class="t-muted" font-size="9" text-anchor="middle">PARTIAL·no live send</text>
         <text data-detail="fine" x="1125" y="364" class="t-external" font-size="7" text-anchor="middle">PARTIAL</text>
         </g>
 
@@ -5272,9 +5272,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="914.2" y="150" width="91.6" height="14" rx="3" class="c-mask"/>
           <text x="960" y="160" class="t-security" font-size="8" text-anchor="middle">provider API keys</text>
         </g>
-        <g data-detail="context" data-edge-from="l2" data-edge-to="wa" data-edge-label="notify" data-edge-key="4" data-edge-id="l5-wa">
-          <rect x="940.6" y="330" width="38.8" height="14" rx="3" class="c-mask"/>
-          <text x="960" y="340" class="t-messagebus" font-size="8" text-anchor="middle">notify</text>
+        <g data-detail="context" data-edge-from="l2" data-edge-to="wa" data-edge-label="WA then SMS fallback" data-edge-key="4" data-edge-id="l5-wa">
+          <rect x="847" y="318" width="106" height="14" rx="3" class="c-mask"/>
+          <text x="900" y="328" class="t-muted" font-size="8" text-anchor="middle">WA then SMS fallback</text>
         </g>
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
@@ -5480,7 +5480,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <li>&bull; Pinned manifests L1E–L6 + EXT@a4c91bc (see manifest.json)</li>
           <li>&bull; BUILT/PARTIAL/DESIGNED/DEFERRED on node labels</li>
           <li>&bull; Arch/flow: dashed edges = DESIGNED or DEFERRED</li>
-          <li>&bull; No integration is live · verified savings ₹0</li>
+          <li>&bull; No integration is live · bill-verified savings ₹0</li>
         </ul>
       </div>
 
@@ -5491,7 +5491,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </div>
         <ul>
           <li>&bull; No inbound to plant OT; secrets stay in cloud vaults</li>
-          <li>&bull; HMAC webhooks DESIGNED; L6 polls L5 today</li>
+          <li>&bull; L5: WhatsApp first, SMS fallback (Meta fail, 3 pushes/role/day, or SMS preferred); L5_META_ENABLED=false; Msg91 stub — no live sends on main</li>
+          <li>&bull; L6: Meta webhook HMAC verify BUILT; inbound button→Rx mapping still stub; BFF still polls L5 events (no L5→L6 push webhook)</li>
         </ul>
       </div>
     </div>

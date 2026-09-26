@@ -158,8 +158,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "5cde52b024ee3c6c417177e9137d54473897d81fbbfed083461cfa0036375b02",
-      "artifact_sha256": "a68e11afdf85ef7228451ba395f500c21ab1bf1cbe94815c31935fc27667a482"
+      "spec_sha256": "4a5e8e78c4964f31717646a7a77eed35034b028b60b45e0d71fc99552fcd6a9a",
+      "artifact_sha256": "2b3dcec356da6d4d3ffb7514262fa8b8b399220c0262ffe03ea6084168813e0c"
     },
     {
       "id": "SYS-08",
@@ -177,8 +177,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "3c73a9dc8a8b75ec479ec5cde1d17aec9299c3983257396cfab7e631217e0e77",
-      "artifact_sha256": "ae6547238c21609e2fffb2087833e27b811aa707cd0a827b3854019618557484"
+      "spec_sha256": "c7f8e44ae74f6ba52fda903c4d34b12aec501b8511405663367cb3e67b87d60e",
+      "artifact_sha256": "8190d8d5b34a41842b3fafa49e11447abceda46b165dafc866378eee29548e69"
     },
     {
       "id": "SYS-09",
@@ -274,8 +274,8 @@
       "diagram_count": 3
     }
   },
-  "glossary_terms": 64,
-  "glossary_sha256": "7cda07758e5231f2123ade32866904ac217f9f34e2f11ed2a4eefa9211708bb4",
+  "glossary_terms": 66,
+  "glossary_sha256": "483f87cecdc7727d9638bf99bce1132f903b2b8bd28c0ee7b2980433f9cc6b3f",
   "gaps": [
     {
       "id": "L1E-G-new-prune",

@@ -177,7 +177,7 @@
       "id": "wa",
       "type": "external",
       "label": "WhatsApp/SMS",
-      "sublabel": "PARTIAL \u00b7 L5",
+      "sublabel": "PARTIAL\u00b7no live send",
       "tag": "PARTIAL",
       "pos": [
         1040,
@@ -252,11 +252,10 @@
       "id": "l5-wa",
       "from": "l2",
       "to": "wa",
-      "label": "notify",
-      "variant": "dashed",
+      "label": "WA then SMS fallback",
       "labelAt": [
-        960,
-        340
+        900,
+        328
       ]
     }
   ],
@@ -268,7 +267,7 @@
         "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
         "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
         "Arch/flow: dashed edges = DESIGNED or DEFERRED",
-        "No integration is live \u00b7 verified savings \u20b90"
+        "No integration is live \u00b7 bill-verified savings \u20b90"
       ]
     },
     {
@@ -276,7 +275,8 @@
       "title": "Trust",
       "items": [
         "No inbound to plant OT; secrets stay in cloud vaults",
-        "HMAC webhooks DESIGNED; L6 polls L5 today"
+        "L5: WhatsApp first, SMS fallback (Meta fail, 3 pushes/role/day, or SMS preferred); L5_META_ENABLED=false; Msg91 stub \u2014 no live sends on main",
+        "L6: Meta webhook HMAC verify BUILT; inbound button\u2192Rx mapping still stub; BFF still polls L5 events (no L5\u2192L6 push webhook)"
       ]
     }
   ]

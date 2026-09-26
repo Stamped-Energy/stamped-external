@@ -38,7 +38,7 @@
           "bill",
           "hind"
         ],
-        "note": "Scheduler not deployed; L5 /cards missing; bill verified DEFERRED."
+        "note": "Scheduler not deployed; L5 /cards missing; bill-verify DEFERRED (fixture API on main)."
       }
     ],
     "output": "SYS-08-built-vs-designed.html"
@@ -206,7 +206,7 @@
       "id": "bill",
       "type": "security",
       "label": "Bill verified",
-      "sublabel": "DEFERRED",
+      "sublabel": "DEFERRED\u00b7fixtures",
       "tag": "DEFERRED",
       "pos": [
         976,
@@ -278,15 +278,16 @@
       "items": [
         "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
         "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
-        "Arch/flow: dashed edges = DESIGNED or DEFERRED",
-        "No integration is live \u00b7 verified savings \u20b90"
+        "Arch/flow: dashed = DESIGNED or DEFERRED (DEFERRED may still ship fixture-only code)",
+        "No integration is live \u00b7 bill-verified savings \u20b90"
       ]
     },
     {
       "dot": "rose",
       "title": "Honesty",
       "items": [
-        "No integration is live at any customer plant. Verified savings to date: \u20b90.",
+        "No integration is live at any customer plant. Bill-verified savings to date: \u20b90.",
+        "Bill-verify DEFERRED: POST /v1/prescriptions/{id}/bill-reconcile + FixtureBillClient on main \u2014 not live DISCOM path",
         "Gaps drawn as dashed hops; see index gaps table"
       ]
     }
