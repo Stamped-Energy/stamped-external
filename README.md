@@ -12,9 +12,9 @@
 
 - **One product, five decision domains, one card, one owner** — [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
 - **One repo per layer** communicates only through **versioned contracts** ([ADR-008](decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md))
-- **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) (L4 **agentic system** · L3 open detection ceiling · hard stops bind plant action)
+- **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) · layers [`technical/layers/`](technical/layers/) · L3 [`technical/l3/`](technical/l3/) · L4 [`technical/l4/`](technical/l4/)
 - **Coarse evolution:** [`research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md)
-- **Agent entry:** [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` → ADR-030
+- **Agent entry:** [`Stamped_Master_Document.md`](Stamped_Master_Document.md) · [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` → ADR-030
 - **Design / brand:** [`design/`](design/) (website + [Bhatia pilot deck](https://bhatia-stamped-pilot.vercel.app/#s6))
 - **Demo decks:** [`demo-decks/`](demo-decks/)
 - Pin consumers to a **specific SHA or semver tag**; never float on `main` in production branches
@@ -57,22 +57,31 @@ Full narrative: [`09-stamped-founder-vision.md`](research/plant-efficiency-explo
 
 ## 2. Architecture
 
-See [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) §§4–7 for the L0–L6 map and technology defaults.
+Start at [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) for the L0–L6 map, then:
+
+| Depth | Path |
+| --- | --- |
+| Layer pages | [`technical/layers/`](technical/layers/) — L1, L2, L5, L6 |
+| L3 deep | [`technical/l3/`](technical/l3/) — Findings, dual-lane, engines |
+| L4 deep | [`technical/l4/`](technical/l4/) — decision runtime contract + [`30-as-built.md`](technical/l4/30-as-built.md) |
+| L1–L2 configure | [`technical/L1-L2-DATA-PLANE.md`](technical/L1-L2-DATA-PLANE.md) |
 
 ---
 
 ## 3. Reading order for engineers and agents
 
-1. [`AGENTS.md`](AGENTS.md)
-2. [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md)
-3. [`09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)
-4. [`10-stamped-vision-agent-alignment.md`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)
-5. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
-6. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)
-7. [`handoff/README.md`](handoff/README.md) → your layer
-8. [`decisions/README.md`](decisions/README.md)
-9. [`contracts/`](contracts/) + `./scripts/contracts/contract-check.sh`
+1. [`Stamped_Master_Document.md`](Stamped_Master_Document.md) — company policy  
+2. [`AGENTS.md`](AGENTS.md)  
+3. [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → [`09`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) → [`10`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)  
+4. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)  
+5. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)  
+6. [`technical/layers/`](technical/layers/) for your layer  
+7. Depth: [`technical/l3/`](technical/l3/) or [`technical/l4/`](technical/l4/) when changing detection or the decision runtime  
+8. [`handoff/README.md`](handoff/README.md) → integration playbooks for your repo  
+9. [`decisions/README.md`](decisions/README.md) · [`contracts/`](contracts/) + `./scripts/contracts/contract-check.sh`  
 10. [`design/`](design/) when touching UI or decks
+
+You can stay inside this repository for the full technical picture; consumer repos add implementation detail, not a second architecture story.
 
 ---
 
