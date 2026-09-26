@@ -230,10 +230,18 @@
       ]
     },
     {
+      "id": "ctrl-keys",
+      "from": "cloud",
+      "to": "l2",
+      "label": "X-Service-Key",
+      "variant": "security",
+      "labelAt": [680, 294]
+    },
+    {
       "id": "l4-llm",
       "from": "l2",
       "to": "llm",
-      "label": "X-Service-Key",
+      "label": "provider API keys",
       "variant": "security",
       "labelAt": [
         960,

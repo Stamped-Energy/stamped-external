@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-09-money-lineage.html",
-    "sha256": "b73e7f0e6647fdaa164cb3df333aec968076c8643f512d6c29d12364acebbcf7",
-    "bytes": 805621
+    "sha256": "6e0d90e2b312f1f9b30cfadab46a097469f8ca51389b3712f3aae87fb0140f11",
+    "bytes": 805643
   },
   "state": {
     "detail": "read",

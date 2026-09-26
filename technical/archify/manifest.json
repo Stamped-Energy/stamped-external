@@ -3,7 +3,7 @@
   "repo": "Stamped-Energy/stamped-external",
   "base_sha": "a4c91bc286099e0cb0d3db124932994df045ac94",
   "branch": "cursor/archify-system-20d9",
-  "pr_url": null,
+  "pr_url": "https://github.com/Stamped-Energy/stamped-external/pull/78",
   "archify": {
     "commit": "9e35d2b0b39b155553ba9fcfe0b4f2a5198dd993",
     "version": "2.17.0-dev.1"
@@ -74,16 +74,16 @@
       "file": "SYS-03-ask-runtime.html",
       "spec": "src/SYS-03-ask-runtime.json",
       "status_counts": {
-        "BUILT": 4,
-        "PARTIAL": 2,
-        "DESIGNED": 0,
+        "BUILT": 5,
+        "PARTIAL": 1,
+        "DESIGNED": 1,
         "DEFERRED": 0
       },
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "9e16e045bfb5553d920bbc66adcde006c4246ff2b47c6b1391128116bc4a7158",
-      "artifact_sha256": "12554d31977f381e6ede4c18a58dca985178f9a25df0a74386495d7d118fa83d"
+      "spec_sha256": "60f49045ab72ffca9ff604f9fd92e2f14c3c03a495354fc2fe6be8fa59d7f526",
+      "artifact_sha256": "9634906deb4e15d7339f34f8e94c908802b10774453143d057dac74c74d2a3c1"
     },
     {
       "id": "SYS-04",
@@ -158,8 +158,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "eef9716a9bfca15bf0c557a388d2924229a348de8b75a1b0783e5273fb15bf0a",
-      "artifact_sha256": "92a60ad1b9bb0fdbf0a1aa214bab6b4b56575e40512037950013a4a78c5b4e14"
+      "spec_sha256": "4c61b0692757f346eca67cbc0859e6a0329bb181a312c28748ce9fd8f3f736a5",
+      "artifact_sha256": "ad7151f418d873c1cf269c2a829314b37788c20be821bbf83217fd16d9b1ae50"
     },
     {
       "id": "SYS-08",
@@ -169,7 +169,7 @@
       "file": "SYS-08-built-vs-designed.html",
       "spec": "src/SYS-08-built-vs-designed.json",
       "status_counts": {
-        "BUILT": 3,
+        "BUILT": 4,
         "PARTIAL": 3,
         "DESIGNED": 2,
         "DEFERRED": 1
@@ -177,8 +177,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "d50a8555871b71cbec00b94d482d653b0b97e0ab3728dbfe71fffeac373c689e",
-      "artifact_sha256": "c16982c2afe3b0151c4f85f8489cd98e9ca5b82b24cf28db4829dc8b426e6b8e"
+      "spec_sha256": "9051795f028b999ebc09379d44b8419832b14642c51a5ce0106edff63bcbb158",
+      "artifact_sha256": "c9b33bc9ec4390ca68fd138c0a01d6d617e8562f3ff7e1d82d85ecd982fbbd55"
     },
     {
       "id": "SYS-09",
@@ -196,8 +196,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "81d5aa2636389b0980f1d97fbf613305c7e684366d4b16e8f84dc31e0f98021a",
-      "artifact_sha256": "b73e7f0e6647fdaa164cb3df333aec968076c8643f512d6c29d12364acebbcf7"
+      "spec_sha256": "71f7b18ef7d1802c315d61a94436e7c503afe81c356817752bd35c36109fe83c",
+      "artifact_sha256": "6e0d90e2b312f1f9b30cfadab46a097469f8ca51389b3712f3aae87fb0140f11"
     }
   ],
   "repos": {

@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-07-deployment-trust.html",
-    "sha256": "92a60ad1b9bb0fdbf0a1aa214bab6b4b56575e40512037950013a4a78c5b4e14",
-    "bytes": 806113
+    "sha256": "ad7151f418d873c1cf269c2a829314b37788c20be821bbf83217fd16d9b1ae50",
+    "bytes": 806752
   },
   "state": {
     "detail": "read",

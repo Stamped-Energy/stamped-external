@@ -5,177 +5,69 @@
     "locale": "en",
     "visual_preset": "classic",
     "quality_profile": "showcase",
-    "legend": {
-      "mode": "hidden"
-    },
+    "legend": { "mode": "hidden" },
     "title": "Runtime: Ask analyst question",
-    "viewBox": [
-      960,
-      480
-    ],
+    "viewBox": [960, 480],
     "animation": "trace",
     "views": [
       {
-        "id": "ui-bff",
-        "label": "UI to BFF",
-        "focus": [
-          "user",
-          "web",
-          "bff"
-        ],
-        "note": "Trigger: question typed. L6 web \u2192 BFF /analyst with Live/Preview gate."
+        "id": "as-built",
+        "label": "As-built today",
+        "focus": ["user", "web", "bff", "l4"],
+        "note": "Trigger: question typed. L6→BFF /analyst is BUILT; L4 analyst API answers 503 ASK_MOVED (AskRetired)."
       },
       {
-        "id": "react",
-        "label": "ReAct loop",
-        "focus": [
-          "l4",
-          "tools",
-          "l2"
-        ],
-        "note": "L4 analyst API runs ReAct with L2 query-api and L3 list_open_findings tools."
+        "id": "retired",
+        "label": "Retired ReAct (designed)",
+        "focus": ["react", "tools", "l2"],
+        "note": "ReAct orchestrator retired on main; tool/retrieval libraries BUILT but not wired to live Ask."
       }
     ],
     "output": "SYS-03-ask-runtime.html"
   },
   "participants": [
-    {
-      "id": "user",
-      "type": "external",
-      "label": "Operator",
-      "sublabel": "BUILT \u00b7 L6"
-    },
-    {
-      "id": "web",
-      "type": "frontend",
-      "label": "L6 web",
-      "sublabel": "PARTIAL \u00b7 UI"
-    },
-    {
-      "id": "bff",
-      "type": "backend",
-      "label": "L6 BFF",
-      "sublabel": "BUILT \u00b7 proxy"
-    },
-    {
-      "id": "l4",
-      "type": "backend",
-      "label": "L4 analyst",
-      "sublabel": "PARTIAL \u00b7 503 off"
-    },
-    {
-      "id": "tools",
-      "type": "cloud",
-      "label": "Tool seam",
-      "sublabel": "BUILT \u00b7 catalog"
-    },
-    {
-      "id": "l2",
-      "type": "database",
-      "label": "L2 query-api",
-      "sublabel": "BUILT \u00b7 reads"
-    }
+    { "id": "user", "type": "external", "label": "Operator", "sublabel": "BUILT · L6" },
+    { "id": "web", "type": "frontend", "label": "L6 web", "sublabel": "PARTIAL · UI" },
+    { "id": "bff", "type": "backend", "label": "L6 BFF", "sublabel": "BUILT · /analyst" },
+    { "id": "l4", "type": "backend", "label": "L4 analyst", "sublabel": "BUILT · 503" },
+    { "id": "react", "type": "backend", "label": "ReAct loop", "sublabel": "DESIGNED · retired" },
+    { "id": "tools", "type": "cloud", "label": "Tools lib", "sublabel": "BUILT · not wired" },
+    { "id": "l2", "type": "database", "label": "L2 query-api", "sublabel": "BUILT · reads" }
   ],
   "segments": [
-    {
-      "from": 160,
-      "to": 230,
-      "label": "Request"
-    },
-    {
-      "from": 240,
-      "to": 380,
-      "label": "ReAct turns"
-    }
+    { "from": 160, "to": 300, "label": "Live path" },
+    { "from": 310, "to": 370, "label": "Retired design" }
   ],
   "messages": [
-    {
-      "from": "user",
-      "to": "web",
-      "y": 180,
-      "label": "type question"
-    },
-    {
-      "from": "web",
-      "to": "bff",
-      "y": 212,
-      "label": "POST /analyst"
-    },
-    {
-      "from": "bff",
-      "to": "l4",
-      "y": 244,
-      "label": "forward ask"
-    },
-    {
-      "from": "l4",
-      "to": "tools",
-      "y": 276,
-      "label": "tool call"
-    },
-    {
-      "from": "tools",
-      "to": "l2",
-      "y": 308,
-      "label": "query-api"
-    },
-    {
-      "from": "l2",
-      "to": "tools",
-      "y": 340,
-      "label": "rows + cites",
-      "variant": "return"
-    },
-    {
-      "from": "l4",
-      "to": "bff",
-      "y": 372,
-      "label": "answer + cites"
-    },
-    {
-      "from": "bff",
-      "to": "web",
-      "y": 372,
-      "label": "JSON response",
-      "variant": "return"
-    }
+    { "from": "user", "to": "web", "y": 180, "label": "type question" },
+    { "from": "web", "to": "bff", "y": 212, "label": "POST /analyst" },
+    { "from": "bff", "to": "l4", "y": 244, "label": "forward ask" },
+    { "from": "l4", "to": "bff", "y": 276, "label": "503 ASK_MOVED", "variant": "return" },
+    { "from": "bff", "to": "web", "y": 308, "label": "retired error", "variant": "return" },
+    { "from": "l4", "to": "react", "y": 340, "label": "ReAct turns", "variant": "dashed" },
+    { "from": "react", "to": "tools", "y": 332, "label": "tool call", "variant": "dashed" },
+    { "from": "tools", "to": "l2", "y": 356, "label": "query-api", "variant": "dashed" }
   ],
   "activations": [
-    {
-      "participant": "bff",
-      "from": 170,
-      "to": 385,
-      "type": "backend"
-    },
-    {
-      "participant": "l4",
-      "from": 200,
-      "to": 375,
-      "type": "backend"
-    },
-    {
-      "participant": "tools",
-      "from": 270,
-      "to": 350,
-      "type": "cloud"
-    }
+    { "participant": "bff", "from": 200, "to": 315, "type": "backend" },
+    { "participant": "l4", "from": 236, "to": 288, "type": "backend" }
   ],
   "cards": [
     {
       "dot": "cyan",
       "title": "Status & sources",
       "items": [
-        "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
-        "BUILT/PARTIAL/DESIGNED/DEFERRED from node sublabels; dashed edges = not live",
-        "No integration is live \u00b7 verified savings \u20b90"
+        "L4@d1887ee · AskRetired graph.py:20 returns 503 ASK_MOVED unconditionally",
+        "Tools + retrieval libraries remain BUILT; orchestrator not wired",
+        "No integration is live · verified savings ₹0"
       ]
     },
     {
       "dot": "amber",
-      "title": "Ask gates",
+      "title": "Ask retired",
       "items": [
-        "Analyst routes return 503 when L4_LIVE off; tools remain built",
-        "BudgetMeter caps tokens per turn"
+        "Do not attribute 503 to L4_LIVE — analyst routes are retired on main",
+        "Designed path: ReAct within per-turn tool budget (see L4-07 manifest)"
       ]
     }
   ]

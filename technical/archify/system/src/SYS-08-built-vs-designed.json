@@ -67,24 +67,28 @@
       ]
     },
     {
-      "id": "ctx",
+      "id": "ctxedge",
       "type": "backend",
       "label": "context-agent",
-      "sublabel": "PARTIAL off",
+      "sublabel": "BUILT · L1E IT",
+      "tag": "BUILT",
+      "pos": [48, 260],
+      "size": [160, 64],
+      "sources": [{ "path": "decisions/028-032/ADR-031-l1-l2-context-records.md", "line": 38, "label": "context-agent" }]
+    },
+    {
+      "id": "ctx",
+      "type": "backend",
+      "label": "L1C ctx poller",
+      "sublabel": "PARTIAL · off",
       "tag": "PARTIAL",
-      "pos": [
-        48,
-        260
-      ],
-      "size": [
-        160,
-        64
-      ],
+      "pos": [48, 380],
+      "size": [160, 64],
       "sources": [
         {
           "path": "decisions/028-032/ADR-031-l1-l2-context-records.md",
           "line": 110,
-          "label": "poll off"
+          "label": "CONTEXT_POLL_ENABLED"
         }
       ]
     },
@@ -249,6 +253,7 @@
       "from": "edge",
       "to": "l2"
     },
+    { "id": "ctx-e", "from": "ctxedge", "to": "l2", "variant": "dashed", "labelAt": [200, 340] },
     {
       "id": "l2-l3",
       "from": "l2",

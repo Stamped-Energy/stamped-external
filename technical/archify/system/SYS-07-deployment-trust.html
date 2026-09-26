@@ -5161,8 +5161,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <!-- Connection paths (before components for correct z-order) -->
         <path data-edge-from="edge" data-edge-to="cloud" data-edge-label="MQTT egress" data-edge-key="0" data-edge-id="e-mqtt" data-composition-points="210,336;496,336;496,240;520,240" d="M 210 336 L 488 336 Q 496 336 496 328 L 496 248 Q 496 240 504 240 L 520 240" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         <path data-edge-from="it" data-edge-to="cloud" data-edge-label="context HTTP" data-edge-key="1" data-edge-id="it-cloud" data-composition-points="430,216;475,216;475,240;520,240" d="M 430 216 L 467 216 Q 475 216 475 224 L 475 232 Q 475 240 483 240 L 520 240" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="l2" data-edge-to="llm" data-edge-label="X-Service-Key" data-edge-key="2" data-edge-id="l4-llm" data-composition-points="980,240;1010,240;1010,156;1040,156" d="M 980 240 L 1002 240 Q 1010 240 1010 232 L 1010 164 Q 1010 156 1018 156 L 1040 156" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="l2" data-edge-to="wa" data-edge-label="notify" data-edge-key="3" data-edge-id="l5-wa" data-composition-points="980,240;1010,240;1010,336;1040,336" d="M 980 240 L 1002 240 Q 1010 240 1010 248 L 1010 328 Q 1010 336 1018 336 L 1040 336" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="cloud" data-edge-to="l2" data-edge-label="X-Service-Key" data-edge-key="2" data-edge-id="ctrl-keys" data-composition-points="720,240;780,240" d="M 720 240 L 780 240" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="l2" data-edge-to="llm" data-edge-label="provider API keys" data-edge-key="3" data-edge-id="l4-llm" data-composition-points="980,240;1010,240;1010,156;1040,156" d="M 980 240 L 1002 240 Q 1010 240 1010 232 L 1010 164 Q 1010 156 1018 156 L 1040 156" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="l2" data-edge-to="wa" data-edge-label="notify" data-edge-key="4" data-edge-id="l5-wa" data-composition-points="980,240;1010,240;1010,336;1040,336" d="M 980 240 L 1002 240 Q 1010 240 1010 248 L 1010 328 Q 1010 336 1018 336 L 1040 336" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
 
         <!-- Components -->
         <g id="node-ot" data-node-id="ot" data-node-label="Plant OT net" tabindex="0" role="button" aria-label="Focus Plant OT net, PARTIAL · pilot, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="PARTIAL · pilot" data-node-tag="PARTIAL" data-node-context="Architecture component">
@@ -5263,11 +5264,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="386.2" y="256" width="67.6" height="14" rx="3" class="c-mask"/>
           <text x="420" y="266" class="t-muted" font-size="8" text-anchor="middle">context HTTP</text>
         </g>
-        <g data-detail="context" data-edge-from="l2" data-edge-to="llm" data-edge-label="X-Service-Key" data-edge-key="2" data-edge-id="l4-llm">
-          <rect x="923.8" y="150" width="72.4" height="14" rx="3" class="c-mask"/>
-          <text x="960" y="160" class="t-security" font-size="8" text-anchor="middle">X-Service-Key</text>
+        <g data-detail="context" data-edge-from="cloud" data-edge-to="l2" data-edge-label="X-Service-Key" data-edge-key="2" data-edge-id="ctrl-keys">
+          <rect x="643.8" y="284" width="72.4" height="14" rx="3" class="c-mask"/>
+          <text x="680" y="294" class="t-security" font-size="8" text-anchor="middle">X-Service-Key</text>
         </g>
-        <g data-detail="context" data-edge-from="l2" data-edge-to="wa" data-edge-label="notify" data-edge-key="3" data-edge-id="l5-wa">
+        <g data-detail="context" data-edge-from="l2" data-edge-to="llm" data-edge-label="provider API keys" data-edge-key="3" data-edge-id="l4-llm">
+          <rect x="914.2" y="150" width="91.6" height="14" rx="3" class="c-mask"/>
+          <text x="960" y="160" class="t-security" font-size="8" text-anchor="middle">provider API keys</text>
+        </g>
+        <g data-detail="context" data-edge-from="l2" data-edge-to="wa" data-edge-label="notify" data-edge-key="4" data-edge-id="l5-wa">
           <rect x="940.6" y="330" width="38.8" height="14" rx="3" class="c-mask"/>
           <text x="960" y="340" class="t-messagebus" font-size="8" text-anchor="middle">notify</text>
         </g>

@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-03-ask-runtime.html",
-    "sha256": "12554d31977f381e6ede4c18a58dca985178f9a25df0a74386495d7d118fa83d",
-    "bytes": 805272
+    "sha256": "9634906deb4e15d7339f34f8e94c908802b10774453143d057dac74c74d2a3c1",
+    "bytes": 806501
   },
   "state": {
     "detail": "read",
@@ -64,8 +64,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1164,
-        "diagramWidth": 1134,
+        "readerWidth": 1196,
+        "diagramWidth": 1166,
         "viewBoxWidth": 960,
         "minimumProjectedNodeTextPx": 7,
         "minimumProjectedNodeText": "BUILT · L6",
@@ -194,8 +194,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1164,
-        "diagramWidth": 1134,
+        "readerWidth": 1196,
+        "diagramWidth": 1166,
         "viewBoxWidth": 960,
         "minimumProjectedNodeTextPx": 7,
         "minimumProjectedNodeText": "BUILT · L6",
@@ -323,8 +323,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1164,
-        "diagramWidth": 1134,
+        "readerWidth": 1196,
+        "diagramWidth": 1166,
         "viewBoxWidth": 960,
         "minimumProjectedNodeTextPx": 7,
         "minimumProjectedNodeText": "BUILT · L6",
