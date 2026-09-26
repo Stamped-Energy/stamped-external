@@ -28,7 +28,7 @@ Rule: `stamped-vision.mdc`. Lint: `./scripts/vision-identity-lint.ps1`.
 | Area | Guidance |
 |------|----------|
 | **Contracts** (`contracts/`) | Schema changes require `contracts/CHANGELOG.md` semver bump + `scripts/contracts/contract-check.sh` pass |
-| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index; framing = ADR-030 |
+| **ADRs** (`decisions/`) | New decisions as ADR-NNN under number buckets; update `decisions/README.md` index; company framing = master document (ADR-030 amended) |
 | **Technical architecture** | Prefer `technical/layers/`, `technical/l3/`, `technical/l4/` over archived specs and stale handoff build notes |
 | **Handoff** (`handoff/`) | Cross-repo integration docs; start at `handoff/README.md` after the layer architecture page |
 | **Design** (`design/`) | Brand + tokens; align UI/decks to website + Bhatia pilot grammar |

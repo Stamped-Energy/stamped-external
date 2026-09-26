@@ -1,10 +1,11 @@
 # Stamped — Technical Context Pack
 
-**Start here:** [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) — overall product + technical architecture (five-domain decision loop; L4 agentic system / L5 live card).  
+**Start here:** [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) — overall product + technical architecture (four outcomes; L3 signal / L4 brain; L5 live card).  
+**Company policy:** [`../Stamped_Master_Document.md`](../Stamped_Master_Document.md) (wins on identity).  
 **Layer pages:** [`layers/`](layers/) — L1 connect, L2 store, L5 closure, L6 experience.  
 **L3 architecture (deep):** [`l3/`](l3/) — detection runtime, engines, rulepacks, Finding contract.  
 **L4 architecture (normative + as-built):** [`l4/`](l4/) — kernel, runtime, PSM, discovery, seams, opportunity ledger · [`l4/30-as-built.md`](l4/30-as-built.md).  
-**Framing lock:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) · Master [`../Stamped_Master_Document.md`](../Stamped_Master_Document.md) · Vision [`../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) · Coarse evolution [`../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md)
+**Supporting history:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) (amended) · Vision [`../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) · Coarse evolution [`../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md)
 
 This folder is the portable technical pack (submodule path `external/technical/`).
 
@@ -12,7 +13,7 @@ This folder is the portable technical pack (submodule path `external/technical/`
 
 | # | Document | For |
 | --- | --- | --- |
-| 0 | [`../Stamped_Master_Document.md`](../Stamped_Master_Document.md) + [`../research/plant-efficiency-exploration-2026-09/AGENT-START.md`](../research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` | Company identity |
+| 0 | [`../Stamped_Master_Document.md`](../Stamped_Master_Document.md) | Company identity |
 | 1 | [STAMPED_ARCHITECTURE.md](STAMPED_ARCHITECTURE.md) | **SSOT** — overall product + technical architecture |
 | 2 | [`layers/`](layers/) | Per-layer map (repos, contracts, must-nots) |
 | 3a | [`l3/`](l3/) | **L3 deep** — Findings, dual-lane, engines |

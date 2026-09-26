@@ -72,6 +72,6 @@ CNC fleet loop: `list_assets` → each `cnc_machine` when `ENABLE_CNC` or Proof 
 
 ## Product framing note
 
-As-built Findings still stamp `value_domain` as `energy_efficiency` | `equipment_health`. Product framing is five domains under [ADR-030](../../decisions/028-032/ADR-030-five-domain-decision-loop.md); do not pretend the field was migrated until core emits ADR-030 domain sections.
+As-built Findings still stamp `value_domain` as `energy_efficiency` | `equipment_health`. Product framing is **four outcomes** under [`Stamped_Master_Document.md`](../../Stamped_Master_Document.md); do not pretend the wire field was migrated.
 
 Next: [`03-rulepacks-and-evals.md`](03-rulepacks-and-evals.md).

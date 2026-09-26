@@ -10,7 +10,7 @@
 | --- | --- |
 | `schema_version` | **`1.2.0`** (`stamped_l3_core.models.finding`) |
 | `ops_clearance` | Required — measurement boundary, related tags, predicate, stabilize / reopen |
-| `value_domain` | `energy_efficiency` \| `equipment_health` (product framing is ADR-030 five domains; field not migrated yet) |
+| `value_domain` | `energy_efficiency` \| `equipment_health` (product framing is four outcomes in the master document; field not migrated yet) |
 | Money | Tariff-cited decomposition; no silent invent |
 | Dual-lane | Outbox only when `status=emitted` **and** `delivery=l4` |
 | Envelope | `record_type=finding` via `StampedRecordEnvelope` |

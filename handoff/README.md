@@ -2,7 +2,7 @@
 
 > **Audience:** AI agents and engineers bootstrapping consumer repos (`connectors-*`, L2…L6).  
 > **Architecture first:** [../technical/STAMPED_ARCHITECTURE.md](../technical/STAMPED_ARCHITECTURE.md) → [../technical/layers/](../technical/layers/) → [../technical/l3/](../technical/l3/) or [../technical/l4/](../technical/l4/) for depth.  
-> **Framing lock:** [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) — five-domain decision loop. Prior framing: tag `v2026.09.24` only.  
+> **Company policy:** [../Stamped_Master_Document.md](../Stamped_Master_Document.md) — four outcomes on one owned decision. ADR-030 five-domain list is amended history.  
 > **Path moves:** [PATH_MAP.md](PATH_MAP.md)
 
 This folder is **integration playbooks** (bootstrap, deploy, prompts). Prefer `technical/layers/`, `technical/l3/`, and `technical/l4/` for architecture. Handoffs may retain historical build detail behind authority banners.

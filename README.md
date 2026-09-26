@@ -2,23 +2,24 @@
 
 > **What it is:** The single source of truth for Stamped’s cross-repo platform layer — JSON schemas, ADRs, technical specs, design system, and handoff playbooks.  
 > **What it is not:** Application code, deploy compose, or a runnable service. Consumer repos mount this pack as a git submodule and implement layers L1–L6.  
-> **Product:** Stamped helps plant teams choose, assign, and verify the next operating action across energy, cost, time / throughput, continuity / flow, and short-horizon exceptions.  
-> **Framing lock:** [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md) · Vision: [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md)  
+> **Product:** Stamped helps a plant team choose, assign, and verify the next operating action across quality and yield, energy and waste, uptime, and dynamic scheduling.  
+> **Company policy:** [`Stamped_Master_Document.md`](Stamped_Master_Document.md) (wins on identity) · Architecture: [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)  
 > **GitHub:** [Stamped-Energy/stamped-external](https://github.com/Stamped-Energy/stamped-external) · **Prior product snapshot:** tag `v2026.09.24`
 
 ---
 
 **TL;DR**
 
-- **One product, five decision domains, one card, one owner** — [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)
+- **One product, four outcomes, one card, one owner** — [`Stamped_Master_Document.md`](Stamped_Master_Document.md)
+- **L3 signal + L4 brain are the core** — detect → decide/answer → close → show
 - **One repo per layer** communicates only through **versioned contracts** ([ADR-008](decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md))
 - **SSOT:** [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md) · layers [`technical/layers/`](technical/layers/) · L3 [`technical/l3/`](technical/l3/) · L4 [`technical/l4/`](technical/l4/)
 - **Coarse evolution:** [`research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md`](research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md)
-- **Agent entry:** [`Stamped_Master_Document.md`](Stamped_Master_Document.md) · [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → `09` → `10` → ADR-030
+- **Agent entry:** [`Stamped_Master_Document.md`](Stamped_Master_Document.md) → architecture SSOT → layer pages → L3/L4 depth
 - **Design / brand:** [`design/`](design/) (website + [Bhatia pilot deck](https://bhatia-stamped-pilot.vercel.app/#s6))
 - **Demo decks:** [`demo-decks/`](demo-decks/)
 - Pin consumers to a **specific SHA or semver tag**; never float on `main` in production branches
-- **L1–L2 context plane:** [`technical/L1-L2-DATA-PLANE.md`](technical/L1-L2-DATA-PLANE.md) · [ADR-031](decisions/028-032/ADR-031-l1-l2-context-records.md) (closed record catalog, MQTT wrapper, L2 shapes, tool allowlist)
+- **L1–L2 context plane:** [`technical/L1-L2-DATA-PLANE.md`](technical/L1-L2-DATA-PLANE.md) · [ADR-031](decisions/028-032/ADR-031-l1-l2-context-records.md)
 
 ---
 
@@ -26,9 +27,9 @@
 
 ### 1.1 What Stamped is
 
-Stamped is software that turns plant signals into a **specific next step** for a person, **records** the choice, and **checks** what happened across five domains. Energy often opens the first conversation. It is not the company name and not the product category.
+Stamped is software that turns plant signals into a **specific next step** for a person, **records** the choice, and **checks** what happened across quality and yield, energy and waste, uptime, and dynamic scheduling. Energy and waste often opens the first conversation. It is not the company name and not the product category.
 
-Full narrative: [`09-stamped-founder-vision.md`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md). Stack summary: [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md).
+Full policy: [`Stamped_Master_Document.md`](Stamped_Master_Document.md). Stack summary: [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md).
 
 ### 1.2 What this repository is
 
@@ -72,14 +73,13 @@ Start at [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md
 
 1. [`Stamped_Master_Document.md`](Stamped_Master_Document.md) — company policy  
 2. [`AGENTS.md`](AGENTS.md)  
-3. [`research/plant-efficiency-exploration-2026-09/AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → [`09`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) → [`10`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md)  
-4. [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md)  
-5. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)  
-6. [`technical/layers/`](technical/layers/) for your layer  
-7. Depth: [`technical/l3/`](technical/l3/) or [`technical/l4/`](technical/l4/) when changing detection or the decision runtime  
-8. [`handoff/README.md`](handoff/README.md) → integration playbooks for your repo  
-9. [`decisions/README.md`](decisions/README.md) · [`contracts/`](contracts/) + `./scripts/contracts/contract-check.sh`  
-10. [`design/`](design/) when touching UI or decks
+3. [`technical/STAMPED_ARCHITECTURE.md`](technical/STAMPED_ARCHITECTURE.md)  
+4. [`technical/layers/`](technical/layers/) for your layer  
+5. Depth: [`technical/l3/`](technical/l3/) or [`technical/l4/`](technical/l4/) when changing detection or the decision runtime  
+6. Supporting history (do not override master): [`AGENT-START.md`](research/plant-efficiency-exploration-2026-09/AGENT-START.md) → [`09`](research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) → [`10`](research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) · [ADR-030](decisions/028-032/ADR-030-five-domain-decision-loop.md) (amended)  
+7. [`handoff/README.md`](handoff/README.md) → integration playbooks for your repo  
+8. [`decisions/README.md`](decisions/README.md) · [`contracts/`](contracts/) + `./scripts/contracts/contract-check.sh`  
+9. [`design/`](design/) when touching UI or decks
 
 You can stay inside this repository for the full technical picture; consumer repos add implementation detail, not a second architecture story.
 
