@@ -19,7 +19,7 @@ Paste into **`AGENTS.md`** in the new repository.
 5. [external/handoff/l2/core/stamped-l2-build-order.md](external/handoff/l2/core/stamped-l2-build-order.md) — phased P0 tasks
 6. [external/handoff/l2/ops/stamped-l2-aws-deployment.md](external/handoff/l2/ops/stamped-l2-aws-deployment.md) — cost-first AWS sizing
 7. [external/architecture/layer-interfaces-l2.md](external/architecture/layer-interfaces-l2.md) — boundary authority
-8. [external/technical/layers/l1-l2/L2-universal-repository.md](external/technical/layers/l1-l2/L2-universal-repository.md) — research depth
+8. [external/technical/STAMPED_ARCHITECTURE.md](external/technical/STAMPED_ARCHITECTURE.md) — product architecture. The old L2 layer spec is archived and is not the company.
 9. [external/decisions/006-010/ADR-009-stamped-l2-repo-charter.md](external/decisions/006-010/ADR-009-stamped-l2-repo-charter.md)
 
 **Upstream L1 (already built):** connectors-cloud (relay ready) · connectors-edge (MQTT) · connectors-bill (BillLine publish).  

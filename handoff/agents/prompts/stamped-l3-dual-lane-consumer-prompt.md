@@ -2,7 +2,7 @@
 
 > **Audience:** Agents / engineers working in **`stamped-l3-core`** and **`stamped-l3-rulepacks`** (standalone GitHub repos or `consumers/` scaffolds).  
 > **Platform source:** [stamped-external](https://github.com/Vinayak-RZ/stamped-external) — pin `external/` after the dual-lane PR merges (or pin this branch SHA meanwhile).  
-> **Authority:** [ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016](../../../decisions/016-020/ADR-016-attribution-shadow-challengers.md) · [L3-attribution-explainability.md](../../../technical/layers/l3/L3-attribution-explainability.md) · [L3-decision-defense-brief.md](../../../technical/layers/l3/L3-decision-defense-brief.md)
+> **Authority:** [ADR-015](../../../decisions/016-020/ADR-015-l3-dual-lane-lab-detections.md) · [ADR-016](../../../decisions/016-020/ADR-016-attribution-shadow-challengers.md) · [architecture SSOT](../../../technical/STAMPED_ARCHITECTURE.md). Archived `technical/layers/` specs, including the L3 decision-defense brief, are not the company.
 
 ---
 

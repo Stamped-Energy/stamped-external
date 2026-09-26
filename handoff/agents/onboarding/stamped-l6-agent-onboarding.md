@@ -17,7 +17,7 @@ cd external && git checkout <release-tag> && cd ..
 
 ## Read first (in order)
 
-1. `external/technical/layers/l4-l6/L6-experience-and-integration.md`
+1. `external/technical/STAMPED_ARCHITECTURE.md` — architecture SSOT. The old `technical/layers/l4-l6/L6-experience-and-integration.md` is archived and is not the company.
 2. `external/handoff/l6/stamped-l6-architecture-handoff.md`
 3. `external/handoff/l6/stamped-l6-ui-ux-charter.md`
 4. `external/handoff/l6/stamped-l6-build-plan.md`

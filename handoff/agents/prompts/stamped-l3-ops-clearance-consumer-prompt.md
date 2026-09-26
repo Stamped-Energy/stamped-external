@@ -2,7 +2,7 @@
 
 > **Audience:** Agents / engineers in **`stamped-l3-core`** / **`stamped-l3-rulepacks`** (standalone repos or `consumers/` scaffolds).  
 > **Platform source:** [stamped-external](https://github.com/Vinayak-RZ/stamped-external) — pin `external/` after contracts **0.8.0** / Finding **1.1.0** merge.  
-> **Authority:** [ADR-020](../../../decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [finding.json](../../../contracts/schemas/intelligence/finding.json) · [L3 SSOT](../../../technical/layers/l3/L3-intelligence-core.md) §2.2 · [L5 SSOT](../../../technical/layers/l4-l6/L5-closure-and-verification.md)
+> **Authority:** [ADR-020](../../../decisions/020-023/ADR-020-l5-mv-claim-governance.md) · [finding.json](../../../contracts/schemas/intelligence/finding.json) · [architecture SSOT](../../../technical/STAMPED_ARCHITECTURE.md). Archived `technical/layers/` specs are not the company.
 
 ---
 

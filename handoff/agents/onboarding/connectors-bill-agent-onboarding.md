@@ -19,7 +19,7 @@ Paste into **`AGENTS.md`** in the new repository.
 5. [external/design/forge-industrial-design-system.md](external/design/forge-industrial-design-system.md) — **Forge Industrial v2.0** (stamped.work + dashboard demo)
 6. [docs/architecture/layer-interfaces.md](docs/architecture/layer-interfaces.md) — boundary contracts (copy from connectors-cloud)
 7. [external/technical/STAMPED_ARCHITECTURE.md](external/technical/STAMPED_ARCHITECTURE.md) — product master doc
-8. [external/technical/layers/l1-l2/L1-connect-and-normalise.md](external/technical/layers/l1-l2/L1-connect-and-normalise.md) — §3.4 bill ingest depth
+8. [external/technical/L1-L2-DATA-PLANE.md](external/technical/L1-L2-DATA-PLANE.md) — live L1–L2 data plane. The old L1 layer spec is archived and is not the company.
 
 **Sibling repos:** connectors-edge (plant MQTT) · **connectors-cloud** (L1 cloud consumer — **ready**) · stamped-l2…l6 (downstream).
 
