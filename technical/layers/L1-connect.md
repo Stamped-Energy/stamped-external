@@ -19,7 +19,7 @@ L1 reads plant and document signals and turns them into **canonical JSON** that 
 | --- | --- | --- |
 | `connectors-edge` | Plant gateway: protocol adapters → tag map → SQLite buffer → MQTT uplink | OT write; inbound plant HTTP as SoR; `L2_DATABASE_URL` |
 | `connectors-cloud` | Cloud door: MQTT/HTTP intake → schema + quality gate → Postgres outbox → HTTP relay to L2 | Plant protocol poll; L2 SQL |
-| `connectors-bill` | DISCOM / plant-doc PWA: OCR → **₹ gate** → MQTT publish | MQTT consumer; outbox writer; L2 SQL |
+| `connectors-doc` | Document ingest PWA: photos, scans, PDFs, CSV/XLSX; utility bills one family with **₹ gate** → MQTT publish | MQTT consumer; outbox writer; L2 SQL |
 
 ---
 
@@ -29,7 +29,7 @@ L1 reads plant and document signals and turns them into **canonical JSON** that 
 flowchart LR
   plant[Plant_OT_IT]
   edge[connectors_edge]
-  bill[connectors_bill]
+  bill[connectors_doc]
   mqtt[Mosquitto_MQTT]
   cloud[connectors_cloud]
   l2[L2_ingest_HTTP]

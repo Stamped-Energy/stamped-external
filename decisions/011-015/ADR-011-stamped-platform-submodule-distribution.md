@@ -11,7 +11,7 @@
 
 ## Context
 
-Stamped uses **one repo per layer** (ADR-008): connectors-edge, connectors-cloud, connectors-bill, stamped-l2 … stamped-l6. Each repo needs identical:
+Stamped uses **one repo per layer** (ADR-008): connectors-edge, connectors-cloud, connectors-doc, stamped-l2 … stamped-l6. Each repo needs identical:
 
 - JSON schemas and dedupe fixtures (`contracts/`)
 - Architecture decisions (`decisions/`)
@@ -66,7 +66,7 @@ connectors-edge/
 |------|----------------|-------------|
 | connectors-edge | `external/` | contract-check + edge E2E |
 | connectors-cloud | `external/` | contract-check + dedupe golden |
-| connectors-bill | `external/` | contract-check + bill dedupe |
+| connectors-doc | `external/` | contract-check + bill dedupe |
 | stamped-l2 | `external/` | contract-check + ingest parity |
 | stamped-l3–l6 | `external/` | contract-check |
 

@@ -37,7 +37,7 @@ Primary architecture: [`../../../technical/STAMPED_ARCHITECTURE.md`](../../../te
 | --- | --- |
 | MQTT subscribe, jsonschema at L1 boundary, outbox | `connectors-cloud` |
 | Modbus, tag mapping, edge buffer | `connectors-edge` |
-| DISCOM PDF OCR, review UI, MQTT publish | `connectors-bill` |
+| DISCOM PDF OCR, review UI, MQTT publish | `connectors-doc` |
 | Findings, SEC engines, MD detection | `stamped-l3` |
 | Prescription agent | `stamped-l4` |
 | Workflow, M&V verification UI | `stamped-l5` |
@@ -68,7 +68,7 @@ Primary architecture: [`../../../technical/STAMPED_ARCHITECTURE.md`](../../../te
 flowchart LR
   subgraph L1 [L1]
     Edge[connectors-edge]
-    Bill[connectors-bill]
+    Bill[connectors-doc]
     Cloud[connectors-cloud]
   end
   L2[stamped-l2]

@@ -32,7 +32,7 @@
 | Edge agent | **Their existing PC** | Always-on; outbound HTTPS; no inbound ports |
 | MQTT | Stamped EC2 Mosquitto | Not IoT Core at pilot scale |
 | Ingest + L2 | Fargate + shared RDS | Reuse `stamped-pilot` — **no second VPC** |
-| Bills | S3 + connectors-bill | PDF / photo path |
+| Bills | S3 + connectors-doc | PDF / photo path |
 | Dashboard | Existing L6 cloud path | |
 
 **Fallback:** `local-dashboard` — full compose on that same PC if IT refuses outbound MQTT. Heavier ops; offer as escape hatch, do not lead with air-gap.

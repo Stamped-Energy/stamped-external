@@ -214,9 +214,9 @@
       "diagram_count": 5
     },
     "L1B": {
-      "repo": "Stamped-Energy/connectors-bill",
+      "repo": "Stamped-Energy/connectors-doc",
       "base_sha": "fd2b16870e348686ba86104727f6065e5ab87474",
-      "pr_url": "https://github.com/Stamped-Energy/connectors-bill/pull/18",
+      "pr_url": "https://github.com/Stamped-Energy/connectors-doc/pull/18",
       "diagram_count": 4
     },
     "L2": {

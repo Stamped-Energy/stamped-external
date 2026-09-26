@@ -17,7 +17,7 @@ Stamped was architected AWS-first ([ADR-002](../001-005/ADR-002-build-all-aws-ne
 2. Fully on customer infrastructure with **no internet** (`local`)
 3. Fully local **with Stamped internal dashboard** (`local-dashboard`)
 
-This ADR defines **three configurable deployment modes**, LLM placement, orchestration (Docker Compose only P0), and portability rules across four repos: connectors-edge, connectors-cloud, connectors-bill, stamped-l2.
+This ADR defines **three configurable deployment modes**, LLM placement, orchestration (Docker Compose only P0), and portability rules across four repos: connectors-edge, connectors-cloud, connectors-doc, stamped-l2.
 
 ---
 
@@ -50,7 +50,7 @@ flowchart TB
     Edge[connectors-edge]
     MQTT[mosquitto]
     Cloud[connectors-cloud]
-    Bill[connectors-bill]
+    Bill[connectors-doc]
     L2[stamped-l2]
     LLM[local-llm]
     Edge --> MQTT --> Cloud --> L2
@@ -69,7 +69,7 @@ flowchart TB
 | Layer | `cloud` | `local` / `local-dashboard` |
 |-------|---------|----------------------------|
 | L3/L4 intelligence | `LLM_BACKEND=frontier` default | `LLM_BACKEND=local` **required** |
-| L1 connectors-bill extract | `LLM_BACKEND=frontier\|rules-only` | `LLM_BACKEND=local\|frontier\|rules-only` |
+| L1 connectors-doc extract | `LLM_BACKEND=frontier\|rules-only` | `LLM_BACKEND=local\|frontier\|rules-only` |
 | L1 tag-mapping-api | `LLM_BACKEND=frontier\|rules-only` | `LLM_BACKEND=local\|frontier\|rules-only` |
 | L2 | No LLM | No LLM |
 
@@ -83,7 +83,7 @@ Rules-only path must remain functional (deterministic engines, template OCR, rec
 2. **Egress inventory** — documented per repo; CI blocks undeclared external calls in `local` paths
 3. **Compose profiles** — `deploy/profiles/local.yml`, `local-dashboard.yml`; `cloud` uses Terraform/AWS
 4. **No mode-specific code forks** — same images; different compose + env files
-5. **Playbooks** — [connectors-edge](../../handoff/connectors/edge/connectors-edge-portability-playbook.md), [connectors-cloud](../../handoff/connectors/cloud/connectors-cloud-portability-playbook.md), [connectors-bill](../../handoff/connectors/bill/connectors-bill-portability-playbook.md), [stamped-l2](../../handoff/l2/ops/stamped-l2-portability-playbook.md)
+5. **Playbooks** — [connectors-edge](../../handoff/connectors/edge/connectors-edge-portability-playbook.md), [connectors-cloud](../../handoff/connectors/cloud/connectors-cloud-portability-playbook.md), [connectors-doc](../../handoff/connectors/doc/connectors-doc-portability-playbook.md), [stamped-l2](../../handoff/l2/ops/stamped-l2-portability-playbook.md)
 
 ---
 

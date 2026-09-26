@@ -6,7 +6,7 @@ Consumer repos mount this platform pack as a git submodule at `external/`.
 |------|--------|-------|-----------|----------------------|-----------------|
 | connectors-edge | `Vinayak-RZ/connectors-edge` | L1 plant | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/connectors-edge.md](consumers/readmes/connectors-edge.md) |
 | connectors-cloud | `Vinayak-RZ/connectors-cloud` | L1 cloud | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/connectors-cloud.md](consumers/readmes/connectors-cloud.md) |
-| connectors-bill | `Vinayak-RZ/connectors-bill` | L1 bill | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/connectors-bill.md](consumers/readmes/connectors-bill.md) |
+| connectors-doc | `Stamped-Energy/connectors-doc` | L1 document ingest | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/connectors-doc.md](consumers/readmes/connectors-doc.md) |
 | universal-repositary | `Vinayak-RZ/universal-repositary` | L2 (stamped-l2) | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/universal-repositary.md](consumers/readmes/universal-repositary.md) |
 | intelligence-core | `Vinayak-RZ/intelligence-core` | L3 engine (stamped-l3-core) | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/intelligence-core.md](consumers/readmes/intelligence-core.md) |
 | intelligence-rulepacks | `Vinayak-RZ/intelligence-rulepacks` | L3 artifacts (stamped-l3-rulepacks) | `external/` | `v2026.08.05` (`5900531`) | [consumers/readmes/intelligence-rulepacks.md](consumers/readmes/intelligence-rulepacks.md) |

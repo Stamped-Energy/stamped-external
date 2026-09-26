@@ -1,8 +1,8 @@
-# connectors-bill — workspace handoff specification (L1 bill + customer UI)
+# connectors-doc — workspace handoff specification (L1 document ingest + customer UI)
 
 > **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md). This handoff may retain older build detail; do not take company identity from archived layer specs.
 >
-> **Purpose:** Bootstrap **`connectors-bill`** — the **L1 bill / document ingest** portion of Connect & Normalise, plus the **customer-facing upload and review experience**.  
+> **Purpose:** Bootstrap **`connectors-doc`** — document ingest (photos, scans, PDFs, CSV/XLSX; utility bills are one family with the ₹1 money gate) plus the **customer-facing upload and review experience**.  
 > **ADRs:** [ADR-001](../../../decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) · [ADR-008](../../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)  
 > **Downstream consumer (ready today):** [connectors-cloud-downstream-context.md](./connectors-cloud-downstream-context.md)
 
@@ -25,7 +25,7 @@
 
 ## 1. Charter — what this repo is and is not
 
-### 1.1 What connectors-bill IS
+### 1.1 What connectors-doc IS
 
 Per [ADR-001 §1](../../../decisions/001-005/ADR-001-l1-repo-split-and-boundaries.md) and [L1 spec §6 P0](../../../technical/layers/l1-l2/L1-connect-and-normalise.md):
 
@@ -46,7 +46,7 @@ Per [ADR-001 §1](../../../decisions/001-005/ADR-001-l1-repo-split-and-boundarie
 
 **P0 transport:** MQTT QoS 1 to `stamped/v1/{org_id}/{plant_id}/bills` — consumed by **connectors-cloud** (already implemented).
 
-### 1.2 What connectors-bill IS NOT
+### 1.2 What connectors-doc IS NOT
 
 | Out of scope | Owner repo |
 |--------------|------------|
@@ -59,7 +59,7 @@ Per [ADR-001 §1](../../../decisions/001-005/ADR-001-l1-repo-split-and-boundarie
 ### 1.3 Relationship to L6 dashboard
 
 [L6 spec](../../../technical/layers/l4-l6/L6-experience-and-integration.md) owns the **prescription queue, savings ledger, and sustainability pack**.  
-**connectors-bill** owns the **document ingest + bill review** journey that *feeds* L2/L5 M&V — customers interact with bill upload **here first** (especially on mobile). L6 may deep-link or embed bill status later via API.
+**connectors-doc** owns the **document ingest + bill review** journey that *feeds* L2/L5 M&V — customers interact with bill upload **here first** (especially on mobile). L6 may deep-link or embed bill status later via API.
 
 ---
 
@@ -78,7 +78,7 @@ Master doc and L1 spec anchor on **DISCOM HT bills** (UPPCL, MSEDCL, etc.) becau
 
 ### 2.2 UX principle (customer-facing)
 
-See [connectors-bill-ui-ux-charter.md](./connectors-bill-ui-ux-charter.md):
+See [connectors-doc-ui-ux-charter.md](./connectors-doc-ui-ux-charter.md):
 
 - **Mobile-first** — plant staff photograph bills on the floor (WhatsApp-quality photos are a P0 input per L1 spec).
 - **Progressive disclosure** — upload → processing → review (if needed) → confirmed on bill.
@@ -89,7 +89,7 @@ See [connectors-bill-ui-ux-charter.md](./connectors-bill-ui-ux-charter.md):
 
 ## 3. Ecosystem placement
 
-Full map: [connectors-bill-ecosystem-integration.md](./connectors-bill-ecosystem-integration.md).
+Full map: [connectors-doc-ecosystem-integration.md](./connectors-doc-ecosystem-integration.md).
 
 ```mermaid
 flowchart LR
@@ -97,7 +97,7 @@ flowchart LR
     Mobile[Mobile browser / PWA]
     Web[Desktop browser]
   end
-  subgraph bill [connectors-bill]
+  subgraph bill [connectors-doc]
     UI[web UI]
     Extract[extract + validate]
     Pub[publish MQTT]
@@ -130,8 +130,8 @@ flowchart LR
 
 | Topic | Payload | QoS | Publisher |
 |-------|---------|-----|-----------|
-| `stamped/v1/{org_id}/{plant_id}/bills` | `bill-line.json` (one object per message, or NDJSON batch — **pick one in P0 and document**) | 1 | connectors-bill |
-| `stamped/v1/{org_id}/{plant_id}/events` | `event.json` for `bill_received`, `bill_validated`, `bill_rejected` | 1 | connectors-bill |
+| `stamped/v1/{org_id}/{plant_id}/bills` | `bill-line.json` (one object per message, or NDJSON batch — **pick one in P0 and document**) | 1 | connectors-doc |
+| `stamped/v1/{org_id}/{plant_id}/events` | `event.json` for `bill_received`, `bill_validated`, `bill_rejected` | 1 | connectors-doc |
 
 **connectors-cloud** subscribes to both patterns today (`bills` → `bill_line`, `health`/`events` → `event`).
 
@@ -182,7 +182,7 @@ Same rule as connectors-cloud: **never** insert into `stamped-l2` tables. Publis
 ## 5. Proposed monorepo layout
 
 ```text
-connectors-bill/
+connectors-doc/
 ├── external/                    # COPY entire folder from handoff (this tree)
 │   ├── contracts/
 │   ├── decisions/
@@ -197,7 +197,7 @@ connectors-bill/
 │   ├── publish/                 # MQTT client, dedupe, retry
 │   └── templates/               # Per-DISCOM YAML/JSON field maps
 ├── deploy/
-│   ├── docker-compose.bill.yml  # local: api + web + mosquitto + minio
+│   ├── docker-compose.doc.yml  # local: api + web + mosquitto + minio
 │   └── terraform/               # ECS, S3, RDS (defer until pilot)
 ├── scripts/
 │   ├── e2e-bill-to-cloud.sh     # publish → connectors-cloud inbox
@@ -261,7 +261,7 @@ connectors-bill/
 | 13 | Observability: publish lag, reject rate | Dashboards |
 | 14 | Prod secrets, mTLS to broker | validate-env pattern |
 
-**connectors-bill P0 complete when:** validated `BillLine` records from real DISCOM PDF **and** phone photo reach `l1_processed_inbox` via connectors-cloud E2E; review UI used in pilot; contract CI green.
+**connectors-doc P0 complete when:** validated `BillLine` records from real DISCOM PDF **and** phone photo reach `l1_processed_inbox` via connectors-cloud E2E; review UI used in pilot; contract CI green.
 
 ---
 

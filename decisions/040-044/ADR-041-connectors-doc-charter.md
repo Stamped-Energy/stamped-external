@@ -12,17 +12,17 @@
 
 ## Context
 
-ADR-001 split L1 into two repos (`connectors-edge`, `connectors-bill`) and deferred cloud ingest. ADR-007 already chartered `connectors-cloud`. The third live L1 repo is still named and scoped as “bill ingest,” which hides the people door: photos, scans, PDFs, and spreadsheets. Utility bills are one document family, not the company.
+ADR-001 split L1 into two repos (`connectors-edge`, connectors-doc (formerly connectors-bill)) and deferred cloud ingest. ADR-007 already chartered `connectors-cloud`. The third live L1 repo was still named and scoped as “bill ingest,” which hid the people door: photos, scans, PDFs, and spreadsheets. Utility bills are one document family, not the company.
 
 ---
 
 ## Decision
 
-1. **Rename.** The third L1 repo is **`connectors-doc`** (was `connectors-bill`). Folder, GitHub, CI, compose, and live docs follow in the B0 node. Paths on disk may still be `connectors-bill` until that rename lands.
+1. **Rename.** The third L1 repo is **`connectors-doc`** (formerly connectors-bill). Folder, GitHub, CI, compose, and live docs follow in the B0 node.
 2. **Charter.** Human document ingest: photos, scans, PDFs, CSV/XLSX. Someone uploads; the service extracts; a person reviews; an explicit publish sends records to MQTT. Quality sheets, production logs, handwritten plant records, and mapped spreadsheets are equal citizens.
 3. **Bills.** Utility bills remain one family on this door, with the **₹1 recompute gate**. A `bill_line` is trusted only when extracted lines sum to the printed total within ₹1. Missing printed total fails the gate. No invented charge lines.
 4. **Payload names unchanged.** `bill_line`, MQTT `…/bills`, `discom_bill` lane, `recompute_bill`, `templates/bills/` stay. Do not bump contracts for the rename.
-5. **Producer string.** If any contract enum pins the producer `'connectors-bill'`, add `'connectors-doc'` **additively**. The old value stays accepted. No exclusive cutover in this ADR.
+5. **Producer string.** No contract enum pinned the producer. Envelope fixtures now emit `'connectors-doc'`. If a later enum appears, add `'connectors-doc'` additively and keep the old value (formerly connectors-bill) accepted. No exclusive cutover in this ADR.
 6. **L1 is three repos.** `connectors-edge` (OT/IT read), `connectors-cloud` (ingest door to L2), `connectors-doc` (people door). Cloud is not deferred.
 
 ---
@@ -46,6 +46,6 @@ ADR-001 split L1 into two repos (`connectors-edge`, `connectors-bill`) and defer
 
 ## Rejected alternatives
 
-- Keep the repo name `connectors-bill` and only retitle docs.
+- Keep the repo name connectors-doc (formerly connectors-bill) and only retitle docs.
 - New record types or a contract version bump for the rename.
 - Auto-publish when recompute passes.

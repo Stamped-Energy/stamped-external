@@ -44,7 +44,7 @@ Skills applied: `backend-architecture`, `system-design-tradeoffs`, `agentic-syst
 ```text
 L1  connectors-edge     Plant runtime, tag mapping, contracts source
 L1  connectors-cloud    Cloud ingest → L1→L2 boundary
-L1  connectors-bill     Bill PDF → BillLine MQTT
+L1  connectors-doc     Bill PDF → BillLine MQTT
 
 L2  stamped-l2          Universal Repository (Timescale, graph, commercial, ledger…)
 L3  stamped-l3          Intelligence engines → Finding
@@ -59,8 +59,8 @@ L6  stamped-l6          Dashboard, public API, exports
 
 | Boundary | Transport (P0) | Payload contract | Producer repo | Consumer repo |
 | --- | --- | --- | --- | --- |
-| Plant → L1 cloud | MQTT QoS 1 | L1 schemas raw | connectors-edge, connectors-bill | connectors-cloud |
-| L1 → L2 | Outbox → poll/HTTP | `L1RecordEnvelope` + Measurement/Event/ProductionRecord/BillLine | connectors-cloud, connectors-bill | stamped-l2 |
+| Plant → L1 cloud | MQTT QoS 1 | L1 schemas raw | connectors-edge, connectors-doc | connectors-cloud |
+| L1 → L2 | Outbox → poll/HTTP | `L1RecordEnvelope` + Measurement/Event/ProductionRecord/BillLine | connectors-cloud, connectors-doc | stamped-l2 |
 | L2 → L3 | Outbox / internal bus | `L2SnapshotRef`, query API responses | stamped-l2 | stamped-l3 |
 | L3 → L4 | Outbox | `Finding` | stamped-l3 | stamped-l4 |
 | L4 → L5 | Outbox | `Prescription` | stamped-l4 | stamped-l5 |

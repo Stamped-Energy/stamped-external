@@ -1,21 +1,21 @@
-# connectors-bill — Agent onboarding
+# connectors-doc — Agent onboarding
 
 Paste into **`AGENTS.md`** in the new repository.
 
 ---
 
 ```markdown
-# connectors-bill — Agent Mode
+# connectors-doc — Agent Mode
 
 **Layer:** L1 bill ingest + **customer-facing document UI** (Connect & Normalise).  
 **NOT in scope:** cloud MQTT consumer/outbox (connectors-cloud), edge Modbus, L2–L6 intelligence/dashboard core.
 
 ## Read first
 
-1. [external/handoff/connectors/bill/connectors-bill-spec.md](external/handoff/connectors/bill/connectors-bill-spec.md) — repo charter
-2. [external/handoff/connectors/bill/connectors-bill-ecosystem-integration.md](external/handoff/connectors/bill/connectors-bill-ecosystem-integration.md) — how repos connect
+1. [external/handoff/connectors/doc/connectors-doc-spec.md](external/handoff/connectors/doc/connectors-doc-spec.md) — repo charter
+2. [external/handoff/connectors/doc/connectors-doc-ecosystem-integration.md](external/handoff/connectors/doc/connectors-doc-ecosystem-integration.md) — how repos connect
 3. [external/handoff/connectors/cloud/connectors-cloud-downstream-context.md](external/handoff/connectors/cloud/connectors-cloud-downstream-context.md) — MQTT consumer already built
-4. [external/handoff/connectors/bill/connectors-bill-ui-ux-charter.md](external/handoff/connectors/bill/connectors-bill-ui-ux-charter.md) — mobile-first customer UI
+4. [external/handoff/connectors/doc/connectors-doc-ui-ux-charter.md](external/handoff/connectors/doc/connectors-doc-ui-ux-charter.md) — mobile-first customer UI
 5. [external/design/forge-industrial-design-system.md](external/design/forge-industrial-design-system.md) — **Forge Industrial v2.0** (stamped.work + dashboard demo)
 6. [docs/architecture/layer-interfaces.md](docs/architecture/layer-interfaces.md) — boundary contracts (copy from connectors-cloud)
 7. [external/technical/STAMPED_ARCHITECTURE.md](external/technical/STAMPED_ARCHITECTURE.md) — product master doc
@@ -61,7 +61,7 @@ connectors-cloud subscribes to `stamped/v1/+/+/bills` — see connectors-cloud-d
 ## Bootstrap commands (human or agent)
 
 ```bash
-mkdir connectors-bill && cd connectors-bill
+mkdir connectors-doc && cd connectors-doc
 git init
 
 # Copy handoff package (this external/ folder)

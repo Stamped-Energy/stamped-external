@@ -11,7 +11,7 @@
 
 ## Context
 
-ADR-001 defined L1 as multiple deployables: `connectors-edge` (OT streaming), `connectors-bill` (PDF/tariff), and a deferred cloud ingest consumer. ADR-003 placed an MVP `packages/connectors-ingest` inside the edge monorepo for lab E2E.
+ADR-001 defined L1 as multiple deployables: `connectors-edge` (OT streaming), `connectors-doc` (formerly connectors-bill; document ingest), and a deferred cloud ingest consumer. ADR-003 placed an MVP `packages/connectors-ingest` inside the edge monorepo for lab E2E. Cloud is now a live third repo.
 
 An initial draft of ADR-007 incorrectly placed L2–L6 inside `connectors-cloud`. **That is superseded.** Per product direction and [L1 spec §2.2](../../technical/layers/l1-l2/L1-connect-and-normalise.md), L1's job ends at publishing four canonical record types onto the event bus. L2–L6 are **separate repositories**, each a deployable service that communicates only through versioned interface contracts ([ADR-008](ADR-008-layer-repo-topology-and-interfaces.md)).
 
@@ -30,7 +30,7 @@ An initial draft of ADR-007 incorrectly placed L2–L6 inside `connectors-cloud`
 | 7 | L1 contracts source | **`stamped-platform/contracts/`** via submodule ([ADR-011](../011-015/ADR-011-stamped-platform-submodule-distribution.md)) |
 | 8 | L1→L2 contract | Owned in `external/contracts/` as envelope + schemas; enforced in CI ([ADR-008](ADR-008-layer-repo-topology-and-interfaces.md)) |
 | 9 | tag-mapping-api | **Stays in connectors-edge** per ADR-001 §5 |
-| 10 | connectors-bill | **Separate repo** — publishes `BillLine` on same MQTT family; cloud ingest consumes |
+| 10 | connectors-doc | **Separate repo** — publishes `BillLine` on same MQTT family; cloud ingest consumes |
 
 ---
 
@@ -40,7 +40,7 @@ An initial draft of ADR-007 incorrectly placed L2–L6 inside `connectors-cloud`
 | --- | --- | --- | --- |
 | **connectors-edge** | L1 plant | `edge-agent`, `tag-mapping-api`, `tag-mapping-ui`, L1 contract source, templates | Cloud ingest production, L2+ |
 | **connectors-cloud** | L1 cloud | MQTT/HTTP ingest, validation, dedupe, outbox/boundary publish | Protocol drivers, L2 DB schema, L3–L6 |
-| **connectors-bill** | L1 bill | PDF ingest, DISCOM templates, `BillLine` publish | Modbus, edge buffer |
+| **connectors-doc** | L1 document ingest | Photos, scans, PDFs, CSV/XLSX; utility bills one family; `BillLine` publish | Modbus, edge buffer |
 | **stamped-l2** | L2 | Universal Repository — six stores, internal query APIs | Ingest, intelligence |
 | **stamped-l3** | L3 | Intelligence engines, `Finding` emit | Ingest, prescriptions |
 | **stamped-l4** | L4 | Prescription agent, `Prescription` emit | Workflow, dashboard |

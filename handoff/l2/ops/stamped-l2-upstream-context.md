@@ -1,6 +1,6 @@
 # stamped-l2 — Upstream L1 context (what L1 already guarantees)
 
-> **Purpose:** Tell the stamped-l2 agent what **connectors-edge**, **connectors-cloud**, and **connectors-bill** already do — so L2 does not reimplement L1 concerns.  
+> **Purpose:** Tell the stamped-l2 agent what **connectors-edge**, **connectors-cloud**, and **connectors-doc** already do — so L2 does not reimplement L1 concerns.  
 > **Sources:** Connector READMEs (2026-07-11), handoff docs in this folder.
 
 ---
@@ -13,10 +13,10 @@
 | JSON Schema validation (L1 records) | connectors-cloud | Envelope + payload already validated at L1; L2 re-validates defensively |
 | Business dedupe key computation | connectors-cloud | `dedupe_key` on envelope is authoritative |
 | Quality gates (stale, range) | connectors-cloud (measurements); edge (pre-uplink) | `quality` flag preserved on measurement |
-| Bill ₹ recompute gate | connectors-bill | Only `extraction.validated=true` lines published |
+| Bill ₹ recompute gate | connectors-doc | Only `extraction.validated=true` lines published |
 | Outbox + relay retry | connectors-cloud | At-least-once POST to L2 |
 | OT protocol drivers | connectors-edge | Not L2's problem |
-| DISCOM OCR/templates | connectors-bill | L2 stores parsed `bill_line` rows |
+| DISCOM OCR/templates | connectors-doc | L2 stores parsed `bill_line` rows |
 
 ---
 
@@ -79,9 +79,9 @@
 
 ---
 
-## 4. connectors-bill (L1 bill)
+## 4. connectors-doc (L1 bill)
 
-**Repo:** `Vinayak-RZ/connectors-bill`
+**Repo:** `Stamped-Energy/connectors-doc`
 
 | Capability | Transport |
 | --- | --- |
@@ -110,7 +110,7 @@ Golden: `sha256:2f855d00860753dc937837391d669e5bfd5ff7344f0ea9b788c9584205792dbb
 - Write L2 tables
 - Call connectors-edge
 
-See [connectors-bill-ecosystem-integration.md](./connectors-bill-ecosystem-integration.md).
+See [connectors-doc-ecosystem-integration.md](./connectors-doc-ecosystem-integration.md).
 
 ---
 

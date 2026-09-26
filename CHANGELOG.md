@@ -17,6 +17,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Platform tags: `vYYYY.M
 
 ### Changed
 
+- L1 repo **`connectors-doc`** (formerly connectors-bill) across architecture, handoff, and envelope fixture producer strings. No contract enum pinned the old producer ([ADR-041](decisions/040-044/ADR-041-connectors-doc-charter.md)).
 - Platform identity: product is **Stamped** (five domains); architecture SSOT, README, AGENTS, and agent reading orders retargeted to ADR-030 + vision `09`/`10`
 - Marketing pack (`copy/`, `demo-decks/`, `technical/product/`, root `PRODUCT.md`) and ADR-029 moved to [`archive/external-marketing-2026-09/`](archive/external-marketing-2026-09/)
 - ADR-023 / ADR-025 rewritten for next-action surfaces and learning from closed cards

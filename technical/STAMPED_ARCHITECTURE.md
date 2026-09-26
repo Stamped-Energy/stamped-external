@@ -128,7 +128,7 @@ flowchart LR
 
 | Layer | Repos (as-built) | Overall job | Primary contracts | Must not | Deep doc |
 | --- | --- | --- | --- | --- | --- |
-| **L1** | `connectors-edge` · `connectors-cloud` · `connectors-bill` | Read plant and document signals; normalise into envelopes | `stamped-record-envelope` · measurement / event / bill_line · MQTT topics | OT write; plant message-broker of record | [`layers/L1-connect.md`](layers/L1-connect.md) |
+| **L1** | `connectors-edge` · `connectors-cloud` · `connectors-doc` | Read plant and document signals; normalise into envelopes | `stamped-record-envelope` · measurement / event / bill_line · MQTT topics | OT write; plant message-broker of record | [`layers/L1-connect.md`](layers/L1-connect.md) |
 | **L2** | `universal-repositary` | Canonical Timescale store; constraints; roster; context records; query HTTP | envelope ingest · query-api · [ADR-031](../decisions/028-032/ADR-031-l1-l2-context-records.md) | Give L3–L6 a database URL; become a plant-wide industrial graph | [`layers/L2-universal-repository.md`](layers/L2-universal-repository.md) · [`L1-L2-DATA-PLANE.md`](L1-L2-DATA-PLANE.md) |
 | **L3** | `intelligence-core` · `intelligence-rulepacks` · `intelligence-evals` | **Core signal:** detect conditions; emit Findings; dual-lane Lab vs L4 | Finding **1.2.0** · RunArtifact · rulepack YAML | Open L2 SQL; promote Lab to L4; invent ₹ | [`l3/`](l3/) |
 | **L4** | `knowledge-reasoning` | **Core brain:** Finding or discovery → card proposal; answer Ask from plant context | Finding intake · card-proposal · decision-trace · decision-case | Assign the final person; notify; execute; write equipment or master data | [`l4/`](l4/) · [`l4/30-as-built.md`](l4/30-as-built.md) |

@@ -22,7 +22,7 @@ git checkout v2026.07.12   # pin to release tag
 ## 2. Add submodule to a consumer repo (new repo)
 
 ```bash
-cd connectors-cloud   # or stamped-l2, connectors-edge, connectors-bill
+cd connectors-cloud   # or stamped-l2, connectors-edge, connectors-doc
 git submodule add https://github.com/vinayak-rz/stamped-external.git external
 cd external && git checkout v2026.07.12 && cd ..
 git add .gitmodules external

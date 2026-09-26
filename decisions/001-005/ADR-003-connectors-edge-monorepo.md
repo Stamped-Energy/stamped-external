@@ -13,7 +13,7 @@
 
 ADR-001 left open: edge language, monorepo layout, repo naming, `asset_id` before L2 exists, and where vertical mapping templates live. This ADR closes those items.
 
-**Repo identity:** This GitHub repository (`Connectors` / `Vinayak-RZ/Connectors`) **is** the **`connectors-edge`** monorepo. Bill ingest remains a **separate future repo** (`connectors-bill`).
+**Repo identity:** This GitHub repository (`Connectors` / `Vinayak-RZ/Connectors`) **is** the **`connectors-edge`** monorepo. Document ingest is a **separate live repo** (`connectors-doc`, formerly connectors-bill).
 
 ---
 
@@ -25,7 +25,7 @@ ADR-001 left open: edge language, monorepo layout, repo naming, `asset_id` befor
 | 2 | Cloud onboarding language | **Python** — tag-mapping-api (FastAPI), LLM suggestion jobs |
 | 3 | Package separation | **Go and Python are separate packages** in one monorepo — no mixed runtime in one deployable |
 | 4 | Monorepo | **Yes** — edge agent + tag-mapping-api + tag-mapping-ui + contracts in this repo |
-| 5 | Bill repo | **Separate** `connectors-bill` GitHub repo (not in this monorepo) |
+| 5 | Bill repo | **Separate** `connectors-doc` GitHub repo (not in this monorepo) |
 | 6 | `asset_id` before L2 | **Temporary IDs** with `stamped.local/` prefix; migration path when L2 graph exists |
 | 7 | Vertical templates | **Git YAML** in repo at P0; move to DB when fleet &gt;50 plants |
 
@@ -55,7 +55,7 @@ connectors-edge/                    # this repo (Connectors on GitHub)
 └── README.md
 ```
 
-**Not in this repo:** `connectors-bill`, L2+ services.
+**Not in this repo:** `connectors-doc`, L2+ services.
 
 **In this repo (implemented):** `packages/connectors-ingest` — MQTT subscriber → Timescale dedupe + outbox publisher + optional HTTP ingest.
 
@@ -158,7 +158,7 @@ When fleet **&gt;50 plants** or template change velocity hurts ops → move temp
 | GitHub repo (current) | Canonical name | Scope |
 | --- | --- | --- |
 | `Vinayak-RZ/Connectors` | **`connectors-edge`** | This monorepo (edge-agent, tag-mapping-api/ui, connectors-ingest, contracts) |
-| *(future)* | **`connectors-bill`** | Bill PDF, tariff, BillLine publish |
+| *(future)* | **`connectors-doc`** | Bill PDF, tariff, BillLine publish |
 
 Rename GitHub repo when convenient; docs use **`connectors-edge`** as the logical name from now on.
 

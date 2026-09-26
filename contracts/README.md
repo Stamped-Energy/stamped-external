@@ -1,6 +1,6 @@
 # L1 canonical contracts
 
-Shared schemas and MQTT topic conventions for all L1 publishers (edge agent, bill ingest) and L2 consumers.
+Shared schemas and MQTT topic conventions for all L1 publishers (edge agent, document ingest) and L2 consumers.
 
 **L1–L2 context records (ADR-031):** closed record catalog, `…/context` wrapper, dedupe material, and L4 tool allowlist — operator narrative in [`../technical/L1-L2-DATA-PLANE.md`](../technical/L1-L2-DATA-PLANE.md); decision in [ADR-031](../decisions/028-032/ADR-031-l1-l2-context-records.md). Packs: `packs/` · tools: `tools/l2-query-tools.json` · topics: [TOPICS.md](TOPICS.md).
 

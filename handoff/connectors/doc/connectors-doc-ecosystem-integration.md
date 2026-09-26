@@ -1,4 +1,4 @@
-# Stamped ecosystem — how connectors-bill connects to sibling repos
+# Stamped ecosystem — how connectors-doc connects to sibling repos
 
 > **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md).  
 > **Topology ADR:** [ADR-008](../../../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)
@@ -13,7 +13,7 @@ Stamped L1–L6 is **one GitHub repo per layer** (plus L1 split into three deplo
 |------|-------|------|-------------|
 | **connectors-edge** | L1 plant | OT/IT streaming, tag mapping, edge buffer | edge-agent, tag-mapping-api, tag-mapping-ui |
 | **connectors-cloud** | L1 cloud | MQTT/HTTP ingest, validate, outbox, relay → L2 | ingest, relay |
-| **connectors-bill** | L1 bill | Document ingest, extract, review UI, BillLine publish | web, api, extract, publish |
+| **connectors-doc** | L1 bill | Document ingest, extract, review UI, BillLine publish | web, api, extract, publish |
 | **stamped-l2** | L2 | Universal repository, Timescale, graph | repository API, L1 consumer |
 | **stamped-l3** | L3 | Intelligence, findings | workers |
 | **stamped-l4** | L4 | Prescriptions | agent |
@@ -35,7 +35,7 @@ Stamped L1–L6 is **one GitHub repo per layer** (plus L1 split into three deplo
                                     │ HTTPS
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ connectors-bill                                                              │
+│ connectors-doc                                                              │
 │   web (PWA) → api → S3 (original) → extract → validate (recompute)          │
 │   → review UI if needed → publish (MQTT QoS 1)                               │
 └───────────────────────────────────┬─────────────────────────────────────────┘
@@ -73,12 +73,12 @@ Bill savings verification **cross-checks** against incomer meter data from edge:
 ```text
 connectors-edge ──MQTT measurements──► connectors-cloud ──► stamped-l2
                                               ▲
-connectors-bill ──MQTT bill_lines─────────────┘
+connectors-doc ──MQTT bill_lines─────────────┘
                                               │
                          L5 reconciles model vs bill lines
 ```
 
-connectors-bill does **not** talk to connectors-edge directly. Shared context is **org_id + plant_id + bill_month** in L2.
+connectors-doc does **not** talk to connectors-edge directly. Shared context is **org_id + plant_id + bill_month** in L2.
 
 ---
 
@@ -145,7 +145,7 @@ These events flow through the same cloud ingest path as edge health events.
 
 ---
 
-## 8. What each repo expects from connectors-bill
+## 8. What each repo expects from connectors-doc
 
 | Downstream repo | Expectation |
 |-----------------|-------------|
@@ -158,7 +158,7 @@ These events flow through the same cloud ingest path as edge health events.
 
 ## 9. Deployment independence
 
-| Property | connectors-bill | connectors-cloud |
+| Property | connectors-doc | connectors-cloud |
 |----------|-----------------|------------------|
 | Release cadence | Weekly+ (templates, UI) | Stable ingest path |
 | Failure domain | OCR/LLM/vendor APIs | MQTT/outbox lag |
@@ -171,7 +171,7 @@ Bill service outages **must not** stop edge measurements — separate repos enfo
 
 ## 10. Bootstrap checklist for new workspace agent
 
-- [ ] Read [connectors-bill-spec.md](./connectors-bill-spec.md)
+- [ ] Read [connectors-doc-spec.md](./connectors-doc-spec.md)
 - [ ] Read [connectors-cloud-downstream-context.md](./connectors-cloud-downstream-context.md)
 - [ ] Add **stamped-platform** submodule at `external/` ([SUBMODULE.md](../SUBMODULE.md))
 - [ ] Clone connectors-cloud for E2E compose reference

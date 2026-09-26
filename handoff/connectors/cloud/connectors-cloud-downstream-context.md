@@ -1,11 +1,11 @@
-# connectors-cloud — context for connectors-bill builders
+# connectors-cloud — context for connectors-doc builders
 
 > **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md) · [`STAMPED_ARCHITECTURE.md`](../../../technical/STAMPED_ARCHITECTURE.md).
 >
 > **Repo:** [Vinayak-RZ/connectors-cloud](https://github.com/Vinayak-RZ/connectors-cloud)  
 > **Status (2026-07-11):** L1 cloud ingest **complete for pilot prep** (minus AWS deploy). Bill MQTT path **implemented and E2E-tested**.
 
-This document tells the **connectors-bill** team exactly what the downstream consumer already does, so you publish the right payloads without re-reading the whole cloud codebase.
+This document tells the **connectors-doc** team exactly what the downstream consumer already does, so you publish the right payloads without re-reading the whole cloud codebase.
 
 ---
 
@@ -172,7 +172,7 @@ When both repos are on a developer machine:
 
 ```bash
 # connectors-cloud running (compose)
-# connectors-bill running (compose)
+# connectors-doc running (compose)
 # bill: upload PDF → extract → publish MQTT
 # assert: l1_processed_inbox count increases
 ```

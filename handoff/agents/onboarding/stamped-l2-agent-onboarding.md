@@ -22,7 +22,7 @@ Paste into **`AGENTS.md`** in the new repository.
 8. [external/technical/STAMPED_ARCHITECTURE.md](external/technical/STAMPED_ARCHITECTURE.md) — product architecture. The old L2 layer spec is archived and is not the company.
 9. [external/decisions/006-010/ADR-009-stamped-l2-repo-charter.md](external/decisions/006-010/ADR-009-stamped-l2-repo-charter.md)
 
-**Upstream L1 (already built):** connectors-cloud (relay ready) · connectors-edge (MQTT) · connectors-bill (BillLine publish).  
+**Upstream L1 (already built):** connectors-cloud (relay ready) · connectors-edge (MQTT) · connectors-doc (BillLine publish).  
 **Downstream:** stamped-l3 … stamped-l6 — consume query API only.
 
 | Package | Role |

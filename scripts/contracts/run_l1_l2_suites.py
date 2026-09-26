@@ -58,11 +58,11 @@ def main() -> int:
     code = run([str(py), "-m", "pytest", "-q"], cloud) if py.exists() else 1
     results.append(("B3_cloud", code))
 
-    edge = ws / "Connector - L1" / "connectors-edge" / "packages" / "edge-agent"
+    edge = ws / "Connector-L1" / "connectors-edge" / "packages" / "edge-agent"
     code = run(["go", "test", "./...", "-count=1"], edge) if edge.is_dir() else 1
     results.append(("B4_edge", code))
 
-    bill = ws / "Connector - L1" / "connectors-bill"
+    bill = ws / "Connector-L1" / "connectors-doc"
     py = bill / ".venv" / "Scripts" / "python.exe"
     if not py.exists():
         py = bill / ".venv" / "bin" / "python"

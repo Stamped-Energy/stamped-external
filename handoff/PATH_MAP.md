@@ -9,11 +9,11 @@ Breaking path changes for submodule consumers. Update `external/...` references 
 | Old | New |
 | --- | --- |
 | `handoff/L2_L6_VINAYAK_IDENTITY.md` | `handoff/l2/ops/L2_L6_VINAYAK_IDENTITY.md` |
-| `handoff/connectors-bill-agent-onboarding.md` | `handoff/agents/onboarding/connectors-bill-agent-onboarding.md` |
-| `handoff/connectors-bill-ecosystem-integration.md` | `handoff/connectors/bill/connectors-bill-ecosystem-integration.md` |
-| `handoff/connectors-bill-portability-playbook.md` | `handoff/connectors/bill/connectors-bill-portability-playbook.md` |
-| `handoff/connectors-bill-spec.md` | `handoff/connectors/bill/connectors-bill-spec.md` |
-| `handoff/connectors-bill-ui-ux-charter.md` | `handoff/connectors/bill/connectors-bill-ui-ux-charter.md` |
+| `handoff/connectors-doc-agent-onboarding.md` (formerly connectors-bill) | `handoff/agents/onboarding/connectors-doc-agent-onboarding.md` |
+| `handoff/connectors-doc-ecosystem-integration.md` (formerly connectors-bill) | `handoff/connectors/doc/connectors-doc-ecosystem-integration.md` |
+| `handoff/connectors-doc-portability-playbook.md` (formerly connectors-bill) | `handoff/connectors/doc/connectors-doc-portability-playbook.md` |
+| `handoff/connectors-doc-spec.md` (formerly connectors-bill) | `handoff/connectors/doc/connectors-doc-spec.md` |
+| `handoff/connectors-doc-ui-ux-charter.md` (formerly connectors-bill) | `handoff/connectors/doc/connectors-doc-ui-ux-charter.md` |
 | `handoff/connectors-cloud-downstream-context.md` | `handoff/connectors/cloud/connectors-cloud-downstream-context.md` |
 | `handoff/connectors-cloud-portability-playbook.md` | `handoff/connectors/cloud/connectors-cloud-portability-playbook.md` |
 | `handoff/connectors-edge-portability-playbook.md` | `handoff/connectors/edge/connectors-edge-portability-playbook.md` |

@@ -46,9 +46,9 @@ def scan_workspace(workspace: Path) -> int:
     repos = [
         workspace / "stamped-external",
         workspace / "universal-repositary",
-        workspace / "Connector - L1" / "connectors-cloud",
-        workspace / "Connector - L1" / "connectors-edge",
-        workspace / "Connector - L1" / "connectors-bill",
+        workspace / "Connector-L1" / "connectors-cloud",
+        workspace / "Connector-L1" / "connectors-edge",
+        workspace / "Connector-L1" / "connectors-doc",
     ]
     failures = 0
     for repo in repos:

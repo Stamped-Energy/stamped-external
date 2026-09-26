@@ -32,7 +32,7 @@ flowchart TB
     ctx[context-agent Go]
   end
   subgraph people [People]
-    pwa[connectors-bill PWA]
+    pwa[connectors-doc PWA]
   end
   mqtt[MQTT stamped/v1]
   saas[SaaS ERP optional]
@@ -66,7 +66,7 @@ flowchart TB
 
 **context-agent (IT):** CSV/XLSX file drops, HTTPS REST/OData, read-only SQL (`SELECT` + watermark only).
 
-**connectors-bill:** human upload → review → MQTT. No subscribe. No L2 open.
+**connectors-doc:** human upload → review → MQTT. No subscribe. No L2 open.
 
 **connectors-cloud:** MQTT subscribe + HTTP backfill (`POST /v1/context` wrapper). Schema validate → dedupe → outbox → L2. SaaS REST poller exists but **`CONTEXT_POLL_ENABLED` defaults off**; empty poll list polls nothing.
 

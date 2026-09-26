@@ -16,7 +16,7 @@ Stamped L1–L6 is **one GitHub repo per layer** (L1 split into three deployable
 | --- | --- | --- | --- |
 | **connectors-edge** | L1 plant | OT/IT streaming, tag mapping, edge buffer | edge-agent, tag-mapping-api, tag-mapping-ui |
 | **connectors-cloud** | L1 cloud | MQTT/HTTP ingest, validate, outbox, relay → L2 | ingest, relay |
-| **connectors-bill** | L1 bill | Document ingest, extract, review UI, MQTT publish | web, api, extract, publish |
+| **connectors-doc** | L1 bill | Document ingest, extract, review UI, MQTT publish | web, api, extract, publish |
 | **stamped-l2** | L2 | Universal repository — six stores, ingest + query API | ingest, query-api, migrate |
 | **stamped-l3** | L3 | Intelligence engines → `Finding` | workers |
 | **stamped-l4** | L4 | Prescription agent → `Prescription` | agent |
@@ -49,7 +49,7 @@ flowchart LR
   Mode --> cloudMode
 ```
 
-Playbooks: [connectors-edge](./connectors-edge-portability-playbook.md) · [connectors-cloud](./connectors-cloud-portability-playbook.md) · [connectors-bill](./connectors-bill-portability-playbook.md) · [stamped-l2](./stamped-l2-portability-playbook.md).
+Playbooks: [connectors-edge](./connectors-edge-portability-playbook.md) · [connectors-cloud](./connectors-cloud-portability-playbook.md) · [connectors-doc](./connectors-doc-portability-playbook.md) · [stamped-l2](./stamped-l2-portability-playbook.md).
 
 ---
 
@@ -67,7 +67,7 @@ flowchart TB
     TMA[tag-mapping-api]
   end
 
-  subgraph L1bill [connectors-bill]
+  subgraph L1bill [connectors-doc]
     Web[PWA upload]
     Pub[publish MQTT]
   end
@@ -129,7 +129,7 @@ Lab shortcut: `packages/connectors-ingest` in edge repo writes MQTT → local Ti
 
 ```text
 Customer (phone/PDF)
-  → connectors-bill (extract, recompute gate, review UI)
+  → connectors-doc (extract, recompute gate, review UI)
   → MQTT QoS 1: stamped/v1/{org}/{plant}/bills (BillLine JSON)
   → connectors-cloud (same ingest path as measurements)
   → relay → stamped-l2 → commercial.bill_line
@@ -137,7 +137,7 @@ Customer (phone/PDF)
   → stamped-l6 CFO exports
 ```
 
-**connectors-bill does not talk to connectors-edge or stamped-l2 directly.**
+**connectors-doc does not talk to connectors-edge or stamped-l2 directly.**
 
 Cross-check context in L2: shared `org_id + plant_id + bill_month` joins incomer telemetry to bill lines.
 
@@ -198,7 +198,7 @@ Schema ownership: canonical in **connectors-edge** `external/contracts/`; copy/s
 | --- | --- | --- |
 | connectors-cloud | `connectors_cloud` on shared RDS | `l1_outbox`, `l1_ingress_audit`, `l1_dlq` only |
 | stamped-l2 | `stamped_l2` on **same RDS instance** (P0 cost mode) | All L2 schemas |
-| connectors-bill | Own Postgres (documents, review queue) | Never L2 tables |
+| connectors-doc | Own Postgres (documents, review queue) | Never L2 tables |
 | connectors-edge | tag-mapping-api Postgres; lab Timescale (deprecated) | Never L2 tables |
 
 ---

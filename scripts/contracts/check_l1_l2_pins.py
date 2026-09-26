@@ -9,9 +9,9 @@ from pathlib import Path
 
 CONSUMERS = [
     "universal-repositary",
-    "Connector - L1/connectors-cloud",
-    "Connector - L1/connectors-edge",
-    "Connector - L1/connectors-bill",
+    "Connector-L1/connectors-cloud",
+    "Connector-L1/connectors-edge",
+    "Connector-L1/connectors-doc",
 ]
 
 

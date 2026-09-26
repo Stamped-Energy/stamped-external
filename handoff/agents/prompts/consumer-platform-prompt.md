@@ -80,7 +80,7 @@ git commit -m "chore: add stamped-external submodule at v2026.07.12"
    - `external/contracts/schemas/envelope/stamped-record-envelope.json`
    - `external/architecture/layer-interfaces-l2.md`
    - `external/decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md`
-   - This repo's handoff doc under `external/handoff/` (e.g. `stamped-l2-spec.md`, `connectors-bill-spec.md`)
+   - This repo's handoff doc under `external/handoff/` (e.g. `stamped-l2-spec.md`, `connectors-doc-spec.md`)
 
 5. **Deployment modes** — `local`, `local-dashboard`, and `cloud` share the same contracts. See `external/handoff/deployment/deployment-profiles.md` and ADR-010.
 
@@ -118,7 +118,7 @@ git commit -m "chore: add stamped-external submodule at v2026.07.12"
 | --- | --- | --- |
 | connectors-edge | L1 plant | `external/handoff/connectors/edge/connectors-edge-portability-playbook.md` |
 | connectors-cloud | L1 cloud | `external/handoff/connectors/cloud/connectors-cloud-downstream-context.md` |
-| connectors-bill | L1 bill | `external/handoff/connectors/bill/connectors-bill-spec.md` |
+| connectors-doc | L1 bill | `external/handoff/connectors/doc/connectors-doc-spec.md` |
 | stamped-l2 (universal-repositary) | L2 | `external/handoff/l2/core/stamped-l2-spec.md` |
 | stamped-l3 … l6 | L3–L6 | (future — same `external/` submodule) |
 

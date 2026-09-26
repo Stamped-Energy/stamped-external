@@ -1,19 +1,19 @@
 # ADR-001: L1 connectors — repo split, edge packaging, schemas, transport, tag mapping
 
-> **Amendment (2026-09-27):** Repo count and the bill-repo charter in §1 / §6 are superseded. L1 is **three** repos: `connectors-edge`, **`connectors-cloud`** (chartered in [ADR-007](../006-010/ADR-007-connectors-cloud-repo-charter.md); no longer deferred), and **`connectors-doc`** (renamed from `connectors-bill`; [ADR-041](../040-044/ADR-041-connectors-doc-charter.md)). Payload names (`bill_line`, MQTT `…/bills`, `discom_bill`) are unchanged.
+> **Amendment (2026-09-27):** Repo count and the bill-repo charter in §1 / §6 are superseded. L1 is **three** repos: `connectors-edge`, **`connectors-cloud`** (chartered in [ADR-007](../006-010/ADR-007-connectors-cloud-repo-charter.md); no longer deferred), and **`connectors-doc`** (formerly connectors-bill; [ADR-041](../040-044/ADR-041-connectors-doc-charter.md)). Payload names (`bill_line`, MQTT `…/bills`, `discom_bill`) are unchanged.
 
 | Field | Value |
 | --- | --- |
 | **Status** | Accepted |
 | **Date** | 2026-07-09 |
 | **Deciders** | Vinayak (product), engineering (Connectors repo) |
-| **Context** | [L1 spec](../../technical/layers/l1-l2/L1-connect-and-normalise.md) · [Technical architecture §5, §7](../../technical/STAMPED_ARCHITECTURE.md) |
+| **Context** | [L1 spec](../../technical/layers/L1-connect.md) · [Technical architecture §5, §7](../../technical/STAMPED_ARCHITECTURE.md) |
 
 ---
 
 ## Context
 
-Stamped L1 (Connect & normalise) is built as **multiple deployable repos** under a microservices-style product. This ADR captures decisions made for the **edge/connectors** program and the **bill ingest** program, plus shared contracts that bind them to L2+.
+Stamped L1 (Connect & normalise) is built as **multiple deployable repos** under a microservices-style product. This ADR captures decisions made for the **edge/connectors** program and the **document ingest** program, plus shared contracts that bind them to L2+.
 
 **In scope for this ADR:** repo boundaries, edge container strategy, schema ownership, MQTT topic contract, tag-mapping placement, deferred items (cloud ingest HTTP API).
 
@@ -25,7 +25,7 @@ Stamped L1 (Connect & normalise) is built as **multiple deployable repos** under
 
 | # | Topic | Decision |
 | --- | --- | --- |
-| 1 | Repo split | **Two L1 repos:** `connectors-edge` (OT/IT streaming) and `connectors-bill` (PDF/tariff). Cloud ingest HTTP API = **third repo, later**. |
+| 1 | Repo split | **Three L1 repos:** `connectors-edge` (OT/IT streaming), `connectors-cloud` (ingest door), and `connectors-doc` (formerly connectors-bill; people door). Cloud is not deferred. |
 | 2 | Edge packaging | **One base container image** + **build flavours** via Dockerfile `ARG`/targets; **runtime config** selects enabled connector plugins and protocol/profile versions — no per-plant image rebuild. |
 | 3 | Schema registry | **Single shared contract package** (`stamped-l1-contracts`): JSON Schema + generated types; versioned semver; consumed by edge, bill, and (later) cloud ingest. |
 | 4 | Event transport (edge → cloud) | **MQTT topics** carrying canonical JSON payloads from day one. **Postgres transactional outbox** is owned by the **cloud ingest consumer** (not edge); topic names and payload schemas are fixed now so outbox → broker swap is transport-only later. |
@@ -43,7 +43,7 @@ Stamped L1 (Connect & normalise) is built as **multiple deployable repos** under
 | Repo | Owns | Does not own |
 | --- | --- | --- |
 | **connectors-edge** | Edge agent runtime, protocol connector plugins, edge buffer/uplink, edge-side normaliser + quality gates, register/profile library, tag harvest, tag-mapping UI + onboarding API, fleet/site config OTA | Bill PDF/OCR, DISCOM templates, long-term TSDB, intelligence |
-| **connectors-bill** | Bill PDF ingest, layout/LLM extraction, recompute gate, DISCOM/tariff templates, bill human-review UI, tariff-order parser | Modbus/OPC UA, edge buffer, plant OT credentials |
+| **connectors-doc** | Document ingest (photos, scans, PDFs, CSV/XLSX); utility bills are one family with the ₹1 gate; review UI; MQTT publish | Modbus/OPC UA, edge buffer, plant OT credentials |
 | **connectors-ingest** *(deferred)* | MQTT subscriber, idempotent writers, Postgres outbox, HTTP ingest for Topology F | Protocol drivers |
 
 ### Rationale
@@ -257,7 +257,7 @@ Edge stores **only the active `MappingConfig` snapshot** locally; cloud holds hi
 | `packages/tag-mapping-ui/` | **TypeScript** — mapping UI |
 | `templates/verticals/` | Git YAML vertical mapping templates (P0) |
 
-**Separate repo (not here):** `connectors-bill`. **Deferred:** `connectors-ingest`.
+**Separate repo (not here):** `connectors-doc`. **Live (not deferred):** `connectors-cloud`.
 
 ---
 

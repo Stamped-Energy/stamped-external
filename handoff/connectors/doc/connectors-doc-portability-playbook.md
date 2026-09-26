@@ -1,14 +1,14 @@
-# connectors-bill — Cloud + air-gap portability playbook
+# connectors-doc — Cloud + air-gap portability playbook
 
 > **Architecture authority (prefer):** [`technical/layers/L1-connect.md`](../../../technical/layers/L1-connect.md).  
 > **Authority:** [ADR-010](../../../decisions/006-010/ADR-010-deployment-profiles-and-portability.md)  
-> **Spec:** [connectors-bill-spec.md](./connectors-bill-spec.md)
+> **Spec:** [connectors-doc-spec.md](./connectors-doc-spec.md)
 
 ---
 
 ## 1. Current state (from README + audit)
 
-**Repo:** `Vinayak-RZ/connectors-bill` (private — audit from handoff spec)
+**Repo:** `Stamped-Energy/connectors-doc` (private — audit from handoff spec)
 
 | Area | `cloud` mode today | Gap for `local*` |
 |------|-------------------|------------------|
@@ -22,7 +22,7 @@
 ### Audit appendix
 
 ```text
-Audit checklist (connectors-bill)
+Audit checklist (connectors-doc)
 ├── README stated deployment model     → AWS S3 + Fargate + CloudFront
 ├── deploy/ directory inventory        → TBD in bill repo
 ├── AWS-specific dependencies          → boto3 S3, presigned URLs

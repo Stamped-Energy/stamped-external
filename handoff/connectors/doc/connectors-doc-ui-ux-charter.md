@@ -1,4 +1,4 @@
-# connectors-bill — UI/UX charter (customer-facing)
+# connectors-doc — UI/UX charter (customer-facing)
 
 > **Product anchor:** [Master document](../../../technical/STAMPED_ARCHITECTURE.md) — customers trust **rupees on the DISCOM bill**, not dashboards alone.  
 > **L1 spec:** [§3.4](../../../technical/layers/l1-l2/L1-connect-and-normalise.md) — portal PDFs **and WhatsApp-quality phone photos** are P0 inputs.  

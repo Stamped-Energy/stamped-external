@@ -45,7 +45,7 @@ mosquitto
 postgres-connectors-cloud
 connectors-cloud-ingest
 connectors-cloud-relay
-connectors-bill-api + web + extract
+connectors-doc-api + web + extract
 timescaledb-stamped-l2
 stamped-l2-ingest :8090
 stamped-l2-query-api :8091
@@ -72,7 +72,7 @@ sequenceDiagram
   L2->>LLM: query API consumed by L3
 ```
 
-Bill path: connectors-bill → MQTT `.../bills` → same cloud ingest → L2 `commercial.bill_line`.
+Bill path: connectors-doc → MQTT `.../bills` → same cloud ingest → L2 `commercial.bill_line`.
 
 ---
 
@@ -82,7 +82,7 @@ Bill path: connectors-bill → MQTT `.../bills` → same cloud ingest → L2 `co
 |------|----------|
 | connectors-edge | [connectors-edge-portability-playbook.md](./connectors-edge-portability-playbook.md) |
 | connectors-cloud | [connectors-cloud-portability-playbook.md](./connectors-cloud-portability-playbook.md) |
-| connectors-bill | [connectors-bill-portability-playbook.md](./connectors-bill-portability-playbook.md) |
+| connectors-doc | [connectors-doc-portability-playbook.md](./connectors-doc-portability-playbook.md) |
 | stamped-l2 | [stamped-l2-portability-playbook.md](./stamped-l2-portability-playbook.md) |
 
 ---
