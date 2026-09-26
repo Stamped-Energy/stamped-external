@@ -38,7 +38,7 @@
           "bill",
           "hind"
         ],
-        "note": "Scheduler not deployed; L5 /cards missing; bill-verify DEFERRED (fixture API on main)."
+        "note": "PathScheduler PARTIAL (built, not deploy L3C-G5); L5 /cards missing; bill-verify DEFERRED (fixture API)."
       }
     ],
     "output": "SYS-08-built-vs-designed.html"
@@ -118,7 +118,7 @@
       "id": "sched",
       "type": "backend",
       "label": "PathScheduler",
-      "sublabel": "BUILT not deploy",
+      "sublabel": "built, not deploy (L3C-G5)",
       "tag": "PARTIAL",
       "pos": [
         512,
@@ -277,7 +277,8 @@
       "title": "Status & sources",
       "items": [
         "Pinned manifests L1E\u2013L6 + EXT@a4c91bc (see manifest.json)",
-        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels",
+        "BUILT/PARTIAL/DESIGNED/DEFERRED on node labels (PARTIAL = exists but not wired)",
+        "PathScheduler PARTIAL: built on main, not started by deploy (L3C-G5)",
         "Arch/flow: dashed = DESIGNED or DEFERRED (DEFERRED may still ship fixture-only code)",
         "No integration is live \u00b7 verified savings \u20b90"
       ]

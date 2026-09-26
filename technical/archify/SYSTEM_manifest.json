@@ -177,8 +177,8 @@
       "validate": "9/9",
       "visual_check": "pass",
       "perceptual_review": "ok",
-      "spec_sha256": "f0bdc31352ad8056b28213e0b30dfcd9d922712235ecaea7718d0d6628abd827",
-      "artifact_sha256": "62c75177753fe094deae4fa986d520482feb298c55396b7deda1b1bff2f826a0"
+      "spec_sha256": "a813c1d5fabf9d6b95bdb088e1dd1e21cca1ca7091ca89b56ff1db4e3ab42a67",
+      "artifact_sha256": "0af8840960bbc45b5034d085a8289c5afc8f4749f3899cff7d1aca00b794cda7"
     },
     {
       "id": "SYS-09",
@@ -479,6 +479,12 @@
       "id": "L6-G7",
       "summary": "As-built nav module grid \u2260 SSOT five-domain loop IA",
       "evidence": "packages/web/src/lib/navigation.ts:12-93",
+      "layer": "L6"
+    },
+    {
+      "id": "L6-G8",
+      "summary": "L6 \u201cLive plant connected\u201d copy shown for synthetic/fixture data",
+      "evidence": "docs/architecture/archify/index.html",
       "layer": "L6"
     },
     {

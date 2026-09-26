@@ -8,10 +8,10 @@
   "composition": "showcase: pass",
   "specification": {
     "path": "/workspace/technical/archify/system/src/SYS-08-built-vs-designed.json",
-    "sha256": "f0bdc31352ad8056b28213e0b30dfcd9d922712235ecaea7718d0d6628abd827"
+    "sha256": "a813c1d5fabf9d6b95bdb088e1dd1e21cca1ca7091ca89b56ff1db4e3ab42a67"
   },
   "artifact": {
     "path": "/workspace/technical/archify/system/SYS-08-built-vs-designed.html",
-    "sha256": "62c75177753fe094deae4fa986d520482feb298c55396b7deda1b1bff2f826a0"
+    "sha256": "0af8840960bbc45b5034d085a8289c5afc8f4749f3899cff7d1aca00b794cda7"
   }
 }
