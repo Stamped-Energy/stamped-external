@@ -1,14 +1,18 @@
 # Stamped — Product & Technical Architecture (SSOT)
 
-*Status: current · 2026-09-25*  
-*Authority:* product framing is [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) and [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md).  
-*L4 architecture:* [`l4/`](l4/) · ADRs [033](../decisions/033-039/ADR-033-l4-decision-runtime.md)–[039](../decisions/033-039/ADR-039-registries-and-stage-graph.md).  
-*Coarse evolution (how the stack changes):* [`14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md).  
+*Status: current · 2026-09-26*  
+*Authority:* product framing is [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md), [`Stamped_Master_Document.md`](../Stamped_Master_Document.md), and [`research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md).  
+*L3 architecture:* [`l3/`](l3/) · Finding dual-lane · engine catalog.  
+*L4 architecture:* [`l4/`](l4/) · ADRs [033](../decisions/033-039/ADR-033-l4-decision-runtime.md)–[040](../decisions/040-044/ADR-040-l4-production-hardness.md).  
+*Layer pages:* [`layers/`](layers/).  
+*Coarse evolution:* [`14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md).  
 *As-built hops and invariants:* [`13-as-built-invariants.md`](../research/plant-efficiency-exploration-2026-09/13-as-built-invariants.md).
 
-This file is the **overall** product + technical architecture. It does not replace layer-repo deep-dives. Per-layer specs under [`layers/`](layers/) and handoffs under [`../handoff/`](../handoff/) will be updated in a later pass; until then, prefer this file and `14` over older L4 “compiler-only” wording in those deep-dives.
+This file is the **overall** product + technical architecture. Per-layer detail lives under [`layers/`](layers/); deep L3 under [`l3/`](l3/); deep L4 under [`l4/`](l4/). Prefer those over archived specs under [`archive/cleanup-2026-09/technical/`](../archive/cleanup-2026-09/technical/) and over older “compiler-only” L4 wording in handoffs.
 
-> Honesty: `[~]` approximate · `[!]` evolving — verify before customer-facing claims. Do not invent savings, customers, or revenue.
+Status labels used in layer pages: **as-built** (code on a consumer repo’s main) · **contract** (schema or ADR) · **direction** (not built). Do not invent detectors, stages, savings, customers, or revenue.
+
+> Honesty: `[~]` approximate · `[!]` evolving — verify before customer-facing claims.
 
 ---
 
@@ -114,18 +118,18 @@ flowchart LR
   l5 -->|"short_learning_fact"| mem
 ```
 
-| Layer | Overall job | Must not |
-| --- | --- | --- |
-| **L1** | Read plant and document signals; add connectors only when a decision family needs them | OT write; plant message-broker of record |
-| **L2** | Canonical store; constraint registry; shift owner resolution; condition key | Give L3–L6 a database URL; become a plant-wide industrial graph |
-| **L3** | Detect conditions; emit Findings; merge same condition_key; verification plan. **Direction open:** push detection, methods, and eval toward best-in-class industrial intelligence — not “keep the old detector list forever” | Open L2 SQL; promote Lab to L4; invent ₹ |
-| **L4** | **Agentic system** that turns a Finding **or** an L4 discovery candidate into a card proposal: planning, dual-family specialist passes, tools, Plant Situation Model, memory, portfolio, evaluation, emit / supersede / withhold / abstain. Memory and the opportunity ledger are subsystems, not the whole of L4. Detail: [`l4/`](l4/) | Assign the final person; notify; execute; write equipment or master data |
-| **L5** | Own the live card; resolve person; verify; close; run only certified+enabled autonomy classes; honour `superseded` on open proposals | Draft options; invent recommendations; override a withhold |
-| **L6** | Decision product UI: Now queue, card, close, autonomy settings, constraints, Ask | Hold bank keys in the browser; five inboxes; summed ₹ headline |
+| Layer | Repos (as-built) | Overall job | Primary contracts | Must not | Deep doc |
+| --- | --- | --- | --- | --- | --- |
+| **L1** | `connectors-edge` · `connectors-cloud` · `connectors-bill` | Read plant and document signals; normalise into envelopes | `stamped-record-envelope` · measurement / event / bill_line · MQTT topics | OT write; plant message-broker of record | [`layers/L1-connect.md`](layers/L1-connect.md) |
+| **L2** | `universal-repositary` | Canonical Timescale store; constraints; roster; context records; query HTTP | envelope ingest · query-api · [ADR-031](../decisions/028-032/ADR-031-l1-l2-context-records.md) | Give L3–L6 a database URL; become a plant-wide industrial graph | [`layers/L2-universal-repository.md`](layers/L2-universal-repository.md) · [`L1-L2-DATA-PLANE.md`](L1-L2-DATA-PLANE.md) |
+| **L3** | `intelligence-core` · `intelligence-rulepacks` · `intelligence-evals` | Detect conditions; emit Findings; dual-lane Lab vs L4; verification plan | Finding **1.2.0** · RunArtifact · rulepack YAML | Open L2 SQL; promote Lab to L4; invent ₹ | [`l3/`](l3/) |
+| **L4** | `knowledge-reasoning` | Decision runtime: Finding or discovery → card proposal (emit / supersede / withhold / abstain) | Finding intake · card-proposal · decision-trace · decision-case | Assign the final person; notify; execute; write equipment or master data | [`l4/`](l4/) · [`l4/30-as-built.md`](l4/30-as-built.md) |
+| **L5** | `closure-verification` | Live card; resolve person; verify; close; certified autonomy (default off) | prescription / card-proposal dual-read · workflow-event · ledger-entry | Draft options; invent recommendations; override a withhold | [`layers/L5-closure.md`](layers/L5-closure.md) |
+| **L6** | `experience-integration` | Decision product UI: Now queue, card, close, autonomy, constraints, Ask | BFF over L2/L4/L5 HTTP ([ADR-022](../decisions/020-023/ADR-022-l6-bff-runtime-boundary.md)) | Hold bank keys in the browser; five inboxes; summed ₹ headline | [`layers/L6-experience.md`](layers/L6-experience.md) |
 
 **Layer-per-repo** communicates only through versioned contracts in this pack ([ADR-008](../decisions/006-010/ADR-008-layer-repo-topology-and-interfaces.md)).
 
-Spine invariants that must stay true until an explicit contract bump: only L2 opens Timescale for **plant truth** (L4 may hold derived operational data — PSM, traces, case library, opportunity ledger, OE corpus index); Lab never promotes (`emitted` + `delivery=l4` only); money cites tariff or tagged fallback; customer Now queue hides hard-gate withhold/abstain (soft-gate blocks may appear as an owner opportunity backlog); ops-confirmed ≠ bill-verified. Detail: [`13-as-built-invariants.md`](../research/plant-efficiency-exploration-2026-09/13-as-built-invariants.md) · L4: [`l4/`](l4/).
+Spine invariants that must stay true until an explicit contract bump: only L2 opens Timescale for **plant truth** (L4 may hold derived operational data — PSM, traces, case library, opportunity ledger, OE corpus index); Lab never promotes (`emitted` + `delivery=l4` only); money cites tariff or tagged fallback; customer Now queue hides hard-gate withhold/abstain (soft-gate blocks may appear as an owner opportunity backlog); ops-confirmed ≠ bill-verified. Detail: [`13-as-built-invariants.md`](../research/plant-efficiency-exploration-2026-09/13-as-built-invariants.md) · L3: [`l3/`](l3/) · L4: [`l4/`](l4/).
 
 ---
 
@@ -192,9 +196,9 @@ Self-improvement is **observation consolidation** from short learning facts **pl
 
 ## 6a. L3 direction — detection that can go much further
 
-Today’s L3 core (scheduler paths, dual-lane emit, Finding contract, no DB URL, calculator-owned money) is the **floor**, not the ceiling. The **direction is open**: we will invest in better detectors, methods, features, evals, and multi-signal condition finding so that what reaches L4 is as sharp as the best industrial intelligence we can field. Lab still never promotes. Rupees still never invent. That is not permission to freeze L3 as “a few energy engines and dark CNC flags.”
+Today’s L3 core (scheduler paths, dual-lane emit, Finding **1.2.0**, no DB URL, calculator-owned money) is the **floor**, not the ceiling. The **direction is open**: we will invest in better detectors, methods, features, evals, and multi-signal condition finding so that what reaches L4 is as sharp as the best industrial intelligence we can field. Lab still never promotes. Rupees still never invent. That is not permission to freeze L3 as “a few energy engines and dark CNC flags.”
 
-Fine design of that uplift belongs in the L3 repos later. This SSOT only locks that **technological excellence in L3 is in scope and encouraged**.
+**Normative detail:** [`technical/l3/`](l3/) — start at [`l3/README.md`](l3/README.md). This SSOT locks that **technological excellence in L3 is in scope and encouraged**.
 
 ---
 
@@ -286,14 +290,16 @@ India compliance posture (CERT-In residency, DPDP) remains an engineering constr
 
 | Priority | Doc |
 | --- | --- |
+| 0 | [`Stamped_Master_Document.md`](../Stamped_Master_Document.md) — company policy |
 | 1 | [`AGENT-START.md`](../research/plant-efficiency-exploration-2026-09/AGENT-START.md) → [`09`](../research/plant-efficiency-exploration-2026-09/09-stamped-founder-vision.md) → [`10`](../research/plant-efficiency-exploration-2026-09/10-stamped-vision-agent-alignment.md) |
 | 2 | [ADR-030](../decisions/028-032/ADR-030-five-domain-decision-loop.md) |
 | 3 | **This file** (overall stack) |
-| 4 | [`l4/`](l4/) — L4 architecture contract (kernel + docs) · ADRs [033](../decisions/033-039/ADR-033-l4-decision-runtime.md)–[039](../decisions/033-039/ADR-039-registries-and-stage-graph.md) |
-| 5 | [`14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md) and [`15`](../research/plant-efficiency-exploration-2026-09/15-contract-deltas.md)–[`18`](../research/plant-efficiency-exploration-2026-09/18-propagation.md); L4 peers [`19`](../research/plant-efficiency-exploration-2026-09/19-l4-agent-peer-systems.md) |
-| 6 | [handoff/README.md](../handoff/README.md) → your layer (update when layer deep-dives catch up) |
-| 7 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
-| 8 | Layer specs under [`layers/`](layers/) — prefer this file + `l4/` + `14` if they still describe L4 as compiler-only |
+| 4 | [`layers/`](layers/) — per-layer architecture (L1, L2, L5, L6) |
+| 5 | [`l3/`](l3/) — L3 detection deep dive (when changing engines, dual-lane, Findings) |
+| 6 | [`l4/`](l4/) — L4 contract · [`l4/30-as-built.md`](l4/30-as-built.md) for shipped runtime · ADRs [033](../decisions/033-039/ADR-033-l4-decision-runtime.md)–[040](../decisions/040-044/ADR-040-l4-production-hardness.md) |
+| 7 | [`14-coarse-architecture.md`](../research/plant-efficiency-exploration-2026-09/14-coarse-architecture.md) and [`15`](../research/plant-efficiency-exploration-2026-09/15-contract-deltas.md)–[`18`](../research/plant-efficiency-exploration-2026-09/18-propagation.md); L4 peers [`19`](../research/plant-efficiency-exploration-2026-09/19-l4-agent-peer-systems.md) |
+| 8 | [handoff/README.md](../handoff/README.md) → your layer (integration playbooks; prefer `layers/` + `l3/` + `l4/` for architecture) |
+| 9 | [`contracts/`](../contracts/) + `scripts/contracts/contract-check.sh` |
 | Legacy names | Thin pointers in [`pointers/`](pointers/) redirect here |
 
 Prior product snapshot: tag `v2026.09.24`. Marketing archive is not identity.
